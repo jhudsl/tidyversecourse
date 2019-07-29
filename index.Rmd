@@ -1,0 +1,21 @@
+--- 
+title: "Applied Data Science in R With the Tidyverse"
+author: "Roger D. Peng"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "This book demonstrates how to use the Tidyverse collection of packages for doing data science."
+---
+
+# Prerequisites
+
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
