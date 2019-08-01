@@ -1,5 +1,5 @@
 --- 
-title: "Applied Data Science in R With the Tidyverse"
+title: "Applied Data Science With the Tidyverse"
 author: "Roger D. Peng"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -10,7 +10,7 @@ link-citations: yes
 description: "This book demonstrates how to use the Tidyverse collection of packages for doing data science."
 ---
 
-# Prerequisites
+# Prerequisites {-}
 
 
 ```{r include=FALSE}
