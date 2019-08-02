@@ -1,6 +1,6 @@
 --- 
 title: "Applied Data Science With the Tidyverse"
-author: "Roger D. Peng"
+author: "Roger D. Peng and Stephanie C. Hicks"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
