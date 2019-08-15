@@ -1,10 +1,12 @@
-# What are Tidy Data? {#intro}
+# Introduction to the Tidyverse {#intro}
 
 * Define tidy data
 * Describe benefits of tidy data  [**covered, but needs more**]
 * Examples of non-tidy --> tidy
 * Examples of general data science workflows in R [**maybe covered?**]
 * Intro to / Explanation of the tidyverse ecosystem
+* Project organization / files
+* Example case study that demonstrates concepts to be covered
         
 
 # Reading in Data
