@@ -1,7 +1,13 @@
 book_filename: "applieddatascience"
 chapter_name: "Chapter "
-repo: https://github.com/rdpeng/applieddatascience/
-rmd_files: ["index.Rmd", "01-intro.Rmd", "about.Rmd"]
+repo: https://github.com/jhudsl/applieddatascience/
+rmd_files: ["index.Rmd", 
+            "01-intro.Rmd", 
+            "02-get-data.Rmd", 
+            "03-tidying.Rmd", 
+            "04-dataviz.Rmd", 
+            "05-prediction.Rmd", 
+            "about.Rmd"]
 new_session: yes
 delete_merged_file: true
 language:

@@ -1,0 +1,18 @@
+# Prediction Modeling with Tidy Data
+
+## `broom`
+
+AVOCADO
+
+## `caret`
+
+AVOCADO
+
+## `recipes`
+
+AVOCADO
+
+## Forecasting
+
+AVOCADO time series, forecasting (tidyverts, tsibble, fable, feasts)
+
