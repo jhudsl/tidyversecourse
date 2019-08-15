@@ -46,4 +46,6 @@
 
 * recipes [**missing** (`caret` is covered briefly)]
 * broom [**missing** (bascis are covered)]
+* caret
+* time series, forecasting (tidyverts, tsibble, fable, feasts)
 
