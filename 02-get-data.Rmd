@@ -235,7 +235,7 @@ This will import all the data to your Google Sheets document. You can then use t
 
 AVOCADO
 
-## Structured Files
+## Semi-Structured Files
 
 Here, we'll discuss a few of the main file types used to store tabular data. To review briefly, **tabular data** are the type of data stored in spreadsheets. Information from different variables are stored in **columns** and each observation is stored in a different **row**. The values for each observation is stored in its respective **cell**.
 
@@ -442,11 +442,6 @@ To see an example of not only using `xml2` to parse XML data, but also another e
   
 In this lesson, our goal is to make you aware that data from the Internet (and APIs in particular) will often come in either JSON or XML format. Thus, the JSON and XML examples provided here only give you a bit of an idea of what JSON and XML data are and how to work with them. Nevertheless, the more frequently you retrieve data from APIs and the Internet, the more comfortable you'll have to become with both JSON and XML. And, `jsonlite` and `xml2` will help you as you work with these data in R!
 
-## Foreign Formats
-
-### `haven`
-
-AVOCADO
 
 ## Databases
 
@@ -719,7 +714,7 @@ con <- DBI::dbConnect(RMySQL::MySQL(),
 While not being discussed in detail here, it's important to know that connecting to remote databases from R is possible and that this allows you to query the database without reading *all* the data from the database into R. 
 
 
-### Web Scraping
+## Web Scraping
 
 We've mentioned previously that there is a lot of data on the Internet, which probably comes at no surprise given the vast amount of information on the Internet. Sometimes these data are in a nice CSV format that we can quickly pull from the Internet. Sometimes, the data are spread across a web page, and it's our job to "scrape" that information from the webpage and get it into a usable format. Knowing first that this is possible within R and second, having some idea of where to start is an important start to beginning to get data from the Internet.
 
@@ -978,6 +973,12 @@ sig = sign_oauth1.0(myapp,
                     token_secret = "yourTokenSecretHere")
 homeTL = GET("https://api.twitter.com/1.1/statuses/home_timeline.json", sig)
 ```
+
+## Foreign Formats
+
+### `haven`
+
+AVOCADO
 
 ## Images
 

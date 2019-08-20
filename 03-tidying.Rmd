@@ -508,9 +508,6 @@ skim(msleep)
 
 AVOCADO - cover more than just tabyl from janitor and skim from skimr (or cut these?)
 
-### `tidyr`
-
-AVOCADO - cover more than unite and separate
 
 ### `glue`
 
