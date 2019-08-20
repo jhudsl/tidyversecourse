@@ -3,7 +3,7 @@
 * Define tidy data
 * Describe benefits of tidy data  [**covered, but needs more**]
 * Examples of non-tidy --> tidy
-* Examples of general data science workflows in R [**maybe covered?**]
+* Examples of general data science workflows in R [**maybe covered?**] (Data Science Lifecycle?)
 * Intro to / Explanation of the tidyverse ecosystem
         
 
@@ -23,7 +23,7 @@
 
 # Tidying Your Data
 
-* Data wrangling (dplyr, tidyr, forcats, glue, janitor, skimr) [**`glue` missing**] - remove reshape2?
+* Data wrangling (dplyr, tidyr, forcats, glue, janitor, skimr, naniar) [**`glue` missing**] - remove reshape2?
 * Dates/times (lubridate)
 * Strings/regex (stringr)
 * tidytext example [**covered, but needs more** (I have some of this elsewhere)]
@@ -46,6 +46,8 @@
 
 * recipes [**missing** (`caret` is covered briefly)]
 * broom [**missing** (bascis are covered)]
+* infer? [**missing**]
 * caret
 * time series, forecasting (tidyverts, tsibble, fable, feasts)
+
 
