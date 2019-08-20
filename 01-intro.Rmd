@@ -70,7 +70,7 @@ When it comes to thinking about tidy data, remember that tidy data are rectangul
 
 So, if you're working with a dataset and attempting to tidy it, if you don't have a rectangle at the end of the process, you likely have more work to do before it's truly in a tidy data format.
 
-## Tidy Data Benefits
+### Tidy Data Benefits
 
 There are a number of benefits to working within a tidy data framework: 
 
@@ -344,9 +344,9 @@ Similarly, [*infer*](https://github.com/tidymodels/infer) sets out to perform st
 Finally, design matrices have been used historically for statistical modeling and visualization. [*recipes*](https://tidymodels.github.io/recipes/) provides a streamlined and more intuitive approach to design matrices in modeling.
 
 
-#### tidyverts: tsibble, fable, feasts
+#### tidyverts: tsibble, feasts, and fable
 
-While many datasets are like a snapshot in time - survey data collected once or contact information from a business - time series data are unique. Time series datasets represent changes over time and require computational approaches that are unique to this fact. A suite of tidyverse-adjacent packages called [*tidyverts*](https://github.com/tidyverts) have been developed to enable and simplify tidy time series analyses in R. Among these are *tsibble*, *fable*, and *feasts*.
+While many datasets are like a snapshot in time - survey data collected once or contact information from a business - time series data are unique. Time series datasets represent changes over time and require computational approaches that are unique to this fact. A suite of tidyverse-adjacent packages called [*tidyverts*](https://github.com/tidyverts) have been developed to enable and simplify tidy time series analyses in R. Among these are *tsibble*, *feasts*, and *fable*.
 
 *tsibble* is the time-series version of a tibble in that is provides the data.frame-like structure most useful for carrying out tidy time series analyses.
 
@@ -380,6 +380,7 @@ This particularly well-documented package helps with common predictive analysis 
 ## Data Science Workflows
 
 AVOCADO
+
 - a tidy data example of where we're going?
         - question
         - data

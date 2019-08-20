@@ -1,18 +1,30 @@
-# Prediction Modeling with Tidy Data
+# Modeling with Tidy Data
 
-## `broom`
+## Tidy Data Modeling 
+tidymodels - AVOCADO
 
+### broom
+
+### infer
+
+### recipes
+
+
+## Time-Series Analyses
+tidyverts - AVOCADO
+
+### tsibble
+
+### feasts
+
+### fable
+
+
+## Prediction & Machine Learning
 AVOCADO
 
-## `caret`
+### `caret`
 
-AVOCADO
 
-## `recipes`
 
-AVOCADO
-
-## Forecasting
-
-AVOCADO time series, forecasting (tidyverts, tsibble, fable, feasts)
 
