@@ -283,7 +283,7 @@ Now, it's just up to us to register this information from Google Sheets into R u
 ![Where to find the title, key, and URL in Google Sheets](https://docs.google.com/presentation/d/1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c/export/png?id=1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c&pageid=g6112cc596f_0_4)
 
 
-```{r}
+```{r eval = FALSE}
 # register in with title 
 gs_title("test-gs-gapminder")
 
@@ -327,7 +327,7 @@ gs_edit_cells(survey_sheet, anchor = "D4", input = 2)
 
 If you were to return to your Google Sheets, you'd notice that cell D4 now has a 2, rather than a 0 in it!
 
-## CSV files
+## CSVs
 
 Like Excel Spreadsheets and Google Sheets, **Comma-separated values (CSV)** files allow us to store tabular data; however, it does this in a much simple format. CSVs are **plain-text** files, which means that all the important information in the file is represented by text (where text is numbers, letters, and symbols you can type on your keyboard). This means that there are no workbooks or metadata making it difficult to open these files. CSVs are flexible files and are thus the preferred storage method for tabular data for many data scientits.
 
@@ -462,7 +462,7 @@ Here, we've stored information about Toy Story characters, their age, and their 
 
 This format cannot, as it is, be easily worked with easily within R; however, `jsonlite` is just what to work with whenever you have data in JSON format. When using the defaults of the function `fromJSON()`, `jsonlite` will take the data from JSON array format and helpfully return a data frame. 
 
-```{r}
+```{r, message = FALSE}
 #install.packages("jsonlite")
 library(jsonlite)
 
@@ -480,9 +480,10 @@ mydf
 
 Data frames can also be returned to their original JSON format using the function: `toJSON()`.
 
-```{r eval = FALSE}
+```{r}
 ## take JSON object and convert to a data frame
 json <- toJSON(mydf)
+json
 ```
 
 
@@ -595,7 +596,7 @@ To access these tables within RStudio Cloud, we'll have to install the packages 
 
 After installing and loading `dbplyr`, we'll be able to use the helpful `tbl()` function to extract the two tables we're interested in working with!
 
-```{r}
+```{r, message = FALSE}
 ## install and load packages
 # install.packages("dbplyr")
 library(dbplyr)
@@ -639,7 +640,7 @@ Now, to run this for our tables from the database, rather than just for a few ro
 
 ```{r}
 ## do inner join
-inner <- inner_join(artists, albums)
+inner <- inner_join(artists, albums, by = "ArtistId")
 
 ## look at output as a tibble
 as_tibble(inner)
@@ -663,7 +664,7 @@ Now, to run this for our tables from the database, rather than just for a few ro
 
 ```{r}
 ## do left join
-left <- left_join(artists, albums)
+left <- left_join(artists, albums, by = "ArtistId")
 
 ## look at output as a tibble
 as_tibble(left)
@@ -687,7 +688,7 @@ Now, to run this for our tables from the database, you would have to do somethin
 
 ```{r}
 ## do right join
-right <- right_join(as_tibble(artists), as_tibble(albums))
+right <- right_join(as_tibble(artists), as_tibble(albums), by = "ArtistId")
 
 ## look at output as a tibble
 as_tibble(right)
@@ -711,7 +712,7 @@ As you saw in the last example, to carry out a full join, we have to again speci
 
 ```{r}
 ## do right join
-full <- full_join(as_tibble(artists), as_tibble(albums))
+full <- full_join(as_tibble(artists), as_tibble(albums), by = "ArtistId")
 
 ## look at output as a tibble
 as_tibble(full)
@@ -723,8 +724,7 @@ as_tibble(full)
 
 Now that we've walked through a number of examples of mutating joins, cases where you're combining information across tables, we just want to take a second to summarize the four types of joins discussed using a visual frequently used to explain the most common mutating joins where each circle represents a different table and the gray shading on the venn diagrams indicates which observations will be included after the join.
 
-
-![mutating joins summary](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_78)
+![mutating joins summary](https://docs.google.com/presentation/d/1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c/export/png?id=1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c&pageid=g6112cc596f_0_28)
 
 To see a visual representation of this, there is a great resource on GitHub, where these joins are illustrated, so feel free to check out [this link](https://github.com/gadenbuie/tidyexplain#readme) from [Garrick Aden-Buie](https://www.garrickadenbuie.com/) animating joins within relational data 
 
@@ -981,6 +981,8 @@ df_steak <- content(api_response, type="text/csv")
 ![`GET()` steak-survey CSV](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_154)
 
 Here, we again specify our url within `GET()` followed by use of the helpful `content()` function from `httr` to obtain the CSV from the `api_response` object. `df_steak` includes the data from the CSV directly from the GitHub API, without having to download the data first!
+
+### `read_csv()` from a URL
 
 Before going any further, we'll note that these data are in the CSV format and that the `read_csv()` function can read CSVs directly from a URL:
 
