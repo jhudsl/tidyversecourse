@@ -1,23 +1,152 @@
 # Tidying Your Data
 
-AVOCADO - Introduction
-
+In the last course we spent a ton of time talking about all the most common ways data are stored and reviewed how to get them into a tibble (or data.frame) in R.
 * Data wrangling (dplyr, tidyr, forcats, glue, janitor?, skimr?) [**`glue` missing**]
 
-## Data Wrangling
+So far we've discussed what tidy and untidy data are. We've (hopefully) convinced you that tidy data are the right type of data to work with. What we may not have made perfectly clear yet is that data are *not* always the tidiest when they come to you at the start of a project. An incredibly important skill of a data scientist is to be able to take data from an untidy format and get it into a tidy format. This process is often refferred to as **data wrangling**. Generally, data wranglings skills are those that allow you to wrangle data from the format they're currently in into the tidy format you actually want them in.
 
-So far we've discussed what tidy and untidy data are. We've (hopefully) convinced you that tidy data are the right type of data to work with. And, more than that, hopefully we've explained that data are not always the tidiest when they come to you at the start of a project. An incredibly important skill of a data scientist is to be able to take data from an untidy format and get it into a tidy format. We've started to discuss how to do this in the last lesson where we learned to reshape data. In this lesson, we'll discuss a number of other ways in which data can be tidied and the necessary tools to **tidy data**. 
+Beyond data wrangling, it's also important to make sure the data you have are accurate and what you need to answer your question of interest. After wrangling the data into a tidy format, there is often further work that has to be done to **clean** the data. 
 
-These skills are often referred to as **data wrangling**. They are skills that allow you to wrangle data from the format they're currently in into the format you actually want them in. 
-
-As this is an incredibly important topic, this will be a long lesson covering a number of packages and topics. Take your time working through it and be sure to understand all of the examples!
-
+In this course we'll work with data in R to discuss the ncessary data wrangling skills you'll need and demonstrate how to use the tidyverse to carry out data wrangling.
 
 ![data wrangling example](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_1)
 
-### dplyr
+## Tidy Data Review
 
-Within R, there is a package specifically designed for helping you wrangle data. This package is called [`dplyr`](https://dplyr.tidyverse.org/) and will allow you to easily accomplish many of the data wrangling tasks necessary. In this lesson, we will cover a number of functions that will help you wrangle data using `dplyr`:
+Before we move any further, let's review the requirements for a tidy dataset:
+
+1. Each variable is stored in a column
+2. Each observation is stored in a row
+3. Each cell stores a single value
+
+We had four tidy data principles in an earlier lesson, where the fourth was that each table should store a single *type* of information. That's less critical here, as we'll be working at first with single datasets, so let's just keep those three tidy data principles at the front of our minds.
+
+## Reshaping Data
+
+Tidy data generally exist in two forms: wide data and long data. Both types of data are used and needed in data analysis, and fortunately, there are tools that can take you from wide-to-long and from long-to-wide. This makes it easy to work with any tidy data set. We'll discuss the basics of what wide and long data are and how to go back and forth between the two in R. Getting data into the right format will be crucial later when summarizing data and visualizing it.
+
+### Wide Data
+
+Wide data has a column for each variable and a row for each observation. Data are often entered and stored in this manner. This is because wide data are often easy to understand at a glance. For example, this is a wide data set:
+
+![Wide dataset](https://docs.google.com/presentation/d/14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI/export/png?id=14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI&pageid=g2bfdb07292_0_151)
+
+Up until this point, we would have described this dataset as a rectangular, tidy dataset. With the additional information just introduced, we can also state that it is a *wide* dataset. Here, you can clearly see what measurements were taken for each individual and can get a sense of how many individuals are contained in the dataset.
+
+Specifically, each individual is in a different row with each variable in a different column. At a glance we can quickly see that we have information about four different people and that each person was measured in four different ways. 
+
+### Long Data
+
+Long data, on the other hand, has one column indicating the type of variable contained in that row and then a separate row for the value for that variable. Each row contains a single observation for a single variable. It's *still* a tidy datasets, but the information is stored in a long format:
+
+![Long dataset](https://docs.google.com/presentation/d/14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI/export/png?id=14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI&pageid=g38bb68a532_0_0)
+
+This long dataset includes the exact same information as the previous wide dataset; it is just stored differently. It's harder to see visually how many different measurements were taken and on how many different people, but the same information is there.
+
+While long data formats are less readable than wide data at a glance, they are often a lot easier to work with during analysis. Most of the tools we'll be working with use long data. Thus, to go from how data are often stored (wide) to working with the data during analysis (long), we'll need to understand what tools are needed to do this and how to work with them.
+
+### Spreading & Gathering
+
+Converting your data from wide-to-long or from long-to-wide data formats is referred to as **reshaping** your data.
+
+![Reshaping data](https://docs.google.com/presentation/d/14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI/export/png?id=14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI&pageid=g38bb68a532_0_13)
+
+Within the tidyverse, [tidyr](https://tidyr.tidyverse.org/) is the go-to package for accomplishing this task. Within the `tidyr` package, you'll have to become familiar with a number of functions. The two most pertinent to reshaping data are: `spread()` and `gather()`. 
+
+For these examples, we'll work with the `airquality` dataset available in R. The data in this dataset includes "Daily air quality measurements in New York, May to September 1973." This is a wide dataset because each day is in a separate row and there are multiple columns with each including information about a different variable (ozone, solar.r, wind, temp, month, and day). 
+
+We'll load in the tidyverse, so that we can convert this data.frame to a tibble *and* see the first few lines of this dataset using the following code:
+
+```{r}
+library(tidyverse)
+
+airquality <- as_tibble(airquality)
+airquality
+```
+
+Again, wide data are easy to decipher at a glance. We can see that we have six different variables for each day, with each one of these variables (measurements) being stored in a separate column.
+
+#### `tidyr`
+
+The `tidyr` package is part of hte tidyverse, so its functionality is available to you since you've loaded in the tidyverse. The two main functions we mentioned above will help you reshape your data in the following ways: 
+
+* `gather()`: go from wide data to long data
+* `spread()`: go from long data to wide data
+
+To get started, you'll need to be sure that the `tidyr` package is installed and loaded into your RStudio session. 
+
+
+##### `gather()`
+
+As data are often stored in wide formats, you'll likely use `gather()` a lot more frequently than you'll use `spread()`. This will allow you to get the data into a long format that will be easy to use for analysis.
+
+In `tidyr`, `gather()` will take the `airquality` dataset from wide to long, putting each column name into the first column and each corresponding value into the second column. Here, the first column will be called `key`. The second column will still be `value`.
+
+```{r}
+## use gather() to reshape from wide to long
+gathered <- gather(airquality)
+
+## take a look at first few rows of long data
+gathered
+```
+
+![gather dataset](https://docs.google.com/presentation/d/14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI/export/png?id=14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI&pageid=g38bb68a532_0_205)
+
+However, it's very easy to change the names of these columns within `gather()`. To do so you define what the key and value columns names should be within `gather()`:
+
+```{r}
+## to rename the column names that gather provides,
+## change key and value to what you want those column names to be
+gathered <- gather(airquality, key = "variable", value = "value")
+
+## take a look at first few rows of long data
+gathered 
+```
+
+![gather column names changed](https://docs.google.com/presentation/d/14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI/export/png?id=14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI&pageid=g38bb68a532_0_213)
+
+However, you're likely not interested in your day and month variable being separated out into their own variables within the `key` column. In fact, knowing the day and month associated with a particular data point helps identify that particular data point. To account for this, you can exclude `day` and `month` from the variables being included in the `key` column by specifying all the variables that you *do* want included in the `key` column.  Here, that means specifying `ozone`, `solar.r`, `wind`, and `temp`. This will keep `day` and `month` in their own columns, allowing each row to be identified by the specific day and month being discussed.
+
+```{r}
+## in gather(), after key and value, you can specify which variables 
+## you want included in the long format
+## it will leave the other variables as is
+gathered <- gather(airquality, key="variable", value="value", Ozone, Solar.R, Wind, Temp)
+
+## take a look at first few rows of long data
+gathered
+```
+
+![gather specifying which variables to include in long format](https://docs.google.com/presentation/d/14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI/export/png?id=14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI&pageid=g38bb68a532_0_222)
+
+Now, when you look at the top of this object, you'll see that `Month` and `Day` remain in the data frame and that variable combines information from the other columns in airquality (`Ozone`, `Solar.R`, `Wind`, `Temp`). This is still a long format dataset; however, it has used `Month` and `Day` as IDs when reshaping the data frame.
+
+##### `spread()`
+
+To return your long data back to its original form, you can use `spread()`. Here you specify two columns: the column that contains the names of what your wide data columns should be (`key = variable`) and the column that contains the values that should go in these columns (`value = value`). The data frame resulting from `spread()` will have the original information back in the wide format (again, the columns will be in a different order). But, we'll discuss how to rearrange data in the next lesson!
+
+```{r}
+## use gather() to reshape from wide to long
+spread_data <- spread(gathered, key = variable, value = value)
+
+## take a look at the spread data
+spread_data
+
+## compare that back to the original
+airquality
+```
+
+![spread data](https://docs.google.com/presentation/d/14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI/export/png?id=14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI&pageid=g38bb68a532_0_236)
+
+While reshaping data may not *read* like the most exciting topic, having this skill will be indispensable as you start working with data. It's best to get these skills down pat early!
+
+## Data Wrangling
+
+Once you've read your data into R and have it in teh appropriately wide- or long-format, it's time to wrangle the data, so that it is in the appropriate format and includes the information you need. 
+
+### `dplyr`
+
+There is a package specifically designed for helping you wrangle your data. This package is called [`dplyr`](https://dplyr.tidyverse.org/) and will allow you to easily accomplish many of the data wrangling tasks necessary. Like `tidyr`, this package is a core package within the tidyverse, and thus it was loaded in for you when you ran `library(tidyverse)` earlier. We will cover a number of functions that will help you wrangle data using `dplyr`:
 
 * `%>%` - pipe operator for chaining a sequence of operations
 * `glimpse()` - get an overview of what's included in dataset
@@ -30,52 +159,38 @@ Within R, there is a package specifically designed for helping you wrangle data.
 * `summarize()` - summarize information within a dataset
 * `left_join()` - combining data across data frame
 
-If you have not already, you'll want to be sure this package is installed and loaded:
+### `tidyr`
 
-```{r eval = FALSE}
-install.packages('dplyr')
-library(dplyr)
-```
-
-### tidyr
-
-We will also return to the `tidyr` package. The same package that we used to reshape our data will be helpful when tidying data. The main functions we'll cover from `tidyr` are:
+We will also return to the `tidyr` package. The same package that we used to reshape our data will be helpful when wrangling data. The main functions we'll cover from `tidyr` are:
 
 * `unite()` - combine contents of two or more columns into a single column
 * `separate()` - separate contents of a column into two or more columns
 
-If you have not already, you'll want to be sure this package is installed and loaded:
+### `janitor`
 
-```{r eval = FALSE}
-install.packages('tidyr')
-library(tidyr)
-```
-
-### janitor
-
-The third package we'll include here is the `janitor` package. This package provides tools for cleaning messy data. The main functions we'll cover from janitor are:
+The third package we'll include here is the `janitor` package. While not a core tidyverse package, this tidyverse-adjacent package provides tools for cleaning messy data. The main functions we'll cover from janitor are:
 
 * `clean_names()` - clean names of a data frame
 * `tabyl()` - get a helpful summary of a variable
 
 If you have not already, you'll want to be sure this package is installed and loaded:
 
-```{r eval = FALSE}
-install.packages('janitor')
+```{r message = FALSE}
+#install.packages('janitor')
 library(janitor)
 ```
 
 
-### skimr
+### `skimr`
 
-The final package we'll discuss here is the `skimr` package. This package provides a quick way to summarize a data frame. We'll discuss its most useful function here:
+The final package we'll discuss here is the `skimr` package. This package provides a quick way to summarize a data.frame or tibble within the tidy data framework. We'll discuss its most useful function here:
 
 * `skim()` - summarize a data frame
 
 If you have not already, you'll want to be sure this package is installed and loaded:
 
-```{r eval = FALSE}
-install.packages('skimr')
+```{r  message = FALSE}
+#install.packages('skimr')
 library(skimr)
 ```
 
@@ -123,21 +238,14 @@ Below we'll use this pipe operator a lot. Essentially, it takes output from the 
 
 When working with a large dataset, you're often interested in only working with a portion of the data at any one time. For example, if you had data on people from ages 0 to 100 years old, but you wanted to ask a question that only pertained to children, you would likely want to only work with data from those individuals who were less than 18 years old. To do this, you would want to **filter** your dataset to only include data from these select individuals. Filtering can be done by row or by column. We'll discuss the syntax in R for doing both. Please note that the examples in this lesson and the organization for this lesson were adapted from [Suzan Baert's](https://suzan.rbind.io/) wonderful `dplyr` tutorials. Links to the all four tutorials can be found in the "Additional Resources" section at the bottom of this lesson.
 
-For the examples below, we'll be using a dataset from the `ggplot2` package called `msleep`. (You'll learn more about this package in a later course on data visualization.) This dataset includes sleep times and weights from a number of different mammals. It has 83 rows, with each row including information about a different type of animal, and 11 variables. As each row is a different animal and each column includes information about that animal, this is a **wide** dataset.
+For the examples below, we'll be using a dataset from the `ggplot2` package called `msleep`. (You'll learn more about this package in a later course on data visualization. For now, it's a core tidyverse package so it's loaded in along with the other tidyverse packages using `library(tidyverse)`.) This dataset includes sleep times and weights from a number of different mammals. It has 83 rows, with each row including information about a different type of animal, and 11 variables. As each row is a different animal and each column includes information about that animal, this is a **wide** dataset.
 
 To get an idea of what variables are included in this data frame, you can use `glimpse()`. This function summarizes how many rows there are (`Observations`) and how many columns there are (`Variables`). Additionally, it gives you a glimpse into the type of data contained in each column. Specifically, in this data set, we know that the first column is `name` and that it contains a character vector (`chr`) and that the first three entires are "Cheetah", "Owl monkey", and "Mountain beaver." It works similarly to the `summary()` function covered in an earlier course.
 
 ```{r eval = FALSE}
-## install packages if you haven't already
-install.packages('ggplot2')
-
-## load package
-library(ggplot2)
-
 ## take a look at the data
 glimpse(msleep)
 ```
-
 
 ![Glimpse of msleep dataset](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_133)
 
@@ -145,25 +253,29 @@ glimpse(msleep)
 
 If you were only interested in learning more about the sleep times of "Primates," we could filter this dataset to include only data about those mammals that are also Primates. As we can see from `glimpse()`, this information is contained within the `order` variable. So to do this within R, we use the following syntax:
 
-```{r eval = FALSE}
+```{r}
+# filter to only include primates
 msleep %>%
   filter(order == "Primates")
 ```
 
-Note that we are using the equality `==` comparison operator that you learned about in the previous course. Also note that we have used the pipe operator to feed the `msleep` data frame into the `filter()` function. This is shorthand for:
+Note that we are using the equality `==` comparison operator that you learned about in the previous course. Also note that we have used the pipe operator to feed the `msleep` data frame into the `filter()` function. 
 
-```{r eval = FALSE}
+The above is shorthand for:
+
+```{r}
 filter(msleep, order == "Primates")
 ```
 
+The output is the same as above here, but the code is slightly less readable. This is why we use the pipe (`%>%`)!
 
 ![Filtered to only include Primates](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_164)
 
-Here, we have a smaller dataset of only 12 mammals (as opposed to the original 83) and we can see that the `order` variable column only includes "Primates." 
+Now, we have a smaller dataset of only 12 mammals (as opposed to the original 83) and we can see that the `order` variable column only includes "Primates." 
 
 But, what if we were only interested in Primates who sleep more than 10 hours total per night? This information is in the `sleep_total` column. Fortunately, `filter()` also works on numeric variables. To accomplish this, you would use the following syntax, separating the multiple filters you want to apply with a comma:
 
-```{r eval = FALSE}
+```{r}
 msleep %>%
   filter(order == "Primates", sleep_total > 10)
 ```
@@ -172,12 +284,11 @@ Note that we have used the "greater than" comparison operator with `sleep_total`
 
 Now, we have a dataset focused in on only 5 mammals, all of which are primates who sleep for more than 10 hours a night total.
 
-
 ![Numerically filtered dataset](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_179)
 
 We can obtain the same result with the AND `&` logical operator instead of separating filtering conditions with a comma:
 
-```{r eval = FALSE}
+```{r}
 msleep %>%
   filter(order == "Primates" & sleep_total > 10)
 ```
@@ -190,7 +301,7 @@ While `filter()` operates on rows, it *is* possible to filter your dataset to on
 
 Let's start with the code we just wrote to only include primates who sleep a lot. What if we only want to include the first column (the name of the mammal) and the sleep information (included in the columns `sleep_total`, `sleep_rem`, and `sleep_cycle`)? We would do this by starting with the code we just used, adding another pipe, and using the function `select()`. Within `select`, we specify which columns we want in our output.
 
-```{r eval = FALSE}
+```{r}
 msleep %>%
   filter(order == "Primates", sleep_total > 10) %>%
   select(name, sleep_total, sleep_rem, sleep_cycle)
@@ -205,26 +316,27 @@ Now, using `select()` we see that we still have the five rows we filtered to bef
 select(filter(msleep, order == "Primates", sleep_total > 10), name, sleep_total, sleep_rem, sleep_cycle)
 ```
 
+Yuck. Definitely harder to read. We'll stick with the above approach!
+
 #### Renaming Columns
 
 `select()` can also be used to rename columns. To do so, you use the syntax: `new_column_name = old_column_name` within `select`. For example, to select the same columns and rename them `total`, `rem` and `cycle`, you would use the following syntax:
 
-```{r eval = FALSE}
+```{r}
 msleep %>%
   filter(order == "Primates", sleep_total > 10) %>%
-  select(name, total=sleep_total, rem=sleep_rem, cycle=sleep_cycle)
+  select(name, total = sleep_total, rem = sleep_rem, cycle = sleep_cycle)
 ```
 
 ![Data with renamed columns names with `select()`](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_194)
 
 It's important to keep in mind that when using `select()` to rename columns, only the specified columns will be included and renamed in the output. If you, instead, want to change the names of a few columns but return *all* columns in your output, you'll want to use `rename()`. For example, the following, returns a data frame with all 11 columns, where the column names for three columns specified within `rename()` function have been renamed.
 
-```{r eval = FALSE}
+```{r}
 msleep %>%
   filter(order == "Primates", sleep_total > 10) %>%
-  rename(total=sleep_total, rem=sleep_rem, cycle=sleep_cycle)
+  rename(total = sleep_total, rem = sleep_rem, cycle = sleep_cycle)
 ```
-
 
 ![Data with renamed columns names using `rename()`](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g4518ccec72_0_0)
 
@@ -236,7 +348,7 @@ In addition to filtering rows and columns, often, you'll want the data arranged 
 
 The `select()` function is powerful. Not only will it filter and rename columns, but it can also be used to reorder your columns. Using our example from above, if you wanted `sleep_rem` to be the first sleep column and `sleep_total` to be the last column, all you have to do is reorder them within `select()`. The output from `select()` would then be reordered to match the order specified within `select()`.
 
-```{r eval = FALSE}
+```{r}
 msleep %>%
   filter(order == "Primates", sleep_total > 10) %>%
   select(name, sleep_rem, sleep_cycle, sleep_total)
@@ -244,26 +356,24 @@ msleep %>%
 
 Here we see that sleep_rem `name` is displayed first followed by `sleep_rem`, `sleep_cycle`, and `sleep_total`, just as it was specified within `select()`. 
 
-
 ![Data with reordered columns names](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_204)
 
 #### Reordering Rows
 
 Rows can also be reordered. To reorder a variable in ascending order (from smallest to largest), you'll want to use `arrange()`. Continuing on from our example above, to now sort our rows by the amount of total sleep each mammal gets, we would use the following syntax:
 
-```{r eval = FALSE}
+```{r}
 msleep %>%
   filter(order == "Primates", sleep_total > 10) %>%
   select(name, sleep_rem, sleep_cycle, sleep_total) %>%
   arrange(sleep_total)
 ```
 
-
 ![Data arranged by total sleep in ascending order](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_215)
 
 While `arrange` sorts variables in ascending order, it's also possible to sort in descending (largest to smallest) order. To do this you just use `desc()` with the following syntax:
 
-```{r eval = FALSE}
+```{r}
 msleep %>%
   filter(order == "Primates", sleep_total > 10) %>%
   select(name, sleep_rem, sleep_cycle, sleep_total) %>%
@@ -272,12 +382,11 @@ msleep %>%
 
 By putting `sleep_total` within `desc()`, `arrange()` will now sort your data from the primates with the longest total sleep to the shortest.
 
-
 ![Data arranged by total sleep in descending order](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_215)
 
 `arrange()` can also be used to order non-numeric variables. For example, `arrange()` will sort character vectors alphabetically. 
 
-```{r eval = FALSE}
+```{r}
 msleep %>%
   filter(order == "Primates", sleep_total > 10) %>%
   select(name, sleep_rem, sleep_cycle, sleep_total) %>%
@@ -288,7 +397,7 @@ msleep %>%
 
 If you would like to reorder rows based on information in multiple columns, you can specify them separated by commas. This is useful if you have repeated labels in one column and want to sort within a category based on information in another column. In the example here, if there were repeated primates, this would sort the repeats based on their total sleep.
 
-```{r eval = FALSE}
+```{r}
 msleep %>%
   filter(order == "Primates", sleep_total > 10) %>%
   select(name, sleep_rem, sleep_cycle, sleep_total) %>%
@@ -301,7 +410,7 @@ You will often find when working with data that you need an additional column. F
 
 Returning to our `msleep` dataset, after filtering and re-ordering, we can create a new column with `mutate()`. Within `mutate()`, we will calculate the number of minutes each mammal sleeps by multiplying the number of hours each animal sleeps by 60 minutes.
 
-```{r eval = FALSE}
+```{r}
 msleep %>%
   filter(order == "Primates", sleep_total > 10) %>%
   select(name, sleep_rem, sleep_cycle, sleep_total) %>%
@@ -316,25 +425,15 @@ msleep %>%
 
 Sometimes multiple pieces of information are merged within a single column even though it would be more useful during analysis to have those pieces of information in separate columns. To demonstrate, we'll now move from the `msleep` dataset to talking about another [dataset](https://raw.githubusercontent.com/suzanbaert/RTutorials/master/Rmd_originals/conservation_explanation.csv) that includes information about conservation abbreviations in a single column.
 
-To read this file into R, we'll use the `httr` package, which will be discussed in detail in a future lesson. For now, however, know that we're using this to read in a file from the Internet using the code below.
+To read this file into R, we'll use the `readr` package.
 
-```{r eval = FALSE}
-## if not already installed, you'll have to run the following line of code
-## install.packages('httr')
-## install.packages('readr')
-
-## load the libraries
-library(httr)
-library(readr)
-
+```{r message = FALSE}
 ## download file 
-GET("https://raw.githubusercontent.com/suzanbaert/Dplyr_Tutorials/master/conservation_explanation.csv", write_disk(tf <- tempfile(fileext = ".csv")))
-conservation <- read_csv(tf)
+conservation <- read_csv("https://raw.githubusercontent.com/suzanbaert/Dplyr_Tutorials/master/conservation_explanation.csv")
 
 ## take a look at this file
-head(conservation)
+conservation
 ```
-
 
 ![Conservation data set](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_250)
 
@@ -342,7 +441,7 @@ In this dataset, we see that there is a single column that includes *both* the a
 
 The `separate()` function requires the name of the existing column that you want to separate (`conservation abbreviation`), the desired column names of the resulting separated columns (`into = c("abbreviation", "description")`), and the characters that currently separate the pieces of information (`sep = " = "`). We have to put `conservation abbreviation` in back ticks in the code below because the column name contains a space. Without the back ticks, R would think that `conservation` and `abbreviation` were two separate things. This is another violation of tidy data! Variable names should have underscores, not spaces!
 
-```{r eval = FALSE}
+```{r}
 conservation %>%
   separate(`conservation abbreviation`, 
            into = c("abbreviation", "description"), sep = " = ")
@@ -350,20 +449,18 @@ conservation %>%
 
 The output of this code shows that we now have two separate columns with the information in the original column separated out into `abbreviation` and `description`.
 
-
 ![Output of separate()](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_261)
 
 ### Merging Columns 
 
 The opposite of `separate()` is `unite()`. So, if you have information in two or more different columns but wish it were in one single column, you'll want to use `unite()`. Using the code forming the two separate columns above, we can then add on an extra line of `unite()` code to re-join these separate columns, returning what we started with.
 
-```{r eval = FALSE}
+```{r}
 conservation %>%
   separate(`conservation abbreviation`, 
            into = c("abbreviation", "description"), sep = " = ") %>%
   unite(united_col, abbreviation, description, sep = " = ")
 ```
-
 
 ![Output of unite()](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_408)
 
@@ -371,7 +468,7 @@ conservation %>%
 
 While maybe not quite as important as some of the other functions mentioned in this lesson, a function that will likely prove very helpful as you start analyzing lots of different datasets is `clean_names()` from the `janitor` package. This function takes the existing column names of your dataset, converts them all to lowercase letters and numbers, and separates all words using the underscore character. For example, there is a space in the column name for conservation. `clean_names()` will convert `conservation abbreviation` to `conservation_abbreviation`. These cleaned up column names are a lot easier to work with when you have large datasets.
 
-```{r eval = FALSE}
+```{r}
 conservation %>%
   clean_names()
 ```
@@ -436,7 +533,7 @@ Throughout data cleaning and analysis it will be important to summarize informat
 
 Continuing on from the previous examples, if you wanted to figure out how many samples are present in your dataset, you could use the `summarize()` function. 
 
-```{r eval = FALSE}
+```{r}
 msleep %>%
   select(order) %>%
   summarize(N=n())
@@ -444,12 +541,11 @@ msleep %>%
 
 This provides a summary of the data with the new column name we specified above (`N`) and the number of samples in the dataset. Note that we could also obtain the same information by directly obtaining the number of rows in the data frame with `nrow(msleep)`.
 
-
 ![Summarize with n()](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_285)
 
 However, if you wanted to count how many of each different `order` of mammal you had. You would first `group_by(order)` and then use `summarize()`. This will summarize within group.
 
-```{r eval = FALSE}
+```{r}
 msleep %>%
   group_by(order) %>% 
   select(order) %>%
@@ -458,41 +554,39 @@ msleep %>%
 
 The output from this, like above, includes the column name we specified in summarize (`N`). However, it includes the number of samples in the group_by variable we specified (`order`).
 
-
 ![group_by() and summarize with n()](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_293)
 
 There are other ways in which the data can be summarized using `summarize()`. In addition to using n() to count the number of samples within a group, you can also summarize using other helpful functions within R, such as `mean()`, `median()`, `min()`, and `max()`. 
 
 For example, if we wanted to calculate the average (mean) total sleep each order of mammal got, we could use the following syntax:
 
-```{r eval = FALSE}
+```{r}
 msleep %>%
   group_by(order) %>% 
   select(order, sleep_total) %>%
   summarize(N=n(), mean_sleep=mean(sleep_total))
 ```
 
-
 ![summarize using mean()](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_300)
 
 #### `tabyl()`
 
-In addition to using `summarize()` from `dplyr`, the `tabyl()` function from the `janitor` package can be incredibly helpful for summarizing categorical variables quickly and discerning the output at a glance. Again returning to our `msleep` dataset, if we wanted to get a summary of how many samples are in each order category and what percent of the data fall into each category we could call tabyl on that variable. For example, if we use the following syntax, we easily get a quick snapshot of this variable. 
+In addition to using `summarize()` from `dplyr`, the `tabyl()` function from the `janitor` package can be incredibly helpful for summarizing categorical variables quickly and discerning the output at a glance. It is similar to the `table()` function from base R, but is explicit about missing data, rather than ignoring missing values by default.
 
-```{r eval = FALSE}
+Again returning to our `msleep` dataset, if we wanted to get a summary of how many samples are in each order category and what percent of the data fall into each category we could call tabyl on that variable. For example, if we use the following syntax, we easily get a quick snapshot of this variable. 
+
+```{r}
 msleep %>%
   tabyl(order)
 ```
-
 
 ![summarize using tabyl() from janitor](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_304)
 
 Note, that `tabyl` assumes categorical variables. If you want to summarize numeric variables `summary()` works well. For example, this code will summarize the values in `msleep$awake` for you. 
 
-```{r eval = FALSE}
+```{r}
 summary(msleep$awake)
 ```
-
 
 ![summarize numeric variables](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_320)
 
@@ -500,7 +594,7 @@ summary(msleep$awake)
 
 When you would rather get a snapshot of the entire dataset, rather than just one variable, the `skim()` function from the `skimr` package can be very helpful. The output from `skim()` breaks the data up by variable type. For example, the `msleep` data set is broken up into `character` and `numeric` variable types. The data are then summarized in a meaningful way for each. This function provides a lot of information about the entire data set. So, when you want a summarize a dataset and quickly get a sense of your data, `skim()` is a great option!
 
-```{r eval = FALSE}
+```{r}
 skim(msleep)
 ```
 
@@ -508,242 +602,26 @@ skim(msleep)
 
 AVOCADO - cover more than just tabyl from janitor and skim from skimr (or cut these?)
 
-
 ### `glue`
 
 AVOCADO
-
-## Reshaping Data
-
-### Data Formats
-
-Tidy data generally exist in two forms: wide data and long data. Both types of data are used and needed in data analysis, and fortunately, there are tools that can take you from wide-to-long and from long-to-wide. This makes it easy to work with any tidy data set. We'll discuss the basics of what wide and long data are and how to go back and forth between the two in R. Getting data into the right format will be crucial later when summarizing data and visualizing it.
-
-#### Wide Data
-
-Wide data has a column for each variable and a row for each observation. Data are often entered and stored in this manner. This is because wide data are often easy to understand at a glance. For example, this is a wide data set:
-
-
-![Wide dataset](https://docs.google.com/presentation/d/14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI/export/png?id=14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI&pageid=g2bfdb07292_0_151)
-
-This is a dataset we've looked at in a previous lesson. As discussed previously, it's a rectangular and tidy dataset. Now, we can also state that it is a wide dataset. Here you can clearly see what measurements were taken for each individual and can get a sense of how many individuals are contained in the dataset.
-
-Specifically, each individual is in a different row with each variable in a different column. At a glance we can quickly see that we have information about four different people and that each person was measured in four different ways. 
-
-#### Long Data
-
-Long data, on the other hand, has one column indicating the type of variable contained in that row and then a separate row for the value for that variable. Each row contains a single observation for a single variable.  Below is an example of a long data set:
-
-
-![Long dataset](https://docs.google.com/presentation/d/14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI/export/png?id=14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI&pageid=g38bb68a532_0_0)
-
-This long dataset includes the exact same information as the previous wide dataset; it is just stored differently. It's harder to see visually how many different measurements were taken and on how many different people, but the same information is there.
-
-While long data formats are less readable than wide data at a glance, they are a lot easier to work with during analysis. Most of the tools we'll be working with use long data. Thus, to go from how data are often stored (wide) to working with the data during analysis (long), we'll need to understand what tools are needed to do this and how to work with them.
-
-### R Packages
-
-Converting your data from wide-to-long or from long-to-wide data formats is referred to as **reshaping** your data. There are two primary packages in R that will help you reshape your data: [tidyr](https://tidyr.tidyverse.org/) and [reshape2](https://stat.ethz.ch/pipermail/r-packages/2010/001169.html). We'll walk through the important functions of these two packages and work through a few examples using the functions in each. However, as with most helpful packages in R, there is more functionality than what is discussed here, so feel free to explore the additional resources at the bottom to learn even more.
-
-
-![Reshaping data](https://docs.google.com/presentation/d/14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI/export/png?id=14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI&pageid=g38bb68a532_0_13)
-
-For these examples, we'll work with the `airquality` dataset available in R. The data in this dataset includes "Daily air quality measurements in New York, May to September 1973." This is a wide dataset because each day is in a separate row and there are multiple columns with each including information about a different variable (ozone, solar.r, wind, temp, month, and day). 
-
-We can see the first few lines of this dataset using the following code:
-
-```{r eval = FALSE}
-head(airquality)
-```
-
-
-![Air quality dataset](https://docs.google.com/presentation/d/14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI/export/png?id=14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI&pageid=g38bb68a532_0_4)
-
-Again, wide data are easy to decipher at a glance. We can see that we have six different variables for each day, with each one of these variables (measurements) being stored in a separate column.
-
-#### tidyr
-
-Within tidyr, there are two functions to help you reshape your data. 
-
-* `gather()`: go from wide data to long data
-* `spread()`: go from long data to wide data
-
-To get started, you'll need to be sure that the `tidyr` package is installed and loaded into your RStudio session. 
-
-```{r eval = FALSE}
-install.packages("tidyr")
-library(tidyr)
-```
-
-##### gather()
-
-As data are often stored in wide formats, you'll likely use `gather()` a lot more frequently than you'll use `spread()`. This will allow you to get the data into a long format that will be easy to use for analysis.
-
-In `tidyr`, `gather()` will take the `airquality` dataset from wide to long, putting each column name into the first column and each corresponding value into the second column. Here, the first column will be called `key`. The second column will still be `value`.
-
-```{r eval = FALSE}
-## use gather() to reshape from wide to long
-gathered <- gather(airquality)
-
-## take a look at first few rows of long data
-head(gathered)
-```
-
-
-![gather dataset](https://docs.google.com/presentation/d/14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI/export/png?id=14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI&pageid=g38bb68a532_0_205)
-
-However, it's very easy to change the names of these columns within `gather()`. To do so you define what the key and value columns names should be within `gather()`:
-
-```{r eval = FALSE}
-## to rename the column names that gather provides,
-## change key and value to what you want those column names to be
-gathered <- gather(airquality, key="variable", value="value")
-
-## take a look at first few rows of long data
-head(gathered)
-```
-
-
-![gather column names changed](https://docs.google.com/presentation/d/14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI/export/png?id=14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI&pageid=g38bb68a532_0_213)
-
-However, you're likely not interested in your day and month variable being separated out into their own variables within the `key` column. In fact, knowing the day and month associated with a particular data point helps identify that particular data point. To account for this, you can exclude `day` and `month` from the variables being included in the `key` column by specifying all the variables that you *do* want included in the `key` column.  Here, that means specifying `ozone`, `solar.r`, `wind`, and `temp`. This will keep `day` and `month` in their own columns, allowing each row to be identified by the specific day and month being discussed.
-
-```{r eval = FALSE}
-## in gather(), after key and value, you can specify which variables 
-## you want included in the long format
-## it will leave the other variables as is
-gathered <- gather(airquality, key="variable", value="value", ozone, solar.r, wind, temp)
-
-## take a look at first few rows of long data
-head(gathered)
-```
-
-
-![gather specifying which variables to include in long format](https://docs.google.com/presentation/d/14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI/export/png?id=14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI&pageid=g38bb68a532_0_222)
-
-Now, when you look at the top of this object, you'll see that `month` and `day` remain in the data frame and that variable combines information from the other columns in airquality (`ozone`, `solar.r`, `wind`, `temp`). This is still a long format dataset; however, it has used `month` and `day` as IDs when reshaping the data frame.
-
-##### spread()
-
-To return your long data back to its original form, you can use `spread()`. Here you specify two columns: the column that contains the names of what your wide data columns should be (`key=variable`) and the column that contains the values that should go in these columns (`value=value`). The data frame resulting from `spread()` will have the original information back in the wide format (again, the columns will be in a different order). But, we'll discuss how to rearrange data in the next lesson!
-
-```{r eval = FALSE}
-## use gather() to reshape from wide to long
-spread_data <- spread(gathered, key=variable, value=value)
-
-## take a look at the spread data
-head(spread_data)
-
-## compare that back to the original
-head(airquality)
-```
-
-
-![spread data](https://docs.google.com/presentation/d/14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI/export/png?id=14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI&pageid=g38bb68a532_0_236)
-
-#### reshape2
-
-As with many things in R, there is more than one way to solve a problem. While `tidyr` provides a more general solution for reshaping data, `reshape2` was specifically designed for reshaping data. The details aren't particularly important yet, but later on as you carry out your own analyses it will be good to know about both packages. To get started using `reshape2`, you'll have to first install the library and load it into your R session:
-
-```{r eval = FALSE}
-## install the package
-install.packages('reshape2')
-
-## load the package into R Session
-library(reshape2)
-```
-
-There are two main functions within the `reshape2` package:
-
-* `melt()`: go from wide data to long data
-* `dcast()`: go from long data to wide data
-
-##### melt()
-
-The `melt()` function will allow you to get the data into a long format that will be easy to use for analysis. When you melt a dataset with the default options, `melt()` will take every column, put the column name into a `variable` column, and then put the values of those variables into a `value` column. For the `airquality` data set, below we first assign the melted data frame to the object `melted`. Then we take a look at the top (`head()`) and bottom(`tail()`) of this melted data frame (`melted`). 
-
-```{r eval = FALSE}
-## puts each column name into the 'variable' column
-## puts corresponding variable's value in 'value' column
-melted <- melt(airquality)
-
-## let's take a look at the top of the melted data frame
-head(melted)
-
-## and at the bottom of that melted data frame
-tail(melted)
-```
-
-When you run this code you see that each column from the original data frame (`ozone`, `solar.r`, `wind`, `temp`,`month`, and `day`) are now repeated in the variables column, and each days' value for that variable is now in the `value` column. This is now a long format dataset!
-
-
-![melted data](https://docs.google.com/presentation/d/14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI/export/png?id=14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI&pageid=g38bb68a532_0_43)
-
-Now, to use month and day as identifiers as we did with `tidyr` above, the approach is slightly different. With `gather()`, you specified the column names that you wanted to gather and omitted the column names that you wanted to retain as identifiers. With `melt()` you will do the opposite. You will specify `day` and `month` as identifiers for the dataset and omit the remaining variables. You'll want to use the following syntax:
-
-```{r eval = FALSE}
-## melt the data frame
-## specify each row using month and day
-melted <- melt(airquality, id.vars = c("month","day"))
-
-## look at the first few rows of the melted data frame
-head(melted)
-```
-
-
-![melted data frame using IDs](https://docs.google.com/presentation/d/14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI/export/png?id=14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI&pageid=g38bb68a532_0_53)
-
-Despite the slight change in how the code was specified, the result here using `melt()` is the same as what was achieved above using `gather()`.
-
-##### cast
-
-You'll likely have to go from long-to-short format less frequently; however, it's good to know there are two approaches to accomplishing this within `reshape2` whenever it is necessary. 
-
-* `acast()`: taking a long frame and returning a matrix/array/vector
-* `dcast()`: taking a long frame and returning a data frame
-
-To return our melted data back into its original wide form, we'll use `dcast()`. The syntax here separates what should be used as an identifier for each row in the resulting wide format (`month + day` below) and which column includes the values that should be the column headers (`variable` below). These two pieces of information are separated by a tilde (`~`).
-
-```{r eval = FALSE}
-## to get our data back to its original form
-## specify which columns should be combined to use as identifiers
-## and which column should be used to specify the columns 
-original <- dcast(melted, month + day ~ variable)
-
-head(original)
-
-head(airquality)
-```
-
-
-![dcast to obtain original data](https://docs.google.com/presentation/d/14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI/export/png?id=14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI&pageid=g38bb68a532_0_148)
-
-As you can see, aside from the column order changing, the information in `original` is the same as what was in the data frame we started with (`airquality`).
-
-While reshaping data may not be the most exciting topic, having this skill will be indispensable as you start working with data. It's best to get these skills down early!
 
 
 ## Working With Factors
 
 In R, categorical data are handled as factors. By definition, categorical data are limited in that they have a set number of possible values they can take. For example, there are 12 months in a calendar year. In a month variable, each observation is limited to taking one of these twelve values. Thus, with a limited number of possible values, month is a categorical variable. Categorical data, which will be referred to as factors for the rest of this lesson, are regularly found in data. Learning how to work with this type of variable effectively will be incredibly helpful.
 
-To make working with factors simpler, we'll utilize the `forcats` package. Similar to the `stringr` package, all functions within `forcats` begin with `fct_`. As before, to see available functions you can type `?fct_` in your RStudio console. A drop-down menu will appear with all the possible forcats functions. Before working through this lesson, you'll want to be sure that `forcats` has been installed and loaded in:
-
-```{r eval = FALSE}
-install.packages('forcats')
-library(forcats)
-```
-
+To make working with factors simpler, we'll utilize the `forcats` package, a core tidyverse package. All functions within `forcats` begin with `fct_`, making them easier to look up and remember. As before, to see available functions you can type `?fct_` in your RStudio console. A drop-down menu will appear with all the possible forcats functions.
 
 ![fct_ output from RStudio](https://docs.google.com/presentation/d/16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU/export/png?id=16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU&pageid=g391e563ea4_0_0)
 
-### Factor basics
+### Factor Review
 
 In R, factors are comprised of two components: the actual **values** of the data and the possible **levels** within the factor. Thus, to create a factor, you need to supply both these pieces of information.
 
 For example, if we were to create a character vector of the twelve months, we could certainly do that:
 
-```{r eval = FALSE}
+```{r}
 ## all 12 months
 all_months <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 
@@ -753,7 +631,8 @@ some_months <- c("Mar", "Dec", "Jan",  "Apr", "Jul")
 
 However, if we were to sort this vector, R would sort this vector alphabetically. 
 
-```{r eval = FALSE}
+```{r}
+# alphabetical sort
 sort(some_months)
 ```
 
@@ -762,14 +641,16 @@ sort(some_months)
 
 While you and I know that this is not how months should be ordered, we haven't yet told R that. To do so, we need to let R know that it's a factor variable and what the levels of that factor variable should be.
 
-```{r eval = FALSE}
+```{r}
+# create factor
 mon <- factor(some_months, levels = all_months)
 
+# look at factor
 mon
 
+# look at sorted factor
 sort(mon)
 ```
-
 
 ![defining the factor levels sorts this variable sensibly](https://docs.google.com/presentation/d/16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU/export/png?id=16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU&pageid=g391e563ea4_0_16)
 
@@ -779,11 +660,13 @@ Here, we specify all the possible values that the factor could take in the `leve
 
 What if you wanted your months to start with July first? That can be accomplished using `fct_relevel()`. To use this function, you simply need to state what you'd like to relevel (`mon`) followed by the levels you want to relevel. If you want these to be placed in the beginning, the after argument should be `after = 0`. You can play around with this setting to see how changing `after` affects the levels in your output.
 
-```{r eval = FALSE}
+```{r}
 mon_relevel <- fct_relevel(mon, "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", after = 0)
 
+# releveled
 mon_relevel
 
+# releleveld and sorted
 sort(mon_relevel)
 ```
 
@@ -796,11 +679,14 @@ After re-leveling, when we sort this factor, we see that Jul is placed first, as
 
 Now, if you're not interested in the months being in calendar year order, you can always state that you want the levels to stay in the same order as the data you started with, you simply specify `fct_inorder`.   
 
-```{r eval = FALSE}
+```{r}
+# keep order of appearance
 mon_inorder <- fct_inorder(some_months)
 
+# output
 mon_inorder
 
+# sorted 
 sort(mon_inorder)
 ```
 
@@ -813,17 +699,15 @@ We see now with `fct_inorder` that even when we sort the output, it does not sor
 
 For the remainder of this lesson, we're going to return to using a dataset that's in R by default. We'll use the `chickwts` dataset for exploring the remaining advanced functions. This data set includes data from an experiment that was looking to compare the "effectiveness of various feed supplements on the growth rate of chickens."
 
-
 ![chickwts dataset](https://docs.google.com/presentation/d/16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU/export/png?id=16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU&pageid=g391e563ea4_0_24)
 
 ### Re-ordering factor levels by frequency : `fct_infreq()`
 
 To re-order factor levels by frequency of the value in the dataset, you'll want to use `fct_infreq()`. Below, we see from the output from `tabyl()` that 'soybean' is the most frequent feed in the data set while 'horsebean' is the least frequent. Thus, when we order by frequency, we can expect these two feeds to be at opposite ends for our levels.
 
-```{r eval = FALSE}
+```{r}
 ## take a look at frequency of each level 
 ## using tabyl() from `janitor` package
-library(janitor)
 tabyl(chickwts$feed)
 
 ## order levels by frequency 
@@ -838,11 +722,10 @@ As expected, soybean, the most frequent level, appears as the first level and ho
 
 If we wanted to sort the levels from least frequent to most frequent, we could just put `fct_rev()` around the code we just used to reverse the factor level order.
 
-```{r eval = FALSE}
+```{r}
 ## reverse factor level order
 fct_rev(fct_infreq(chickwts$feed)) %>% head()
 ```
-
 
 ![fct_rev() reverses the factor level order](https://docs.google.com/presentation/d/16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU/export/png?id=16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU&pageid=g391e563ea4_0_20)
 
@@ -850,7 +733,7 @@ fct_rev(fct_infreq(chickwts$feed)) %>% head()
 
 At times you may want to reorder levels of a factor by another variable in your dataset. This is often helpful when generating plots (which we'll get to in a future lesson!). To do this you specify the variable you want to reorder, followed by the numeric variable by which you'd like the factor to be re-leveled. Here, we see that we're re-leveling feed by the weight of the chickens.  While we haven't discussed plotting yet, the best way to demonstrate how this works is by plotting the feed against the weights. We can see that the order of the factor is such that those chickens with the lowest median weight (horsebean) are to the left, while those with the highest median weight (casein) are to the right.
 
-```
+```{r}
 ## order levels by a second numeric variable 
 chickwts %>%
   mutate(newfeed = fct_reorder(feed, weight)) %>% 
@@ -858,14 +741,13 @@ chickwts %>%
   geom_point()
 ```
 
-
 ![fct_reorder allows you to re-level a factor based on a secondary numeric variable](https://docs.google.com/presentation/d/16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU/export/png?id=16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU&pageid=g391e563ea4_0_69)
 
 ### Combining several levels into one: `fct_recode()`
 
 To demonstrate how to combine several factor levels into a single level, we'll continue to use our 'chickwts' dataset. Now, I don't know much about chicken feed, and there's a good chance you know a lot more. However, let's *assume* (even if it doesn't make good sense with regards to chicken feed) you wanted to combine all the feeds with the name "bean" in it to a single category and you wanted to combine "linseed" and "sunflower"" into the category "seed". This can be simply accomplished with `fct_recode`. In fact, below, you see we can rename all the levels to a simpler term (the values on the left side of the equals sign) by re-naming the original level names (the right side of the equals sign). This code will create a new column, called `feed_recode` (accomplished with `mutate()`). This new column will combine "horsebean" and "soybean feeds", grouping them both into the larger level "bean". It will similarly group "sunflower" and "linseed" into the larger level "seed." All other feed types will also be renamed. When we look at the summary of this new column by using `tabyl()`, we see that all of the feeds have been recoded, just as we specified! We now have four different feed types, rather than the original six.
 
-```{r eval = FALSE}
+```{r}
 ## we can use mutate to create a new column
 ## and fct_recode() to:
 ## 1. group horsebean and soybean into a single level
@@ -882,14 +764,13 @@ chickwts %>%
   tabyl(feed_recode)
 ```
 
-
 ![fct_recode() can be used to group multiple levels into a single level and/or to rename levels](https://docs.google.com/presentation/d/16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU/export/png?id=16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU&pageid=g391e563ea4_0_79)
 
 ### Converting numeric levels to factors: `ifelse()` + `factor()`
 
 Finally, when working with factors, there are times when you want to convert a numeric variable into a factor. For example, if you were talking about a dataset with BMI for a number of individuals, you may want to categorize people based on whether or not they are underweight (BMI < 18.5), of a healthy weight (BMI between 18.5 and 29.9), or obese (BMI >= 30). When you want to take a numeric variable and turn it into a categorical factor variable, you can accomplish this easily by using `ifelse()` statements. `if{}` statements and `else{}` statements were covered in an earlier lesson. Here we combine those two ideas. Within a single statement we provide R with a condition: `weight <= 200`. With this, we are stating that the condition is if a chicken's weight is less than or equal to 200 grams. Then, if that condition is true, meaning if a chicken's weight is less than or equal to 200 grams, let's assign that chicken to the category `low`. Otherwise, and this is the `else{}` part of the `ifelse()` function, assign that chicken to the category `high`. Finally, we have to let R know that weight_recode is a factor variable, so we call factor() on this new column. This way we take a numeric variable (`weight`), and turn it into a factor variable (`weight_recode`). 
 
-```{r eval = FALSE}
+```{r}
 ## convert numeric variable to factor
 chickwts %>%
     mutate(weight_recode = ifelse(weight <= 200, "low", "high"), 
@@ -897,17 +778,16 @@ chickwts %>%
     tabyl(weight_recode)
 ```
 
-
 ![converting a numeric type variable to a factor](https://docs.google.com/presentation/d/16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU/export/png?id=16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU&pageid=g391e563ea4_0_84)
 
 ## Working With Dates and Times
 
 In lessons an earlier course, you were introduced to different types of objects in R, such as characters, numeric, and logicals. Then, in earlier lessons in this course, we covered how to work with strings and factors in detail. The remaining type of variable we haven't yet covered is how to work with dates and time in R. 
 
-As with strings and factors, there is a tidyverse package to help you work with dates more easily. The `lubridate` package will make working with dates and times easier. Before working through this lesson, you'll want to be sure that `lubridate` has been installed and loaded in:
+As with strings and factors, there is a tidyverse package to help you work with dates more easily. The `lubridate` package is not part of the core tidyverse packages, so it will have to be loaded individually. This package will make working with dates and times easier. Before working through this lesson, you'll want to be sure that `lubridate` has been installed and loaded in:
 
-```{r eval = FALSE}
-install.packages('lubridate')
+```{r message = FALSE}
+#install.packages('lubridate')
 library(lubridate)
 ```
 
@@ -923,20 +803,22 @@ To get objects into dates and date-times that can be more easily worked with in 
 
 Date information is often provided as a string. The functions within the `lubridate` package can effectively handle this information. To use them to generate date objects, you can call a function using `y`, `m`, and `d` in the order in which the year (`y`), month (`m`), and date (`d`) appear in your data. The code below produces identical output for the date September 29th, 1988, despite the three distinct input formats. This uniform output makes working with dates much easer in R.
 
-```
+```{r}
+# year-month-date
 ymd("1988-09-29")
 
+#month-day-year
 mdy("September 29th, 1988")
 
+#day-month-year
 dmy("29-Sep-1988")
 ```
-
 
 ![creating date and date-time objects](https://docs.google.com/presentation/d/1iLU-H6-GZw7EhL2syFZnjn_tC_cI6s9PmKRxcSOjg1c/export/png?id=1iLU-H6-GZw7EhL2syFZnjn_tC_cI6s9PmKRxcSOjg1c&pageid=g39252087a2_0_22)
 
 However, this has only covered working with date objects. To work with date-time objects, you have to further include hour (`h`), minute(`m`), and second (`s`) into the function. For example, in the code below, you can see that the output contains time information in addition to the date information generated in the functions above:
 
-```{r eval = FALSE}
+```{r}
 ymd_hms("1988-09-29 20:11:59")
 ```
 
@@ -944,8 +826,8 @@ ymd_hms("1988-09-29 20:11:59")
 
 If you have a data set where month, date, year, and/or time information are included in separate columns, the functions within `lubridate` can take this separate information and create a date or date-time object. To work through examples using the functions `make_date()` and `make_timedate()`, we'll use a dataset called `nycflights13`. As this dataset is *not* included with the R by default, you'll have to install and load it in directly:
 
-```{r eval = FALSE}
-install.packages('nycflights13')
+```{r message = FALSE}
+#install.packages('nycflights13')
 library(nycflights13)
 ```
 
@@ -953,7 +835,7 @@ Loading this package makes a data frame called `flights`, which includes "on-tim
 
 First, to create a new column, as we've done throughout the lessons in this course, we will use `mutate()`. To create a `date` object, we'll use the function `make_date()`. We just then need to supply the names of the columns containing the year, month, and day information to this function. 
 
-```{r eval = FALSE}
+```{r}
 ## make_date() creates a date object 
 ## from information in separate columns
 flights %>% 
@@ -961,12 +843,11 @@ flights %>%
   mutate(departure = make_date(year, month, day))
 ```
 
-
 ![mutate and make_date() create a new column -- departure -- with a date object](https://docs.google.com/presentation/d/1iLU-H6-GZw7EhL2syFZnjn_tC_cI6s9PmKRxcSOjg1c/export/png?id=1iLU-H6-GZw7EhL2syFZnjn_tC_cI6s9PmKRxcSOjg1c&pageid=g39252087a2_0_0)
 
 A similar procedure is used to create a date-time object; however, this requires the function `make_datetime()` and requires columns with information about time be specified. Below, `hour` and `minute` are included to the function's input.
 
-```{r eval = FALSE}
+```{r}
 ## make_datetime() creates a date-time object 
 ## from information in separate columns
 flights %>% 
@@ -1008,7 +889,7 @@ wday(mydate, label = TRUE)
 
 In addition to being able to look at trends by month or year, which requires being able to extract that component from a date or date-time object, it's also important to be able to operate over dates.  If I give you a date of birth and ask you how old that person is today, you'll want to be able to calculate that. This is possible when working with date objects. By subtracting this birthdate from today's date, you'll learn now many days old this person is. By specifying this object using `as.duration()`, you'll be able to extract how old this person is in years.
 
-```{r eval = FALSE}
+```{r}
 ## how old is someone born on Sept 29, 1988
 mydate <- ymd("1988-09-29")
 
@@ -1027,8 +908,6 @@ Using addition, subtraction, multiplication, and division is possible with date 
 
 ## Working With Strings
 
-### Strings review
-
 You're likely familiar with strings generally; however, to review briefly here: 
 
 > A string is a sequence of characters, letters, numbers or symbols.
@@ -1045,24 +924,15 @@ Multiple strings can be stored within vectors. So, if you have multiple vectors 
 objectA <- c( "This sentence is a string.", "Short String", "Third string" )
 ```
 
-### stringr
+### `stringr`
 
-[stringr](http://stringr.tidyverse.org/) is a package within the [tidyverse](https://www.tidyverse.org/) specifically designed to work well with strings. All functions within this package start with `str_`, as you'll see below. There are *many* helpful functions within the stringr package. We'll only review the basics here, but if you're looking to accomplish something with a string and aren't sure how to approach it, the stringr package is a good first place to look. To install and load the stringr package, you'll use the following:
-
-```{r eval = FALSE}
-# If not already installed, you'll need to install the package
-install.packages("stringr")
-
-# load package into R
-library(stringr)
-```
+[stringr](http://stringr.tidyverse.org/) is a core tidyverse package specifically designed to help make your life easier when working with strings. Similar to what we saw with `forcats` fucntions starting with `fct_`, all functions within this package start with `str_`, as you'll see below. There are *many* helpful functions within the `stringr` package. We'll only review the basics here, but if you're looking to accomplish something with a string and aren't sure how to approach it, the `stringr` package is a good first place to look. 
 
 The best way to work through this lesson is to copy and paste every line of code into your RStudio window and see if the output makes sense to you. Working with strings and regular expressions is best learned by practice. 
 
 #### Available functions
 
 As we'll only cover a few of the functions within stringr in this lesson, it's important to remember that if you start typing "str_" within RStudio, a list of the many options will show up.
-
 
 ![str_ image](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_12)
 
@@ -1073,12 +943,11 @@ When working with strings, some of the most frequent tasks you'll need to comple
 * combine strings together
 * subset strings
 
-
 #### String length
 
 Returning to our object with three strings from earlier in the lesson, we can determine the length of each string in the vector.  
 
-```{r eval = FALSE}
+```{r}
 objectA <- c( "This sentence is a string.", "Short String", "Third string" )
 
 str_length(objectA)
@@ -1093,7 +962,7 @@ Here we see that the first string has a length of 26. If you were to go back and
 
 If you were interested in combining strings, you'd want to use `str_c`.
 
-```{r eval = FALSE}
+```{r}
 str_c( "Good", "Morning")
 ```
 
@@ -1102,7 +971,7 @@ str_c( "Good", "Morning")
 
 However, the output from this doesn't look quite right. You may want a space between these two words when you combine the two strings. That can be controlled with the `sep` argument.
 
-```{r eval = FALSE}
+```{r}
 str_c( "Good", "Morning", sep=" ")
 ```
 
@@ -1110,7 +979,7 @@ str_c( "Good", "Morning", sep=" ")
 
 Often, it's important to get part of a string out. To do this, you'll want to subset the string using the `str_sub()` function. For example, if you wanted only the first three characters in the string below, you would specify that within `str_sub()`.
 
-```{r eval = FALSE}
+```{r}
 object <- c( "Good", "Morning")
 
 str_sub(object, 1, 3)
@@ -1121,7 +990,7 @@ str_sub(object, 1, 3)
 
 You can also use negative numbers to count from the end of the string. For example, below we see code that returns the last three positions in the string.
 
-```{r eval = FALSE}
+```{r}
 object <- c( "Good", "Morning")
 
 str_sub(object, -3, -1)
@@ -1133,7 +1002,7 @@ str_sub(object, -3, -1)
 
 Finally, if you wanted to sort a string alphabetically, `str_sort()` can help you accomplish that.
 
-```{r eval = FALSE}
+```{r}
 names <- c("Keisha", "Mohammed", "Jane")
 
 str_sort(names)
@@ -1163,11 +1032,11 @@ We'll cover a number of helpful `stringr` functions:
 If interested in finding a pattern at the beginning (`^`) or end (`$`) of a string, you can specify that using a regexp. For example, if you wanted to only look at names that started with the letter "M", you would specify that using a regexp. The pattern you would include would be `"^M"` to identify all strings that start with the letter M. To specify those strings that end with a capital M, you would specify the pattern `"$M"`.
 
 
-#### Show matches: str_view()
+#### Show matches: `str_view()`
 
 To get comfortable with using regexps with strings, `str_view()` can be very helpful. The output from `str_view()` highlights what portion of your string match the pattern specified in your regexp with a gray box. For example, to we'll start using anchors and `str_view()` below:
 
-```{r eval = FALSE}
+```{r}
 names <- c("Keisha", "Mohammed", "Jane", "Mathieu")
 
 ## identify strings that start with "M"
@@ -1181,7 +1050,7 @@ In this first example we see in the Viewer Panel that str_view has identified th
 
 However, if you try to match strings that end with the letter "M", no match is found.
 
-```{r eval = FALSE}
+```{r}
 ## identify strings that end with "M"
 str_view(names, "M$")
 ```
@@ -1191,11 +1060,10 @@ str_view(names, "M$")
 
 To identify names by that end with the letter "a", you would use the following.
 
-```{r eval = FALSE}
+```{r}
 ## identify strings that end with "a"
 str_view(names, "a$")
 ```
-
 
 ![`str_view()` identifies names that end with a](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_34)
 
@@ -1205,7 +1073,6 @@ Note, however, that regexps are case sensitive. To match patterns, you have to c
 ## identify strings that end with "A"
 str_view(names, "A$")
 ```
-
 
 ![`str_view()` does not identify any names that end with A](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_39)
 
@@ -1224,12 +1091,11 @@ str_count(names, "^M")
 
 However, if we instead wanted a count of the numbers of lowercase "m"s, we could still use `str_count()` to accomplish that. Notice below we've removed the specification to just look at the beginning of the string. Here, we're looking for lowercase m's anywhere in the string and counting them:
 
-```{r eval = FALSE}
+```{r}
 ## identify strings that have a lowercase "m"
 ## return count of the number of times string matches pattern
 str_count(names, "m")
 ```
-
 
 ![`str_count()` strings that have an m in them](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_108)
 
@@ -1237,26 +1103,23 @@ str_count(names, "m")
 
 Instead of returning a count, at times you're just interested in knowing which strings match the pattern you're searching for. In these cases you'll want to use `str_detect()`. This function simply returns a TRUE if the string matches the pattern specified and FALSE otherwise.
 
-```{r eval = FALSE}
+```{r}
 ## identify strings that start with "M"
 ## return TRUE if they do; FALSE otherwise
 str_detect(names, "^M")
 ```
 
-
 ![str_detect() returns TRUE for strings that match the specified pattern; FALSE otherwise](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_96)
-
 
 #### Subset matches: `str_subset()`
 
 To return the actual string that matches the specified pattern, rather than a TRUE/FALSE, you'll look to `str_subset()`. This function pulls out those strings that match the specified pattern. For example, to obtain the subset of names whose values start with the capital letter "M", you would use the following:
 
-```{r eval = FALSE}
+```{r}
 ## identify strings that start with "M"
 ## return whole string
 str_subset(names, "^M")
 ```
-
 
 ![`str_subset()` returns the strings that match the pattern specified](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_102)
 
@@ -1264,12 +1127,11 @@ str_subset(names, "^M")
 
 To extract only the portions of the string that match the specified pattern, you would use `str_extract()`. This function returns the pattern specified for strings where it is found and NA otherwise. For example, by searching for names that start with M, below, we see that the second and fourth strings in our vector return the pattern specified ("M") and that the first and third strings in the vector return NA, as they do not start with a capital "M".
 
-```{r eval = FALSE}
+```{r}
 ## return "M" from strings with "M" in it
 ## otherwise, return NA
 str_extract(names, "^M")
 ```
-
 
 ![`str_extract()` returns the portions of the strings that match the pattern specified](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_122)
 
@@ -1277,11 +1139,10 @@ str_extract(names, "^M")
 
 The final basic function from `stringr` that we'll discuss is `str_replace()`. This function identifies a regex and replaces each occurrence with whatever replacement the user specifies. For example, below we search for strings that start with the capital letter "M" and replace each of them with a question mark. All strings that do *not* match the regex are returned unchanged.
 
-```{r eval = FALSE}
+```{r}
 ## replace capital M with a question mark
 str_replace(names, "^M", "?")
 ```
-
 
 ![`str_replace()` replaces regex with specified characters](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_131)
 
@@ -1289,17 +1150,14 @@ str_replace(names, "^M", "?")
 
 Above we discuss two common patterns searched for using regular expressions: starts with (`^`) and ends with (`$`). However, there are a number of additional common ways to match patterns. They are listed here, and we'll discuss each one in slightly more detail below.
 
-
-
 ##### Searching for characters
 
 To search for a set of characters, you place these characters within brackets. Below, this will identify anywhere in the strings where you have a lowercase vowel. Note, that we're now using `str_view_all()` to identify all occurrences of these characters, rather than `str_view()`, which only identifies the first occurrence in each string.
 
-```{r eval = FALSE}
+```{r}
 ## identify all lowercase vowels
 str_view_all(names, "[aeiou]")
 ```
-
 
 ![brackets specify which characters to search for](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_69)
 
@@ -1308,26 +1166,23 @@ str_view_all(names, "[aeiou]")
 
 By adding a caret (`^`) before the vowels within the brackets, this regular expressions specifies that you are searching for any character that is not a lowercase vowel within your strings.
 
-```{r eval = FALSE}
+```{r}
 ## identify anything that's NOT a lowercase vowel
 str_view_all(names, "[^aeiou]")
 ```
 
-
 ![brackets with a caret first specify which characters NOT to search for](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_78)
-
 
 ##### Search for digits
 
 To search for digits (numeric variable between 0 and 9) in a string you use "\d"; however, backslashes are protected characters in R. This means that you have to escape this character first with an additional backslash (`\`), to let R know that you want to search for the regular expression "\d".
 
-```{r eval = FALSE}
+```{r}
 addresses <- c("1234 Main Street", "1600 Pennsylvania Ave", "Brick Building")
 
 ## identify anything that's a digit
 str_view_all(addresses, "\\d")
 ```
-
 
 ![`\d` searches for digits](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_140)
 
@@ -1335,27 +1190,23 @@ str_view_all(addresses, "\\d")
 
 Identifying whitespace in R identifies any spaces, tabs or newlines. Note that again we have to escape the "\s" with a backslash for R to recognize the regular expression.
 
-```{r eval = FALSE}
+```{r}
 ## identify any whitespace
 str_view_all(addresses, "\\s")
 ```
 
-
 ![`\s` searches for whitespace](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_153)
-
 
 ##### Identify any character (except newline)
 
 To identify any character except for a newline you'll use `"."`. Notice in our addresses example that there are no newlines, so this pattern will match with the entire string. 
 
-```{r eval = FALSE}
+```{r}
 ## identify any character
 str_view_all(addresses, ".")
 ```
 
-
 ![. searches for any character](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_164)
-
 
 #### Repetition within regular expressions
 
@@ -1373,38 +1224,34 @@ Searches for regular expressions allow you to specify how many times a pattern s
 
 Using the definitions above, we can see that the following code will identify patterns within the addresses vector where n shows up one more more times in a string. 
 
-```{r eval = FALSE}
+```{r}
 ## identify any time n shows up one or more times
 str_view_all(addresses, "n+")
 ```
 
-
 ![+ specifies to match the pattern one or more times](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_177)
-
 
 While the difference is slight in the output here, we're identifying portions of the string where n shows up exactly once. So, instead of the 'nn' in Pennsylvania matching together, the code here splits these up, due to the fact that we're specifying the pattern match 'n' exactly one time:
 
-```{r eval = FALSE}
+```{r}
 ## identify any time n shows up
 str_view_all(addresses, "n{1}")
 ```
-
 
 ![{#} looks to match the pattern exactly the number of times within the curly braces](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_183)
 
 If you only wanted to match strings where n showed up twice in a row, you could specify that in this way:
 
-```{r eval = FALSE}
+```{r}
 ## identify any time n shows up exactly two times in a row
 str_view_all(addresses, "n{2}")
 ```
-
 
 ![{2} specifies that the pattern must be found exactly twice](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_188)
 
 This could similarly be achieved by specifying to search for the pattern 'nn' one or more times (`+`):
 
-```{r eval = FALSE}
+```{r}
 ## identify any time 'nn' shows up one or more times 
 str_view_all(addresses, "nn+")
 ```
@@ -1413,14 +1260,13 @@ str_view_all(addresses, "nn+")
 
 You can also specify a range of the number of times to search for a pattern within your string. Below, we see that if we specify n be searched for at least two and at most 3 times, the pattern matches within our string. However, if we increase that to between three and four times, no pattern matching occurs, as there are never three or four n's in a row in our strings.
 
-```{r eval = FALSE}
+```{r}
 ## identify any time n shows up two or three times 
 str_view_all(addresses, "n{2,3}")
 
 ## identify any time n shows up three or four times 
 str_view_all(addresses, "n{3,4}")
 ```
-
 
 ![{n,m} looks to pattern match between n and m times](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_65)
 
@@ -1446,7 +1292,6 @@ Because of this, exploratory analyses, while useful for discovering new connecti
 * "Debug" analyses
 * Communicate results
 
-
 ## General principles of exploratory analysis
 
 We can summarize the general principles of exploratory analysis as follows:
@@ -1460,54 +1305,41 @@ We can summarize the general principles of exploratory analysis as follows:
 
 These principles may be more clear in an example. We will use a dataset from [Kaggle.com](www.kaggle.com) that contains 120 years of Olympics history on athletes and results. If you don't have an account on Kaggle, create one and go to the link https://www.kaggle.com/heesoo37/120-years-of-olympic-history-athletes-and-results and under "Data Sources" download the `athlete_events.csv` to your computer. 
 
-
 ![Dataset on 120 years of Olympics history on athletes and results](https://docs.google.com/presentation/d/1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0/export/png?id=1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0&pageid=g3a82126a9f_0_24)
 
 Upload the data on RStudio.cloud and import the CSV file using the commands you have learned. Unfortunately, you cannot download the CSV file directly from the web address since downloading datasets on Kaggle requires logging in.
-
 
 ![Importing data using `read_csv()`](https://docs.google.com/presentation/d/1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0/export/png?id=1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0&pageid=g3a82126a9f_0_30)
 
 As we learned before, we can use the package `skimr` to take a look at the data. 
 
-
 ![Using the skimr package to have a summary of the data](https://docs.google.com/presentation/d/1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0/export/png?id=1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0&pageid=g3a82126a9f_0_35)
 
 We see that the dataset contains 15 variables and 271,116 observations. Some of the variables are of factor type and others are of integer or numeric type. The dataset includes variables on athletes such as name, sex, the sport played, whether they received a medal, age, and height. We first need to understand the data properties. So let's start with missing values.
 
-
 ![We have different types of variables in our data](https://docs.google.com/presentation/d/1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0/export/png?id=1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0&pageid=g3a82126a9f_0_44)
 
-
 First, the results of the `skim()` function indicate that some of our variables have lots of missing values. For instance, the variable `Medal` has 231,333 missing values. Generally, this is a place for concern since most statistical analyses ignore observations with missing values. However, it is obvious that the missing values for the variable `Medal` are mainly because the athlete didn't receive any medals. So this kind of missing value should not be a problem. However, we have missing values in the variables `Height` and `Age`. Since we are going to use these variables in our analysis in this lesson, observations with missing values for these two variables will be dropped from our analysis. Remember that `NA` is the most common character for missing values, but sometimes they are coded as spaces, 999, -1 or "missing". Check for missing values in a variety of ways.
-
 
 ![There are some missing values in the data](https://docs.google.com/presentation/d/1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0/export/png?id=1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0&pageid=g3a82126a9f_0_49)
 
 Second, we can see that there are some outliers in some of the numerical variables. For example, look at the summary of the variable `Age`. Although the average age among all the athletes is around 25, there is an individual who is 97 years old (fun fact: use the command `subset(df, df$Age == 97)` to check out the information about this athlete. You will see that the name of the athlete is John Quincy Adams Ward and he competed in the sport(!) Art Competitions Mixed Sculpturing in 1928. This artist is known for his George Washington statue in front of Federal Hall in Wall Street in New York City.) It is always good to know about the existence of outliers in your sample. Outliers can significantly skew the results of your analysis. You can find outliers by looking at the distribution of your variable too.
 
-
 ![There is an outlier in the Age variable](https://docs.google.com/presentation/d/1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0/export/png?id=1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0&pageid=g3a82126a9f_0_63)
 
 Histograms, in general, are one of the best ways to look at a variable and find abnormalities. You can see that the age of most individuals in the sample are between 18-35.
 
-
 ![Histogram of the variable Age](https://docs.google.com/presentation/d/1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0/export/png?id=1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0&pageid=g3a82126a9f_0_40)
 
-
 Now, rather than just summarizing the data points within a single variable, we can look at how two or more variables might be related to each other. For instance, we like to know if there is an association between age of athletes and their gender. One of the ways to do this is to look at a boxplot of age grouped by gender, i.e., the distribution of age separated for male and female athletes. Boxplot shows the distribution of the variable age for the gender groups. You can see that the average age is slightly higher for men than for women. 
-
 
 ![Boxplot of the variable Age for male and female individuals](https://docs.google.com/presentation/d/1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0/export/png?id=1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0&pageid=g3a82126a9f_0_5)
 
 If we are interested in looking at the distribution of male and female athletes over time, we can use frequency tables. Let us first create a frequency table of the share of women in each Olympic event. Tables are good for looking at factor or character variables.
 
-
 ![Wrangling data to find the share of female athletes over time]()
 
-
 Now, if we want to plot this trend, we can use `geom_line()` from `ggplot`. It's interesting that the share of women among all athletes that was once at a very low level in the early 1900s has gone up to almost 50% in modern times.
-
 
 ![Plot of the share of female athletes over time](https://docs.google.com/presentation/d/1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0/export/png?id=1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0&pageid=g3a82126a9f_0_79)
 
@@ -1520,7 +1352,6 @@ In general, the most important plots in exploratory data analysis are:
 * Barplots (`geom_bar()`)
 
 To end our lesson on exploratory analysis, let's consider a question: are taller athletes more likely to win a medal? To answer this question we can use different methods. We can look at the distribution of height for those who received a medal and those who didn't. We can use boxplots or barplots. The choice is yours but because boxplots are more informative, we will use them. We can first create a variable that indicates whether the athlete has any medal (the variable `Medal` indicates the type of medals). Note that the variable `has.medal` is a transformation of the variable `Medal`.
-
 
 ![Creating a variable that shows whether the athlete has a medal or not](https://docs.google.com/presentation/d/1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0/export/png?id=1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0&pageid=g3a82126a9f_0_91)
 
