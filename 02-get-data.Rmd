@@ -206,19 +206,20 @@ In other words, every time you import the data from the Google Sheets link using
 
 You'd be able to analyze these updated data using R and the `googlesheets` package!
 
+In fact, let's have you do that right now! Click on [this link](https://docs.google.com/spreadsheets/d/e/2PACX-1vSOaV-SM4nI7HrtZs8GDSL9Wgyfl0kv_vlaIdYiueBZDPpKejKFF3zzT_eKk8TG3V6oW7xcMBV9VYR3/pubhtml) to see these data!
+
 #### The `googlesheets` package
 
 The `googlesheets` package allows R users to take advantage of the Google Sheets Application Programming Interface (API). Very generally, APIs allow different applications to communicate with one another. In this case, Google has released an API that allows other software to communicate with Google Sheets and retrieve data and information directly from Google Sheets. The `googlesheets` package enables R users (you!) to easily access the Google Sheets API and retrieve your Google Sheets data. 
 
 Using this package is is the best and easiest way to analyze and edit Google Sheets data in R. In addition to the ability of pulling data, you can also edit a Google Sheet or create new sheets. 
 
-The `googlesheets` package is tidy-verse adjacent, so it requires its own installation and for you to load it into R before it can be used
+The `googlesheets` package is tidyverse-adjacent, so it requires its own installation and for you to load it into R before it can be used
 
 ##### Getting Started with `googlesheets`
 
-```{r eval = FALSE}
-# install and load package
-install.packages("googlesheets")
+```{r}
+# load package
 library(googlesheets)
 ```
 
@@ -226,11 +227,9 @@ Now, let's get to importing your survey data into R. Every time you start a new 
 
 The command `gs_auth(new_user = TRUE)` will open a new page in your browser that asks you which Google account's Google Sheets you'd like to give access to. Click on the appropriate Google user to provide `googlesheets` access to the Google Sheets API.
 
-
 ![Authenticate](https://docs.google.com/presentation/d/1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA/export/png?id=1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA&pageid=g3d555bce3d_0_4)
 
 After you click "ALLOW", giving permission for the `googlesheets` package to connect to your Google account, you will likely be shown a screen where you will be asked to copy an authentication code. Copy this authentication code and paste it in your RStudio Cloud console.
-
 
 ![Allow](https://docs.google.com/presentation/d/1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA/export/png?id=1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA&pageid=g3d555bce3d_0_12)
 
@@ -238,22 +237,26 @@ After you click "ALLOW", giving permission for the `googlesheets` package to con
 
 Once authenticated, you can use the command `gs_ls()` to list all your worksheets on Google Sheets as a table.
 
-In order to access a specific sheet, in this case the sheet that you created and named "survey", you need to use the function `gs_title()`. We'll assign this information to the object `survey_sheet`.
+In order to ultimately access the information a specific Google Sheet, you have to first **register** the sheet. To do this we'll use `gs_title()`. For the example below to work, you'll need to have a Google Sheet named "survey" in your account. To access this sheet, navigate to [https://docs.google.com/spreadsheets/d/1FN7VVKzJJyifZFY5POdz_LalGTBYaC4SLB-X9vyDnbY/] in your web browser. 
 
 ```{r eval = FALSE}
+# register Google Sheet
 survey_sheet <- gs_title("survey")
 ```
 
-If you type the name of the sheet correctly, you will see a message that says *Sheet successfully identified: "survey"*. 
+Note that we assign the information stored from registering this Google Sheet to the object `survey_sheet` so that we can use it again shortly.
+
+If you type the name of the sheet correctly *and* it exists in your Google Drive, you will see a message that says *Sheet successfully identified: "survey"*. 
 
 ![Sheet successfully identified](https://docs.google.com/presentation/d/1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA/export/png?id=1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA&pageid=g3d555bce3d_0_23)
 
 
 ##### Reading data in using `googlesheets`: `gs_read()`
 
-At this point, you can read the data into R using the function `gs_read()` with the `survey_sheet` object output from `gs_title()` as your input to `gs_read()`:
+At this point, your Google Sheet is registered and you can now read the data into R using the function `gs_read()`. The `survey_sheet` object output you generated using `gs_title()` will now be the input to `gs_read()`:
 
 ```{r eval = FALSE}
+# access information stored in survey_sheet
 survey_data <- gs_read(survey_sheet)
 ```
 
@@ -267,9 +270,38 @@ There are additional (optional) arguments to `gs_read()`, some are similar to th
 * `range = "A1:G5"` : specifies the range of cells that we like to import is A1 to G5. 
 * `n_max = 100` : specifies the maximum number of rows that we want to import is 100.
 
+`gs_title()` is not the only way in which a sheet can be registered. Google Sheetes can also be registered by URL or key. Within the Google Sheets package, a practice Google Sheet is available for you so that you can familiarize yourself with these approaches before working with your own data.
+
+There is a dataset provided as an example with the `googlesheets package`. The data stored in the example dataset come from the [Gapminder dataset](https://www.gapminder.org/). This includes longitudinal data about a few global economic variables. We'll use this dataset to discuss registering a Google Sheet by key or URL.
+
+To register a Google sheet in `googlesheets` by key, you must first know the key of the Google Sheet and have access to it. To work through a full example here you'll first want to navigate to [https://docs.google.com/spreadsheets/d/1BzfL0kZUz1TsI5zxJF1WNF01IxvC67FbOJUiiGMZ_mQ/] in your web browser. This will open up the gapminder dataset in Google Sheets so that you can have a look at the data in Google Sheets.
+
+![Gapminder Dataset in Google Sheets](https://docs.google.com/presentation/d/1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c/export/png?id=1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c&pageid=g5fbdfde92a_0_8)
+
+Now, it's just up to us to register this information from Google Sheets into R using the `googlesheets` package. To do this, we could use the *title* of the sheet, the *key*, or the *URL*:
+
+![Where to find the title, key, and URL in Google Sheets](https://docs.google.com/presentation/d/1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c/export/png?id=1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c&pageid=g6112cc596f_0_4)
+
+
+```{r}
+# register in with title 
+gs_title("test-gs-gapminder")
+
+# register with key
+gs_key("1BzfL0kZUz1TsI5zxJF1WNF01IxvC67FbOJUiiGMZ_mQ")
+
+# register with URL
+gs_url("https://docs.google.com/spreadsheets/d/1BzfL0kZUz1TsI5zxJF1WNF01IxvC67FbOJUiiGMZ_mQ/edit#gid=1150108545")
+```
+
+Regardless of how you register the sheet, you'll get an output to inform you that the sheet was successfully identified. (Note: if you have not opened up the [Google Sheet](https://docs.google.com/spreadsheets/d/1BzfL0kZUz1TsI5zxJF1WNF01IxvC67FbOJUiiGMZ_mQ/) using the Google Drive account you specified during authentication, you will get an error.)
+
+![Sheet Successfully Identified](https://docs.google.com/presentation/d/1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c/export/png?id=1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c&pageid=g6112cc596f_0_9)
+
+
 ##### Adding rows and editing cells
 
-In addition to reading in data from Google Sheets directly using the `googlesheets` package, you can also modify your Google Sheet directly through R. For example, you can edit a cell or add a row to your sheet. 
+In addition to reading in data from Google Sheets directly using the `googlesheets` package, you can also modify your Google Sheet directly through R. For example, returning to our friends' survey data example, you can edit a cell or add a row to your sheet. 
 
 Let's say you'd like to add your own respond to the survey. For this you can use the command `gs_add_row()`. Note that the `input` argument specifies what you would like to add in the new row. If everything goes well, you will get a message saying *Row successfully appended*. 
 
@@ -295,7 +327,6 @@ gs_edit_cells(survey_sheet, anchor = "D4", input = 2)
 
 If you were to return to your Google Sheets, you'd notice that cell D4 now has a 2, rather than a 0 in it!
 
-
 ## CSV files
 
 Like Excel Spreadsheets and Google Sheets, **Comma-separated values (CSV)** files allow us to store tabular data; however, it does this in a much simple format. CSVs are **plain-text** files, which means that all the important information in the file is represented by text (where text is numbers, letters, and symbols you can type on your keyboard). This means that there are no workbooks or metadata making it difficult to open these files. CSVs are flexible files and are thus the preferred storage method for tabular data for many data scientits.
@@ -317,7 +348,7 @@ If you entered the same values used above into Google Slides first and wanted to
 ![Download as CSV file](https://docs.google.com/presentation/d/199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM/export/png?id=199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM&pageid=g399e5a917a_0_56)
 
 
-### `readr`
+### Reading CSVs into R
 
 Now that you have a CSV file, let's discuss how to get it into R! The best way to accomplish this is using the function `read_csv()` from the `readr` package. (Note, if you haven't installed the `readr` package, you'll have to do that first.) Inside the parenthesis of the function, write the name of the file in quotes, including the file extension (.csv). Make sure you type the exact file name. Save the imported data in a data frame called `df_csv`. Your data will now be imported into R environment. If you use the command `head(df_csv)` you will see the first several rows of your imported data frame: 
  
@@ -343,14 +374,14 @@ Above, you see the simplest way to import a CSV file. However, as with many func
 
 By default, `read_csv()` converts blank cells to missing data (NA).
 
-Finally, we introduce the function `read_csv` here and recommend that you use it, as it is the simplest and fastest way to read CSV files into R. However, we note that there *is* a function `read.csv` which is available by default in R. You will likely see this function in others' code, so we just want to make sure you're aware of it.
+Finally, we introduce the function `read_csv` here and recommend that you use it, as it is the simplest and fastest way to read CSV files into R. However, we note that there *is* a function `read.csv()` which is available by default in R. You will likely see this function in others' code, so we just want to make sure you're aware of it.
 
 
-### TSV Files
+## TSVs
 
 Another common form of data is text files that usually come in the form of TXT or TSV file formats. Like CSVs, text files are simple, plain-text files; however, rather than columns being separated by commas, they are separated by tabs (represented by "\t" in plain-text). Like CSVs, they don't allow text formatting (i.e. text colors in cells) and are able to be opened on many different software platforms. This makes them good candidates for storing data.
 
-### Reading TSV files into RStudio Cloud
+### Reading TSVs into R
 
 The process for reading these files into R is similar to what you've seen so far. We'll again use the `readr` package, but we'll instead use the `read_tsv()` function. 
 
@@ -363,11 +394,13 @@ df_tsv <- read_tsv("sample_data - Sheet1.tsv")
 head(df_tsv)
 ```
 
-### Reading TXT files into RStudio Cloud
+## Delimited Files
 
 Sometimes, tab-separated files are saved with the .txt file extension. TXT files can store tabular data, but they can also store simple text. Thus, while TSV is the more appropriate extension for tabular data that are tab-separated, you'll often run into tabular data that individuals have saved as a TXT file. In these cases, you'll want to use the more generic `read_delim()` function from `readr`.
 
-Google Sheets does not allow tab-separated files to be downloaded with the .txt file extension (since .tsv is more appropriate); however, if you were to have a file "sample_data.txt" uploaded into your RStudio Cloud project, you could use the following code to read it into your R Environment, where "\t" specifies that the file is tab-delimited. 
+Google Sheets does not allow tab-separated files to be downloaded with the .txt file extension (since .tsv is more appropriate); however, if you were to have a file "sample_data.txt" uploaded into R, you could use the following code to read it into your R Environment, where "\t" specifies that the file is tab-delimited. 
+
+### Reading Delimited Files into R
 
 ```{r eval = FALSE}
 ## read TXT into R
@@ -381,7 +414,7 @@ This function allows you to specify how the file you're reading is in delimited.
 
 `read_delim()` is a more generic version of `read_csv()`. What this means is that you *could* use `read_delim()` to read in a CSV file. You would just need to specify that the file was comma-delimited if you were to use that function.
 
-### Exporting Data in R to CSV
+## Exporting Data from R
 
 The last topic of this lesson is about how to export data from R. So far we learned about reading data into R. However, sometimes you would like to share *your* data with others and need to export your data from R to some format that your collaborators can see. 
 
@@ -400,15 +433,19 @@ We'll finally note that there are default R functions `write.csv()` and `write.t
 
 ## JSON
 
-All of the file formats we've discussed so far (tibbles, Excel Spreadsheets and Google Sheets) are various ways to store what is known as tabular data, data where information is stored in rows and columns. To review, when data are stored in a tidy format, variables are stored in **columns** and each observation is stored in a different **row**. The values for each observation is stored in its respective **cell**. These *rules* for tabular data help define the **structure** of the file. Storing information in rows and columns, however, is not the only way to store data. 
+All of the file formats we've discussed so far (tibbles, CSVs, Excel Spreadsheets and Google Sheets) are various ways to store what is known as tabular data, data where information is stored in rows and columns. To review, when data are stored in a tidy format, variables are stored in **columns** and each observation is stored in a different **row**. The values for each observation is stored in its respective **cell**. These *rules* for tabular data help define the **structure** of the file. Storing information in rows and columns, however, is not the only way to store data. 
 
-In talking about APIs and API request calls, we left out a *tiny* bit of information. API requests generally return data in one of two data formats: JSON or XML. We'll discuss a bit more about each these data formats in future lessons. However, as this is a lesson about obtaining information from the Internet, we'd be remiss not to mention that there are ways to work with JSON data in R, using the package `jsonlite`.
+Alternatively, JSON (JavaScript Object Notation) data are *nested* and *hierarchical*. JSON  is a very commonly-used text-based way to send information between a browser and a server. It is easy for humans to read and to write. JSON data adhere to certain rules in how they are structured. For simplicity, JSON format requires objects to be comprised of **key-value pairs**. For example, in the case of: `{"Name": "Isabela"}`, "Name" would be a key, "Isabela" would be a value, and together they would be a key-value pair. Let's take a look at how JSON data looks in R.This means that key-pairs can be organized into different levels (hierarchical) with some levels of information being stored *within* other levels (nested).
 
-*Very* briefly here (more to come later!), JSON (JavaScript Object Notation) is a text-based way to send information between a browser and a server. JSON is easy for humans to read and to write. Thus, it makes sense that API calls would return information in the JSON format. JSON data adhere to certain rules in how they are structured. For simplicity, JSON format requires objects to be comprised of **key-value pairs**. For example, in the case of: `{"Name": "Isabela"}`, "Name" would be a key, "Isabela" would be a value, and together they would be a key-value pair. Let's take a look at how JSON data looks in R.
+![JSON data are hierarchical and nested](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g3d555e2b2e_0_13)
 
-```{r eval = FALSE}
-library(jsonlite)
+Using a snippet of JSON data here, we see a portion of JSON data from Yelp explaining a restaurant. We're looking at the `attributes` of this restaurant. Within `attributes`, there are four nested categories: `Take-out`, `Wi-Fi`, `Drive-Thru`, and `Good For`. In the hierarchy, attributes is at the top, while these four categories are within attributes. Within one of these attributes `Good For`, we see another level within the hierarchy. In this third level we see a number of other categories nested within `Good For`. This should give you a slightly better idea of how JSON data are structured.
 
+To get a sense of what JSON data look like, take a peak at this minimal example:
+
+Here, rather than reading
+
+```{r}
 ## generate a JSON object
 json <-
 '[
@@ -421,15 +458,21 @@ json <-
 json
 ```
 
-This format cannot, as it is, be easily worked with within R; however, there is an R package to take data from JSON format to an object-based format, that *can* be worked with in R. The R package `jsonlite` is just what to work with whenever you have data in JSON format. When using the defaults of the function `fromJSON()`, `jsonlite` will take the data from JSON array format and helpfully return a data frame. 
+Here, we've stored information about Toy Story characters, their age, and their occupation in an object called `json`
 
-```{r eval = FALSE}
+This format cannot, as it is, be easily worked with easily within R; however, `jsonlite` is just what to work with whenever you have data in JSON format. When using the defaults of the function `fromJSON()`, `jsonlite` will take the data from JSON array format and helpfully return a data frame. 
+
+```{r}
+#install.packages("jsonlite")
+library(jsonlite)
+
 ## take JSON object and covert to a data frame
 mydf <- fromJSON(json)
 
 ## take a look
 mydf
 ```
+
 
 
 ![`fromJSON()`](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_219)
@@ -446,60 +489,41 @@ json <- toJSON(mydf)
 ![`toJSON()`](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_228)
 
 
-Here, we've just briefly touched on what JSON format is; however, in a future lesson we'll discuss this in greater detail. For now, however, it's important to know that the `jsonlite` package is there for you whenever you have JSON data. And, it has two very helpful functions (among other functions in the pacakge!): `toJSON()` and `fromJSON()` for such situations.
+While this gives us an idea of how to work with JSON formatted data in R, we haven't yet discussed how to read a JSON file into R. When you have data in the JSON format (file extension: .json), you'll use the `read_json()` function, which helpfully looks very similar to the other `read_` functions we've discussed so far:
 
-JSON data are *nested* and *hierarchical*. This means that key-pairs can be organized into different levels (hierarchical) with some levels of information being stored *within* other levels (nested).
+```{r eval = FALSE}
+# read JSON file into R
+read_json("json_file.json")
 
-Using a snippet of JSON data here, we see a portion of JSON data from Yelp explaining a restaurant. We're looking at the `attributes` of this restaurant. Within `attributes`, there are four nested categories: `Take-out`, `Wi-Fi`, `Drive-Thru`, and `Good For`. In the hierarchy, attributes is at the top, while these four categories are within attributes. Within one of these attributes `Good For`, we see another level within the hierarchy. In this third level we see a number of other categories nested within `Good For`. This should give you a slightly better idea of how JSON data are structured.
+# read JSON file into R and 
+# simplifies nested lists into vectors and data frames
+read_json("json_file.json", simplifyVector = TRUE)
 
+```
 
-![JSON data are hierarchical and nested](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g3d555e2b2e_0_13)
-
-### Analyzing JSON in R
-
-AVOCADO - this section stinks
-
-Above we discussed how to analyze pure text (meaning, text written by humans in their native written and spoken language). Here, we'll discuss how to briefly how others have wrangled text-based data from the Internet in the JSON format within R. This is possible because of the R package `jsonlite`, which was used in the following example:
-
-[Kan Nishida](https://blog.exploratory.io/@kanaugust), a data scientist, was interested in [understanding what restaurant types found most frequently in each state or province](https://blog.exploratory.io/working-with-json-data-in-very-simple-way-ad7ebcc0bb89). To do this, he used JSON data originally released from Yelp. He wrangled the data from JSON format into a tabular format using `jsonlite` and other data wrangling packages, such as `dplyr`, to ultimately determine the types of restaurants found most frequently in a number of different states and provinces.
-
-
-![Wrangling Yelp data from JSON into tidy tabular data](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g3d555e2b2e_0_17)
+Note in our examples here that by default, `read_json()` reads the data in while retaining the JSON format. However, if you would like to simplify the information into a data.frame, you'll want to specify the argument, `simplifyVector = TRUE`.
 
 ## XML
 
 **Extensible Markup Language (XML)**, is another human- and machine-readable language that is used frequently by web services and APIs. However, instead of being based on key-value pairs, XML relies on **nodes**, **tags**, and **elements**. The author defines these *tags* to specify what information is included in each *element* of the XML document and allows for elements to be nested within one another. The **nodes** define the hierarchical structure of the XML (which means that XML is hierarchical and nested like JSON)! 
 
-
 ![XML format relies on nodes, tags, and elements](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g3d555e2b2e_0_128)
 
-XML accomplishes the same goal as JSON, but it just does it in a different format. Thus, the two formats are used for similar purposes -- sharing information on the web; however, because the format in which they do this is different, a different R package is needed to process XML data. This packages is called `xml2`.
+XML accomplishes the same goal as JSON, but it just does it in a different format. Thus, the two formats are commonly used for similar purposes -- sharing information on the web; however, because the format in which they do this is different, a different R package is needed to process XML data. This packages is called `xml2`.
 
-### Analyzing XML in R
-
-AVOCADO - this section stinks
-
-To see an example of not only using `xml2` to parse XML data, but also another example of using `rvest` to obtain the XML data, check out this post from [José Roberto Ayala Solares](https://towardsdatascience.com/@jroberayalas) where he took the text from a New York Times article called ["Trump's Lies"](https://www.nytimes.com/interactive/2017/06/23/opinion/trumps-lies.html), scraped the data from the web (obtaining it in XML), and then [wrangled it into a tidy format](https://towardsdatascience.com/web-scraping-tutorial-in-r-5e71fd107f32) using `xml2`.
-
-
-![`rvest` and `xml2` are helpful for web scraping and working with XML data](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g3d555e2b2e_0_148)
-  
-In this lesson, our goal is to make you aware that data from the Internet (and APIs in particular) will often come in either JSON or XML format. Thus, the JSON and XML examples provided here only give you a bit of an idea of what JSON and XML data are and how to work with them. Nevertheless, the more frequently you retrieve data from APIs and the Internet, the more comfortable you'll have to become with both JSON and XML. And, `jsonlite` and `xml2` will help you as you work with these data in R!
-
+AVOCADO
 
 ## Databases
 
-In lessons up to the point in the Course Set, the analyses you've done have either been carried out with a single dataset (i.e. data from a single Google Sheet) or the data have been compiled into a single data frame (i.e. data gathered from the Internet from an API request). However, there will be many cases as a data scientist where the data for your project will stored across a number of different spreadsheets that are all related to one another. In this lesson, we'll discuss what relational data are, why you would want to store data in this way, and how to work with these types of data in RStudio Cloud.
+So far we've discussed reading in data that exist in a single file, like a CSV file or a Google Sheet. However, there will be many cases as where the data for your project will stored across a number of different tables that are all related to one another. In this lesson, we'll discuss what relational data are, why you would want to store data in this way, and how to work with these types of data into R.
 
 ### Relational Data
 
 Relational data can be thought of as information being stored across many tables, with each table being related to all the other tables. Each table is linked to every other table by a set of **unique identifiers**. 
 
-
 ![Relational data are related by unique identifiers](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g392f0f9db9_1_9)
 
 To better understand this, let's consider a toy example. We mentioned this example in the introductory lesson in this course, and we'll return to it now. Consider a town where you have a number of different restaurants. In one table you have information about these restaurants including, where they are located and what type of food they serve. You then have a second table where information about health and safety inspections is stored. Each inspection is a different row and the date of the inspection, the inspector, and the safety rating are stored in this table. Finally, you have a third table. This third table contains information pulled from an API, regarding the number of stars given to each restaurant, as rated by people online. Each table contains different bits of information; however, there is a common column `id` in each of the tables. This allows the information to be linked between the tables. The restaurant with the `id` "JJ29JJ" in the restaurant table would refer to the same restaurant with the `id` "JJ29JJ" in the health inspections table, and so on. The values in this `id` column are known as `unique identifiers` because they uniquely identify each restaurant. No two restaurants will have the same `id`, and the same restaurant will always have the same `id`, no matter what table you're looking at. The fact that these tables have unique identifiers connecting each table to all the other tables makes this example **relational data**.
-
 
 ![Unique identifiers help link entries across tables](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_27)
 
@@ -514,7 +538,6 @@ Storing data in this way has a number of advantages; however, the three most imp
 **Efficient Data Storage** - By storing each bit of information in a separate table, you limit the need to repeat information. Taking our example above, imagine if we included everything in a single table. This means that for each inspection, we would copy and paste the restaurant's address, type, and number of stars every time the facility is inspected. If a restaurant were inspected 15 times, this same information would be unnecessarily copy and pasted in each row! To avoid this, we simply separate out the information into different tables and relate them by their unique identifiers.
 
 **Avoids Ambiguity** - Take a look at the first table: "restaurant" here. You may notice there are two different restaurants named "Taco Stand." However, looking more closely, they have a different id *and* a different address. They're even different types of restaurants. So, despite having the same name, they actually are two different restaurants. The unique identifier makes this immediately clear!
-
 
 ![Unique identifiers in relational data avoid ambiguity](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_43)
 
@@ -537,10 +560,11 @@ To better understand databases and how to work with relational data, let's just 
 
 Without any more details, let's get to it! Here you'll see the code to install and load the `RSQLite` package. You'll then download the `chinook` sample database, connect to the database, and first obtain a list the tables in the database:
 
-```{r eval = FALSE}
+```{r}
 ## install and load packages
 ## this may take a minute or two
-install.packages("RSQLite")
+# install.packages("RSQLite")
+# install.packages("httr")
 library(RSQLite)
 library(httr)
 
@@ -561,7 +585,6 @@ dbListTables(db)
 
 The output from `dbListTables()` will include 13 tables. Among them will be the two tables we're going to work through in our example: `artists`, and `albums`.
 
-
 ![output from `dbListTables(db)`](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_286)
 
 In this example, we're downloading a database and working with the data locally. However, more often, when working with SQLite databases, you'll be connecting remotely. Using the `RSQLite` package is particularly helpful in this case because it allows you to connect to and query the database from R without reading all the data in. This is helpful in the case of very large databases, where you'll want to avoid copying all the data and will instead want to only work with the parts of the database you need. 
@@ -572,9 +595,9 @@ To access these tables within RStudio Cloud, we'll have to install the packages 
 
 After installing and loading `dbplyr`, we'll be able to use the helpful `tbl()` function to extract the two tables we're interested in working with!
 
-```{r eval = FALSE}
+```{r}
 ## install and load packages
-install.packages("dbplyr")
+# install.packages("dbplyr")
 library(dbplyr)
 library(dplyr)
 
@@ -596,13 +619,11 @@ However, when combining tables, there are a number of different ways in which th
 
 Let's break down exactly what we mean by this using just a small toy example from the `artists` and `albums` tables from the `chinook` database. Here you see three rows from the `artists` table and four rows from the `albums` table
 
-
 ![small parts of the `albums` and `artist` tables](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_88)
 
 #### Inner Join
 
 When talking about inner joins, we are only going to keep an observation if it is found in all of the tables we're combining. Here, we're combining the tables based on the `ArtistId` column. In our dummy example, there are only two artists that are found in *both* tables. These are highlighted in green and will be the rows used to join the two tables. Then, once the inner join happens, only these artists' data will be included after the inner join.
-
 
 ![inner join output will include any observation found in both tables](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_97)
 
@@ -610,21 +631,19 @@ In our toy example, when doing an `inner_join()`, data from any observation foun
 
 And, since it's a mutating join, our new table will have information from both tables! We now have `ArtistId`, `Name`, `AlbumId`, *and* `Title` in a single table! We've joined the two tables, based on the column `ArtistId`!
 
-
 ![inner join includes observations found in both tables](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_108)
 
 Throughout this lesson we will use the coloring use see here to explain the joins, so we want to explain it explicitly here. Green cells are cells that will be used to make the merge happen and will be included in the resulting merged table. Blue cells are information that comes from the `artists` table that will be included after the merge. Red cells are pieces of information that come from the `albums` table that will be included after the merge. Finally, cells that are left white in the `artists` or `albums` table are cells that will not be included in the merge while cells that are white *after* the merge are NAs that have been added as a result of the merge.
 
 Now, to run this for our tables from the database, rather than just for a few rows in our toy example, you would do the following:
 
-```{r eval = FALSE}
+```{r}
 ## do inner join
 inner <- inner_join(artists, albums)
 
 ## look at output as a tibble
 as_tibble(inner)
 ```
-
 
 ![`inner_join()` output](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_231)
 
@@ -634,24 +653,21 @@ For a left join, all rows in the first table specified will be included in the o
 
 In our toy example this means that `ArtistID`s 1, 2, and 3 will be included in the output; however, `ArtistID` 4 will not.
 
-
 ![left join will include all observations found in the first table specified](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_138)
 
 Thus, our output will again include all the columns from both tables combined into a single table; however, for `ArtistId` 3, there will be NAs for `AlbumId` and `Title`. NAs will be filled in for any observations in the first table specified that are missing in the second table.
-
 
 ![left join will fill in NAs](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_123)
 
 Now, to run this for our tables from the database, rather than just for a few rows in our toy example, you would do the following:
 
-```{r eval = FALSE}
+```{r}
 ## do left join
 left <- left_join(artists, albums)
 
 ## look at output as a tibble
 as_tibble(left)
 ```
-
 
 ![`left_join()` output](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_237)
 
@@ -661,24 +677,21 @@ Right Join is similar to what we just discussed; however, in the output from a r
 
 In our toy example, that means, information about `ArtistID`s 1, 2, and 4 will be included. 
 
-
 ![right join will include all observations found in the last table specified](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_150)
 
 Again, in our toy example, we see that `right_join()` combines the information across tables; however, in this case, `ArtistId` 4 is included, but `Name` is an NA, as this information was not in the `artists` table for this artist.
-
 
 ![right join will fill in NAs](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_160)
 
 Now, to run this for our tables from the database, you would have to do something *slightly* different than what you saw above. Note in the code below that we have to change teh class of the tables from the database into tibbles before doing the join. This is because SQL does not currently support right or full joins, but `dplyr` does. Thus, we first have to be sure the data are a class that `dplyr` can work with using `as_tibble()`. Other than that, the code below is similar to what you've seen already:
 
-```{r eval = FALSE}
+```{r}
 ## do right join
 right <- right_join(as_tibble(artists), as_tibble(albums))
 
 ## look at output as a tibble
 as_tibble(right)
 ```
-
 
 ![`right_join()` output](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_245)
 
@@ -688,24 +701,21 @@ While the output may look similar to the output from `left_join()`, you'll note 
 
 Finally, a full join will take every observation from every table and include it in the output.
 
-
 ![full join will include any observation found in either table](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_175)
 
 Thus, in our toy example, this join produces five rows, including all the observations from either table. NAs are filled in when data are missing for an observation.
-
 
 ![full join will fill in NAs](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_185)
 
 As you saw in the last example, to carry out a full join, we have to again specify that the objects are tibbles before being able to carry out the join
 
-```{r eval = FALSE}
+```{r}
 ## do right join
 full <- full_join(as_tibble(artists), as_tibble(albums))
 
 ## look at output as a tibble
 as_tibble(full)
 ```
-
 
 ![`full_join()` output](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_250)
 
@@ -734,7 +744,6 @@ In our toy example, if the join `semi_join(artists, albums)` were run, this woul
 
 Alternatively, `anti_join(artists, albums)` would output the rows of `artists` whose `ArtistId` was *NOT* found in the `albums` table.
 
-
 ![`anti_join()` output](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_259)
 
 Note that in the case of filtering joins, the number of variables in the table *after* the join does not change. While **mutating joins** merged the tables creating a resulting table with more columns, with **filtering joins** we're simply filtering the observations in one table based on the values in a second table.
@@ -757,20 +766,11 @@ con <- DBI::dbConnect(RMySQL::MySQL(),
 
 While not being discussed in detail here, it's important to know that connecting to remote databases from R is possible and that this allows you to query the database without reading *all* the data from the database into R. 
 
-
 ## Web Scraping
 
 We've mentioned previously that there is a lot of data on the Internet, which probably comes at no surprise given the vast amount of information on the Internet. Sometimes these data are in a nice CSV format that we can quickly pull from the Internet. Sometimes, the data are spread across a web page, and it's our job to "scrape" that information from the webpage and get it into a usable format. Knowing first that this is possible within R and second, having some idea of where to start is an important start to beginning to get data from the Internet.
 
-We'll walk through three R packages in this lesson to help get you started in getting data from the Internet. So, before we jump in, we'll have you install these packages:
-
-```{r eval = FALSE}
-## Install packages
-install.packages(c("httr", "rvest", "jsonlite"))
-```
-
-
-Let's transition a little bit to talking about how to pull pieces of data from a website, when the data aren't (yet!) in the format that we want them. 
+We'll walk through three R packages in this lesson to help get you started in getting data from the Internet. Let's transition a little bit to talking about how to pull pieces of data from a website, when the data aren't (yet!) in the format that we want them. 
 
 In the first lesson of this course, we talked about the example of wanting to start a company but not knowing exactly what people you'll need. So, you go to the websites of a bunch of companies similar to the company you start and pull off all the names and titles of the people working there. You then compare the titles across companies and voila, you've got a better idea of who you'll need at your new company. 
 
@@ -792,18 +792,15 @@ To use `rvest`, there is a tool that will make your life *a lot* easier. It's ca
 
 To get started using SelectorGadget, you'll have to enable the Chrome Extension. 
 
-To enable SelectorGadget:  
+To enable SelectorGadget using Google Chrome:  
 
 1. Click [here](https://chrome.google.com/webstore/detail/selectorgadget/mhjhnkcfbdhnjickkkdbjoemdmbfginb) to open up the SelectorGadget Chrome Extension
 
 2. Click "ADD TO CHROME"
 
-
 ![ADD TO CHROME](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_9)
 
-
 3. Click "Add extension" 
-
 
 ![Add extension](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_5)
 
@@ -827,7 +824,6 @@ To use SelectorGadget, navigate to the webpage we're interested in scraping: [ht
 
 Now that SelectorGadget has been toggled, as you mouse over the page, colored boxes should appear. We'll click on the the name of the first package to start to tell SelectorGadget which component of the webpage we're interested in.
 
-
 ![SelectorGadget selects `strong` on webpage of interest](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_31)
 
 An orange box will appear around the component of the webpage you've clicked. Other components of the webpage that SelectorGadget has deemed similar to what you've clicked will be highlighted. And, text will show up in the menu at the bottom of the page letting you know what you should use in `rvest` to specify the part of the webpage you're most interested in extracting. 
@@ -842,8 +838,9 @@ We'll then use `html_nodes()` to specify which parts of the webpage we want to e
 
 Finally `html_text` extracts the text from the tag we've specified, giving us that list of courses we wanted to see!
 
-```{r eval = FALSE}
+```{r}
 ## load package
+# install.packages("rvest")
 library(rvest)
 
 ## provide URL
@@ -859,7 +856,6 @@ courses %>%
 
 With just a few lines of code we have the information we were looking for!
 
-
 ![List of packages](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_36)
 
 ### A final note: SelectorGadget
@@ -868,16 +864,15 @@ SelectorGadget selected what we were interested in on the first click in the exa
 
 ## APIs
 
-In the first lesson we mentioned that **Application Programming Interfaces (APIs)** are, in the most general sense, software that allow to different web-based applications to communicate with one another over the Internet. Modern APIs conform to a number of standards. This means that many different applications are using the same approach, so a single package in R is able to take advantage of this and communicate with many different applications, as long as the application's API adheres to this generally agreed upon set of "rules". 
+**Application Programming Interfaces (APIs)** are, in the most general sense, software that allow to different web-based applications to communicate with one another over the Internet. Modern APIs conform to a number of standards. This means that many different applications are using the same approach, so a single package in R is able to take advantage of this and communicate with many different applications, as long as the application's API adheres to this generally agreed upon set of "rules". 
 
 The R package that we'll be using to acquire data and take advantage of this is called `httr`. This package name suggests that this is an "R" package for "HTTP". So, we know what R is, but what about HTTP? 
 
-You've probably seeing HTTP before at the start of web addresses, (ie http://www.gmail.com), so you may have some intuition that HTTP has something to do with the Internet, which is absolutely correct! HTTP stands for Hypertest Transfer Protocol. In the broadest sense, HTTP transactions allow for messages to be sent between two points on the Internet. You, on your computer can request something from a web page, and the protocol (HTTP) allows you to connect with that webpage's server, do something, and then return you whatever it is you asked for. 
+You've probably seeing HTTP before at the start of web addresses, (ie http://www.gmail.com), so you may have some intuition that HTTP has something to do with the Internet, which is absolutely correct! HTTP stands for Hypertext Transfer Protocol. In the broadest sense, HTTP transactions allow for messages to be sent between two points on the Internet. You, on your computer can request something from a web page, and the protocol (HTTP) allows you to connect with that webpage's server, do something, and then return you whatever it is you asked for. 
 
 Working with a web API is similar to accessing a website in many ways. When you type a URL (ie www.google.com) into your browser, information is sent from your computer to your browser. Your browser then interprets what you're asking for and displays the website you've requested. Web APIs work similarly. You **request** some information from the API and the API sends back a **response**.
 
 The `httr` package will hep you carry out these types of requests within R. Let's stop talking about it, and see an actual example!
-
 
 ![HTTP access via `httr`](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_69)
 
@@ -886,7 +881,6 @@ The `httr` package will hep you carry out these types of requests within R. Let'
 HTTP is based on a number of important verbs : `GET()`, `HEAD()`, `PATCH()`, `PUT()`, `DELETE()` and `POST()`. For the purposes of retrieving data from the Internet, you may be able to guess which verb will be the most important for our purposes! `GET()` will allow us to *fetch* a resource that already exists. We'll specify a URL to tell `GET()` where to go look for what we want. While we'll only highlight `GET()` in this lesson, for full understanding of the many other HTTP verbs and capabilities of `httr`, refer to the additional resources provided at the end of this lesson. 
 
 `GET()` will access the API, provide the API with the necessary information to request the data we want, and retrieve some output. 
-
 
 ![API requests are made to an API endpoint to get an API response](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_90)
 
@@ -904,7 +898,7 @@ Now that we know what our API endpoint is, we're ready to make our **API request
 
 The goal of this request is to obtain information about what repositories are available in *your* GitHub account. To use the example below, you'll want to change the username `janeeverydaydoe` to your GitHub username.
 
-```{r eval = FALSE}
+```{r}
 ## load package
 library(httr)
 library(dplyr)
@@ -921,26 +915,22 @@ api_response <- GET(url = paste0(url_git, 'users/', username, '/repos'))
 
 Note: In the code above, you see the function `paste0()`. This function concatenates (links together) each the pieces within the parentheses, where each piece is separated by a comma. This provides `GET()` with the URL we want to use as our endpoints! 
 
-
 ![`httr` code to access GitHub](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_54)
-
 
 #### API response: `content()`
 
 Let's first take a look at what other variables are available within the `api_response` object:
 
-```{r eval = FALSE}
+```{r}
 ## See variables in response
 names(api_response)
 ```
 
-
 ![`httr` response](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_112)
-
 
 While we see ten different variables within `api_response`, we should probably first make sure that the request to GitHub's API was successful. We can do this by checking the status code of the request, where "200" means that everything worked properly:
 
-```{r eval = FALSE}
+```{r}
 ## Check Status Code of request
 api_response$status_code
 ```
@@ -949,7 +939,7 @@ But, to be honest, we aren't really interested in just knowing the request worke
 
 To do so we'll take advantage of `httr`'s `content()` function, which as its name suggests, extracts the contents from an API request.
 
-```{r eval = FALSE}
+```{r}
 ## Extract content from API response
 repo_content <- content(api_response)
 ```
@@ -959,14 +949,13 @@ repo_content <- content(api_response)
 
 You can see here that the length of `repo_content` in our case is 6 by looking at the Environment tab. This is because the GitHub account `janeeverydaydoe` had six repositories at the time of this API call. We can get some information about each repo by running the function below:
 
-```{r eval = FALSE}
+```{r}
 ## function to get name and URL for each repo
 lapply(repo_content, function(x) {
   df <- data_frame(repo = x$name,
                    address = x$html_url)}) %>% 
   bind_rows()
 ```
-
 
 ![output from API request](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_132)
 
@@ -975,10 +964,7 @@ Here, we've pulled out the name and URL of each repository in Jane Doe's account
 
 ### Example 2: Obtaining a CSV
 
-In a previous course in this Course Set on Data Visualization, we assigned a project where the data for the project had already been saved on RStudio Cloud for you in CSV format. *However*, these data are available on the Internet. Now that we know how to use `httr` and have an understanding about APIs, let's do that now!
-
-So, the data are available for download from this link: [data.fivethirtyeight.com](https://data.fivethirtyeight.com/), but are also hosted on GitHub [here](https://github.com/fivethirtyeight/data), and we will want to use the specific URL for this file: [https://raw.githubusercontent.com/fivethirtyeight/data/master/steak-survey/steak-risk-survey.csv](https://raw.githubusercontent.com/fivethirtyeight/data/master/steak-survey/steak-risk-survey.csv) in our `GET()` request.
-
+This same approach can be used to download datasets directly from the web. The data for this example are available for download from this link: [data.fivethirtyeight.com](https://data.fivethirtyeight.com/), but are also hosted on GitHub [here](https://github.com/fivethirtyeight/data), and we will want to use the specific URL for this file: [https://raw.githubusercontent.com/fivethirtyeight/data/master/steak-survey/steak-risk-survey.csv](https://raw.githubusercontent.com/fivethirtyeight/data/master/steak-survey/steak-risk-survey.csv) in our `GET()` request.
 
 ![steak-survey on GitHub](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_148)
 
@@ -992,11 +978,18 @@ api_response <- GET(url = "https://raw.githubusercontent.com/fivethirtyeight/dat
 df_steak <- content(api_response, type="text/csv")
 ```
 
-
 ![`GET()` steak-survey CSV](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_154)
 
 Here, we again specify our url within `GET()` followed by use of the helpful `content()` function from `httr` to obtain the CSV from the `api_response` object. `df_steak` includes the data from the CSV directly from the GitHub API, without having to download the data first!
 
+Before going any further, we'll note that these data are in the CSV format and that the `read_csv()` function can read CSVs directly from a URL:
+
+```{r eval = FALSE}
+#use readr to read in CSV from URL
+df <- read_CSV( "https://raw.githubusercontent.com/fivethirtyeight/data/master/steak-survey/steak-risk-survey.csv")
+```
+
+While this is a simpler approach than the previous example, you'll want to use this approach when reading CSVs from URL. However, you won't always have data in the CSV format, so we wanted to be sure to demonstrate how to use `httr` when obtaining information from URLs using HTTP methods.
 
 ### API keys
 
@@ -1030,17 +1023,14 @@ Only a few decades ago, analyzing a large dataset of images was not feasible for
 
 Within Google Maps there is a Street View feature that allows panoramic views from positions along many streets in the world. One of the things you may notice if you're looking around on Google Maps' street view is that for many streets in the world you do not only see houses; you are also able to see cars. 
 
-
 ![Google Maps street view](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g392f0f9db9_0_4)
 
 
 Some 50 million images of cars from over 200 cities were used by researchers to detect the make, model, body type, and age of the cars in each neighborhood. They were able to take unstructured image data and compile a structured data set! These same researchers then pulled together a structured dataset from the Census and the 2008 elections of demographic information (such as race and income), and voting history in these same neighborhoods. 
 
-
 ![Data used from Google Maps street view to predict demographics of a neighborhood](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g2bfdb07292_0_151)
 
 Using these two datasets (the Google Street view car image data and the demographic data), researchers used a technique known as **machine learning** to build an algorithm that could, from the images of cars in a neighborhood, predict the demographics (race, income, etc) and how that area is likely to vote. Comparing these two sets of data, they were able to accurately estimate income, race, education, and voting patterns at the zip code level from the Google Street view images.
-
 
 ![Cars in a neighborhood can predict how the area votes](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g3d555e2b2e_0_0)
 
