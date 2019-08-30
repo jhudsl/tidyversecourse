@@ -1276,7 +1276,7 @@ AVOCADO - needs more on regexes
 
 AVOCADO - tidytext example (Shannon has this elsewhere outside of CBDS, but has to add it)
 
-## Functional programming
+## Functional Programming
 
 AVOCADO - purrr
 
@@ -1307,7 +1307,7 @@ These principles may be more clear in an example. We will use a dataset from [Ka
 
 ![Dataset on 120 years of Olympics history on athletes and results](https://docs.google.com/presentation/d/1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0/export/png?id=1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0&pageid=g3a82126a9f_0_24)
 
-Upload the data on RStudio.cloud and import the CSV file using the commands you have learned. Unfortunately, you cannot download the CSV file directly from the web address since downloading datasets on Kaggle requires logging in.
+Upload the data in R and import the CSV file using the commands you have learned. Unfortunately, you cannot download the CSV file directly from the web address since downloading datasets on Kaggle requires logging in.
 
 ![Importing data using `read_csv()`](https://docs.google.com/presentation/d/1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0/export/png?id=1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0&pageid=g3a82126a9f_0_30)
 
