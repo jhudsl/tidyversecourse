@@ -66,44 +66,52 @@ To do this, we'll use the "Davis" dataset which includes, height and weight info
 
 Histograms are helpful when you want to **better understand what values you have in your data set for a single set of numbers**. For example, if you had a dataset with information about many people, you may want to know how tall the people in your data set are. To quickly visualize this, you could use a histogram. Histograms let you know what range of values you have in your data set. For example, below you can see that in this data set, the height values range from around 50 to around 200 cm. The shape of the histogram also gives you information about the individuals in your dataset. The number of people at each height are also counted. So, the tallest bars show that there are about 40 people in the data set whose height is between 165 and 170 cm. Finally, you can quickly tell, at a glance that most people in this data set are at least 150 cm tall, but that there is at least one individually whose reported height is much lower. 
 
-![Histogram](https://docs.google.com/presentation/d/1MiYOmyqu6Et6mBVTS91gip8h-tids8Wo0JDlMfXULqE/export/png?id=1MiYOmyqu6Et6mBVTS91gip8h-tids8Wo0JDlMfXULqE&pageid=g313d6498b0_0_119) 
+![Histogram](https://docs.google.com/presentation/d/1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo/export/png?id=1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo&pageid=g62494e73ab_0_144) 
 
 ### Densityplot
 
-AVOCADO
+Densityplots are smoothed versions of histograms, visualizing the distribution of a continuous variable. These plots effectively visualize the distribution shape and are, unlike histograms, are not sensitive to the number of bins chosen for visualization.
 
-### Dotplot
-
-AVOCADO
+![Densityplot](https://docs.google.com/presentation/d/1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo/export/png?id=1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo&pageid=g62494e73ab_0_212) 
 
 ### Scatterplot
 
 Scatterplots are helpful when you have **numerical values for two different pieces of information** and you want to understand the relationship between those pieces of information. Here, each dot represents a different person in the data set. The dot's position on the graph represents that individual's height and weight. Overall, in this data set, we can see that, in general, the more someone weighs, the taller they are. Scatterplots, therefore help us at a glance better understand the relationship between two sets of numbers.
 
-![Scatter Plot](https://docs.google.com/presentation/d/1MiYOmyqu6Et6mBVTS91gip8h-tids8Wo0JDlMfXULqE/export/png?id=1MiYOmyqu6Et6mBVTS91gip8h-tids8Wo0JDlMfXULqE&pageid=g313d6498b0_0_98)
+![Scatter Plot](https://docs.google.com/presentation/d/1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo/export/png?id=1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo&pageid=g62494e73ab_0_222)
 
 ### Barplot
 
 When you only have **a single categorical variable that you want broken down and quantified by category**, a barplot will be ideal. For example if you wanted to look at how many females and how many males you have in your data set, you could use a barplot.  The comparison in heights between bars clearly demonstrates that there are more females in this dataset than males. 
 
-![Barplot](https://docs.google.com/presentation/d/1MiYOmyqu6Et6mBVTS91gip8h-tids8Wo0JDlMfXULqE/export/png?id=1MiYOmyqu6Et6mBVTS91gip8h-tids8Wo0JDlMfXULqE&pageid=g313d6498b0_0_114)
+![Barplot](https://docs.google.com/presentation/d/1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo/export/png?id=1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo&pageid=g62494e73ab_0_229)
 
 #### Grouped Barplot
 
-AVOCADO
+Grouped barplots, like simple barplots, demonstrate the counts for a group; however, they break this down by an additional categorical variable. For example, here we see the number of individuals within each % category along the x-axis. But, these data are further broken down by gender (an additional categorical variable). Comparisons between bars that are side-by-side are made most easily by our visual system. So, it's important to ensure that the bars you want viewers to be able to compare most easily are next to one another in this plot type. 
+
+![Grouped Barplot](https://docs.google.com/presentation/d/1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo/export/png?id=1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo&pageid=g62494e73ab_0_237)
 
 #### Stacked Barplot
 
-AVOCADO
+Another common variation on barplots are stacked barplots. Stacked barplots take the information from a grouped barplot but stacks them on top of one another. This is most helpful when the bars add up to 100%, such as in a survey response where you're measuring percent of respondants within each cateogry. Otherwise, it can be hard to compare between the groups within each bar. 
+
+![Stacked Barplot](https://docs.google.com/presentation/d/1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo/export/png?id=1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo&pageid=g62494e73ab_0_242)
 
 ### Boxplot
 
-The final basic plot we'll talk about here is the boxplot. Boxplots also summarize **numerical values across a category**; however, instead of just comparing the heights of the bar, they give us an idea of the range of values that each category can take. For example, if we wanted to compare the heights of men to the heights of women, we could do that with a boxplot.
+Boxplots also summarize **numerical values across a category**; however, instead of just comparing the heights of the bar, they give us an idea of the range of values that each category can take. For example, if we wanted to compare the heights of men to the heights of women, we could do that with a boxplot.
 
-
-![Boxplot](https://docs.google.com/presentation/d/1MiYOmyqu6Et6mBVTS91gip8h-tids8Wo0JDlMfXULqE/export/png?id=1MiYOmyqu6Et6mBVTS91gip8h-tids8Wo0JDlMfXULqE&pageid=g313d6498b0_0_134)
+![Boxplot](https://docs.google.com/presentation/d/1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo/export/png?id=1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo&pageid=g62494e73ab_0_248)
 
 To interpret a boxplot, there are a few places where we'll want to focus our attention. For each category, the horizontal line through the middle of the box corresponds to the median value for that group. So, here, we can say that the median, or most typical height for females is about 165 cm. For males, this value is higher, just under 180 cm. Outside of the colored boxes, there are dashed lines. The ends of these lines correspond to the typical range of values. Here, we can see that females tend to have heights between 150 and 180cm. Lastly, when individuals have values outside the typical range, a boxplot will show these individuals as circles. These circles are referred to as outliers.
+
+### Line Plots
+
+The final type of basic plot we'll discuss here are line plots. Line plots are most effective at showing a **quantitative trend over time**.
+
+![Line Plot](https://docs.google.com/presentation/d/1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo/export/png?id=1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo&pageid=g62494e73ab_0_394)
+
 
 #### Resources to look at these and other types of plots:
 
@@ -294,30 +302,35 @@ df2 <- melt(df, id=c("Quarter","yrq","Year", "Q"))
 df2$value <- as.numeric(df2$value)
 
 ## plot data as in blog post
-p <- ggplot(data = df2, aes(x=yrq,y=value, group=variable, color=variable)) +
+p <- ggplot(data = df2, aes(x = yrq, 
+                            y = value, 
+                            group = variable, 
+                            color = variable)) +
   geom_line(size = 1.5) +
   scale_x_yearqtr(limits = c(2004, 2015),
-                  format = "%Y", breaks=c(2004:2015), expand = c(0.1, 0.01)) + 
-  scale_colour_manual(values = c("red3","grey","grey")) + 
-  scale_y_continuous(breaks = c(0,10,20,30,40,50,60,70,80)) + 
+                  format = "%Y", breaks = c(2004:2015), 
+                  expand = c(0.1, 0.01)) + 
+  scale_colour_manual(values = c("red3", "grey", "grey")) + 
+  scale_y_continuous(breaks = c(0, 10, 20, 30, 40, 50, 60, 70, 80)) + 
   theme_bw() +
-  theme(  panel.grid.major.x = element_blank(),
-          panel.grid.minor.x = element_blank(),
-          axis.title.x = element_blank(),
-          axis.title.y = element_blank(),
-          axis.text = element_text(size=15),
-          plot.margin = unit(c(1,1,1,1), "lines"),
-          legend.position ="none",
-          plot.title = element_text(size = 22),
-          plot.subtitle = element_text(size = 15),
-          panel.border = element_blank()
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        axis.text = element_text(size = 15),
+        plot.margin = unit(c(1,1,1,1), "lines"),
+        legend.position ="none",
+        plot.title = element_text(size = 22),
+        plot.subtitle = element_text(size = 15),
+        panel.border = element_blank()
   ) +
   geom_dl(aes(label = variable), 
           method = list(c("last.points"),
                         aes(colour = "black"), 
                         cex = 1.3)
   ) +
-  ggtitle("iPhone more successful than all other Apple products", subtitle="Worldwide sales of selected Apple products in million, by fiscal quarter, 2000 to 2014") +
+  ggtitle("iPhone more successful than all other Apple products", 
+          subtitle="Worldwide sales of selected Apple products in million, by fiscal quarter, 2000 to 2014") +
   annotate("rect", xmin = 2010, xmax = 2011, ymin = 0, ymax = Inf, fill = "grey", alpha = 0.2) +
   annotate("text", x = 2010.5, y = 40, label = "After Apple announced \n the iPhone 4 in 2010, \n more iPhones were sold \n than iPods for the first time.", hjust = 1, size=6)
 
@@ -333,7 +346,7 @@ While the plots are not identical, they are very similar and tell the same story
 
 R was initially developed for statisticians, who often are interested in generating plots or figures to visualize their data. As such, a few basic plotting features were built in when R was first developed. These are all still available; however, over time, a new approach to graphing in R was developed. This new approach implemented what is known as the [grammar of graphics](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448), which allows you to develop elegant graphs flexibly in R. Making plots with this set of rules requires the R package `ggplot2`. This package is a core package in the tidyverse, so as along as the tidyverse has been loaded in, you're ready to get started.
 
-```{r}
+```{r message = FALSE}
 # load the tidyverse
 library(tidyverse)
 ```
@@ -398,10 +411,10 @@ In the scatterplot we just generated, we saw that there was a relationship betwe
 
 Well, we could look at the clarity of the diamonds to see whether or not that affects the price of the diamonds? To add clarity to our plot, we could change the color of our points to differ based on clarity:
 
-```{r eval = FALSE}
+```{r}
 # adjusting color within aes
 ggplot(data = diamonds) + 
-  geom_point(mapping = aes(x = carat, y = price, color = clarity)
+  geom_point(mapping = aes(x = carat, y = price, color = clarity))
 ```
 
 ![changing point colors helps us better understand the data](https://docs.google.com/presentation/d/1WRfoVxRU_dRcbMGtsha5zSokBRoAFIirm32Wq6bZuEc/export/png?id=1WRfoVxRU_dRcbMGtsha5zSokBRoAFIirm32Wq6bZuEc&pageid=g3c02bd843a_0_0)
@@ -563,10 +576,11 @@ Now, if you wanted to change the color of this boxplot, it would just take a sma
 ```{r}
 # fill globally changes bar color outside aes
 ggplot(data = diamonds) + 
-  geom_boxplot(mapping = aes(x = color, y = price), fill = "red")
+  geom_boxplot(mapping = aes(x = color, y = price), 
+               fill = "red")
 ```
 
-![diamonds boxplot with red fill](images/02_ggplot2/02_dataviz_ggplot2-15.png)
+![diamonds boxplot with red fill](https://docs.google.com/presentation/d/1WRfoVxRU_dRcbMGtsha5zSokBRoAFIirm32Wq6bZuEc/export/png?id=1WRfoVxRU_dRcbMGtsha5zSokBRoAFIirm32Wq6bZuEc&pageid=g4d96e4be59_0_0)
 
 Here, by speciying the color "red" in the `fill` argument, you're able to change the plot's appearance. In the next lesson, we'll go deeper into the many ways in which a plot can be customized within `ggplot2`!
 
@@ -580,13 +594,15 @@ Or, you can select a geom from this list and click enter. After selecting a geom
 
 ![geom_abline help page](https://docs.google.com/presentation/d/1WRfoVxRU_dRcbMGtsha5zSokBRoAFIirm32Wq6bZuEc/export/png?id=1WRfoVxRU_dRcbMGtsha5zSokBRoAFIirm32Wq6bZuEc&pageid=g360e22de56_0_154)
 
-## `ggplot2`: EDA 
+### EDA Plots
 
-AVOCADO
+As mentioned previously, an important step after you've read your data into R and wrangled it into a tidy format is to carry out **Exploratory Data Analysis (EDA)**. EDA is the process of understanding the data in your dataset fully. To undersatnd your dataset fully, you need a full understanding of the variables stored in your dataset, what information you have and what information you don't have (missingness!). To gain this understanding, we've discussed using packages like `skimr` to get a quick idea of what information is stored in your dataset. However, generating plots is another critical step in this process. We encourage you to use `ggplot2` to understand the distribution of each single variable as well as the relationship between each variable in your dataset.
+
+In this process, using `ggplot2` defaults is totally fine. These plots do not have to be the most effective visualizations for communication, so you don't want to spend a ton  of time making them visually perfect. Only spend as much time on these as you need to understand your data!
 
 ## `ggplot2`: Customization
 
-So far, we have walked through the steps of generating a number of different graphs (using different `geoms`) in `ggplot2`. We discussed the basics of mapping variables to your graph to customize its appearance or aesthetic (using size, shape, and color within `aes()`. In this lesson, we'll build on what we've previously learned to really get down to how to customize your plots so that they're as clear as possible for communicating your results to others. 
+So far, we have walked through the steps of generating a number of different graphs (using different `geoms`) in `ggplot2`. We discussed the basics of mapping variables to your graph to customize its appearance or aesthetic (using size, shape, and color within `aes()`. Here, we'll build on what we've previously learned to really get down to how to customize your plots so that they're as clear as possible for communicating your results to others. 
 
 The skills learned in this lesson will help take you from generating exploratory plots that help *you* better understand your data to explanatory plots -- plots that help you communicate your results *to others*. We'll cover how to customize the colors, labels, legends, and text used on your graph.
 
@@ -772,7 +788,7 @@ ggplot(diamonds) +
   ylab("proportion") +
   theme_classic() +
   # control theme
-  theme(title = element_text(size = 18), 
+  theme(title = element_text(size = 16), 
         axis.text = element_text(size =14),
         axis.title = element_text(size = 16),
         legend.text = element_text(size = 14))
@@ -792,7 +808,7 @@ ggplot(diamonds) +
        subtitle = "The majority of IF diamonds are an \"Ideal\" cut") +
   ylab("proportion") +
   theme_classic() +
-  theme(title = element_text(size = 18), 
+  theme(title = element_text(size = 16), 
         axis.text = element_text(size = 14),
         axis.title = element_text(size = 16, face = "bold"),
         legend.text = element_text(size = 14),
@@ -817,7 +833,7 @@ ggplot(diamonds) +
        subtitle = "The majority of IF diamonds are an \"Ideal\" cut") +
   ylab("proportion") +
   theme_classic() +
-  theme(title = element_text(size = 18), 
+  theme(title = element_text(size = 16), 
         axis.text = element_text(size = 14),
         axis.title = element_text(size = 16, face = "bold"),
         legend.text = element_text(size = 14),
@@ -935,10 +951,6 @@ ggplot(diamonds) +
 
 Note: we could have accomplished this by adding an additional `geom`: `geom_text`. However, this requires creating a new data frame, as explained [here](http://r4ds.had.co.nz/graphics-for-communication.html#annotations). This can also be used to **label the points on your plot**. Keep this reference in mind in case you have to do that in the future.
 
-## `ggplot2`: Explanatory Figures
-
-AVOCADO
-
 ## Tables
 
 While we have focused on figures here so far, tables can be incredibly informative at a glance too. If you are looking to display summary numbers, **a table can also visually display information**. 
@@ -1052,6 +1064,16 @@ kable(df, digits=0, "html", caption="Table 1: Diamonds Price by Quality of Cut. 
 
 ## Advanced Visualization
 
-AVOCADO - gganimate, ggrepel, cowplot
+### `ggrepel`
+
+AVOCADO
+
+### `cowplot`
+
+AVOCADO
+
+### `gganimate`
+
+AVOCADO
 
 

@@ -483,16 +483,20 @@ Alternatively, you can specify an **absolute path**. An absolute path starts at 
 
 Imagine that your friend plans to go from the town square, then to the library, and finally to the bakery. In this analogy, the town square represents the root directory, a universal starting location. If your friend is currently at the library and asks you for directions, you would likely tell them how to go from the library (where they are) to the bakery (where they want to go). This represents a **relative path** -- taking you from where you are currently to where you want to be. Alternatively, you could give them directions from the Town square, to the library, and then to the bakery. This represents an **absolute path**, directions that will always work in this town, no matter where you are currently, but that contain extra information given where your friend is currently.
 
-
 ![Directions and paths analogy](https://docs.google.com/presentation/d/18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ/export/png?id=18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ&pageid=g3aa9ae33ea_0_151)
 
 To summarize once more, **relative paths** give a path to the destination folder based on where you are right now (your current working directory) while **absolute paths** give a path to the destination folder based on the root directory of a file system. 
 
-### The `here` package  
+## RStudio Projects
+
+AVOCADO
+
+
+## The `here` package  
 
 With most things in R, there's a package to help minimize the pain of working with and setting file paths within an R Project - the [`here`](https://github.com/r-lib/here) package. 
 
-As a reminder, o get started using the `here` package (or any R package!), it first has to be installed (using the `install.packages()` function) and then loaded in (using the `library()` function). Note that the package name in the `install.packages()` function has to be in quotes but for `library()` it doesn't have to. The code to copy and paste into your R console is below:
+As a reminder, to get started using the `here` package (or any R package!), it first has to be installed (using the `install.packages()` function) and then loaded in (using the `library()` function). Note that the package name in the `install.packages()` function has to be in quotes but for `library()` it doesn't have to. The code to copy and paste into your R console is below:
 
 ```{r eval = FALSE}
 install.packages("here")
@@ -501,6 +505,7 @@ library(here)
 
 
 `here` is a package specifically designed to help you deal with file organization when you're coding. This package allows you to define in which folder all your relative paths should begin within a project.
+
 
 #### Setting your project directory
 
@@ -587,18 +592,12 @@ By using dates, you can sort your files based on chronological order. Dates are 
 
 If dates are not relevant for your file naming, put something numeric first. For instance if you're dealing with multiple reports, you can add a reportxxx to the beginning of the file name so you can easily sort files by the report number.
 
-
 ![Using numbers for ordering files](https://docs.google.com/presentation/d/1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4/export/png?id=1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4&pageid=g397b53245b_0_40)
 
 In addition to making sure your files can be nicely ordered, always left-pad numbers with zeros. That is first set a max number of digits for your numbers determined by how many files you will potentially have. So if you may not have more than 1000 files you can choose three digits. If not more than a hundred you can choose two digits and so on. Once you know the number of digits, left-pad numbers with zeros to satisfy the number of digits you determined in the first step. In other words, if you're using three digits, instead of writing 1 write 001 and instead of writing 17 write 017.
 
-
 ![Left padding numbers with zeros](https://docs.google.com/presentation/d/1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4/export/png?id=1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4&pageid=g397b53245b_0_45)
 
-
-## RStudio Projects
-
-AVOCADO
 
 ## Data Science Workflows
 
@@ -613,8 +612,6 @@ AVOCADO
         - analyze
         - visualize
         - communicate
-
-## Summary
 
 
        
