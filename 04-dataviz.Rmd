@@ -1017,7 +1017,7 @@ By-default, R outputs tables in the Console using a monospaced font. However, th
 The first step to a prettier table just involves using the `kable()` function from the `knitr` package, which improves the readability of this table. The `knitr` package is *not* a core tidyverse package, so you'll have to be sure it's installed and loaded.
 
 ```{r message = FALSE}
-#install.packages("knitr")
+# install.packages("knitr")
 library(knitr)
 
 kable(df)
@@ -1037,7 +1037,7 @@ To begin addressing these issues, we can use the `add_header_above` function fro
 If you copy this code into your R console, the formatted table will show up in the Viewer tab at the bottom right-hand side of your RStudio console and the HTML code used to generate that table will appear in your console. 
 
 ```{r message = FALSE}
-#install.packages("kableExtra")
+# install.packages("kableExtra")
 library(kableExtra)
 
 # use kable_styling to control table appearance
@@ -1062,18 +1062,456 @@ kable(df, digits=0, "html", caption="Table 1: Diamonds Price by Quality of Cut. 
 
 ![Viewer tab with annotated and formatted table](https://docs.google.com/presentation/d/1vjyG1vibsmtXrPA1hs2HS3MfjsPMjRDEmBEsVlgkIxg/export/png?id=1vjyG1vibsmtXrPA1hs2HS3MfjsPMjRDEmBEsVlgkIxg&pageid=g35798d27dd_0_17)
 
-## Advanced Visualization
+## `ggplot2`: Extensions
+
+Beyond the *many* capabilities of `ggplot2`, there are a few additional packages that build *on top of* `ggplot2`'s capabilitiles. We'll introduce a few packages here so that you can:
+
+* directly annotate points on plots (`ggrepel`)
+* arrange plots in a grid and customize theme (`cowplot`)
+* generate animated plots (`gganimate`)
+
+These are referred to as `ggplot2` extensions There are dozens of additional [`ggplot2` extensions](http://www.ggplot2-exts.org/gallery/) available if you'd like to explore other plotting options beyond what is covered here!
 
 ### `ggrepel`
 
-AVOCADO
+[`ggrepel`](https://github.com/slowkow/ggrepel) "provides geoms for` ggplot2` to repel overlapping text labels." 
+
+To demonstrate the functionality within the `ggrepel` package and demonstrate cases where it would be needed, let's use a dataset available from R - the `mtcars` dataset: 
+
+> The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models).
+
+This dataset includes information about 32 different cars. Let's first convert this froma data.frame to a tibble.
+
+```{r}
+# see first 6 rows of mtcars
+mtcars <- mtcars %>%
+  rownames_to_column(var = "model") %>%
+  as_tibble()
+```
+
+What if we were to plot a scatterplot between horsepower (`hp`) and weight (`wt`) of each car and wanted to label each point in that plot with the care model. 
+
+If we were to do that with `ggplot2`, we'd see the following:
+
+```{r}
+# label points without ggrepel
+ggplot(mtcars, aes(wt, hp, label = model)) +
+  geom_text() +
+  geom_point(color = 'dodgerblue') +
+  theme_classic()
+```
+
+The overall trend is clear here - the more a car weights, the more horsepower it tends to have. However, many of the labels are overlapping and impossible to read - this is where `ggrepel` plays a role:
+
+```{r}
+# install and load package
+# install.packages("ggrepel")
+library(ggrepel)
+
+# label points with ggrepel
+ggplot(mtcars, aes(wt, hp, label = model)) +
+  geom_text_repel() +
+  geom_point(color = 'dodgerblue') +
+  theme_classic()
+```
+
+The only bit of code here that changed was that we changed `geom_text()` to `geom_text_repel()`. This, like `geom_text()` adds text directly to the plot. However, it also helpfullly repels overlapping labels away from one another and away from the data points on the plot.
+
+#### Custom Formatting
+
+Within `geom_text_repel()`, there are a number of additional formatting options available. We'll cover a number of the most important here, but the [`ggrepel` vignettes](https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html) explore these further
+
+
+**Highlighting Specific Points**
+
+Often, you do not want to highlight *all* the points on a plot, but want to draw your viewer's attention to a few *specific* points. To do this and say highlight only cars that are the make Mercedes, you could use the following approach:
+
+```{r}
+# Label with model  in new column "merc"
+# for columns with "Merc" in model column
+mtcars <- mtcars %>% 
+  mutate(merc = ifelse(grepl("Merc", mtcars$model), model, ""))
+
+# Let's just label these items.
+ggplot(mtcars, aes(wt, hp, label = merc)) +
+  geom_point(color = ifelse(mtcars$merc == "", "grey50", "dodgerblue")) +
+  geom_text_repel()
+```
+
+Here, notice that we first create a new column in our dataframe called `merc`. Here, we include the model of the car, only if "Merc" is in the model of the car's name.
+
+We then, specify that only these Mercedes cars should be labeled *and* that we only want them colored blue if they are Mercedes. This allows us to focus in on those few points we're interested in. And, we can see that among the cars in this dataset, Mercedes tend to be of averabe weight but have varying horsepower, depending on the model of the car.
+
+**Text Alignment**
+
+Other times, you want to ensure that your abels are aligned on the top or bottom edge, relative to one another. This can be controlled using the `hjust` and `vjust` arguments. The values for particular alignment are:
+
+`hjust = 0`   |  to left-align
+`hjust = 0.5` |  to center
+`hjust = 1`   |  to right-align
+
+Additionally, you can adjust the starting position of text vertically with `nudge_y` (or horizontally with `nudge_x`). To use this, you'll specify the distance from the point to the label you want to use.
+
+You can also allow the labels to move horizontally with `direction = "x"` (or vertically with `direction = "y"`. This will put the labels at a right angle from the point. The default here is "both", which allows labels to move in both directions.
+
+For example, what if we wanted to plot the relationship between quarter mile time (`qsec`) and miles per gallon (`mpg`) to identify cars that get the best gas mileage.
+
+To do this, we're specifying within `geom_text_repel()` the following arguments:
+
+`data` | only label those cars with gas mileage > 30 mpg
+`nudge_y` | position all labels so that they're vertically aligned
+`hjust` | center-align the labels
+`direction` | allow labels to move horizontally
+
+For further customization, we're also changing the segment color from the default black to a light gray ("gray60").
+
+
+```{r}
+# customize within geom_text_repel
+ggplot(mtcars, aes(qsec, mpg, label = model)) +
+  geom_text_repel(
+    data = subset(mtcars, mpg > 30),
+    nudge_y = max(mtcars$mpg) + 2 - subset(mtcars, mpg > 30)$mpg,
+    direction = "x",
+    hjust = 0.5,
+    segment.color = "gray60",
+  ) +
+  geom_point(color = ifelse(mtcars$mpg > 30, "dodgerblue", "black")) +
+  scale_x_continuous(expand = c(0.05, 0.05)) +
+  scale_y_continuous(limits = c(NA, 36))
+```
+  
+Notice that we've also had to provide the plot with more room by customizing the x- and y- axes, using the final two lines of code you see above.
+
+With this plot, it is clear that there are four cars with mpg > 30. And, among these, we now know that the Toyota Corolla has the fastest quarter mile time, all thanks to direct labeling of the points!
 
 ### `cowplot`
 
-AVOCADO
+Beyond customization within `ggplot2` and labeling points, there are times you'll want to arrange multiple plots together in a single grid, applying a standard theme across all plots. This often occurs when you're ready to present or publish your visualizations. When you're ready to share and present your work with others, you want to be sure your visualizations are conveying the point you want to convey to your viewer in as simple a plot as possible. And, if you're presenting multiple plots, you typically want to ensure that they have a consistent theme from one plot to the next. This allows the viewer to focus on the data you're plotting, rather than changes in theme. `cowplot` is a package that assists in this process!
+
+#### Theme
+
+The standard theme within `cowplot`, which works for many types of plots is `theme_cowplot()`. This theme is very similar to `theme_classic()`, which removes the background color, removes gridlines, and plots only the x- and y- axis lines (rather than a box around all the data). We'll use this theme for the examples from this package. However, note that there are a number of additional themes available from the `cowplot` package.
+
+```{r}
+# install and load package
+# install.packages("cowplot")
+library(cowplot)
+```
+
+We'll continue to use the `mtcars` dataset for these examples. Here, using the `forcats` package (which is part of the core tidyverse), we'll add two ne new columns: `transmission`, where we recode the `am` column to be "automatic" if `am == 0` and "manual" if `am == 1`, and `engine`, where we recode the `vs` column to be "v-shaped" if `vs == 0` and "straight" if `vs == 1`
+
+```{r}
+mtcars <- mtcars %>%
+  mutate(transmission = fct_recode(as.factor(am), "automatic" = "0", "manual" = "1"),
+         engine = fct_recode(as.factor(vs), "v-shaped" = "0", "straight" = "1"))
+```
+
+We'll use these data to generate a scatterplot plotting the relationship between 1/4 mile speed (`qsec`) and gase mileage (`mpg`). We'll color the points by this new column `transmission` and apply `theme_cowplot`. Finally, we'll assign this to `p1`, as we'll ultimately generate a few different plots.
+
+```{r}
+p1 <- ggplot(mtcars, aes(qsec, mpg, color = transmission)) + 
+  geom_point() +
+  theme_cowplot(12) + 
+  theme(legend.position = c(0.7, 0.2))
+p1
+```
+
+Let's make a similar plot, but color by engine type. We'll want to manually change the colors here so that we aren't using the same colors for transmission and engine. We'll store this in `p2`.
+
+```{r}
+p2 <- ggplot(mtcars, aes(qsec, mpg, color = engine)) + 
+  geom_point() +
+  scale_color_manual(values = c("red", "blue")) +
+  theme_cowplot(12) +
+  theme(legend.position = c(0.7, 0.2))
+p2
+```
+
+Great - we've now got two plots with the same theme and similar appearance. What if we wanted to combine these into a single grid for presentation purposes?
+
+#### Multiple Plots
+
+Aligning plots is made simple within the `cowplot` package using the `align_plots()` function:
+
+```{r}
+# plot side by side
+plot_grid(p1, p2, ncol = 2)
+```
+
+Here, we specify the two plots we'd like to plot on a single grid and we also optionally include how many columsn we'd like using the `ncol` parameter. 
+
+To plot these one on top of the other, you could specify for `plot_grid()` to use a single column. Also note here that we're aligning the plots vertically with `align = "v"`. The default here is "none", so if you want the graphs in the grid to be aligned, be sure to specify "h" (horizontally), "v" (vertically) or "hv" (align in both directions) explicitly.
+
+```{r}
+# plot on top of one another
+plot_grid(p1, p2, ncol = 1, align = "v")
+```
+
+Note that by default, the plots will share the space equally, but it's also possible to make one larger than the other within the grid using `rel_widths` and `rel_heights`.
+
+For example, if you had a faceted plot summarizing the number of cars by transmission and engine (which we'll call `p3`):
+
+```{r}
+# generate faceted plot
+p3 <- ggplot(mtcars, aes(engine)) + 
+  geom_bar() + 
+  facet_wrap(~transmission) +
+  scale_y_continuous(expand = expand_scale(mult = c(0, 0.1))) +
+  theme_minimal_hgrid(12) +
+  panel_border(color = "black") +
+  theme(strip.background = element_rect(fill = "gray80"))
+p3
+```
+
+Note that for this plot we've chosen a different theme, allowing for horizontal grid lines. This can be helpful when visualizing bar plots.
+
+If we were to plot these next to one another using the defaults, the faceted plot would be squished:
+
+```{r}
+# plot next to one another
+plot_grid(p1, p3)
+```
+
+We can use `rel_widths` to specify the relative width for the plot on the left relative to the plot on the right: 
+
+```{r}
+# control relative spacing within grid
+plot_grid(p1, p3, rel_widths = c(1, 1.3))
+```
+
+**Adding Labels**
+
+Within these grids, you'll often want to label these plots so that you can refer to them in your report or presentation. This can be done using the `labels` parameter within `plot_grid()`:
+
+```{r}
+# add A and B labels to plots
+plot_grid(p1, p3, labels = "AUTO", rel_widths = c(1, 1.3))
+```
+
+**Adding Joint Titles**
+
+Finally, when generating grids with multiple plots, at times you'll often want a single title to explain what's going on across the plots. Here, the process *looks* slightly confusing, but this is only because we're putting all of these `cowplot` pieces together.
+
+Generally, there are three steps:
+
+1. Create `three_plots` grid with plots
+2. Create `title` object
+3. Piece `title` and `three_plots` together
+
+```{r}
+# use plot_grid to generate plot with 3 plots together
+first_col <- plot_grid(p1, p2, nrow = 2, labels = c('A', 'B'))
+three_plots <- plot_grid(first_col, p3, ncol = 2, labels = c('', 'C'), rel_widths = c(1, 1.3))
+
+# specify title
+title <- ggdraw() + 
+  # specify title and alignment
+  draw_label("Transmission and Engine Type Affect Mileage and 1/4 mile time",
+              fontface = 'bold', x = 0, hjust = 0) +
+  # add margin on the left of the drawing canvas,
+  # so title is aligned with left edge of first plot
+  theme(plot.margin = margin(0, 0, 0, 7))
+
+# plot title and plot togetner
+plot_grid(title, three_plots, ncol = 1, rel_heights = c(0.1, 1))
+```
+
+And, just like that we've got three plots, labeled, spaced out nicely in a grid, with a shared title, all thanks to the functionality within the `cowplot` package.
 
 ### `gganimate`
 
-AVOCADO
+The final `ggplot2` extension we'll discuss here is [`gganmiate`](https://gganimate.com/). This extends the grammar of graphics implemented in the `ggplot2` package to work with animated plots. To get started, you'll need to install and load the package:
+
+```{r}
+# install.packages("gganmiate")
+library(gganimate)
+```
+
+The `gganimate` package adds functionality by providing a number of these grammar classes. Across the animation being generated, the following classes are made available, with each classes' corresponding functionality:
+
+`transition_*()`  | specifies how data should transition 
+`enter_*()`/`exit_*()`  |  specifies how data should appear and disappear
+`ease_aes()`  |  specifies how different aesthetics should be eased during transitions
+`view_*()`  |  specifies how positional scales should change
+`shadow_*()` |  specifies how points from a previous frame should be displayed in current frame
+
+We'll walk through these grammar classes using the `mtcars dataset`.
+
+#### Example: `mtcars`
+
+As noted, `gganimate` builds on top of the functionality within `ggplot2`, so the code should look pretty familiar by now. 
+
+First, using the `mtcars` dataset we generate a static boxplot looking at the relationship between the nymber of cylinders a car has (`cyl`) and its gas milage (`mpg`).
+
+```{r}
+# generate static boxplot
+ggplot(mtcars) + 
+  geom_boxplot(aes(factor(cyl), mpg))
+```
+
+But what if we wanted to understand the relationship between those two variables and the number of gears a car has (`gear`)?
+
+One option would be to use faceting:
+
+```{r}
+# facet by gear
+ggplot(mtcars) + 
+  geom_boxplot(aes(factor(cyl), mpg)) +
+  facet_wrap(~gear)
+```
+
+Alternatively, we could animate the plot, using `gganimate` so that on a single plot we rotate between each of these three plots. 
+
+##### Transitions
+
+We'll transition in this example betwen frames by gear:
+
+```{r message = FALSE}
+# animate it!
+ggplot(mtcars) + 
+  geom_boxplot(aes(factor(cyl), mpg)) + 
+  transition_manual(gear)
+```
+
+Note that here, `transition_manual()` is a new grammar class that we add right on top of our `ggplot2` plot code! Within this grammar class, we specify the variable upon which we'd like the transition in the animation to occur.
+
+This means that the number of frames in the animation will be the number of levels in the variable by which you're transitioning. Here, there will be 3 frames, as there are three different levels of `gear` in the `mtcars` dataset.
+
+`transition_manual()` is not the only option for transition. In fact, there are a number of different `transition_*` options, depending upon your animation needs. One of the most commonly used is `transition_states()`. The animation will plot the same information as the example above; however, it allows for finer tune control of the animation
+
+```{r message = FALSE}
+# animate it!
+anim <- ggplot(mtcars) + 
+  geom_boxplot(aes(factor(cyl), mpg)) + 
+  transition_states(gear,
+                    transition_length = 2,
+                    state_length = 1)
+
+anim
+```
+
+Note here that we've stored the output from `transition_states` in the object `anim`. We'll build on this object below.
+
+##### Labeling
+
+Currently, it's hard to know which frame corresponds to which `gear`. To make this easier on the viewer, let's label our animation:
+
+```{r message = FALSE}
+# animate it!
+anim <- anim +  
+  labs(title = 'Now showing gear: {closest_state}')
+
+anim
+```
+
+Note that we're referring to the approapriate gear within the animation frame by specifying `{closest_state}`.
+
+##### Easing
+
+Easing determines how the change from one value to another should occur. The default is linear, but there are other options that will control the appearance of progression in your animation. for example, 'cubic-in-out' allows for the start and end of the animation to have a smoother look.
+
+```{r message = FALSE}
+anim <- anim + 
+  # Slow start and end for a smoother look
+  ease_aes('cubic-in-out')
+
+anim
+```
+
+There are a number of easing functions, all of which are listed within the documentation, which can be viewed, as always, using the `?` help function: `?ease_aes`.
+
+##### Enter & Exit
+
+Building on top of easing, we can also control how the data appears (enters) and disappears (exits), using `enter_*` and `exit_*`:
+
+```{r message = FALSE}
+anim <- anim + 
+  # fade to enter
+  enter_fade() +
+  # shrink on exit
+  exit_shrink()
+
+anim
+```
+
+The changes are subtle but you'll notice that on transition the data fades in to appear and shrinks upon exit.
+
+##### Position Scales
+
+To  demonstrate how changing positional scales can be adjusted, let's take a look at a scatterplot. Here, we're plotting the relationship between 1/4 mile speed and miles per gallon and we'll be transitioning between gear.
+
+The static plot would be as follows
+```{r}
+ggplot(mtcars) + 
+  geom_point(aes(qsec, mpg))
+```
+
+However, upon adding animation, we see how the data changes by gear.
+
+```{r message = FALSE}
+# animate it!
+scat <- ggplot(mtcars) + 
+  geom_point(aes(qsec, mpg)) + 
+  transition_states(gear,
+                    transition_length = 2,
+                    state_length = 1) +
+    labs(title = 'Now showing gear: {closest_state}')
+
+scat
+```
+
+However, the x- and y-axes remain constant throughout the animation.
+
+If you wanted to allow these positional scales to adjust between each gear level, you could use `view_step`:
+
+```{r message = FALSE}
+# allow positional scaling for each level in gear
+scat +
+  view_step(pause_length = 2, 
+            step_length = 1, 
+            nsteps = 3, 
+            include = FALSE)
+```
+
+
+#### Example: gapminder
+
+One of the most famous examples of an animated plot uses the gapminder dataset. This dataset includes economic data for countries all over the world. The animated plot here demonstrates the relationship between GDP (per capita) and life expectancy over time, by continent. Note that the year whose data is being displayed is shown at the top left portion of the plot.
+
+```{r message = FALSE}
+# install.packages("gapminder")
+library(gapminder)
+
+gap <- ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
+  geom_point(alpha = 0.7, show.legend = FALSE) +
+  scale_colour_manual(values = country_colors) +
+  scale_size(range = c(2, 12)) +
+  scale_x_log10() +
+  facet_wrap(~continent, ncol = 5) +
+  theme_half_open(12) +
+  panel_border() + 
+  # animate it!
+  labs(title = 'Year: {frame_time}', x = 'GDP per capita', y = 'life expectancy') +
+  transition_time(year)
+
+gap
+```
+
+Note that in this example, we're now using `transition_time()` rather than `transition_states()`. This is a variant of `transition_states()` that is particularly useful when the states represent points in time, such as the years we're animating through in the plot above. The transition lenth is set to correspond to the time difference between the points in the data.
+
+##### Shadow
+
+However, what if we didn't want the data to completely disappear from one frame to the next and instead wanted to see the pattern emerge over time? We didn't demonstrate this using the `mtcars` dataset because each observation in that dataset is a different car. However, here, with the gapminder dataset, where we're looking at a trend over time, it makes more sense to include a trail
+
+To do this, we would use `shadow_*`. Here, we'll use `shadow_trail()` to see a trail of the data from one frame to the next:
+
+```{r message = FALSE}
+gap +
+ shadow_trail(distance = 0.05,
+              alpha = 0.3)
+```
+
+Here, distance specifies the temporal distance between the frames to show and alpha specifies the transparency of the trail, so that the current frame's data is always discernable.
 
 
