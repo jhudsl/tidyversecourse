@@ -1292,7 +1292,7 @@ Because of this, exploratory analyses, while useful for discovering new connecti
 * "Debug" analyses
 * Communicate results
 
-## General principles of exploratory analysis
+### General principles of EDA
 
 We can summarize the general principles of exploratory analysis as follows:
 
@@ -1301,7 +1301,6 @@ We can summarize the general principles of exploratory analysis as follows:
 * Use plots to explore relationships
 * Use tables to explore relationships
 * If necessary, transform variables
-
 
 These principles may be more clear in an example. We will use a dataset from [Kaggle.com](www.kaggle.com) that contains 120 years of Olympics history on athletes and results. If you don't have an account on Kaggle, create one and go to the link https://www.kaggle.com/heesoo37/120-years-of-olympic-history-athletes-and-results and under "Data Sources" download the `athlete_events.csv` to your computer. 
 
