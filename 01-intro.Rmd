@@ -377,10 +377,13 @@ According to the [*ggplot2* website](https://ggplot2.tidyverse.org/):
 
 This package will be covered in a great amount of detail in this specialization, largely due to the fact that you'll find yourself using it all the time. Having a strong foundation of how to use *ggplot2* is incredibly important for any data science project.
 
+#### kableExtra
+
+While the ability to make beautiful and informative plots is essential, tables can be incredibly effective vehicles for the conveyance of information. Customizing plots can be done using the *kableExtra* package, which is built on top of the `knitr()` function from the `kable` package, which generates basic tables. [*kableExtra*](https://github.com/haozhu233/kableExtra) allows complex and detailed tables to be built using a *ggplot2*-inspired syntax.
+
 #### ggrepel
 
 Due to the popularity of *ggplot2*, there are a number of tidyverse-adjacent packages built on top of and within the *ggplot2* framework. [ggrepel](https://github.com/slowkow/ggrepel) is one of them that "provides geoms for ggplot2 to repel overlapping text labels."
-
 
 #### cowplot
 
@@ -389,10 +392,6 @@ Cowplot is another tidyverse-adjacent package that helps when you want to polish
 According to the [*cowplot*](https://github.com/wilkelab/cowplot) developers:
 
 > The cowplot package provides various features that help with creating publication-quality figures, such as a set of themes, functions to align plots and arrange them into complex compound figures, and functions that make it easy to annotate plots and or mix plots with images.
-
-#### kableExtra
-
-While the ability to make beautiful and informative plots is essential, tables can be incredibly effective vehicles for the conveyance of information. Customizing plots can be done using the *kableExtra* package, which is built on top of the `knitr()` function from the `kable` package, which generates basic tables. [*kableExtra*](https://github.com/haozhu233/kableExtra) allows complex and detailed tables to be built using a *ggplot2*-inspired syntax.
 
 #### gganimate
 
