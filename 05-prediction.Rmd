@@ -1,4 +1,4 @@
-# Modeling with Tidy Data
+# Modeling with Tidy Data {#model}
 
 ## Tidy Data Modeling 
 tidymodels - AVOCADO

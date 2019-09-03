@@ -1,4 +1,4 @@
-# Tidying Your Data
+# Tidying Your Data {#tidy-data}
 
 In the last course we spent a ton of time talking about all the most common ways data are stored and reviewed how to get them into a tibble (or data.frame) in R.
 * Data wrangling (dplyr, tidyr, forcats, glue, janitor?, skimr?) [**`glue` missing**]
