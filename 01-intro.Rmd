@@ -503,7 +503,7 @@ library(here)
 ```
 
 
-`here` is a package specifically designed to help you deal with file organization when you're coding. This package allows you to define in which folder all your relative paths should begin within a project. The path of this folder will be displayed after library(here). 
+`here` is a package specifically designed to help you deal with file organization when you're coding. This package allows you to define in which folder all your relative paths should begin within a project. The path of this folder will be displayed after typing library(here). 
 
 
 #### Setting your project directory
