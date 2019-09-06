@@ -1,13 +1,12 @@
 # Tidying Your Data {#tidy-data}
 
 In the last course we spent a ton of time talking about all the most common ways data are stored and reviewed how to get them into a tibble (or data.frame) in R.
-* Data wrangling (dplyr, tidyr, forcats, glue, janitor?, skimr?) [**`glue` missing**]
 
-So far we've discussed what tidy and untidy data are. We've (hopefully) convinced you that tidy data are the right type of data to work with. What we may not have made perfectly clear yet is that data are *not* always the tidiest when they come to you at the start of a project. An incredibly important skill of a data scientist is to be able to take data from an untidy format and get it into a tidy format. This process is often refferred to as **data wrangling**. Generally, data wranglings skills are those that allow you to wrangle data from the format they're currently in into the tidy format you actually want them in.
+So far we've discussed what tidy and untidy data are. We've (hopefully) convinced you that tidy data are the right type of data to work with. What we may not have made perfectly clear yet is that data are *not* always the tidiest when they come to you at the start of a project. An incredibly important skill of a data scientist is to be able to take data from an untidy format and get it into a tidy format. This process is often referred to as **data wrangling**. Generally, data wranglings skills are those that allow you to wrangle data from the format they're currently in into the tidy format you actually want them in.
 
 Beyond data wrangling, it's also important to make sure the data you have are accurate and what you need to answer your question of interest. After wrangling the data into a tidy format, there is often further work that has to be done to **clean** the data. 
 
-In this course we'll work with data in R to discuss the ncessary data wrangling skills you'll need and demonstrate how to use the tidyverse to carry out data wrangling.
+In this course we'll work with data in R to discuss the necessary data wrangling skills you'll need and demonstrate how to use the tidyverse to carry out data wrangling.
 
 ![data wrangling example](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_1)
 
@@ -57,7 +56,7 @@ For these examples, we'll work with the `airquality` dataset available in R. The
 
 We'll load in the tidyverse, so that we can convert this data.frame to a tibble *and* see the first few lines of this dataset using the following code:
 
-```{r}
+```{r message = FALSE}
 library(tidyverse)
 
 airquality <- as_tibble(airquality)
@@ -68,7 +67,7 @@ Again, wide data are easy to decipher at a glance. We can see that we have six d
 
 #### `tidyr`
 
-The `tidyr` package is part of hte tidyverse, so its functionality is available to you since you've loaded in the tidyverse. The two main functions we mentioned above will help you reshape your data in the following ways: 
+The `tidyr` package is part of the tidyverse, so its functionality is available to you since you've loaded in the tidyverse. The two main functions we mentioned above will help you reshape your data in the following ways: 
 
 * `gather()`: go from wide data to long data
 * `spread()`: go from long data to wide data
@@ -105,7 +104,7 @@ gathered
 
 ![gather column names changed](https://docs.google.com/presentation/d/14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI/export/png?id=14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI&pageid=g38bb68a532_0_213)
 
-However, you're likely not interested in your day and month variable being separated out into their own variables within the `key` column. In fact, knowing the day and month associated with a particular data point helps identify that particular data point. To account for this, you can exclude `day` and `month` from the variables being included in the `key` column by specifying all the variables that you *do* want included in the `key` column.  Here, that means specifying `ozone`, `solar.r`, `wind`, and `temp`. This will keep `day` and `month` in their own columns, allowing each row to be identified by the specific day and month being discussed.
+However, you're likely not interested in your day and month variable being separated out into their own variables within the `key` column. In fact, knowing the day and month associated with a particular data point helps identify that particular data point. To account for this, you can exclude `day` and `month` from the variables being included in the `key` column by specifying all the variables that you *do* want included in the `key` column.  Here, that means specifying `Ozone`, `Solar.R`, `Wind`, and `Temp`. This will keep `Day` and `Month` in their own columns, allowing each row to be identified by the specific day and month being discussed.
 
 ```{r}
 ## in gather(), after key and value, you can specify which variables 
@@ -142,9 +141,13 @@ While reshaping data may not *read* like the most exciting topic, having this sk
 
 ## Data Wrangling
 
-Once you've read your data into R and have it in teh appropriately wide- or long-format, it's time to wrangle the data, so that it is in the appropriate format and includes the information you need. 
+Once you've read your data into R and have it in the appropriately wide- or long-format, it's time to wrangle the data, so that it is in the appropriate format and includes the information you need. 
 
-### `dplyr`
+### R Packages
+
+While there are *tons* of R packages out there to help you work with data, we're going to cover the packages and functions within those packages that you'll absolutely want and need to work with when working with data. 
+
+#### `dplyr`
 
 There is a package specifically designed for helping you wrangle your data. This package is called [`dplyr`](https://dplyr.tidyverse.org/) and will allow you to easily accomplish many of the data wrangling tasks necessary. Like `tidyr`, this package is a core package within the tidyverse, and thus it was loaded in for you when you ran `library(tidyverse)` earlier. We will cover a number of functions that will help you wrangle data using `dplyr`:
 
@@ -159,19 +162,20 @@ There is a package specifically designed for helping you wrangle your data. This
 * `summarize()` - summarize information within a dataset
 * `left_join()` - combining data across data frame
 
-### `tidyr`
+#### `tidyr`
 
 We will also return to the `tidyr` package. The same package that we used to reshape our data will be helpful when wrangling data. The main functions we'll cover from `tidyr` are:
 
 * `unite()` - combine contents of two or more columns into a single column
 * `separate()` - separate contents of a column into two or more columns
 
-### `janitor`
+#### `janitor`
 
 The third package we'll include here is the `janitor` package. While not a core tidyverse package, this tidyverse-adjacent package provides tools for cleaning messy data. The main functions we'll cover from janitor are:
 
 * `clean_names()` - clean names of a data frame
 * `tabyl()` - get a helpful summary of a variable
+* `get_dupes()` - identify duplicate observations
 
 If you have not already, you'll want to be sure this package is installed and loaded:
 
@@ -181,11 +185,12 @@ library(janitor)
 ```
 
 
-### `skimr`
+#### `skimr`
 
 The final package we'll discuss here is the `skimr` package. This package provides a quick way to summarize a data.frame or tibble within the tidy data framework. We'll discuss its most useful function here:
 
 * `skim()` - summarize a data frame
+* `summary()` - quick overview stats about a data set
 
 If you have not already, you'll want to be sure this package is installed and loaded:
 
@@ -204,7 +209,7 @@ A --> B
 
 Here you are saying, "Take A and *then* feed it into function B."
 
-In R syntax, from what you've seen so far, what is depicted by the arrow above would be carried out by calling the function B on the data frame object A:
+In base R syntax, what is depicted by the arrow above would be carried out by calling the function B on the data frame object A:
 
 ```
 B(A)
@@ -232,7 +237,18 @@ Alternatively, you could use the pipe operator. Each time you want take the outp
 A %>% B %>% C %>% D
 ```
 
-Below we'll use this pipe operator a lot. Essentially, it takes output from the left hand side and feeds it into a function on the right hand side. You'll get a better understanding of how it works as you run the code below. But, when in doubt remember that the pipe operator should be read as *then*.
+And, even more readable is when each of these steps is separated out onto its own individual line of code:
+
+```
+A %>% 
+  B %>% 
+    C %>%
+      D
+```
+
+While both of the previous two code examples would provide the same output, the one below is more readable, which is a large part of why pipes are used. It makes your code more understandable to you and others.
+
+Below we'll use this pipe operator a lot. Remember, it takes output from the left hand side and feeds it into the function that comes after the pipe. You'll get a better understanding of how it works as you run the code below. But, when in doubt remember that the pipe operator should be read as *then*.
 
 ### Filtering Data
 
@@ -240,7 +256,7 @@ When working with a large dataset, you're often interested in only working with 
 
 For the examples below, we'll be using a dataset from the `ggplot2` package called `msleep`. (You'll learn more about this package in a later course on data visualization. For now, it's a core tidyverse package so it's loaded in along with the other tidyverse packages using `library(tidyverse)`.) This dataset includes sleep times and weights from a number of different mammals. It has 83 rows, with each row including information about a different type of animal, and 11 variables. As each row is a different animal and each column includes information about that animal, this is a **wide** dataset.
 
-To get an idea of what variables are included in this data frame, you can use `glimpse()`. This function summarizes how many rows there are (`Observations`) and how many columns there are (`Variables`). Additionally, it gives you a glimpse into the type of data contained in each column. Specifically, in this data set, we know that the first column is `name` and that it contains a character vector (`chr`) and that the first three entires are "Cheetah", "Owl monkey", and "Mountain beaver." It works similarly to the `summary()` function covered in an earlier course.
+To get an idea of what variables are included in this data frame, you can use `glimpse()`. This function summarizes how many rows there are (`Observations`) and how many columns there are (`Variables`). Additionally, it gives you a glimpse into the type of data contained in each column. Specifically, in this data set, we know that the first column is `name` and that it contains a character vector (`chr`) and that the first three entries are "Cheetah", "Owl monkey", and "Mountain beaver." It works similarly to the `summary()` function covered in an earlier course.
 
 ```{r eval = FALSE}
 ## take a look at the data
@@ -590,22 +606,58 @@ summary(msleep$awake)
 
 ![summarize numeric variables](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_320)
 
+#### `get_dupes()`
+
+Another common issue in data wrangling is the presence of duplicate entries. Sometimes you *expect* multiple observations from the same individual in your dataset. Other times, the information has accidentally been added more than once. The `get_dupes()` function becomes very helpful in this situation. If you want to identify duplicate entries during data wrangling, you'll use this function and specify which columns you're looking for duplicates in.
+
+For example, in the `msleep` dataset, if you expected to only have one mammal representing each `genus` and `vore` you could double check this hung using `get_dupes()`
+
+
+```{r}
+# identify observations that match in both genus and vore
+msleep %>% 
+  get_dupes(genus, vore)
+```
+
+The output demonstrates there are 10 mammals that overlap in their genus and vore. Note that the third column of the output counts *how many* duplicate observations there are. This can be very helpful when you're checking your data!
+
+
+
 #### `skim()`
 
 When you would rather get a snapshot of the entire dataset, rather than just one variable, the `skim()` function from the `skimr` package can be very helpful. The output from `skim()` breaks the data up by variable type. For example, the `msleep` data set is broken up into `character` and `numeric` variable types. The data are then summarized in a meaningful way for each. This function provides a lot of information about the entire data set. So, when you want a summarize a dataset and quickly get a sense of your data, `skim()` is a great option!
 
 ```{r}
+# summarize dataset
 skim(msleep)
 ```
 
 ![summarize entire dataset using skim() from skimr](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_313)
 
-AVOCADO - cover more than just tabyl from janitor and skim from skimr (or cut these?)
+Note that this function allows for you to specify which columns you'd like to summarize, if you're not interested in seeing a summary of the entire dataset:
 
-### `glue`
+```{r}
+# see summary for specified columns
+skim(msleep, genus, vore, sleep_total)
+```
 
-AVOCADO
+It is also possible to group data (using `dplyr`'s `group_by()` before summarizing. Notice in the summary output that each variable specified (`genus` and `sleep_total`) are now broken down within each of the `vore` categories.
 
+```{r}
+msleep %>% 
+  group_by(vore) %>% 
+  skim(genus, sleep_total)
+```
+
+
+#### `summary()`
+
+While base R has a summary function, the `skimr` package also has a helpful `summary()` function that provides you with a quick summary of the dataset at large.
+
+```{r}
+skim(msleep) %>% 
+  summary()
+```
 
 ## Working With Factors
 
@@ -801,7 +853,7 @@ To get objects into dates and date-times that can be more easily worked with in 
 
 #### From strings
 
-Date information is often provided as a string. The functions within the `lubridate` package can effectively handle this information. To use them to generate date objects, you can call a function using `y`, `m`, and `d` in the order in which the year (`y`), month (`m`), and date (`d`) appear in your data. The code below produces identical output for the date September 29th, 1988, despite the three distinct input formats. This uniform output makes working with dates much easer in R.
+Date information is often provided as a string. The functions within the `lubridate` package can effectively handle this information. To use them to generate date objects, you can call a function using `y`, `m`, and `d` in the order in which the year (`y`), month (`m`), and date (`d`) appear in your data. The code below produces identical output for the date September 29th, 1988, despite the three distinct input formats. This uniform output makes working with dates much easier in R.
 
 ```{r}
 # year-month-date
@@ -887,7 +939,7 @@ wday(mydate, label = TRUE)
 
 ### Time spans
 
-In addition to being able to look at trends by month or year, which requires being able to extract that component from a date or date-time object, it's also important to be able to operate over dates.  If I give you a date of birth and ask you how old that person is today, you'll want to be able to calculate that. This is possible when working with date objects. By subtracting this birthdate from today's date, you'll learn now many days old this person is. By specifying this object using `as.duration()`, you'll be able to extract how old this person is in years.
+In addition to being able to look at trends by month or year, which requires being able to extract that component from a date or date-time object, it's also important to be able to operate over dates.  If I give you a date of birth and ask you how old that person is today, you'll want to be able to calculate that. This is possible when working with date objects. By subtracting this birth date from today's date, you'll learn now many days old this person is. By specifying this object using `as.duration()`, you'll be able to extract how old this person is in years.
 
 ```{r}
 ## how old is someone born on Sept 29, 1988
@@ -926,7 +978,7 @@ objectA <- c( "This sentence is a string.", "Short String", "Third string" )
 
 ### `stringr`
 
-[stringr](http://stringr.tidyverse.org/) is a core tidyverse package specifically designed to help make your life easier when working with strings. Similar to what we saw with `forcats` fucntions starting with `fct_`, all functions within this package start with `str_`, as you'll see below. There are *many* helpful functions within the `stringr` package. We'll only review the basics here, but if you're looking to accomplish something with a string and aren't sure how to approach it, the `stringr` package is a good first place to look. 
+[stringr](http://stringr.tidyverse.org/) is a core tidyverse package specifically designed to help make your life easier when working with strings. Similar to what we saw with `forcats` functions starting with `fct_`, all functions within this package start with `str_`, as you'll see below. There are *many* helpful functions within the `stringr` package. We'll only review the basics here, but if you're looking to accomplish something with a string and aren't sure how to approach it, the `stringr` package is a good first place to look. 
 
 The best way to work through this lesson is to copy and paste every line of code into your RStudio window and see if the output makes sense to you. Working with strings and regular expressions is best learned by practice. 
 
@@ -1270,11 +1322,276 @@ str_view_all(addresses, "n{3,4}")
 
 ![{n,m} looks to pattern match between n and m times](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_65)
 
-AVOCADO - needs more on regexes
+### `glue`
+
+Beyond using `stringr` to work with strings, there's an additional helpful package called [`glue`](https://glue.tidyverse.org/). According to the `glue` website:
+
+> Glue offers interpreted string literals that are small, fast, and dependency-free. Glue does this by embedding R expressions in curly braces which are then evaluated and inserted into the argument string.
+
+To get started with this package, it will have to be installed and loaded in, as it is not a core tidyverse package.
+
+```{r message = FALSE}
+# install.packages("glue")
+library(glue)
+```
+
+So, if you want to pass an R variable directly into a string, that becomes simpler with `glue`. 
+
+For example:
+
+```{r}
+# use glue to interpret string literal
+topic <- 'tidyverse'
+glue('My favorite thing to learn about is the {topic}!')
+```
+
+Note that the code above interprets the variable `topic` within the string specified in the `glue()` function. The variable is specified within curly braces: `{}`.
+
+This becomes particularly helpful when combining information within a data frame. 
+
+For example, if we return to the `msleep` dataset with information about mammalian sleep, we could use `mutate()` to add a column summarizing the name of the animal, how many minutes the animal spends asleep and how many awake. Note that these columns are currently in hours, so we're going to convert that to minutes within the glue statement here:
+
+```{r}
+# add a description column using glue
+msleep %>%
+  mutate(description = glue("The {name} typically sleeps for {sleep_total * 60} minutes and is awake for {awake * 60} minutes each day.")) %>% 
+  select(name, sleep_total, awake, description)
+```
+
+Note that we've selected the four columns used in this example with `select()` to focus on the output created using `glue()` in the `description` column. For each observation the information in description utilizes the appropriate information for that observation and the columns specified within the curly braces within the `glue()` function.
 
 ## Working With Text
 
-AVOCADO - tidytext example (Shannon has this elsewhere outside of CBDS, but has to add it)
+Beyond working with single strings and string literals, sometimes the information you're analyzing is a whole body of text. This could be a speech, a novel, an article, or any other written document. In text analysis, the document(s) you've set out to analyze are referred to as a **corpus**. Linguists frequently analyze such types of data and doing so within R in a tidy data format has become simpler thanks to the [`tidytext`](https://juliasilge.github.io/tidytext/) package and the package-accompanying book [*Text Mining with R*](https://www.tidytextmining.com/).
+
+To get started, the package must be installed and loaded in:
+
+```{r message = FALSE}
+# install.packages("tidytext")
+library(tidytext)
+```
+
+### Tidy Text Format
+
+If we're thinking about all the text in a novel, it's pretty clear that it is not in a format that is easy to analyze computationally. To analyze the text in the novel computationally and say, determine what words are used most frequently, or what topics are discussed, we need to convert the text in the novel into a format that a computer can interpret. And, as with all types of data discussed in these courses, we want this to be a tidy format where (1) each observation is a row (2) each variable is a column, and (3) each observational unit is a table. So, how do we take text from a novel and store the information in a tidy format?
+
+The tidy text format requires that the data frame will store one **token** per row. This requires knowing that a **token** is a meaningful unit of text. How you define that unit is up to you, the analyst and is driven by the question you're asking. If you're looking to identify the words used most frequently in this analysis, the unit of your token would be individual words. You would then utilize your computer to generate a data frame with each row containing data about a single word. However, your token could be two words (a **bigram**, a sentence, or a paragraph. Whatever you decide is meaningful for your analysis will be the unit for your token. Each row will contain a separate token.
+
+#### Tokenization
+
+After determining what level of information you're most interested in, you need a way to go from a wall of text (say, all the text in a novel) to a data frame of tokens (say, individual words). To do this, the `unnest_tokens()` function is incredibly useful.
+
+We'll use a bear bones example to demonstrate how it works. Below is text from the Shel Silverstein poem "Carrots" stored as a character vector:
+
+```{r}
+carrots <- c("They say that carrots are good for your eyes",
+          "They swear that they improve your sight",
+          "But I'm seein' worse than I did last night -",
+          "You think maybe I ain't usin' em right?")
+
+carrots
+```
+
+For analysis, we'd need to get this into a tidy data format. So, first things first, let's get it into a data frame:
+
+```{r}
+text_df <- tibble(line = 1:4, text = carrots)
+
+text_df
+```
+
+At this point we have a tibble with each line of the poem in a separate row. Now, we want to convert this using `unnest_tokens()` so that each row contains a single token, where, for this example, our token will be an individual word. This process is known as *tokenization*.
+
+```{r}
+text_df %>% 
+  unnest_tokens(word, text)
+```
+
+Notice that the two arguments to the `unnest_tokens()` function. The first (`word` in our example) is the name of the token column in the output. The second (`text` in our example) is the name of the column in the input data frame (`text_df`) that should be used for tokenization.
+
+In the output we see that there is a single word (token) in each row, so our data are now in a tidy format, which makes further analysis simpler.
+
+Finally, note that, by default `unnest_tokens()` strips punctuation and converts the tokens to lowercase. 
+
+### Sentiment Analysis
+
+Often, once you've tokenized your dataset, there is an analysis you want to do - a question you want to answer. Sometimes, this involves wanting to measure the sentiment of a piece by looking at the emotional content of the words in that piece. 
+
+To do this, the analyst must have access to or create a *lexicon*, a dictionary with the sentiment of common words. There are three single word-based lexicons available within the `tidytext` package: [`afinn`](http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=6010), [`bing`](https://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html), [`loughran`](https://sraf.nd.edu/) and [`nrc`](http://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm). Each differs in how they categorize sentiment, and to get a sense of how words are categorized in any of these lexicon, you can use the `get_sentiments()` function.
+
+However, this requires an additional package: `textdata`. Be sure this has been installed before using the `get_sentiments()` function.
+
+```{r}
+# be sure textdata is installed
+# install.packages("textdata")
+
+# see information stored in NRC lexicon
+get_sentiments('nrc')
+```
+
+Note: The first time you use this function R will prompt you to verify that you want to download the lexicon.
+
+In the output you'll see words in the first column and the sentiment attached to each word in the `sentiment` column. Notice that the same word can have multiple sentiments attached to it. All told, there are more than 13,000 word-sentiment pairs in this lexicon.
+
+Let's quantify the sentiment in the "Carrots" poem from above:
+
+```{r}
+text_df %>% 
+  unnest_tokens(word, text) %>% 
+  inner_join(get_sentiments('nrc'))
+```
+
+Notice that the sentiments applied to each word are dependent upon the sentiments defined within the lexicon. Words that are missing or that are used differently than anticipated by those who generated the lexicon *could* be misclassified. Additionally, since we're using single word tokens, qualifiers are removed from context. So in the carrots poem, the word good in "are good for your eyes" would be given the same sentiment as good if the phrase were "are *not* good for your eyes." Thus, a lot context and nuance is lost in this approach. It's always important to consider the limitations of your analytical approach! 
+
+Above we found the sentiments for each token, but let's summarize that by counting the number of times each sentiment appears.
+
+```{r}
+text_df %>% 
+  unnest_tokens(word, text) %>% 
+  inner_join(get_sentiments('nrc')) %>%
+  count(sentiment, sort = TRUE)
+```
+
+As we're analyzing a short poem, we see that only a few sentiments show up multiple times; however, using sentiment analysis on this poem suggests that the poem is generally positive, including words that convey trust, anticipation, and joy.
+
+Analyzing a four line poem, however, is not typically what one would do. They would instead analyze the text across chapters in a book or across multiple books. Here, we've just demonstrated the concepts behind how you would go about carrying out sentiment analysis.
+
+### Word & Document Frequency
+
+Beyond sentiment analysis, analysts of text are often interested in quantifying what a document is *about.* One could start by quantifying term frequency and looking at which terms occur most often; however, common words, such as the and and, are likely to appear most often. Those aren't unique to the work and hardly explain the text's topic. Often, these words, referred to as **stop words** are removed from analysis; however, these words are more important to some works relative to others. So, analysts tend to take a different approach: ***inverse document frequency*** (idf).  
+
+A document's ***inverse document frequency*** (idf) weights each term by its frequency in a collection of documents. Those words that are quite common in a set of documents are down-weighted. The weights for words that are less common are increased. By combining idf with term frequency (tf) (through multiplication), words that are common *and* unique to that document (relative to the collection of documents) stand out. 
+
+To see an example of this, we'll need a few more poems from Shel Silverstein for analysis. Here is *Invitation*:
+
+```{r}
+invitation <- c("If you are a dreamer, come in,",
+  "If you are a dreamer, a wisher, a liar", 
+  "A hope-er, a pray-er, a magic bean buyer…",
+  "If you’re a pretender, come sit by my fire",
+  "For we have some flax-golden tales to spin.",
+  "Come in!",
+  "Come in!")
+
+invitation <- tibble(line = 1:7, text = invitation, title = "Invitation")
+
+invitation
+```
+
+And, here is masks:
+
+```{r}
+masks <- c("She had blue skin.", 
+           "And so did he.", 
+           "He kept it hid", 
+           "And so did she.", 
+           "They searched for blue", 
+           "Their whole life through",
+           "Then passed right by—", 
+           "And never knew")
+
+masks <- tibble(line = 1:8, text = masks, title = "Masks")
+
+masks
+```
+
+We'll combine all three poems into a single data frame for TF-IDF analysis. To do so, we'll first add a column to our carrots example from above so that it has a column for `title`:
+
+```{r}
+# add title to carrots poem
+carrots <- text_df %>% mutate(title = "Carrots")
+
+# combine all three poems into a tidy data frame
+poems <- bind_rows(carrots, invitation, masks)
+```
+
+Now that we have our three documents (poems) in a single data frame, we can tokenize the text by word and calculate each tokens frequency within the document (poem).
+```{r}
+# count number of times word appwars within each text
+poem_words <- poems %>%
+  unnest_tokens(word, text) %>%
+  count(title, word, sort = TRUE)
+
+# count total number of words in each poem
+total_words <- poem_words %>% 
+  group_by(title) %>% 
+  summarize(total = sum(n))
+
+# combine data frames
+poem_words <- left_join(poem_words, total_words)
+poem_words
+```
+
+Note that there are a different number of total words in each document, which is important to consider when you're comparing relative frequency between documents.
+
+We could visualize the number of times a word appears relative to document length as follows:
+
+```{r}
+# visualize frequency / total words in poem
+ggplot(poem_words, aes(n/total, fill = title)) +
+  geom_histogram(show.legend = FALSE, bins = 5) +
+  facet_wrap(~title, ncol = 3, scales = "free_y")
+```
+
+With most documents there are only a few words that show up infrequently in the tail off to the right (rare words), while most words show up a whole bunch of times. 
+
+What we've just visualized is term frequency. We can add this quantity to our data frame:
+
+```{r}
+freq_by_rank <- poem_words %>% 
+  group_by(title) %>% 
+  mutate(rank = row_number(), 
+         `term frequency` = n/total)
+```
+
+Notice that words that appear most frequently will have the largest term frequency. However, we're not just interested in word frequency, as stop words (such as "a") have the highest term frequency. Rather, we're interested in tf-idf - those words in a document that are unique relative to the other documents being analyzed.
+
+To calculate tf-idf, we can use `bind_tf_idf()`, specifying three arguments: the column including the token (`word`), the column specifying the document from which the token originated (`title`), and the column including the number of times the word appears (`n`):
+
+```{r}
+poem_words <- poem_words %>%
+  bind_tf_idf(word, title, n)
+
+# sort ascending
+poem_words %>%
+  arrange(tf_idf)
+```
+
+If we sort this output in ascending order by `tf_idf`, you'll notice that the word "for" has a `tf_idf` of 0. The data indicates that this word shows up with equal frequency across all three poems. It is *not* a word unique to any one poem.
+
+```{r}
+# sort descending
+poem_words %>%
+  arrange(desc(tf_idf))
+```
+
+Alternatively, here we see the words most unique to the individual poems. "a" and "come" are most unique to *Invitation*, while "and" and "blue" are most unique to *Masks*. If we had removed stop words, we would have lost the fact that some common words are really unique in one of these poems relative to the others.
+
+Again, we're looking at a limited amount of text here, but this analysis can be applied to novels, works by different authors, or articles written in a newspaper.
+
+We can summarize these tf-idf results by visualizing the words with the highest tf-idf in each of these poems:
+
+```{r}
+poem_words %>%
+  arrange(desc(tf_idf)) %>%
+  mutate(word = factor(word, levels = rev(unique(word)))) %>% 
+  group_by(title) %>% 
+  top_n(3) %>% 
+  ungroup() %>%
+  ggplot(aes(word, tf_idf, fill = title)) +
+  geom_col(show.legend = FALSE) +
+  labs(x = NULL, y = "tf-idf") +
+  facet_wrap(~title, ncol = 3, scales = "free") +
+  coord_flip()
+```
+
+
+### Relationship Between Words
+
+AVOCADO
+
+
+
 
 ## Functional Programming
 
@@ -1376,7 +1693,6 @@ Above we discussed how to analyze pure text (meaning, text written by humans in 
 AVOCADO - this section stinks
 
 To see an example of not only using `xml2` to parse XML data, but also another example of using `rvest` to obtain the XML data, check out this post from [José Roberto Ayala Solares](https://towardsdatascience.com/@jroberayalas) where he took the text from a New York Times article called ["Trump's Lies"](https://www.nytimes.com/interactive/2017/06/23/opinion/trumps-lies.html), scraped the data from the web (obtaining it in XML), and then [wrangled it into a tidy format](https://towardsdatascience.com/web-scraping-tutorial-in-r-5e71fd107f32) using `xml2`.
-
 
 ![`rvest` and `xml2` are helpful for web scraping and working with XML data](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g3d555e2b2e_0_148)
   

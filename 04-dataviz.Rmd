@@ -1193,7 +1193,7 @@ Beyond customization within `ggplot2` and labeling points, there are times you'l
 
 The standard theme within `cowplot`, which works for many types of plots is `theme_cowplot()`. This theme is very similar to `theme_classic()`, which removes the background color, removes gridlines, and plots only the x- and y- axis lines (rather than a box around all the data). We'll use this theme for the examples from this package. However, note that there are a number of additional themes available from the `cowplot` package.
 
-```{r}
+```{r message = FALSE}
 # install and load package
 # install.packages("cowplot")
 library(cowplot)
