@@ -1586,16 +1586,233 @@ poem_words %>%
 ```
 
 
-### Relationship Between Words
-
-AVOCADO
-
-
-
-
 ## Functional Programming
 
-AVOCADO - purrr
+**Functional programming** is an approach to programming in which the code evaluated is treated as a mathematical function. It is *declarative*, so expressions (or declarations) are used instead of statements. Functional programming is often touted and used due to the fact that cleaner, shorter code can be written. In this shorter code, functional programming allows for code that is elegant but also understandable. Ultimately, the goal is to have simpler code that minimizes time required for debugging, testing, and maintaining.
+
+R at its core is a functional programming language. If you're familiar with the `map()` family of functions in base R, you've carried out some functional programming! Here, we'll discuss functional programming and utilize the `purrr` package, designed to enhance functional programming in R. 
+
+By utilizing functional programming, you'll be able to minimize redundancy within your code. The way this happens in reality is by determining what small building blocks your code needs. These will each be a function. These small building block functions are then combined into more complex structures to be your final program.
+
+### For Loops vs. Functionals
+
+In base R, you likely found yourself writing for loops for iteration. For example, if you wanted to carry out an operation on every row of a data frame, you've likely written a for loop to do so that loops through each row of the data frame and carries out what you want to do. However, you also may have heard people bemoan this approach, arguing that it's slow and unnecessary. This is because R is a functional programming language. You can wrap for loops into a function and call the function instead of using the for loop.
+
+Let's use an example to demonstrate what we mean by this. What if you had a data frame and wanted the median value for each column in the data frame? To see how you could approach this, we'll use the `trees` dataset available by default from R:
+
+```{r}
+# see dataset
+trees <- as_tibble(trees)
+trees
+```
+
+The dataset contains the diameter, height, and volume of 31 Black Cherry trees. 
+
+#### Copy + Paste Approach
+
+To calculate the median for each column, you could do the following:
+
+```{r}
+# calculate median of each column
+median(trees$Girth)
+
+median(trees$Height)
+
+median(trees$Volume)
+```
+
+This would get you your answer; however, this breaks the programming rule that you shouldn't copy and paste more than once. And, you could imagine that if you had more than three columns, this would be a *huge* pain and involve a whole lot of copy and pasting and editing.
+
+#### For Loop Approach
+
+A second approach would be to use a for loop. You would loop through all the columns in the data frame, calculate the median, record that value and store that information in a variable. 
+
+```{r}
+# create output vector
+output <- vector("double", ncol(trees)) 
+
+# loop through columns
+for (i in seq_along(trees)) {          
+  output[[i]] <- median(trees[[i]])      
+}
+output
+```
+
+This allows us to obtain the same information as the copy + paste method; however, it scales better if there are more than three columns in your data frame, making it a better option than the copy + paste method.
+
+But, what if you frequently want to take the median of the columns in your data frame? What if you want to do this more than once? You would have to go in, copy + paste this code and change the name of the data frame each time. This would break the don't copy + paste more than once rule.
+
+#### Function Approach
+
+This brings us to the function approach. Here, we wrap the for loop into a function so that we can execute a function on our data. frame whenever we want to accomplish the task of calculating the median for each column:
+
+```{r}
+# create function
+col_median <- function(df) {
+  output <- vector("double", length(df))
+  for (i in seq_along(df)) {
+    output[i] <- median(df[[i]])
+  }
+  output
+}
+
+# execute function
+col_median(trees)
+```
+
+Again, the output information from trees is the same for this specific example, but now we see that we could use the `col_median()` function any time we want to calculate the medians across columns within a data frame!
+
+This is a much better approach as it allows you to generalize your code, *but* the above solution still requires you to loop through each column, making the code harder to read and understand at a glance. It fails to take advantage of R's functional programming capabilities.
+
+#### `purrr` Approach
+
+To really optimize this solution, we'll turn to `purrr`. Using `purrr` requires you to determine how to carry out your operation of interest for a single occurrence (i.e. calculate the median for a single column in your data frame). Then `purrr` takes care of carrying out that operation across your data frame. Further, once you break your problem down into smaller building blocks, `purrr` also helps you combine those smaller pieces into a functional program.
+
+Let's use `purrr` (a core tidyverse package) to solve our calculate median for each column task. But, before we do that specifically, let's first introduce the general `map()` function.
+
+**`map`**
+
+We'll see usage of `map()` functions in just a second to accomplish our median for each column task, but before doing so, let's take a second to look at the generic usage for the family of `map` functions:
+
+```
+map(.x, .f, ...)
+map(INPUT, FUNCTION_TO_APPLY, OPTIONAL_OTHER_STUFF)
+```
+
+Note that the input to a `map` function requires you to first specify a vector input followed by the function you'd like to apply. Any other arguments to the function you want to pass follow at the end of the call.
+
+When it comes to our specific task, this is implemented as follows using `map_dbl()`:
+
+```{r}
+# use purrr to calculate median
+map_dbl(trees, median)
+```
+
+Here, we use the `map_dbl()` function from `purrr` to iterate over the columns of trees and calculate the median. And, it even displays the variable name in the output for us - all in a single function call.
+
+Note the flexibility! We've just passed the `median()` function *into* another function: `map_dbl`. This means that if we changed our minds and wanted mean instead, we could accomplish that with ease:
+
+```{r}
+# use purrr to calculate mean
+map_dbl(trees, mean)
+```
+
+This function exists because looping to do something to each element and saving the results is such a common task, that there is  family of functions (one of which is `map_dbl`) to do it for you to accomplish such tasks in `purrr`.
+
+We'll note here that `purrr`'s functions are all implemented in the C programming language, making them faster than the function we generated previously.
+
+In the example above `mean` could have been any function, denoted in the `purrr` documentation as `.f`. This specifies the function you'd like to apply to the vector you've specified.
+
+After `.f` in `purrr` functions, you can pass additional arguments. These go *after* the specified function. For example, below, we specify that we'd like to remove NAs, by specifying an argument to be passed to the `mean()` function after the function call (`mean`):
+
+```{r}
+# use purrr to calculate mean
+map_dbl(trees, mean, na.rm = TRUE)
+```
+
+### `map` functions
+
+The `map` family of functions from the `purrr` package are analogous to the `apply()` family of functions from base R. If you're familiar with `lapply()`, `vapply()`, `tapply`, and `sappy()`, the thinking will similar; however, `purrr` provides a much more consistent syntax and are much easier to learn and implement consistently.
+
+As you saw in the median example above, `map` functions carry out an operation repeatedly and store the output of that operation for you. There are a number of different `map` functions. To determine which to use, consider the output you want to obtain from your operation. Above, we wanted a double vector, so we used `map_dbl`. However, you can return a number of different outputs from the map functions. A few are listed here and we'll introduce even more shortly:
+
+* `map()` - returns a list
+* `map_lgl()` - returns a logical vector
+* `map_int()` - returns an integer vector
+* `map_dbl()` - returns a double vector
+* `map_chr()` - returns a character vector
+
+These all take vector and a function as an input. The function is applied to the vector and a new vector (of the same length & with the same names) is returned of the type specified in the map function call. 
+
+### Multiple Vectors
+
+So far, we've only looked at iterating over a single vector at a time; however in analysis, you'll often find that you need to iterate over more than one vector at a time. `purrr` has two functions that simplify this process for you: `map2` and `pmap`.
+
+#### `map2`
+
+**`map2()`** allows you to iterate over two vectors at the same time. The two vectors you want to iterate over are first specified within the `map2()` function call, followed by the function to execute. Any arguments after the function you'd like `map2()` to apply are specified at the end of the `map2()` call.
+
+The generic usage for `map2()` is:
+
+```
+map2(.x, .y, .f, ...)
+map(INPUT_ONE, INPUT_TWO, FUNCTION_TO_APPLY, OPTIONAL_OTHER_STUFF)
+```
+
+What if we wanted to calculate the volume of each tree? There is a column for volume, but let's see if we can't use a little geometry to calculate it on our own. 
+
+If we assume that each tree is a cylinder, the volume of a cylinder is $V = \pi r^2 h$, where $r$ is half the diameter. In the trees dataset, the diameter is stored in the `Girth` column, in *inches*. $h$ is the height of the cylinder, which is stored in the `Height` column, in *feet*. 
+
+Thus, we have two vectors we want to operate over, `Girth` and `Height`, so we'll use `map2()`.
+
+Let's first generate a function that will calculate volume for us from the information in our `trees` dataset:
+
+```{r}
+# generate volume function
+volume <- function(diameter, height){
+  # convert diameter in inches to raidus in feet
+  radius_ft <- (diameter/2)/12
+  # calculate volume
+  output <- pi * radius_ft^2 * height
+  return(output)
+}
+```
+
+Now, we can utilize `map2` then to calculate the volume from these two input vectors:
+
+```{r}
+# calculate volume
+map2_dbl(trees$Girth, trees$Height, volume)
+```
+
+Here the output is on the same order as the `Volume` column from the dataset, but the numbers are off, suggesting that the dataset calculated volume of the tree differently than we did in our approach.
+
+```{r}
+trees$Volume
+```
+
+Note that there are all the same variations that exist for `map_` exist for `map2()`, so you're able to use `map2_chr()` and `map2_dbl()`, etc. 
+
+Additionally, the `map` functions work well within our `dplyr` approach to working with data. Here, we add the output for our volume calculation to the trees dataset as well as a column (`volume_diff`) that displays the difference between our volume calculation and that reported in the dataset: 
+
+```{r}
+# calculate volume
+trees %>%
+  mutate(volume_cylinder = map2_dbl(trees$Girth, trees$Height, volume),
+         volume_diff = Volume - volume_cylinder)
+```
+
+#### `pmap`
+
+While `map()` allows for iteration over a single vector, and `map2()` allows for iteration over *two* vectors, there is no `map3()`, `map4()`, or `map5()` because that would get too unwieldy. Instead, there is a single and more general `pmap()` - which stands for parallel map - function. `pmap()` takes a list of arguments over which you'd like to iterate:
+
+The generic usage for this function is:
+
+```
+pmap(.l, .f, ...)
+pmap(LIST_OF_INPUT_LISTS, FUNCTION_TO_APPLY, OPTIONAL_OTHER_STUFF)
+```
+
+Note that `.l` is a list of all the input vectors, so you are no longer specifying `.x` or `.y` individually. The rest of the syntax remains the same.
+
+### Anonymous Functions
+
+In our `map2()` example we created a separate function to calculate volume; however, as this is a specific scenario for volume calculation, we likely won't need that function again later. In such scenarios, it can be helpful to utilize an **anonymous function**. This is a function that is not given a name but that is utilized within our `map` call. We are *not* able to refer back to this function later, but we *are* able to use it within our `map` call:
+
+```{r}
+map2_dbl(trees$Girth, trees$Height, function(x,y){ pi * ((x/2)/12)^2 * y})
+```
+
+In this example, we create the anonymous function within the `map2_dbl()` call. This allows volume to be calculated as before, but does so without having to define a function.
+
+This becomes particularly helpful within `purrr` if you want to refer to the individual elements of your `map` call directly. This is done by specifying `.x` and `.y` to refer to the first and second input vectors, respectively:
+
+```{r}
+map2_dbl(trees$Girth, trees$Height, ~ pi * ((.x/2)/12)^2 * .y)
+```
+
+Here, we see the same output; however, the syntax defines an anonymous function using the formula syntax.
+
 
 ## Exploratory Data Analysis 
 
