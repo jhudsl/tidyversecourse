@@ -613,7 +613,6 @@ In addition to making sure your files can be nicely ordered, always left-pad num
 
 ![Left padding numbers with zeros](https://docs.google.com/presentation/d/1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4/export/png?id=1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4&pageid=g397b53245b_0_45)
 
-
 ## Data Science Workflows
 
 AVOCADO
