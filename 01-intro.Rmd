@@ -658,9 +658,9 @@ In the United States, firearm laws differ by state. Additionally, [police](https
 A recent study set out ["to examine whether stricter firearm legislation is associated with rates of fatal police shootings"](https://ajph.aphapublications.org/doi/suppl/10.2105/AJPH.2017.303770). We'll use the state-level data from this study  
 Firearm Legislation and Fatal Police Shootings in the US in this case study.
 
-#### Questions 
+#### Question 
 
-The main question fro this case study is: At the state-level, what is the relationship between firearm legislation strength and annual rate of fatal police shootings?
+The main question from this case study is: At the state-level, what is the relationship between firearm legislation strength and annual rate of fatal police shootings?
 
 #### Data
 
