@@ -1914,3 +1914,550 @@ To see an example of not only using `xml2` to parse XML data, but also another e
 ![`rvest` and `xml2` are helpful for web scraping and working with XML data](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g3d555e2b2e_0_148)
   
 In this lesson, our goal is to make you aware that data from the Internet (and APIs in particular) will often come in either JSON or XML format. Thus, the JSON and XML examples provided here only give you a bit of an idea of what JSON and XML data are and how to work with them. Nevertheless, the more frequently you retrieve data from APIs and the Internet, the more comfortable you'll have to become with both JSON and XML. And, `jsonlite` and `xml2` will help you as you work with these data in R!
+
+## Case Studies
+
+So far, we've introduced the case studies and read them into R. Now, we get to work to get them into a tidy formatted dataset that includes the information needed to answer our questions of interest. 
+
+### Case Study #1: Health Expenditures
+
+We've already read in the datasets we'll use for this health expenditures case study, but they're not yet cleaned and wrangled. So, we'll do that here!
+
+As a reminder, we're ultimately interested in answering the following questions with these data:
+
+1. Is there a relationship between healthcare coverage and healthcare spending in the United States?
+2. How does the spending distribution change across geographic regions in the United States?
+3. Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?
+
+This means that we'll need all the data from the variables necessary to answer this question in our tidy datset.
+
+#### Healthcare Coverage Data
+
+Let's remind ourselves before we get to wrangling what data we have when it comes to healthcare coverage.
+
+```{r}
+coverage
+```
+
+At a glance, we see that state-level information is stored in rows (with the exception of th first row, which stores country-level information) with columns corresponding to the amount of money spent on each type of healtcare, by year. 
+
+If we focus in on the columns wtihin this dataframe, we see that we have a number of different typesof health care (i.e. employer, medicare, medicaid, etc.) for each year between 2013 and 2016:
+
+```{r}
+colnames(coverage)
+```
+
+While a lot of information in here will be helpful, it's not in a tidy format. This is because, each variable is not in a separate column. For example, each column includes year, the type of coverage *and* the amount spent by state. We'll want to use each piece of information separately downstream as we start to visualize and analyze these data. So, let's work to get these pieces of information separated out now.
+
+To accomplish this, the first thing we'll have to do is reshape the data, using hte `gather()` function from the `tidyr` package. As a reminder, this function gathers multiple columns and collapses them into new key-value pairs. This transform data from wide format into a long format, where:
+
+- The **`key`** is the name of the new column that you are creating which contains the values of the column headings that you are gathering
+- The **`value`** is the name of the new column that will contain the values themselves
+- The third argument defines the columns to gather
+
+Here, we create a column titled `year_type` and `tot_coverage`, storing this newly formatted dataframe back into the variable name `coverage`. We also want to keep the Location column as it is because it also contains observational level data.
+
+```{r}
+coverage <- gather(coverage, "year_type", "tot_coverage", -Location)
+
+coverage
+```
+
+Great! We still have `Location` stored in a single column, but we've separated out `year_type` and `tot_coverage` into their own columns, storing all of the information in a **long** data format.
+
+Unfortunately, the `year_type` column still contains two pieces of information. We'll want to separate these out to ensure that the data are in a properly tidy format. To do this, we'll look to use the `separate()` function, which allows us to separate out the information stored in a single column into two columns. We'llalso use the `convert=TRUE` argument to convert the character to an integer.
+
+```{r}
+coverage <- coverage %>% 
+  separate(year_type, sep="__", 
+           into=c("year", "type"), 
+           convert = TRUE)
+
+coverage
+```
+
+Perfect! We now have the four columns we wanted, each storing a separate piece of information, *and* the year column is an integer, as you would want it to be! 
+
+The other columns remain character type information. That makes sense for Location and type, but not for `tot_coverage`. Let's change that to be numeric as well using the `mutate_at()` function from `dplyr`. 
+
+Here, we are specifying that we want to take the `tot_coverage` column and convert it to an integer and then replace the old column with the newly-converted column.
+
+```{r warning = FALSE}
+coverage <- 
+  coverage %>% 
+  mutate_at("tot_coverage", as.integer)
+
+coverage
+```
+
+Great, our variables are now all of the appropriate type!
+
+Let's go one step further and add in the state-level abbreviations and region for each row. We'll utilize our `state` datasets that we read in previously to accomplish this!
+
+```{r}
+# Add the abbreviation of States
+coverage$abb <- state.abb[match(coverage$Location, state.name)]
+coverage$region <- state.region[match(coverage$Location, state.name)]
+
+coverage
+```
+
+Perfect! At this point, each row is an observation, each column stores a single piece of information. This dataset is now in good shape!
+
+#### Healthcare Spending Data
+
+We'll have to take a similar approach when it comes to tidying the spending data as it has a similar structure to how the coverage data were stored.
+
+```{r}
+spending
+```
+
+Here, we reshape the data using `year` and `tot_spending` for the key and value. We also want to keep `Location` like before. Then, in the `separate()` function, we create two new columns called `year` and `name.` Then, we ask to return all the columns, *except* name. To select all the columns except a specific column, use the `-` (subtraction) operator. (This process is also referred to as negative indexing.)
+
+```{r}
+# take spending data from wide to long
+spending <- gather(spending, "year", "tot_spending", -Location)
+
+# separate year and name columns
+spending <- spending %>% 
+  separate(year, sep="__", into=c("year", "name"), convert = TRUE) %>% 
+  select(-name)
+
+# look at the data
+spending
+```
+
+Perfect, we have a tidy dataset and the type of information stored in each column is appropriate for the information being stored in the column!
+
+#### Join the Data
+
+At this point, we have a `coverage` dataset and a `spending` dataset, but ultimately, we want all of this information in a single tidy data frame. To do this, we'll have to join the datasets together. 
+
+We have to decide what type of join we want to do. For our questions, we only want information from years that are found in both the `coverage` and the `spending` datasets. This means that we'll want to do an `inner_join()`. This will keep the data from the intersection of years from `coverage` and  `spending` (meaning only 2013 and 2014). We'll store this in a new variable: `hc`.
+
+
+```{r}
+# inner join to combine data frames
+hc <- inner_join(coverage, spending, 
+                 by = c("Location", "year"))
+
+hc
+```
+
+Great, we've combined the information in our datasets. But, we've got a bit of extraneous information remaining. For example, we want to look only at the state-level. So, let's filter out the country-level summary row:
+
+```{r}
+# filter to only include state level
+hc <- hc %>% 
+  filter(Location != "United States")
+```
+
+Another problem is that inside our `hc` dataset, there are multiple types of healthcare coverage.
+
+```{r}
+table(hc$type)
+```
+
+The "Total" type is not really a formal type of healthcare coverage. It really represents just the total number of people in the state. This is useful information and we can include it as a column called `tot_pop`. To accomplish this, we'll first store this information in a data frame called `pop`.
+
+```{r}
+pop <- hc %>% 
+  filter(type == "Total") %>% 
+  select(Location, year, tot_coverage)
+
+pop
+```
+
+We can then, using a `left_join` to ensure we keep all of the rows in the `hc` data frame in tact, add this population level information while simultaneously removing the rows where `type` is "Total" from teh dataset. Finally, we'll rename the columns to be informative of the information stored within: 
+
+```{r}
+# ad population level information
+hc <- hc %>% 
+  filter(type != "Total") %>% 
+  left_join(pop, by = c("Location", "year")) %>% 
+  rename(tot_coverage = tot_coverage.x, 
+         tot_pop = tot_coverage.y)
+
+hc
+```
+
+From here, instead of only storing the absolute number of people who are covered (`tot_coverage`), we will calculate the proportion of people who are coverage in each state, year and type, storing this information in `prop_coverage`.
+
+```{r}
+# add proportion covered
+hc <- hc %>% 
+    mutate(prop_coverage = tot_coverage/tot_pop) 
+
+hc
+```
+
+The `tot_spending` column is reported in millions (1e6). Therefore, to calculate `spending_capita` we will need to adjust for this scaling factor to report it on the original scale (just dollars) and then divide by `tot_pop.` We can again use `mutate()` to ccomplish this:
+
+```{r}
+# get spending capita in dollars
+hc <- hc %>% 
+  mutate(spending_capita = (tot_spending*1e6) / tot_pop)
+
+hc
+```
+
+Yes! At this point we have a single tidy data frame storing all the information we'll need to answer our questions!
+
+### Case Study #2: Firearms
+
+For our second case study, we're interested in the following question: At the state-level, what is the relationship between firearm legislation strength and annual rate of fatal police shootings? Time to wrangle *all* those many datasets we read in previously!
+
+#### Cenus Data
+
+Let's take a look at the raw data to remind ourselves of what information we have:
+
+```{r}
+census
+```
+
+These data look reasonably tidy to start; however, the information stored in each column is not particularly clear at a glance. For example, what is a RACE of 1? What does that mean?
+
+Well, if we look at the data dictionary in the document [sc-est2017-alldata6.pdf](https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/data/sc-est2017-alldata6.pdf), we learn that:
+
+The key for `SEX` is as follows:
+- 0 = Total
+- 1 = Male
+- 2 = Female
+
+The key for `ORIGIN` is as follows:
+- 0 = Total
+- 1 = Not Hispanic
+- 2 = Hispanic
+
+The key for `RACE` is as follows:
+- 1 = White Alone
+- 2 = Black or African American Alone
+- 3 = American Indian and Alaska Native Alone
+- 4 = Asian Alone
+- 5 = Native Hawaiian and Other Pacific Islander Alone
+- 6 = Two or more races
+
+With that information in mind, we can then use the `dplyr` package to `filter`, `group_by`, and `summarize` the data in order to calculate the necessary statistics we'll need to answer our question. 
+
+For each state, we add rows in the column `POPESTIMATE2015` since we are looking at the year `2015.` Setting the `ORIGIN` or `SEX` equal to 0 ensures we don’t add duplicate data, since 0 is the key for both Hispanic and non Hispanic residents and total male and female residents. We group by each state since all data in this study should be at the state level.
+
+We store each of these pieces of information in its own column within the new dataframe we've created `census_stats`
+
+```{r}
+# summarize by ethnicity
+census_stats <- census %>%
+  filter(ORIGIN == 0, SEX == 0) %>%
+  group_by(NAME) %>%
+  summarize(white = sum(POPESTIMATE2015[RACE == 1])/sum(POPESTIMATE2015)*100,
+            black = sum(POPESTIMATE2015[RACE == 2])/sum(POPESTIMATE2015)*100)
+
+# add hispanic information
+census_stats$hispanic <- census %>%
+  filter(SEX == 0) %>% 
+  group_by(NAME) %>%
+  summarize(x = sum(POPESTIMATE2015[ORIGIN == 2])/sum(POPESTIMATE2015[ORIGIN == 0])*100) %>%
+  pull(x)
+
+# add male information
+census_stats$male <- census %>%
+  filter(ORIGIN == 0) %>%
+  group_by(NAME) %>%
+  summarize(x = sum(POPESTIMATE2015[SEX == 1])/sum(POPESTIMATE2015[SEX == 0])*100) %>%
+  pull(x)
+
+# add total population information
+census_stats$total_pop <- census %>%
+  filter(ORIGIN == 0, SEX == 0 ) %>%
+  group_by(NAME) %>%
+  summarize(total = sum(POPESTIMATE2015)) %>%
+  pull(total)
+
+# lowercase state name for consistency
+census_stats$NAME <- tolower(census_stats$NAME)
+
+census_stats
+```
+
+We can approach the age data similarly, where se get the number of people within each state at each age:
+
+```{r}
+# get state-level age information
+age_stats <- census %>%
+  filter(ORIGIN == 0, SEX == 0) %>%
+  group_by(NAME, AGE) %>%
+  summarize(sum_ages = sum(POPESTIMATE2015))
+
+age_stats
+```
+
+This information is in a long format, but it likely makes more sense to store this information in a wide format, where each column is a different state and each row is an age. To do this:
+
+```{r}
+age_stats <- spread(age_stats, "NAME", "sum_ages")
+
+age_stats
+```
+
+Now that we’ve made the data easier to work with, we need to find a way to get the median. One method is to take the cumulative sum of each column and then divide all the rows by the last row in each repective column, calculating a percentile/quantile for each age. To do this, we first remove the AGE column, as we don't want to calculate the median for this column. We tehn apply the `cumsum()` function and an anonymous function using `purrr`'s `map_df` function. But, of course, we do still want the AGE information in there, so we add that column back in using `mutate()` and then reorder the columns so that AGE is at the front again using `select()`:
+
+```{r}
+# calculate median age for each state
+age_stats <- age_stats %>%
+  select(-AGE) %>%
+  map_df(cumsum) %>%
+  map_df(function(x) x/x[nrow(age_stats)]) %>%
+  mutate(AGE = age_stats$AGE) %>%
+  select(AGE, everything())
+```
+
+Great, we have a tidy dataset storing important census information for both ethnicity and age. Now onto the other datasets!
+
+#### Violent Crime
+
+For crime, we have the following data:
+
+```{r}
+crime
+```
+
+IF we take a look at what information is stored in each column...
+
+```{r}
+colnames(crime)
+```
+
+you see that it's kind of a mess and there's a whole bunch of information in there that we're not necessarily interested in for this analysis.
+
+Because of the messy names here (we'll clean them up in a bit), we'll se the column index to select columns instead of the complicated names. Also, we print a specified row of violent crime to observe the `X__1` group we are looking for – Rate per 100,000 inhabitants (per the study.)
+
+```{r}
+violentcrime <- crime %>% 
+  select(c(1,3,5))
+
+violentcrime
+```
+
+Great, so we're starting to home in on the data we're interested in but we're ultimately interested in Rate per 100,000 inhabitants, so we need get all rows where the second column is equal to `Rate per 100,000 inhabitants`. 
+
+However, as we can see above, the value for State in these rows is `NA`, so we need to `fill()` that value with the state name that is listed in a previous row. Then we can select the rows where the second column is `Rate per 100,000 inhabitants`. After that, we no longer need the second column, so we'll remove it.
+
+```{r}
+violentcrime <- violentcrime %>% 
+  fill(State) %>%
+  filter(.[[2]] == "Rate per 100,000 inhabitants") %>%
+  rename( violent_crime = `Violent\ncrime1`) %>%
+  select(-`...3`)
+  
+violentcrime
+```
+
+If we look closely at our data, we'll notice that some of our state names have 6s at the end of them. This will cause problems later on. 
+
+```{r}
+violentcrime$State[20]
+```
+
+So, let's clean that up now be removing those trailing numerics *and* converting the names to lower case:
+
+```{r}
+# lower case and remove numbers from State column
+violentcrime <- violentcrime %>%
+  mutate(State = tolower(gsub('[0-9]+', '', State)))
+
+violentcrime
+```
+
+We've now got ourselves a tidy dataset with violent crime information that's ready to be joined with our census_stats data!
+
+```{r}
+# join with census data
+p_df <- left_join(census_stats, violentcrime, 
+                  by = c("NAME" = "State"))
+
+p_df
+```
+
+#### Brady Scores
+
+The study by AJPH groups the scores using 7 different categories. The study removed all weightings of the different laws in favor of a “1 law 1 point” system, since the weightings were “somewhat arbitrary.”
+
+For the purpose of practice and simplification we will just keep the first line of “total state points” from the Brady Scorecard as they are given. This will be where our analysis differs from the study. We need to transform the data frame so that we have a column of state names and a column of the corresponding total scores.
+
+
+```{r}
+brady
+```
+
+This dataset inclues a lot of information, but we're interested in the brady scores for each state. These are stored in the row where the first column is equal to "TOTAL STATE POINTS," so we `filter()` to only include that row. We then want to only receive the scores for each state, and not the information in the first few columns, so we specify that using `select()`. With the information we're interested in, we then take the data from wide to long using `gather()`, renaming the columns as we go. Finally, we specify that the information in the `brady_scores` column is numeric, not a character.
+
+```{r}
+brady <- brady %>%
+  rename(Law = `States can receive a maximum of 100 points`) %>% 
+  filter(Law == "TOTAL STATE POINTS") %>%
+  select((ncol(brady) - 49):ncol(brady)) %>% 
+  gather("state", "brady_scores") %>%
+  mutate_at("brady_scores", as.numeric)
+
+brady
+```
+
+Only problem now is that we have the two letter state code, rather than the full state name we've been joining on so far here. We can, however, use the `state` datasets we used in the first case study here!
+
+```{r}
+brady <- brady %>% 
+  mutate(state = tolower(state.name[match(brady$state, state.abb)]))
+
+brady
+```
+
+
+Now, it's time to join this information into our growing dataframe `p_df`:
+
+```{r}
+p_df <- left_join(p_df, brady, by = c("NAME" = "state"))
+
+p_df
+```
+
+#### The Counted Fatal Shootings
+
+We're making progress, but we have a ways to go still! Let's get wroking on incorporating data from The Counted.
+
+As a reminder, we have a datasets here with data from 2015:
+
+```{r}
+counted15
+```
+
+The data from each year are in a simialr format with each row representing a different indvidiual and the columns being consistent between the two datasets.
+
+Because of this consistent format, we can combine these two datasets using `bind_rows()`. By specifying `id = "dataset"`, a column called `dataset` will store which dataset each row came from originally. We can then use `mutate()` and `ifelse()` to conditionally specify the year -- 2015 or 2016 -- from which the data originated. We'll also be sure to change the two letter state abbreviation to the lower case state name, to allow for each merging. 
+
+```{r}
+counted15 <- counted15 %>%
+  mutate(state = tolower(state.name[match(state, state.abb)]))
+```
+
+At this point, we have a lot of information at the individual level, but we'd like to summarize this at the state level by ethnicity, gender, and armed status. The researchers “calculated descriptive statistics for the proportion of victims that were male, armed, and non-White,” so we'll do the same. We can accomplish this using `dplyr`. `tally()` will be particularly helpful here to count the number of observations in each group. We're calculating this for each state as well as calculating the annualized rate per 1,000,000 residents. This utilizes the `total_pop` column from the `census_stats` data frame we used earlier.
+
+```{r}
+# get overall stats
+counted_stats <- counted15 %>%
+  group_by(state) %>%
+  filter(classification == "Gunshot") %>%
+  tally() %>%
+  rename("gunshot_tally" = "n")
+
+# get summary for subset of population
+gunshot_filtered <- counted15 %>%
+  group_by(state) %>%
+  filter(classification == "Gunshot",raceethnicity != "white", armed != "No", gender == "Male") %>%
+  tally() %>% 
+  rename("gunshot_filtered" = "n")
+
+# join data together
+counted_stats <- left_join(counted_stats, gunshot_filtered, by = "state") %>%
+  mutate(total_pop = census_stats$total_pop[match(state, census_stats$NAME)],
+         gunshot_rate = (gunshot_tally/total_pop)*1000000/2) %>% 
+  select(-total_pop)
+
+counted_stats
+```
+
+Time to merge this into the data frame we've been compiling:
+
+```{r}
+p_df <- left_join(p_df, counted_stats, by = c("NAME" = "state"))
+```
+
+#### Unemployment Data
+
+Let's recall the table we scraped from the web, which is currently storing our unemployment data:
+
+```{r}
+unemployment
+```
+
+Let's first rename the columns to clean things up. You'll note that there are more rows in this data frame (due to an empty row, the United States, and a note being in this dataset); however, when we `left_merge()` in just a second these will disappear, so we can ignore them for now.
+ 
+```{r}
+unemployment <- unemployment %>% 
+  rename("state" = "State", 
+         "unemployment_rate" = "2015rate", 
+         "unemployment_rank" = "Rank") %>%
+  mutate(state = tolower(state)) %>%
+  arrange(state)
+
+unemployment
+```
+ 
+Let's do that join now. Let's add unemployment information to our growing data frame!
+
+```{r}
+p_df <- left_join(p_df, unemployment, by = c("NAME" = "state"))
+```
+
+#### Population Density: 2015
+
+Population density for 2015 can be calculated from the Census data in combination with the land area data we've read in. This is calculated (rather than simply imported) because accurate data for state population in 2015 was not available in a downloadable format nor was it easy to scrape.
+
+From the census data, we can obtain total population counts:
+
+```{r}
+totalPop <- census %>%
+  filter(ORIGIN == 0, SEX == 0 ) %>%
+  group_by(NAME) %>%
+  summarize(total = sum(POPESTIMATE2015)) %>%
+  mutate(NAME = tolower(NAME))
+
+totalPop
+```
+
+
+Then, we select `LND110210D` by looking at the `land` table and comparing values on other sites (such as the census or Wikipedia) to find the correct column. This column corresponds to land area in square miles. We'll onvert all state names to lower case for easy merging with our growing data frame in a few steps.
+
+```{r}
+landSqMi <- land %>%
+  select(Areaname, land_area = LND110210D) %>% 
+  mutate(Areaname = tolower(Areaname))
+
+landSqMi
+```
+
+Since `landSqMi` gives us area for each town in addition to the states, we will want merge on the state names to obtain only the area for each state, removing the city- and nation-level data. Also, because "district of columbia" appears twice, we'll use the `distinct()` function to only include on entry for "district of columbia"
+
+We can then calculate density and remove the `total` and `land_area` columns to only keep state name and density for each state:
+
+```{r}
+popdensity <- left_join(totalPop, landSqMi, by=c("NAME" = "Areaname")) %>% 
+  distinct() %>%
+  mutate(density = total/land_area) %>%
+  select(-c(total, land_area))
+
+popdensity
+```
+
+This can now be joined with our growing data frame:
+
+```{r}
+p_df <- left_join(p_df, popdensity, by="NAME")
+```
+
+
+#### Firearm Ownership
+
+Last but not least, we calculate firearm ownership as a percent of firearm suicides to all suicides.
+
+```{r}
+ownership_df <- as_tibble(list("NAME" = tolower(suicide_all$State), 
+                          "ownership" = suicide_firearm$Deaths/suicide_all$Deaths*100))
+ownership_df
+```
+
+This can now be joined onto our tidy, growing data frame:
+
+```{r}
+p_df <- left_join(p_df, ownership_df, by="NAME")
+```
+
+And, with that, we've wrangled and tidied all these datasets into a single data frame. This can now be used for visualization and analysis!

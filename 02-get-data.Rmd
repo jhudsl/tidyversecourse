@@ -1057,8 +1057,6 @@ The data for this case study are available in [CSVs hosted on GitHub](https://gi
 
 As a reminder, we're ultimately interested in answering the following questions with these data:
 
-Ultimately, we'll use the datasets in this case study to answer the following questions:
-
 1. Is there a relationship between healthcare coverage and healthcare spending in the United States?
 2. How does the spending distribution change across geographic regions in the United States?
 3. Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?
@@ -1145,7 +1143,6 @@ We've got a whole bunch of datasets that we'll need to read in for this case stu
 
 As a reminder, we're interested in the following question: At the state-level, what is the relationship between firearm legislation strength and annual rate of fatal police shootings?
 
-
 #### Census Data
 
 Population characteristics at the state level for 2017 are available:
@@ -1159,12 +1156,12 @@ census
 
 #### Counted Data
 
-The Counted project started to count persons killed by police in the US due to the fact “the US government has no comprehensive record of the number of people killed by law enforcement. These data can be read in from the CSV stored on GitHub, for both 2015 and 2016:
+The Counted project started to count persons killed by police in the US due to the fact “the US government has no comprehensive record of the number of people killed by law enforcement. These data can be read in from the CSV stored on GitHub, for 2015:
 
 ```{r message = FALSE}
 # read in the counted data
 counted15 <- read_csv("https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/the-counted-2015.csv")
-counted16 <- read_csv("https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/the-counted-2016.csv")
+
 ```
 
 #### Suicide Data
@@ -1204,9 +1201,6 @@ brady
 Crime data, from the FBI’s Uniform Crime Report, are stored as an Excel file, so we'll use a similar approach as above for these data:
 
 ```{r message = FALSE}
-crime <- read_excel("data/table_5_crime_in_the_united_states_by_state_2015.xls", sheet = 1,skip = 3)
-head(crime[, 1:5])
-
 # specify URL to file
 url = "https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/data/table_5_crime_in_the_united_states_by_state_2015.xls?raw=true"
 
@@ -1225,7 +1219,6 @@ Note, however, there are slight differences in the code used here, relative to t
 US Census 2010 Land Area data are also stored in an excel spreadsheet"
 
 ```{r message = FALSE}
-
 # specify URL to file
 url = "https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/data/LND01.xls?raw=true"
 
@@ -1236,4 +1229,30 @@ land <- read_excel(tf, sheet = 1)
 # see data
 land
 ```
+
+#### Unemployment Data
+
+This data is available online from the BLS, but there is no easy download of the table. It is also difficult to simply copy and paste; it doesn’t hold it’s table format. Thus we will want to use web scraping to most easily and accurately obtain this information using the `rvest` package.
+
+As a reminder, to view the HTML of a webpage, right-click and select “View page source.”
+
+```{r message = FALSE}
+library(rvest)
+
+# specify URL to where we'll be web scraping
+url <- read_html("https://www.bls.gov/lau/lastrk15.htm")
+
+# scrape specific table desired
+out <- html_nodes(url, "table") %>%
+  .[2] %>%
+  html_table(fill = TRUE) 
+
+# store as a tibble
+unemployment <- as_tibble(out[[1]]) 
+
+unemployment
+```
+
+Then we get the values from each column of the data table. html_nodes acts as a CSS selector. The "table" class returns two tables from the webpage and we specify that we want the second table. From `out` we select the first in the list and store this as a tibble.
+
 
