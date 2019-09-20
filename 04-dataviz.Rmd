@@ -1512,6 +1512,433 @@ gap +
               alpha = 0.3)
 ```
 
-Here, distance specifies the temporal distance between the frames to show and alpha specifies the transparency of the trail, so that the current frame's data is always discernable.
+Here, distance specifies the temporal distance between the frames to show and alpha specifies the transparency of the trail, so that the current frame's data is always discernible.
 
+## Case Studies
 
+At this point, we've done a lot of work with our case studies. We've introduced the case studies, read them into R, and have wrangled the data into a usable format. Now, we get to peak at the data using visualizations to better understand each dataset's observations and variables! 
+
+### Case Study #1: Health Expenditures
+
+We've now got the data in order so that we can start to explore the relationships between the variables contained in the health care dataset (`hc`) to answer our questions of interest:
+
+1. Is there a relationship between healthcare coverage and healthcare spending in the United States?
+2. How does the spending distribution change across geographic regions in the United States?
+3. Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?
+
+```{r}
+# see health care data
+hc
+```
+
+As a reminder, we have state level data, broken down by year and type of insurance. For each, we have the total number of individuals who have health care coverage (`tot_coverage`), the amount spent on coverage (`tot_spending`), the proportion of individuals covered (`prop_coverage`), and the amount spent per capita (`spending_capita`). Additionally, we have the state name (`Location`), the two letter state abbreviation  (`abb`) and the region of the United States where the state is located (`region`). Let's get visualizing!
+
+#### Exploratory Data Analysis (EDA)
+
+To first get a sense of what information we do and do not have, the `visdat` package can be very helpful. This package uses `ggplot2` to visualize missingness in a data frame. For example, `vis_dat()` takes the data frame as an input and visualizes the observations on the left and the variables across the top. Solid colors indicate that a value is present. Each type of variable is represented by a different color. Grey lines indicate missing values.
+
+```{r}
+# install.packages("visdat")
+library(visdat)
+
+vis_dat(hc)
+```
+
+We now have a sense that a few states, for some years are missing coverage data, which also affects the ability to calculate proportion covered.
+
+To see these values highlighted more specifically, we can use the related `vis_miss()` function.
+
+```{r}
+vis_miss(hc)
+```
+
+Here we see that missing values only occur 0.6% of the time, with 3.1% of the observations missing entries for `tot_coverage` and `prop_coverage`. So, all in all, there is not a lot of missing data, but we still want to be sure we understand where missingness occurs before answering our questions.
+
+Let's use `dplyr` to see *which* observations have missing data:
+
+```{r}
+hc %>%
+  filter(is.na(tot_coverage))
+```
+
+Ah, so we see that the "Other" type of coverage is missing in both 2013 and 2014 for a subset of states. We'll be focusing on the non-"Other" types of healthcare coverage, so this shouldn't pose a problem, but is good to know!
+
+Taking this one step further, let's skim the entire dataset to get a sense of the information stored in each variable:
+
+```{r}
+library(skimr)
+
+# get summary of the data
+skim(hc)
+```
+
+At a glance, by looking at the `hist` column of the output for our numeric/integer variables, we see that there is a long right tail in `tot_coverage` and `tot_pop`. 
+
+We see that proportion coverage varies from 0.0054 (`p0`) to 0.61 (`p100`). So, we'll want to know which states are at each end of the spectrum here. 
+
+We also see that for `tot_spending`, the `mean` is 49004 and the median (`p50`) is slightly lower and that this variable also has a long right tail (`hist`).
+
+We also know that these data come from two different years, so we can group by `year` and again summarize the data: 
+
+```{r}
+# group by year
+hc %>% 
+  group_by(year) %>%
+  skim()
+```
+
+At a glance, there doesn't appear to be a huge difference in the variables from one year to the next, but we'll explore this again in a bit.
+
+With at least some understanding of the data in our dataset, let's start generating exploratory plots that will help us answer each of our questions of interest.
+
+#### Q1: Relationship between coverage and spending?
+
+To answer the question:
+
+> Is there a relationship between healthcare coverage and healthcare spending in the United States?
+
+we'll have to visualize coverage and spending data across the United States.
+
+And, to understand the relationship between two continuous variables - coverage and spending - a scatterplot will be the most effective visualization.
+
+We'll first look at a scatterplot:
+
+```{r}
+hc %>%
+  filter(type == "Employer", 
+         year == "2013") %>% 
+  ggplot(aes(x = spending_capita, 
+             y = prop_coverage)) +
+  geom_point() + 
+  labs(x = "spending per capita",
+       y = "coverage proportion")
+```
+
+We see that there appears to be some relationship, with those states that spend more per capita also having higher proportions of their population having healthcare coverage.
+
+We can continue to improve this plot to better understand the underlying data. For example, we can add a best-fit line using `geom_smooth()` to visualize the magnitude of the linear relationship:
+
+```{r}
+# generate scatterplot with fit line
+hc %>%
+  filter(type == "Employer", 
+         year == "2013") %>% 
+  ggplot(aes(x = spending_capita, 
+             y = prop_coverage)) + 
+  geom_point() + 
+  labs(x = "spending per capita",
+       y = "coverage proportion") +
+  geom_smooth(method = "lm", col = "red")
+```
+
+Beyond that, we likely want to know which point represents which state, so we can add state labels:
+
+```{r}
+# add state abbreviation labels
+hc %>%
+  filter(type == "Employer", 
+         year == "2013") %>% 
+  ggplot(aes(x = spending_capita, 
+             y = prop_coverage)) + 
+  geom_point() + 
+  labs(x = "spending per capita",
+       y = "coverage proportion") +
+  geom_smooth(method = "lm", col = "red") + 
+  geom_text(aes(label=abb), 
+            nudge_x = 150)
+```
+
+From there, it'd likely be helpful to have information from each region:
+
+```{r}
+# color by region
+hc %>%
+  filter(type == "Employer", 
+         year == "2013") %>% 
+  ggplot(aes(x = spending_capita, 
+             y = prop_coverage,
+             color = region)) + 
+  geom_point() + 
+  labs(x = "spending per capita",
+       y = "coverage proportion") +
+  geom_smooth(method = "lm", col = "red") + 
+  geom_text(aes(label=abb), 
+            nudge_x = 150, 
+            show.legend = FALSE)
+```
+
+So far, we've only been focusing on data from 2013. What about looking at data from both 2013 and 2014? We can do that using `facet_wrap()`:
+
+```{r}
+# color by region
+hc %>%
+  filter(type == "Employer") %>% 
+  ggplot(aes(x = spending_capita, 
+             y = prop_coverage,
+             color = region)) + 
+  geom_point() + 
+  facet_wrap(~year) +
+  labs(x = "spending per capita",
+       y = "coverage proportion") +
+  geom_smooth(method = "lm", col = "red") + 
+  geom_text(aes(label=abb), 
+            nudge_x = 150, 
+            show.legend = FALSE)
+```
+
+We see that the overall trend holds, but there has been some movement. For example, we see at a glance that DC has a higher proportion of its population covered in 2014 relative to 2013, while MA saw a drop in coverage. UT appears to be an outlier in both years having low spending but a high proportion of individuals covered.
+
+Beyond "Employer"-held healthcare coverage, let's look at the other types of coverage data we have. Here, we'll facet by type, rather than year, again focusing on just data from 2013
+
+```{r warning = FALSE}
+# visualize 2013 data by type
+hc %>%
+  filter(year == "2013") %>% 
+  ggplot(aes(x = spending_capita, 
+             y = prop_coverage,
+             color = region)) + 
+  geom_point() + 
+  facet_wrap(~type) +
+  labs(x = "spending per capita",
+       y = "coverage proportion") +
+  geom_smooth(method = "lm", col = "red") + 
+  geom_text(aes(label=abb), 
+            nudge_x = 150, 
+            show.legend = FALSE)
+```
+
+From these data, we see that Employer health care coverage is the most popular way in which individuals receive their health insurance across all states. We also see a flat or positive relationship for all other types of insurance, except for "Uninsured". There, as makes sense, we see that the more money spent per capita the fewer individuals the state has without insurance. 
+
+We can quickly peak at the data from 2014 to be sure the same general patterns hold:
+
+```{r warning = FALSE}
+# visualize 2014 data by type
+hc %>%
+  filter(year == "2014") %>% 
+  ggplot(aes(x = spending_capita, 
+             y = prop_coverage,
+             color = region)) + 
+  geom_point() + 
+  facet_wrap(~type) +
+  labs(x = "spending per capita",
+       y = "coverage proportion") +
+  geom_smooth(method = "lm", col = "red") + 
+  geom_text(aes(label=abb), 
+            nudge_x = 150, 
+            show.legend = FALSE)
+```
+
+The same general patterns hold in 2014 as we saw in 2013; however, the patterns are not exactly the same.
+
+With these plots we have a pretty good understanding of the relationship between spending and coverage across this country when it comes to health care.
+
+#### Q2: Spending Across Geographic Regions?
+
+To answer the question:
+
+> Which US states spend the most and which spend the least on healthcare? How does the spending distribution change across geographic regions in the United States?
+
+we'll want to visualize healthcare spending across regions of the US.
+
+We saw in the previous plots that there are some regional effects when it comes to spending, as the states from the different regions tended to cluster in the previous plot. But, let's look at this explicitly now.
+
+We're looking to visualize a continuous variable (`spending_capita`) by a categorical variable (`region`), so a boxplot is always a good place to start:
+
+```{r}
+# generate boxplot
+hc %>% 
+  ggplot(aes(x = region, 
+             y = spending_capita)) + 
+  geom_boxplot() +
+  labs(y = "spending per capita")
+```
+
+Here, we get a sense of the overall trend, seeing that states in the Northeast tend to spend the most on health care, while states in the West spend the least.
+
+But, sometimes, it can be helpful to see the distribution of points along with the boxplot, so we can add those onto the plot. We'll use `geom_jitter()` rather than `geom_point()` here so that we can see all the points without overlap. Note that we also use `alpha = 0.2` to increase the transparency of the points and `outlier.shape = NA` to hide the outliers on the boxplot. This way, each observation is only plotted a single time:
+
+```{r}
+# add data points to boxplot
+hc %>% 
+  filter(type == "Employer") %>%
+  ggplot(aes(x = region, 
+             y = spending_capita)) + 
+  geom_boxplot(outlier.shape = NA) +
+  geom_jitter(alpha = 0.2) +
+  labs(y = "spending per capita")
+```
+
+This gives us a sense of the variation in spending for states in each region. Of note, there are more outliers in the South and West, with a few states spending more on health care than even states in the Northeast, where spending tends to be higher.
+
+With this we have a good sense of the regional effects of spending across the United states.
+
+#### Q3: Coverage and Spending Change Over Time?
+
+To answer the question:
+
+> Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?
+
+we'll need to visualize a whole bunch of variables: coverage, spending, `year` and type of insurance. We can return to a scatterplot again, but now we'll put all these pieces we looked at separately in Q1 together at once to answer this temporal question visually. 
+
+We won't filter the dataset but will instead use `facet_grid()`, which "forms a matrix of panels defined by row and column faceting variables":
+
+`facet_wrap()`, which we used previously, *typically* utilizes screen space better than `facet_grid()`; however, in this case, where we want 2013 and 2014 to each be in a separate row, `facet_grid()` is the better visual choice.
+
+```{r warning = FALSE}
+# color by region
+hc %>% 
+  ggplot(aes(x = spending_capita, 
+             y = prop_coverage,
+             color = region)) + 
+  geom_point() + 
+  labs(x = "spending per capita",
+       y = "coverage proportion") +
+  geom_smooth(method = "lm", col = "red") + 
+  facet_grid(year~type)
+```
+
+With this, output the top row are the data from 2013 and the bottom from 2014. We can then visually compare the top plot to the bottom plot for each time of insurance. 
+
+Visually, we can start to get a sense that a few things changed from 2013 to 2014. For example, as we saw previously, individual states changed from one year to the next, but overall patterns seem to hold pretty steady between these two years.
+
+We were able to start answering all our questions of interest with a number of quick plots using `ggplot2`. 
+
+Now, of course there are *many* ways in which we could customize each of these plots to be "publication-ready," but for now, we'll stop with this case study having gained a lot of new insight into these data and answers to our questions we now have, simply from generating a few exploratory plots.
+
+### Case Study #2: Firearms
+
+For our second case study, we're interested in the following question: 
+
+>At the state-level, what is the relationship between firearm legislation strength and annual rate of fatal police shootings?
+
+In the previous course, we wrangled the data into a single, helpful data frame: `firearms`.
+
+```{r}
+# see firearms data
+firearms
+```
+
+This dataset contains state level information about firearm ownership (broken down by ethnicity and gender), the population of each state (`total_pop`), the number of violent crimes (`violent_crime`), the “total state points” from the Brady Scorecard (`brady_scores`), the number of gunshots (`gunshot_tally`), the number of gunshots from armed, non-white, male individuals (`gunshot_filtered`), the annualized rate per 1,000,000 residents (`gunshot_rate`), the `unemployment rate` and `unemployment_rank`, population density (`density`), and firearm ownership as a percent of firearm suicides to all suicides (`ownership`).
+
+#### Exploratory Data Analysis (EDA)
+
+Similar to how we approached the health care case study, let's get an overall understanding of the data in our dataset, starting with understanding where data are missing in our dataset:
+
+```{r}
+# visualize missingness
+vis_dat(firearms)
+```
+
+We see that we have data for all 50 states (and Washington, D.C.) for most variables in our dataset; however, we're missing information for one state when it comes to gunshot information and another state when it comes to Brady scores and ownership by suicide rates. 
+
+Additionally, we see that most of our variables are numeric (either integers or numeric) while the state name (`NAME`) is a character, confirming what we expect for these data.
+
+We will also again use `skim()` to get a better sense of the values in our dataset:
+
+```{r}
+# summarize data
+skim(firearms)
+```
+
+Ultimately, we're interested in firearm legislation and fatal police shootings, which we'll get to,  but let's explore the relationship between other variables in our dataset first to gain a more complete understanding.
+
+For example, determining if there's a relationship between the number of violent crimes and the total population in a state is good to know. Outliers in this relationship would be important to note as they would be states with either lower or higher crime by population. Let's use a scatterplot to better understand this relationship:
+
+```{r}
+# violent crimes
+ggplot(firearms, 
+       aes(x = total_pop,
+           y = violent_crime)) + 
+  geom_point() +
+  labs(x = "Total Population",
+       y = "Violent Crime") + 
+  theme_classic() + 
+  geom_text_repel(aes(label = NAME))
+```
+
+Here we see that the visualization of this relationship is largely dependent upon the state's population, with large states like Texas and California sticking out. However, we do see that, for its size, Washington D.C had many more violent cries than other states, despite its small population. 
+
+It would also be helpful to understand the relationship between unemployment and violent crime:
+
+```{r}
+# violent crimes
+ggplot(firearms, 
+       aes(x = unemployment_rate,
+           y = violent_crime)) + 
+  geom_point() +
+  labs(x = "Unemployment Rate",
+       y = "Violent Crime") + 
+  theme_classic()
+```
+
+Here, there appears to be some relationship with states that have higher rates of unemployment having slightly more violent crimes, but violent crimes is not adjusted by population, so this is likely not *that* helpful.
+
+What about the relationship between fatal police shootings and gun `ownership`  as a percent of firearm suicides to all suicides.
+
+```{r}
+# violent crimes
+ggplot(firearms, 
+       aes(x = gunshot_rate,
+           y = ownership)) + 
+  geom_point() +
+  labs(x = "Annualized Rate of Fatal \n Police Shootings per 1,000,000",
+       y = "Gun Ownership \n (firearm suicides:all suicides)") + 
+  theme_classic()
+```
+
+This suggests that states with more fatal police shootings *tend* to have more firearm suicides relative to non-firearm suicides; however, this relationship is non linear. 
+
+With these plots, we're starting to get an understanding of the data and see that there are patterns and don't appear to be wild outliers in any one variable (although, we should keep an eye on Washington, D.C. as it appeared as an outlier in a few plots). With that we're confident we can move on to start looking into our question of interest.
+
+#### Q: Fatal Police Shootings and Legislation
+
+Ultimately, we're interested in firearm legislation and fatal police shootings, so let's focus in on Brady scores here, which measure legislation and `gunshot_tally`, a measure of the rate of fatal police shootings.
+
+We see that the average `brady_score` (`mean`) is `r round(mean(firearms$brady_scores, na.rm = TRUE), 2)`, with state values ranging from `r round(min(firearms$brady_scores, na.rm = TRUE), 2)` to `r round(max(firearms$brady_scores, na.rm = TRUE), 2)`.
+
+When it comes to the rate of police shootings (`gunshot_rate`), we see the average number (`mean`) for a state is  is `r round(mean(firearms$gunshot_rate, na.rm = TRUE), 2)`, with state values ranging from `r round(min(firearms$gunshot_rate, na.rm = TRUE), 2)` to `r round(max(firearms$gunshot_rate, na.rm = TRUE), 2)`, depending on the state.
+
+To start to understand the relationship between the two, we'll want to visualize this relationship using a scatterplot:
+
+```{r}
+# visualize legistlation and shootings
+ggplot(firearms, aes(x = brady_scores, 
+                     y = gunshot_rate)) + 
+  geom_point() +
+  labs(x = "Firearm Legislative Strength Score",
+       y = "Annualized Rate of Fatal \n Police Shootings per 1,000,000") + 
+  theme_classic()
+```
+
+In this plot, we see that there is a relationship, but it is non-linear. Overall, the higher the legislative strength score (`brady_scores`), the lower the rate of police shootings; however, this decrease is nonlinear, as all states with a positive Brady Score have a similar police shooting rate. 
+
+For now, we won't explore a model, but we will label the points to better contextualize the information displayed. To see which states are at either end of the distribution, using `geom_text()` is a good option:
+
+```{r}
+# label points with state name
+ggplot(firearms, aes(x = brady_scores, 
+                     y = gunshot_rate)) + 
+  geom_point() +
+  labs(x = "Firearm Legislative Strength Score",
+       y = "Annualized Rate of Fatal \n Police Shootings per 1,000,000") + 
+  theme_classic() +
+  geom_text(aes(label = NAME), 
+            nudge_x = 7)
+```
+
+This makes it clear that Wyoming, New Mexico, Oklahoma, Arizona, and Nevada have some of the highest rates of fatal police shootings, while  Connecticut, New York, Pennsylvania, and North Dakota are among the lowest. 
+
+However, a number of labels overlap there, so it can be helpful to use `ggrepel` if you want to be able to match each point to its label:
+
+```{r}
+library(ggrepel)
+
+# repel points with state name 
+ggplot(firearms, aes(x = brady_scores, 
+                     y = gunshot_rate)) + 
+  geom_point() +
+  labs(x = "Firearm Legislative Strength Score",
+       y = "Annualized Rate of Fatal \n Police Shootings per 1,000,000") + 
+  theme_classic() +
+  geom_text_repel(aes(label = NAME))
+```

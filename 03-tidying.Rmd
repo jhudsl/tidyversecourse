@@ -2271,10 +2271,10 @@ We've now got ourselves a tidy dataset with violent crime information that's rea
 
 ```{r}
 # join with census data
-p_df <- left_join(census_stats, violentcrime, 
+firearms <- left_join(census_stats, violentcrime, 
                   by = c("NAME" = "State"))
 
-p_df
+firearms
 ```
 
 #### Brady Scores
@@ -2311,12 +2311,12 @@ brady
 ```
 
 
-Now, it's time to join this information into our growing dataframe `p_df`:
+Now, it's time to join this information into our growing dataframe `firearms`:
 
 ```{r}
-p_df <- left_join(p_df, brady, by = c("NAME" = "state"))
+firearms <- left_join(firearms, brady, by = c("NAME" = "state"))
 
-p_df
+firearms
 ```
 
 #### The Counted Fatal Shootings
@@ -2367,7 +2367,7 @@ counted_stats
 Time to merge this into the data frame we've been compiling:
 
 ```{r}
-p_df <- left_join(p_df, counted_stats, by = c("NAME" = "state"))
+firearms <- left_join(firearms, counted_stats, by = c("NAME" = "state"))
 ```
 
 #### Unemployment Data
@@ -2394,8 +2394,25 @@ unemployment
 Let's do that join now. Let's add unemployment information to our growing data frame!
 
 ```{r}
-p_df <- left_join(p_df, unemployment, by = c("NAME" = "state"))
+firearms <- left_join(firearms, unemployment, by = c("NAME" = "state"))
 ```
+
+If we take a look at the data we now have in our growing data frame, using `glimpse()`, we see that type is correct for most of our variables *except* `unemployment_rate` and `unemployment_rank`. This is due to that "Note" and empty (`""`) row in the unemployment dataset. So, let's be sure to get that variable to a numeric now as it should be: 
+
+
+```{r}
+glimpse(firearms)
+```
+
+
+```{r}
+# convert type for unemployment columns
+firearms <- firearms %>%
+  mutate_at("unemployment_rate", as.numeric) %>%
+  mutate_at("unemployment_rank", as.integer)
+```
+
+
 
 #### Population Density: 2015
 
@@ -2440,7 +2457,7 @@ popdensity
 This can now be joined with our growing data frame:
 
 ```{r}
-p_df <- left_join(p_df, popdensity, by="NAME")
+firearms <- left_join(firearms, popdensity, by="NAME")
 ```
 
 
@@ -2457,7 +2474,7 @@ ownership_df
 This can now be joined onto our tidy, growing data frame:
 
 ```{r}
-p_df <- left_join(p_df, ownership_df, by="NAME")
+firearms <- left_join(firearms, ownership_df, by="NAME")
 ```
 
 And, with that, we've wrangled and tidied all these datasets into a single data frame. This can now be used for visualization and analysis!
