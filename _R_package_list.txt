@@ -1,5 +1,6 @@
 bookdown
 cowplot
+datasets
 DBI
 dbplyr
 directlabels
@@ -8,6 +9,7 @@ gapminder
 gganimate
 ggplot2
 ggrepel
+glue
 googlesheets
 here
 httr
@@ -24,5 +26,7 @@ RSQLite
 rstudioapi
 rvest
 skimr
+tidytext
 tidyverse
+visdat
 zoo
