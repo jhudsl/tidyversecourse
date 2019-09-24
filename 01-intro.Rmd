@@ -210,7 +210,7 @@ Regardless of which life cycle chart you like best, when it comes down to answer
 
 ## The Tidyverse Ecosystem
 
-With a solid understanding of tidy data and how tidy data fit into the data science life cycle, we'll take a bit of time to introduce you you to the tidyverse and tidyverse-adjacent packages that we'll be teaching and using throughout this specialization. Taken together, these packages make up what we're referring to as the **tidyverse ecosystem**. The purpose for the rest of this course is not for you to understand *how* to use each of these packages (that's coming soon!), but rather to help you familiarize yourself with which packages fit into which part of the data science life cycle.
+With a solid understanding of tidy data and how tidy data fit into the data science life cycle, we'll take a bit of time to introduce you to the tidyverse and tidyverse-adjacent packages that we'll be teaching and using throughout this specialization. Taken together, these packages make up what we're referring to as the **tidyverse ecosystem**. The purpose for the rest of this course is not for you to understand *how* to use each of these packages (that's coming soon!), but rather to help you familiarize yourself with which packages fit into which part of the data science life cycle.
 
 Note that the official tidyverse packages below are **bold**. All other packages are tidyverse-adjacent, meaning they follow the same conventions as the official tidyverse packages and work well within the tidy framework and structure of data analysis.
 
@@ -430,7 +430,7 @@ According to the [*tsibble* website](https://tsibble.tidyverts.org/):
 
 According to the [*feasts* website](https://feasts.tidyverts.org):
 
-> feasts provides a collection of tools for the analysis of time series data. The package name is an acronym comprising of its key features: Feature Extraction And Statistics for Time Series.
+> Feasts provides a collection of tools for the analysis of time series data. The package name is an acronym comprising of its key features: Feature Extraction And Statistics for Time Series.
 
 *fable* is most helpful when it comes to the modeling step in forecasting analyses.  
 
@@ -503,7 +503,7 @@ library(here)
 ```
 
 
-`here` is a package specifically designed to help you deal with file organization when you're coding. This package allows you to define in which folder all your relative paths should begin within a project.
+`here` is a package specifically designed to help you deal with file organization when you're coding. This package allows you to define in which folder all your relative paths should begin within a project. The path of this folder will be displayed after typing library(here). 
 
 
 #### Setting your project directory
@@ -544,6 +544,22 @@ The output from this code includes the correct file path to this file, just as y
 
 ![using here to get a file path](https://docs.google.com/presentation/d/18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ/export/png?id=18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ&pageid=g3aa9ae33ea_0_0)
 
+####Save and load files using `here()`
+Files within the project can be saved or loaded by simply typing `here` (to replace the path to the project directory) and typing any subdirectories like in this example where we want to save data to the raw_data directory within the data directory of the project: 
+
+```{r eval = FALSE}
+save(introcode_data_object, file = here("data", "raw_data", "intro_code_object.R"))
+```
+
+Or if we want to load this data:
+```{r, eval = FALSE}
+load(here("data", "raw_data", "intro_code_object.R"))
+```
+
+This is equivalent to:
+```{r, eval = FALSE}
+load(here("data/raw_data/intro_code_object.R"))
+```
 
 #### Where you should use this
 
@@ -551,7 +567,7 @@ You should use `here()` to set the base project directory for each data science 
 
 ## File Naming
 
-Having discussed the overall file structure and the `here` package, it's now important to spend a bit of time talking about file naming. It may not be the most *interesting* topic on its surface, but naming files well can save future you a lot of time and make collaboration with others a lot easier on everyone involved. By having descriptive and consistent file names, you'll save yourself a lot of headachee. 
+Having discussed the overall file structure and the `here` package, it's now important to spend a bit of time talking about file naming. It may not be the most *interesting* topic on its surface, but naming files well can save future you a lot of time and make collaboration with others a lot easier on everyone involved. By having descriptive and consistent file names, you'll save yourself a lot of headaches. 
 
 ### Good File Names
 
@@ -597,7 +613,6 @@ In addition to making sure your files can be nicely ordered, always left-pad num
 
 ![Left padding numbers with zeros](https://docs.google.com/presentation/d/1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4/export/png?id=1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4&pageid=g397b53245b_0_45)
 
-
 ## Data Science Workflows
 
 AVOCADO
@@ -612,5 +627,70 @@ AVOCADO
         - visualize
         - communicate
 
+## Case Studies
+
+Throughout this specialization, we're going to make use of a number of case studies from [opencasestudies](https://github.com/opencasestudies) to demonstrate the concepts introduced in the course. We'll make use of the same case studies throughout the specialization, so that you only have to learn the context - which we'll introduce here - once. This continuity will allow you to focus on the concepts and skills being taught while working with interesting data. Most of these case studies have a public-health question they're being used to answer and all of them use real data. 
+
+### Case Study #1: Health Expenditures
+
+To become familiar with the datasets in this case study, we have to first introduce a bit of information about health care and health policy within the United States. A complicated system, involving federal government- led healthcare policy and private insurance companies, this case study looks at health expenditures, including healthcare coverage and healthcare spending at the State level.
+
+#### Questions
+
+Ultimately, we'll use the datasets in this case study to answer the following questions:
+
+1. Is there a relationship between healthcare coverage and healthcare spending in the United States?
+2. How does the spending distribution change across geographic regions in the United States?
+3. Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?
+
+#### Data: Healthcare
+
+The two datasets used in this case study come from the [Henry J Kaiser Family Foundation (KFF)](https://www.kff.org/) and include:
+
+* [Health Insurance Coverage of the Total Population](https://www.kff.org/other/state-indicator/total-population/) - Includes years 2013-2016
+* [Health Care Expenditures by State of Residence (in millions)](https://www.kff.org/other/state-indicator/health-care-expenditures-by-state-of-residence-in-millions/) - Includes years 1991-2014
+
+       
+### Case Study #2: Firearms
+
+In the United States, firearm laws differ by state. Additionally, [police](https://www.nature.com/articles/d41586-019-02601-9) [shootings](https://www.washingtonpost.com/graphics/2019/national/police-shootings-2019/) [are](https://www.latimes.com/science/story/2019-08-15/police-shootings-are-a-leading-cause-of-death-for-black-men) [frequently](https://www.npr.org/tags/522920705/police-shootings) [in](https://www.huffpost.com/news/police-shooting) [the](https://www.nytimes.com/2019/08/14/us/philadelphia-shooting-temple-university.html) [news](https://www.washingtonpost.com/graphics/2019/national/police-shootings-2019/). Understanding the relationship between firearm laws and police shootings is of public health interest.
+
+A recent study set out ["to examine whether stricter firearm legislation is associated with rates of fatal police shootings"](https://ajph.aphapublications.org/doi/suppl/10.2105/AJPH.2017.303770). We'll use the state-level data from this study  
+Firearm Legislation and Fatal Police Shootings in the US in this case study.
+
+#### Question 
+
+The main question from this case study is: At the state-level, what is the relationship between firearm legislation strength and annual rate of fatal police shootings?
+
+#### Data
+
+To accomplish this in this case study, we'll use data from a *number* of different sources:
+
+* [The Brady Campaign State Scorecard 2015](http://crimadvisor.com/data/Brady-State-Scorecard-2015.pdf): numerical scores for firearm legislation in each state.
+* [The Counted](https://www.theguardian.com/us-news/ng-interactive/2015/jun/01/about-the-counted): Persons killed by police in the US. The Counted project started because “the US government has no comprehensive record of the number of people killed by law enforcement.”
+* [US Census](https://www.census.gov/content/census/en/data/tables/2017/demo/popest/state-detail.html): Population characteristics by state.
+* [FBI’s Uniform Crime Report](https://ucr.fbi.gov/crime-in-the-u.s/2015/crime-in-the-u.s.-2015/tables/table-5).
+* [Unemployment rate data](https://htmlpreview.github.io/?https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/ocs-police-shootings-firearm-legislation.html#LND).
+* [US Census 2010 Land Area](https://htmlpreview.github.io/?https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/ocs-police-shootings-firearm-legislation.html#LND).
+* Education data for 2010 via the [US Census education table editor](https://factfinder.census.gov/faces/tableservices/jsf/pages/productview.xhtml?src=bkmk).
+* “Household firearm ownership rates, represented as the percentage of firearm suicides to all suicides.” Downloaded from the [CDC’s Web-Based Injury Statistics Query and Reporting System](https://www.cdc.gov/injury/wisqars/fatal.html).
+
+### Case Study #3
+
+#### Question
+
+#### Data 
+
+### Case Study #4
+
+#### Question
+
+#### Data 
+
+### Case Study #5
+
+#### Question
+
+#### Data 
 
        
