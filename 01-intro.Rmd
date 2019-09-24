@@ -544,7 +544,7 @@ The output from this code includes the correct file path to this file, just as y
 
 ![using here to get a file path](https://docs.google.com/presentation/d/18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ/export/png?id=18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ&pageid=g3aa9ae33ea_0_0)
 
-####Save and load files using `here()`
+#### Save and load files using `here()`
 Files within the project can be saved or loaded by simply typing `here` (to replace the path to the project directory) and typing any subdirectories like in this example where we want to save data to the raw_data directory within the data directory of the project: 
 
 ```{r eval = FALSE}
@@ -629,11 +629,11 @@ AVOCADO
 
 ## Case Studies
 
-Throughout this specialization, we're going to make use of a number of case studies from [opencasestudies](https://github.com/opencasestudies) to demonstrate the concepts introduced in the course. We'll make use of the same case studies throughout the specialization, so that you only have to learn the context - which we'll introduce here - once. This continuity will allow you to focus on the concepts and skills being taught while working with interesting data. Most of these case studies have a public-health question they're being used to answer and all of them use real data. 
+Throughout this specialization, we're going to make use of a number of case studies from [opencasestudies](https://opencasestudies.github.io/) to demonstrate the concepts introduced in the course. We'll make use of the same case studies throughout the specialization, so that you only have to learn the context - which we'll introduce here - once. This continuity will allow you to focus on the concepts and skills being taught while working with interesting data. These case studies aim to address a public-health question and all of them use real data. 
 
 ### Case Study #1: Health Expenditures
 
-To become familiar with the datasets in this case study, we have to first introduce a bit of information about health care and health policy within the United States. A complicated system, involving federal government- led healthcare policy and private insurance companies, this case study looks at health expenditures, including healthcare coverage and healthcare spending at the State level.
+To become familiar with the datasets in this case study, we have to first introduce a bit of information about health care and health policy within the United States. This is a complicated system. Individuals can recieve assistance with health care costs (known as coverage) through goverment-led agencies (such as Medicare and Medicaid) or private insurance companies. This case study looks at health expenditures, including healthcare coverage and healthcare spending at the State level. Understanding more about health expenditures can better inform policy decisions related to health care. 
 
 #### Questions
 
