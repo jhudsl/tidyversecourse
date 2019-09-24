@@ -1,13 +1,12 @@
 # Tidying Your Data {#tidy-data}
 
 In the last course we spent a ton of time talking about all the most common ways data are stored and reviewed how to get them into a tibble (or data.frame) in R.
-* Data wrangling (dplyr, tidyr, forcats, glue, janitor?, skimr?) [**`glue` missing**]
 
-So far we've discussed what tidy and untidy data are. We've (hopefully) convinced you that tidy data are the right type of data to work with. What we may not have made perfectly clear yet is that data are *not* always the tidiest when they come to you at the start of a project. An incredibly important skill of a data scientist is to be able to take data from an untidy format and get it into a tidy format. This process is often refferred to as **data wrangling**. Generally, data wranglings skills are those that allow you to wrangle data from the format they're currently in into the tidy format you actually want them in.
+So far we've discussed what tidy and untidy data are. We've (hopefully) convinced you that tidy data are the right type of data to work with. What we may not have made perfectly clear yet is that data are *not* always the tidiest when they come to you at the start of a project. An incredibly important skill of a data scientist is to be able to take data from an untidy format and get it into a tidy format. This process is often referred to as **data wrangling**. Generally, data wranglings skills are those that allow you to wrangle data from the format they're currently in into the tidy format you actually want them in.
 
 Beyond data wrangling, it's also important to make sure the data you have are accurate and what you need to answer your question of interest. After wrangling the data into a tidy format, there is often further work that has to be done to **clean** the data. 
 
-In this course we'll work with data in R to discuss the ncessary data wrangling skills you'll need and demonstrate how to use the tidyverse to carry out data wrangling.
+In this course we'll work with data in R to discuss the necessary data wrangling skills you'll need and demonstrate how to use the tidyverse to carry out data wrangling.
 
 ![data wrangling example](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_1)
 
@@ -57,7 +56,7 @@ For these examples, we'll work with the `airquality` dataset available in R. The
 
 We'll load in the tidyverse, so that we can convert this data.frame to a tibble *and* see the first few lines of this dataset using the following code:
 
-```{r}
+```{r message = FALSE}
 library(tidyverse)
 
 airquality <- as_tibble(airquality)
@@ -68,7 +67,7 @@ Again, wide data are easy to decipher at a glance. We can see that we have six d
 
 #### `tidyr`
 
-The `tidyr` package is part of hte tidyverse, so its functionality is available to you since you've loaded in the tidyverse. The two main functions we mentioned above will help you reshape your data in the following ways: 
+The `tidyr` package is part of the tidyverse, so its functionality is available to you since you've loaded in the tidyverse. The two main functions we mentioned above will help you reshape your data in the following ways: 
 
 * `gather()`: go from wide data to long data
 * `spread()`: go from long data to wide data
@@ -105,7 +104,7 @@ gathered
 
 ![gather column names changed](https://docs.google.com/presentation/d/14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI/export/png?id=14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI&pageid=g38bb68a532_0_213)
 
-However, you're likely not interested in your day and month variable being separated out into their own variables within the `key` column. In fact, knowing the day and month associated with a particular data point helps identify that particular data point. To account for this, you can exclude `day` and `month` from the variables being included in the `key` column by specifying all the variables that you *do* want included in the `key` column.  Here, that means specifying `ozone`, `solar.r`, `wind`, and `temp`. This will keep `day` and `month` in their own columns, allowing each row to be identified by the specific day and month being discussed.
+However, you're likely not interested in your day and month variable being separated out into their own variables within the `key` column. In fact, knowing the day and month associated with a particular data point helps identify that particular data point. To account for this, you can exclude `day` and `month` from the variables being included in the `key` column by specifying all the variables that you *do* want included in the `key` column.  Here, that means specifying `Ozone`, `Solar.R`, `Wind`, and `Temp`. This will keep `Day` and `Month` in their own columns, allowing each row to be identified by the specific day and month being discussed.
 
 ```{r}
 ## in gather(), after key and value, you can specify which variables 
@@ -142,9 +141,13 @@ While reshaping data may not *read* like the most exciting topic, having this sk
 
 ## Data Wrangling
 
-Once you've read your data into R and have it in teh appropriately wide- or long-format, it's time to wrangle the data, so that it is in the appropriate format and includes the information you need. 
+Once you've read your data into R and have it in the appropriately wide- or long-format, it's time to wrangle the data, so that it is in the appropriate format and includes the information you need. 
 
-### `dplyr`
+### R Packages
+
+While there are *tons* of R packages out there to help you work with data, we're going to cover the packages and functions within those packages that you'll absolutely want and need to work with when working with data. 
+
+#### `dplyr`
 
 There is a package specifically designed for helping you wrangle your data. This package is called [`dplyr`](https://dplyr.tidyverse.org/) and will allow you to easily accomplish many of the data wrangling tasks necessary. Like `tidyr`, this package is a core package within the tidyverse, and thus it was loaded in for you when you ran `library(tidyverse)` earlier. We will cover a number of functions that will help you wrangle data using `dplyr`:
 
@@ -159,19 +162,20 @@ There is a package specifically designed for helping you wrangle your data. This
 * `summarize()` - summarize information within a dataset
 * `left_join()` - combining data across data frame
 
-### `tidyr`
+#### `tidyr`
 
 We will also return to the `tidyr` package. The same package that we used to reshape our data will be helpful when wrangling data. The main functions we'll cover from `tidyr` are:
 
 * `unite()` - combine contents of two or more columns into a single column
 * `separate()` - separate contents of a column into two or more columns
 
-### `janitor`
+#### `janitor`
 
 The third package we'll include here is the `janitor` package. While not a core tidyverse package, this tidyverse-adjacent package provides tools for cleaning messy data. The main functions we'll cover from janitor are:
 
 * `clean_names()` - clean names of a data frame
 * `tabyl()` - get a helpful summary of a variable
+* `get_dupes()` - identify duplicate observations
 
 If you have not already, you'll want to be sure this package is installed and loaded:
 
@@ -181,11 +185,12 @@ library(janitor)
 ```
 
 
-### `skimr`
+#### `skimr`
 
 The final package we'll discuss here is the `skimr` package. This package provides a quick way to summarize a data.frame or tibble within the tidy data framework. We'll discuss its most useful function here:
 
 * `skim()` - summarize a data frame
+* `summary()` - quick overview stats about a data set
 
 If you have not already, you'll want to be sure this package is installed and loaded:
 
@@ -204,7 +209,7 @@ A --> B
 
 Here you are saying, "Take A and *then* feed it into function B."
 
-In R syntax, from what you've seen so far, what is depicted by the arrow above would be carried out by calling the function B on the data frame object A:
+In base R syntax, what is depicted by the arrow above would be carried out by calling the function B on the data frame object A:
 
 ```
 B(A)
@@ -232,7 +237,18 @@ Alternatively, you could use the pipe operator. Each time you want take the outp
 A %>% B %>% C %>% D
 ```
 
-Below we'll use this pipe operator a lot. Essentially, it takes output from the left hand side and feeds it into a function on the right hand side. You'll get a better understanding of how it works as you run the code below. But, when in doubt remember that the pipe operator should be read as *then*.
+And, even more readable is when each of these steps is separated out onto its own individual line of code:
+
+```
+A %>% 
+  B %>% 
+    C %>%
+      D
+```
+
+While both of the previous two code examples would provide the same output, the one below is more readable, which is a large part of why pipes are used. It makes your code more understandable to you and others.
+
+Below we'll use this pipe operator a lot. Remember, it takes output from the left hand side and feeds it into the function that comes after the pipe. You'll get a better understanding of how it works as you run the code below. But, when in doubt remember that the pipe operator should be read as *then*.
 
 ### Filtering Data
 
@@ -240,7 +256,7 @@ When working with a large dataset, you're often interested in only working with 
 
 For the examples below, we'll be using a dataset from the `ggplot2` package called `msleep`. (You'll learn more about this package in a later course on data visualization. For now, it's a core tidyverse package so it's loaded in along with the other tidyverse packages using `library(tidyverse)`.) This dataset includes sleep times and weights from a number of different mammals. It has 83 rows, with each row including information about a different type of animal, and 11 variables. As each row is a different animal and each column includes information about that animal, this is a **wide** dataset.
 
-To get an idea of what variables are included in this data frame, you can use `glimpse()`. This function summarizes how many rows there are (`Observations`) and how many columns there are (`Variables`). Additionally, it gives you a glimpse into the type of data contained in each column. Specifically, in this data set, we know that the first column is `name` and that it contains a character vector (`chr`) and that the first three entires are "Cheetah", "Owl monkey", and "Mountain beaver." It works similarly to the `summary()` function covered in an earlier course.
+To get an idea of what variables are included in this data frame, you can use `glimpse()`. This function summarizes how many rows there are (`Observations`) and how many columns there are (`Variables`). Additionally, it gives you a glimpse into the type of data contained in each column. Specifically, in this data set, we know that the first column is `name` and that it contains a character vector (`chr`) and that the first three entries are "Cheetah", "Owl monkey", and "Mountain beaver." It works similarly to the `summary()` function covered in an earlier course.
 
 ```{r eval = FALSE}
 ## take a look at the data
@@ -590,22 +606,58 @@ summary(msleep$awake)
 
 ![summarize numeric variables](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_320)
 
+#### `get_dupes()`
+
+Another common issue in data wrangling is the presence of duplicate entries. Sometimes you *expect* multiple observations from the same individual in your dataset. Other times, the information has accidentally been added more than once. The `get_dupes()` function becomes very helpful in this situation. If you want to identify duplicate entries during data wrangling, you'll use this function and specify which columns you're looking for duplicates in.
+
+For example, in the `msleep` dataset, if you expected to only have one mammal representing each `genus` and `vore` you could double check this hung using `get_dupes()`
+
+
+```{r}
+# identify observations that match in both genus and vore
+msleep %>% 
+  get_dupes(genus, vore)
+```
+
+The output demonstrates there are 10 mammals that overlap in their genus and vore. Note that the third column of the output counts *how many* duplicate observations there are. This can be very helpful when you're checking your data!
+
+
+
 #### `skim()`
 
 When you would rather get a snapshot of the entire dataset, rather than just one variable, the `skim()` function from the `skimr` package can be very helpful. The output from `skim()` breaks the data up by variable type. For example, the `msleep` data set is broken up into `character` and `numeric` variable types. The data are then summarized in a meaningful way for each. This function provides a lot of information about the entire data set. So, when you want a summarize a dataset and quickly get a sense of your data, `skim()` is a great option!
 
 ```{r}
+# summarize dataset
 skim(msleep)
 ```
 
 ![summarize entire dataset using skim() from skimr](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_313)
 
-AVOCADO - cover more than just tabyl from janitor and skim from skimr (or cut these?)
+Note that this function allows for you to specify which columns you'd like to summarize, if you're not interested in seeing a summary of the entire dataset:
 
-### `glue`
+```{r}
+# see summary for specified columns
+skim(msleep, genus, vore, sleep_total)
+```
 
-AVOCADO
+It is also possible to group data (using `dplyr`'s `group_by()` before summarizing. Notice in the summary output that each variable specified (`genus` and `sleep_total`) are now broken down within each of the `vore` categories.
 
+```{r}
+msleep %>% 
+  group_by(vore) %>% 
+  skim(genus, sleep_total)
+```
+
+
+#### `summary()`
+
+While base R has a summary function, the `skimr` package also has a helpful `summary()` function that provides you with a quick summary of the dataset at large.
+
+```{r}
+skim(msleep) %>% 
+  summary()
+```
 
 ## Working With Factors
 
@@ -801,7 +853,7 @@ To get objects into dates and date-times that can be more easily worked with in 
 
 #### From strings
 
-Date information is often provided as a string. The functions within the `lubridate` package can effectively handle this information. To use them to generate date objects, you can call a function using `y`, `m`, and `d` in the order in which the year (`y`), month (`m`), and date (`d`) appear in your data. The code below produces identical output for the date September 29th, 1988, despite the three distinct input formats. This uniform output makes working with dates much easer in R.
+Date information is often provided as a string. The functions within the `lubridate` package can effectively handle this information. To use them to generate date objects, you can call a function using `y`, `m`, and `d` in the order in which the year (`y`), month (`m`), and date (`d`) appear in your data. The code below produces identical output for the date September 29th, 1988, despite the three distinct input formats. This uniform output makes working with dates much easier in R.
 
 ```{r}
 # year-month-date
@@ -887,7 +939,7 @@ wday(mydate, label = TRUE)
 
 ### Time spans
 
-In addition to being able to look at trends by month or year, which requires being able to extract that component from a date or date-time object, it's also important to be able to operate over dates.  If I give you a date of birth and ask you how old that person is today, you'll want to be able to calculate that. This is possible when working with date objects. By subtracting this birthdate from today's date, you'll learn now many days old this person is. By specifying this object using `as.duration()`, you'll be able to extract how old this person is in years.
+In addition to being able to look at trends by month or year, which requires being able to extract that component from a date or date-time object, it's also important to be able to operate over dates.  If I give you a date of birth and ask you how old that person is today, you'll want to be able to calculate that. This is possible when working with date objects. By subtracting this birth date from today's date, you'll learn now many days old this person is. By specifying this object using `as.duration()`, you'll be able to extract how old this person is in years.
 
 ```{r}
 ## how old is someone born on Sept 29, 1988
@@ -926,7 +978,7 @@ objectA <- c( "This sentence is a string.", "Short String", "Third string" )
 
 ### `stringr`
 
-[stringr](http://stringr.tidyverse.org/) is a core tidyverse package specifically designed to help make your life easier when working with strings. Similar to what we saw with `forcats` fucntions starting with `fct_`, all functions within this package start with `str_`, as you'll see below. There are *many* helpful functions within the `stringr` package. We'll only review the basics here, but if you're looking to accomplish something with a string and aren't sure how to approach it, the `stringr` package is a good first place to look. 
+[stringr](http://stringr.tidyverse.org/) is a core tidyverse package specifically designed to help make your life easier when working with strings. Similar to what we saw with `forcats` functions starting with `fct_`, all functions within this package start with `str_`, as you'll see below. There are *many* helpful functions within the `stringr` package. We'll only review the basics here, but if you're looking to accomplish something with a string and aren't sure how to approach it, the `stringr` package is a good first place to look. 
 
 The best way to work through this lesson is to copy and paste every line of code into your RStudio window and see if the output makes sense to you. Working with strings and regular expressions is best learned by practice. 
 
@@ -1270,15 +1322,497 @@ str_view_all(addresses, "n{3,4}")
 
 ![{n,m} looks to pattern match between n and m times](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_65)
 
-AVOCADO - needs more on regexes
+### `glue`
+
+Beyond using `stringr` to work with strings, there's an additional helpful package called [`glue`](https://glue.tidyverse.org/). According to the `glue` website:
+
+> Glue offers interpreted string literals that are small, fast, and dependency-free. Glue does this by embedding R expressions in curly braces which are then evaluated and inserted into the argument string.
+
+To get started with this package, it will have to be installed and loaded in, as it is not a core tidyverse package.
+
+```{r message = FALSE}
+# install.packages("glue")
+library(glue)
+```
+
+So, if you want to pass an R variable directly into a string, that becomes simpler with `glue`. 
+
+For example:
+
+```{r}
+# use glue to interpret string literal
+topic <- 'tidyverse'
+glue('My favorite thing to learn about is the {topic}!')
+```
+
+Note that the code above interprets the variable `topic` within the string specified in the `glue()` function. The variable is specified within curly braces: `{}`.
+
+This becomes particularly helpful when combining information within a data frame. 
+
+For example, if we return to the `msleep` dataset with information about mammalian sleep, we could use `mutate()` to add a column summarizing the name of the animal, how many minutes the animal spends asleep and how many awake. Note that these columns are currently in hours, so we're going to convert that to minutes within the glue statement here:
+
+```{r}
+# add a description column using glue
+msleep %>%
+  mutate(description = glue("The {name} typically sleeps for {sleep_total * 60} minutes and is awake for {awake * 60} minutes each day.")) %>% 
+  select(name, sleep_total, awake, description)
+```
+
+Note that we've selected the four columns used in this example with `select()` to focus on the output created using `glue()` in the `description` column. For each observation the information in description utilizes the appropriate information for that observation and the columns specified within the curly braces within the `glue()` function.
 
 ## Working With Text
 
-AVOCADO - tidytext example (Shannon has this elsewhere outside of CBDS, but has to add it)
+Beyond working with single strings and string literals, sometimes the information you're analyzing is a whole body of text. This could be a speech, a novel, an article, or any other written document. In text analysis, the document(s) you've set out to analyze are referred to as a **corpus**. Linguists frequently analyze such types of data and doing so within R in a tidy data format has become simpler thanks to the [`tidytext`](https://juliasilge.github.io/tidytext/) package and the package-accompanying book [*Text Mining with R*](https://www.tidytextmining.com/).
+
+To get started, the package must be installed and loaded in:
+
+```{r message = FALSE}
+# install.packages("tidytext")
+library(tidytext)
+```
+
+### Tidy Text Format
+
+If we're thinking about all the text in a novel, it's pretty clear that it is not in a format that is easy to analyze computationally. To analyze the text in the novel computationally and say, determine what words are used most frequently, or what topics are discussed, we need to convert the text in the novel into a format that a computer can interpret. And, as with all types of data discussed in these courses, we want this to be a tidy format where (1) each observation is a row (2) each variable is a column, and (3) each observational unit is a table. So, how do we take text from a novel and store the information in a tidy format?
+
+The tidy text format requires that the data frame will store one **token** per row. This requires knowing that a **token** is a meaningful unit of text. How you define that unit is up to you, the analyst and is driven by the question you're asking. If you're looking to identify the words used most frequently in this analysis, the unit of your token would be individual words. You would then utilize your computer to generate a data frame with each row containing data about a single word. However, your token could be two words (a **bigram**, a sentence, or a paragraph. Whatever you decide is meaningful for your analysis will be the unit for your token. Each row will contain a separate token.
+
+#### Tokenization
+
+After determining what level of information you're most interested in, you need a way to go from a wall of text (say, all the text in a novel) to a data frame of tokens (say, individual words). To do this, the `unnest_tokens()` function is incredibly useful.
+
+We'll use a bear bones example to demonstrate how it works. Below is text from the Shel Silverstein poem "Carrots" stored as a character vector:
+
+```{r}
+carrots <- c("They say that carrots are good for your eyes",
+          "They swear that they improve your sight",
+          "But I'm seein' worse than I did last night -",
+          "You think maybe I ain't usin' em right?")
+
+carrots
+```
+
+For analysis, we'd need to get this into a tidy data format. So, first things first, let's get it into a data frame:
+
+```{r}
+text_df <- tibble(line = 1:4, text = carrots)
+
+text_df
+```
+
+At this point we have a tibble with each line of the poem in a separate row. Now, we want to convert this using `unnest_tokens()` so that each row contains a single token, where, for this example, our token will be an individual word. This process is known as *tokenization*.
+
+```{r}
+text_df %>% 
+  unnest_tokens(word, text)
+```
+
+Notice that the two arguments to the `unnest_tokens()` function. The first (`word` in our example) is the name of the token column in the output. The second (`text` in our example) is the name of the column in the input data frame (`text_df`) that should be used for tokenization.
+
+In the output we see that there is a single word (token) in each row, so our data are now in a tidy format, which makes further analysis simpler.
+
+Finally, note that, by default `unnest_tokens()` strips punctuation and converts the tokens to lowercase. 
+
+### Sentiment Analysis
+
+Often, once you've tokenized your dataset, there is an analysis you want to do - a question you want to answer. Sometimes, this involves wanting to measure the sentiment of a piece by looking at the emotional content of the words in that piece. 
+
+To do this, the analyst must have access to or create a *lexicon*, a dictionary with the sentiment of common words. There are three single word-based lexicons available within the `tidytext` package: [`afinn`](http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=6010), [`bing`](https://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html), [`loughran`](https://sraf.nd.edu/) and [`nrc`](http://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm). Each differs in how they categorize sentiment, and to get a sense of how words are categorized in any of these lexicon, you can use the `get_sentiments()` function.
+
+However, this requires an additional package: `textdata`. Be sure this has been installed before using the `get_sentiments()` function.
+
+```{r}
+# be sure textdata is installed
+# install.packages("textdata")
+
+# see information stored in NRC lexicon
+get_sentiments('nrc')
+```
+
+Note: The first time you use this function R will prompt you to verify that you want to download the lexicon.
+
+In the output you'll see words in the first column and the sentiment attached to each word in the `sentiment` column. Notice that the same word can have multiple sentiments attached to it. All told, there are more than 13,000 word-sentiment pairs in this lexicon.
+
+Let's quantify the sentiment in the "Carrots" poem from above:
+
+```{r}
+text_df %>% 
+  unnest_tokens(word, text) %>% 
+  inner_join(get_sentiments('nrc'))
+```
+
+Notice that the sentiments applied to each word are dependent upon the sentiments defined within the lexicon. Words that are missing or that are used differently than anticipated by those who generated the lexicon *could* be misclassified. Additionally, since we're using single word tokens, qualifiers are removed from context. So in the carrots poem, the word good in "are good for your eyes" would be given the same sentiment as good if the phrase were "are *not* good for your eyes." Thus, a lot context and nuance is lost in this approach. It's always important to consider the limitations of your analytical approach! 
+
+Above we found the sentiments for each token, but let's summarize that by counting the number of times each sentiment appears.
+
+```{r}
+text_df %>% 
+  unnest_tokens(word, text) %>% 
+  inner_join(get_sentiments('nrc')) %>%
+  count(sentiment, sort = TRUE)
+```
+
+As we're analyzing a short poem, we see that only a few sentiments show up multiple times; however, using sentiment analysis on this poem suggests that the poem is generally positive, including words that convey trust, anticipation, and joy.
+
+Analyzing a four line poem, however, is not typically what one would do. They would instead analyze the text across chapters in a book or across multiple books. Here, we've just demonstrated the concepts behind how you would go about carrying out sentiment analysis.
+
+### Word & Document Frequency
+
+Beyond sentiment analysis, analysts of text are often interested in quantifying what a document is *about.* One could start by quantifying term frequency and looking at which terms occur most often; however, common words, such as the and and, are likely to appear most often. Those aren't unique to the work and hardly explain the text's topic. Often, these words, referred to as **stop words** are removed from analysis; however, these words are more important to some works relative to others. So, analysts tend to take a different approach: ***inverse document frequency*** (idf).  
+
+A document's ***inverse document frequency*** (idf) weights each term by its frequency in a collection of documents. Those words that are quite common in a set of documents are down-weighted. The weights for words that are less common are increased. By combining idf with term frequency (tf) (through multiplication), words that are common *and* unique to that document (relative to the collection of documents) stand out. 
+
+To see an example of this, we'll need a few more poems from Shel Silverstein for analysis. Here is *Invitation*:
+
+```{r}
+invitation <- c("If you are a dreamer, come in,",
+  "If you are a dreamer, a wisher, a liar", 
+  "A hope-er, a pray-er, a magic bean buyer…",
+  "If you’re a pretender, come sit by my fire",
+  "For we have some flax-golden tales to spin.",
+  "Come in!",
+  "Come in!")
+
+invitation <- tibble(line = 1:7, text = invitation, title = "Invitation")
+
+invitation
+```
+
+And, here is masks:
+
+```{r}
+masks <- c("She had blue skin.", 
+           "And so did he.", 
+           "He kept it hid", 
+           "And so did she.", 
+           "They searched for blue", 
+           "Their whole life through",
+           "Then passed right by—", 
+           "And never knew")
+
+masks <- tibble(line = 1:8, text = masks, title = "Masks")
+
+masks
+```
+
+We'll combine all three poems into a single data frame for TF-IDF analysis. To do so, we'll first add a column to our carrots example from above so that it has a column for `title`:
+
+```{r}
+# add title to carrots poem
+carrots <- text_df %>% mutate(title = "Carrots")
+
+# combine all three poems into a tidy data frame
+poems <- bind_rows(carrots, invitation, masks)
+```
+
+Now that we have our three documents (poems) in a single data frame, we can tokenize the text by word and calculate each tokens frequency within the document (poem).
+```{r}
+# count number of times word appwars within each text
+poem_words <- poems %>%
+  unnest_tokens(word, text) %>%
+  count(title, word, sort = TRUE)
+
+# count total number of words in each poem
+total_words <- poem_words %>% 
+  group_by(title) %>% 
+  summarize(total = sum(n))
+
+# combine data frames
+poem_words <- left_join(poem_words, total_words)
+poem_words
+```
+
+Note that there are a different number of total words in each document, which is important to consider when you're comparing relative frequency between documents.
+
+We could visualize the number of times a word appears relative to document length as follows:
+
+```{r}
+# visualize frequency / total words in poem
+ggplot(poem_words, aes(n/total, fill = title)) +
+  geom_histogram(show.legend = FALSE, bins = 5) +
+  facet_wrap(~title, ncol = 3, scales = "free_y")
+```
+
+With most documents there are only a few words that show up infrequently in the tail off to the right (rare words), while most words show up a whole bunch of times. 
+
+What we've just visualized is term frequency. We can add this quantity to our data frame:
+
+```{r}
+freq_by_rank <- poem_words %>% 
+  group_by(title) %>% 
+  mutate(rank = row_number(), 
+         `term frequency` = n/total)
+```
+
+Notice that words that appear most frequently will have the largest term frequency. However, we're not just interested in word frequency, as stop words (such as "a") have the highest term frequency. Rather, we're interested in tf-idf - those words in a document that are unique relative to the other documents being analyzed.
+
+To calculate tf-idf, we can use `bind_tf_idf()`, specifying three arguments: the column including the token (`word`), the column specifying the document from which the token originated (`title`), and the column including the number of times the word appears (`n`):
+
+```{r}
+poem_words <- poem_words %>%
+  bind_tf_idf(word, title, n)
+
+# sort ascending
+poem_words %>%
+  arrange(tf_idf)
+```
+
+If we sort this output in ascending order by `tf_idf`, you'll notice that the word "for" has a `tf_idf` of 0. The data indicates that this word shows up with equal frequency across all three poems. It is *not* a word unique to any one poem.
+
+```{r}
+# sort descending
+poem_words %>%
+  arrange(desc(tf_idf))
+```
+
+Alternatively, here we see the words most unique to the individual poems. "a" and "come" are most unique to *Invitation*, while "and" and "blue" are most unique to *Masks*. If we had removed stop words, we would have lost the fact that some common words are really unique in one of these poems relative to the others.
+
+Again, we're looking at a limited amount of text here, but this analysis can be applied to novels, works by different authors, or articles written in a newspaper.
+
+We can summarize these tf-idf results by visualizing the words with the highest tf-idf in each of these poems:
+
+```{r}
+poem_words %>%
+  arrange(desc(tf_idf)) %>%
+  mutate(word = factor(word, levels = rev(unique(word)))) %>% 
+  group_by(title) %>% 
+  top_n(3) %>% 
+  ungroup() %>%
+  ggplot(aes(word, tf_idf, fill = title)) +
+  geom_col(show.legend = FALSE) +
+  labs(x = NULL, y = "tf-idf") +
+  facet_wrap(~title, ncol = 3, scales = "free") +
+  coord_flip()
+```
+
 
 ## Functional Programming
 
-AVOCADO - purrr
+**Functional programming** is an approach to programming in which the code evaluated is treated as a mathematical function. It is *declarative*, so expressions (or declarations) are used instead of statements. Functional programming is often touted and used due to the fact that cleaner, shorter code can be written. In this shorter code, functional programming allows for code that is elegant but also understandable. Ultimately, the goal is to have simpler code that minimizes time required for debugging, testing, and maintaining.
+
+R at its core is a functional programming language. If you're familiar with the `map()` family of functions in base R, you've carried out some functional programming! Here, we'll discuss functional programming and utilize the `purrr` package, designed to enhance functional programming in R. 
+
+By utilizing functional programming, you'll be able to minimize redundancy within your code. The way this happens in reality is by determining what small building blocks your code needs. These will each be a function. These small building block functions are then combined into more complex structures to be your final program.
+
+### For Loops vs. Functionals
+
+In base R, you likely found yourself writing for loops for iteration. For example, if you wanted to carry out an operation on every row of a data frame, you've likely written a for loop to do so that loops through each row of the data frame and carries out what you want to do. However, you also may have heard people bemoan this approach, arguing that it's slow and unnecessary. This is because R is a functional programming language. You can wrap for loops into a function and call the function instead of using the for loop.
+
+Let's use an example to demonstrate what we mean by this. What if you had a data frame and wanted the median value for each column in the data frame? To see how you could approach this, we'll use the `trees` dataset available by default from R:
+
+```{r}
+# see dataset
+trees <- as_tibble(trees)
+trees
+```
+
+The dataset contains the diameter, height, and volume of 31 Black Cherry trees. 
+
+#### Copy + Paste Approach
+
+To calculate the median for each column, you could do the following:
+
+```{r}
+# calculate median of each column
+median(trees$Girth)
+
+median(trees$Height)
+
+median(trees$Volume)
+```
+
+This would get you your answer; however, this breaks the programming rule that you shouldn't copy and paste more than once. And, you could imagine that if you had more than three columns, this would be a *huge* pain and involve a whole lot of copy and pasting and editing.
+
+#### For Loop Approach
+
+A second approach would be to use a for loop. You would loop through all the columns in the data frame, calculate the median, record that value and store that information in a variable. 
+
+```{r}
+# create output vector
+output <- vector("double", ncol(trees)) 
+
+# loop through columns
+for (i in seq_along(trees)) {          
+  output[[i]] <- median(trees[[i]])      
+}
+output
+```
+
+This allows us to obtain the same information as the copy + paste method; however, it scales better if there are more than three columns in your data frame, making it a better option than the copy + paste method.
+
+But, what if you frequently want to take the median of the columns in your data frame? What if you want to do this more than once? You would have to go in, copy + paste this code and change the name of the data frame each time. This would break the don't copy + paste more than once rule.
+
+#### Function Approach
+
+This brings us to the function approach. Here, we wrap the for loop into a function so that we can execute a function on our data. frame whenever we want to accomplish the task of calculating the median for each column:
+
+```{r}
+# create function
+col_median <- function(df) {
+  output <- vector("double", length(df))
+  for (i in seq_along(df)) {
+    output[i] <- median(df[[i]])
+  }
+  output
+}
+
+# execute function
+col_median(trees)
+```
+
+Again, the output information from trees is the same for this specific example, but now we see that we could use the `col_median()` function any time we want to calculate the medians across columns within a data frame!
+
+This is a much better approach as it allows you to generalize your code, *but* the above solution still requires you to loop through each column, making the code harder to read and understand at a glance. It fails to take advantage of R's functional programming capabilities.
+
+#### `purrr` Approach
+
+To really optimize this solution, we'll turn to `purrr`. Using `purrr` requires you to determine how to carry out your operation of interest for a single occurrence (i.e. calculate the median for a single column in your data frame). Then `purrr` takes care of carrying out that operation across your data frame. Further, once you break your problem down into smaller building blocks, `purrr` also helps you combine those smaller pieces into a functional program.
+
+Let's use `purrr` (a core tidyverse package) to solve our calculate median for each column task. But, before we do that specifically, let's first introduce the general `map()` function.
+
+**`map`**
+
+We'll see usage of `map()` functions in just a second to accomplish our median for each column task, but before doing so, let's take a second to look at the generic usage for the family of `map` functions:
+
+```
+map(.x, .f, ...)
+map(INPUT, FUNCTION_TO_APPLY, OPTIONAL_OTHER_STUFF)
+```
+
+Note that the input to a `map` function requires you to first specify a vector input followed by the function you'd like to apply. Any other arguments to the function you want to pass follow at the end of the call.
+
+When it comes to our specific task, this is implemented as follows using `map_dbl()`:
+
+```{r}
+# use purrr to calculate median
+map_dbl(trees, median)
+```
+
+Here, we use the `map_dbl()` function from `purrr` to iterate over the columns of trees and calculate the median. And, it even displays the variable name in the output for us - all in a single function call.
+
+Note the flexibility! We've just passed the `median()` function *into* another function: `map_dbl`. This means that if we changed our minds and wanted mean instead, we could accomplish that with ease:
+
+```{r}
+# use purrr to calculate mean
+map_dbl(trees, mean)
+```
+
+This function exists because looping to do something to each element and saving the results is such a common task, that there is  family of functions (one of which is `map_dbl`) to do it for you to accomplish such tasks in `purrr`.
+
+We'll note here that `purrr`'s functions are all implemented in the C programming language, making them faster than the function we generated previously.
+
+In the example above `mean` could have been any function, denoted in the `purrr` documentation as `.f`. This specifies the function you'd like to apply to the vector you've specified.
+
+After `.f` in `purrr` functions, you can pass additional arguments. These go *after* the specified function. For example, below, we specify that we'd like to remove NAs, by specifying an argument to be passed to the `mean()` function after the function call (`mean`):
+
+```{r}
+# use purrr to calculate mean
+map_dbl(trees, mean, na.rm = TRUE)
+```
+
+### `map` functions
+
+The `map` family of functions from the `purrr` package are analogous to the `apply()` family of functions from base R. If you're familiar with `lapply()`, `vapply()`, `tapply`, and `sappy()`, the thinking will similar; however, `purrr` provides a much more consistent syntax and are much easier to learn and implement consistently.
+
+As you saw in the median example above, `map` functions carry out an operation repeatedly and store the output of that operation for you. There are a number of different `map` functions. To determine which to use, consider the output you want to obtain from your operation. Above, we wanted a double vector, so we used `map_dbl`. However, you can return a number of different outputs from the map functions. A few are listed here and we'll introduce even more shortly:
+
+* `map()` - returns a list
+* `map_lgl()` - returns a logical vector
+* `map_int()` - returns an integer vector
+* `map_dbl()` - returns a double vector
+* `map_chr()` - returns a character vector
+
+These all take vector and a function as an input. The function is applied to the vector and a new vector (of the same length & with the same names) is returned of the type specified in the map function call. 
+
+### Multiple Vectors
+
+So far, we've only looked at iterating over a single vector at a time; however in analysis, you'll often find that you need to iterate over more than one vector at a time. `purrr` has two functions that simplify this process for you: `map2` and `pmap`.
+
+#### `map2`
+
+**`map2()`** allows you to iterate over two vectors at the same time. The two vectors you want to iterate over are first specified within the `map2()` function call, followed by the function to execute. Any arguments after the function you'd like `map2()` to apply are specified at the end of the `map2()` call.
+
+The generic usage for `map2()` is:
+
+```
+map2(.x, .y, .f, ...)
+map(INPUT_ONE, INPUT_TWO, FUNCTION_TO_APPLY, OPTIONAL_OTHER_STUFF)
+```
+
+What if we wanted to calculate the volume of each tree? There is a column for volume, but let's see if we can't use a little geometry to calculate it on our own. 
+
+If we assume that each tree is a cylinder, the volume of a cylinder is $V = \pi r^2 h$, where $r$ is half the diameter. In the trees dataset, the diameter is stored in the `Girth` column, in *inches*. $h$ is the height of the cylinder, which is stored in the `Height` column, in *feet*. 
+
+Thus, we have two vectors we want to operate over, `Girth` and `Height`, so we'll use `map2()`.
+
+Let's first generate a function that will calculate volume for us from the information in our `trees` dataset:
+
+```{r}
+# generate volume function
+volume <- function(diameter, height){
+  # convert diameter in inches to raidus in feet
+  radius_ft <- (diameter/2)/12
+  # calculate volume
+  output <- pi * radius_ft^2 * height
+  return(output)
+}
+```
+
+Now, we can utilize `map2` then to calculate the volume from these two input vectors:
+
+```{r}
+# calculate volume
+map2_dbl(trees$Girth, trees$Height, volume)
+```
+
+Here the output is on the same order as the `Volume` column from the dataset, but the numbers are off, suggesting that the dataset calculated volume of the tree differently than we did in our approach.
+
+```{r}
+trees$Volume
+```
+
+Note that there are all the same variations that exist for `map_` exist for `map2()`, so you're able to use `map2_chr()` and `map2_dbl()`, etc. 
+
+Additionally, the `map` functions work well within our `dplyr` approach to working with data. Here, we add the output for our volume calculation to the trees dataset as well as a column (`volume_diff`) that displays the difference between our volume calculation and that reported in the dataset: 
+
+```{r}
+# calculate volume
+trees %>%
+  mutate(volume_cylinder = map2_dbl(trees$Girth, trees$Height, volume),
+         volume_diff = Volume - volume_cylinder)
+```
+
+#### `pmap`
+
+While `map()` allows for iteration over a single vector, and `map2()` allows for iteration over *two* vectors, there is no `map3()`, `map4()`, or `map5()` because that would get too unwieldy. Instead, there is a single and more general `pmap()` - which stands for parallel map - function. `pmap()` takes a list of arguments over which you'd like to iterate:
+
+The generic usage for this function is:
+
+```
+pmap(.l, .f, ...)
+pmap(LIST_OF_INPUT_LISTS, FUNCTION_TO_APPLY, OPTIONAL_OTHER_STUFF)
+```
+
+Note that `.l` is a list of all the input vectors, so you are no longer specifying `.x` or `.y` individually. The rest of the syntax remains the same.
+
+### Anonymous Functions
+
+In our `map2()` example we created a separate function to calculate volume; however, as this is a specific scenario for volume calculation, we likely won't need that function again later. In such scenarios, it can be helpful to utilize an **anonymous function**. This is a function that is not given a name but that is utilized within our `map` call. We are *not* able to refer back to this function later, but we *are* able to use it within our `map` call:
+
+```{r}
+map2_dbl(trees$Girth, trees$Height, function(x,y){ pi * ((x/2)/12)^2 * y})
+```
+
+In this example, we create the anonymous function within the `map2_dbl()` call. This allows volume to be calculated as before, but does so without having to define a function.
+
+This becomes particularly helpful within `purrr` if you want to refer to the individual elements of your `map` call directly. This is done by specifying `.x` and `.y` to refer to the first and second input vectors, respectively:
+
+```{r}
+map2_dbl(trees$Girth, trees$Height, ~ pi * ((.x/2)/12)^2 * .y)
+```
+
+Here, we see the same output; however, the syntax defines an anonymous function using the formula syntax.
+
 
 ## Exploratory Data Analysis 
 
@@ -1377,7 +1911,570 @@ AVOCADO - this section stinks
 
 To see an example of not only using `xml2` to parse XML data, but also another example of using `rvest` to obtain the XML data, check out this post from [José Roberto Ayala Solares](https://towardsdatascience.com/@jroberayalas) where he took the text from a New York Times article called ["Trump's Lies"](https://www.nytimes.com/interactive/2017/06/23/opinion/trumps-lies.html), scraped the data from the web (obtaining it in XML), and then [wrangled it into a tidy format](https://towardsdatascience.com/web-scraping-tutorial-in-r-5e71fd107f32) using `xml2`.
 
-
 ![`rvest` and `xml2` are helpful for web scraping and working with XML data](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g3d555e2b2e_0_148)
   
 In this lesson, our goal is to make you aware that data from the Internet (and APIs in particular) will often come in either JSON or XML format. Thus, the JSON and XML examples provided here only give you a bit of an idea of what JSON and XML data are and how to work with them. Nevertheless, the more frequently you retrieve data from APIs and the Internet, the more comfortable you'll have to become with both JSON and XML. And, `jsonlite` and `xml2` will help you as you work with these data in R!
+
+## Case Studies
+
+So far, we've introduced the case studies and read them into R. Now, we get to work to get them into a tidy formatted dataset that includes the information needed to answer our questions of interest. 
+
+### Case Study #1: Health Expenditures
+
+We've already read in the datasets we'll use for this health expenditures case study, but they're not yet cleaned and wrangled. So, we'll do that here!
+
+As a reminder, we're ultimately interested in answering the following questions with these data:
+
+1. Is there a relationship between healthcare coverage and healthcare spending in the United States?
+2. How does the spending distribution change across geographic regions in the United States?
+3. Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?
+
+This means that we'll need all the data from the variables necessary to answer this question in our tidy datset.
+
+#### Healthcare Coverage Data
+
+Let's remind ourselves before we get to wrangling what data we have when it comes to healthcare coverage.
+
+```{r}
+coverage
+```
+
+At a glance, we see that state-level information is stored in rows (with the exception of th first row, which stores country-level information) with columns corresponding to the amount of money spent on each type of healtcare, by year. 
+
+If we focus in on the columns wtihin this dataframe, we see that we have a number of different typesof health care (i.e. employer, medicare, medicaid, etc.) for each year between 2013 and 2016:
+
+```{r}
+colnames(coverage)
+```
+
+While a lot of information in here will be helpful, it's not in a tidy format. This is because, each variable is not in a separate column. For example, each column includes year, the type of coverage *and* the amount spent by state. We'll want to use each piece of information separately downstream as we start to visualize and analyze these data. So, let's work to get these pieces of information separated out now.
+
+To accomplish this, the first thing we'll have to do is reshape the data, using hte `gather()` function from the `tidyr` package. As a reminder, this function gathers multiple columns and collapses them into new key-value pairs. This transform data from wide format into a long format, where:
+
+- The **`key`** is the name of the new column that you are creating which contains the values of the column headings that you are gathering
+- The **`value`** is the name of the new column that will contain the values themselves
+- The third argument defines the columns to gather
+
+Here, we create a column titled `year_type` and `tot_coverage`, storing this newly formatted dataframe back into the variable name `coverage`. We also want to keep the Location column as it is because it also contains observational level data.
+
+```{r}
+coverage <- gather(coverage, "year_type", "tot_coverage", -Location)
+
+coverage
+```
+
+Great! We still have `Location` stored in a single column, but we've separated out `year_type` and `tot_coverage` into their own columns, storing all of the information in a **long** data format.
+
+Unfortunately, the `year_type` column still contains two pieces of information. We'll want to separate these out to ensure that the data are in a properly tidy format. To do this, we'll look to use the `separate()` function, which allows us to separate out the information stored in a single column into two columns. We'llalso use the `convert=TRUE` argument to convert the character to an integer.
+
+```{r}
+coverage <- coverage %>% 
+  separate(year_type, sep="__", 
+           into=c("year", "type"), 
+           convert = TRUE)
+
+coverage
+```
+
+Perfect! We now have the four columns we wanted, each storing a separate piece of information, *and* the year column is an integer, as you would want it to be! 
+
+The other columns remain character type information. That makes sense for Location and type, but not for `tot_coverage`. Let's change that to be numeric as well using the `mutate_at()` function from `dplyr`. 
+
+Here, we are specifying that we want to take the `tot_coverage` column and convert it to an integer and then replace the old column with the newly-converted column.
+
+```{r warning = FALSE}
+coverage <- 
+  coverage %>% 
+  mutate_at("tot_coverage", as.integer)
+
+coverage
+```
+
+Great, our variables are now all of the appropriate type!
+
+Let's go one step further and add in the state-level abbreviations and region for each row. We'll utilize our `state` datasets that we read in previously to accomplish this!
+
+```{r}
+# Add the abbreviation of States
+coverage$abb <- state.abb[match(coverage$Location, state.name)]
+coverage$region <- state.region[match(coverage$Location, state.name)]
+
+coverage
+```
+
+Perfect! At this point, each row is an observation, each column stores a single piece of information. This dataset is now in good shape!
+
+#### Healthcare Spending Data
+
+We'll have to take a similar approach when it comes to tidying the spending data as it has a similar structure to how the coverage data were stored.
+
+```{r}
+spending
+```
+
+Here, we reshape the data using `year` and `tot_spending` for the key and value. We also want to keep `Location` like before. Then, in the `separate()` function, we create two new columns called `year` and `name.` Then, we ask to return all the columns, *except* name. To select all the columns except a specific column, use the `-` (subtraction) operator. (This process is also referred to as negative indexing.)
+
+```{r}
+# take spending data from wide to long
+spending <- gather(spending, "year", "tot_spending", -Location)
+
+# separate year and name columns
+spending <- spending %>% 
+  separate(year, sep="__", into=c("year", "name"), convert = TRUE) %>% 
+  select(-name)
+
+# look at the data
+spending
+```
+
+Perfect, we have a tidy dataset and the type of information stored in each column is appropriate for the information being stored in the column!
+
+#### Join the Data
+
+At this point, we have a `coverage` dataset and a `spending` dataset, but ultimately, we want all of this information in a single tidy data frame. To do this, we'll have to join the datasets together. 
+
+We have to decide what type of join we want to do. For our questions, we only want information from years that are found in both the `coverage` and the `spending` datasets. This means that we'll want to do an `inner_join()`. This will keep the data from the intersection of years from `coverage` and  `spending` (meaning only 2013 and 2014). We'll store this in a new variable: `hc`.
+
+
+```{r}
+# inner join to combine data frames
+hc <- inner_join(coverage, spending, 
+                 by = c("Location", "year"))
+
+hc
+```
+
+Great, we've combined the information in our datasets. But, we've got a bit of extraneous information remaining. For example, we want to look only at the state-level. So, let's filter out the country-level summary row:
+
+```{r}
+# filter to only include state level
+hc <- hc %>% 
+  filter(Location != "United States")
+```
+
+Another problem is that inside our `hc` dataset, there are multiple types of healthcare coverage.
+
+```{r}
+table(hc$type)
+```
+
+The "Total" type is not really a formal type of healthcare coverage. It really represents just the total number of people in the state. This is useful information and we can include it as a column called `tot_pop`. To accomplish this, we'll first store this information in a data frame called `pop`.
+
+```{r}
+pop <- hc %>% 
+  filter(type == "Total") %>% 
+  select(Location, year, tot_coverage)
+
+pop
+```
+
+We can then, using a `left_join` to ensure we keep all of the rows in the `hc` data frame in tact, add this population level information while simultaneously removing the rows where `type` is "Total" from teh dataset. Finally, we'll rename the columns to be informative of the information stored within: 
+
+```{r}
+# ad population level information
+hc <- hc %>% 
+  filter(type != "Total") %>% 
+  left_join(pop, by = c("Location", "year")) %>% 
+  rename(tot_coverage = tot_coverage.x, 
+         tot_pop = tot_coverage.y)
+
+hc
+```
+
+From here, instead of only storing the absolute number of people who are covered (`tot_coverage`), we will calculate the proportion of people who are coverage in each state, year and type, storing this information in `prop_coverage`.
+
+```{r}
+# add proportion covered
+hc <- hc %>% 
+    mutate(prop_coverage = tot_coverage/tot_pop) 
+
+hc
+```
+
+The `tot_spending` column is reported in millions (1e6). Therefore, to calculate `spending_capita` we will need to adjust for this scaling factor to report it on the original scale (just dollars) and then divide by `tot_pop.` We can again use `mutate()` to ccomplish this:
+
+```{r}
+# get spending capita in dollars
+hc <- hc %>% 
+  mutate(spending_capita = (tot_spending*1e6) / tot_pop)
+
+hc
+```
+
+Yes! At this point we have a single tidy data frame storing all the information we'll need to answer our questions!
+
+### Case Study #2: Firearms
+
+For our second case study, we're interested in the following question: At the state-level, what is the relationship between firearm legislation strength and annual rate of fatal police shootings? Time to wrangle *all* those many datasets we read in previously!
+
+#### Cenus Data
+
+Let's take a look at the raw data to remind ourselves of what information we have:
+
+```{r}
+census
+```
+
+These data look reasonably tidy to start; however, the information stored in each column is not particularly clear at a glance. For example, what is a RACE of 1? What does that mean?
+
+Well, if we look at the data dictionary in the document [sc-est2017-alldata6.pdf](https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/data/sc-est2017-alldata6.pdf), we learn that:
+
+The key for `SEX` is as follows:
+- 0 = Total
+- 1 = Male
+- 2 = Female
+
+The key for `ORIGIN` is as follows:
+- 0 = Total
+- 1 = Not Hispanic
+- 2 = Hispanic
+
+The key for `RACE` is as follows:
+- 1 = White Alone
+- 2 = Black or African American Alone
+- 3 = American Indian and Alaska Native Alone
+- 4 = Asian Alone
+- 5 = Native Hawaiian and Other Pacific Islander Alone
+- 6 = Two or more races
+
+With that information in mind, we can then use the `dplyr` package to `filter`, `group_by`, and `summarize` the data in order to calculate the necessary statistics we'll need to answer our question. 
+
+For each state, we add rows in the column `POPESTIMATE2015` since we are looking at the year `2015.` Setting the `ORIGIN` or `SEX` equal to 0 ensures we don’t add duplicate data, since 0 is the key for both Hispanic and non Hispanic residents and total male and female residents. We group by each state since all data in this study should be at the state level.
+
+We store each of these pieces of information in its own column within the new dataframe we've created `census_stats`
+
+```{r}
+# summarize by ethnicity
+census_stats <- census %>%
+  filter(ORIGIN == 0, SEX == 0) %>%
+  group_by(NAME) %>%
+  summarize(white = sum(POPESTIMATE2015[RACE == 1])/sum(POPESTIMATE2015)*100,
+            black = sum(POPESTIMATE2015[RACE == 2])/sum(POPESTIMATE2015)*100)
+
+# add hispanic information
+census_stats$hispanic <- census %>%
+  filter(SEX == 0) %>% 
+  group_by(NAME) %>%
+  summarize(x = sum(POPESTIMATE2015[ORIGIN == 2])/sum(POPESTIMATE2015[ORIGIN == 0])*100) %>%
+  pull(x)
+
+# add male information
+census_stats$male <- census %>%
+  filter(ORIGIN == 0) %>%
+  group_by(NAME) %>%
+  summarize(x = sum(POPESTIMATE2015[SEX == 1])/sum(POPESTIMATE2015[SEX == 0])*100) %>%
+  pull(x)
+
+# add total population information
+census_stats$total_pop <- census %>%
+  filter(ORIGIN == 0, SEX == 0 ) %>%
+  group_by(NAME) %>%
+  summarize(total = sum(POPESTIMATE2015)) %>%
+  pull(total)
+
+# lowercase state name for consistency
+census_stats$NAME <- tolower(census_stats$NAME)
+
+census_stats
+```
+
+We can approach the age data similarly, where se get the number of people within each state at each age:
+
+```{r}
+# get state-level age information
+age_stats <- census %>%
+  filter(ORIGIN == 0, SEX == 0) %>%
+  group_by(NAME, AGE) %>%
+  summarize(sum_ages = sum(POPESTIMATE2015))
+
+age_stats
+```
+
+This information is in a long format, but it likely makes more sense to store this information in a wide format, where each column is a different state and each row is an age. To do this:
+
+```{r}
+age_stats <- spread(age_stats, "NAME", "sum_ages")
+
+age_stats
+```
+
+Now that we’ve made the data easier to work with, we need to find a way to get the median. One method is to take the cumulative sum of each column and then divide all the rows by the last row in each repective column, calculating a percentile/quantile for each age. To do this, we first remove the AGE column, as we don't want to calculate the median for this column. We tehn apply the `cumsum()` function and an anonymous function using `purrr`'s `map_df` function. But, of course, we do still want the AGE information in there, so we add that column back in using `mutate()` and then reorder the columns so that AGE is at the front again using `select()`:
+
+```{r}
+# calculate median age for each state
+age_stats <- age_stats %>%
+  select(-AGE) %>%
+  map_df(cumsum) %>%
+  map_df(function(x) x/x[nrow(age_stats)]) %>%
+  mutate(AGE = age_stats$AGE) %>%
+  select(AGE, everything())
+```
+
+Great, we have a tidy dataset storing important census information for both ethnicity and age. Now onto the other datasets!
+
+#### Violent Crime
+
+For crime, we have the following data:
+
+```{r}
+crime
+```
+
+IF we take a look at what information is stored in each column...
+
+```{r}
+colnames(crime)
+```
+
+you see that it's kind of a mess and there's a whole bunch of information in there that we're not necessarily interested in for this analysis.
+
+Because of the messy names here (we'll clean them up in a bit), we'll se the column index to select columns instead of the complicated names. Also, we print a specified row of violent crime to observe the `X__1` group we are looking for – Rate per 100,000 inhabitants (per the study.)
+
+```{r}
+violentcrime <- crime %>% 
+  select(c(1,3,5))
+
+violentcrime
+```
+
+Great, so we're starting to home in on the data we're interested in but we're ultimately interested in Rate per 100,000 inhabitants, so we need get all rows where the second column is equal to `Rate per 100,000 inhabitants`. 
+
+However, as we can see above, the value for State in these rows is `NA`, so we need to `fill()` that value with the state name that is listed in a previous row. Then we can select the rows where the second column is `Rate per 100,000 inhabitants`. After that, we no longer need the second column, so we'll remove it.
+
+```{r}
+violentcrime <- violentcrime %>% 
+  fill(State) %>%
+  filter(.[[2]] == "Rate per 100,000 inhabitants") %>%
+  rename( violent_crime = `Violent\ncrime1`) %>%
+  select(-`...3`)
+  
+violentcrime
+```
+
+If we look closely at our data, we'll notice that some of our state names have 6s at the end of them. This will cause problems later on. 
+
+```{r}
+violentcrime$State[20]
+```
+
+So, let's clean that up now be removing those trailing numerics *and* converting the names to lower case:
+
+```{r}
+# lower case and remove numbers from State column
+violentcrime <- violentcrime %>%
+  mutate(State = tolower(gsub('[0-9]+', '', State)))
+
+violentcrime
+```
+
+We've now got ourselves a tidy dataset with violent crime information that's ready to be joined with our census_stats data!
+
+```{r}
+# join with census data
+firearms <- left_join(census_stats, violentcrime, 
+                  by = c("NAME" = "State"))
+
+firearms
+```
+
+#### Brady Scores
+
+The study by AJPH groups the scores using 7 different categories. The study removed all weightings of the different laws in favor of a “1 law 1 point” system, since the weightings were “somewhat arbitrary.”
+
+For the purpose of practice and simplification we will just keep the first line of “total state points” from the Brady Scorecard as they are given. This will be where our analysis differs from the study. We need to transform the data frame so that we have a column of state names and a column of the corresponding total scores.
+
+
+```{r}
+brady
+```
+
+This dataset inclues a lot of information, but we're interested in the brady scores for each state. These are stored in the row where the first column is equal to "TOTAL STATE POINTS," so we `filter()` to only include that row. We then want to only receive the scores for each state, and not the information in the first few columns, so we specify that using `select()`. With the information we're interested in, we then take the data from wide to long using `gather()`, renaming the columns as we go. Finally, we specify that the information in the `brady_scores` column is numeric, not a character.
+
+```{r}
+brady <- brady %>%
+  rename(Law = `States can receive a maximum of 100 points`) %>% 
+  filter(Law == "TOTAL STATE POINTS") %>%
+  select((ncol(brady) - 49):ncol(brady)) %>% 
+  gather("state", "brady_scores") %>%
+  mutate_at("brady_scores", as.numeric)
+
+brady
+```
+
+Only problem now is that we have the two letter state code, rather than the full state name we've been joining on so far here. We can, however, use the `state` datasets we used in the first case study here!
+
+```{r}
+brady <- brady %>% 
+  mutate(state = tolower(state.name[match(brady$state, state.abb)]))
+
+brady
+```
+
+
+Now, it's time to join this information into our growing dataframe `firearms`:
+
+```{r}
+firearms <- left_join(firearms, brady, by = c("NAME" = "state"))
+
+firearms
+```
+
+#### The Counted Fatal Shootings
+
+We're making progress, but we have a ways to go still! Let's get wroking on incorporating data from The Counted.
+
+As a reminder, we have a datasets here with data from 2015:
+
+```{r}
+counted15
+```
+
+The data from each year are in a simialr format with each row representing a different indvidiual and the columns being consistent between the two datasets.
+
+Because of this consistent format, we can combine these two datasets using `bind_rows()`. By specifying `id = "dataset"`, a column called `dataset` will store which dataset each row came from originally. We can then use `mutate()` and `ifelse()` to conditionally specify the year -- 2015 or 2016 -- from which the data originated. We'll also be sure to change the two letter state abbreviation to the lower case state name, to allow for each merging. 
+
+```{r}
+counted15 <- counted15 %>%
+  mutate(state = tolower(state.name[match(state, state.abb)]))
+```
+
+At this point, we have a lot of information at the individual level, but we'd like to summarize this at the state level by ethnicity, gender, and armed status. The researchers “calculated descriptive statistics for the proportion of victims that were male, armed, and non-White,” so we'll do the same. We can accomplish this using `dplyr`. `tally()` will be particularly helpful here to count the number of observations in each group. We're calculating this for each state as well as calculating the annualized rate per 1,000,000 residents. This utilizes the `total_pop` column from the `census_stats` data frame we used earlier.
+
+```{r}
+# get overall stats
+counted_stats <- counted15 %>%
+  group_by(state) %>%
+  filter(classification == "Gunshot") %>%
+  tally() %>%
+  rename("gunshot_tally" = "n")
+
+# get summary for subset of population
+gunshot_filtered <- counted15 %>%
+  group_by(state) %>%
+  filter(classification == "Gunshot",raceethnicity != "white", armed != "No", gender == "Male") %>%
+  tally() %>% 
+  rename("gunshot_filtered" = "n")
+
+# join data together
+counted_stats <- left_join(counted_stats, gunshot_filtered, by = "state") %>%
+  mutate(total_pop = census_stats$total_pop[match(state, census_stats$NAME)],
+         gunshot_rate = (gunshot_tally/total_pop)*1000000/2) %>% 
+  select(-total_pop)
+
+counted_stats
+```
+
+Time to merge this into the data frame we've been compiling:
+
+```{r}
+firearms <- left_join(firearms, counted_stats, by = c("NAME" = "state"))
+```
+
+#### Unemployment Data
+
+Let's recall the table we scraped from the web, which is currently storing our unemployment data:
+
+```{r}
+unemployment
+```
+
+Let's first rename the columns to clean things up. You'll note that there are more rows in this data frame (due to an empty row, the United States, and a note being in this dataset); however, when we `left_merge()` in just a second these will disappear, so we can ignore them for now.
+ 
+```{r}
+unemployment <- unemployment %>% 
+  rename("state" = "State", 
+         "unemployment_rate" = "2015rate", 
+         "unemployment_rank" = "Rank") %>%
+  mutate(state = tolower(state)) %>%
+  arrange(state)
+
+unemployment
+```
+ 
+Let's do that join now. Let's add unemployment information to our growing data frame!
+
+```{r}
+firearms <- left_join(firearms, unemployment, by = c("NAME" = "state"))
+```
+
+If we take a look at the data we now have in our growing data frame, using `glimpse()`, we see that type is correct for most of our variables *except* `unemployment_rate` and `unemployment_rank`. This is due to that "Note" and empty (`""`) row in the unemployment dataset. So, let's be sure to get that variable to a numeric now as it should be: 
+
+
+```{r}
+glimpse(firearms)
+```
+
+
+```{r}
+# convert type for unemployment columns
+firearms <- firearms %>%
+  mutate_at("unemployment_rate", as.numeric) %>%
+  mutate_at("unemployment_rank", as.integer)
+```
+
+
+
+#### Population Density: 2015
+
+Population density for 2015 can be calculated from the Census data in combination with the land area data we've read in. This is calculated (rather than simply imported) because accurate data for state population in 2015 was not available in a downloadable format nor was it easy to scrape.
+
+From the census data, we can obtain total population counts:
+
+```{r}
+totalPop <- census %>%
+  filter(ORIGIN == 0, SEX == 0 ) %>%
+  group_by(NAME) %>%
+  summarize(total = sum(POPESTIMATE2015)) %>%
+  mutate(NAME = tolower(NAME))
+
+totalPop
+```
+
+
+Then, we select `LND110210D` by looking at the `land` table and comparing values on other sites (such as the census or Wikipedia) to find the correct column. This column corresponds to land area in square miles. We'll onvert all state names to lower case for easy merging with our growing data frame in a few steps.
+
+```{r}
+landSqMi <- land %>%
+  select(Areaname, land_area = LND110210D) %>% 
+  mutate(Areaname = tolower(Areaname))
+
+landSqMi
+```
+
+Since `landSqMi` gives us area for each town in addition to the states, we will want merge on the state names to obtain only the area for each state, removing the city- and nation-level data. Also, because "district of columbia" appears twice, we'll use the `distinct()` function to only include on entry for "district of columbia"
+
+We can then calculate density and remove the `total` and `land_area` columns to only keep state name and density for each state:
+
+```{r}
+popdensity <- left_join(totalPop, landSqMi, by=c("NAME" = "Areaname")) %>% 
+  distinct() %>%
+  mutate(density = total/land_area) %>%
+  select(-c(total, land_area))
+
+popdensity
+```
+
+This can now be joined with our growing data frame:
+
+```{r}
+firearms <- left_join(firearms, popdensity, by="NAME")
+```
+
+
+#### Firearm Ownership
+
+Last but not least, we calculate firearm ownership as a percent of firearm suicides to all suicides.
+
+```{r}
+ownership_df <- as_tibble(list("NAME" = tolower(suicide_all$State), 
+                          "ownership" = suicide_firearm$Deaths/suicide_all$Deaths*100))
+ownership_df
+```
+
+This can now be joined onto our tidy, growing data frame:
+
+```{r}
+firearms <- left_join(firearms, ownership_df, by="NAME")
+```
+
+And, with that, we've wrangled and tidied all these datasets into a single data frame. This can now be used for visualization and analysis!

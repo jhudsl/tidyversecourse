@@ -1048,3 +1048,211 @@ Like with text, there are packages in R that will help you carry out analysis of
 ## `googledrive`
 
 AVOCADO
+
+## Case Studies
+
+### Case Study #1: Health Expenditures
+
+The data for this case study are available in [CSVs hosted on GitHub](https://github.com/opencasestudies/ocs-healthexpenditure/tree/master/data/KFF). CSVs from URLs can be read directly using `read_csv()` from `readr` (a core tidyverse package).
+
+As a reminder, we're ultimately interested in answering the following questions with these data:
+
+1. Is there a relationship between healthcare coverage and healthcare spending in the United States?
+2. How does the spending distribution change across geographic regions in the United States?
+3. Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?
+
+#### Healthcare Coverage Data
+
+We'll first read the data in. Note that we have to skip the first two lines, as there are two lines in the CSV that store information about the file before we get to the actual data.
+
+To see what we mean, you can always use the `read_lines()` function from `readr` to see the first few lines:
+
+```{r message = FALSE}
+read_lines(file = 'https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv', n_max = 10)
+```
+
+We'll read in the data, starting with the third line of the file:
+
+```{r message = FALSE}
+coverage <- read_csv('https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv', 
+                     skip = 2)
+
+coverage
+```
+
+So, the first few lines of the dataset appear to store information for each state (observation) in the rows and different variables in the columns. What about the final few lines of the file?
+
+```{r}
+tail(coverage, n = 30)
+```
+
+Looks like there's a lot of missing information there at the end of the file due the "Notes" observation. Seems as though Notes were added to the file that are not the actual data. We'll want to only include rows before the "Notes" at the end of the file, using `n_max`:
+
+```{r message = FALSE}
+## read coverage data into R
+coverage <- read_csv('https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv', 
+                     skip = 2,
+                     n_max  = which(coverage$Location == "Notes")-1)
+
+tail(coverage)
+```
+
+Looks much better now! We can then use `glimpse()` to get a sense of what types of information are stored in our dataset.
+
+```{r}
+glimpse(coverage)
+```
+
+Looks like we have a whole bunch of numberic variables, but a few that appear like they *should* be numeric, but are actually strings. We'll keep this in mind for when we wrangle the data!
+
+#### Healthcare Spending Data
+
+Now, we're ready to read in our healthcare spending data, using a similar approach as we did for the coverage data..
+
+```{r message = FALSE}
+## read spending data into R
+spending <- read_csv('https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-spending.csv', 
+                     skip = 2)
+spending <- read_csv('https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-spending.csv', 
+                     skip = 2, 
+                     n_max  = which(spending$Location == "Notes")-1)
+tail(spending)
+```
+
+#### States Data
+
+To work with these data, we'll also want to be able to switch between full state names and two letter abbreviations. There's data in R available to you for just this purpose!
+
+```{r}
+library(datasets)
+data(state)
+state.name
+```
+
+Before going any further, let's add some information about Washington, D.C, the nation's capital, which is not a state, but a territory.
+
+```{r}
+state.abb <- c(state.abb, "DC")
+state.region <- as.factor(c(as.character(state.region), "South"))
+state.name <- c(state.name, "District of Columbia")
+```
+
+### Case Study #2: Firearms
+
+We've got a whole bunch of datasets that we'll need to read in for this case study. They are from a number of different sources and are stored in different file formats. This means we'll need to use various functions to read the data in *and* keep this in mind we we start wrangling the data.
+
+As a reminder, we're interested in the following question: At the state-level, what is the relationship between firearm legislation strength and annual rate of fatal police shootings?
+
+#### Census Data
+
+Population characteristics at the state level for 2017 are available:
+
+```{r message = FALSE}
+# read in the census data
+census <- read_csv('https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/sc-est2017-alldata6.csv',
+                   n_max = 236900)
+census
+```
+
+#### Counted Data
+
+The Counted project started to count persons killed by police in the US due to the fact “the US government has no comprehensive record of the number of people killed by law enforcement. These data can be read in from the CSV stored on GitHub, for 2015:
+
+```{r message = FALSE}
+# read in the counted data
+counted15 <- read_csv("https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/the-counted-2015.csv")
+
+```
+
+#### Suicide Data
+
+Information about suicide and suicide as a result of firearms can also be directly read into R from the CSVs stored on GitHub:
+
+```{r message = FALSE}
+# read in suicide data
+suicide_all <- read_csv("https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/suicide_all.csv")
+suicide_all
+
+# read in firearm suicide data
+suicide_firearm <- read_csv("https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/suicide_firearm.csv")
+suicide_firearm
+```
+
+#### Brady Data
+
+For the Brady Scores data, quantifying numerical scores for firearm legislation in each state, we'll need the `httr` package, as these data are stored in an Excel spreadsheet. Note, we could download these files to our local computer, store them, and read this file in using `readxl`'s `read_excel()` file, *or* we can use the `httr` package to download and store the file in a temporary directory, followed by `read_excel` to read them into R. We'll go with this second option here to demonstrate how it works.
+
+```{r message = FALSE}
+library(readxl)
+library(httr)
+
+# specify URL to file
+url = "https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/data/Brady-State-Scorecard-2015.xlsx?raw=true"
+
+# Use httr's GET() and read_excel() to read in file
+GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
+brady <- read_excel(tf, sheet = 1)
+
+brady
+```
+
+#### Crime Data
+
+Crime data, from the FBI’s Uniform Crime Report, are stored as an Excel file, so we'll use a similar approach as above for these data:
+
+```{r message = FALSE}
+# specify URL to file
+url = "https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/data/table_5_crime_in_the_united_states_by_state_2015.xls?raw=true"
+
+# Use httr's GET() and read_excel() to read in file
+GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
+crime <- read_excel(tf, sheet = 1, skip = 3)
+
+# see data
+crime
+```
+
+Note, however, there are slight differences in the code used here, relative to the Brady data. We have to use `skip = 3` to skip the first three lines of this file. *And*, this file has the extension `.xls` rather than `.xlsx`, which we specify within the `fileext` argument.
+
+#### Land Area Data
+
+US Census 2010 Land Area data are also stored in an excel spreadsheet"
+
+```{r message = FALSE}
+# specify URL to file
+url = "https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/data/LND01.xls?raw=true"
+
+# Use httr's GET() and read_excel() to read in file
+GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
+land <- read_excel(tf, sheet = 1)
+
+# see data
+land
+```
+
+#### Unemployment Data
+
+This data is available online from the BLS, but there is no easy download of the table. It is also difficult to simply copy and paste; it doesn’t hold it’s table format. Thus we will want to use web scraping to most easily and accurately obtain this information using the `rvest` package.
+
+As a reminder, to view the HTML of a webpage, right-click and select “View page source.”
+
+```{r message = FALSE}
+library(rvest)
+
+# specify URL to where we'll be web scraping
+url <- read_html("https://www.bls.gov/lau/lastrk15.htm")
+
+# scrape specific table desired
+out <- html_nodes(url, "table") %>%
+  .[2] %>%
+  html_table(fill = TRUE) 
+
+# store as a tibble
+unemployment <- as_tibble(out[[1]]) 
+
+unemployment
+```
+
+Then we get the values from each column of the data table. html_nodes acts as a CSS selector. The "table" class returns two tables from the webpage and we specify that we want the second table. From `out` we select the first in the list and store this as a tibble.
+
+
