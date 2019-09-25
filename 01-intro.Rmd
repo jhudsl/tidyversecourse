@@ -287,7 +287,7 @@ According to the [*dplyr* website](https://dplyr.tidyverse.org/)
 
 > dplyr is a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges. 
 
-*dplyr* is built around five primary verbs (mutate, select, filter, summarise, and arrange) that help make the data wrangling process simpler. This specialization will cover these verbs among other functionality within the dplyr package.
+*dplyr* is built around five primary verbs (mutate, select, filter, summarize, and arrange) that help make the data wrangling process simpler. This specialization will cover these verbs among other functionality within the dplyr package.
 
 #### **tidyr**
 
@@ -399,7 +399,7 @@ Beyond static images, there are times when we want to display changes over time 
 
 According to the [*gganimate* website](https://gganimate.com/):
 
-> gganimate extends the grammar of graphics as implemented by ggplot2 to include the description of animation. It does this by providing a range of new grammar classes that can be added to the plot object in order to customise how it should change with time.
+> gganimate extends the grammar of graphics as implemented by ggplot2 to include the description of animation. It does this by providing a range of new grammar classes that can be added to the plot object in order to customize how it should change with time.
 
 ### Data Modeling 
 
@@ -436,7 +436,7 @@ According to the [*feasts* website](https://feasts.tidyverts.org):
 
 According to the [*fable* website](https://fable.tidyverts.org/):
 
-> The R package fable provides a collection of commonly used univariate and multivariate time series forecasting models including exponential smoothing via state space models and automatic ARIMA modelling. These models work within the fable framework, which provides the tools to evaluate, visualise, and combine models in a workflow consistent with the tidyverse.
+> The R package fable provides a collection of commonly used univariate and multivariate time series forecasting models including exponential smoothing via state space models and automatic ARIMA modelling. These models work within the fable framework, which provides the tools to evaluate, visualize, and combine models in a workflow consistent with the tidyverse.
 
 
 #### caret
@@ -488,7 +488,15 @@ To summarize once more, **relative paths** give a path to the destination folder
 
 ## RStudio Projects
 
-AVOCADO
+Creating [RStudio projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) can be very helpful for organizing your code and any other files that you may want to use in one location together. 
+
+New projects can be created by clicking on the RStudio Projects button in Rstudio:
+
+```{r, echo = FALSE, out.width="60%"}
+knitr::include_graphics(here::here("book_figures/rproj-fig.png"))
+```
+
+This will create a special file with the .Rproj extension. This file tells RStudio to identify the directory containing the .Rproj file as the main directory for that R Project. A new session of RStudio will be started when a user opens an R project from this main directory. The previous state including settings of that project will be maintained from one time to the next. The files that were open the last time the user worked on the project will automatically be opened again. Other packages like the `here` package will also recognize the .Rproj file to make analyses easier for the user. We will explain how this package works in the next section.
 
 
 ## The `here` package  
@@ -503,7 +511,7 @@ library(here)
 ```
 
 
-`here` is a package specifically designed to help you deal with file organization when you're coding. This package allows you to define in which folder all your relative paths should begin within a project. The path of this folder will be displayed after typing library(here). 
+`here` is a package specifically designed to help you deal with file organization when you're coding. This package allows you to define in which folder all your relative paths should begin within a project. The path of this folder will be displayed after typing `library(here)` or `here()`. 
 
 
 #### Setting your project directory
@@ -513,7 +521,7 @@ After installing and loading the `here` package, to set your project directory u
 * `getwd()` - shows the directory you are in currently
 * `here()` - sets the directory to use for all future relative paths
 
-The `here()` function is what you want to use to set your project directory so that you can use it for future relative paths in your code. While in this case it *also* happened to be in the same directory you were in, it doesn't have to be this way. The here() function looks to see if you have a .Rproj file in your project. If then sets your base directory to whichever directory that file is located. 
+The `here()` function is what you want to use to set your project directory so that you can use it for future relative paths in your code. While in this case it *also* happened to be in the same directory you were in, it doesn't have to be this way. The here() function looks to see if you have a .Rproj file in your project. It then sets your base directory to whichever directory that file is located. 
 
 
 ![here() sets your project directory for future reference using here()](https://docs.google.com/presentation/d/18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ/export/png?id=18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ&pageid=g3aa9ae33ea_0_427)
@@ -545,21 +553,23 @@ The output from this code includes the correct file path to this file, just as y
 ![using here to get a file path](https://docs.google.com/presentation/d/18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ/export/png?id=18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ&pageid=g3aa9ae33ea_0_0)
 
 #### Save and load files using `here()`
-Files within the project can be saved or loaded by simply typing `here` (to replace the path to the project directory) and typing any subdirectories like in this example where we want to save data to the raw_data directory within the data directory of the project: 
+Using the `here` package, files within the project can be saved or loaded by simply typing `here` (to replace the path to the project directory) and typing any subdirectories like in this example, where we want to save data to the raw_data directory within the data directory of the project: 
 
 ```{r eval = FALSE}
-save(introcode_data_object, file = here("data", "raw_data", "intro_code_object.R"))
+save(introcode_data_object, file = here::here("data", "raw_data", "intro_code_object.R"))
 ```
 
 Or if we want to load this data:
 ```{r, eval = FALSE}
-load(here("data", "raw_data", "intro_code_object.R"))
+load(here::here("data", "raw_data", "intro_code_object.R"))
 ```
 
 This is equivalent to:
 ```{r, eval = FALSE}
-load(here("data/raw_data/intro_code_object.R"))
+load(here::here("data/raw_data/intro_code_object.R"))
 ```
+
+Remember that the `::` notation indicates that we are using a function of a particular package. So the `here` package is indicated on the left of the `::` and the `here`function is indicated on the right.
 
 #### Where you should use this
 
@@ -615,17 +625,18 @@ In addition to making sure your files can be nicely ordered, always left-pad num
 
 ## Data Science Workflows
 
-AVOCADO
+The phrase "data science workflow" describes the method or steps by which a data scientest might evaluate data to perform a data analysis from start to finish. In this course we will provide examples of workflows with real data. In general, workflows involve the following steps:
 
-- a tidy data example of where we're going?
-        - question
-        - data
-        - read data in
-        - clean/wrangle/tidy data
-        - EDA
-        - analyze
-        - visualize
-        - communicate
+        - Identifying a question of interest - determining if it is feasible
+        - Identifying data to answer that question
+        - Importing that data into a programing language such as R
+        - Cleaning /wrangling / and tiding the data
+        - Exploratory data analysis to get to know the data
+        - Data analysis to look for associations in the data
+        - Generation of data visualizations to demonstrate findings
+        - Communication of your analysis and findings
+        
+We will demonstrate potential ways of organizing a workflow using real data from the [opencasestudies](https://opencasestudies.github.io/) project. 
 
 ## Case Studies
 
@@ -633,7 +644,7 @@ Throughout this specialization, we're going to make use of a number of case stud
 
 ### Case Study #1: Health Expenditures
 
-To become familiar with the datasets in this case study, we have to first introduce a bit of information about health care and health policy within the United States. This is a complicated system. Individuals can recieve assistance with health care costs (known as coverage) through goverment-led agencies (such as Medicare and Medicaid) or private insurance companies. This case study looks at health expenditures, including healthcare coverage and healthcare spending at the State level. Understanding more about health expenditures can better inform policy decisions related to health care. 
+To become familiar with the datasets in this case study, we have to first introduce a bit of information about health care and health policy within the United States. This is a complicated system. Individuals can receive assistance with health care costs (known as coverage) through government-led agencies (such as Medicare and Medicaid) or private insurance companies. This case study looks at health expenditures, including healthcare coverage and healthcare spending at the State level. Understanding more about health expenditures can better inform policy decisions related to health care. 
 
 #### Questions
 
