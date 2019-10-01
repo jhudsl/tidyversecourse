@@ -1395,6 +1395,7 @@ carrots
 For analysis, we'd need to get this into a tidy data format. So, first things first, let's get it into a data frame:
 
 ```{r}
+library(tibble)
 text_df <- tibble(line = 1:4, text = carrots)
 
 text_df
@@ -1423,7 +1424,7 @@ However, this requires an additional package: `textdata`. Be sure this has been 
 
 ```{r}
 # be sure textdata is installed
-# install.packages("textdata")
+ install.packages("textdata", repos = 'http://cran.us.r-project.org')
 
 # see information stored in NRC lexicon
 get_sentiments('nrc')
@@ -1446,8 +1447,8 @@ Notice that the sentiments applied to each word are dependent upon the sentiment
 Above we found the sentiments for each token, but let's summarize that by counting the number of times each sentiment appears.
 
 ```{r}
-text_df %>% 
-  unnest_tokens(word, text) %>% 
+text_df %>%
+  unnest_tokens(word, text) %>%
   inner_join(get_sentiments('nrc')) %>%
   count(sentiment, sort = TRUE)
 ```
@@ -1465,6 +1466,7 @@ A document's ***inverse document frequency*** (idf) weights each term by its fre
 To see an example of this, we'll need a few more poems from Shel Silverstein for analysis. Here is *Invitation*:
 
 ```{r}
+library(tibble)
 invitation <- c("If you are a dreamer, come in,",
   "If you are a dreamer, a wisher, a liar", 
   "A hope-er, a pray-er, a magic bean buyer…",
@@ -1527,6 +1529,7 @@ Note that there are a different number of total words in each document, which is
 We could visualize the number of times a word appears relative to document length as follows:
 
 ```{r}
+library(ggplot2)
 # visualize frequency / total words in poem
 ggplot(poem_words, aes(n/total, fill = title)) +
   geom_histogram(show.legend = FALSE, bins = 5) +
@@ -1684,6 +1687,7 @@ Note that the input to a `map` function requires you to first specify a vector i
 When it comes to our specific task, this is implemented as follows using `map_dbl()`:
 
 ```{r}
+library(purrr)
 # use purrr to calculate median
 map_dbl(trees, median)
 ```
@@ -1949,7 +1953,7 @@ colnames(coverage)
 
 While a lot of information in here will be helpful, it's not in a tidy format. This is because, each variable is not in a separate column. For example, each column includes year, the type of coverage *and* the amount spent by state. We'll want to use each piece of information separately downstream as we start to visualize and analyze these data. So, let's work to get these pieces of information separated out now.
 
-To accomplish this, the first thing we'll have to do is reshape the data, using hte `gather()` function from the `tidyr` package. As a reminder, this function gathers multiple columns and collapses them into new key-value pairs. This transform data from wide format into a long format, where:
+To accomplish this, the first thing we'll have to do is reshape the data, using the `gather()` function from the `tidyr` package. As a reminder, this function gathers multiple columns and collapses them into new key-value pairs. This transform data from wide format into a long format, where:
 
 - The **`key`** is the name of the new column that you are creating which contains the values of the column headings that you are gathering
 - The **`value`** is the name of the new column that will contain the values themselves
@@ -1965,7 +1969,7 @@ coverage
 
 Great! We still have `Location` stored in a single column, but we've separated out `year_type` and `tot_coverage` into their own columns, storing all of the information in a **long** data format.
 
-Unfortunately, the `year_type` column still contains two pieces of information. We'll want to separate these out to ensure that the data are in a properly tidy format. To do this, we'll look to use the `separate()` function, which allows us to separate out the information stored in a single column into two columns. We'llalso use the `convert=TRUE` argument to convert the character to an integer.
+Unfortunately, the `year_type` column still contains two pieces of information. We'll want to separate these out to ensure that the data are in a properly tidy format. To do this, we'll use the `separate()` function, which allows us to separate out the information stored in a single column into two columns. We'll also use the `convert=TRUE` argument to convert the character to an integer.
 
 ```{r}
 coverage <- coverage %>% 
@@ -2002,7 +2006,7 @@ coverage$region <- state.region[match(coverage$Location, state.name)]
 coverage
 ```
 
-Perfect! At this point, each row is an observation, each column stores a single piece of information. This dataset is now in good shape!
+Perfect! At this point, each row is an observation and each column stores a single piece of information. This dataset is now in good shape!
 
 #### Healthcare Spending Data
 
@@ -2228,7 +2232,7 @@ colnames(crime)
 
 you see that it's kind of a mess and there's a whole bunch of information in there that we're not necessarily interested in for this analysis.
 
-Because of the messy names here (we'll clean them up in a bit), we'll se the column index to select columns instead of the complicated names. Also, we print a specified row of violent crime to observe the `X__1` group we are looking for – Rate per 100,000 inhabitants (per the study.)
+Because of the messy names here (we'll clean them up in a bit), we'll see the column index to select columns instead of the complicated names. Also, we print a specified row of violent crime to observe the `X__1` group we are looking for – Rate per 100,000 inhabitants (per the study.)
 
 ```{r}
 violentcrime <- crime %>% 

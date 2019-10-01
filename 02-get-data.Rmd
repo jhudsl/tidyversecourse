@@ -1105,6 +1105,12 @@ glimpse(coverage)
 
 Looks like we have a whole bunch of numberic variables, but a few that appear like they *should* be numeric, but are actually strings. We'll keep this in mind for when we wrangle the data!
 
+We will likely want to use this data again, so let's save our data to use in later sections of the course. In a data analysis workflow, you would want to potentially save data for 
+
+```{r}
+
+```
+
 #### Healthcare Spending Data
 
 Now, we're ready to read in our healthcare spending data, using a similar approach as we did for the coverage data..
