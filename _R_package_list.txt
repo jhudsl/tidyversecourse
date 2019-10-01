@@ -19,6 +19,7 @@ kableExtra
 knitr
 lubridate
 nycflights13
+purrr
 readr
 readxl
 reshape2
@@ -26,6 +27,7 @@ RSQLite
 rstudioapi
 rvest
 skimr
+tibble
 tidytext
 tidyverse
 visdat
