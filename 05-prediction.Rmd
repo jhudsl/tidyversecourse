@@ -1,7 +1,7 @@
 # Modeling with Tidy Data {#model}
 
 ## Tidy Data Modeling 
-tidymodels - AVOCADO
+
 
 ### broom
 
@@ -9,22 +9,13 @@ tidymodels - AVOCADO
 
 ### recipes
 
+Modeling:
 
-## Time-Series Analyses
-tidyverts - AVOCADO
+* lm
 
-### tsibble
+* glm
 
-### feasts
-
-### fable
-
-
-## Prediction & Machine Learning
-AVOCADO
-
-### `caret`
-
+* glm.nb (for the firearms case study)
 
 
 
