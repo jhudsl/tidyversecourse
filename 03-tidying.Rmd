@@ -484,6 +484,11 @@ conservation %>%
 
 While maybe not quite as important as some of the other functions mentioned in this lesson, a function that will likely prove very helpful as you start analyzing lots of different datasets is `clean_names()` from the `janitor` package. This function takes the existing column names of your dataset, converts them all to lowercase letters and numbers, and separates all words using the underscore character. For example, there is a space in the column name for conservation. `clean_names()` will convert `conservation abbreviation` to `conservation_abbreviation`. These cleaned up column names are a lot easier to work with when you have large datasets.
 
+So remember this is what the data first looked like:
+
+![Conservation data set](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_250)
+
+And now with "clean names" it looks like this:
 ```{r}
 conservation %>%
   clean_names()
@@ -1180,7 +1185,7 @@ str_subset(names, "^M")
 To extract only the portions of the string that match the specified pattern, you would use `str_extract()`. This function returns the pattern specified for strings where it is found and NA otherwise. For example, by searching for names that start with M, below, we see that the second and fourth strings in our vector return the pattern specified ("M") and that the first and third strings in the vector return NA, as they do not start with a capital "M".
 
 ```{r}
-## return "M" from strings with "M" in it
+## return "M" from strings that start with "M"
 ## otherwise, return NA
 str_extract(names, "^M")
 ```
@@ -2060,6 +2065,7 @@ Another problem is that inside our `hc` dataset, there are multiple types of hea
 
 ```{r}
 table(hc$type)
+
 ```
 
 The "Total" type is not really a formal type of healthcare coverage. It really represents just the total number of people in the state. This is useful information and we can include it as a column called `tot_pop`. To accomplish this, we'll first store this information in a data frame called `pop`.
