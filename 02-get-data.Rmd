@@ -512,7 +512,15 @@ Note in our examples here that by default, `read_json()` reads the data in while
 
 XML accomplishes the same goal as JSON, but it just does it in a different format. Thus, the two formats are commonly used for similar purposes -- sharing information on the web; however, because the format in which they do this is different, a different R package is needed to process XML data. This packages is called `xml2`.
 
-AVOCADO
+AVOCADO - whats the difference between rvest read_html and XML2 read_html
+
+```{r eval = FALSE}
+# read XML file into R
+read_xml("xml_file.xml")
+
+
+```
+
 
 ## Databases
 
@@ -1105,8 +1113,8 @@ glimpse(coverage)
 
 Looks like we have a whole bunch of numberic variables, but a few that appear like they *should* be numeric, but are actually strings. We'll keep this in mind for when we wrangle the data!
 
-We will likely want to use this data again, so let's save our data to use in later sections of the course. In a data analysis workflow, you would want to potentially save data for 
-
+We will likely want to use this data again, so let's save our data to use in later sections of the course. In a data analysis workflow, you would want to potentially save data for futher work.
+AVOCADO
 ```{r}
 
 ```
