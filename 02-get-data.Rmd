@@ -1136,11 +1136,12 @@ Assuming we created a project called "project", let's save our raw coverage data
 ```{r, echo = FALSE, out.width="60%", fig.align="center"}
 knitr::include_graphics(here::here("book_figures/file_structure.png"))
 ```
-To save our raw data for case study 1 using the `here` package we can simply type:
+After creating a directory called raw_data within a directory that we called data, we can now save our raw data for case study #1 using the `here` package by simply typing:
 ```{r}
 library(here)
 save(coverage, spending, file = here::here("data", "raw_data", "case_study_1.rda"))
-#the coverage object and the spending object will get saved as case_study_1.rda within the raw_data directory which is a subdirectory of data. The here package identifies where the project directory is located based on the .Rproj, and thus the path to this directory is not needed.
+#the coverage object and the spending object will get saved as case_study_1.rda within the raw_data directory which is a subdirectory of data 
+#the here package identifies where the project directory is located based on the .Rproj, and thus the path to this directory is not needed
 ```
 ### Case Study #2: Firearms
 
@@ -1264,5 +1265,6 @@ Now that we have gathered all the raw data we will need for our second case stud
 ```{r}
 library(here)
 save(census, counted15, suicide_all, suicide_firearm, brady, crime, land, unemployment , file = here::here("data", "raw_data", "case_study_2.rda"))
-
+#all of these objects (census, counted15 etc) will get saved as case_study_2.rda within the raw_data directory which is a subdirectory of data 
+#the here package identifies where the project directory is located based on the .Rproj, and thus the path to this directory is not needed
 ```

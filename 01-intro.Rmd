@@ -556,17 +556,17 @@ The output from this code includes the correct file path to this file, just as y
 Using the `here` package, files within the project can be saved or loaded by simply typing `here` (to replace the path to the project directory) and typing any subdirectories like in this example, where we want to save data to the raw_data directory within the data directory of the project: 
 
 ```{r eval = FALSE}
-save(introcode_data_object, file = here::here("data", "raw_data", "intro_code_object.R"))
+save(introcode_data_object, file = here::here("data", "raw_data", "intro_code_object.rda"))
 ```
 
 Or if we want to load this data:
 ```{r, eval = FALSE}
-load(here::here("data", "raw_data", "intro_code_object.R"))
+load(here::here("data", "raw_data", "intro_code_object.rda"))
 ```
 
 This is equivalent to:
 ```{r, eval = FALSE}
-load(here::here("data/raw_data/intro_code_object.R"))
+load(here::here("data/raw_data/intro_code_object.rda"))
 ```
 
 Remember that the `::` notation indicates that we are using a function of a particular package. So the `here` package is indicated on the left of the `::` and the `here`function is indicated on the right.
