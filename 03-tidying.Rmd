@@ -1926,7 +1926,20 @@ In this lesson, our goal is to make you aware that data from the Internet (and A
 
 ## Case Studies
 
-So far, we've introduced the case studies and read them into R. Now, we get to work to get them into a tidy formatted dataset that includes the information needed to answer our questions of interest. 
+So far, we've introduced the case studies and read them into R.
+
+Let's load the raw data that we previously saved using the `here` package. 
+
+
+```{r}
+library(here)
+load(here::here("data","raw_data", "case_study_1.rda"))
+load(here::here("data", "raw_data", "case_study_2.rda"))
+#This loads all the data objects that we previously saved in our raw_data directory. Recall that this directory is located within a directory called data that is located within the directory where our project is located. 
+```
+
+Now, we will work to get the data into two tidy formatted datasets that will include the information needed to answer our questions of interest. 
+
 
 ### Case Study #1: Health Expenditures
 
@@ -1938,9 +1951,10 @@ As a reminder, we're ultimately interested in answering the following questions 
 2. How does the spending distribution change across geographic regions in the United States?
 3. Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?
 
-This means that we'll need all the data from the variables necessary to answer this question in our tidy datset.
+This means that we'll need all the data from the variables necessary to answer this question in our tidy dataset.
 
 #### Healthcare Coverage Data
+
 
 Let's remind ourselves before we get to wrangling what data we have when it comes to healthcare coverage.
 
@@ -1948,9 +1962,27 @@ Let's remind ourselves before we get to wrangling what data we have when it come
 coverage
 ```
 
-At a glance, we see that state-level information is stored in rows (with the exception of th first row, which stores country-level information) with columns corresponding to the amount of money spent on each type of healtcare, by year. 
+At a glance, we see that state-level information is stored in rows (with the exception of the first row, which stores country-level information) with columns corresponding to the amount of money spent on each type of healthcare, by year. 
 
-If we focus in on the columns wtihin this dataframe, we see that we have a number of different typesof health care (i.e. employer, medicare, medicaid, etc.) for each year between 2013 and 2016:
+##### States Data
+
+To work with these data, we'll also want to be able to switch between full state names and two letter abbreviations. There's data in R available to you for just this purpose!
+
+```{r}
+library(datasets)
+data(state)
+state.name
+```
+
+Before going any further, let's add some information about Washington, D.C, the nation's capital, which is not a state, but a territory.
+
+```{r}
+state.abb <- c(state.abb, "DC")
+state.region <- as.factor(c(as.character(state.region), "South"))
+state.name <- c(state.name, "District of Columbia")
+```
+
+If we focus in on the columns within this dataframe, we see that we have a number of different types of health care (i.e. employer, medicare, medicaid, etc.) for each year between 2013 and 2016:
 
 ```{r}
 colnames(coverage)
@@ -2078,7 +2110,7 @@ pop <- hc %>%
 pop
 ```
 
-We can then, using a `left_join` to ensure we keep all of the rows in the `hc` data frame in tact, add this population level information while simultaneously removing the rows where `type` is "Total" from teh dataset. Finally, we'll rename the columns to be informative of the information stored within: 
+We can then, using a `left_join` to ensure we keep all of the rows in the `hc` data frame in tact, add this population level information while simultaneously removing the rows where `type` is "Total" from the dataset. Finally, we'll rename the columns to be informative of the information stored within: 
 
 ```{r}
 # ad population level information
@@ -2101,7 +2133,7 @@ hc <- hc %>%
 hc
 ```
 
-The `tot_spending` column is reported in millions (1e6). Therefore, to calculate `spending_capita` we will need to adjust for this scaling factor to report it on the original scale (just dollars) and then divide by `tot_pop.` We can again use `mutate()` to ccomplish this:
+The `tot_spending` column is reported in millions (1e6). Therefore, to calculate `spending_capita` we will need to adjust for this scaling factor to report it on the original scale (just dollars) and then divide by `tot_pop.` We can again use `mutate()` to accomplish this:
 
 ```{r}
 # get spending capita in dollars
@@ -2113,11 +2145,17 @@ hc
 
 Yes! At this point we have a single tidy data frame storing all the information we'll need to answer our questions!
 
+Let's save our new tidy data for case study #1.
+
+```{r}
+save(hc, file = here::here("data", "tidy_data", "case_study_1_tidy.rda"))
+```
+
 ### Case Study #2: Firearms
 
 For our second case study, we're interested in the following question: At the state-level, what is the relationship between firearm legislation strength and annual rate of fatal police shootings? Time to wrangle *all* those many datasets we read in previously!
 
-#### Cenus Data
+#### Census Data
 
 Let's take a look at the raw data to remind ourselves of what information we have:
 
@@ -2188,7 +2226,7 @@ census_stats$NAME <- tolower(census_stats$NAME)
 census_stats
 ```
 
-We can approach the age data similarly, where se get the number of people within each state at each age:
+We can approach the age data similarly, where we get the number of people within each state at each age:
 
 ```{r}
 # get state-level age information
@@ -2208,7 +2246,7 @@ age_stats <- spread(age_stats, "NAME", "sum_ages")
 age_stats
 ```
 
-Now that we’ve made the data easier to work with, we need to find a way to get the median. One method is to take the cumulative sum of each column and then divide all the rows by the last row in each repective column, calculating a percentile/quantile for each age. To do this, we first remove the AGE column, as we don't want to calculate the median for this column. We tehn apply the `cumsum()` function and an anonymous function using `purrr`'s `map_df` function. But, of course, we do still want the AGE information in there, so we add that column back in using `mutate()` and then reorder the columns so that AGE is at the front again using `select()`:
+Now that we’ve made the data easier to work with, we need to find a way to get the median. One method is to take the cumulative sum of each column and then divide all the rows by the last row in each respective column, calculating a percentile/quantile for each age. To do this, we first remove the AGE column, as we don't want to calculate the median for this column. We then apply the `cumsum()` function and an anonymous function using `purrr`'s `map_df` function. But, of course, we do still want the AGE information in there, so we add that column back in using `mutate()` and then reorder the columns so that AGE is at the front again using `select()`:
 
 ```{r}
 # calculate median age for each state
@@ -2267,7 +2305,7 @@ If we look closely at our data, we'll notice that some of our state names have 6
 violentcrime$State[20]
 ```
 
-So, let's clean that up now be removing those trailing numerics *and* converting the names to lower case:
+So, let's clean that up now be removing those trailing numeric values *and* converting the names to lower case:
 
 ```{r}
 # lower case and remove numbers from State column
@@ -2298,7 +2336,7 @@ For the purpose of practice and simplification we will just keep the first line 
 brady
 ```
 
-This dataset inclues a lot of information, but we're interested in the brady scores for each state. These are stored in the row where the first column is equal to "TOTAL STATE POINTS," so we `filter()` to only include that row. We then want to only receive the scores for each state, and not the information in the first few columns, so we specify that using `select()`. With the information we're interested in, we then take the data from wide to long using `gather()`, renaming the columns as we go. Finally, we specify that the information in the `brady_scores` column is numeric, not a character.
+This dataset includes a lot of information, but we're interested in the brady scores for each state. These are stored in the row where the first column is equal to "TOTAL STATE POINTS," so we `filter()` to only include that row. We then want to only receive the scores for each state, and not the information in the first few columns, so we specify that using `select()`. With the information we're interested in, we then take the data from wide to long using `gather()`, renaming the columns as we go. Finally, we specify that the information in the `brady_scores` column is numeric, not a character.
 
 ```{r}
 brady <- brady %>%
@@ -2331,7 +2369,7 @@ firearms
 
 #### The Counted Fatal Shootings
 
-We're making progress, but we have a ways to go still! Let's get wroking on incorporating data from The Counted.
+We're making progress, but we have a ways to go still! Let's get working on incorporating data from The Counted.
 
 As a reminder, we have a datasets here with data from 2015:
 
@@ -2339,7 +2377,7 @@ As a reminder, we have a datasets here with data from 2015:
 counted15
 ```
 
-The data from each year are in a simialr format with each row representing a different indvidiual and the columns being consistent between the two datasets.
+The data from each year are in a similar format with each row representing a different individual and the columns being consistent between the two datasets.
 
 Because of this consistent format, we can combine these two datasets using `bind_rows()`. By specifying `id = "dataset"`, a column called `dataset` will store which dataset each row came from originally. We can then use `mutate()` and `ifelse()` to conditionally specify the year -- 2015 or 2016 -- from which the data originated. We'll also be sure to change the two letter state abbreviation to the lower case state name, to allow for each merging. 
 
@@ -2441,7 +2479,7 @@ totalPop
 ```
 
 
-Then, we select `LND110210D` by looking at the `land` table and comparing values on other sites (such as the census or Wikipedia) to find the correct column. This column corresponds to land area in square miles. We'll onvert all state names to lower case for easy merging with our growing data frame in a few steps.
+Then, we select `LND110210D` by looking at the `land` table and comparing values on other sites (such as the census or Wikipedia) to find the correct column. This column corresponds to land area in square miles. We'll convert all state names to lower case for easy merging with our growing data frame in a few steps.
 
 ```{r}
 landSqMi <- land %>%
@@ -2488,3 +2526,10 @@ firearms <- left_join(firearms, ownership_df, by="NAME")
 ```
 
 And, with that, we've wrangled and tidied all these datasets into a single data frame. This can now be used for visualization and analysis!
+
+Let's save our new tidy data for case study #2.
+
+```{r}
+save(firearms, file = here::here("data", "tidy_data", "case_study_2_tidy.rda"))
+```
+
