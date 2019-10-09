@@ -1518,6 +1518,14 @@ Here, distance specifies the temporal distance between the frames to show and al
 
 At this point, we've done a lot of work with our case studies. We've introduced the case studies, read them into R, and have wrangled the data into a usable format. Now, we get to peak at the data using visualizations to better understand each dataset's observations and variables! 
 
+Let's start by loading our wrangled tidy data that we previously saved:
+
+```{r}
+load(here::here("data", "tidy_data", "case_study_1_tidy.rda"))
+
+load(here::here("data", "tidy_data", "case_study_2_tidy.rda"))
+```
+
 ### Case Study #1: Health Expenditures
 
 We've now got the data in order so that we can start to explore the relationships between the variables contained in the health care dataset (`hc`) to answer our questions of interest:
@@ -1941,4 +1949,20 @@ ggplot(firearms, aes(x = brady_scores,
        y = "Annualized Rate of Fatal \n Police Shootings per 1,000,000") + 
   theme_classic() +
   geom_text_repel(aes(label = NAME))
+```
+
+If we wanted to save this particular plot as a pdf, we could do so like this to save the plot in a directory called exporatory within a directory called figures:
+
+```{r}
+pdf(here::here("figures", "exploratory", "Fatal_police_shootings_and_firearm_legislative_strength.pdf"))
+
+ggplot(firearms, aes(x = brady_scores, 
+                     y = gunshot_rate)) + 
+  geom_point() +
+  labs(x = "Firearm Legislative Strength Score",
+       y = "Annualized Rate of Fatal \n Police Shootings per 1,000,000") + 
+  theme_classic() +
+  geom_text_repel(aes(label = NAME))
+
+dev.off()
 ```
