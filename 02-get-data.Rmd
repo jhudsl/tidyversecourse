@@ -1113,44 +1113,35 @@ glimpse(coverage)
 
 Looks like we have a whole bunch of numberic variables, but a few that appear like they *should* be numeric, but are actually strings. We'll keep this in mind for when we wrangle the data!
 
-We will likely want to use this data again, so let's save our data to use in later sections of the course. In a data analysis workflow, you would want to potentially save data for futher work.
-AVOCADO
-```{r}
-
-```
-
 #### Healthcare Spending Data
 
-Now, we're ready to read in our healthcare spending data, using a similar approach as we did for the coverage data..
+Now, we're ready to read in our healthcare spending data, using a similar approach as we did for the coverage data.
 
 ```{r message = FALSE}
 ## read spending data into R
 spending <- read_csv('https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-spending.csv', 
                      skip = 2)
+#got some parsing errors...
 spending <- read_csv('https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-spending.csv', 
                      skip = 2, 
                      n_max  = which(spending$Location == "Notes")-1)
 tail(spending)
 ```
 
-#### States Data
+Recall from the introduction, that in data science workflows, we perform multiple steps in evaluating data. To keep this process tidy and reproducible, it is often helpful to save our data in a raw state and in processed states to allow for easy comparison. So let's save our case study 1 data to use in later sections of the course. 
 
-To work with these data, we'll also want to be able to switch between full state names and two letter abbreviations. There's data in R available to you for just this purpose!
+We can use the `here` package described in the introduction to help us make this process easier. Recall that `here` package allows us to quickly reference the directory in which the .Rproj file is located.
+Assuming we created a project called "project", let's save our raw coverage data in a raw_data directory within a directory called data inside of our RStudio project similarly to the work flows that we have seen in the introduction. 
 
-```{r}
-library(datasets)
-data(state)
-state.name
+```{r, echo = FALSE, out.width="60%", fig.align="center"}
+knitr::include_graphics(here::here("book_figures/file_structure.png"))
 ```
-
-Before going any further, let's add some information about Washington, D.C, the nation's capital, which is not a state, but a territory.
-
+To save our raw data for case study 1 using the `here` package we can simply type:
 ```{r}
-state.abb <- c(state.abb, "DC")
-state.region <- as.factor(c(as.character(state.region), "South"))
-state.name <- c(state.name, "District of Columbia")
+library(here)
+save(coverage, spending, file = here::here("data", "raw_data", "case_study_1.rda"))
+#the coverage object and the spending object will get saved as case_study_1.rda within the raw_data directory which is a subdirectory of data. The here package identifies where the project directory is located based on the .Rproj, and thus the path to this directory is not needed.
 ```
-
 ### Case Study #2: Firearms
 
 We've got a whole bunch of datasets that we'll need to read in for this case study. They are from a number of different sources and are stored in different file formats. This means we'll need to use various functions to read the data in *and* keep this in mind we we start wrangling the data.
@@ -1269,4 +1260,9 @@ unemployment
 
 Then we get the values from each column of the data table. html_nodes acts as a CSS selector. The "table" class returns two tables from the webpage and we specify that we want the second table. From `out` we select the first in the list and store this as a tibble.
 
+Now that we have gathered all the raw data we will need for our second case study, let's save it using the `here` package:
+```{r}
+library(here)
+save(census, counted15, suicide_all, suicide_firearm, brady, crime, land, unemployment , file = here::here("data", "raw_data", "case_study_2.rda"))
 
+```
