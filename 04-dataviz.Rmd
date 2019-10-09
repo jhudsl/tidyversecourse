@@ -1605,7 +1605,7 @@ To answer the question:
 
 > Is there a relationship between healthcare coverage and healthcare spending in the United States?
 
-we'll have to visualize coverage and spending data across the United States.
+We'll have to visualize coverage and spending data across the United States.
 
 And, to understand the relationship between two continuous variables - coverage and spending - a scatterplot will be the most effective visualization.
 
@@ -1696,7 +1696,7 @@ hc %>%
 
 We see that the overall trend holds, but there has been some movement. For example, we see at a glance that DC has a higher proportion of its population covered in 2014 relative to 2013, while MA saw a drop in coverage. UT appears to be an outlier in both years having low spending but a high proportion of individuals covered.
 
-Beyond "Employer"-held healthcare coverage, let's look at the other types of coverage data we have. Here, we'll facet by type, rather than year, again focusing on just data from 2013
+Beyond "Employer"-held healthcare coverage, let's look at the other types of coverage data we have. Here, we'll facet by type, rather than year, again focusing on just data from 2013.
 
 ```{r warning = FALSE}
 # visualize 2013 data by type
@@ -1740,13 +1740,66 @@ The same general patterns hold in 2014 as we saw in 2013; however, the patterns 
 
 With these plots we have a pretty good understanding of the relationship between spending and coverage across this country when it comes to health care.
 
+Let's save some of these plots for later:
+
+```{r}
+pdf(here::here("figures", "exploratory", "2013and2014_spending_and_coverage.pdf"))
+
+hc %>%
+  filter(type == "Employer") %>% 
+  ggplot(aes(x = spending_capita, 
+             y = prop_coverage,
+             color = region)) + 
+  geom_point() + 
+  facet_wrap(~year) +
+  labs(x = "spending per capita",
+       y = "coverage proportion") +
+  geom_smooth(method = "lm", col = "red") + 
+  geom_text(aes(label=abb), 
+            nudge_x = 150, 
+            show.legend = FALSE)
+dev.off()
+
+pdf(here::here("figures", "exploratory", "2013_covearge_type.pdf"))
+hc %>%
+  filter(year == "2013") %>% 
+  ggplot(aes(x = spending_capita, 
+             y = prop_coverage,
+             color = region)) + 
+  geom_point() + 
+  facet_wrap(~type) +
+  labs(x = "spending per capita",
+       y = "coverage proportion") +
+  geom_smooth(method = "lm", col = "red") + 
+  geom_text(aes(label=abb), 
+            nudge_x = 150, 
+            show.legend = FALSE)
+dev.off()
+
+pdf(here::here("figures", "exploratory", "2014_covearge_type.pdf"))
+hc %>%
+  filter(year == "2014") %>% 
+  ggplot(aes(x = spending_capita, 
+             y = prop_coverage,
+             color = region)) + 
+  geom_point() + 
+  facet_wrap(~type) +
+  labs(x = "spending per capita",
+       y = "coverage proportion") +
+  geom_smooth(method = "lm", col = "red") + 
+  geom_text(aes(label=abb), 
+            nudge_x = 150, 
+            show.legend = FALSE)
+dev.off()
+```
+
 #### Q2: Spending Across Geographic Regions?
 
 To answer the question:
 
 > Which US states spend the most and which spend the least on healthcare? How does the spending distribution change across geographic regions in the United States?
 
-we'll want to visualize healthcare spending across regions of the US.
+We'll want to visualize healthcare spending across regions of the US.
 
 We saw in the previous plots that there are some regional effects when it comes to spending, as the states from the different regions tended to cluster in the previous plot. But, let's look at this explicitly now.
 
