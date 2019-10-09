@@ -3,11 +3,16 @@
 ## Tidy Data Modeling 
 
 
-### broom
+### broom 
+For more information about broom check [here](https://cran.r-project.org/web/packages/broom/vignettes/broom.html)
 
 ### infer
 
 ### recipes
+
+### parsnip 
+AVOCADO - just put this here for us
+For more information about parsnip check [here]("https://www.tidyverse.org/articles/2018/11/parsnip-0-0-1/"). 
 
 Modeling:
 
@@ -16,6 +21,53 @@ Modeling:
 * glm
 
 * glm.nb (for the firearms case study)
+
+## Case Studies
+
+Now that we understand more about modeling, let's take a look at our case studies again. 
+
+Thus far, we have read the data into R,  wrangled the data into a usable format, and explored the data using visualizations. Now, we will use modeling to better understand if there are associations between variables in our data!
+
+Let's start by loading our wrangled tidy data that we previously saved:
+
+```{r}
+load(here::here("data", "tidy_data", "case_study_1_tidy.rda"))
+
+load(here::here("data", "tidy_data", "case_study_2_tidy.rda"))
+```
+
+### Case Study #1: Health Expenditures
+
+Recall that we wanted to evaluate the following questions of interest using a health care dataset (`hc`):
+
+1. Is there a relationship between healthcare coverage and healthcare spending in the United States?
+2. How does the spending distribution change across geographic regions in the United States?
+3. Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?
+
+```{r}
+# see health care data
+hc
+```
+
+
+
+### Case Study #2: Firearms
+
+Recall that we wanted to evaluate the following questions of interest using data related to firearm legislation and fatal police shootings (`firearm`):
+
+We are interested in the following question: 
+
+>At the state-level, what is the relationship between firearm legislation strength and annual rate of fatal police shootings?
+
+```{r}
+# see firearms data
+firearms
+```
+
+AVOCADO - this is a repeat.. maybe thats ok?
+
+Recall that this dataset contains state level information about firearm ownership (broken down by ethnicity and gender), the population of each state (`total_pop`), the number of violent crimes (`violent_crime`), the “total state points” from the Brady Scorecard (`brady_scores`), the number of gunshots (`gunshot_tally`), the number of gunshots from armed, non-white, male individuals (`gunshot_filtered`), the annualized rate per 1,000,000 residents (`gunshot_rate`), the `unemployment rate` and `unemployment_rank`, population density (`density`), and firearm ownership as a percent of firearm suicides to all suicides (`ownership`).
+
 
 
 
