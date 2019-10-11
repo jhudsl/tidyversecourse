@@ -6,7 +6,8 @@ Within the R community, R packages that have been developed for this very purpos
 
 In this course, we set out to introduce the conceptual framework behind tidy data and introduce the tidyverse and tidyverse-adjacent packages that we'll be teaching throughout this specialization. Mastery of these fundamental concepts and familiarity with what can be accomplished using the tidyverse will be critical throughout the more technical courses ahead. So, be sure you are familiar with the vocabulary provided and have a clear understanding of the tidy data principles introduced here before moving forward.
 
-In this specialization we assume familiarity with the R programming language. If you are not yet familiar with R, we suggest you first complete [AVOCADO]() before returning to complete this specialization. However, if you have some familiarity with R and want to learn how to work more efficiently with data, then you've come to the right place!
+In this specialization we assume familiarity with the R programming language. If you are not yet familiar with R, we suggest you first complete [R Programming](https://www.coursera.org/learn/r-programming) before returning to complete this specialization. However, if you have some familiarity with R and want to learn how to work more efficiently with data, then you've come to the right place!
+
 
 ## Tidy Data
 
