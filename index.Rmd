@@ -13,3 +13,9 @@ description: "This book demonstrates how to use the Tidyverse collection of pack
 # Prerequisites {-}
 
 
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
