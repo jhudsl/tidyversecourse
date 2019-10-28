@@ -1,7 +1,7 @@
-library(dplyr, warn.conflicts = FALSE)
+library(tidyverse)
 local({
         files <- dir(pattern = glob2rx("*.Rmd"))
-        code <- lapply(files, readLines) %>% unlist
+        code <- lapply(files, read_lines) %>% unlist
         r <- regexec("^library\\((.*?)\\)", code, perl = TRUE)
         m <- regmatches(code, r)
         u <- sapply(m, length) > 0
@@ -12,7 +12,7 @@ local({
         pkgs2 <- sapply(m[u], function(x) x[2])
         pkgs <- unique(c(pkgs1, pkgs2)) %>% sort
         
-        writeLines(pkgs, "_R_package_list.txt")
+        write_lines(pkgs, "_R_package_list.txt")
         
         int <- installed.packages()[, 1]
         ava <- available.packages() %>% rownames
