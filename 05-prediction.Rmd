@@ -1,26 +1,32 @@
-# Modeling with Tidy Data {#model}
+# Tidy Modeling {#model}
 
-## Tidy Data Modeling 
+## Linear modeling
 
+* lm, glm, glm.nb
+* broom / tidy model processing
+* basic inference with linear models
+* penalization (L2 ridge / L1 lasso)
 
-### broom 
-For more information about broom check [here](https://cran.r-project.org/web/packages/broom/vignettes/broom.html)
+## Prediction modeling concepts
 
-### infer
+* What is prediction / prediction error
+* train / test sets
+* evaluation metrics (mse, fpr, tpr, recall, etc.)
 
-### recipes
+## The `parsnip` / tidymodels cycle
 
-### parsnip 
-AVOCADO - just put this here for us
-For more information about parsnip check [here]("https://www.tidyverse.org/articles/2018/11/parsnip-0-0-1/"). 
+* recipes - prepare data
+* juice / bake - create datasets
+* model specification
+* engine
+* prediction / posterior sims
 
-Modeling:
+### Applications of `parsnip`
 
-* lm
+* Simple linear regression
+* Basic machine learning
+* Some Bayesian thing (w/Stan)?
 
-* glm
-
-* glm.nb (for the firearms case study)
 
 ## Case Studies
 
@@ -30,10 +36,11 @@ Thus far, we have read the data into R,  wrangled the data into a usable format,
 
 Let's start by loading our wrangled tidy data that we previously saved:
 
-```{r}
-load(here::here("data", "tidy_data", "case_study_1_tidy.rda"))
-
-load(here::here("data", "tidy_data", "case_study_2_tidy.rda"))
+```{r, collapse = TRUE,message=FALSE}
+library(tidyverse)
+library(here)
+load(here("data", "tidy_data", "case_study_1_tidy.rda"))
+load(here("data", "tidy_data", "case_study_2_tidy.rda"))
 ```
 
 ### Case Study #1: Health Expenditures
