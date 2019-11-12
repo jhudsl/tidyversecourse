@@ -44,10 +44,48 @@
 
 # Prediction Modeling with Tidy Data
 
-* recipes [**missing** (`caret` is covered briefly)]
-* broom [**missing** (bascis are covered)]
-* infer? [**missing**]
-* caret
-* time series, forecasting (tidyverts, tsibble, fable, feasts)
+Linear modeling
+
+* lm, glm
+* broom / tidy model processing
+* basic inference with linear models
+* penalization (L2 ridge / L1 lasso)
+
+Some prediction modeling concepts
+
+* What is prediction / prediction error
+* train / test sets
+* evaluation metrics (mse, fpr, tpr, recall, etc.)
+
+The parsnip / tidymodels cycle
+
+* recipes - prepare data
+* juice / bake - create datasets
+* model specification
+* engine
+* prediction / posterior sims
+
+Applications
+
+* Simple linear regression
+* Basic machine learning
+* Some Bayesian thing (w/Stan)?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
