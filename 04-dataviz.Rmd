@@ -1336,7 +1336,7 @@ The `gganimate` package adds functionality by providing a number of these gramma
 `view_*()`  |  specifies how positional scales should change
 `shadow_*()` |  specifies how points from a previous frame should be displayed in current frame
 
-We'll walk through these grammar classes using the `mtcars dataset`.
+We'll walk through these grammar classes using the `mtcars` dataset.
 
 #### Example: `mtcars`
 
