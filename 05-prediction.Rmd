@@ -3,17 +3,26 @@
 ## Linear modeling
 
 * lm, glm, glm.nb
+* t-tests
 * broom / tidy model processing
 * basic inference with linear models
-* penalization (L2 ridge / L1 lasso)
 
-## Prediction modeling concepts
+## Associational Modeling Applications
+
+* Case Study: Health Expenditures / Coverage
+* Case Study: Firearms
+
+
+## Prediction modeling with  `parsnip` / tidymodels cycle
+
+### Prediction modeling concepts
 
 * What is prediction / prediction error
 * train / test sets
 * evaluation metrics (mse, fpr, tpr, recall, etc.)
+* penalization (L2 ridge / L1 lasso)
 
-## The `parsnip` / tidymodels cycle
+### Parsnip
 
 * recipes - prepare data
 * juice / bake - create datasets
@@ -21,10 +30,11 @@
 * engine
 * prediction / posterior sims
 
-### Applications of `parsnip`
 
-* Simple linear regression
-* Basic machine learning
+## Applications of `parsnip`
+
+* Basic machine learning: Airlines?
+* Fashion dataset
 * Some Bayesian thing (w/Stan)?
 
 
