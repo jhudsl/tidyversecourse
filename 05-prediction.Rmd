@@ -1,4 +1,4 @@
-# Tidy Modeling {#model}
+# Modeling Data in the Tidyverse {#model}
 
 ## Linear modeling
 

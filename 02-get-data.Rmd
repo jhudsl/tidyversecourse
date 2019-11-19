@@ -1,4 +1,4 @@
-# Getting Data Into R {#get-data}
+# Importing Data in the Tidyverse {#get-data}
 
 Data are stored in all sorts of different file formats and structures. In this course, we'll discuss each of these common formats and discuss how to get them into R so you can start working with them! 
 

@@ -1,4 +1,4 @@
-# Tidying Your Data {#tidy-data}
+# Wrangling Data in the Tidyverse {#tidy-data}
 
 In the last course we spent a ton of time talking about all the most common ways data are stored and reviewed how to get them into a tibble (or data.frame) in R.
 
