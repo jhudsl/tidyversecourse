@@ -26,7 +26,7 @@ There are four classes of question that we will focus on:
 
 1. <u>Descriptive</u>: The goal of descriptive data science questions is to understand the components of a data set, describe what they are, and explain that description to others who might want to understand the data. This is the simplest type of data analysis.
 
-2. <u>Exploratory</u>: The goal of exploratory data science questions is to find unknown relationships between the different variables you have measured in your data set. Exploratory analysis is open ended and designed to find expected or unexpected relationships between different measurements.
+2. <u>Exploratory</u>: The goal of exploratory data science questions is to find unknown relationships between the different variables you have measured in your data set. Exploratory analysis is open ended and designed to find expected or unexpected relationships between different measurements. We have already seen how plotting the data can be very helpful to get a general understanding about how variables relate to one another.
 
 3. <u>Inferential</u>: The goal of inferential data science questions is to is to use a small sample of data to say something about what would happen if we collected more data. Inferential questions come up because we want to understand the relationships between different variables but it is too expensive or difficult to collect data on every person or object.
 
@@ -96,13 +96,15 @@ In short, confounders are other variables that may affect our outcome but are al
 
 ![](https://camo.githubusercontent.com/f844726ef3459871cfe6f4e7873ef5e8dfcf8298/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3168696e3579346a445a696b6f474c6249456e776e50684a796267445f46657a57736831365149753543356f2f6578706f72742f706e673f69643d3168696e3579346a445a696b6f474c6249456e776e50684a796267445f46657a57736831365149753543356f267061676569643d67336530313764306639355f305f30)
 
-## Descriptive Analysis
+This is why getting an understanding of what data you have and how the variables relate to one another is so vital before moving forward with inference or prediction. We have already described exploratory analysis to some extent using visualization methods. Now we will recap a bit and discuss descriptive analysis. 
 
-Descriptive analysis will first and foremost generate simple summaries about the samples and their measurements to describe the data you're working with. There are a number of common descriptive statistics that we'll discuss in this lesson: measures of central tendency (eg: mean, median, mode) or measures of variability (eg: range, standard deviations or variance).
+## Descriptive and Exploratory Analysis
+
+Descriptive and Exploratory analysis will first and foremost generate simple summaries about the samples and their measurements to describe the data you're working with and how the variables might relate to one another. There are a number of common descriptive statistics that we'll discuss in this lesson: measures of central tendency (eg: mean, median, mode) or measures of variability (eg: range, standard deviations or variance).
 
 ![](https://camo.githubusercontent.com/ff84fdbece069b713dc64a866d8c476e875fe0d7/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336461343162643136615f305f313331)
 
-This type of analysis is aimed at summarizing your dataset. Unlike analysis approaches we'll discuss in coming lessons, descriptive analysis is not for generalizing the results of the analysis to a larger population nor trying to draw any conclusions. Description of data is separated from interpreting the data. Here, we're just summarizing what we're working with.
+This type of analysis is aimed at summarizing your dataset. Unlike analysis approaches we'll discuss in later, descriptive and exploratory analysis is not for generalizing the results of the analysis to a larger population nor trying to draw any conclusions. Description of data is separated from interpreting the data. Here, we're just summarizing what we're working with.
 
 Some examples of purely descriptive analysis can be seen in censuses. In a census, the government collects a series of measurements on all of the country's citizens. After collecting these data, they are summarized. From this descriptive analysis, we learn a lot about a country. For example, you can learn the age distribution of the population by looking at U.S. census data.
 
@@ -112,30 +114,217 @@ This can be further broken down (or stratified) by sex to describe the age distr
 
 ![](https://camo.githubusercontent.com/41dcda8580c2fe017d2181426618c98c18cfd6c6/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336461343162643136615f305f3734)
 
-The `glimpse()` function of the `dplyr` package can help you to see what data you are working with. 
-```{r}
-## install and load package
-#install.packages("dplyr")
-#install.packages("tibble")
-library(dplyr)
+Recall that the `glimpse()` function of the `dplyr` package can help you to see what data you are working with. 
+```{r, eval = FALSE, warning=FALSE,comment=FALSE}
+## load packages
+library(ggplot2)
 library(tibble)
-
+library(dplyr)
+df<-msleep # this data comes from ggplot2
 ## get a glimpse of your data
-glimpse(iris)
+glimpse(df)
 
 ```
 
 ![](https://camo.githubusercontent.com/141353fef57cd97b26d64e39311e23584e165c6a/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336461343162643136615f305f3536)
 
+Also becuase the data is in tibble format, we can gain alot of information by just viewing the data itself.
+
+```{r, echo =FALSE}
+library(ggplot2)
+df <- msleep
+```
+
+```{r, eval = FALSE}
+df
+```
+
+Here we also get information about the dimensions of our data object and the name and class of our variables.
+
+```{r, echo = FALSE, out.width="60%"}
+knitr::include_graphics(here::here("book_figures/tibble.png"))
+```
+
 ### Missing Values
 
-In any analysis after your descriptive analysis, missing data can cause a problem. Thus, it's best to get an understanding of missingness in your data right from the start. Missingness refers to observations that are not included for a variable. In R, NA is the preferred way to specify missing data, so if you're ever generating data, its best to include NA wherever you have a missing value.
+In any analysis, missing data can cause a problem. Thus, it's best to get an understanding of missingness in your data right from the start. Missingness refers to observations that are not included for a variable. In R, NA is the preferred way to specify missing data, so if you're ever generating data, its best to include NA wherever you have a missing value.
 
 However, individuals who are less familiar with R code missingness in a number of different ways in their data: -999, N/A, ., or a blank space. As such, it's best to check to see how missingness is coded in your dataset. A reminder: sometimes different variables within a single dataset will code missingness differently. This shouldn't happen, but it does, so always use caution when looking for missingness.
 
 In this dataset, all missing values are coded as NA, and from the output of str(df) (or glimpse(df)), we see that at least a few variables have NA values. We'll want to quantify this missingness though to see which variables have missing data and how many observations within each variable have missing data.
 
 To do this, we can write a function that will calculate missingness within each of our variables. To do this we'll combine a few functions. In the code here is.na() returns a logical (TRUE/FALSE) depending upon whether or not the value is missing (TRUE if it is missing). sum() then calculates the number of TRUE values there are within an observation. We wrap this into a function and then use sapply() to calculate the number of missing values in each variable. The second bit of code does the exact same thing but divides those numbers by the total number of observations (using nrow(df). For each variable, this returns the proportion of missingness:
+
+```{r, eval = FALSE}
+library(purrr)
+## calculate how many NAs there are in each variable
+df %>% 
+        map(is.na) %>%
+        map(sum)
+
+## calculate the proportion of missingness 
+## for each variable
+df %>% 
+        map(is.na) %>%
+        map(sum)%>%
+        map(~ . / nrow(df))%>%
+        bind_cols()
+```
+
+There are also some useful visualization methods for evaluating missingness. You could manually do this with ggplot, but there are two packages called [naniar](https://github.com/njtierney/naniar) and visdat[https://github.com/ropensci/visdat](https://github.com/ropensci/visdat) written by [Nicholas Tierney](https://www.njtierney.com/about/) that are very helpful. The `visdat` package was used previously in one of our case studies.
+
+```{r, eval = FALSE}
+## install naniar package
+install.packages("naniar")
+library(naniar)
+
+## visualize missingness
+vis_miss(df)
+```
+
+![](https://camo.githubusercontent.com/ca8c32d6ead89207c9bd0bc8dd1918d40e38f19f/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336461343162643136615f305f323332)
+
+Here, we see the variables listed along the top with percentages summarizing how many observations are missing data for that particular variable. Each row in the visualization is a different observation. Missing data are black. Non-missing values are in grey. Focusing again on brainwt, we can see the 27 missing values visually. We can also see that sleep_cycle has the most missingness, while many variables have no missing data.
+
+### Shape
+
+Determining the shape of your variable is essential before any further analysis is done. Statistical methods used for inference often require your data to be distributed in a certain manner before they can be applied to the data. Thus, being able to describe the shape of your variables is necessary during your descriptive analysis.
+
+When talking about the shape of one's data, we're discussing how the values (observations) within the variable are distributed. Often, we first determine how spread out the numbers are from one another (do all the observations fall between 1 and 10? 1 and 1000? -1000 and 10?). This is known as the range of the values. The range is described by the minimum and maximum values taken by observations in the variable.
+
+After establishing the range, we determine the shape or distribution of the data. More explicitly, the distribution of the data explains how the data are spread out over this range. Are most of the values all in the center of this range? Or, are they spread out evenly across the range? There are a number of distributions used commonly in data analysis to describe the values within a variable. We'll cover just a few, but keep in mind this is certainly not an exhaustive list.
+
+#### Normal Distribution
+
+The Normal distribution (also referred to as the Gaussian distribution) is a very common distribution and is often described as a bell-shaped curve. In this distribution, the values are symmetric around the central value with a high density of the values falling right around the central value. The left hand of the curve mirrors the right hand of the curve.
+
+![https://camo.githubusercontent.com/86c88a41150cf237e55dd0fee509a6368d77e695/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336461343162643136615f305f333633]
+
+A variable can be described as normally distributed if:
+
+There is a strong tendency for data to take a central value - many of the observations are centered around the middle of the range
+deviations away from the central value are equally likely in both directions
+the frequency of these deviations away form the central value occurs at the same rate on either side of the central value.
+Taking a look at the sleep_total variable within our example dataset, we see that the data are somewhat normal; however, they aren't entirely symmetric.
+
+```{r, eval = FALSE}
+ggplot(df, aes(sleep_total)) +
+  geom_density()
+```
+
+![](https://camo.githubusercontent.com/133499eab0ee7ce6ecfe4d4cb69c6776d3fc9c7d/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336461343162643136615f305f333736)
+
+A variable that is distributed more normally can be seen in the iris dataset, when looking at the Sepal.Width variable.
+
+```{r}
+iris$iris %>% ggplot() +
+  geom_density(aes(x=Sepal.Width))
+```
+
+
+<b>Skewed Distribution</b>
+
+Alternatively, sometimes data follow a skewed distribution. In a skewed distribution, most of the values fall to one end of the range, leaving a tail off to the other side. When the tail is off to the left, the distribution is said to be skewed left. When off to the right, the distribution is said to be skewed right.
+ 
+![](https://camo.githubusercontent.com/8eb383b932b3df2dd351a07da959843aa7538b2f/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336461343162643136615f305f333830)
+
+To see an example from the msleep dataset, we'll look at the variable sleep_rem. Here we see that the data are skewed right, given the shift in values away from the right, leading to a long right tail. Here, most of the values are at the lower end of the range.
+
+```{r}
+ggplot(df, aes(sleep_rem)) +
+  geom_density()
+```
+
+<b>Uniform Distribution</b>
+
+Finally, in distributions we'll discuss today, sometimes values for a variable are equally likely to be found along any portion of the distribution. The curve for this distribution looks more like a rectangle, since the likelihood of an observation taking a value is constant across the range of possible values.
+
+<b>Outliers</b>
+
+Now that we've discussed distributions, it's important to discuss outliers in more depth. An outlier is an observation that falls far away from the rest of the observations in the distribution. If you were to look at a density curve, you could visually identify outliers as observations that fall far from the rest of the observations.
+
+![](https://camo.githubusercontent.com/0a3b205cb3dda6631575e3cf457c3e0124a27db6/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336530303464636166615f305f3539)
+
+For example, imagine you had a sample where all of the individuals in your sample are between the ages of 18 and 65, but then you have one sample that is 1 year old and another that is 95 years old.
+
+![](https://camo.githubusercontent.com/678b15de120c8f955b3e000db7d2cdf2926c63e3/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336530303464636166615f305f30)
+
+If we were to plot the age data on a density plot, it would look something like this:
+
+![](https://camo.githubusercontent.com/b151edce129edabdcbd609ca162c87948f0753ed/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336530303464636166615f305f3430)
+
+It can sometimes be difficult to decide whether or not a sample should be removed from the dataset. In the simplest terms, no observation should be removed from your dataset unless there is a valid reason to do so. For a more extreme example, what if that dataset we just discussed (with all the samples having ages between 18 and 65) had one sample with the age 600? Well, if these are human data, we clearly know that is a data entry error. Maybe it was supposed to be 60 years old, but we may not know for sure. If we can follow up with that individual and double-check, it's best to do that, correct the error, make a note of it, and continue you with the analysis. However, that's often not possible. In the cases of obvious data entry errors, it's likely that you'll have to remove that observation from the dataset. It's valid to do so in this case since you know that an error occurred and that the observation was not accurate.
+
+Outliers do not only occur due to data entry errors. Maybe you were taking weights of your observations over the course of a few weeks. On one of these days, your scale was improperly calibrated, leading to incorrect measurements. In such a case, you would have to remove these incorrect observations before analysis.
+
+Outliers can occur for a variety of reasons. Outliers can occur due human error during data entry, technical issues with tools used for measurement, as a result of weather changes that affect measurement accuracy, or due to poor sampling procedures. It's always important to look at the distribution of your observations for a variable to see if anything is falling far away from the rest of the observations. If there are, it's then important to think about why this occurred and determine whether or not you have a valid reason to remove the observations from the data.
+
+An important note is that observations should never be removed just to make your results look better. Wanting better results is not a valid reason for removing observations from your dataset.
+
+### Identifying Outliers
+
+To identify outliers visually, density plots and boxplots can be very helpful.
+
+For example, if we returned to the iris dataset and looked at the distribution of Petal.Length, we would see a bimodal distribution (yet another distribution!). Bimodal distributions can be identified by density plots that have two distinct humps. In these distributions, there are two different modes -- this is where the term "bimodal" comes from. In this plot, the curve suggests there are a number of flowers with petal length less than 2 and many with petal length around 5.
+
+```{r, eval = FALSE}
+## density plot
+library(ggplot)
+ggplot(iris, aes(Petal.Length))+
+  geom_density
+```
+
+![](https://camo.githubusercontent.com/9b3c8dfe39b0daa5205690ba7e6a0b4b1385dff0/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336530303464636166615f305f34)
+
+Since the two humps in the plot are about the same height, this shows that it's not just one or two flowers with much smaller petal lengths, but rather that there are many. Thus, these observations aren't likely an outlier.
+
+To investigate this further, we'll look at petal length broken down by flower species:
+
+```{r, eval = FALSE}
+## box plot
+ggplot(iris, aes(Species, Petal.Length))+
+  geom_boxplot()
+```
+
+![](https://camo.githubusercontent.com/b8bb35c236687c744e96fdad60d6c28fc22c8229/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336530303464636166615f305f3230)
+
+n this boxplot, we see in fact that setosa have a shorter petal length while virginica have the longest. Had we simply removed all the shorter petal length flowers from our dataset, we would have lost information about an entire species!
+
+Boxplots are also helpful because they plot "outlier" samples as points outside the box. By default, boxplots define "outliers" as observations as those that are 1.5 x IQR (interquartile range). The IQR is the distance between the first and third quartiles. This is a mathematical way to determine if a sample may be an outlier. It is visually helpful, but then it's up to the analyst to determine if an observation should be removed. While the boxplot identifies outliers in the setosa and versicolor species, these values are all within a reasonable distance of the rest of the values, and unless I could determine why this occurred, I would not remove these observations from the dataset.
+
+![](https://camo.githubusercontent.com/3288d4a396d804711e78d2bfcb7aab895117d368/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336530303464636166615f305f39)
+
+<b>Central Tendency</b>
+
+Once you know how large your dataset is, what variables you have information on, how much missing data you've got for each variable, and the shape of your data, you're ready to start understanding the information within the values of each variable.
+
+Some of the simplest and most informative measures you can calculate on a numeric variable are those of central tendency. The two most commonly used measures of central tendency are: mean and median. These measures provide information about the typical or central value in the variable.
+
+<b mean </b>
+
+The mean (often referred to as the average) is equal to the sum of all the observations in the variable divided by the total number of observations in the variable. The mean takes all the values in your variable and calculates the most common value.
+
+<b>median</b>
+
+The median is the middle observation for a variable after the observations in that variable have been arranged in order of magnitude (from smallest to largest). The median is the middle value.
+
+Using the same vector as we first use to calculate median, we see that the middle value for this set of numbers is 3.5 as this is the value at the center of this set of numbers. This happens to be the same value as the mean was.
+
+However, that is not always the case. When we add that second 3 in the middle of the set of numbers, the median is now 3, as this is the value at the center of this set of numbers. 3 is the middle value.
+
+
+
+
+
+```{r}
+libary(infer)
+a <- tibble(c(1, 2, 3, 4, 5, 6))
+df %>%
+        filter()
+
+```
+
+
 
 
 ## Linear modeling
