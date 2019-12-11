@@ -326,6 +326,11 @@ df %>%
 
 
 
+## Hypothesis Testing
+
+### The `infer` package
+
+
 
 ## Linear modeling
 
