@@ -117,10 +117,8 @@ This can be further broken down (or stratified) by sex to describe the age distr
 Recall that the `glimpse()` function of the `dplyr` package can help you to see what data you are working with. 
 ```{r, eval = FALSE, warning=FALSE,comment=FALSE}
 ## load packages
-library(ggplot2)
-library(tibble)
-library(dplyr)
-df<-msleep # this data comes from ggplot2
+library(tidyverse)
+df <- msleep # this data comes from ggplot2
 ## get a glimpse of your data
 glimpse(df)
 
@@ -130,8 +128,8 @@ glimpse(df)
 
 Also becuase the data is in tibble format, we can gain alot of information by just viewing the data itself.
 
-```{r, echo =FALSE}
-library(ggplot2)
+```{r, echo =FALSE, message=FALSE}
+library(tidyverse)
 df <- msleep
 ```
 
@@ -198,7 +196,7 @@ After establishing the range, we determine the shape or distribution of the data
 
 The Normal distribution (also referred to as the Gaussian distribution) is a very common distribution and is often described as a bell-shaped curve. In this distribution, the values are symmetric around the central value with a high density of the values falling right around the central value. The left hand of the curve mirrors the right hand of the curve.
 
-![https://camo.githubusercontent.com/86c88a41150cf237e55dd0fee509a6368d77e695/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336461343162643136615f305f333633]
+![Normal Distribution](https://camo.githubusercontent.com/86c88a41150cf237e55dd0fee509a6368d77e695/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336461343162643136615f305f333633)
 
 A variable can be described as normally distributed if:
 
@@ -214,10 +212,11 @@ ggplot(df, aes(sleep_total)) +
 
 ![](https://camo.githubusercontent.com/133499eab0ee7ce6ecfe4d4cb69c6776d3fc9c7d/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336461343162643136615f305f333736)
 
-A variable that is distributed more normally can be seen in the iris dataset, when looking at the Sepal.Width variable.
+A variable that is distributed more normally can be seen in the iris dataset, when looking at the `Sepal.Width` variable.
 
 ```{r}
-iris$iris %>% ggplot() +
+iris %>% 
+  ggplot() +
   geom_density(aes(x=Sepal.Width))
 ```
 
@@ -265,30 +264,28 @@ An important note is that observations should never be removed just to make your
 
 To identify outliers visually, density plots and boxplots can be very helpful.
 
-For example, if we returned to the iris dataset and looked at the distribution of Petal.Length, we would see a bimodal distribution (yet another distribution!). Bimodal distributions can be identified by density plots that have two distinct humps. In these distributions, there are two different modes -- this is where the term "bimodal" comes from. In this plot, the curve suggests there are a number of flowers with petal length less than 2 and many with petal length around 5.
+For example, if we returned to the iris dataset and looked at the distribution of `Petal.Length`, we would see a bimodal distribution (yet another distribution!). Bimodal distributions can be identified by density plots that have two distinct humps. In these distributions, there are two different modes -- this is where the term "bimodal" comes from. In this plot, the curve suggests there are a number of flowers with petal length less than 2 and many with petal length around 5.
 
-```{r, eval = FALSE}
+```{r}
 ## density plot
-library(ggplot)
-ggplot(iris, aes(Petal.Length))+
-  geom_density
+library(ggplot2)
+iris %>%
+  ggplot(aes(Petal.Length)) +
+  geom_density()
 ```
-
-![](https://camo.githubusercontent.com/9b3c8dfe39b0daa5205690ba7e6a0b4b1385dff0/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336530303464636166615f305f34)
 
 Since the two humps in the plot are about the same height, this shows that it's not just one or two flowers with much smaller petal lengths, but rather that there are many. Thus, these observations aren't likely an outlier.
 
 To investigate this further, we'll look at petal length broken down by flower species:
 
-```{r, eval = FALSE}
+```{r}
 ## box plot
-ggplot(iris, aes(Species, Petal.Length))+
+iris %>%
+  ggplot(aes(Species, Petal.Length)) +
   geom_boxplot()
 ```
 
-![](https://camo.githubusercontent.com/b8bb35c236687c744e96fdad60d6c28fc22c8229/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336530303464636166615f305f3230)
-
-n this boxplot, we see in fact that setosa have a shorter petal length while virginica have the longest. Had we simply removed all the shorter petal length flowers from our dataset, we would have lost information about an entire species!
+In this boxplot, we see in fact that setosa have a shorter petal length while virginica have the longest. Had we simply removed all the shorter petal length flowers from our dataset, we would have lost information about an entire species!
 
 Boxplots are also helpful because they plot "outlier" samples as points outside the box. By default, boxplots define "outliers" as observations as those that are 1.5 x IQR (interquartile range). The IQR is the distance between the first and third quartiles. This is a mathematical way to determine if a sample may be an outlier. It is visually helpful, but then it's up to the analyst to determine if an observation should be removed. While the boxplot identifies outliers in the setosa and versicolor species, these values are all within a reasonable distance of the rest of the values, and unless I could determine why this occurred, I would not remove these observations from the dataset.
 
@@ -317,7 +314,7 @@ However, that is not always the case. When we add that second 3 in the middle of
 
 
 ```{r}
-libary(infer)
+library(infer)
 a <- tibble(c(1, 2, 3, 4, 5, 6))
 df %>%
         filter()
@@ -327,6 +324,8 @@ df %>%
 
 
 ## Hypothesis Testing
+
+
 
 ### The `infer` package
 
