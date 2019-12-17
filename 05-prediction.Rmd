@@ -325,7 +325,7 @@ df %>%
 
 ## Hypothesis Testing
 
-
+A common problem in many data science problem involves developing evidence for or against certain *hypotheses* or testable statements. Typically, the way these problems are structured is that a statement is made about the world (the hypothesis) and then the data are used (usually in the form of a summary statistic) to support or reject that statement.
 
 ### The `infer` package
 
