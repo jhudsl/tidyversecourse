@@ -785,7 +785,7 @@ Specifically, from the beta estimate, which is positive, we confirm that the rel
 ![](https://camo.githubusercontent.com/dd34a9970687a2d7316acb97ecdf8b16ab184671/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3176753341614944656443305a64334754736a614c745072437566725141436f724d4c3477645875644163672f6578706f72742f706e673f69643d3176753341614944656443305a64334754736a614c745072437566725141436f724d4c347764587564416367267061676569643d67336461656133373331315f305f31333039)
 
 
-Specifically, the beta estimate (also known as the beta coefficient or coefficient in the Estimate column) is the amount the dependent variable will change given a one unit increase in he independent variable. In the case of the trees, a beta estimate of 0.256, says that for every inch a tree's girth increases, its height will increase by 0.256 inches. Thus, we not only know that there's a positive relationship between the two variables, but we know by precisely how much one variable will change given a single unit increase in the other variable. Note that we're looking at the second row in the output here, where the row label is "Height". This row quantifies the relationship between our two variables. The first row quantifies the intercept, or where the line crosses the y-axis.
+The beta estimate (also known as the beta coefficient or coefficient in the Estimate column) is the amount the dependent variable will change given a one unit increase in he independent variable. In the case of the trees, a beta estimate of 0.256, says that for every inch a tree's girth increases, its height will increase by 0.256 inches. Thus, we not only know that there's a positive relationship between the two variables, but we know by precisely how much one variable will change given a single unit increase in the other variable. Note that we're looking at the second row in the output here, where the row label is "Height". This row quantifies the relationship between our two variables. The first row quantifies the intercept, or where the line crosses the y-axis.
 
 The standard error and p-value are also included in this output. Error is typically something we want to minimize (in life and statistical analyses), so the smaller the error, the more confident we are in the association between these two variables.
 
@@ -827,9 +827,90 @@ In fact, one could argue that the only time you can make causal claims are when 
 
 ### Confounding
 
+Confounding in something to watch out for in any analysis you're doing that looks at the relationship between two more more variables. So...what is confounding?
+
+Let's consider an example. What if we were interested in understanding the relationship between shoe size and literacy. To do so, we took a look at this small sample of two humans, one who wears small shoes and is not literate and one adult who wears big shoes and is literate.
+
+![](https://camo.githubusercontent.com/cbbf755a6d35ea64bfca0a6bfd108f76f2507155/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f2f6578706f72742f706e673f69643d31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f267061676569643d67336461656133373331315f305f31343633)
+
+If we were to diagram this question, we may ask "Can we infer literacy rates from shoe size?"
+
+![](https://camo.githubusercontent.com/c6cba354bc0ff45bffebacd7d31da82267881816/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f2f6578706f72742f706e673f69643d31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f267061676569643d67336461656133373331315f305f31343731)
+
+If we return to our sample, it'd be important to note that one of the humans is a young child and the other is an adult.
+
+![](https://camo.githubusercontent.com/89599540f8634064823b229a92caa89ba2f31969/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f2f6578706f72742f706e673f69643d31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f267061676569643d67336461656133373331315f305f31343738)
+
+Our initial diagram failed to take into consideration the fact that these humans differed in their age. Age affects their shoe size and their literacy rates. In this example, age is a confounder.
+
+![](https://camo.githubusercontent.com/a5c6643e7c99a8433503a2a046fac8a955117bb2/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f2f6578706f72742f706e673f69643d31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f267061676569643d67336461656133373331315f305f31343836)
+
+
+Any time you have a variable that affects both your dependent and independent variables, it's a confounder. Ignoring confounders is not appropriate when analyzing data. In fact, in this example, you would have concluded that people who wear small shoes have lower literacy rates than those who wear large shoes. That would have been incorrect. In fact, that analysis was confounded by age. Failing to correct for confounding has led to misreporting in the media and retraction of scientific studies. You don't want to be in that situation. So, <b>always consider and check for confounding</b> among the variables in your dataset.
+
+![](https://camo.githubusercontent.com/1ca2eb6103be58c721637d241038d75f161b559f/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f2f6578706f72742f706e673f69643d31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f267061676569643d67336461656133373331315f305f31343934)
 
 
 ## Multiple Linear Regression
+
+There are ways to effectively handle confounders within an analysis. Confounders can be included in your linear regression model. When included, the analysis takes into account the fact that these variables are confounders and carries out the regression, removing the effect of the confounding variable from the estimates calculated for the variable of interest.
+
+This type of analysis is known as multiple linear regression, and the general format is: `lm(dependent_variable ~ independent_variable + confounder , data = dataset)`.
+
+As a simple example, let's return to the `mtcars` dataset, which we've worked with before. In this dataset, we have data from 32 automobiles, including their weight (`wt`), miles per gallon (`mpg`), and Engine (`vs`, where 0 is "V-shaped" and 1 is "straight").
+
+Suppose we were interested in inferring the mpg a car would get based on its weight. We'd first look at the relationship graphically:
+```{r}
+## take a look at scatterplot
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point()
+```
+
+From the scatterplot, the relationship looks approximately linear and the variance looks constant. Thus, we could model this using linear regression:
+
+```{r, eval = FALSE}
+## model the data without confounder
+fit <- lm(mpg ~ wt, data = mtcars)
+tidy(fit)
+```
+
+![](https://camo.githubusercontent.com/5fea5ec06e5f4383ea4531fad106b32b472918a4/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f2f6578706f72742f706e673f69643d31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f267061676569643d67336461656133373331315f305f31353039)
+
+From this analysis, we would infer that for every increase 1000 lbs more a car weighs, it gets 5.34 miles less per gallon.
+
+However, we know that the weight of a car doesn't necessarily tell the whole story. The type of engine in the car likely affects both the weight of the car and the miles per gallon the car gets. Graphically, we could see if this were the case by looking at these scatterplots:
+
+```{r}
+## look at the difference in relationship 
+## between Engine types
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() +
+  facet_wrap(~vs)
+```
+
+![](https://camo.githubusercontent.com/185b8c57e7c4ad35a210d290e074e543e6aa18cf/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f2f6578706f72742f706e673f69643d31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f267061676569643d67336461656133373331315f305f31333339)
+
+From this plot, we can see that V-shaped engines (`vs`= 0), tend to be heavier and get fewer miles per gallon while straight engines (`vs` = 1) tend to weigh less and get more miles per gallon. Importantly, however, we see that a car that weighs 3000 points (`wt` = 3) and has a V-Shaped engine (`vs` = 0) gets fewer miles per gallon than a car of the same weight with a straight engine (`vs` = 1), suggesting that simply modeling a linear relationship between weight and mpg is not appropriate.
+
+Let's then model the data, taking this confounding into account:
+
+```{r, eval = FALSE}
+## include engine (vs) as a confounder
+fit <- lm(mpg ~ wt + vs, data = mtcars)
+tidy(fit)
+```
+
+!()[https://camo.githubusercontent.com/818adff3b4403315d84ad97f198584efecd6a489/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f2f6578706f72742f706e673f69643d31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f267061676569643d67336461656133373331315f305f31353033]
+
+Here, we get a more accurate picture of what's going on. Interpreting multiple regression models is slightly more complicated since there are more variables; however, we'll practice how to do so now.
+
+The best way to interpret the coefficients in a multiple linear regression model is to focus on a single variable of interest and hold all other variables constant. For instance, we'll focus on weight (`wt`) while holding (`vs`) constant to interpret. This means that for a V-shaped engine, we expect to see a 4.44 miles per gallon decrease for every 1000 lb increase in weight.
+
+We can similarly interpret the coefficients by focusing on the engines (`vs`). For example, for two cars that weigh the same, we'd expect a straight engine (`vs` = 1) to get 3.5 more miles per gallon than a V-Shaped engine (`vs`= 0).
+
+![](https://camo.githubusercontent.com/2a2af52223ded2dc66b4c4ed9675b25b4fe1d697/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f2f6578706f72742f706e673f69643d31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f267061676569643d67336461656133373331315f305f31353331)
+
+Finally, we'll point out that the p-value for `wt` decreased in this model relative to the model where we didn't account for confounding. This is because the model was not initially taking into account the engine difference. Sometimes when confounders are accounted for, your variable of interest will become more significant; however, frequently, the p-value will increase, and that's OK. What's important is that the data are most appropriately modeled.
 
 
 
@@ -837,7 +918,7 @@ In fact, one could argue that the only time you can make causal claims are when 
 
 While we've focused on linear regression in this lesson on inference, linear regression isn't the only analytical approach out there. However, it is arguably the most commonly used. And, beyond that, there are many statistical tests and approaches that are slight variations on linear regression, so having a solid foundation and understanding of linear regression makes understanding these other tests and approaches much simpler.
 
-For example, what if you didn't want to measure the linear relationship between two variables, but instead wanted to know whether or not the average observed is different from expectation...
+For example, what if you didn't want to measure the linear relationship between two variables, but instead wanted to know whether or not the average observed is different from expectation?
 
 ### Mean different from expectation?
 
@@ -909,8 +990,13 @@ confint(regression_output)
 Now that you've seen how to measure the linear relationship between variables (linear regression) and how to determine if the mean of a dataset differs from expectation (t-test), it's important to know that you can ask lots of different questions using extensions of linear regression.
 These have been nicely summarized by Jonas Kristoffer Lindelov in is blog post [Common statistical tests are linear models (or: how to teach stats)](https://lindeloev.github.io/tests-as-linear).
 
+![](https://camo.githubusercontent.com/147c1b58a4ff12cbdbec5837cfda153c0a8ae3a3/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f2f6578706f72742f706e673f69643d31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f267061676569643d67356432323533623730355f325f313035)
 
 ## Associational Modeling Applications
+
+Probably just need the case studies and not these: https://github.com/jhudsl/cds_dataanalysis/blob/master/manuscript/06_4_inferential_examples.md
+
+https://github.com/jhudsl/cds_dataanalysis/blob/master/manuscript/06_5_practice.md
 
 * Case Study: Health Expenditures / Coverage
 * Case Study: Firearms
@@ -924,6 +1010,203 @@ These have been nicely summarized by Jonas Kristoffer Lindelov in is blog post [
 * train / test sets
 * evaluation metrics (mse, fpr, tpr, recall, etc.)
 * penalization (L2 ridge / L1 lasso)
+
+While the goal in inference is to learn something about the population, when we're talking about <b>prediction</b>, the focus is on the individual. The goal of predictive analysis and machine learning approaches is to <b>train a model using data</b> to make predictions about an individual.
+
+In other words, the <b>goal of predictive analysis</b> is to use data you have now to make <b>predictions</b> about <b>future data</b>.
+
+We spend a lot of time trying to predict things in daily life- the upcoming weather, the outcomes of sports events, and the outcomes of elections. Using historical polling data and trends and current polling, Nate Silver's [FiveThirtyEight](https://fivethirtyeight.com/) builds models to predict the outcomes and the next US Presidential vote - and has been fairly accurate at doing so! FiveThirtyEight's models accurately predicted the 2008 and 2012 elections and was widely considered an outlier in the 2016 US elections, as it was one of the few models to suggest Donald Trump had a chance of winning.
+
+Predicting the outcome of elections is a key example of predictive analysis, where historical data (data they have now) are used to predict something about the future.
+
+![](https://camo.githubusercontent.com/13b8d4e3497ee7171b91de02dc2caa72117af266/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f31)
+
+### What is Machine Learning?
+
+So far we've been discussing predictive analysis. But, you may have heard people on the news or in daily life talking about "machine learning." The goal of machine learning is to build models (often referred to as algorithms) from the patterns in data that can be used for predictions in the future. For our purposes, it's safe to argue that when doing predictive analysis, we're actually doing machine learning. As such, we'll use machine learning throughout the rest of this lesson. Here, machine learning refers to using the relationships within a dataset to build a model that can be used for prediction.
+
+That said, there is without a doubt an entire field of individuals dedicating themselves to machine learning. This lesson will just touch on the very basics within the field.
+
+### Machine Learning
+
+In order to make predictions for the future using data you have now, there are four general steps:
+
+1) Data Splitting - what data are you going to use to train your model? To tune your model? To test your model?
+2) Variable Selection - what variable(s) from the data you have now are you going to use to predict future outcomes?
+3) Model Selection - How are you going to model the data?
+4) Accuracy Assessment - How are you going to assess accuracy of your predictions?
+
+![](https://camo.githubusercontent.com/732f0f87f4a33688907df45406bb815d7daae338/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f35)
+
+### Data Splitting
+
+For predictive analysis (or machine learning), you need data on which to train your model. These are the set of observations and corresponding variables that you're going to use to build your predictive model. But, a predictive model is only worth something if in can predict accurately in a future dataset. Thus, often, in machine learning there are three datasets used to build a predictive model: train, tune, and test.
+
+### Train, Tune, Test
+
+Okay, admittedly, these are not the most common words to use for this process. Many people use train, validate, and test. However, almost as many people use train, test, and validate, as evidenced by this Twitter poll:
+
+![](https://camo.githubusercontent.com/94b098fd78b47ee2fd7134e8d4ee05412080fc9c/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f39)
+
+In this lesson, we've decided to go with the terminology, as suggested by Carl de Boer: train, tune, and test.
+
+![](https://camo.githubusercontent.com/03698618657aea7403427182d1d6cc3c506bac66/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f3134)
+
+### Train
+Training data are the data we described above. It is thehe data used to build your predictive model. These data are referred to as your training set.
+
+![](https://camo.githubusercontent.com/823b0ed0a837181a59e01d08194cbc4d4c66f352/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f3933)
+
+### Tune
+Before getting started, your original dataset is often split. Some (often 70%) of the observations in your dataset are used to train the model, while 30% are held out. This held-out set of observations from your original dataset are then used to improve (tune) the accuracy of model.
+
+These hold-out samples are used to see whether or not your predictive model accurately makes predictions in the set of samples not used to train the model.
+
+![](https://camo.githubusercontent.com/1e357627122e803ecee8f2f8f5caeb84be5b0b42/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f313237)
+
+### Test
+
+Finally, an independent dataset -- one that is not from the same experiment or source as the data used to train and tune your model are used to see whether or not your predictive model makes accurate predictions in a completely new dataset. Predictive models that can be generalized to and make accurate predictions in new datasets are the best predictive models.
+
+![](https://camo.githubusercontent.com/bba0b9c1ec7fbf9b032de63961c2cef6cadb72d7/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f313131)
+
+### Variable Selection
+
+For predictive analysis to be worth anything, you have to be able to predict an outcome accurately with the data you have on hand.
+
+If all the data you have on hand are the heights of elephants in Asia, you're likely not going to be able to predict the outcome of the next US election. Thus, the variables in the data you have on hand have to be related to the outcome you're interested in predicting in some way (which is not the case for the heights of elephants and US elections).
+
+Instead, to predict US elections, you'd likely want some data on outcomes of previous elections, maybe some demographic information about the voting districts, and maybe some information about the ages or professions of the people voting. All of these variables are likely to be helpful in predicting the outcome in a future election, but which ones are actually predictive? All of them? Some of them? The process of deciding which variables to use for prediction is called <b>variable selection</b>.
+
+![](https://camo.githubusercontent.com/4c7ba73a3719dc34d55985c8a7fe26b53d8a80b8/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f313830)
+
+You ideally want to include the <i>fewest variables</i> in your model as possible. Only having a few variables in your model avoids you having to collect a ton of data or build a really complicated model. But, you want the model to be as accurate as possible in making predictions. Thus, there's always a <i>balance</i> between minimizing the variables included (to only include the most predictive variables!) and maximizing your model's predictive accuracy. In other words, like in inferential analysis, your ability to make accurate predictions is dependent on whether or not you have measurements on the right variables. If you aren't measuring the right variables to predict an outcome, your predictions aren't going to be accurate. Thus, <b>variable selection</b>, is incredibly important.
+
+All that said, there <i>are</i> machine learning approaches that carry out variable selection for you, using all the data to determine which variables in the dataset are most helpful for prediction. Nevertheless, whether you are deciding on the variables to include or the computer is deciding for you, variable selection is important to accurate prediction.
+
+#### Lack of Causality Reminder
+
+As a reminder, as was discussed in the inferential analysis, just because one variable may predict another, it <i>does not mean that one <b>causes</b> the other</i>. In predictive analysis, you are taking advantage of the relationship between two variables, using one variable (or <i>one</i> set of variables) to predict a second variable. Just because one variable accurately predicts another variable does <i>not</i> mean that they are causally related.
+
+
+### Model Selection
+
+Additionally, there are many ways to generate prediction models. Each model was developed for a different and specific purpose. We'll discuss a few types of predictive models here, with a focus on using linear regression. However, regardless of which model you choose to use for prediction, it's best to keep in mind that, in general, the <b>more data</b> you have and the <b>simpler your model is</b>, the best chance you have at accurately predicting future outcomes:
+
+- More data - The more observations you have and the more variables you have to choose from to include in your model, the more likely you are to generate an accurate predictive model. Note, however, large datasets with lots of missing data or data that have been incorrectly entered are <i>not</i> better than small, complete, and accurate datasets. Having a trustworthy dataset to build your model is critical.
+
+- Simple Models - If you can accurately predict an individual's height by only considering that person's parents height, then go for it. There's no need to include other variables if a single variable generates accurate predictions. A simple model that predicts accurately (regardless of the dataset in which you're predicting) is better than a complicated model.
+
+### Regression vs. Classification
+
+Before we jump into discussing the various models you can use for predictive analysis, it's important to first note the difference between regression and classification. <b>Regression</b> is used when you're trying to predict a continuous variable. For example if you're trying to predict an individual's age, you would use regression. On the other hand, <b>classification</b> is used for categorical variables, as it predicts which <i>group</i> an individual belongs to. An example of a classification would be predicting someone's education level, as there are only a limited number of groups into which one would be.
+
+![](https://camo.githubusercontent.com/3f1e5fbcc0a13265a748b26956e44b7e22aa1146/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f323135)
+
+With regards to machine learning, certain methods can be used for both regression and classification, while others are designed exclusively for one or the other.
+
+In this lesson we'll discuss one regression model and one classification model. However, there are literally [hundreds of models](http://topepo.github.io/caret/available-models.html) available for predictive modeling. Thus, it's important to keep in mind that we're really just scratching the surface here.
+
+#### Linear Regression
+
+Just like in the previous lesson in inferential analysis, linear regression is an incredibly powerful method in machine learning! The concept here is the same as it was in the last lesson: we're going to capitalize on the linear relationship between variables. However, instead of using linear regression to estimate something about a larger population, we're going to use linear regression for prediction of a <b>continuous variable</b>.
+
+![](https://camo.githubusercontent.com/a03b93b1e4d27b5480eed272e8757286326400ca/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f323632)
+
+To better understand this, let's use a conceptual example. Consider trying to predict a child's age from their height. You'd likely expect that a taller child was older. So, let's imagine that we're looking here at the training data. We see the expected relationship between height and age in this scatterplot.
+
+![](https://camo.githubusercontent.com/8dd48f3642ffaef78105e2c3011bec5adf809b3f/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f333835)
+
+Using the training data, linear regression is then carried out to model the relationship.
+
+![](https://camo.githubusercontent.com/2ce46deaa5a812ee02b61b4cab046614f86068c7/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f353333)
+
+Now that we have our model, we no longer care about the individual data points in the training data. We'll simply use the linear regression model to make our predictions.
+
+![](https://camo.githubusercontent.com/82fe7defef3dbc3678196a4755b19a561a7ed906/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f363038)
+
+Then, in the future when we know a child's height, we can return to our linear regression, supply it with the new child's height and it will return the child's age using the model we've built.
+
+![](https://camo.githubusercontent.com/02f846d178180edb5b8097e08518e6b237b2d8aa/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f363833)
+
+Conceptually, this is what will happen whenever we use linear regression for machine learning. However, it will be carried out mathematically, rather than graphically. This means you won't have to look on the graph to see your predictions. You'll just have to run a few lines of code that will carry out the necessary calculations to generate predictions.
+
+Additionally, here we're using a single variable (height) to model age. Clearly, there are other variables (such as a child's sex) that could affect this prediction. Often, regression models will include multiple predictor variables that will improve prediction accuracy of the outcome variable.
+
+#### Classification and Regression Trees (CART)
+
+Alternatively, when trying to predict a <b>categorical variable</b>, you'll want to look at classification methods, rather than regression (which is for continuous variables). In these cases you may consider using a <b>classification and regression tree (CART)</b> for prediction. While not the only classification method for machine learning, CARTs are a basic and commonly-used approach to prediction for categorical variables.
+
+Conceptually, when using a CART for prediction, a <b>decision tree</b> is generated from the training data. A decision tree branches the data based on variables within the data. For example, if we were trying to predict an individual's education level, we would likely use a dataset with information about many different people's income level, job title, and the number of children they have. These variable would then be used to generate the tree.
+
+For example, maybe the first branch would separate individuals who make less than 40,000 dollars a year. All of those in the training data who made less than 40K would go down the left-hand branch, while everyone else would go down the right-hand branch.
+
+
+![](https://camo.githubusercontent.com/439a80ec4e6ff697b120631837d13e1667f39c14/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f383433)
+
+At each level, the data will continue to be split, using the information in the training data.
+
+![](https://camo.githubusercontent.com/a9315f521322b7687f9be4b4bf0809e0321bda55/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f383932)
+
+Finally, a full decision tree will be constructed, such that there will be a label for the variable we're trying to predict at the end of each branch.
+
+![](https://camo.githubusercontent.com/e53ed0ab507ab783edc25b8f08dccac11e182b3c/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f393230)
+
+This CART will then be used for prediction in future samples. Thus, if you follow the path along the decision tree, for this example CART, an individual who made more than $40,000 a year, was in a manual labor profession, and had children, this CART would predict that that individual's education level were "High School."
+
+![](https://camo.githubusercontent.com/4f1ec9d1e69d84de67d77318edfcc51c4e9b8d01/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f393932)
+
+Again, this is conceptually and graphically how a CART works; however, when generating a CART yourself, it again only takes a few lines of code to generate the model and carry out the necessary math.
+
+### Model Accuracy
+A common saying is that prediction is hard, especially about the future. This is true in predictive analysis. Thus, it's important to always carefully evaluate the accuracy of your model and to never overstate how well you are able to make predictions.
+
+Generally, if your predictions are correct, you're doing well! If your predictions are wrong, you're not doing ass well. But, how do we define "well"?
+
+#### Error Rates
+To assess whether or not our predictive models are doing well, we calculate error rates. The two most common ways to assess how well our predictive models are doing are:
+
+1) RMSE (Root-mean-square Error)
+2) Accuracy
+
+We'll note here that in order to assess error, you have to know the truth (the actual value) in addition to the predicted value. Thus, RMSE and Accuracy are assessed in the training and tuning data, where you <i>know</i> the actual value as well as the predicted value.
+
+
+##### RMSE
+
+The root-mean-square error (RMSE) is a measure used to assess prediction error for continuous variables. Generally, we want to minimize error in prediction. Thus, a small RMSE is better than a large RMSE.
+
+![](https://camo.githubusercontent.com/712b2e75a4d79a704e8d15fc113cba2e501be142/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f31303834)
+
+Mathematically speaking, the RMSE is the square root of the variance. From earlier, we know that <b>variance</b> has something to do with how confident we are in our estimate. Since we're trying to determine how close our predictions are to the actual value, this seems like a good place to start.
+
+When we look at the equation, we can see that the difference between the predicted and actual values is calculated `(Predicted - Actual)` and that this value is then squared `(Predicted - Actual)^2`. These differences squared are then added for every individual in your dataset (that's what the sigma, or big E says). This value (the sum of all the errors squared) is then divided by the number of individuals in your dataset (`N`). This square root of this value is then taken. This is how RMSE is calculated.
+
+We went through that description because we want to point out that when differences are squared `(Predicted - Actual)^2`, outliers, or samples whose prediction was far off from their actual value are going to increase the RMSE a lot. Thus, <i> a few outliers can lead to really high RMSE values</i>, even if all the other predictions were pretty good. This means it's important to check to see if a few outliers (meaning a few bad predictions) are leading to a high RMSE value.
+
+#### Accuracy
+
+Alternatively, to assess error in the prediction of categorical variables, <b>accuracy</b> is frequently used. Accuracy looks to determine the number of predictions that match their actual values.
+
+![](https://camo.githubusercontent.com/29a21026a5846cdd5ae55a666f483aee426a9653/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f31313032)
+
+The closer this value is to 100%, the better your predictive model was. The closer to 0%, the worse your model's predictions are.
+
+Accuracy is a helpful way to assess error in categorical variables, but it can be used for numeric values too. However, it will only account a prediction "correct" if it matches exactly. In the case of age, if a sample's age is 10 and the model predicts it to be 10, the model will say it's been predicted correctly. However, if a sample's age is 10 and it is predicted to be 9, it will be counted as incorrect, even though it was close. A prediction off by a year will be marked just as incorrect as a sample predicted off by 50 years. Due to this, RMSE is often opted for instead of accuracy for continuous variables.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### Parsnip
 
