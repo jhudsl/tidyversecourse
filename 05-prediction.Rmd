@@ -603,19 +603,22 @@ This is because the assumption with linear regression is that the true relations
 
 In this example, the pink line is exactly the same best-fitting line in each graph. However, on the left, where the points fall further from the line, the strength of the relationship between these two variables is weaker than on the right, where the points fall closer to the line, where the relationship is stronger. The strength of this relationship is measured using correlation. The closer the points are to the line the more correlated the two variables are, meaning the relationship between the two variables is stronger.
 
-Assumptions
+### Assumptions
+
 Thus far we have focused on drawing linear regression lines. Linear regression lines can be drawn on any plot, but just because you can do something doesn't mean you actually should. When it comes to linear regression, in order to carry our any inference on the relationship between two variables, there are a few assumptions that must hold before inference from linear regression can be done.
 
 The two assumptions of simple linear regression are linearity and homoscedasticity.
 
-Linearity
+#### Linearity
+
 The relationship between the two variables must be linear.
 
 For example, what if we were plotting data from a single day and we were looking at the relationship between temperature and time. Well, we know that generally temperature increases throughout the day and then decreases in the evening. Here, we see some example data reflective of this relationship. The upside-down u-shape of the data suggests that the relationship is not in fact linear. While we could draw a straight line through these data, it would be inappropriate. In cases where the relationship between the variables cannot be well-modeled with a straight line, linear regression should not be used.
 
 ![](https://camo.githubusercontent.com/06d31e5905f096a56625e0f70af0b243267e0666/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3176753341614944656443305a64334754736a614c745072437566725141436f724d4c3477645875644163672f6578706f72742f706e673f69643d3176753341614944656443305a64334754736a614c745072437566725141436f724d4c347764587564416367267061676569643d67336461656133373331315f305f31303038)
 
-Homoscedasticity
+#### Homoscedasticity
+
 In addition to displaying a linear relationship, the random variables must demonstrate homoscedasticity. In other words, the variance (distance from the line) must be constant throughout the variable.
 
 If points at one end are much closer to the best-fitting line than points are at the other end, homoscedasticity has been violated and linear regression is not appropriate for the data.
@@ -623,7 +626,8 @@ If points at one end are much closer to the best-fitting line than points are at
 ![](https://camo.githubusercontent.com/9613e6f27b01e204816b258272d4ab06dcd76468/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3176753341614944656443305a64334754736a614c745072437566725141436f724d4c3477645875644163672f6578706f72742f706e673f69643d3176753341614944656443305a64334754736a614c745072437566725141436f724d4c347764587564416367267061676569643d67336461656133373331315f305f31303534)
 
 
-Normality of residuals
+#### Normality of residuals
+
 When we fit a linear regression, typically the data do not fall perfectly along the regression line. Rather, there is some distance from each point to the line. Some points are quite close to the line, while others are further away. Each point's distance to the regression line can be calculated. This distance is the residual measurement.
 
 ![](https://camo.githubusercontent.com/46e57adf9a4f8a02110dd14fe138aa3632ed3108/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3176753341614944656443305a64334754736a614c745072437566725141436f724d4c3477645875644163672f6578706f72742f706e673f69643d3176753341614944656443305a64334754736a614c745072437566725141436f724d4c347764587564416367267061676569643d67356432323533623730355f305f3739)
@@ -646,19 +650,23 @@ We'll discuss how to use diagnostic plots below to check that these assumptions 
 
 Now that we understand what linear regression is and what assumptions must hold for its use, when would you actually use it? Linear regression can be used to answer many different questions about your data. Here we'll discuss specifically how to make inferences about the relationship between two numeric variables.
 
-<b>What is the association?</b>
+### Association
 
 Often when people are carrying out linear regression, they are looking to better understand the relationship between two variables. When looking at this relationship, analysts are specifically asking "What is the association between these two variables?" Association between variables describes the trend in the relationship (positive, neutral, or negative) and the strength of that relationship (how correlated the two variables are).
 
 After determining that the assumptions of linear regression are met, in order to determine the association between two variables, one would carry out a linear regression. From the linear regression, one would then interpret the Beta estimate and the standard error from the model.
 
-<b>Beta estimate</b> - determines the direction and strength of the relationship between the two variables.
+#### Beta estimate
+
+The beta estimate determines the direction and strength of the relationship between the two variables.
 
 A beta of zero suggests there is no association between the two variables. However, if the beta value is positive, the relationship is positive. If the value is negative, the relationship is negative. Further, the larger the number, the bigger the effect is. We'll discuss effect size and how to interpret the value in more detail later in this lesson.
 
 ![](https://camo.githubusercontent.com/dac0b3a35ca45a02471839c89b00b45ed9bbb7aa/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3176753341614944656443305a64334754736a614c745072437566725141436f724d4c3477645875644163672f6578706f72742f706e673f69643d3176753341614944656443305a64334754736a614c745072437566725141436f724d4c347764587564416367267061676569643d67336461656133373331315f305f31303935)
 
-Standard error - determines how uncertain the beta estimate is. The larger the standard error, the more uncertain we are in the estimate. The smaller the standard error, the less uncertain we are in the estimate.
+#### Standard error 
+
+The standard error determines how uncertain the beta estimate is. The larger the standard error, the more uncertain we are in the estimate. The smaller the standard error, the less uncertain we are in the estimate.
 
 Standard errors are calculated based on how well the best-fitting line models the data. The closer the points are to the line, the lower the standard error will be, reflecting our decreased uncertainty. However, as the points are further from the regression line, our uncertainty in the estimate will increase, and the standard error will be larger.
 
@@ -692,13 +700,16 @@ To do so, we'll first use ggplot2 to generate a scatterplot of the variables of 
 ```{r}
 library(ggplot2)
 
-ggplot(trees) + 
+trees %>%
+  ggplot() + 
   geom_point(aes(Height, Girth))
 ```
+
 From the looks of this plot, the relationship looks approximately linear, but to visually make this a little easier, we'll add a line of best first to the plot.
 
 ```{r}
-ggplot(trees, aes(Height, Girth)) + 
+trees %>%
+  ggplot(aes(Height, Girth)) + 
   geom_point() + 
   geom_smooth(method = "lm", se = FALSE)
 ```
@@ -734,7 +745,7 @@ This generates four plots:
 
 4) Residuals vs Leverage - helps to identify outlier or extreme values that may disproportionately affect the model's results. Their inclusion or exclusion from the analysis may affect the results of the analysis. Note that the top three most extreme values are identified with numbers next to the points in all four plots.
 
-Tree girth and height example
+### Tree girth and height example
 
 In our example looking at the relationship between tree girth and height, we can first check linearity of the data by looking at the Residuals vs Fitted plot. Here, we do see a red line that is approximately horizontal, which is what we're looking for. Additionally, we're looking to be sure there is no clear pattern in the points on the plot - we want them to be random on this plot. Clustering of a bunch of points together or trends in this plot would indicate that the data do not have a linear relationship.
 
@@ -754,13 +765,11 @@ ggplot(fit, aes(fit$residuals)) +
 
 The QQ Plot and the histogram of the residuals will always give the same answer. Here, we see that with our limited sample size, we do not have perfectly Normally distributed residuals; however, the points do not fall wildly far from the dotted line.
 
-![](https://camo.githubusercontent.com/941e2650d6388f4cfe92fc8cd8d99c64a97b7a4b/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3176753341614944656443305a64334754736a614c745072437566725141436f724d4c3477645875644163672f6578706f72742f706e673f69643d3176753341614944656443305a64334754736a614c745072437566725141436f724d4c347764587564416367267061676569643d67356432323533623730355f305f323531)
-
 Finally, whether or not outliers (extreme observations) are driving our results can be assessed by looking at the Residuals vs Leverage plot.
 
 Generally speaking, standardized residuals greater than 3 or less than -3 are to be considered as outliers. Here, we do not see any values in that range (by looking at the y-axis), suggesting that there are no extreme outliers driving the results of our analysis.
 
-Interpreting the model
+#### Interpreting the model
 
 While the relationship in our example appears to be linear, does not indicate being driven by outliers, is approximately homoscedastic and has residuals that are not perfectly Normally distributed, but fall close to the line in the QQ plot, we can discuss how to interpret the results of the model.
 
@@ -782,7 +791,7 @@ The standard error and p-value are also included in this output. Error is typica
 
 The beta estimate and the standard error are then both considered in the calculation of the p-value (found in the column Pr[>|t|]). The smaller this value is, the more confident we are that this relationship is not due to random chance alone.
 
-Variance Explained
+#### Variance Explained
 
 Additionally, the strength of this relationship is summarized using the adjusted R-squared metric. This metric explains how much of the variance this regression line explains. The more variance explained, the closer this value is to 1. And, the closer this value is to 1, the closer the points in your dataset fall to the line of best fit. The further they are from the line, the closer this value will be to zero.
 
@@ -790,7 +799,7 @@ Additionally, the strength of this relationship is summarized using the adjusted
 
 As we saw in the scatterplot, the data are not right up against the regression line, so a value of 0.2445 seems reasonable, suggesting that this model (this regression line) explains 24.45% of the variance in the data.
 
-Using `broom
+#### Using `broom
 
 Finally, while the summary() output are visually helpful, if you want to get any of the numbers out from that model, it's not always straightforward. Thankfully, there is a package to help you with that! The tidy() function from the broom package helps take the summary output from a statistical model and organize it into a tabular output.
 
