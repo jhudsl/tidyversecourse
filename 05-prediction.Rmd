@@ -812,9 +812,102 @@ tidy(fit)
 
 Note that the values haven't changed. They're just organized into an easy-to-use table. It's helpful to keep in mind that this function and package exist as you work with statistical models.
 
-Finally, it's important to always keep in mind that the interpretation of your inferential data analysis is incredibly important. When you use linear regression to test for association, you're looking at the relationship between the two variables. While girth can be used to infer a tree's height, this is just a correlation. It does not mean that an increase in girth causes the tree to grow more. Associations are correlations. They are not causal. We'll discuss this more later in the lesson.
+Finally, it's important to always keep in mind that the interpretation of your inferential data analysis is incredibly important. When you use linear regression to test for association, you're looking at the relationship between the two variables. While girth can be used to infer a tree's height, this is just a correlation. It does not mean that an increase in girth causes the tree to grow more. Associations are correlations. They are not causal. 
 
 For now, however, in response to our question, can we infer a tree's height from its girth, the answer is yes. We would expect, on average, a tree's height to increase 0.255 inches for every one inch increase in girth.
+
+### Correlation is not Causation
+
+You've likely heard someone say before that "correlation is not causation," and it's true! In fact, there are [entire websites](http://www.tylervigen.com/spurious-correlations) dedicated to this concept. Let's make sure we know exactly what that means before moving on. In the plot you see here, as the divorce rate in Maine decreases, so does per capita consumption of margarine. These two lines are clearly correlated; however, there isn't really a strong (or any) argument to say that one caused the other. Thus, just because you see two things with the same trend does not mean that one caused the other. These are simply spurious correlations -- things that trend together by chance. Always keep this in mind when you're doing inferential analysis, and be sure that you never draw causal claims when all you have are associations.
+
+![](https://camo.githubusercontent.com/a1eb55fd2f659d38af40dd6335410e860be6a7b7/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f2f6578706f72742f706e673f69643d31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f267061676569643d67336461656133373331315f305f31353435)
+
+In fact, one could argue that the only time you can make causal claims are when you have carried out a randomized experiment. Randomized experiments are studies that are designed and carried out by randomly assigning certain subjects to one treatment and the rest of the individuals to another treatment. The treatment is then applied and the results are then analyzed. In the case of a randomized experiment, causal claims can start to be made. Short of this, however, be careful with the language you choose and do not overstate your findings.
+
+
+### Confounding
+
+
+
+## Multiple Linear Regression
+
+
+
+## Beyond Linear Regression
+
+While we've focused on linear regression in this lesson on inference, linear regression isn't the only analytical approach out there. However, it is arguably the most commonly used. And, beyond that, there are many statistical tests and approaches that are slight variations on linear regression, so having a solid foundation and understanding of linear regression makes understanding these other tests and approaches much simpler.
+
+For example, what if you didn't want to measure the linear relationship between two variables, but instead wanted to know whether or not the average observed is different from expectation...
+
+### Mean different from expectation?
+
+To answer a question like this, let's consider the case where you're interested in analyzing data about a single numeric variable. If you were doing descriptive statistics on this dataset, you'd likely calculate the mean for that variable. But, what if, in addition to knowing the mean, you wanted to know if the values in that variable were all within the bounds of normal variation. You could calculate that using inferential data analysis. You could use the data you have to infer whether or not the data are within the expected bounds.
+
+For example, let's say you had a dataset that included the number of ounces actually included in 100 cans of a soft drink. You'd expect that each can have exactly 12 oz of liquid; however, there is some variation in the process. So, let's test whether or not you're consistently getting shorted on the amount of liquid in your can.
+
+In fact, let's go ahead and generate the dataset ourselves!
+```{r}
+## generate the dataset
+set.seed(34) 
+soda_ounces <- rnorm(100, mean = 12, sd = 0.04)
+head(soda_ounces)
+```
+
+In this code, we're specifying that we want to take a random draw of 100 different values (representing our 100 cans of soft drink), where the mean is 12 (representing the 12 ounces of soda expected to be within each can), and allowing for some variation (we've set the standard deviation to be 0.04).
+
+We can see that the values are approximately, but not always exactly equal to the expected 12 ounces.
+
+### Testing mean difference from expectation in R
+
+To make an inference as to whether or not we're consistently getting shorted, we're going to use this sample of 100 cans. Note that we're using this sample of cans to infer something about all cans of this soft drink, since we aren't able to measure the number of ounces in all cans of the soft drink generated.
+
+To carry out this statistical test, we'll use a t-test.
+
+Wait, we haven't talked about that statistical test yet. So, let's take a quick detour to discuss t-tests and how they relate to linear regression.
+
+R has a built in t-test function: t.test().
+
+However, I mentioned earlier that many statistical tests are simply extension of linear regression. In fact, a t-test is simply a linear model where we specify to only fit an intercept (where the data crosses the y-axis). In other words, this specifies to calculate the mean...which is exactly what we're looking to do here with our t-test! We'll compare these two approaches below.
+
+However, before we can do so, we have to ensure that the data follow a normal distribution, since this is the primary assumption of the t-test.
+
+```{r}
+library(ggplot2)
+
+## check for normality
+ggplot(as.data.frame(soda_ounces))+
+  geom_histogram(aes(soda_ounces), bins = 10)
+```
+
+Here, we see that the data are approximately normally distributed.
+
+A t-test will check whether the observed ounces differs from the expected mean (12 oz). As mentioned above, to run a t-test in R, most people use the built-in function: t.test()
+
+```{r}
+## carry out t-test
+t.test(soda_ounces, mu = 12)
+```
+
+In the output from this function, we'll focus on the 95 percent confidence interval. Confidence Intervals provide the range of values likely to contain the unknown population parameter. Here, the population parameter we're interested in is the mean. Thus, the 95% Confidence Intervals provides us the range where, upon repeated sampling, the calculated mean would fall 95 percent of the time. More specifically, if the 95 percent confidence interval contains the expected mean (12 oz), then we can be confident that the company is not shorting us on the amount of liquid they're putting into each can.
+
+Here, since 12 is between 11.99187 and 12.00754, we can see that the amounts in the 100 sampled cans are within the expected variation. We could infer from this sample that the population of all cans of this soft drink are likely to have an appropriate amount of liquid in the cans.
+
+However, as mentioned previously, t-tests are an extension of linear regression. We could also look to see whether or not the cans had the expected average of 12 oz in the data collected using lm().
+
+```{r, eval = FALSE}
+# from linear regression
+regression_output <-  lm(soda_ounces ~ 1)
+
+# calculate confidence interval
+confint(regression_output)
+```
+
+![](https://camo.githubusercontent.com/8d0f7976e15c905a83a750c455de3d8751dd9575/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f2f6578706f72742f706e673f69643d31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f267061676569643d67356432323533623730355f325f3231)
+
+## More Statistical Tests
+
+Now that you've seen how to measure the linear relationship between variables (linear regression) and how to determine if the mean of a dataset differs from expectation (t-test), it's important to know that you can ask lots of different questions using extensions of linear regression.
+These have been nicely summarized by Jonas Kristoffer Lindelov in is blog post [Common statistical tests are linear models (or: how to teach stats)](https://lindeloev.github.io/tests-as-linear).
 
 
 ## Associational Modeling Applications
