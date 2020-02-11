@@ -1220,9 +1220,24 @@ Accuracy is a helpful way to assess error in categorical variables, but it can b
 
 To better understand all of the concepts we've just discussed, we'll walk through two examples, one for prediction of a continuous variable using linear regression and a second for prediction of a categorical value using a CART.
 
-### The `recipe` and `parsnip` packages
+### The `tidymodels` ecosystem
 
-There are *incredibly* helpful package available in R thanks to the work of [Max Kuhn](https://twitter.com/topepos?lang=en). As mentioned above, there are hundreds of different machine learning algorithms. Max's R packages have compiled all of them into a single framework, allowing you to use *many* different machine learning models easily.
+There are *incredibly* helpful packages available in R thanks to the work of [Max Kuhn](https://twitter.com/topepos?lang=en). As mentioned above, there are hundreds of different machine learning algorithms. Max's R packages have compiled all of them into a single framework, allowing you to use *many* different machine learning models easily. Additionally, he has written a very [helpful book](http://appliedpredictivemodeling.com/) about predictive modeling. In addition there are many [helpful links](https://topepo.github.io/) about each of the packages. Max also previously developed the `caret` package (short for Classification And REgression Training.
+[Here](https://konradsemsch.netlify.com/2019/08/caret-vs-tidymodels-comparing-the-old-and-new/) you can see some of the dicussion about the difference between `caret` and `tidymodel`. In this [rstudio community thread](https://community.rstudio.com/t/caret-to-tidymodels/) you can see that Max stated that "The tidyverse is more about modular packages that are designed to play well with one another. The main issue with caret is that, being all in one package, it is very difficult to extend it into areas that people are interested in...The bottom line is that the tidymodels set should do what caret does and more." We will describe some of the advantages of the `tidymodels` packages.  We will focus on the following packages:                          
+
+* rsamples - split the data
+* recipes - prepare the data
+* parsnip - fit the data
+* yardstick - evaluate model performance
+* dials - paramater tuning
+* workflows - combining recipe and parsnip objects into a workflow
+* tune - hyper-paramater tuning 
+
+To illistrate how to use each of these packages, we will work through some examples.
+
+#### Example of Classification
+
+
 
 #### Example of Continuous Variable Prediction: Linear Regression 
 
