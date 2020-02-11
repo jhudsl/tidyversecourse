@@ -1056,35 +1056,41 @@ In order to make predictions for the future using data you have now, there are f
 
 ### Data Splitting
 
-For predictive analysis (or machine learning), you need data on which to train your model. These are the set of observations and corresponding variables that you're going to use to build your predictive model. But, a predictive model is only worth something if in can predict accurately in a future dataset. Thus, often, in machine learning there are three datasets used to build a predictive model: train, tune, and test.
+For predictive analysis (or machine learning), you need data on which to train your model. These are the set of observations and corresponding variables that you're going to use to build your predictive model. But, a predictive model is only worth something if in can predict accurately in a future dataset. Thus, often, in machine learning there are three datasets used to build a predictive model. The names for these datasets vary to some degree.
 
-### Train, Tune, Test
+### Train, Test, Validate
 
-Okay, admittedly, these are not the most common words to use for this process. Many people use train, validate, and test. However, almost as many people use train, test, and validate, as evidenced by this Twitter poll:
+Many people use train, validate, and test. However, almost as many people use train, test, and validate, as evidenced by this Twitter poll:
 
 ![](https://camo.githubusercontent.com/94b098fd78b47ee2fd7134e8d4ee05412080fc9c/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f39)
 
-In this lesson, we've decided to go with the terminology, as suggested by Carl de Boer: train, tune, and test.
+In this lesson, we've decided to go with the terminology that fits the tidymodels terminology: train, test, validate.
 
-![](https://camo.githubusercontent.com/03698618657aea7403427182d1d6cc3c506bac66/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f3134)
 
 ### Train
-Training data are the data we described above. It is the data used to build your predictive model. These data are referred to as your training set.
+Training data are the data we described above. It is the data used to *build* your predictive model. These data are referred to as your training set.
 
-![](https://camo.githubusercontent.com/823b0ed0a837181a59e01d08194cbc4d4c66f352/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f3933)
+```{r}
+knitr::include_graphics("book_figures/data_splitting.png")
+```
 
-### Tune
-Before getting started, your original dataset is often split. Some (often 70%) of the observations in your dataset are used to train the model, while 30% are held out. This held-out set of observations from your original dataset are then used to improve (tune) the accuracy of model.
+
+### Test
+Before getting started, your original dataset is often split. Some (often 70%-75%) of the observations in your dataset are used to train the model, while 25%-30% are held out. This held-out set of observations from your original dataset are then used to improve the accuracy of model.
 
 These hold-out samples are used to see whether or not your predictive model accurately makes predictions in the set of samples not used to train the model.
 
-![](https://camo.githubusercontent.com/1e357627122e803ecee8f2f8f5caeb84be5b0b42/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f313237)
+```{r}
+knitr::include_graphics("book_figures/data_splitting2.png")
+```
 
-### Test
+### Validate
 
-Finally, an independent dataset -- one that is not from the same experiment or source as the data used to train and tune your model are used to see whether or not your predictive model makes accurate predictions in a completely new dataset. Predictive models that can be generalized to and make accurate predictions in new datasets are the best predictive models.
+Finally, an independent dataset -- one that is not from the same experiment or source as the data used to train and test your model are used to see whether or not your predictive model makes accurate predictions in a completely new dataset. Predictive models that can be generalized to and make accurate predictions in new datasets are the best predictive models.
 
-![](https://camo.githubusercontent.com/bba0b9c1ec7fbf9b032de63961c2cef6cadb72d7/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f313131)
+```{r}
+knitr::include_graphics("book_figures/data_splitting3.png")
+```
 
 ### Variable Selection
 
@@ -1177,7 +1183,7 @@ Again, this is conceptually and graphically how a CART works; however, when gene
 ### Model Accuracy
 A common saying is that prediction is hard, especially about the future. This is true in predictive analysis. Thus, it's important to always carefully evaluate the accuracy of your model and to never overstate how well you are able to make predictions.
 
-Generally, if your predictions are correct, you're doing well! If your predictions are wrong, you're not doing ass well. But, how do we define "well"?
+Generally, if your predictions are correct, you're doing well! If your predictions are wrong, you're not doing as well. But, how do we define "well"?
 
 #### Error Rates
 To assess whether or not our predictive models are doing well, we calculate error rates. The two most common ways to assess how well our predictive models are doing are:
@@ -1214,47 +1220,18 @@ Accuracy is a helpful way to assess error in categorical variables, but it can b
 
 To better understand all of the concepts we've just discussed, we'll walk through two examples, one for prediction of a continuous variable using linear regression and a second for prediction of a categorical value using a CART.
 
-### The `caret` package
+### The `recipe` and `parsnip` packages
 
-There is an *incredibly* helpful package available in R thanks to the work of [Max Kuhn](https://twitter.com/topepos?lang=en). As mentioned above, there are hundreds of different machine learning algorithms. Max's R package `caret` has compiled all of them into a single framework, allowing you to use *many* different machine learning models via a single package. Additionally, he has written a very [helpful book](http://topepo.github.io/caret/) to accompany the package.
-
+There are *incredibly* helpful package available in R thanks to the work of [Max Kuhn](https://twitter.com/topepos?lang=en). As mentioned above, there are hundreds of different machine learning algorithms. Max's R packages have compiled all of them into a single framework, allowing you to use *many* different machine learning models easily.
 
 #### Example of Continuous Variable Prediction: Linear Regression 
 
 For this example, we'll keep it simple and use a dataset you've seen before: the `iris` dataset. This way you can focus on the syntax used in the `caret` package and the steps of predictive analysis. In this example, we'll attempt to use the data in the `iris` dataset to predict `Sepal.Length`
 
-##### Example of Data Splitting with caret
-
-As mentioned above, one of the first steps is often to take your dataset and split it into a training set and a tuning set. To do this, we'll load the caret package and use the createDataPartition() function to split the dataset.
-
-```{r}
-## instal and load packages
-#install.packages("caret")
-library(caret)
-library(dplyr)
-
-## get Index for training set
-set.seed(123)
-trainIndex <- createDataPartition(iris$Species, p = .7, 
-                                  list = FALSE, 
-                                  times = 1)
-
-## split into training and tuning set                                  
-iris_train <- iris %>% slice(trainIndex)
-iris_tune <- iris %>% slice(-trainIndex)
-
-## take a a look
-str(iris_train)
-str(iris_tune)
-```
-
-After running this code , if we take a look at the training and tuning datasets, we can see that 70% of our observations are in the training dataset and the other 30% are in the tuning dataset, as we specified.
-
-![](https://camo.githubusercontent.com/aaf82080cb085dd7b6db796a0a3b347cf04a6e5c/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f31323330)
-
 ##### Example of Data Splitting with rsample
 
-We can also split our data using the `initial_split()` function of a tidyverse package called `rsample`
+As mentioned above, one of the first steps is often to take your dataset and split it into a training set and a testing set. To do this, we'll load the `rsample` package and use the `initial_split()`  function to split the dataset.
+
 
 ```{r}
 library(rsample)
@@ -1262,6 +1239,9 @@ initial_split(iris, prop = 3/4)
 # the default proportion is 1/4 testing and 3/4 training
 ```
 This results in printing the number of training data rows, the number testing data rows, and the total rows divided by "/".
+
+
+After running this code , if we take a look at the training and tuning datasets, we can see that 70% of our observations are in the training dataset and the other 30% are in the tuning dataset, as we specified.
 
 Importantly we can stratify our split by a particular feature of the data.
 For example, let's say that we intend to classify different species of flowers based on there petal and sepal sizes. In this case the iris dataset would be very useful.
@@ -1316,9 +1296,9 @@ count(abalone, Rings) %>% plot()
 
 ##### Example of Variable Selection
 
-What if we first try to predict `Sepal.Lengt`h in our training data from `Sepal.Width`. To do that, we provide the `train` function with the model and specify that the dataset we'll be using is the `iris` dataset. Additionally, we let the train function know that we want to run linear regression (`lm`) and that we want to assess our model's accuracy using the `RMSE` metric.
+What if we first try to predict `Sepal.Length` in our training data from `Sepal.Width`. To do that, we provide the `train` function with the model and specify that the dataset we'll be using is the `iris` dataset. Additionally, we let the train function know that we want to run linear regression (`lm`) and that we want to assess our model's accuracy using the `RMSE` metric.
 
-```{r}
+```{r, eval = FALSE}
 ## train regression model
 set.seed(123)
 fit.lm <- train(Sepal.Length ~ Sepal.Width, 
@@ -1338,7 +1318,7 @@ fit.lm$results
 
 Using this model, we would then generate predictions of `Sepal.Length` in the tuning dataset using the `predict()` function. Since we know the actual `Sepal.Length` in the tuning set, these predictions can then be visualized using a scatterplot.
 
-```{r}
+```{r, eval = FALSE}
 ## make predictions in tuning data set
 predictions <- predict(fit.lm, iris_tune)
 
@@ -1355,7 +1335,7 @@ Given the lack of correlation, we can see that this model does not predict sepal
 
 In this first attempt, we specified which variable to use for prediction; however, what if we provided our regression model with all the variables in the dataset (specified by the . in the code here:
 
-```{r}
+```{r, eval=FALSE}
 ## train regression model
 set.seed(123)
 fit.lm2 <- train(Sepal.Length ~ ., 
@@ -1406,7 +1386,7 @@ Given the relatively small nature of this dataset, we'll build the CART using al
 
 Here we specify that we want to predict `Species`, that we want to use a CART to do so by setting the method to `rpart`, and that, since it's a categorical variable, we're going to use `Accuracy` to as our assessment metric.
 
-```{r}
+```{r, eval = FALSE}
 ## CART
 set.seed(7)
 fit.cart <- train(Species~., 
@@ -1417,7 +1397,7 @@ fit.cart <- train(Species~.,
 
 ##### Example of Accuracy Assessment
 
-```{r}
+```{r, eval = FALSE}
 ## look at Accuracy
 fit.cart$results
 
