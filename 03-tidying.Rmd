@@ -160,7 +160,11 @@ There is a package specifically designed for helping you wrangle your data. This
 * `mutate()` - create a new column
 * `group_by()` - group variables 
 * `summarize()` - summarize information within a dataset
-* `left_join()` - combining data across data frame
+* `left_join()` - combine data across data frame
+* `tally()` - get overall sum of values of specified column(s) or the number of rows of tibble
+* `count()` - getcounts of unique values of specified column(s) (shortuct of `group_by()` and `tally()`)
+* `add_count()` -  add values of `count()` as a new column 
+* `add_tally()` - add value(s) of `tally()` as a new column
 
 #### `tidyr`
 
@@ -556,7 +560,14 @@ Continuing on from the previous examples, if you wanted to figure out how many s
 
 ```{r}
 msleep %>%
-  select(order) %>%
+# here we select the column called genus, any column would work
+  select(genus) %>%
+  summarize(N=n())
+```
+```{r}
+msleep %>%
+# here we select the column called vore, any column would work
+  select(vore) %>%
   summarize(N=n())
 ```
 
@@ -576,6 +587,7 @@ msleep %>%
 The output from this, like above, includes the column name we specified in summarize (`N`). However, it includes the number of samples in the group_by variable we specified (`order`).
 
 ![group_by() and summarize with n()](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_293)
+
 
 There are other ways in which the data can be summarized using `summarize()`. In addition to using n() to count the number of samples within a group, you can also summarize using other helpful functions within R, such as `mean()`, `median()`, `min()`, and `max()`. 
 
@@ -610,6 +622,98 @@ summary(msleep$awake)
 ```
 
 ![summarize numeric variables](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_320)
+
+#### `tally()`
+
+We can use the tally function to get the total number of samples in a tibble or the total number of rows very simply.
+```{r}
+msleep %>%
+  tally()
+```
+
+We can see that this is very similar to our previous use of summarize.
+```{r}
+msleep %>%
+  # here we select the column called genus, any column would work
+  select(genus) %>% 
+  summarize(N=n())
+```
+
+We can also use this function to get a sum of the values of a column (if the values are numeric).
+
+```{r}
+msleep %>%
+tally(sleep_total)
+```
+Thus overall, all the animals in the dataset sleep 866 hours in total.
+
+This is the equivalent to using the sum `function()` with the `summarize()` function or the `pull` function.
+
+```{r}
+msleep %>%
+  summarize(sum_sleep_total = sum(sleep_total))
+
+msleep %>%
+pull(sleep_total)%>%
+  sum()
+```
+
+#### `add_tally()`
+
+We can quickly add our tally values to our tibble using `add_tally()`.
+
+```{r}
+msleep %>%
+  add_tally() %>%
+  glimpse()
+```
+Notice the new column called "n" that repeats the total number of samples for each row.
+
+Or we can add a column that repeats the total hours of sleep of all the animals.
+
+```{r}
+msleep %>%
+  add_tally(sleep_total) %>%
+  glimpse()
+```
+#### `count()`
+
+The `count()` function takes the `tally()` function a step further to determine the count of unique values for specified variable(s)/column(s).
+
+```{r}
+msleep %>%
+  count(vore)
+```
+
+This is the same as using group_by() with tally()
+
+```{r}
+msleep %>%
+  group_by(vore) %>%
+  tally()
+```
+
+Multiple variables can be specified with `count()`. 
+
+This can be really useful when getting to know your data.
+
+```{r}
+msleep %>%
+  count(vore, order)
+```
+
+
+#### `add_count()`
+
+the `add_count()` function is similar to the `add_tally()` function
+
+```{r}
+msleep %>%
+  add_count(vore, order) %>%
+  glimpse()
+```
+
+
 
 #### `get_dupes()`
 

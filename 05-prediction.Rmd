@@ -1069,7 +1069,7 @@ In this lesson, we've decided to go with the terminology, as suggested by Carl d
 ![](https://camo.githubusercontent.com/03698618657aea7403427182d1d6cc3c506bac66/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f3134)
 
 ### Train
-Training data are the data we described above. It is thehe data used to build your predictive model. These data are referred to as your training set.
+Training data are the data we described above. It is the data used to build your predictive model. These data are referred to as your training set.
 
 ![](https://camo.githubusercontent.com/823b0ed0a837181a59e01d08194cbc4d4c66f352/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f3933)
 
@@ -1223,7 +1223,7 @@ There is an *incredibly* helpful package available in R thanks to the work of [M
 
 For this example, we'll keep it simple and use a dataset you've seen before: the `iris` dataset. This way you can focus on the syntax used in the `caret` package and the steps of predictive analysis. In this example, we'll attempt to use the data in the `iris` dataset to predict `Sepal.Length`
 
-##### Example of Data Splitting
+##### Example of Data Splitting with caret
 
 As mentioned above, one of the first steps is often to take your dataset and split it into a training set and a tuning set. To do this, we'll load the caret package and use the createDataPartition() function to split the dataset.
 
@@ -1251,6 +1251,67 @@ str(iris_tune)
 After running this code , if we take a look at the training and tuning datasets, we can see that 70% of our observations are in the training dataset and the other 30% are in the tuning dataset, as we specified.
 
 ![](https://camo.githubusercontent.com/aaf82080cb085dd7b6db796a0a3b347cf04a6e5c/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f31323330)
+
+##### Example of Data Splitting with rsample
+
+We can also split our data using the `initial_split()` function of a tidyverse package called `rsample`
+
+```{r}
+library(rsample)
+initial_split(iris, prop = 3/4) 
+# the default proportion is 1/4 testing and 3/4 training
+```
+This results in printing the number of training data rows, the number testing data rows, and the total rows divided by "/".
+
+Importantly we can stratify our split by a particular feature of the data.
+For example, let's say that we intend to classify different species of flowers based on there petal and sepal sizes. In this case the iris dataset would be very useful.
+
+```{r}
+str(iris)
+```
+
+We can see that there are 3 different species in this dataset.
+We therefore would want good representation of each in our testing and training data.
+
+```{r}
+initial_split(iris, strata = Species, prop = 3/4)
+library(AppliedPredictiveModeling)
+data("abalone")
+```
+
+If we type:
+```{r}
+??abolone
+```
+
+We see the following information:
+
+"The Abalone data consist of data from 4177 abalones. The data consist of measurements of the type (male, female and infant), the longest shell measurement, the diameter, height and several weights (whole, shucked, viscera and shell). The outcome is the number of rings. The age of the abalone is the number of rings plus 1.5."
+
+```{r}
+glimpse(abalone)
+dplyr::count(abalone, Rings)
+set.seed(1234)
+abalone_split<-rsample::initial_split(abalone, strata = Rings, prop = 3/4)
+abalone_split_nostrata<-rsample::initial_split(abalone, prop = 3/4)
+
+```
+
+
+To actually extract the data, we can use the `training()` and `testing()` functions also of the `rsample` package.
+
+```{r}
+train_abalone <- training(abalone_split_nostrata)
+test_abalone <-testing(abalone_split_nostrata)
+train_abalone <- training(abalone_split_nostrata)
+test_abalone <-testing(abalone_split_nostrata)
+count(train_abalone, Rings)
+count(test_abalone, Rings)
+count(test_abalone, Rings) %>% plot()
+count(train_abalone, Rings) %>% plot()
+count(abalone, Rings) %>% plot()
+
+```
 
 
 ##### Example of Variable Selection
