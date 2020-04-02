@@ -1,4 +1,6 @@
+AppliedPredictiveModeling
 bookdown
+broom
 cowplot
 datasets
 DBI
@@ -6,6 +8,7 @@ dbplyr
 directlabels
 dplyr
 gapminder
+GGally
 gganimate
 ggplot2
 ggrepel
@@ -18,11 +21,14 @@ jsonlite
 kableExtra
 knitr
 lubridate
+naniar
 nycflights13
+PerformanceAnalytics
 purrr
 readr
 readxl
 reshape2
+rsample
 RSQLite
 rstudioapi
 rvest
