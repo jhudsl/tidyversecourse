@@ -115,7 +115,7 @@ This can be further broken down (or stratified) by sex to describe the age distr
 ![](https://camo.githubusercontent.com/41dcda8580c2fe017d2181426618c98c18cfd6c6/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336461343162643136615f305f3734)
 
 Recall that the `glimpse()` function of the `dplyr` package can help you to see what data you are working with. 
-```{r, eval = FALSE, warning=FALSE,comment=FALSE}
+```{r, eval = FALSE, warning=FALSE,comment=NA}
 ## load packages
 library(tidyverse)
 df <- msleep # this data comes from ggplot2
