@@ -1533,7 +1533,7 @@ However, this requires an additional package: `textdata`. Be sure this has been 
 
 ```{r}
 # be sure textdata is installed
- install.packages("textdata", repos = 'http://cran.us.r-project.org')
+#install.packages("textdata", repos = 'http://cran.us.r-project.org')
 
 # see information stored in NRC lexicon
 get_sentiments('nrc')
