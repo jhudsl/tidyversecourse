@@ -1072,20 +1072,118 @@ Using these two datasets (the Google Street view car image data and the demograp
 
 ![Cars in a neighborhood can predict how the area votes](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g3d555e2b2e_0_0)
 
-#### Analyzing Images in R
+#### Analyzing and Manipulating Images in R
 
-AVOCADO - this section stinks
+AVOCADO - this section needs more
 
 Like with text, there are packages in R that will help you carry out analysis of images. In particular, `magick` is particularly helpful for advanced image processing within R, allowing you to process, edit, and manipulate images within R. Like JSON and XML, where there is more than one file format for a similar task, there are also a number of different image file formats. We touched on the pros and cons of a number of these in the Data Visualization course; however, of importance here is the fact that the `magick` package is capable of working with many different types of images, including PNG, JPEG, and TIFF. The `magick` package has a particularly helpful [vignette](https://cran.r-project.org/web/packages/magick/vignettes/intro.html#drawing_and_graphics) where you can learn the ins and outs of working with images using `magick`'s functionality. Their documentation will discuss how to read image data into R, how to edit images, and even how to add images to your R plots! 
 
 
-![`magick` package's example of adding an image to a plot](![Google Maps street view](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g3d555e2b2e_0_153)
+![`magick` package's example of adding an image to a plot]![Google Maps street view](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g3d555e2b2e_0_153)
+
+
+A really useful manipulation that one can perform is text extraction from images. Typically this works best with images that have text that is not angled and in a conventional font.
+
+```{r}
+# install package
+#install.packages("magick")
+# load package
+library(magick)
+img1 <- image_read("https://ggplot2.tidyverse.org/logo.png")
+img2 <- image_read("https://pbs.twimg.com/media/D5bccHZWkAQuPqS.png")
+#show the image
+print(img1)
+print(img2)
+#concatenate and print text
+cat(image_ocr(img1))
+cat(image_ocr(img2))
+```
 
 ## `googledrive`
 
-AVOCADO
+Another really helpful package is the `googledrive` package which enables users to interact with their Google Drive directly from R.
+
+This requires having an established Google Drive account. You will be asked to authorize access for the package to interact with your Google Drive.
+
+Finding files in your drive can be done using `drive_find()`.
+
+```{r, eval = FALSE}
+# install.packages("googledrive")
+# load package
+library("googledrive")
+# Files can be found based on file name words like this:
+drive_find(pattern ="tidyverse")
+# Files can be found based on file type like this:
+drive_find(type ="googlesheets")
+# Files that have specific types of visibility can be found like this:
+files <- drive_find(q = c("visibility = 'anyoneWithLink'"))
+```
+
+Files can be viewed from your default browser by using the `drive_browse()` function:
+
+```{r, eval = FALSE}
+drive_browse("tidyverse")
+``` 
+
+Files can be uploaded to your Google Drive using the `drive_upload()` function.
+
+```{r, eval = FALSE}
+drive_upload(here::here("tidyverse.txt"))
+```
+
+
+If we wanted this file to be converted and saved as a Google file, then we would do the following based on the type of Goggle document desired. Only certain types of files can be converted to each type of Google file.
+
+```{r, eval = FALSE}
+drive_upload(here::here("tidyverse.txt"), type = "document")
+drive_upload(here::here("tidyverse.csv"), type = "spreadsheet")
+drive_upload(here::here("tidyverse.pptx"), type = "presentation")
+```
+
+Files can be downloaded using the `drive_download()`function. Google file types need to be converted to a conventional file type. For example one might save a googlesheet file to a CSV file. This would download a file called tidyverse.csv to your project directory. This file could then be used in an analysis.
+
+```{r, eval = FALSE}
+drive_download("tidyverse", type = "csv")
+tidyverse_data <-readr::read_csv(here("tidyverse.csv"))
+```
+
+Files can be moved to trash using the `drive_trash()` function. This can be undone using the `drive_untrash()` function.
+The trash can also be emptied using `drive_empty_trash()`.
+
+```{r, eval = FALSE}
+drive_trash("tidyverse.txt")
+drive_untrash("tidyverse.txt")
+drive_empty_trash()
+```
+
+To permanently remove a file you can use the `drive_rm()` function. This does not keep the file in trash.
+
+```{r, eval = FALSE}
+drive_rm("tidyverse.txt")
+```
+
+
+Files can be shared using the `drive_share()` function. The sharing status of a file can be checked using `drive_reveal()`.
+
+```{r, eval = FALSE}
+
+drive_share(file = "tidyverse", 
+            role = "commenter", 
+            type = "user", 
+            emailAddress = "someone@example.com",
+            emailMessage = "Would greatly appreciate your feedback.")
+
+drove_share_anyone(file = "tidyverse", verbose = TRUE) # anyone with link can read
+
+drive_reveal(file = "tidyverse", what = "permissions")
+
+```
+
+There are many other helpful functions for interacting with the files in your Google Drive within the `googledrive` package.
 
 ## Case Studies
+
+Now we will demonstrate how to import data using our case study examples.
 
 ### Case Study #1: Health Expenditures
 
@@ -1103,13 +1201,13 @@ We'll first read the data in. Note that we have to skip the first two lines, as 
 
 To see what we mean, you can always use the `read_lines()` function from `readr` to see the first few lines:
 
-```{r message = FALSE}
+```{r, message = FALSE}
 read_lines(file = 'https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv', n_max = 10)
 ```
 
 We'll read in the data, starting with the third line of the file:
 
-```{r message = FALSE}
+```{r, message = FALSE}
 coverage <- read_csv('https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv', 
                      skip = 2)
 
