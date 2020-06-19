@@ -44,13 +44,13 @@ This long dataset includes the exact same information as the previous wide datas
 
 While long data formats are less readable than wide data at a glance, they are often a lot easier to work with during analysis. Most of the tools we'll be working with use long data. Thus, to go from how data are often stored (wide) to working with the data during analysis (long), we'll need to understand what tools are needed to do this and how to work with them.
 
-### Spreading & Gathering
+### Reshaping the Data
 
 Converting your data from wide-to-long or from long-to-wide data formats is referred to as **reshaping** your data.
 
 ![Reshaping data](https://docs.google.com/presentation/d/14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI/export/png?id=14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI&pageid=g38bb68a532_0_13)
 
-Within the tidyverse, [tidyr](https://tidyr.tidyverse.org/) is the go-to package for accomplishing this task. Within the `tidyr` package, you'll have to become familiar with a number of functions. The two most pertinent to reshaping data are: `spread()` and `gather()`. 
+Within the tidyverse, [tidyr](https://tidyr.tidyverse.org/) is the go-to package for accomplishing this task. Within the `tidyr` package, you'll have to become familiar with a number of functions. The two most pertinent to reshaping data are: `pivot_wider()` and `pivot_longer()`. 
 
 For these examples, we'll work with the `airquality` dataset available in R. The data in this dataset includes "Daily air quality measurements in New York, May to September 1973." This is a wide dataset because each day is in a separate row and there are multiple columns with each including information about a different variable (ozone, solar.r, wind, temp, month, and day). 
 
@@ -69,21 +69,22 @@ Again, wide data are easy to decipher at a glance. We can see that we have six d
 
 The `tidyr` package is part of the tidyverse, so its functionality is available to you since you've loaded in the tidyverse. The two main functions we mentioned above will help you reshape your data in the following ways: 
 
-* `gather()`: go from wide data to long data
-* `spread()`: go from long data to wide data
+* `pivot_longer()`: go from wide data to long data
+* `pivot_wider()`: go from long data to wide data
 
 To get started, you'll need to be sure that the `tidyr` package is installed and loaded into your RStudio session. 
 
 
-##### `gather()`
+##### `pivot_longer()`
 
-As data are often stored in wide formats, you'll likely use `gather()` a lot more frequently than you'll use `spread()`. This will allow you to get the data into a long format that will be easy to use for analysis.
+As data are often stored in wide formats, you'll likely use `pivot_longer()` a lot more frequently than you'll use `pivot_wider()`. This will allow you to get the data into a long format that will be easy to use for analysis.
 
-In `tidyr`, `gather()` will take the `airquality` dataset from wide to long, putting each column name into the first column and each corresponding value into the second column. Here, the first column will be called `key`. The second column will still be `value`.
+In `tidyr`, `pivot_longer()` will take the `airquality` dataset from wide to long, putting each column name into the first column and each corresponding value into the second column. Here, the first column will be called `key`. The second column will still be `value`.
 
 ```{r}
-## use gather() to reshape from wide to long
-gathered <- gather(airquality)
+## use pivot_longer() to reshape from wide to long
+gathered <- airquality %>%
+  pivot_longer(everything())
 
 ## take a look at first few rows of long data
 gathered
@@ -91,12 +92,13 @@ gathered
 
 ![gather dataset](https://docs.google.com/presentation/d/14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI/export/png?id=14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI&pageid=g38bb68a532_0_205)
 
-However, it's very easy to change the names of these columns within `gather()`. To do so you define what the key and value columns names should be within `gather()`:
+However, it's very easy to change the names of these columns within `pivot_longer()`. To do so you define what the key and value columns names should be within `pivot_longer()`:
 
 ```{r}
 ## to rename the column names that gather provides,
 ## change key and value to what you want those column names to be
-gathered <- gather(airquality, key = "variable", value = "value")
+gathered <- airquality %>%
+  pivot_longer(everything(), names_to = "variable", values_to = "value")
 
 ## take a look at first few rows of long data
 gathered 
@@ -107,10 +109,13 @@ gathered
 However, you're likely not interested in your day and month variable being separated out into their own variables within the `key` column. In fact, knowing the day and month associated with a particular data point helps identify that particular data point. To account for this, you can exclude `day` and `month` from the variables being included in the `key` column by specifying all the variables that you *do* want included in the `key` column.  Here, that means specifying `Ozone`, `Solar.R`, `Wind`, and `Temp`. This will keep `Day` and `Month` in their own columns, allowing each row to be identified by the specific day and month being discussed.
 
 ```{r}
-## in gather(), after key and value, you can specify which variables 
+## in pivot_longer(), you can specify which variables 
 ## you want included in the long format
 ## it will leave the other variables as is
-gathered <- gather(airquality, key="variable", value="value", Ozone, Solar.R, Wind, Temp)
+gathered <- airquality %>%
+  pivot_longer(c(Ozone, Solar.R, Wind, Temp), 
+               names_to = "variable", 
+               values_to = "value")
 
 ## take a look at first few rows of long data
 gathered
@@ -120,15 +125,16 @@ gathered
 
 Now, when you look at the top of this object, you'll see that `Month` and `Day` remain in the data frame and that variable combines information from the other columns in airquality (`Ozone`, `Solar.R`, `Wind`, `Temp`). This is still a long format dataset; however, it has used `Month` and `Day` as IDs when reshaping the data frame.
 
-##### `spread()`
+##### `pivot_wider()`
 
-To return your long data back to its original form, you can use `spread()`. Here you specify two columns: the column that contains the names of what your wide data columns should be (`key = variable`) and the column that contains the values that should go in these columns (`value = value`). The data frame resulting from `spread()` will have the original information back in the wide format (again, the columns will be in a different order). But, we'll discuss how to rearrange data in the next lesson!
+To return your long data back to its original form, you can use `pivot_wider()`. Here you specify two columns: the column that contains the names of what your wide data columns should be (`key = variable`) and the column that contains the values that should go in these columns (`value = value`). The data frame resulting from `pivot_wider()` will have the original information back in the wide format (again, the columns will be in a different order). But, we'll discuss how to rearrange data in the next lesson!
 
 ```{r}
-## use gather() to reshape from wide to long
-spread_data <- spread(gathered, key = variable, value = value)
+## use pivot_wider() to reshape from long to wide
+spread_data <- gathered %>%
+  pivot_wider(names_from = "variable", values_from = "value")
 
-## take a look at the spread data
+## take a look at the wide data
 spread_data
 
 ## compare that back to the original
@@ -2087,27 +2093,35 @@ Before going any further, let's add some information about Washington, D.C, the 
 state.abb <- c(state.abb, "DC")
 state.region <- as.factor(c(as.character(state.region), "South"))
 state.name <- c(state.name, "District of Columbia")
+state_data <- tibble(Location = state.name,
+                     abb = state.abb,
+                     region = state.region)
+state_data
 ```
 
 If we focus in on the columns within this dataframe, we see that we have a number of different types of health care (i.e. employer, medicare, medicaid, etc.) for each year between 2013 and 2016:
 
 ```{r}
-colnames(coverage)
+names(coverage)
 ```
 
 While a lot of information in here will be helpful, it's not in a tidy format. This is because, each variable is not in a separate column. For example, each column includes year, the type of coverage *and* the amount spent by state. We'll want to use each piece of information separately downstream as we start to visualize and analyze these data. So, let's work to get these pieces of information separated out now.
 
-To accomplish this, the first thing we'll have to do is reshape the data, using the `gather()` function from the `tidyr` package. As a reminder, this function gathers multiple columns and collapses them into new key-value pairs. This transform data from wide format into a long format, where:
+To accomplish this, the first thing we'll have to do is reshape the data, using the `pivot_longer()` function from the `tidyr` package. As a reminder, this function gathers multiple columns and collapses them into new key-value pairs. This transform data from wide format into a long format, where:
 
-- The **`key`** is the name of the new column that you are creating which contains the values of the column headings that you are gathering
-- The **`value`** is the name of the new column that will contain the values themselves
-- The third argument defines the columns to gather
+- The first argument defines the columns to gather
+- The **`names_to`** argument is the name of the new column that you are creating which contains the values of the column headings that you are gathering
+- The **`values_to`** argument is the name of the new column that will contain the values themselves; you can indicate the name of this column with the `values_to` argument.
 
 Here, we create a column titled `year_type` and `tot_coverage`, storing this newly formatted dataframe back into the variable name `coverage`. We also want to keep the Location column as it is because it also contains observational level data.
 
 ```{r}
-coverage <- gather(coverage, "year_type", "tot_coverage", -Location)
-
+coverage <- coverage %>%
+  mutate(across(starts_with("20"), 
+                as.integer)) %>%  ## Convert columns to numeric
+  pivot_longer(-Location, 
+               names_to = "year_type", 
+               values_to = "tot_coverage")
 coverage
 ```
 
@@ -2126,26 +2140,11 @@ coverage
 
 Perfect! We now have the four columns we wanted, each storing a separate piece of information, *and* the year column is an integer, as you would want it to be! 
 
-The other columns remain character type information. That makes sense for Location and type, but not for `tot_coverage`. Let's change that to be numeric as well using the `mutate_at()` function from `dplyr`. 
-
-Here, we are specifying that we want to take the `tot_coverage` column and convert it to an integer and then replace the old column with the newly-converted column.
-
-```{r warning = FALSE}
-coverage <- 
-  coverage %>% 
-  mutate_at("tot_coverage", as.integer)
-
-coverage
-```
-
-Great, our variables are now all of the appropriate type!
-
-Let's go one step further and add in the state-level abbreviations and region for each row. We'll utilize our `state` datasets that we read in previously to accomplish this!
+Let's go one step further and add in the state-level abbreviations and region for each row. We'll utilize our `state` datasets that we read in previously to accomplish this! Because we formated the state data as a tibble, we can simply join it with our `coverage` dataset to get the state and region information.
 
 ```{r}
-# Add the abbreviation of States
-coverage$abb <- state.abb[match(coverage$Location, state.name)]
-coverage$region <- state.region[match(coverage$Location, state.name)]
+coverage <- coverage %>%
+  left_join(state_data, by = "Location")
 
 coverage
 ```
@@ -2164,7 +2163,10 @@ Here, we reshape the data using `year` and `tot_spending` for the key and value.
 
 ```{r}
 # take spending data from wide to long
-spending <- gather(spending, "year", "tot_spending", -Location)
+spending <- spending %>%
+  pivot_longer(-Location, 
+               names_to = "year", 
+               values_to = "tot_spending")
 
 # separate year and name columns
 spending <- spending %>% 
@@ -2348,8 +2350,10 @@ age_stats
 This information is in a long format, but it likely makes more sense to store this information in a wide format, where each column is a different state and each row is an age. To do this:
 
 ```{r}
-age_stats <- spread(age_stats, "NAME", "sum_ages")
-
+age_stats <- age_stats %>%
+  pivot_wider(names_from = "NAME",
+              values_from = "sum_ages")
+  
 age_stats
 ```
 
@@ -2443,14 +2447,16 @@ For the purpose of practice and simplification we will just keep the first line 
 brady
 ```
 
-This dataset includes a lot of information, but we're interested in the brady scores for each state. These are stored in the row where the first column is equal to "TOTAL STATE POINTS," so we `filter()` to only include that row. We then want to only receive the scores for each state, and not the information in the first few columns, so we specify that using `select()`. With the information we're interested in, we then take the data from wide to long using `gather()`, renaming the columns as we go. Finally, we specify that the information in the `brady_scores` column is numeric, not a character.
+This dataset includes a lot of information, but we're interested in the brady scores for each state. These are stored in the row where the first column is equal to "TOTAL STATE POINTS," so we `filter()` to only include that row. We then want to only receive the scores for each state, and not the information in the first few columns, so we specify that using `select()`. With the information we're interested in, we then take the data from wide to long using `pivot_longer()`, renaming the columns as we go. Finally, we specify that the information in the `brady_scores` column is numeric, not a character.
 
 ```{r}
 brady <- brady %>%
   rename(Law = `States can receive a maximum of 100 points`) %>% 
   filter(Law == "TOTAL STATE POINTS") %>%
   select((ncol(brady) - 49):ncol(brady)) %>% 
-  gather("state", "brady_scores") %>%
+  pivot_longer(everything(), 
+               names_to = "state",
+               values_to = "brady_scores") %>%
   mutate_at("brady_scores", as.numeric)
 
 brady
@@ -2460,7 +2466,11 @@ Only problem now is that we have the two letter state code, rather than the full
 
 ```{r}
 brady <- brady %>% 
-  mutate(state = tolower(state.name[match(brady$state, state.abb)]))
+  left_join(rename(state_data, state = abb), 
+            by = "state") %>%
+  select(Location, brady_scores) %>%
+  rename(state = Location) %>%
+  mutate(state = tolower(state))
 
 brady
 ```
