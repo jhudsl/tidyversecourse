@@ -1532,6 +1532,7 @@ To do this, the analyst must have access to or create a *lexicon*, a dictionary 
 However, this requires an additional package: `textdata`. Be sure this has been installed before using the `get_sentiments()` function.
 
 ```{r}
+library(textdata)
 # be sure textdata is installed
 #install.packages("textdata", repos = 'http://cran.us.r-project.org')
 
