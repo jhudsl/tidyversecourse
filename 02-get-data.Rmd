@@ -15,7 +15,7 @@ There are a number of differences between tibbles and data.frames. To see a full
 * **Input type remains unchanged** - data.frame is notorious for treating strings as factors; this will not happen with tibbles
 * **Variable names remain unchanged** - In base R, data.frame will remove spaces from names, converting them to periods or add "x" before numeric column names. Tibbles will not change variable (column) names on you
 * **There are no `row.names()` for a tibble** - Tidy data requires that variables be stored in a consistent way, removing the need for row names.
-* **Tibbles print first ten rows and columns that fit on one screen** - Printing a tibble to screen will never print the entire huge dataframe out. By default, it just shows what fits to your screen.
+* **Tibbles print first ten rows and columns that fit on one screen** - Printing a tibble to screen will never print the entire huge data frame out. By default, it just shows what fits to your screen.
 
 ### Creating a tibble
 
@@ -219,6 +219,7 @@ The `googlesheets` package is tidyverse-adjacent, so it requires its own install
 ##### Getting Started with `googlesheets`
 
 ```{r}
+#install.packages("googlesheets")
 # load package
 library(googlesheets)
 ```
@@ -512,12 +513,12 @@ Note in our examples here that by default, `read_json()` reads the data in while
 
 XML accomplishes the same goal as JSON, but it just does it in a different format. Thus, the two formats are commonly used for similar purposes -- sharing information on the web; however, because the format in which they do this is different, a different R package is needed to process XML data. This packages is called `xml2`.
 
-AVOCADO - whats the difference between rvest read_html and XML2 read_html
+We will look into the `xml2` package a bit more when we look at importing html files.
+
 
 ```{r eval = FALSE}
 # read XML file into R
 read_xml("xml_file.xml")
-
 
 ```
 
@@ -840,19 +841,19 @@ Here, we see with that SelectorGadget has highlighted the package names and noth
 
 #### Using `rvest`
 
-Now we're ready to use `rvest`'s functions. We'll use `read_html()` to read in the HTML from our webpage of interest. 
+Now we're ready to use `rvest`'s functions. First, we'll use `read_html()` (which actually comes from the `xml2` package) to read in the HTML from our webpage of interest. 
 
 We'll then use `html_nodes()` to specify which parts of the webpage we want to extract. Within this function we specify "strong", as that's what SelectorGadget told us to specify to "harvest" the information we're interested in. 
 
-Finally `html_text` extracts the text from the tag we've specified, giving us that list of courses we wanted to see!
+Finally `html_text()` extracts the text from the tag we've specified, giving us that list of courses we wanted to see!
 
 ```{r}
 ## load package
 # install.packages("rvest")
-library(rvest)
+library(rvest) # this loads the xml2 package too!
 
 ## provide URL
-courses <- read_html("http://jhudatascience.org/stable_website/webscrape.html")
+courses <- read_html("http://jhudatascience.org/stable_website/webscrape.html") # the function is from xml2
 
 ## Get Courses
 courses %>% 
@@ -995,8 +996,8 @@ Here, we again specify our url within `GET()` followed by use of the helpful `co
 Before going any further, we'll note that these data are in the CSV format and that the `read_csv()` function can read CSVs directly from a URL:
 
 ```{r eval = FALSE}
-#use readr to read in CSV from URL
-df <- read_CSV( "https://raw.githubusercontent.com/fivethirtyeight/data/master/steak-survey/steak-risk-survey.csv")
+#use readr to read in CSV from a URL
+df <- read_csv( "https://raw.githubusercontent.com/fivethirtyeight/data/master/steak-survey/steak-risk-survey.csv")
 ```
 
 While this is a simpler approach than the previous example, you'll want to use this approach when reading CSVs from URL. However, you won't always have data in the CSV format, so we wanted to be sure to demonstrate how to use `httr` when obtaining information from URLs using HTTP methods.
@@ -1025,7 +1026,34 @@ homeTL = GET("https://api.twitter.com/1.1/statuses/home_timeline.json", sig)
 
 ### `haven`
 
-AVOCADO
+Perhaps you or your collaborators use other types of statistical software such as [SPSS](https://en.wikipedia.org/wiki/SPSS), [Stata](https://en.wikipedia.org/wiki/Stata), and [SAS](https://en.wikipedia.org/wiki/SAS_(software)). Files supported by these software packages can be imported into R and exported from R using the `haven` package. As an example we will first write files for each of these software packages and then read them. The data needs to be in a data frame format and spaces and punctuation in variable names will cause issues. We will use the Toy Story character data frame that we created earlier for this example. Note that we are using the `here` package that was described in the introduction to save our files in a directory called `data` which is a subdirectory of the directory in which the .Rproj file is located.
+
+```{r}
+#install.packages("haven")
+library(haven)
+
+## SAS
+write_sas(data = mydf, path = here::here("data", "mydf.sas7bdat"))
+# read_sas() reads .sas7bdat and .sas7bcat files 
+sas_mydf <-read_sas(here::here("data", "mydf.sas7bdat")) 
+sas_mydf
+# use read_xpt() to read SAS transport files (version 5 and 8)
+
+## SPSS
+write_sav(data = mydf, path = here::here("data", "mydf.sav"))
+# use to read_sav() to read .sav files
+sav_mydf <-read_sav(here::here("data", "mydf.sav"))
+sav_mydf
+# use read_por() to read older .por files
+
+## Stata
+write_dta(data = mydf, path = here::here("data", "mydf.dta"))
+# use to read_dta() to read .dta files 
+dta_mydf <-read_dta(here::here("data", "mydf.dta"))
+dta_mydf
+
+
+```
 
 ## Images
 
@@ -1036,7 +1064,7 @@ Within Google Maps there is a Street View feature that allows panoramic views fr
 ![Google Maps street view](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g392f0f9db9_0_4)
 
 
-Some 50 million images of cars from over 200 cities were used by researchers to detect the make, model, body type, and age of the cars in each neighborhood. They were able to take unstructured image data and compile a structured data set! These same researchers then pulled together a structured dataset from the Census and the 2008 elections of demographic information (such as race and income), and voting history in these same neighborhoods. 
+Some 50 million images of cars from over 200 cities were used by researchers to detect the make, model, body type, and age of the cars in each neighborhood. They were able to take unstructured image data and compile a structured dataset! These same researchers then pulled together a structured dataset from the Census and the 2008 elections of demographic information (such as race and income), and voting history in these same neighborhoods. 
 
 ![Data used from Google Maps street view to predict demographics of a neighborhood](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g2bfdb07292_0_151)
 
@@ -1044,20 +1072,118 @@ Using these two datasets (the Google Street view car image data and the demograp
 
 ![Cars in a neighborhood can predict how the area votes](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g3d555e2b2e_0_0)
 
-#### Analyzing Images in R
+#### Analyzing and Manipulating Images in R
 
-AVOCADO - this section stinks
+AVOCADO - this section needs more
 
 Like with text, there are packages in R that will help you carry out analysis of images. In particular, `magick` is particularly helpful for advanced image processing within R, allowing you to process, edit, and manipulate images within R. Like JSON and XML, where there is more than one file format for a similar task, there are also a number of different image file formats. We touched on the pros and cons of a number of these in the Data Visualization course; however, of importance here is the fact that the `magick` package is capable of working with many different types of images, including PNG, JPEG, and TIFF. The `magick` package has a particularly helpful [vignette](https://cran.r-project.org/web/packages/magick/vignettes/intro.html#drawing_and_graphics) where you can learn the ins and outs of working with images using `magick`'s functionality. Their documentation will discuss how to read image data into R, how to edit images, and even how to add images to your R plots! 
 
 
-![`magick` package's example of adding an image to a plot](![Google Maps street view](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g3d555e2b2e_0_153)
+![`magick` package's example of adding an image to a plot]![Google Maps street view](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g3d555e2b2e_0_153)
+
+
+A really useful manipulation that one can perform is text extraction from images. Typically this works best with images that have text that is not angled and in a conventional font.
+
+```{r}
+# install package
+#install.packages("magick")
+# load package
+library(magick)
+img1 <- image_read("https://ggplot2.tidyverse.org/logo.png")
+img2 <- image_read("https://pbs.twimg.com/media/D5bccHZWkAQuPqS.png")
+#show the image
+print(img1)
+print(img2)
+#concatenate and print text
+cat(image_ocr(img1))
+cat(image_ocr(img2))
+```
 
 ## `googledrive`
 
-AVOCADO
+Another really helpful package is the `googledrive` package which enables users to interact with their Google Drive directly from R.
+
+This requires having an established Google Drive account. You will be asked to authorize access for the package to interact with your Google Drive.
+
+Finding files in your drive can be done using `drive_find()`.
+
+```{r, eval = FALSE}
+# install.packages("googledrive")
+# load package
+library("googledrive")
+# Files can be found based on file name words like this:
+drive_find(pattern ="tidyverse")
+# Files can be found based on file type like this:
+drive_find(type ="googlesheets")
+# Files that have specific types of visibility can be found like this:
+files <- drive_find(q = c("visibility = 'anyoneWithLink'"))
+```
+
+Files can be viewed from your default browser by using the `drive_browse()` function:
+
+```{r, eval = FALSE}
+drive_browse("tidyverse")
+``` 
+
+Files can be uploaded to your Google Drive using the `drive_upload()` function.
+
+```{r, eval = FALSE}
+drive_upload(here::here("tidyverse.txt"))
+```
+
+
+If we wanted this file to be converted and saved as a Google file, then we would do the following based on the type of Goggle document desired. Only certain types of files can be converted to each type of Google file.
+
+```{r, eval = FALSE}
+drive_upload(here::here("tidyverse.txt"), type = "document")
+drive_upload(here::here("tidyverse.csv"), type = "spreadsheet")
+drive_upload(here::here("tidyverse.pptx"), type = "presentation")
+```
+
+Files can be downloaded using the `drive_download()`function. Google file types need to be converted to a conventional file type. For example one might save a googlesheet file to a CSV file. This would download a file called tidyverse.csv to your project directory. This file could then be used in an analysis.
+
+```{r, eval = FALSE}
+drive_download("tidyverse", type = "csv")
+tidyverse_data <-readr::read_csv(here("tidyverse.csv"))
+```
+
+Files can be moved to trash using the `drive_trash()` function. This can be undone using the `drive_untrash()` function.
+The trash can also be emptied using `drive_empty_trash()`.
+
+```{r, eval = FALSE}
+drive_trash("tidyverse.txt")
+drive_untrash("tidyverse.txt")
+drive_empty_trash()
+```
+
+To permanently remove a file you can use the `drive_rm()` function. This does not keep the file in trash.
+
+```{r, eval = FALSE}
+drive_rm("tidyverse.txt")
+```
+
+
+Files can be shared using the `drive_share()` function. The sharing status of a file can be checked using `drive_reveal()`.
+
+```{r, eval = FALSE}
+
+drive_share(file = "tidyverse", 
+            role = "commenter", 
+            type = "user", 
+            emailAddress = "someone@example.com",
+            emailMessage = "Would greatly appreciate your feedback.")
+
+drove_share_anyone(file = "tidyverse", verbose = TRUE) # anyone with link can read
+
+drive_reveal(file = "tidyverse", what = "permissions")
+
+```
+
+There are many other helpful functions for interacting with the files in your Google Drive within the `googledrive` package.
 
 ## Case Studies
+
+Now we will demonstrate how to import data using our case study examples.
 
 ### Case Study #1: Health Expenditures
 
@@ -1075,13 +1201,13 @@ We'll first read the data in. Note that we have to skip the first two lines, as 
 
 To see what we mean, you can always use the `read_lines()` function from `readr` to see the first few lines:
 
-```{r message = FALSE}
+```{r, message = FALSE}
 read_lines(file = 'https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv', n_max = 10)
 ```
 
 We'll read in the data, starting with the third line of the file:
 
-```{r message = FALSE}
+```{r, message = FALSE}
 coverage <- read_csv('https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv', 
                      skip = 2)
 
@@ -1134,7 +1260,7 @@ We can use the `here` package described in the introduction to help us make this
 Assuming we created a project called "project", let's save our raw coverage data in a raw_data directory within a directory called data inside of our RStudio project similarly to the work flows that we have seen in the introduction. 
 
 ```{r, echo = FALSE, out.width="60%", fig.align="center"}
-knitr::include_graphics(here::here("book_figures/file_structure.png"))
+knitr::include_graphics(here::here("book_figures", "file_structure.png"))
 ```
 After creating a directory called raw_data within a directory that we called data, we can now save our raw data for case study #1 using the `here` package by simply typing:
 ```{r}
