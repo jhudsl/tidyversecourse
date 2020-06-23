@@ -79,7 +79,7 @@ To get started, you'll need to be sure that the `tidyr` package is installed and
 
 As data are often stored in wide formats, you'll likely use `pivot_longer()` a lot more frequently than you'll use `pivot_wider()`. This will allow you to get the data into a long format that will be easy to use for analysis.
 
-In `tidyr`, `pivot_longer()` will take the `airquality` dataset from wide to long, putting each column name into the first column and each corresponding value into the second column. Here, the first column will be called `key`. The second column will still be `value`.
+In `tidyr`, `pivot_longer()` will take the `airquality` dataset from wide to long, putting each column name into the first column and each corresponding value into the second column. Here, the first column will be called `name`. The second column will still be `value`.
 
 ```{r}
 ## use pivot_longer() to reshape from wide to long
@@ -92,7 +92,7 @@ gathered
 
 ![gather dataset](https://docs.google.com/presentation/d/14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI/export/png?id=14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI&pageid=g38bb68a532_0_205)
 
-However, it's very easy to change the names of these columns within `pivot_longer()`. To do so you define what the key and value columns names should be within `pivot_longer()`:
+However, it's very easy to change the names of these columns within `pivot_longer()`. To do so you specify what the `names_to` and `values_to` columns names should be within `pivot_longer()`:
 
 ```{r}
 ## to rename the column names that gather provides,
@@ -106,7 +106,7 @@ gathered
 
 ![gather column names changed](https://docs.google.com/presentation/d/14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI/export/png?id=14msuN3MbQE6BSIaNu2ipv1-5ypgvWlxsGwn3jmpFyAI&pageid=g38bb68a532_0_213)
 
-However, you're likely not interested in your day and month variable being separated out into their own variables within the `key` column. In fact, knowing the day and month associated with a particular data point helps identify that particular data point. To account for this, you can exclude `day` and `month` from the variables being included in the `key` column by specifying all the variables that you *do* want included in the `key` column.  Here, that means specifying `Ozone`, `Solar.R`, `Wind`, and `Temp`. This will keep `Day` and `Month` in their own columns, allowing each row to be identified by the specific day and month being discussed.
+However, you're likely not interested in your day and month variable being separated out into their own variables within the `variable` column. In fact, knowing the day and month associated with a particular data point helps identify that particular data point. To account for this, you can exclude `day` and `month` from the variables being included in the `variable` column by specifying all the variables that you *do* want included in the `variable` column.  Here, that means specifying `Ozone`, `Solar.R`, `Wind`, and `Temp`. This will keep `Day` and `Month` in their own columns, allowing each row to be identified by the specific day and month being discussed.
 
 ```{r}
 ## in pivot_longer(), you can specify which variables 
@@ -127,12 +127,13 @@ Now, when you look at the top of this object, you'll see that `Month` and `Day` 
 
 ##### `pivot_wider()`
 
-To return your long data back to its original form, you can use `pivot_wider()`. Here you specify two columns: the column that contains the names of what your wide data columns should be (`key = variable`) and the column that contains the values that should go in these columns (`value = value`). The data frame resulting from `pivot_wider()` will have the original information back in the wide format (again, the columns will be in a different order). But, we'll discuss how to rearrange data in the next lesson!
+To return your long data back to its original form, you can use `pivot_wider()`. Here you specify two columns: the column that contains the names of what your wide data columns should be (`names_from`) and the column that contains the values that should go in these columns (`values_from`). The data frame resulting from `pivot_wider()` will have the original information back in the wide format (again, the columns will be in a different order). But, we'll discuss how to rearrange data in the next lesson!
 
 ```{r}
 ## use pivot_wider() to reshape from long to wide
 spread_data <- gathered %>%
-  pivot_wider(names_from = "variable", values_from = "value")
+  pivot_wider(names_from = "variable", 
+              values_from = "value")
 
 ## take a look at the wide data
 spread_data
@@ -2107,7 +2108,7 @@ names(coverage)
 
 While a lot of information in here will be helpful, it's not in a tidy format. This is because, each variable is not in a separate column. For example, each column includes year, the type of coverage *and* the amount spent by state. We'll want to use each piece of information separately downstream as we start to visualize and analyze these data. So, let's work to get these pieces of information separated out now.
 
-To accomplish this, the first thing we'll have to do is reshape the data, using the `pivot_longer()` function from the `tidyr` package. As a reminder, this function gathers multiple columns and collapses them into new key-value pairs. This transform data from wide format into a long format, where:
+To accomplish this, the first thing we'll have to do is reshape the data, using the `pivot_longer()` function from the `tidyr` package. As a reminder, this function gathers multiple columns and collapses them into new name-value pairs. This transform data from wide format into a long format, where:
 
 - The first argument defines the columns to gather
 - The **`names_to`** argument is the name of the new column that you are creating which contains the values of the column headings that you are gathering
@@ -2118,8 +2119,8 @@ Here, we create a column titled `year_type` and `tot_coverage`, storing this new
 ```{r}
 coverage <- coverage %>%
   mutate(across(starts_with("20"), 
-                as.integer)) %>%  ## Convert columns to numeric
-  pivot_longer(-Location, 
+                as.integer)) %>%  ## Convert all year-based columns to integer
+  pivot_longer(-Location,         ## Use all columns BUT 'Location'
                names_to = "year_type", 
                values_to = "tot_coverage")
 coverage
@@ -2132,7 +2133,7 @@ Unfortunately, the `year_type` column still contains two pieces of information. 
 ```{r}
 coverage <- coverage %>% 
   separate(year_type, sep="__", 
-           into=c("year", "type"), 
+           into = c("year", "type"), 
            convert = TRUE)
 
 coverage
@@ -2170,7 +2171,9 @@ spending <- spending %>%
 
 # separate year and name columns
 spending <- spending %>% 
-  separate(year, sep="__", into=c("year", "name"), convert = TRUE) %>% 
+  separate(year, sep="__", 
+           into = c("year", "name"), 
+           convert = TRUE) %>% 
   select(-name)
 
 # look at the data
