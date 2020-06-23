@@ -1365,7 +1365,7 @@ Alternatively, we could animate the plot, using `gganimate` so that on a single 
 
 ##### Transitions
 
-We'll transition in this example betwen frames by gear:
+We'll transition in this example between frames by gear:
 
 ```{r message = FALSE}
 # animate it!
