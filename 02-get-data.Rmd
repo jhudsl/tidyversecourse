@@ -1026,7 +1026,9 @@ homeTL = GET("https://api.twitter.com/1.1/statuses/home_timeline.json", sig)
 
 ### `haven`
 
-Perhaps you or your collaborators use other types of statistical software such as [SPSS](https://en.wikipedia.org/wiki/SPSS), [Stata](https://en.wikipedia.org/wiki/Stata), and [SAS](https://en.wikipedia.org/wiki/SAS_(software)). Files supported by these software packages can be imported into R and exported from R using the `haven` package. As an example we will first write files for each of these software packages and then read them. The data needs to be in a data frame format and spaces and punctuation in variable names will cause issues. We will use the Toy Story character data frame that we created earlier for this example. Note that we are using the `here` package that was described in the introduction to save our files in a directory called `data` which is a subdirectory of the directory in which the .Rproj file is located.
+Perhaps you or your collaborators use other types of statistical software such as [SPSS](https://en.wikipedia.org/wiki/SPSS), [Stata](https://en.wikipedia.org/wiki/Stata), and [SAS](https://en.wikipedia.org/wiki/SAS_(software)). Files supported by these software packages can be imported into R and exported from R using the `haven` package. 
+
+As an example we will first write files for each of these software packages and then read them. The data needs to be in a data frame format and spaces and punctuation in variable names will cause issues. We will use the Toy Story character data frame that we created earlier for this example. Note that we are using the `here` package that was described in the introduction to save our files in a directory called `data` which is a subdirectory of the directory in which the `.Rproj` file is located.
 
 ```{r}
 #install.packages("haven")
@@ -1038,22 +1040,31 @@ write_sas(data = mydf, path = here::here("data", "mydf.sas7bdat"))
 sas_mydf <-read_sas(here::here("data", "mydf.sas7bdat")) 
 sas_mydf
 # use read_xpt() to read SAS transport files (version 5 and 8)
+```
 
+We can also write the data frame to SPSS format.
+```{r}
 ## SPSS
 write_sav(data = mydf, path = here::here("data", "mydf.sav"))
 # use to read_sav() to read .sav files
 sav_mydf <-read_sav(here::here("data", "mydf.sav"))
 sav_mydf
 # use read_por() to read older .por files
+```
 
+
+Stata format is also supported.
+
+```{r}
 ## Stata
 write_dta(data = mydf, path = here::here("data", "mydf.dta"))
 # use to read_dta() to read .dta files 
 dta_mydf <-read_dta(here::here("data", "mydf.dta"))
 dta_mydf
-
-
 ```
+
+When exporting and importing to and from all foreign statistical formats it's important to realize that the conversion will generally be less than perfect. For simple data frames with numerical data, the conversion should work well. However, when there are a lot of missing data, or different types of data that perhaps a given statistical software package may not recognize, it's always important to check the output to make sure it contains all of the information that you expected to be there.
+
 
 ## Images
 
