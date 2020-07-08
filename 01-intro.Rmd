@@ -452,7 +452,7 @@ This particularly well-documented package helps with common predictive analysis 
 
 ## Data Science Project Organization
 
-Data science projects
+Data science projects vary quite a lot so it can be difficult to give universal rules for how they should be organized. However, there are a few ways to organize projects that are commonly useful. In particular, almost all projects have to deal with files of various sorts---data files, code files, output files, etc. This section talks about how files work and how projects can be organized and customized.
 
 ### RStudio Projects
 
