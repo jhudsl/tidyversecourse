@@ -450,44 +450,11 @@ According to the [*caret* website](https://topepo.github.io/caret/):
 
 This particularly well-documented package helps with common predictive analysis data task and takes predictive algorithms that were written across dozens of different R packages and makes them all usable with a standard syntax. 
 
-## File Paths
+## Data Science Project Organization
 
-Since we're assuming R knowledge in this course, you're likely familiar with file paths. However, this information will be critical at a number of points throughout this course, so we wanted to quickly review relative and absolute file paths briefly before moving on.
+Data science projects
 
-In future courses, whenever you write code and run commands within R to work with data, or whenever you use Git commands to document updates to your files, you will be working *in a particular location*. To know your location within a file system is to know exactly what folder you are in right now. The folder that you are in right now is called the **working directory**. Your current working directory in the Terminal may be different from your current working directory in R and may yet even be different from the folder shown in the Files pane of RStudio. The focus of this lesson is on the Terminal, so we will not discuss working directories within R until the next lesson.
-
-Knowing your working directory is important because if you want to tell Terminal to perform some actions on files in other folders, you will need to be able to tell the Terminal where that folder is. That is, you will need to be able to specify a **path** to that folder. A path is a string that specifies a sequence of folders to traverse in order to end up at a final destination. The end of a path string may be a file name if you are creating a path to a file. If you are creating a path to a folder, the path string will end with the destination folder. In a path, folder names are separated by forward slashes `/`. For example, let's say that your current working directory in the Terminal is the `raw_code` directory, and you wish to navigate to the `exploratory` subfolder within the `figures` folder to see the graphics you've created.
-
-
-![Definitions: working directory and path](https://docs.google.com/presentation/d/18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY/export/png?id=18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY&pageid=g3a9f4bba8b_0_20)
-
-There are two types of paths that can lead to that location: **relative** and **absolute**.
-
-### Relative Paths
-
-The first is called a **relative path** which gives a path to the destination folder based on where you are right now (in `raw_code`). ]
-
-
-![Relative path](https://docs.google.com/presentation/d/18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY/export/png?id=18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY&pageid=g39e98c7b77_0_52)
-
-### Absolute Paths
-
-Alternatively, you can specify an **absolute path**. An absolute path starts at the **root directory** of a file system. The root directory does not have a name like other folders do. It is specified with a single forward slash `/` and is special in that it cannot be contained within other folders. In the current file system, the root directory contains a folder called `cloud`, which contains a folder called `project`.
-
-
-![Absolute path](https://docs.google.com/presentation/d/18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY/export/png?id=18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY&pageid=g39e98c7b77_0_89)
-
-### Path Summary
-
-**Analogy**: The root directory is analogous to a town square, a universal starting location. The desired destination location might be the baker. An absolute path specifies how to reach the bakery starting from this universal starting location of the town square. However, if we are in the library right now, a relative path would specify how to reach the bakery from our current location in the library. This could be pretty different than the path from the town square.
-
-Imagine that your friend plans to go from the town square, then to the library, and finally to the bakery. In this analogy, the town square represents the root directory, a universal starting location. If your friend is currently at the library and asks you for directions, you would likely tell them how to go from the library (where they are) to the bakery (where they want to go). This represents a **relative path** -- taking you from where you are currently to where you want to be. Alternatively, you could give them directions from the Town square, to the library, and then to the bakery. This represents an **absolute path**, directions that will always work in this town, no matter where you are currently, but that contain extra information given where your friend is currently.
-
-![Directions and paths analogy](https://docs.google.com/presentation/d/18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ/export/png?id=18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ&pageid=g3aa9ae33ea_0_151)
-
-To summarize once more, **relative paths** give a path to the destination folder based on where you are right now (your current working directory) while **absolute paths** give a path to the destination folder based on the root directory of a file system. 
-
-## RStudio Projects
+### RStudio Projects
 
 Creating [RStudio projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) can be very helpful for organizing your code and any other files that you may want to use in one location together. 
 
@@ -500,7 +467,46 @@ knitr::include_graphics(here::here("book_figures/rproj-fig.png"))
 This will create a special file with the .Rproj extension. This file tells RStudio to identify the directory containing the .Rproj file as the main directory for that R Project. A new session of RStudio will be started when a user opens an R project from this main directory. The previous state including settings of that project will be maintained from one time to the next. The files that were open the last time the user worked on the project will automatically be opened again. Other packages like the `here` package will also recognize the .Rproj file to make analyses easier for the user. We will explain how this package works in the next section.
 
 
-## The `here` package  
+
+### File Paths
+
+Since we're assuming R knowledge in this course, you're likely familiar with file paths. However, this information will be critical at a number of points throughout this course, so we wanted to quickly review relative and absolute file paths briefly before moving on.
+
+In future courses, whenever you write code and run commands within R to work with data, or whenever you use Git commands to document updates to your files, you will be working *in a particular location*. To know your location within a file system is to know exactly what folder you are in right now. The folder that you are in right now is called the **working directory**. Your current working directory in the Terminal may be different from your current working directory in R and may yet even be different from the folder shown in the Files pane of RStudio. The focus of this lesson is on the Terminal, so we will not discuss working directories within R until the next lesson.
+
+Knowing your working directory is important because if you want to tell Terminal to perform some actions on files in other folders, you will need to be able to tell the Terminal where that folder is. That is, you will need to be able to specify a **path** to that folder. A path is a string that specifies a sequence of folders to traverse in order to end up at a final destination. The end of a path string may be a file name if you are creating a path to a file. If you are creating a path to a folder, the path string will end with the destination folder. In a path, folder names are separated by forward slashes `/`. For example, let's say that your current working directory in the Terminal is the `raw_code` directory, and you wish to navigate to the `exploratory` subfolder within the `figures` folder to see the graphics you've created.
+
+
+![Definitions: working directory and path](https://docs.google.com/presentation/d/18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY/export/png?id=18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY&pageid=g3a9f4bba8b_0_20)
+
+There are two types of paths that can lead to that location: **relative** and **absolute**.
+
+#### Relative Paths
+
+The first is called a **relative path** which gives a path to the destination folder based on where you are right now (in `raw_code`). ]
+
+
+![Relative path](https://docs.google.com/presentation/d/18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY/export/png?id=18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY&pageid=g39e98c7b77_0_52)
+
+#### Absolute Paths
+
+Alternatively, you can specify an **absolute path**. An absolute path starts at the **root directory** of a file system. The root directory does not have a name like other folders do. It is specified with a single forward slash `/` and is special in that it cannot be contained within other folders. In the current file system, the root directory contains a folder called `cloud`, which contains a folder called `project`.
+
+
+![Absolute path](https://docs.google.com/presentation/d/18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY/export/png?id=18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY&pageid=g39e98c7b77_0_89)
+
+#### Path Summary
+
+**Analogy**: The root directory is analogous to a town square, a universal starting location. The desired destination location might be the baker. An absolute path specifies how to reach the bakery starting from this universal starting location of the town square. However, if we are in the library right now, a relative path would specify how to reach the bakery from our current location in the library. This could be pretty different than the path from the town square.
+
+Imagine that your friend plans to go from the town square, then to the library, and finally to the bakery. In this analogy, the town square represents the root directory, a universal starting location. If your friend is currently at the library and asks you for directions, you would likely tell them how to go from the library (where they are) to the bakery (where they want to go). This represents a **relative path** -- taking you from where you are currently to where you want to be. Alternatively, you could give them directions from the Town square, to the library, and then to the bakery. This represents an **absolute path**, directions that will always work in this town, no matter where you are currently, but that contain extra information given where your friend is currently.
+
+![Directions and paths analogy](https://docs.google.com/presentation/d/18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ/export/png?id=18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ&pageid=g3aa9ae33ea_0_151)
+
+To summarize once more, **relative paths** give a path to the destination folder based on where you are right now (your current working directory) while **absolute paths** give a path to the destination folder based on the root directory of a file system. 
+
+
+### The `here` package  
 
 With most things in R, there's a package to help minimize the pain of working with and setting file paths within an R Project - the [`here`](https://github.com/r-lib/here) package. 
 
@@ -576,11 +582,11 @@ Remember that the `::` notation indicates that we are using a function of a part
 
 You should use `here()` to set the base project directory for each data science project you do. And, you should use relative paths using `here()` throughout your code any time you want to refer to a different directory or sub-directory within your project using the syntax we just discussed. 
 
-## File Naming
+### File Naming
 
 Having discussed the overall file structure and the `here` package, it's now important to spend a bit of time talking about file naming. It may not be the most *interesting* topic on its surface, but naming files well can save future you a lot of time and make collaboration with others a lot easier on everyone involved. By having descriptive and consistent file names, you'll save yourself a lot of headaches. 
 
-### Good File Names
+#### Good File Names
 
 One of the most frustrating things when looking at someone's data science project is to see a set of files that are completely scattered with names that don't make any sense. It also makes it harder to search for files if they don't have a consistent naming scheme. 
 
@@ -623,6 +629,32 @@ If dates are not relevant for your file naming, put something numeric first. For
 In addition to making sure your files can be nicely ordered, always left-pad numbers with zeros. That is first set a max number of digits for your numbers determined by how many files you will potentially have. So if you may not have more than 1000 files you can choose three digits. If not more than a hundred you can choose two digits and so on. Once you know the number of digits, left-pad numbers with zeros to satisfy the number of digits you determined in the first step. In other words, if you're using three digits, instead of writing 1 write 001 and instead of writing 17 write 017.
 
 ![Left padding numbers with zeros](https://docs.google.com/presentation/d/1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4/export/png?id=1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4&pageid=g397b53245b_0_45)
+
+### Project Template: Everything In Its Place
+
+When organizing a data science project all of your files need to be placed somewhere on your computer. While there is no universal layout for how to do this, most projects have some aspects in common. The `ProjectTemplate` package codifies some of these defaults into a usable file hierarchy so that you can immediately start placing files in the right place.
+
+Here, we load the `ProjectTemplate` package and create a new project called `data_analysis` under the current working directory using the `minimal` template.
+
+```{r, eval=FALSE}
+library(ProjectTemplate)
+create.project(project.name = "data_analysis",
+               template = "minimal")
+```
+
+The `create.project()` function creates a directory called `data_analysis` was created for this project. Inside that directory are the following sub-directories (which we can view in the RStudio File browser):
+
+![Project Template Directory Layout](book_figures/projecttemplatedir.png)
+
+Inside each directory is a README file that contains a brief description of what kinds of files should go in this directory. If you do not need all of these directories, it is okay to leave them empty for now.
+
+The `data` directory is most straightforward as it holds any data files (in any variety of formats) that will be needed for the project. The `munge` directory contains R code files that pre-process the data you will eventually use an any analysis. Any results from pre-processing can be stored in the `cache` directory if needed (for example, if the pre-processing takes a long time). Finally, the `src` directory contains R code for data analysis, such as fitting statistical models, computing summary statistics, or creating plots.
+
+A benefit of the `ProjectTemplate` package is that it allows for a lot of customization. So if there is file/directory structure that you commonly use for your projects, then you can create a custom template that can be called everytime you call `create.project()`. Custom templates can be created with the `create.template()` function. For example, you might always want to have a directory called `plots` for saving plots made as part of the data analysis.
+
+The `config` directory can contain configuration information for your project, such as any packages that need to be loaded for your code to work. We will not go into the details of this directory for now, but suffice it to say that there are many ways to customize your project. Lastly, the `load.project()` function can be used to "setup" your project each time you open it. For example, if you always need to execute some code or load some packages, calling `load.project()` with the right `config` settings will allow you to automate this process.
+
+
 
 ## Data Science Workflows
 
