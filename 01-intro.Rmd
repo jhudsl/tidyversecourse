@@ -628,20 +628,20 @@ In addition to making sure your files can be nicely ordered, always left-pad num
 
 The phrase "data science workflow" describes the method or steps by which a data scientest might evaluate data to perform a data analysis from start to finish. In this course we will provide examples of workflows with real data. In general, workflows involve the following steps:
 
-        - Identifying a question of interest - determining if it is feasible
-        - Identifying data to answer that question
-        - Importing that data into a programing language such as R
-        - Cleaning /wrangling / and tiding the data
-        - Exploratory data analysis to get to know the data
-        - Data analysis to look for associations in the data
-        - Generation of data visualizations to demonstrate findings
-        - Communication of your analysis and findings
+- Identifying a question of interest - determining if it is feasible
+- Identifying data to answer that question
+- Importing that data into a programing language such as R
+- Cleaning /wrangling / and tiding the data
+- Exploratory data analysis to get to know the data
+- Data analysis to look for associations in the data
+- Generation of data visualizations to demonstrate findings
+- Communication of your analysis and findings
         
-We will demonstrate potential ways of organizing a workflow using real data from the [opencasestudies](https://opencasestudies.github.io/) project. 
+We will demonstrate potential ways of organizing a workflow using real data from the [Open Case Studies](https://opencasestudies.github.io/) project. 
 
 ## Case Studies
 
-Throughout this specialization, we're going to make use of a number of case studies from [opencasestudies](https://opencasestudies.github.io/) to demonstrate the concepts introduced in the course. We'll make use of the same case studies throughout the specialization, so that you only have to learn the context - which we'll introduce here - once. This continuity will allow you to focus on the concepts and skills being taught while working with interesting data. These case studies aim to address a public-health question and all of them use real data. 
+Throughout this specialization, we're going to make use of a number of case studies from [Open Case Studies](https://opencasestudies.github.io/) to demonstrate the concepts introduced in the course. We'll make use of the same case studies throughout the specialization, so that you only have to learn the context - which we'll introduce here - once. This continuity will allow you to focus on the concepts and skills being taught while working with interesting data. These case studies aim to address a public-health question and all of them use real data. 
 
 ### Case Study #1: Health Expenditures
 
