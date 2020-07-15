@@ -719,22 +719,5 @@ To accomplish this in this case study, we'll use data from a *number* of differe
 * Education data for 2010 via the [US Census education table editor](https://factfinder.census.gov/faces/tableservices/jsf/pages/productview.xhtml?src=bkmk).
 * “Household firearm ownership rates, represented as the percentage of firearm suicides to all suicides.” Downloaded from the [CDC’s Web-Based Injury Statistics Query and Reporting System](https://www.cdc.gov/injury/wisqars/fatal.html).
 
-### Case Study #3
 
-#### Question
 
-#### Data 
-
-### Case Study #4
-
-#### Question
-
-#### Data 
-
-### Case Study #5
-
-#### Question
-
-#### Data 
-
-       
