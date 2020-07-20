@@ -27,6 +27,7 @@ magick
 naniar
 nycflights13
 PerformanceAnalytics
+ProjectTemplate
 purrr
 readr
 readxl
