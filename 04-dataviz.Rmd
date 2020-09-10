@@ -1324,7 +1324,6 @@ And, just like that we've got three plots, labeled, spaced out nicely in a grid,
 The final `ggplot2` extension we'll discuss here is [`gganmiate`](https://gganimate.com/). This extends the grammar of graphics implemented in the `ggplot2` package to work with animated plots. To get started, you'll need to install and load the package:
 
 ```{r}
-# install.packages("gganmiate")
 library(gganimate)
 ```
 
@@ -1369,8 +1368,11 @@ We'll transition in this example between frames by gear:
 
 ```{r message = FALSE}
 # animate it!
-ggplot(mtcars) + 
-  geom_boxplot(aes(factor(cyl), mpg)) + 
+mtcars %>%
+  mutate(gear = factor(gear),
+         cyl = factor(cyl)) %>%
+  ggplot() + 
+  geom_boxplot(aes(cyl, mpg)) + 
   transition_manual(gear)
 ```
 
