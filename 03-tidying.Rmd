@@ -777,6 +777,56 @@ skim(msleep) %>%
   summary()
 ```
 
+
+
+### Operations Across Columns
+
+Sometimes it is valuable to apply a certain operation across the columns of a data frame. For example, it be necessary to compute the mean or some other summary statistics for each column in the data frame. In some cases, these operations can be done by a combination of `pivot_longer()` along with `group_by()` and `summarize()`. However, in other cases it is more straightforward to simply compute the statistic on each column.
+
+The `across()` function is need to operate across the columns of a data frame. For example, in our `airquality` dataset, if we wanted to compute the mean of `Ozone`, `Solar.R`, `Wind`, and `Temp`, we could do
+
+```{r}
+airquality %>%
+  summarize(across(Ozone:Temp, mean, na.rm = TRUE))
+```
+
+The `across()` function can be used in conjunction with the `mutate()` and `filter()` functions to construct joint operations across different columns of a data frame. For example, suppose we wanted to filter the rows of the `airquality` data frame so that we only retain rows that do not have missing values for `Ozone` and `Solar.R`. Generally, we might use the `filter()` function for this, as follows.
+
+```{r,results="hide"}
+airquality %>%
+  filter(!is.na(Ozone),
+         !is.na(Solar.R))
+```
+
+Because we are only filtering on two columns here, it's not too difficult to write out the expression. However, if we were filtering on many columns, it would become a challenge to write out every column. This is where the `across()` function comes in handy. With the `across()` function, we can specify columns in the same way that we use the `select()` function. This allows us to use short-hand notation to select a large set of columns.
+
+We can use the `across()` function in conjunction with `filter()` to achieve the same result as above..
+```{r}
+airquality %>%
+  filter(across(Ozone:Solar.R, ~ !is.na(.)))
+```
+
+Here, the `~` in the call to `across()` indicates that we are passing an anonymous function (see the chapter on Functional Programming for more details) and the `.` is a stand-in for the name of the column.
+
+
+If we wanted to filter the data frame to remove rows with missing values in `Ozone`, `Solar.R`, `Wind`, and `Temp`, we only need to make a small change.
+
+```{r}
+airquality %>%
+  filter(across(Ozone:Temp, ~ !is.na(.)))
+```
+
+
+The `across()` function can also be used with `mutate()` if we want to apply the same transformation to multiple columns. For example, suppose we want to cycle through each column and replace all missing values (`NA`s) with zeros. We could use `across()` to accomplish this.
+
+```{r}
+airquality %>%
+  mutate(across(Ozone:Temp, ~ replace_na(., 0)))
+```
+
+Again, the `.` is used as a stand-in for the name of the column. This expression essentially applies the `replace_na()` function to each of the columns between `Ozone` and `Temp` in the data frame.
+
+
 ## Working With Factors
 
 In R, categorical data are handled as factors. By definition, categorical data are limited in that they have a set number of possible values they can take. For example, there are 12 months in a calendar year. In a month variable, each observation is limited to taking one of these twelve values. Thus, with a limited number of possible values, month is a categorical variable. Categorical data, which will be referred to as factors for the rest of this lesson, are regularly found in data. Learning how to work with this type of variable effectively will be incredibly helpful.

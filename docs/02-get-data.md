@@ -766,11 +766,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".zip")))
 
 ```
 ## Response [https://www.sqlitetutorial.net/wp-content/uploads/2018/03/chinook.zip]
-##   Date: 2020-09-10 21:11
+##   Date: 2020-10-06 12:31
 ##   Status: 200
 ##   Content-Type: application/zip
 ##   Size: 306 kB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpmQVlBF/file7b2d2e2b6d54.zip
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpE6MGlX/file181f6225a2273.zip
 ```
 
 ```r
@@ -2011,11 +2011,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2020-09-10 21:11
+##   Date: 2020-10-06 12:31
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpmQVlBF/file7b2d74856499.xlsx
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpE6MGlX/file181f674856499.xlsx
 ```
 
 ```r
@@ -2063,11 +2063,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2020-09-10 21:11
+##   Date: 2020-10-06 12:31
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpmQVlBF/file7b2d21980f48.xls
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpE6MGlX/file181f621980f48.xls
 ```
 
 ```r
@@ -2114,11 +2114,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2020-09-10 21:11
+##   Date: 2020-10-06 12:31
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpmQVlBF/file7b2d5e37ee62.xls
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpE6MGlX/file181f65e37ee62.xls
 ```
 
 ```r
