@@ -4,6 +4,11 @@ Data are stored in all sorts of different file formats and structures. In this c
 
 ## About This Course
 
+Getting data into your statistical analysis system can be one of the most challenging parts of any data science project. Data must be imported and harmonized into a coherent format before any insights can be obtained. You will learn how to get data into R from commonly used formats and harmonizing different kinds of datasets from different sources. If you work in an organization where different departments collect data using different systems and different storage formats, then this course will provide essential tools for bringing those datasets together and making sense of the wealth of information in your organization.
+
+This course introduces the Tidyverse tools for importing data into R so that it can be prepared for analysis, visualization, and modeling. Common data formats are introduced, including delimited files, spreadsheets and relational databases, and techniques for obtaining data from the web are demonstrated, such as web scraping and web APIs. 
+
+In this specialization we assume familiarity with the R programming language. If you are not yet familiar with R, we suggest you first complete [R Programming](https://www.coursera.org/learn/r-programming) before returning to complete this course.
 
 
 
@@ -771,11 +776,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".zip")))
 
 ```
 ## Response [https://www.sqlitetutorial.net/wp-content/uploads/2018/03/chinook.zip]
-##   Date: 2020-10-07 17:42
+##   Date: 2020-10-07 18:23
 ##   Status: 200
 ##   Content-Type: application/zip
 ##   Size: 306 kB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpF8fWmH/file31be4338a7cf.zip
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//Rtmpu8yfPk/file33a777c83073.zip
 ```
 
 ```r
@@ -2016,11 +2021,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2020-10-07 17:43
+##   Date: 2020-10-07 18:23
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpF8fWmH/file31be74856499.xlsx
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//Rtmpu8yfPk/file33a774856499.xlsx
 ```
 
 ```r
@@ -2068,11 +2073,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2020-10-07 17:43
+##   Date: 2020-10-07 18:23
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpF8fWmH/file31be21980f48.xls
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//Rtmpu8yfPk/file33a721980f48.xls
 ```
 
 ```r
@@ -2119,11 +2124,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2020-10-07 17:43
+##   Date: 2020-10-07 18:23
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpF8fWmH/file31be5e37ee62.xls
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//Rtmpu8yfPk/file33a75e37ee62.xls
 ```
 
 ```r
