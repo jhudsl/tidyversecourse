@@ -1,13 +1,16 @@
 # Visualizing Data in the Tidyverse {#dataviz}
 
-Data visualization is an incredibly important part of any data science project. When you are first handed a data set by your boss or first scrape a large dataset from the Internet, visualizing your data can help you get a handle on what's going on in the data set. Similarly, once you've done your analysis and are ready to communicate your findings to your teammates, data visualizations are an effective way to communicate your results to others. Here, we'll walk through what data visualization is and define some of the basic types of data visualizations.
 
 ## About This Course
 
+Data visualization is a critical part of any data science project. Once data have been imported and wrangled into place, visualizing your data can help you get a handle on what's going on in the data set. Similarly, once you've completed your analysis and are ready to present your findings, data visualizations are a highly effective way to communicate your results to others. In this course we will cover what data visualization is and define some of the basic types of data visualizations.
+
+In this course you will learn about the ggplot2 R package, a powerful set of tools for making stunning data graphics that has become the industry standard. You will learn about different types of plots, how to construct effect plots, and what makes for a successful or unsuccessful visualization. 
+
+In this specialization we assume familiarity with the R programming language. If you are not yet familiar with R, we suggest you first complete [R Programming](https://www.coursera.org/learn/r-programming) before returning to complete this course.
 
 
-
-## Data Visualization
+## Data Visualization Background
 
 At its core, the term 'data visualization' refers to any visual display of data that helps us understand the underlying data better. This can be a plot or figure of some sort or a table that summarizes the data. Generally, there are a few characteristics of all good plots.
 

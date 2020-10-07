@@ -326,7 +326,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="dataviz.html"><a href="dataviz.html"><i class="fa fa-check"></i><b>4</b> Visualizing Data in the Tidyverse</a>
 <ul>
 <li class="chapter" data-level="4.1" data-path="intro.html"><a href="intro.html#about-this-course"><i class="fa fa-check"></i><b>4.1</b> About This Course</a></li>
-<li class="chapter" data-level="4.2" data-path="intro.html"><a href="intro.html#data-visualization"><i class="fa fa-check"></i><b>4.2</b> Data Visualization</a>
+<li class="chapter" data-level="4.2" data-path="dataviz.html"><a href="dataviz.html#data-visualization-background"><i class="fa fa-check"></i><b>4.2</b> Data Visualization Background</a>
 <ul>
 <li class="chapter" data-level="4.2.1" data-path="dataviz.html"><a href="dataviz.html#general-features-of-plots"><i class="fa fa-check"></i><b>4.2.1</b> General Features of Plots</a></li>
 </ul></li>
@@ -496,6 +496,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 5</span> Modeling Data in the Tidyverse</h1>
 <div id="about-this-course" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> About This Course</h2>
+<p>Developing insights about your organization, business, or research project depends on effective modeling and analysis of the data you collect. Building effective models requires understanding the different types of questions you can ask and how to map those questions to your data. Different modeling approaches can be chosen to detect interesting patterns in the data and identify hidden relationships.</p>
+<p>This course covers the types of questions you can ask of data and the various modeling approaches that you can apply. Topics covered include hypothesis testing, linear regression, nonlinear modeling, and machine learning. With this collection of tools at your disposal, as well as the techniques learned in the other courses in this specialization, you will be able to make key discoveries from your data for improving decision-making throughout your organization.</p>
+<p>In this specialization we assume familiarity with the R programming language. If you are not yet familiar with R, we suggest you first complete <a href="https://www.coursera.org/learn/r-programming">R Programming</a> before returning to complete this course.</p>
 </div>
 <div id="the-purpose-of-data-science" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> The Purpose of Data Science</h2>
@@ -572,14 +575,14 @@ With this logic, most online surveys or surveys on social media has to be taken 
 <p>This can be further broken down (or stratified) by sex to describe the age distribution by sex. The goal of these analyses is to describe the population. No inferences are made about what this means nor are predictions made about how the data might trend in the future. The point of this (and every!) descriptive analysis is only to summarize the data collected.</p>
 <p><img src="https://camo.githubusercontent.com/41dcda8580c2fe017d2181426618c98c18cfd6c6/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336461343162643136615f305f3734" /></p>
 <p>Recall that the <code>glimpse()</code> function of the <code>dplyr</code> package can help you to see what data you are working with.</p>
-<div class="sourceCode" id="cb675"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb675-1"><a href="model.html#cb675-1"></a><span class="co">## load packages</span></span>
-<span id="cb675-2"><a href="model.html#cb675-2"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb675-3"><a href="model.html#cb675-3"></a>df &lt;-<span class="st"> </span>msleep <span class="co"># this data comes from ggplot2</span></span>
-<span id="cb675-4"><a href="model.html#cb675-4"></a><span class="co">## get a glimpse of your data</span></span>
-<span id="cb675-5"><a href="model.html#cb675-5"></a><span class="kw">glimpse</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="model.html#cb1-1"></a><span class="co">## load packages</span></span>
+<span id="cb1-2"><a href="model.html#cb1-2"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="model.html#cb1-3"></a>df &lt;-<span class="st"> </span>msleep <span class="co"># this data comes from ggplot2</span></span>
+<span id="cb1-4"><a href="model.html#cb1-4"></a><span class="co">## get a glimpse of your data</span></span>
+<span id="cb1-5"><a href="model.html#cb1-5"></a><span class="kw">glimpse</span>(df)</span></code></pre></div>
 <p><img src="https://camo.githubusercontent.com/141353fef57cd97b26d64e39311e23584e165c6a/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336461343162643136615f305f3536" /></p>
 <p>Also becuase the data is in tibble format, we can gain alot of information by just viewing the data itself.</p>
-<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb676-1"><a href="model.html#cb676-1"></a>df</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="model.html#cb2-1"></a>df</span></code></pre></div>
 <p>Here we also get information about the dimensions of our data object and the name and class of our variables.</p>
 <p><img src="book_figures/tibble.png" width="60%" /></p>
 <div id="missing-values" class="section level3" number="5.5.1">
@@ -588,25 +591,25 @@ With this logic, most online surveys or surveys on social media has to be taken 
 <p>However, individuals who are less familiar with R code missingness in a number of different ways in their data: -999, N/A, ., or a blank space. As such, it’s best to check to see how missingness is coded in your dataset. A reminder: sometimes different variables within a single dataset will code missingness differently. This shouldn’t happen, but it does, so always use caution when looking for missingness.</p>
 <p>In this dataset, all missing values are coded as NA, and from the output of str(df) (or glimpse(df)), we see that at least a few variables have NA values. We’ll want to quantify this missingness though to see which variables have missing data and how many observations within each variable have missing data.</p>
 <p>To do this, we can write a function that will calculate missingness within each of our variables. To do this we’ll combine a few functions. In the code here is.na() returns a logical (TRUE/FALSE) depending upon whether or not the value is missing (TRUE if it is missing). sum() then calculates the number of TRUE values there are within an observation. We wrap this into a function and then use sapply() to calculate the number of missing values in each variable. The second bit of code does the exact same thing but divides those numbers by the total number of observations (using nrow(df). For each variable, this returns the proportion of missingness:</p>
-<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb677-1"><a href="model.html#cb677-1"></a><span class="kw">library</span>(purrr)</span>
-<span id="cb677-2"><a href="model.html#cb677-2"></a><span class="co">## calculate how many NAs there are in each variable</span></span>
-<span id="cb677-3"><a href="model.html#cb677-3"></a>df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb677-4"><a href="model.html#cb677-4"></a><span class="st">        </span><span class="kw">map</span>(is.na) <span class="op">%&gt;%</span></span>
-<span id="cb677-5"><a href="model.html#cb677-5"></a><span class="st">        </span><span class="kw">map</span>(sum)</span>
-<span id="cb677-6"><a href="model.html#cb677-6"></a></span>
-<span id="cb677-7"><a href="model.html#cb677-7"></a><span class="co">## calculate the proportion of missingness </span></span>
-<span id="cb677-8"><a href="model.html#cb677-8"></a><span class="co">## for each variable</span></span>
-<span id="cb677-9"><a href="model.html#cb677-9"></a>df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb677-10"><a href="model.html#cb677-10"></a><span class="st">        </span><span class="kw">map</span>(is.na) <span class="op">%&gt;%</span></span>
-<span id="cb677-11"><a href="model.html#cb677-11"></a><span class="st">        </span><span class="kw">map</span>(sum)<span class="op">%&gt;%</span></span>
-<span id="cb677-12"><a href="model.html#cb677-12"></a><span class="st">        </span><span class="kw">map</span>(<span class="op">~</span><span class="st"> </span>. <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(df))<span class="op">%&gt;%</span></span>
-<span id="cb677-13"><a href="model.html#cb677-13"></a><span class="st">        </span><span class="kw">bind_cols</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="model.html#cb3-1"></a><span class="kw">library</span>(purrr)</span>
+<span id="cb3-2"><a href="model.html#cb3-2"></a><span class="co">## calculate how many NAs there are in each variable</span></span>
+<span id="cb3-3"><a href="model.html#cb3-3"></a>df <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-4"><a href="model.html#cb3-4"></a><span class="st">        </span><span class="kw">map</span>(is.na) <span class="op">%&gt;%</span></span>
+<span id="cb3-5"><a href="model.html#cb3-5"></a><span class="st">        </span><span class="kw">map</span>(sum)</span>
+<span id="cb3-6"><a href="model.html#cb3-6"></a></span>
+<span id="cb3-7"><a href="model.html#cb3-7"></a><span class="co">## calculate the proportion of missingness </span></span>
+<span id="cb3-8"><a href="model.html#cb3-8"></a><span class="co">## for each variable</span></span>
+<span id="cb3-9"><a href="model.html#cb3-9"></a>df <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-10"><a href="model.html#cb3-10"></a><span class="st">        </span><span class="kw">map</span>(is.na) <span class="op">%&gt;%</span></span>
+<span id="cb3-11"><a href="model.html#cb3-11"></a><span class="st">        </span><span class="kw">map</span>(sum)<span class="op">%&gt;%</span></span>
+<span id="cb3-12"><a href="model.html#cb3-12"></a><span class="st">        </span><span class="kw">map</span>(<span class="op">~</span><span class="st"> </span>. <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(df))<span class="op">%&gt;%</span></span>
+<span id="cb3-13"><a href="model.html#cb3-13"></a><span class="st">        </span><span class="kw">bind_cols</span>()</span></code></pre></div>
 <p>There are also some useful visualization methods for evaluating missingness. You could manually do this with ggplot, but there are two packages called <a href="https://github.com/njtierney/naniar">naniar</a> and visdat<a href="https://github.com/ropensci/visdat">https://github.com/ropensci/visdat</a> written by <a href="https://www.njtierney.com/about/">Nicholas Tierney</a> that are very helpful. The <code>visdat</code> package was used previously in one of our case studies.</p>
-<div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb678-1"><a href="model.html#cb678-1"></a><span class="co">#install.packages(&quot;naniar&quot;)</span></span>
-<span id="cb678-2"><a href="model.html#cb678-2"></a><span class="kw">library</span>(naniar)</span>
-<span id="cb678-3"><a href="model.html#cb678-3"></a></span>
-<span id="cb678-4"><a href="model.html#cb678-4"></a><span class="co">## visualize missingness</span></span>
-<span id="cb678-5"><a href="model.html#cb678-5"></a><span class="kw">vis_miss</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="model.html#cb4-1"></a><span class="co">#install.packages(&quot;naniar&quot;)</span></span>
+<span id="cb4-2"><a href="model.html#cb4-2"></a><span class="kw">library</span>(naniar)</span>
+<span id="cb4-3"><a href="model.html#cb4-3"></a></span>
+<span id="cb4-4"><a href="model.html#cb4-4"></a><span class="co">## visualize missingness</span></span>
+<span id="cb4-5"><a href="model.html#cb4-5"></a><span class="kw">vis_miss</span>(df)</span></code></pre></div>
 <p><img src="https://camo.githubusercontent.com/ca8c32d6ead89207c9bd0bc8dd1918d40e38f19f/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336461343162643136615f305f323332" /></p>
 <p>Here, we see the variables listed along the top with percentages summarizing how many observations are missing data for that particular variable. Each row in the visualization is a different observation. Missing data are black. Non-missing values are in grey. Focusing again on brainwt, we can see the 27 missing values visually. We can also see that sleep_cycle has the most missingness, while many variables have no missing data.</p>
 </div>
@@ -627,20 +630,20 @@ With this logic, most online surveys or surveys on social media has to be taken 
 deviations away from the central value are equally likely in both directions
 the frequency of these deviations away form the central value occurs at the same rate on either side of the central value.
 Taking a look at the sleep_total variable within our example dataset, we see that the data are somewhat normal; however, they aren’t entirely symmetric.</p>
-<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb679-1"><a href="model.html#cb679-1"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(sleep_total)) <span class="op">+</span></span>
-<span id="cb679-2"><a href="model.html#cb679-2"></a><span class="st">  </span><span class="kw">geom_density</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="model.html#cb5-1"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(sleep_total)) <span class="op">+</span></span>
+<span id="cb5-2"><a href="model.html#cb5-2"></a><span class="st">  </span><span class="kw">geom_density</span>()</span></code></pre></div>
 <p><img src="https://camo.githubusercontent.com/133499eab0ee7ce6ecfe4d4cb69c6776d3fc9c7d/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336461343162643136615f305f333736" /></p>
 <p>A variable that is distributed more normally can be seen in the iris dataset, when looking at the <code>Sepal.Width</code> variable.</p>
-<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb680-1"><a href="model.html#cb680-1"></a>iris <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb680-2"><a href="model.html#cb680-2"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
-<span id="cb680-3"><a href="model.html#cb680-3"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Width))</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="model.html#cb6-1"></a>iris <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-2"><a href="model.html#cb6-2"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb6-3"><a href="model.html#cb6-3"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Width))</span></code></pre></div>
 <p><img src="05-prediction_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p><strong>Skewed Distribution</strong></p>
 <p>Alternatively, sometimes data follow a skewed distribution. In a skewed distribution, most of the values fall to one end of the range, leaving a tail off to the other side. When the tail is off to the left, the distribution is said to be skewed left. When off to the right, the distribution is said to be skewed right.</p>
 <p><img src="https://camo.githubusercontent.com/8eb383b932b3df2dd351a07da959843aa7538b2f/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336461343162643136615f305f333830" /></p>
 <p>To see an example from the msleep dataset, we’ll look at the variable sleep_rem. Here we see that the data are skewed right, given the shift in values away from the right, leading to a long right tail. Here, most of the values are at the lower end of the range.</p>
-<div class="sourceCode" id="cb681"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb681-1"><a href="model.html#cb681-1"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(sleep_rem)) <span class="op">+</span></span>
-<span id="cb681-2"><a href="model.html#cb681-2"></a><span class="st">  </span><span class="kw">geom_density</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="model.html#cb7-1"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(sleep_rem)) <span class="op">+</span></span>
+<span id="cb7-2"><a href="model.html#cb7-2"></a><span class="st">  </span><span class="kw">geom_density</span>()</span></code></pre></div>
 <pre><code>## Warning: Removed 22 rows containing non-finite values (stat_density).</code></pre>
 <p><img src="05-prediction_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p><strong>Uniform Distribution</strong></p>
@@ -662,18 +665,18 @@ Taking a look at the sleep_total variable within our example dataset, we see tha
 <h3><span class="header-section-number">5.5.3</span> Identifying Outliers</h3>
 <p>To identify outliers visually, density plots and boxplots can be very helpful.</p>
 <p>For example, if we returned to the iris dataset and looked at the distribution of <code>Petal.Length</code>, we would see a bimodal distribution (yet another distribution!). Bimodal distributions can be identified by density plots that have two distinct humps. In these distributions, there are two different modes – this is where the term “bimodal” comes from. In this plot, the curve suggests there are a number of flowers with petal length less than 2 and many with petal length around 5.</p>
-<div class="sourceCode" id="cb683"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb683-1"><a href="model.html#cb683-1"></a><span class="co">## density plot</span></span>
-<span id="cb683-2"><a href="model.html#cb683-2"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb683-3"><a href="model.html#cb683-3"></a>iris <span class="op">%&gt;%</span></span>
-<span id="cb683-4"><a href="model.html#cb683-4"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Petal.Length)) <span class="op">+</span></span>
-<span id="cb683-5"><a href="model.html#cb683-5"></a><span class="st">  </span><span class="kw">geom_density</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="model.html#cb9-1"></a><span class="co">## density plot</span></span>
+<span id="cb9-2"><a href="model.html#cb9-2"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb9-3"><a href="model.html#cb9-3"></a>iris <span class="op">%&gt;%</span></span>
+<span id="cb9-4"><a href="model.html#cb9-4"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Petal.Length)) <span class="op">+</span></span>
+<span id="cb9-5"><a href="model.html#cb9-5"></a><span class="st">  </span><span class="kw">geom_density</span>()</span></code></pre></div>
 <p><img src="05-prediction_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>Since the two humps in the plot are about the same height, this shows that it’s not just one or two flowers with much smaller petal lengths, but rather that there are many. Thus, these observations aren’t likely an outlier.</p>
 <p>To investigate this further, we’ll look at petal length broken down by flower species:</p>
-<div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb684-1"><a href="model.html#cb684-1"></a><span class="co">## box plot</span></span>
-<span id="cb684-2"><a href="model.html#cb684-2"></a>iris <span class="op">%&gt;%</span></span>
-<span id="cb684-3"><a href="model.html#cb684-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Species, Petal.Length)) <span class="op">+</span></span>
-<span id="cb684-4"><a href="model.html#cb684-4"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="model.html#cb10-1"></a><span class="co">## box plot</span></span>
+<span id="cb10-2"><a href="model.html#cb10-2"></a>iris <span class="op">%&gt;%</span></span>
+<span id="cb10-3"><a href="model.html#cb10-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Species, Petal.Length)) <span class="op">+</span></span>
+<span id="cb10-4"><a href="model.html#cb10-4"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()</span></code></pre></div>
 <p><img src="05-prediction_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>In this boxplot, we see in fact that setosa have a shorter petal length while virginica have the longest. Had we simply removed all the shorter petal length flowers from our dataset, we would have lost information about an entire species!</p>
 <p>Boxplots are also helpful because they plot “outlier” samples as points outside the box. By default, boxplots define “outliers” as observations as those that are 1.5 x IQR (interquartile range). The IQR is the distance between the first and third quartiles. This is a mathematical way to determine if a sample may be an outlier. It is visually helpful, but then it’s up to the analyst to determine if an observation should be removed. While the boxplot identifies outliers in the setosa and versicolor species, these values are all within a reasonable distance of the rest of the values, and unless I could determine why this occurred, I would not remove these observations from the dataset.</p>
@@ -692,22 +695,22 @@ Taking a look at the sleep_total variable within our example dataset, we see tha
 <p>In addition to measures of central tendency, measures of variability are key in describing the values within a variable. Two common and helpful measures of variability are: standard deviation and variance. Both of these are measures of how spread out the values in a variable are.</p>
 <p><strong>Variance</strong></p>
 <p>The variance tells you how spread out the values are. If all the values within your variable are exactly the same, that variable’s variance will be zero. The larger your variance, the more spread out your values are. Take the following vector and calculate its variance in R using the var() function:</p>
-<div class="sourceCode" id="cb685"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb685-1"><a href="model.html#cb685-1"></a><span class="co">## variance of a vector where all values are the same</span></span>
-<span id="cb685-2"><a href="model.html#cb685-2"></a>a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">29</span>, <span class="dv">29</span>, <span class="dv">29</span>, <span class="dv">29</span>)</span>
-<span id="cb685-3"><a href="model.html#cb685-3"></a><span class="kw">var</span>(a)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="model.html#cb11-1"></a><span class="co">## variance of a vector where all values are the same</span></span>
+<span id="cb11-2"><a href="model.html#cb11-2"></a>a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">29</span>, <span class="dv">29</span>, <span class="dv">29</span>, <span class="dv">29</span>)</span>
+<span id="cb11-3"><a href="model.html#cb11-3"></a><span class="kw">var</span>(a)</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
-<div class="sourceCode" id="cb687"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb687-1"><a href="model.html#cb687-1"></a><span class="co">## variance of a vector with one very different value</span></span>
-<span id="cb687-2"><a href="model.html#cb687-2"></a>b &lt;-<span class="st">  </span><span class="kw">c</span>(<span class="dv">29</span>, <span class="dv">29</span>, <span class="dv">29</span>, <span class="dv">29</span>, <span class="dv">723678</span>)</span>
-<span id="cb687-3"><a href="model.html#cb687-3"></a><span class="kw">var</span>(b)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="model.html#cb13-1"></a><span class="co">## variance of a vector with one very different value</span></span>
+<span id="cb13-2"><a href="model.html#cb13-2"></a>b &lt;-<span class="st">  </span><span class="kw">c</span>(<span class="dv">29</span>, <span class="dv">29</span>, <span class="dv">29</span>, <span class="dv">29</span>, <span class="dv">723678</span>)</span>
+<span id="cb13-3"><a href="model.html#cb13-3"></a><span class="kw">var</span>(b)</span></code></pre></div>
 <pre><code>## [1] 104733575040</code></pre>
 <p>The only difference between the two vectors is that the second one has one value that is much larger than “29”. The variance for this vector is thus much higher.</p>
 <p><strong>Standard Deviation</strong></p>
 <p>By definition, the standard deviation is the square root of the variance, thus if we were to calculate the standard deviation in R using the sd() function, we’d see that the sd() function is equal to the square root of the variance:</p>
-<div class="sourceCode" id="cb689"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb689-1"><a href="model.html#cb689-1"></a><span class="co">## calculate standard deviation</span></span>
-<span id="cb689-2"><a href="model.html#cb689-2"></a><span class="kw">sd</span>(b)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="model.html#cb15-1"></a><span class="co">## calculate standard deviation</span></span>
+<span id="cb15-2"><a href="model.html#cb15-2"></a><span class="kw">sd</span>(b)</span></code></pre></div>
 <pre><code>## [1] 323625.7</code></pre>
-<div class="sourceCode" id="cb691"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb691-1"><a href="model.html#cb691-1"></a><span class="co">## this is the same as the square root of the variance</span></span>
-<span id="cb691-2"><a href="model.html#cb691-2"></a><span class="kw">sqrt</span>(<span class="kw">var</span>(b))</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="model.html#cb17-1"></a><span class="co">## this is the same as the square root of the variance</span></span>
+<span id="cb17-2"><a href="model.html#cb17-2"></a><span class="kw">sqrt</span>(<span class="kw">var</span>(b))</span></code></pre></div>
 <pre><code>## [1] 323625.7</code></pre>
 <p>For both measures of variance, the minimum value is 0. The larger the number, the more spread out the values in the valuable are.</p>
 <div id="summarizing-your-data" class="section level4" number="5.5.4.1">
@@ -717,14 +720,14 @@ Taking a look at the sleep_total variable within our example dataset, we see tha
 <h5><span class="header-section-number">5.5.4.1.1</span> skimr</h5>
 <p>Alternatively, there is a helpful package that will summarize all the variables within your dataset. The skimr package provides a tidy output with information about your dataset.</p>
 <p>To use <code>skimr</code>, you’ll have to install and load the package before using the helpful function <code>skim()</code> to get a snapshot of your dataset.</p>
-<div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb693-1"><a href="model.html#cb693-1"></a><span class="co">#install.packages(&quot;skimr&quot;)</span></span>
-<span id="cb693-2"><a href="model.html#cb693-2"></a><span class="kw">library</span>(skimr)</span>
-<span id="cb693-3"><a href="model.html#cb693-3"></a><span class="kw">skim</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="model.html#cb19-1"></a><span class="co">#install.packages(&quot;skimr&quot;)</span></span>
+<span id="cb19-2"><a href="model.html#cb19-2"></a><span class="kw">library</span>(skimr)</span>
+<span id="cb19-3"><a href="model.html#cb19-3"></a><span class="kw">skim</span>(df)</span></code></pre></div>
 <p><img src="https://camo.githubusercontent.com/93949f44cb7234b321ee5851c00a6c508bfe6aa4/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336461343162643136615f305f343535" /></p>
 <p>Using this function we can quickly get an idea about missingness, varaibility, central tendency, and shape, and outliers all at once.</p>
 <p>The output from <code>skim()</code> separately summarizes categorical and continuous variables. For continuous variables you get information about the mean and median (<code>p50</code>) column. You know what the range of the variable is (<code>p0</code> is the minimum value, <code>p100</code> is the maximum value for continuous variables). You also get a measure of variability with the standard deviation (<code>sd</code>). It even quantifies the number of missing values (missing) and shows you the distribution or shape of each variable (<code>hist</code>)! Potential outliers can also be identified from the hist column and the p100 and p0 columns. This function can be incredibly useful to get a quick snapshot of what’s going on with your dataset.</p>
 <p>If we take a look closer at the <code>bodywt</code> and <code>brianwt</code> variables, we can see that there may be outliers. The maximum value of the <code>bodywt</code> variable looks very different from the <code>mean</code> value.</p>
-<div class="sourceCode" id="cb694"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb694-1"><a href="model.html#cb694-1"></a>dplyr<span class="op">::</span><span class="kw">filter</span>(df, bodywt <span class="op">==</span><span class="st"> </span><span class="dv">6654</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="model.html#cb20-1"></a>dplyr<span class="op">::</span><span class="kw">filter</span>(df, bodywt <span class="op">==</span><span class="st"> </span><span class="dv">6654</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 11
 ##   name  genus vore  order conservation sleep_total sleep_rem sleep_cycle awake
 ##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;
@@ -732,9 +735,9 @@ Taking a look at the sleep_total variable within our example dataset, we see tha
 ## # … with 2 more variables: brainwt &lt;dbl&gt;, bodywt &lt;dbl&gt;</code></pre>
 <p>Ah! looks like it is an elephant, that makes sense.</p>
 <p>Taking a deeper look at the histogram we can see that there are two values that are especially different.</p>
-<div class="sourceCode" id="cb696"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb696-1"><a href="model.html#cb696-1"></a><span class="kw">hist</span>(<span class="kw">pull</span>(df, bodywt))</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="model.html#cb22-1"></a><span class="kw">hist</span>(<span class="kw">pull</span>(df, bodywt))</span></code></pre></div>
 <p><img src="05-prediction_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
-<div class="sourceCode" id="cb697"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb697-1"><a href="model.html#cb697-1"></a>dplyr<span class="op">::</span><span class="kw">filter</span>(df, bodywt <span class="op">&gt;</span><span class="st"> </span><span class="dv">2000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="model.html#cb23-1"></a>dplyr<span class="op">::</span><span class="kw">filter</span>(df, bodywt <span class="op">&gt;</span><span class="st"> </span><span class="dv">2000</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 11
 ##   name  genus vore  order conservation sleep_total sleep_rem sleep_cycle awake
 ##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;
@@ -752,43 +755,43 @@ Taking a look at the sleep_total variable within our example dataset, we see tha
 <p>Again visualizations can be very helpful.</p>
 <p>We might want to look at the relationships between all of our continuous variables. A good way to do this is to use a visualization of <strong>correlation</strong>. As a reminder, correlation is a measure of the relationship or interdependence of two variables. In otherwords, how much do the values of one variable change with the values of another. Correlation can be either positive or negative and it ranges from -1 to 1, with 1 and -1 indicating perfect correlation (1 being positive and -1 being negative) and 0 indicating no correlation. We will describe this in greater detail when we look at associations.</p>
 <p>Here are some very useful plots that can be generated using the <code>GGally</code> package and the <code>PerformanceAnalytics</code> package to examine if variables are correlated.</p>
-<div class="sourceCode" id="cb699"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb699-1"><a href="model.html#cb699-1"></a><span class="kw">library</span>(PerformanceAnalytics)</span>
-<span id="cb699-2"><a href="model.html#cb699-2"></a>df <span class="op">%&gt;%</span></span>
-<span id="cb699-3"><a href="model.html#cb699-3"></a>dplyr<span class="op">::</span><span class="kw">select_if</span>(is.numeric) <span class="op">%&gt;%</span></span>
-<span id="cb699-4"><a href="model.html#cb699-4"></a><span class="st">  </span><span class="kw">chart.Correlation</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="model.html#cb25-1"></a><span class="kw">library</span>(PerformanceAnalytics)</span>
+<span id="cb25-2"><a href="model.html#cb25-2"></a>df <span class="op">%&gt;%</span></span>
+<span id="cb25-3"><a href="model.html#cb25-3"></a>dplyr<span class="op">::</span><span class="kw">select_if</span>(is.numeric) <span class="op">%&gt;%</span></span>
+<span id="cb25-4"><a href="model.html#cb25-4"></a><span class="st">  </span><span class="kw">chart.Correlation</span>()</span></code></pre></div>
 <p><img src="05-prediction_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
-<div class="sourceCode" id="cb700"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb700-1"><a href="model.html#cb700-1"></a><span class="kw">library</span>(GGally)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="model.html#cb26-1"></a><span class="kw">library</span>(GGally)</span></code></pre></div>
 <pre><code>## Registered S3 method overwritten by &#39;GGally&#39;:
 ##   method from   
 ##   +.gg   ggplot2</code></pre>
-<div class="sourceCode" id="cb702"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb702-1"><a href="model.html#cb702-1"></a>df <span class="op">%&gt;%</span></span>
-<span id="cb702-2"><a href="model.html#cb702-2"></a>dplyr<span class="op">::</span><span class="kw">select_if</span>(is.numeric) <span class="op">%&gt;%</span></span>
-<span id="cb702-3"><a href="model.html#cb702-3"></a><span class="st">    </span><span class="kw">ggcorr</span>(<span class="dt">label =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="model.html#cb28-1"></a>df <span class="op">%&gt;%</span></span>
+<span id="cb28-2"><a href="model.html#cb28-2"></a>dplyr<span class="op">::</span><span class="kw">select_if</span>(is.numeric) <span class="op">%&gt;%</span></span>
+<span id="cb28-3"><a href="model.html#cb28-3"></a><span class="st">    </span><span class="kw">ggcorr</span>(<span class="dt">label =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p><img src="05-prediction_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
-<div class="sourceCode" id="cb703"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb703-1"><a href="model.html#cb703-1"></a><span class="kw">library</span>(GGally)</span>
-<span id="cb703-2"><a href="model.html#cb703-2"></a>df <span class="op">%&gt;%</span></span>
-<span id="cb703-3"><a href="model.html#cb703-3"></a>dplyr<span class="op">::</span><span class="kw">select_if</span>(is.numeric) <span class="op">%&gt;%</span></span>
-<span id="cb703-4"><a href="model.html#cb703-4"></a><span class="st">    </span><span class="kw">ggpairs</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="model.html#cb29-1"></a><span class="kw">library</span>(GGally)</span>
+<span id="cb29-2"><a href="model.html#cb29-2"></a>df <span class="op">%&gt;%</span></span>
+<span id="cb29-3"><a href="model.html#cb29-3"></a>dplyr<span class="op">::</span><span class="kw">select_if</span>(is.numeric) <span class="op">%&gt;%</span></span>
+<span id="cb29-4"><a href="model.html#cb29-4"></a><span class="st">    </span><span class="kw">ggpairs</span>()</span></code></pre></div>
 <p><img src="05-prediction_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <p>We can see from these plots that the <code>awake</code> variable and the <code>sleep_total</code> variable are perfectly correlated. This becomes important for choosing what to include in models when we try to perform prediction or inference analyses.</p>
 <p>We may be especially interested in how brain weight (<code>brain_wt</code>) relates to body weight (<code>body_wt</code>). We might assume that these to variables might be related to one another.</p>
 <p>Here is a plot of the these two variables including the elephant data:</p>
-<div class="sourceCode" id="cb704"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb704-1"><a href="model.html#cb704-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb704-2"><a href="model.html#cb704-2"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> bodywt, <span class="dt">y =</span> brainwt)) <span class="op">+</span></span>
-<span id="cb704-3"><a href="model.html#cb704-3"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="model.html#cb30-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb30-2"><a href="model.html#cb30-2"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> bodywt, <span class="dt">y =</span> brainwt)) <span class="op">+</span></span>
+<span id="cb30-3"><a href="model.html#cb30-3"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <p><img src="05-prediction_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p>Clearly, including the elephant data points makes it hard to look at the other data points, it is possible that these points are driving the positive correlation that we get when we use all the data. Here is a plot of the relationship between these to variables excluding the elephant data and the very low body weight organisms:</p>
-<div class="sourceCode" id="cb705"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb705-1"><a href="model.html#cb705-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb705-2"><a href="model.html#cb705-2"></a></span>
-<span id="cb705-3"><a href="model.html#cb705-3"></a>df <span class="op">%&gt;%</span></span>
-<span id="cb705-4"><a href="model.html#cb705-4"></a><span class="st">  </span><span class="kw">filter</span>(bodywt<span class="op">&lt;</span><span class="dv">2000</span> <span class="op">&amp;</span><span class="st"> </span>bodywt <span class="op">&gt;</span><span class="dv">1</span>) <span class="op">%&gt;%</span></span>
-<span id="cb705-5"><a href="model.html#cb705-5"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> bodywt, <span class="dt">y =</span> brainwt)) <span class="op">+</span></span>
-<span id="cb705-6"><a href="model.html#cb705-6"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
-<span id="cb705-7"><a href="model.html#cb705-7"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="model.html#cb31-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb31-2"><a href="model.html#cb31-2"></a></span>
+<span id="cb31-3"><a href="model.html#cb31-3"></a>df <span class="op">%&gt;%</span></span>
+<span id="cb31-4"><a href="model.html#cb31-4"></a><span class="st">  </span><span class="kw">filter</span>(bodywt<span class="op">&lt;</span><span class="dv">2000</span> <span class="op">&amp;</span><span class="st"> </span>bodywt <span class="op">&gt;</span><span class="dv">1</span>) <span class="op">%&gt;%</span></span>
+<span id="cb31-5"><a href="model.html#cb31-5"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> bodywt, <span class="dt">y =</span> brainwt)) <span class="op">+</span></span>
+<span id="cb31-6"><a href="model.html#cb31-6"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
+<span id="cb31-7"><a href="model.html#cb31-7"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="05-prediction_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
-<div class="sourceCode" id="cb707"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb707-1"><a href="model.html#cb707-1"></a><span class="kw">cor.test</span>(<span class="kw">pull</span>(df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(bodywt<span class="op">&lt;</span><span class="dv">2000</span> <span class="op">&amp;</span><span class="st"> </span>bodywt <span class="op">&gt;</span><span class="dv">1</span>),bodywt),</span>
-<span id="cb707-2"><a href="model.html#cb707-2"></a>         <span class="kw">pull</span>(df <span class="op">%&gt;%</span><span class="kw">filter</span>(bodywt<span class="op">&lt;</span><span class="dv">2000</span> <span class="op">&amp;</span><span class="st"> </span>bodywt <span class="op">&gt;</span><span class="dv">1</span>),brainwt))</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="model.html#cb33-1"></a><span class="kw">cor.test</span>(<span class="kw">pull</span>(df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(bodywt<span class="op">&lt;</span><span class="dv">2000</span> <span class="op">&amp;</span><span class="st"> </span>bodywt <span class="op">&gt;</span><span class="dv">1</span>),bodywt),</span>
+<span id="cb33-2"><a href="model.html#cb33-2"></a>         <span class="kw">pull</span>(df <span class="op">%&gt;%</span><span class="kw">filter</span>(bodywt<span class="op">&lt;</span><span class="dv">2000</span> <span class="op">&amp;</span><span class="st"> </span>bodywt <span class="op">&gt;</span><span class="dv">1</span>),brainwt))</span></code></pre></div>
 <pre><code>## 
 ## 	Pearson&#39;s product-moment correlation
 ## 
@@ -803,11 +806,11 @@ Taking a look at the sleep_total variable within our example dataset, we see tha
 <p>We can see from this plot that in general <code>brainwt</code> is correlated with <code>bodywt</code>. Or in otherwords, <code>brainwt</code> tends to increase with <code>bodywt</code>.</p>
 <p>But it also looks like we have an outlier for our brainwt variable! There is a very high <code>brainwt</code> value that is greater than 1.</p>
 <p>We can also see it in our histogram of this variable:</p>
-<div class="sourceCode" id="cb709"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb709-1"><a href="model.html#cb709-1"></a><span class="kw">hist</span>(<span class="kw">pull</span>(df, brainwt))</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="model.html#cb35-1"></a><span class="kw">hist</span>(<span class="kw">pull</span>(df, brainwt))</span></code></pre></div>
 <p><img src="05-prediction_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <p>Let’s see which organism this is:</p>
-<div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb710-1"><a href="model.html#cb710-1"></a>df <span class="op">%&gt;%</span></span>
-<span id="cb710-2"><a href="model.html#cb710-2"></a><span class="st">  </span><span class="kw">filter</span>(brainwt <span class="op">&gt;=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="model.html#cb36-1"></a>df <span class="op">%&gt;%</span></span>
+<span id="cb36-2"><a href="model.html#cb36-2"></a><span class="st">  </span><span class="kw">filter</span>(brainwt <span class="op">&gt;=</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 11
 ##   name  genus vore  order conservation sleep_total sleep_rem sleep_cycle awake
 ##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;
@@ -816,16 +819,16 @@ Taking a look at the sleep_total variable within our example dataset, we see tha
 ## 3 Afri… Loxo… herbi Prob… vu                   3.3      NA          NA    20.7
 ## # … with 2 more variables: brainwt &lt;dbl&gt;, bodywt &lt;dbl&gt;</code></pre>
 <p>It is humans! Let’s see what the plot looks like without humans:</p>
-<div class="sourceCode" id="cb712"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb712-1"><a href="model.html#cb712-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb712-2"><a href="model.html#cb712-2"></a>df <span class="op">%&gt;%</span></span>
-<span id="cb712-3"><a href="model.html#cb712-3"></a><span class="st">  </span><span class="kw">filter</span>(bodywt<span class="op">&lt;</span><span class="dv">2000</span> <span class="op">&amp;</span><span class="st"> </span>bodywt <span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>brainwt<span class="op">&lt;</span><span class="dv">1</span>) <span class="op">%&gt;%</span></span>
-<span id="cb712-4"><a href="model.html#cb712-4"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> bodywt, <span class="dt">y =</span> brainwt)) <span class="op">+</span></span>
-<span id="cb712-5"><a href="model.html#cb712-5"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
-<span id="cb712-6"><a href="model.html#cb712-6"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="model.html#cb38-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb38-2"><a href="model.html#cb38-2"></a>df <span class="op">%&gt;%</span></span>
+<span id="cb38-3"><a href="model.html#cb38-3"></a><span class="st">  </span><span class="kw">filter</span>(bodywt<span class="op">&lt;</span><span class="dv">2000</span> <span class="op">&amp;</span><span class="st"> </span>bodywt <span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>brainwt<span class="op">&lt;</span><span class="dv">1</span>) <span class="op">%&gt;%</span></span>
+<span id="cb38-4"><a href="model.html#cb38-4"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> bodywt, <span class="dt">y =</span> brainwt)) <span class="op">+</span></span>
+<span id="cb38-5"><a href="model.html#cb38-5"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
+<span id="cb38-6"><a href="model.html#cb38-6"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="05-prediction_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
-<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb714-1"><a href="model.html#cb714-1"></a><span class="kw">cor.test</span>(<span class="kw">pull</span>(df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(bodywt<span class="op">&lt;</span><span class="dv">2000</span> <span class="op">&amp;</span><span class="st"> </span>bodywt <span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>brainwt<span class="op">&lt;</span><span class="dv">1</span>),bodywt),</span>
-<span id="cb714-2"><a href="model.html#cb714-2"></a>         <span class="kw">pull</span>(df <span class="op">%&gt;%</span><span class="kw">filter</span>(bodywt<span class="op">&lt;</span><span class="dv">2000</span> <span class="op">&amp;</span><span class="st"> </span>bodywt <span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>brainwt<span class="op">&lt;</span><span class="dv">1</span>),brainwt))</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="model.html#cb40-1"></a><span class="kw">cor.test</span>(<span class="kw">pull</span>(df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(bodywt<span class="op">&lt;</span><span class="dv">2000</span> <span class="op">&amp;</span><span class="st"> </span>bodywt <span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>brainwt<span class="op">&lt;</span><span class="dv">1</span>),bodywt),</span>
+<span id="cb40-2"><a href="model.html#cb40-2"></a>         <span class="kw">pull</span>(df <span class="op">%&gt;%</span><span class="kw">filter</span>(bodywt<span class="op">&lt;</span><span class="dv">2000</span> <span class="op">&amp;</span><span class="st"> </span>bodywt <span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>brainwt<span class="op">&lt;</span><span class="dv">1</span>),brainwt))</span></code></pre></div>
 <pre><code>## 
 ## 	Pearson&#39;s product-moment correlation
 ## 
@@ -989,17 +992,17 @@ This is done using <strong>statistical tests</strong>.</p>
 <p>In this case, since we’re asking if we can infer <code>height</code> from <code>girth</code>, <code>girth</code> is the independent variable and height is the dependent variable. In other words, we’re asking does <code>height</code> depend on <code>girth</code>?</p>
 <p>First, before carrying out the linear regression to test for association and answer this question, we have to be sure linear regression is appropriate. We’ll test for linearity and homoscedasticity.</p>
 <p>To do so, we’ll first use <code>ggplot2</code> to generate a scatterplot of the variables of interest.</p>
-<div class="sourceCode" id="cb717"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb717-1"><a href="model.html#cb717-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb717-2"><a href="model.html#cb717-2"></a></span>
-<span id="cb717-3"><a href="model.html#cb717-3"></a>trees <span class="op">%&gt;%</span></span>
-<span id="cb717-4"><a href="model.html#cb717-4"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb717-5"><a href="model.html#cb717-5"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(Height, Girth))</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="model.html#cb43-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb43-2"><a href="model.html#cb43-2"></a></span>
+<span id="cb43-3"><a href="model.html#cb43-3"></a>trees <span class="op">%&gt;%</span></span>
+<span id="cb43-4"><a href="model.html#cb43-4"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb43-5"><a href="model.html#cb43-5"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(Height, Girth))</span></code></pre></div>
 <p><img src="05-prediction_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 <p>From the looks of this plot, the relationship looks approximately linear, but to visually make this a little easier, we’ll add a line of best first to the plot.</p>
-<div class="sourceCode" id="cb718"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb718-1"><a href="model.html#cb718-1"></a>trees <span class="op">%&gt;%</span></span>
-<span id="cb718-2"><a href="model.html#cb718-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Height, Girth)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb718-3"><a href="model.html#cb718-3"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb718-4"><a href="model.html#cb718-4"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="model.html#cb44-1"></a>trees <span class="op">%&gt;%</span></span>
+<span id="cb44-2"><a href="model.html#cb44-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Height, Girth)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb44-3"><a href="model.html#cb44-3"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb44-4"><a href="model.html#cb44-4"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="05-prediction_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <p>On this graph, the relationship looks approximately linear and the variance (distance from points to the line) is constant across the data. Given this, it’s appropriate to use linear regression for these data.</p>
@@ -1007,15 +1010,15 @@ This is done using <strong>statistical tests</strong>.</p>
 <div id="fitting-the-model" class="section level3" number="5.8.5">
 <h3><span class="header-section-number">5.8.5</span> Fitting the model</h3>
 <p>Now that that’s established, we can run the linear regression. To do so, we’ll use the <code>lm()</code> function to <strong>fit the model</strong>. The syntax for this function is <code>lm(dependent_variable ~ independent_variable, data = dataset)</code>.</p>
-<div class="sourceCode" id="cb720"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb720-1"><a href="model.html#cb720-1"></a><span class="co">## run the regression</span></span>
-<span id="cb720-2"><a href="model.html#cb720-2"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(Girth <span class="op">~</span><span class="st"> </span>Height , <span class="dt">data =</span> trees)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="model.html#cb46-1"></a><span class="co">## run the regression</span></span>
+<span id="cb46-2"><a href="model.html#cb46-2"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(Girth <span class="op">~</span><span class="st"> </span>Height , <span class="dt">data =</span> trees)</span></code></pre></div>
 </div>
 <div id="model-diagnostics" class="section level3" number="5.8.6">
 <h3><span class="header-section-number">5.8.6</span> Model Diagnostics</h3>
 <p>Above, we discussed a number of assumptions of linear regression. After fitting a model, it’s necessary to check the model to see if the model satisfies the assumptions of linear regression. If the model does not fit the data well (for example, the relationship is nonlinear), then you cannot use and interpret the model.</p>
 <p>In order to assess your model, a number of diagnostic plots can be very helpful. Diagnostic plots can be generated using the <code>plot()</code> function with the fitted model as an argument.</p>
-<div class="sourceCode" id="cb721"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb721-1"><a href="model.html#cb721-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb721-2"><a href="model.html#cb721-2"></a><span class="kw">plot</span>(fit)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="model.html#cb47-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb47-2"><a href="model.html#cb47-2"></a><span class="kw">plot</span>(fit)</span></code></pre></div>
 <p><img src="05-prediction_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 <p>This generates four plots:
 1) <strong>Residuals vs Fitted</strong> - checks linear relationship assumption of linear regression. A linear relationship will demonstrate a horizontal red line here. Deviations from a horizontal line suggest nonlinearity and that a different approach may be necessary.</p>
@@ -1032,9 +1035,9 @@ This is done using <strong>statistical tests</strong>.</p>
 <p>While not discussed explicitly here in this lesson, we will note that when the data are nonlinear or the variances are not homogeneous (are not homoscedastic), <strong>transformations</strong> of the data can often be applied and then linear regression can be used.</p>
 <p><strong>QQ Plots</strong> are very helpful in assessing the <strong>normality of residuals</strong>. Normally distributed residuals will fall along the grey dotted line. Deviation from the line suggests the residuals are not normally distributed.Here, in this example, we do not see the points fall perfectly along the dotted line, suggesting that our residuals are not normally distributed.</p>
 <p>A <strong>histogram</strong> (or densityplot) of the residuals can also be used for this portion of regression diagnostics. Here, we’re looking for a <strong>Normal distribution</strong> of the residuals.</p>
-<div class="sourceCode" id="cb722"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb722-1"><a href="model.html#cb722-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb722-2"><a href="model.html#cb722-2"></a><span class="kw">ggplot</span>(fit, <span class="kw">aes</span>(fit<span class="op">$</span>residuals)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb722-3"><a href="model.html#cb722-3"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="model.html#cb48-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb48-2"><a href="model.html#cb48-2"></a><span class="kw">ggplot</span>(fit, <span class="kw">aes</span>(fit<span class="op">$</span>residuals)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb48-3"><a href="model.html#cb48-3"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins =</span> <span class="dv">5</span>)</span></code></pre></div>
 <p><img src="05-prediction_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
 <p>The QQ Plot and the histogram of the residuals will always give the same answer. Here, we see that with our limited sample size, we do not have perfectly Normally distributed residuals; however, the points do not fall wildly far from the dotted line.</p>
 <p>Finally, whether or not <strong>outliers</strong> (extreme observations) are driving our results can be assessed by looking at the <strong>Residuals vs Leverage</strong> plot.</p>
@@ -1043,8 +1046,8 @@ This is done using <strong>statistical tests</strong>.</p>
 <div id="interpreting-the-model" class="section level3" number="5.8.8">
 <h3><span class="header-section-number">5.8.8</span> Interpreting the model</h3>
 <p>While the relationship in our example appears to be linear, does not indicate being driven by outliers, is approximately homoscedastic and has residuals that are not perfectly Normally distributed, but fall close to the line in the QQ plot, we can discuss how to interpret the results of the model.</p>
-<div class="sourceCode" id="cb723"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb723-1"><a href="model.html#cb723-1"></a><span class="co">## take a look at the output</span></span>
-<span id="cb723-2"><a href="model.html#cb723-2"></a><span class="kw">summary</span>(fit)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="model.html#cb49-1"></a><span class="co">## take a look at the output</span></span>
+<span id="cb49-2"><a href="model.html#cb49-2"></a><span class="kw">summary</span>(fit)</span></code></pre></div>
 <p>The <code>summary()</code> function summarizes the model as well as the output of the model. We can see the values we’re interested in in this summary, including the beta estimate, the standard error (SE), and the p-value.</p>
 <p>Specifically, from the beta estimate, which is positive, we confirm that the relationship is positive (which we could also tell from the scatterplot). We can also interpret this beta estimate explicitly.</p>
 <p><img src="https://camo.githubusercontent.com/dd34a9970687a2d7316acb97ecdf8b16ab184671/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3176753341614944656443305a64334754736a614c745072437566725141436f724d4c3477645875644163672f6578706f72742f706e673f69643d3176753341614944656443305a64334754736a614c745072437566725141436f724d4c347764587564416367267061676569643d67336461656133373331315f305f31333039" /></p>
@@ -1061,9 +1064,9 @@ This is done using <strong>statistical tests</strong>.</p>
 <div id="using-broom" class="section level3" number="5.8.10">
 <h3><span class="header-section-number">5.8.10</span> Using <code>broom</code></h3>
 <p>Finally, while the <code>summary()</code> output are visually helpful, if you want to get any of the numbers out from that model, it’s not always straightforward. Thankfully, there is a package to help you with that! The <code>tidy()</code> function from the <code>broom</code> package helps take the summary output from a statistical model and organize it into a tabular output.</p>
-<div class="sourceCode" id="cb724"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb724-1"><a href="model.html#cb724-1"></a><span class="co">#install.packages(&quot;broom&quot;)</span></span>
-<span id="cb724-2"><a href="model.html#cb724-2"></a><span class="kw">library</span>(broom)</span>
-<span id="cb724-3"><a href="model.html#cb724-3"></a><span class="kw">tidy</span>(fit)</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="model.html#cb50-1"></a><span class="co">#install.packages(&quot;broom&quot;)</span></span>
+<span id="cb50-2"><a href="model.html#cb50-2"></a><span class="kw">library</span>(broom)</span>
+<span id="cb50-3"><a href="model.html#cb50-3"></a><span class="kw">tidy</span>(fit)</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 5
 ##   term        estimate std.error statistic p.value
 ##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
@@ -1100,28 +1103,28 @@ This is done using <strong>statistical tests</strong>.</p>
 <p>This type of analysis is known as <strong>multiple linear regression</strong>, and the general format is: <code>lm(dependent_variable ~ independent_variable + confounder , data = dataset)</code>.</p>
 <p>As a simple example, let’s return to the <code>mtcars</code> dataset, which we’ve worked with before. In this dataset, we have data from 32 automobiles, including their weight (<code>wt</code>), miles per gallon (<code>mpg</code>), and Engine (<code>vs</code>, where 0 is “V-shaped” and 1 is “straight”).</p>
 <p>Suppose we were interested in inferring the mpg a car would get based on its weight. We’d first look at the relationship graphically:</p>
-<div class="sourceCode" id="cb726"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb726-1"><a href="model.html#cb726-1"></a><span class="co">## take a look at scatterplot</span></span>
-<span id="cb726-2"><a href="model.html#cb726-2"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(wt, mpg)) <span class="op">+</span></span>
-<span id="cb726-3"><a href="model.html#cb726-3"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="model.html#cb52-1"></a><span class="co">## take a look at scatterplot</span></span>
+<span id="cb52-2"><a href="model.html#cb52-2"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(wt, mpg)) <span class="op">+</span></span>
+<span id="cb52-3"><a href="model.html#cb52-3"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <p><img src="05-prediction_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
 <p>From the scatterplot, the relationship looks approximately linear and the variance looks constant. Thus, we could model this using linear regression:</p>
-<div class="sourceCode" id="cb727"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb727-1"><a href="model.html#cb727-1"></a><span class="co">## model the data without confounder</span></span>
-<span id="cb727-2"><a href="model.html#cb727-2"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt, <span class="dt">data =</span> mtcars)</span>
-<span id="cb727-3"><a href="model.html#cb727-3"></a><span class="kw">tidy</span>(fit)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="model.html#cb53-1"></a><span class="co">## model the data without confounder</span></span>
+<span id="cb53-2"><a href="model.html#cb53-2"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt, <span class="dt">data =</span> mtcars)</span>
+<span id="cb53-3"><a href="model.html#cb53-3"></a><span class="kw">tidy</span>(fit)</span></code></pre></div>
 <p><img src="https://camo.githubusercontent.com/5fea5ec06e5f4383ea4531fad106b32b472918a4/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f2f6578706f72742f706e673f69643d31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f267061676569643d67336461656133373331315f305f31353039" /></p>
 <p>From this analysis, we would infer that for every increase 1000 lbs more a car weighs, it gets 5.34 miles less per gallon.</p>
 <p>However, we know that the weight of a car doesn’t necessarily tell the whole story. The type of engine in the car likely affects both the weight of the car and the miles per gallon the car gets. Graphically, we could see if this were the case by looking at these scatterplots:</p>
-<div class="sourceCode" id="cb728"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb728-1"><a href="model.html#cb728-1"></a><span class="co">## look at the difference in relationship </span></span>
-<span id="cb728-2"><a href="model.html#cb728-2"></a><span class="co">## between Engine types</span></span>
-<span id="cb728-3"><a href="model.html#cb728-3"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(wt, mpg)) <span class="op">+</span></span>
-<span id="cb728-4"><a href="model.html#cb728-4"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb728-5"><a href="model.html#cb728-5"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>vs)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="model.html#cb54-1"></a><span class="co">## look at the difference in relationship </span></span>
+<span id="cb54-2"><a href="model.html#cb54-2"></a><span class="co">## between Engine types</span></span>
+<span id="cb54-3"><a href="model.html#cb54-3"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(wt, mpg)) <span class="op">+</span></span>
+<span id="cb54-4"><a href="model.html#cb54-4"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb54-5"><a href="model.html#cb54-5"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>vs)</span></code></pre></div>
 <p><img src="05-prediction_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
 <p>From this plot, we can see that V-shaped engines (<code>vs</code>= 0), tend to be heavier and get fewer miles per gallon while straight engines (<code>vs</code> = 1) tend to weigh less and get more miles per gallon. Importantly, however, we see that a car that weighs 3000 points (<code>wt</code> = 3) and has a V-Shaped engine (<code>vs</code> = 0) gets fewer miles per gallon than a car of the same weight with a straight engine (<code>vs</code> = 1), suggesting that simply modeling a linear relationship between weight and mpg is not appropriate.</p>
 <p>Let’s then model the data, taking this confounding into account:</p>
-<div class="sourceCode" id="cb729"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb729-1"><a href="model.html#cb729-1"></a><span class="co">## include engine (vs) as a confounder</span></span>
-<span id="cb729-2"><a href="model.html#cb729-2"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt <span class="op">+</span><span class="st"> </span>vs, <span class="dt">data =</span> mtcars)</span>
-<span id="cb729-3"><a href="model.html#cb729-3"></a><span class="kw">tidy</span>(fit)</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="model.html#cb55-1"></a><span class="co">## include engine (vs) as a confounder</span></span>
+<span id="cb55-2"><a href="model.html#cb55-2"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt <span class="op">+</span><span class="st"> </span>vs, <span class="dt">data =</span> mtcars)</span>
+<span id="cb55-3"><a href="model.html#cb55-3"></a><span class="kw">tidy</span>(fit)</span></code></pre></div>
 <p><img src="https://camo.githubusercontent.com/818adff3b4403315d84ad97f198584efecd6a489/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f2f6578706f72742f706e673f69643d31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f267061676569643d67336461656133373331315f305f31353033" /></p>
 <p>Here, we get a more accurate picture of what’s going on. Interpreting multiple regression models is slightly more complicated since there are more variables; however, we’ll practice how to do so now.</p>
 <p>The best way to interpret the coefficients in a multiple linear regression model is to focus on a single variable of interest and hold all other variables constant. For instance, we’ll focus on weight (<code>wt</code>) while holding (<code>vs</code>) constant to interpret. This means that for a V-shaped engine, we expect to see a 4.44 miles per gallon decrease for every 1000 lb increase in weight.</p>
@@ -1138,10 +1141,10 @@ This is done using <strong>statistical tests</strong>.</p>
 <p>To answer a question like this, let’s consider the case where you’re interested in analyzing data about a single numeric variable. If you were doing descriptive statistics on this dataset, you’d likely calculate the mean for that variable. But, what if, in addition to knowing the mean, you wanted to know if the values in that variable were all within the bounds of normal variation. You could calculate that using inferential data analysis. You could use the data you have to <em>infer</em> whether or not the data are within the expected bounds.</p>
 <p>For example, let’s say you had a dataset that included the number of ounces <em>actually</em> included in 100 cans of a soft drink. You’d expect that each can have exactly 12 oz of liquid; however, there is some variation in the process. So, let’s test whether or not you’re consistently getting shorted on the amount of liquid in your can.</p>
 <p>In fact, let’s go ahead and generate the dataset ourselves!</p>
-<div class="sourceCode" id="cb730"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb730-1"><a href="model.html#cb730-1"></a><span class="co">## generate the dataset</span></span>
-<span id="cb730-2"><a href="model.html#cb730-2"></a><span class="kw">set.seed</span>(<span class="dv">34</span>) </span>
-<span id="cb730-3"><a href="model.html#cb730-3"></a>soda_ounces &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dt">mean =</span> <span class="dv">12</span>, <span class="dt">sd =</span> <span class="fl">0.04</span>)</span>
-<span id="cb730-4"><a href="model.html#cb730-4"></a><span class="kw">head</span>(soda_ounces)</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="model.html#cb56-1"></a><span class="co">## generate the dataset</span></span>
+<span id="cb56-2"><a href="model.html#cb56-2"></a><span class="kw">set.seed</span>(<span class="dv">34</span>) </span>
+<span id="cb56-3"><a href="model.html#cb56-3"></a>soda_ounces &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dt">mean =</span> <span class="dv">12</span>, <span class="dt">sd =</span> <span class="fl">0.04</span>)</span>
+<span id="cb56-4"><a href="model.html#cb56-4"></a><span class="kw">head</span>(soda_ounces)</span></code></pre></div>
 <pre><code>## [1] 11.99444 12.04799 11.97009 11.97699 11.98946 11.98178</code></pre>
 <p>In this code, we’re specifying that we want to take a random draw of 100 different values (representing our 100 cans of soft drink), where the mean is 12 (representing the 12 ounces of soda expected to be within each can), and allowing for some variation (we’ve set the standard deviation to be 0.04).</p>
 <p>We can see that the values are approximately, but not always exactly equal to the expected 12 ounces.</p>
@@ -1154,16 +1157,16 @@ This is done using <strong>statistical tests</strong>.</p>
 <p>R has a built in t-test function: <code>t.test()</code>.</p>
 <p>However, I mentioned earlier that many statistical tests are simply extension of linear regression. In fact, a t-test is simply a linear model where we specify to only fit an intercept (where the data crosses the y-axis). In other words, this specifies to calculate the mean…which is exactly what we’re looking to do here with our t-test! We’ll compare these two approaches below.</p>
 <p>However, before we can do so, we have to ensure that the data follow a normal distribution, since this is the primary assumption of the t-test.</p>
-<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb732-1"><a href="model.html#cb732-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb732-2"><a href="model.html#cb732-2"></a></span>
-<span id="cb732-3"><a href="model.html#cb732-3"></a><span class="co">## check for normality</span></span>
-<span id="cb732-4"><a href="model.html#cb732-4"></a><span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(soda_ounces))<span class="op">+</span></span>
-<span id="cb732-5"><a href="model.html#cb732-5"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(soda_ounces), <span class="dt">bins =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="model.html#cb58-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb58-2"><a href="model.html#cb58-2"></a></span>
+<span id="cb58-3"><a href="model.html#cb58-3"></a><span class="co">## check for normality</span></span>
+<span id="cb58-4"><a href="model.html#cb58-4"></a><span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(soda_ounces))<span class="op">+</span></span>
+<span id="cb58-5"><a href="model.html#cb58-5"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(soda_ounces), <span class="dt">bins =</span> <span class="dv">10</span>)</span></code></pre></div>
 <p><img src="05-prediction_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
 <p>Here, we see that the data are approximately normally distributed.</p>
 <p>A t-test will check whether the observed ounces differs from the expected mean (12 oz). As mentioned above, to run a t-test in R, most people use the built-in function: <code>t.test()</code>.</p>
-<div class="sourceCode" id="cb733"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb733-1"><a href="model.html#cb733-1"></a><span class="co">## carry out t-test</span></span>
-<span id="cb733-2"><a href="model.html#cb733-2"></a><span class="kw">t.test</span>(soda_ounces, <span class="dt">mu =</span> <span class="dv">12</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="model.html#cb59-1"></a><span class="co">## carry out t-test</span></span>
+<span id="cb59-2"><a href="model.html#cb59-2"></a><span class="kw">t.test</span>(soda_ounces, <span class="dt">mu =</span> <span class="dv">12</span>)</span></code></pre></div>
 <pre><code>## 
 ## 	One Sample t-test
 ## 
@@ -1178,11 +1181,11 @@ This is done using <strong>statistical tests</strong>.</p>
 <p>In the output from this function, we’ll focus on the 95 percent confidence interval. Confidence Intervals provide the range of values likely to contain the unknown population parameter. Here, the population parameter we’re interested in is the mean. Thus, the 95% Confidence Intervals provides us the range where, upon repeated sampling, the calculated mean would fall 95 percent of the time. More specifically, if the 95 percent confidence interval contains the expected mean (12 oz), then we can be confident that the company is not shorting us on the amount of liquid they’re putting into each can.</p>
 <p>Here, since 12 is between 11.99187 and 12.00754, we can see that the amounts in the 100 sampled cans are within the expected variation. We could infer from this sample that the population of all cans of this soft drink are likely to have an appropriate amount of liquid in the cans.</p>
 <p>However, as mentioned previously, t-tests are an extension of linear regression. We could also look to see whether or not the cans had the expected average of 12 oz in the data collected using <code>lm()</code>.</p>
-<div class="sourceCode" id="cb735"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb735-1"><a href="model.html#cb735-1"></a><span class="co"># from linear regression</span></span>
-<span id="cb735-2"><a href="model.html#cb735-2"></a>regression_output &lt;-<span class="st">  </span><span class="kw">lm</span>(soda_ounces <span class="op">~</span><span class="st"> </span><span class="dv">1</span>)</span>
-<span id="cb735-3"><a href="model.html#cb735-3"></a></span>
-<span id="cb735-4"><a href="model.html#cb735-4"></a><span class="co"># calculate confidence interval</span></span>
-<span id="cb735-5"><a href="model.html#cb735-5"></a><span class="kw">confint</span>(regression_output)</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="model.html#cb61-1"></a><span class="co"># from linear regression</span></span>
+<span id="cb61-2"><a href="model.html#cb61-2"></a>regression_output &lt;-<span class="st">  </span><span class="kw">lm</span>(soda_ounces <span class="op">~</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb61-3"><a href="model.html#cb61-3"></a></span>
+<span id="cb61-4"><a href="model.html#cb61-4"></a><span class="co"># calculate confidence interval</span></span>
+<span id="cb61-5"><a href="model.html#cb61-5"></a><span class="kw">confint</span>(regression_output)</span></code></pre></div>
 <p><img src="https://camo.githubusercontent.com/8d0f7976e15c905a83a750c455de3d8751dd9575/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f2f6578706f72742f706e673f69643d31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f267061676569643d67356432323533623730355f325f3231" /></p>
 <p>Note that the confidence interval is the exact same here using <code>lm()</code> as above when we used <code>t.test()</code>! We bring this up not to confuse you, but to guide you away from trying to memorize each individual statistical test and instead understand how they relate to one another.</p>
 </div>
@@ -1247,20 +1250,20 @@ These have been nicely summarized by Jonas Kristoffer Lindelov in is blog post <
 <div id="train" class="section level3" number="5.13.6">
 <h3><span class="header-section-number">5.13.6</span> Train</h3>
 <p>Training data are the data we described above. It is the data used to <em>build</em> your predictive model. These data are referred to as your training set.</p>
-<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb736-1"><a href="model.html#cb736-1"></a>knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;book_figures/data_splitting.png&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="model.html#cb62-1"></a>knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;book_figures/data_splitting.png&quot;</span>)</span></code></pre></div>
 <p><img src="book_figures/data_splitting.png" width="480" /></p>
 </div>
 <div id="test" class="section level3" number="5.13.7">
 <h3><span class="header-section-number">5.13.7</span> Test</h3>
 <p>Before getting started, your original dataset is often split. Some (often 70%-75%) of the observations in your dataset are used to train the model, while 25%-30% are held out. This held-out set of observations from your original dataset are then used to improve the accuracy of model.</p>
 <p>These hold-out samples are used to see whether or not your predictive model accurately makes predictions in the set of samples not used to train the model.</p>
-<div class="sourceCode" id="cb737"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb737-1"><a href="model.html#cb737-1"></a>knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;book_figures/data_splitting2.png&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="model.html#cb63-1"></a>knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;book_figures/data_splitting2.png&quot;</span>)</span></code></pre></div>
 <p><img src="book_figures/data_splitting2.png" width="480" /></p>
 </div>
 <div id="validate" class="section level3" number="5.13.8">
 <h3><span class="header-section-number">5.13.8</span> Validate</h3>
 <p>Finally, an independent dataset – one that is not from the same experiment or source as the data used to train and test your model are used to see whether or not your predictive model makes accurate predictions in a completely new dataset. Predictive models that can be generalized to and make accurate predictions in new datasets are the best predictive models.</p>
-<div class="sourceCode" id="cb738"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb738-1"><a href="model.html#cb738-1"></a>knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;book_figures/data_splitting3.png&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="model.html#cb64-1"></a>knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;book_figures/data_splitting3.png&quot;</span>)</span></code></pre></div>
 <p><img src="book_figures/data_splitting3.png" width="480" /></p>
 </div>
 <div id="variable-selection" class="section level3" number="5.13.9">
@@ -1376,16 +1379,16 @@ These have been nicely summarized by Jonas Kristoffer Lindelov in is blog post <
 <div id="example-of-data-splitting-with-rsample" class="section level5" number="5.13.14.2.1">
 <h5><span class="header-section-number">5.13.14.2.1</span> Example of Data Splitting with rsample</h5>
 <p>As mentioned above, one of the first steps is often to take your dataset and split it into a training set and a testing set. To do this, we’ll load the <code>rsample</code> package and use the <code>initial_split()</code> function to split the dataset.</p>
-<div class="sourceCode" id="cb739"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb739-1"><a href="model.html#cb739-1"></a><span class="kw">library</span>(rsample)</span>
-<span id="cb739-2"><a href="model.html#cb739-2"></a><span class="kw">initial_split</span>(iris, <span class="dt">prop =</span> <span class="dv">3</span><span class="op">/</span><span class="dv">4</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="model.html#cb65-1"></a><span class="kw">library</span>(rsample)</span>
+<span id="cb65-2"><a href="model.html#cb65-2"></a><span class="kw">initial_split</span>(iris, <span class="dt">prop =</span> <span class="dv">3</span><span class="op">/</span><span class="dv">4</span>) </span></code></pre></div>
 <pre><code>## &lt;Analysis/Assess/Total&gt;
 ## &lt;113/37/150&gt;</code></pre>
-<div class="sourceCode" id="cb741"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb741-1"><a href="model.html#cb741-1"></a><span class="co"># the default proportion is 1/4 testing and 3/4 training</span></span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="model.html#cb67-1"></a><span class="co"># the default proportion is 1/4 testing and 3/4 training</span></span></code></pre></div>
 <p>This results in printing the number of training data rows, the number testing data rows, and the total rows divided by “/”.</p>
 <p>After running this code , if we take a look at the training and tuning datasets, we can see that 70% of our observations are in the training dataset and the other 30% are in the tuning dataset, as we specified.</p>
 <p>Importantly we can stratify our split by a particular feature of the data.
 For example, let’s say that we intend to classify different species of flowers based on there petal and sepal sizes. In this case the iris dataset would be very useful.</p>
-<div class="sourceCode" id="cb742"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb742-1"><a href="model.html#cb742-1"></a><span class="kw">str</span>(iris)</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="model.html#cb68-1"></a><span class="kw">str</span>(iris)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:	150 obs. of  5 variables:
 ##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
 ##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
@@ -1394,16 +1397,16 @@ For example, let’s say that we intend to classify different species of flowers
 ##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
 <p>We can see that there are 3 different species in this dataset.
 We therefore would want good representation of each in our testing and training data.</p>
-<div class="sourceCode" id="cb744"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb744-1"><a href="model.html#cb744-1"></a><span class="kw">initial_split</span>(iris, <span class="dt">strata =</span> Species, <span class="dt">prop =</span> <span class="dv">3</span><span class="op">/</span><span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="model.html#cb70-1"></a><span class="kw">initial_split</span>(iris, <span class="dt">strata =</span> Species, <span class="dt">prop =</span> <span class="dv">3</span><span class="op">/</span><span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## &lt;Analysis/Assess/Total&gt;
 ## &lt;114/36/150&gt;</code></pre>
-<div class="sourceCode" id="cb746"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb746-1"><a href="model.html#cb746-1"></a><span class="kw">library</span>(AppliedPredictiveModeling)</span>
-<span id="cb746-2"><a href="model.html#cb746-2"></a><span class="kw">data</span>(<span class="st">&quot;abalone&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="model.html#cb72-1"></a><span class="kw">library</span>(AppliedPredictiveModeling)</span>
+<span id="cb72-2"><a href="model.html#cb72-2"></a><span class="kw">data</span>(<span class="st">&quot;abalone&quot;</span>)</span></code></pre></div>
 <p>If we type:</p>
-<div class="sourceCode" id="cb747"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb747-1"><a href="model.html#cb747-1"></a>??abolone</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="model.html#cb73-1"></a>??abolone</span></code></pre></div>
 <p>We see the following information:</p>
 <p>“The Abalone data consist of data from 4177 abalones. The data consist of measurements of the type (male, female and infant), the longest shell measurement, the diameter, height and several weights (whole, shucked, viscera and shell). The outcome is the number of rings. The age of the abalone is the number of rings plus 1.5.”</p>
-<div class="sourceCode" id="cb748"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb748-1"><a href="model.html#cb748-1"></a><span class="kw">glimpse</span>(abalone)</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="model.html#cb74-1"></a><span class="kw">glimpse</span>(abalone)</span></code></pre></div>
 <pre><code>## Rows: 4,177
 ## Columns: 9
 ## $ Type          &lt;fct&gt; M, M, F, M, I, I, F, F, M, F, F, M, M, F, F, M, I, F, M…
@@ -1415,7 +1418,7 @@ We therefore would want good representation of each in our testing and training 
 ## $ VisceraWeight &lt;dbl&gt; 0.1010, 0.0485, 0.1415, 0.1140, 0.0395, 0.0775, 0.1415,…
 ## $ ShellWeight   &lt;dbl&gt; 0.150, 0.070, 0.210, 0.155, 0.055, 0.120, 0.330, 0.260,…
 ## $ Rings         &lt;int&gt; 15, 7, 9, 10, 7, 8, 20, 16, 9, 19, 14, 10, 11, 10, 10, …</code></pre>
-<div class="sourceCode" id="cb750"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb750-1"><a href="model.html#cb750-1"></a>dplyr<span class="op">::</span><span class="kw">count</span>(abalone, Rings)</span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="model.html#cb76-1"></a>dplyr<span class="op">::</span><span class="kw">count</span>(abalone, Rings)</span></code></pre></div>
 <pre><code>##    Rings   n
 ## 1      1   1
 ## 2      2   1
@@ -1445,15 +1448,15 @@ We therefore would want good representation of each in our testing and training 
 ## 26    26   1
 ## 27    27   2
 ## 28    29   1</code></pre>
-<div class="sourceCode" id="cb752"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb752-1"><a href="model.html#cb752-1"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb752-2"><a href="model.html#cb752-2"></a>abalone_split&lt;-rsample<span class="op">::</span><span class="kw">initial_split</span>(abalone, <span class="dt">strata =</span> Rings, <span class="dt">prop =</span> <span class="dv">3</span><span class="op">/</span><span class="dv">4</span>)</span>
-<span id="cb752-3"><a href="model.html#cb752-3"></a>abalone_split_nostrata&lt;-rsample<span class="op">::</span><span class="kw">initial_split</span>(abalone, <span class="dt">prop =</span> <span class="dv">3</span><span class="op">/</span><span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="model.html#cb78-1"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb78-2"><a href="model.html#cb78-2"></a>abalone_split&lt;-rsample<span class="op">::</span><span class="kw">initial_split</span>(abalone, <span class="dt">strata =</span> Rings, <span class="dt">prop =</span> <span class="dv">3</span><span class="op">/</span><span class="dv">4</span>)</span>
+<span id="cb78-3"><a href="model.html#cb78-3"></a>abalone_split_nostrata&lt;-rsample<span class="op">::</span><span class="kw">initial_split</span>(abalone, <span class="dt">prop =</span> <span class="dv">3</span><span class="op">/</span><span class="dv">4</span>)</span></code></pre></div>
 <p>To actually extract the data, we can use the <code>training()</code> and <code>testing()</code> functions also of the <code>rsample</code> package.</p>
-<div class="sourceCode" id="cb753"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb753-1"><a href="model.html#cb753-1"></a>train_abalone &lt;-<span class="st"> </span><span class="kw">training</span>(abalone_split_nostrata)</span>
-<span id="cb753-2"><a href="model.html#cb753-2"></a>test_abalone &lt;-<span class="kw">testing</span>(abalone_split_nostrata)</span>
-<span id="cb753-3"><a href="model.html#cb753-3"></a>train_abalone &lt;-<span class="st"> </span><span class="kw">training</span>(abalone_split_nostrata)</span>
-<span id="cb753-4"><a href="model.html#cb753-4"></a>test_abalone &lt;-<span class="kw">testing</span>(abalone_split_nostrata)</span>
-<span id="cb753-5"><a href="model.html#cb753-5"></a><span class="kw">count</span>(train_abalone, Rings)</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="model.html#cb79-1"></a>train_abalone &lt;-<span class="st"> </span><span class="kw">training</span>(abalone_split_nostrata)</span>
+<span id="cb79-2"><a href="model.html#cb79-2"></a>test_abalone &lt;-<span class="kw">testing</span>(abalone_split_nostrata)</span>
+<span id="cb79-3"><a href="model.html#cb79-3"></a>train_abalone &lt;-<span class="st"> </span><span class="kw">training</span>(abalone_split_nostrata)</span>
+<span id="cb79-4"><a href="model.html#cb79-4"></a>test_abalone &lt;-<span class="kw">testing</span>(abalone_split_nostrata)</span>
+<span id="cb79-5"><a href="model.html#cb79-5"></a><span class="kw">count</span>(train_abalone, Rings)</span></code></pre></div>
 <pre><code>##    Rings   n
 ## 1      1   1
 ## 2      2   1
@@ -1483,7 +1486,7 @@ We therefore would want good representation of each in our testing and training 
 ## 26    26   1
 ## 27    27   2
 ## 28    29   1</code></pre>
-<div class="sourceCode" id="cb755"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb755-1"><a href="model.html#cb755-1"></a><span class="kw">count</span>(test_abalone, Rings)</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="model.html#cb81-1"></a><span class="kw">count</span>(test_abalone, Rings)</span></code></pre></div>
 <pre><code>##    Rings   n
 ## 1      3   2
 ## 2      4  11
@@ -1506,56 +1509,56 @@ We therefore would want good representation of each in our testing and training 
 ## 19    21   7
 ## 20    23   3
 ## 21    24   1</code></pre>
-<div class="sourceCode" id="cb757"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb757-1"><a href="model.html#cb757-1"></a><span class="kw">count</span>(test_abalone, Rings) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="model.html#cb83-1"></a><span class="kw">count</span>(test_abalone, Rings) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot</span>()</span></code></pre></div>
 <p><img src="05-prediction_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
-<div class="sourceCode" id="cb758"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb758-1"><a href="model.html#cb758-1"></a><span class="kw">count</span>(train_abalone, Rings) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="model.html#cb84-1"></a><span class="kw">count</span>(train_abalone, Rings) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot</span>()</span></code></pre></div>
 <p><img src="05-prediction_files/figure-html/unnamed-chunk-49-2.png" width="672" /></p>
-<div class="sourceCode" id="cb759"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb759-1"><a href="model.html#cb759-1"></a><span class="kw">count</span>(abalone, Rings) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="model.html#cb85-1"></a><span class="kw">count</span>(abalone, Rings) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plot</span>()</span></code></pre></div>
 <p><img src="05-prediction_files/figure-html/unnamed-chunk-49-3.png" width="672" /></p>
 </div>
 <div id="example-of-variable-selection" class="section level5" number="5.13.14.2.2">
 <h5><span class="header-section-number">5.13.14.2.2</span> Example of Variable Selection</h5>
 <p>What if we first try to predict <code>Sepal.Length</code> in our training data from <code>Sepal.Width</code>. To do that, we provide the <code>train</code> function with the model and specify that the dataset we’ll be using is the <code>iris</code> dataset. Additionally, we let the train function know that we want to run linear regression (<code>lm</code>) and that we want to assess our model’s accuracy using the <code>RMSE</code> metric.</p>
-<div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb760-1"><a href="model.html#cb760-1"></a><span class="co">## train regression model</span></span>
-<span id="cb760-2"><a href="model.html#cb760-2"></a><span class="kw">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb760-3"><a href="model.html#cb760-3"></a>fit.lm &lt;-<span class="st"> </span><span class="kw">train</span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Sepal.Width, </span>
-<span id="cb760-4"><a href="model.html#cb760-4"></a>                <span class="dt">data =</span> iris, </span>
-<span id="cb760-5"><a href="model.html#cb760-5"></a>                <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, </span>
-<span id="cb760-6"><a href="model.html#cb760-6"></a>                <span class="dt">metric =</span> <span class="st">&quot;RMSE&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="model.html#cb86-1"></a><span class="co">## train regression model</span></span>
+<span id="cb86-2"><a href="model.html#cb86-2"></a><span class="kw">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb86-3"><a href="model.html#cb86-3"></a>fit.lm &lt;-<span class="st"> </span><span class="kw">train</span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Sepal.Width, </span>
+<span id="cb86-4"><a href="model.html#cb86-4"></a>                <span class="dt">data =</span> iris, </span>
+<span id="cb86-5"><a href="model.html#cb86-5"></a>                <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, </span>
+<span id="cb86-6"><a href="model.html#cb86-6"></a>                <span class="dt">metric =</span> <span class="st">&quot;RMSE&quot;</span>)</span></code></pre></div>
 <p>After training the model, we take a look at our RMSE, and see that it is 0.85 for this dataset.</p>
-<div class="sourceCode" id="cb761"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb761-1"><a href="model.html#cb761-1"></a><span class="co">## look at RMSE</span></span>
-<span id="cb761-2"><a href="model.html#cb761-2"></a>fit.lm<span class="op">$</span>results</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="model.html#cb87-1"></a><span class="co">## look at RMSE</span></span>
+<span id="cb87-2"><a href="model.html#cb87-2"></a>fit.lm<span class="op">$</span>results</span></code></pre></div>
 <p>Using this model, we would then generate predictions of <code>Sepal.Length</code> in the tuning dataset using the <code>predict()</code> function. Since we know the actual <code>Sepal.Length</code> in the tuning set, these predictions can then be visualized using a scatterplot.</p>
-<div class="sourceCode" id="cb762"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb762-1"><a href="model.html#cb762-1"></a><span class="co">## make predictions in tuning data set</span></span>
-<span id="cb762-2"><a href="model.html#cb762-2"></a>predictions &lt;-<span class="st"> </span><span class="kw">predict</span>(fit.lm, iris_tune)</span>
-<span id="cb762-3"><a href="model.html#cb762-3"></a></span>
-<span id="cb762-4"><a href="model.html#cb762-4"></a></span>
-<span id="cb762-5"><a href="model.html#cb762-5"></a><span class="co">## visualize results</span></span>
-<span id="cb762-6"><a href="model.html#cb762-6"></a>iris_tune <span class="op">%&gt;%</span></span>
-<span id="cb762-7"><a href="model.html#cb762-7"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">predictions =</span> predictions) <span class="op">%&gt;%</span></span>
-<span id="cb762-8"><a href="model.html#cb762-8"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
-<span id="cb762-9"><a href="model.html#cb762-9"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(Sepal.Length,predictions))</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="model.html#cb88-1"></a><span class="co">## make predictions in tuning data set</span></span>
+<span id="cb88-2"><a href="model.html#cb88-2"></a>predictions &lt;-<span class="st"> </span><span class="kw">predict</span>(fit.lm, iris_tune)</span>
+<span id="cb88-3"><a href="model.html#cb88-3"></a></span>
+<span id="cb88-4"><a href="model.html#cb88-4"></a></span>
+<span id="cb88-5"><a href="model.html#cb88-5"></a><span class="co">## visualize results</span></span>
+<span id="cb88-6"><a href="model.html#cb88-6"></a>iris_tune <span class="op">%&gt;%</span></span>
+<span id="cb88-7"><a href="model.html#cb88-7"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">predictions =</span> predictions) <span class="op">%&gt;%</span></span>
+<span id="cb88-8"><a href="model.html#cb88-8"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb88-9"><a href="model.html#cb88-9"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(Sepal.Length,predictions))</span></code></pre></div>
 <p>Given the lack of correlation, we can see that this model does not predict sepal length in our tuning set well.</p>
 <p>In this first attempt, we specified which variable to use for prediction; however, what if we provided our regression model with all the variables in the dataset (specified by the . in the code here:</p>
-<div class="sourceCode" id="cb763"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb763-1"><a href="model.html#cb763-1"></a><span class="co">## train regression model</span></span>
-<span id="cb763-2"><a href="model.html#cb763-2"></a><span class="kw">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb763-3"><a href="model.html#cb763-3"></a>fit.lm2 &lt;-<span class="st"> </span><span class="kw">train</span>(Sepal.Length <span class="op">~</span><span class="st"> </span>., </span>
-<span id="cb763-4"><a href="model.html#cb763-4"></a>                <span class="dt">data=</span>iris, </span>
-<span id="cb763-5"><a href="model.html#cb763-5"></a>                <span class="dt">method=</span><span class="st">&quot;lm&quot;</span>, </span>
-<span id="cb763-6"><a href="model.html#cb763-6"></a>                <span class="dt">metric=</span> <span class="st">&quot;RMSE&quot;</span>)</span>
-<span id="cb763-7"><a href="model.html#cb763-7"></a></span>
-<span id="cb763-8"><a href="model.html#cb763-8"></a><span class="co">## look at RMSE</span></span>
-<span id="cb763-9"><a href="model.html#cb763-9"></a>fit.lm2<span class="op">$</span>results</span>
-<span id="cb763-10"><a href="model.html#cb763-10"></a></span>
-<span id="cb763-11"><a href="model.html#cb763-11"></a><span class="co">## make predictions in tuning data set</span></span>
-<span id="cb763-12"><a href="model.html#cb763-12"></a>predictions2 &lt;-<span class="st"> </span><span class="kw">predict</span>(fit.lm2, iris_tune)</span>
-<span id="cb763-13"><a href="model.html#cb763-13"></a></span>
-<span id="cb763-14"><a href="model.html#cb763-14"></a></span>
-<span id="cb763-15"><a href="model.html#cb763-15"></a><span class="co">## visualize results</span></span>
-<span id="cb763-16"><a href="model.html#cb763-16"></a>iris_tune <span class="op">%&gt;%</span></span>
-<span id="cb763-17"><a href="model.html#cb763-17"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">predictions =</span> predictions2) <span class="op">%&gt;%</span></span>
-<span id="cb763-18"><a href="model.html#cb763-18"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
-<span id="cb763-19"><a href="model.html#cb763-19"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(Sepal.Length,predictions2))</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="model.html#cb89-1"></a><span class="co">## train regression model</span></span>
+<span id="cb89-2"><a href="model.html#cb89-2"></a><span class="kw">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb89-3"><a href="model.html#cb89-3"></a>fit.lm2 &lt;-<span class="st"> </span><span class="kw">train</span>(Sepal.Length <span class="op">~</span><span class="st"> </span>., </span>
+<span id="cb89-4"><a href="model.html#cb89-4"></a>                <span class="dt">data=</span>iris, </span>
+<span id="cb89-5"><a href="model.html#cb89-5"></a>                <span class="dt">method=</span><span class="st">&quot;lm&quot;</span>, </span>
+<span id="cb89-6"><a href="model.html#cb89-6"></a>                <span class="dt">metric=</span> <span class="st">&quot;RMSE&quot;</span>)</span>
+<span id="cb89-7"><a href="model.html#cb89-7"></a></span>
+<span id="cb89-8"><a href="model.html#cb89-8"></a><span class="co">## look at RMSE</span></span>
+<span id="cb89-9"><a href="model.html#cb89-9"></a>fit.lm2<span class="op">$</span>results</span>
+<span id="cb89-10"><a href="model.html#cb89-10"></a></span>
+<span id="cb89-11"><a href="model.html#cb89-11"></a><span class="co">## make predictions in tuning data set</span></span>
+<span id="cb89-12"><a href="model.html#cb89-12"></a>predictions2 &lt;-<span class="st"> </span><span class="kw">predict</span>(fit.lm2, iris_tune)</span>
+<span id="cb89-13"><a href="model.html#cb89-13"></a></span>
+<span id="cb89-14"><a href="model.html#cb89-14"></a></span>
+<span id="cb89-15"><a href="model.html#cb89-15"></a><span class="co">## visualize results</span></span>
+<span id="cb89-16"><a href="model.html#cb89-16"></a>iris_tune <span class="op">%&gt;%</span></span>
+<span id="cb89-17"><a href="model.html#cb89-17"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">predictions =</span> predictions2) <span class="op">%&gt;%</span></span>
+<span id="cb89-18"><a href="model.html#cb89-18"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb89-19"><a href="model.html#cb89-19"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(Sepal.Length,predictions2))</span></code></pre></div>
 </div>
 <div id="example-accuracy-assessment" class="section level5" number="5.13.14.2.3">
 <h5><span class="header-section-number">5.13.14.2.3</span> Example Accuracy Assessment</h5>
@@ -1582,21 +1585,21 @@ We therefore would want good representation of each in our testing and training 
 <h5><span class="header-section-number">5.13.14.3.2</span> Example of Variable Selection</h5>
 <p>Given the relatively small nature of this dataset, we’ll build the CART using all of the data; however, further and more robust optimization of what variables are included in the model is possible within the <code>caret</code> package.</p>
 <p>Here we specify that we want to predict <code>Species</code>, that we want to use a CART to do so by setting the method to <code>rpart</code>, and that, since it’s a categorical variable, we’re going to use <code>Accuracy</code> to as our assessment metric.</p>
-<div class="sourceCode" id="cb764"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb764-1"><a href="model.html#cb764-1"></a><span class="co">## CART</span></span>
-<span id="cb764-2"><a href="model.html#cb764-2"></a><span class="kw">set.seed</span>(<span class="dv">7</span>)</span>
-<span id="cb764-3"><a href="model.html#cb764-3"></a>fit.cart &lt;-<span class="st"> </span><span class="kw">train</span>(Species<span class="op">~</span>., </span>
-<span id="cb764-4"><a href="model.html#cb764-4"></a>                <span class="dt">data =</span> iris, </span>
-<span id="cb764-5"><a href="model.html#cb764-5"></a>                <span class="dt">method =</span> <span class="st">&quot;rpart&quot;</span>, </span>
-<span id="cb764-6"><a href="model.html#cb764-6"></a>                <span class="dt">metric =</span> <span class="st">&quot;Accuracy&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="model.html#cb90-1"></a><span class="co">## CART</span></span>
+<span id="cb90-2"><a href="model.html#cb90-2"></a><span class="kw">set.seed</span>(<span class="dv">7</span>)</span>
+<span id="cb90-3"><a href="model.html#cb90-3"></a>fit.cart &lt;-<span class="st"> </span><span class="kw">train</span>(Species<span class="op">~</span>., </span>
+<span id="cb90-4"><a href="model.html#cb90-4"></a>                <span class="dt">data =</span> iris, </span>
+<span id="cb90-5"><a href="model.html#cb90-5"></a>                <span class="dt">method =</span> <span class="st">&quot;rpart&quot;</span>, </span>
+<span id="cb90-6"><a href="model.html#cb90-6"></a>                <span class="dt">metric =</span> <span class="st">&quot;Accuracy&quot;</span>)</span></code></pre></div>
 </div>
 <div id="example-of-accuracy-assessment" class="section level5" number="5.13.14.3.3">
 <h5><span class="header-section-number">5.13.14.3.3</span> Example of Accuracy Assessment</h5>
-<div class="sourceCode" id="cb765"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb765-1"><a href="model.html#cb765-1"></a><span class="co">## look at Accuracy</span></span>
-<span id="cb765-2"><a href="model.html#cb765-2"></a>fit.cart<span class="op">$</span>results</span>
-<span id="cb765-3"><a href="model.html#cb765-3"></a></span>
-<span id="cb765-4"><a href="model.html#cb765-4"></a><span class="co">## make predictions in tuning data set</span></span>
-<span id="cb765-5"><a href="model.html#cb765-5"></a>predictions_cart &lt;-<span class="st"> </span><span class="kw">predict</span>(fit.cart, iris_tune)</span></code></pre></div>
-<div class="sourceCode" id="cb766"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb766-1"><a href="model.html#cb766-1"></a><span class="kw">table</span>(iris_tune<span class="op">$</span>Species, predictions_cart)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="model.html#cb91-1"></a><span class="co">## look at Accuracy</span></span>
+<span id="cb91-2"><a href="model.html#cb91-2"></a>fit.cart<span class="op">$</span>results</span>
+<span id="cb91-3"><a href="model.html#cb91-3"></a></span>
+<span id="cb91-4"><a href="model.html#cb91-4"></a><span class="co">## make predictions in tuning data set</span></span>
+<span id="cb91-5"><a href="model.html#cb91-5"></a>predictions_cart &lt;-<span class="st"> </span><span class="kw">predict</span>(fit.cart, iris_tune)</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="model.html#cb92-1"></a><span class="kw">table</span>(iris_tune<span class="op">$</span>Species, predictions_cart)</span></code></pre></div>
 <p><img src="https://camo.githubusercontent.com/bbe64faad91b2e48e86cb37bf2c2877b9d749553/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f31313837" /></p>
 <p>Here, we see that in the tuning data, the CART accurately predicted the Species of most flowers using the model generated from the training data; however, it did make two incorrect predictions (the 1s in the table).</p>
 </div>
@@ -1633,10 +1636,10 @@ We therefore would want good representation of each in our testing and training 
 <p>Now that we understand more about modeling, let’s take a look at our case studies again.</p>
 <p>Thus far, we have read the data into R, wrangled the data into a usable format, and explored the data using visualizations. Now, we will use modeling to better understand if there are associations between variables in our data!</p>
 <p>Let’s start by loading our wrangled tidy data that we previously saved:</p>
-<div class="sourceCode" id="cb767"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb767-1"><a href="model.html#cb767-1"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb767-2"><a href="model.html#cb767-2"></a><span class="kw">library</span>(here)</span>
-<span id="cb767-3"><a href="model.html#cb767-3"></a><span class="kw">load</span>(<span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;tidy_data&quot;</span>, <span class="st">&quot;case_study_1_tidy.rda&quot;</span>))</span>
-<span id="cb767-4"><a href="model.html#cb767-4"></a><span class="kw">load</span>(<span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;tidy_data&quot;</span>, <span class="st">&quot;case_study_2_tidy.rda&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="model.html#cb93-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb93-2"><a href="model.html#cb93-2"></a><span class="kw">library</span>(here)</span>
+<span id="cb93-3"><a href="model.html#cb93-3"></a><span class="kw">load</span>(<span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;tidy_data&quot;</span>, <span class="st">&quot;case_study_1_tidy.rda&quot;</span>))</span>
+<span id="cb93-4"><a href="model.html#cb93-4"></a><span class="kw">load</span>(<span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;tidy_data&quot;</span>, <span class="st">&quot;case_study_2_tidy.rda&quot;</span>))</span></code></pre></div>
 <div id="case-study-1-health-expenditures" class="section level3" number="5.15.1">
 <h3><span class="header-section-number">5.15.1</span> Case Study #1: Health Expenditures</h3>
 <p>Recall that we wanted to evaluate the following questions of interest using a health care dataset (<code>hc</code>):</p>
@@ -1645,8 +1648,8 @@ We therefore would want good representation of each in our testing and training 
 <li>How does the spending distribution change across geographic regions in the United States?</li>
 <li>Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?</li>
 </ol>
-<div class="sourceCode" id="cb768"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb768-1"><a href="model.html#cb768-1"></a><span class="co"># see health care data</span></span>
-<span id="cb768-2"><a href="model.html#cb768-2"></a>hc</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="model.html#cb94-1"></a><span class="co"># see health care data</span></span>
+<span id="cb94-2"><a href="model.html#cb94-2"></a>hc</span></code></pre></div>
 <pre><code>## # A tibble: 612 x 10
 ##    Location  year type  tot_coverage abb   region tot_spending tot_pop
 ##    &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;        &lt;int&gt; &lt;chr&gt; &lt;fct&gt;         &lt;dbl&gt;   &lt;int&gt;
@@ -1670,8 +1673,8 @@ We therefore would want good representation of each in our testing and training 
 <blockquote>
 <p>At the state-level, what is the relationship between firearm legislation strength and annual rate of fatal police shootings?</p>
 </blockquote>
-<div class="sourceCode" id="cb770"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb770-1"><a href="model.html#cb770-1"></a><span class="co"># see firearms data</span></span>
-<span id="cb770-2"><a href="model.html#cb770-2"></a>firearms</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="model.html#cb96-1"></a><span class="co"># see firearms data</span></span>
+<span id="cb96-2"><a href="model.html#cb96-2"></a>firearms</span></code></pre></div>
 <pre><code>## # A tibble: 51 x 15
 ##    NAME  white black hispanic  male total_pop violent_crime brady_scores
 ##    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;
@@ -1750,20 +1753,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>
