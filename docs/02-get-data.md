@@ -2,6 +2,11 @@
 
 Data are stored in all sorts of different file formats and structures. In this course, we'll discuss each of these common formats and discuss how to get them into R so you can start working with them! 
 
+## About This Course
+
+
+
+
 ## Tibbles
 
 Before we can discuss any particular file format, let's discuss the end goal - the **tibble**! If you've been using R for a while, you're likely famililar with the data.frame. It's best to think of tibbles as an updated and stylish version of the data.frame. And, tibbles are what tidyverse packages work with most seemlessly. Now, that doesn't mean tidyverse packages *require* tibbles. In fact, they still work with data.frames, but the more you work with tidyverse and tidyverse-adjacent packages, the more you'll see the advantages of using tibbles.
@@ -766,11 +771,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".zip")))
 
 ```
 ## Response [https://www.sqlitetutorial.net/wp-content/uploads/2018/03/chinook.zip]
-##   Date: 2020-10-06 12:31
+##   Date: 2020-10-07 17:42
 ##   Status: 200
 ##   Content-Type: application/zip
 ##   Size: 306 kB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpE6MGlX/file181f6225a2273.zip
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpF8fWmH/file31be4338a7cf.zip
 ```
 
 ```r
@@ -2011,11 +2016,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2020-10-06 12:31
+##   Date: 2020-10-07 17:43
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpE6MGlX/file181f674856499.xlsx
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpF8fWmH/file31be74856499.xlsx
 ```
 
 ```r
@@ -2063,11 +2068,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2020-10-06 12:31
+##   Date: 2020-10-07 17:43
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpE6MGlX/file181f621980f48.xls
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpF8fWmH/file31be21980f48.xls
 ```
 
 ```r
@@ -2114,11 +2119,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2020-10-06 12:31
+##   Date: 2020-10-07 17:43
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpE6MGlX/file181f65e37ee62.xls
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpF8fWmH/file31be5e37ee62.xls
 ```
 
 ```r

@@ -2,6 +2,11 @@
 
 Data visualization is an incredibly important part of any data science project. When you are first handed a data set by your boss or first scrape a large dataset from the Internet, visualizing your data can help you get a handle on what's going on in the data set. Similarly, once you've done your analysis and are ready to communicate your findings to your teammates, data visualizations are an effective way to communicate your results to others. Here, we'll walk through what data visualization is and define some of the basic types of data visualizations.
 
+## About This Course
+
+
+
+
 ## Data Visualization
 
 At its core, the term 'data visualization' refers to any visual display of data that helps us understand the underlying data better. This can be a plot or figure of some sort or a table that summarizes the data. Generally, there are a few characteristics of all good plots.
