@@ -1,4 +1,10 @@
 # Modeling Data in the Tidyverse {#model}
+
+
+## About This Course
+
+
+
 ## The Purpose of Data Science
 Data science has multiple definitions. For this module we will use the definition:
 
