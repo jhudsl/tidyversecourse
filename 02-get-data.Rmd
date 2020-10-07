@@ -2,6 +2,16 @@
 
 Data are stored in all sorts of different file formats and structures. In this course, we'll discuss each of these common formats and discuss how to get them into R so you can start working with them! 
 
+## About This Course
+
+Getting data into your statistical analysis system can be one of the most challenging parts of any data science project. Data must be imported and harmonized into a coherent format before any insights can be obtained. You will learn how to get data into R from commonly used formats and harmonizing different kinds of datasets from different sources. If you work in an organization where different departments collect data using different systems and different storage formats, then this course will provide essential tools for bringing those datasets together and making sense of the wealth of information in your organization.
+
+This course introduces the Tidyverse tools for importing data into R so that it can be prepared for analysis, visualization, and modeling. Common data formats are introduced, including delimited files, spreadsheets and relational databases, and techniques for obtaining data from the web are demonstrated, such as web scraping and web APIs. 
+
+In this specialization we assume familiarity with the R programming language. If you are not yet familiar with R, we suggest you first complete [R Programming](https://www.coursera.org/learn/r-programming) before returning to complete this course.
+
+
+
 ## Tibbles
 
 Before we can discuss any particular file format, let's discuss the end goal - the **tibble**! If you've been using R for a while, you're likely famililar with the data.frame. It's best to think of tibbles as an updated and stylish version of the data.frame. And, tibbles are what tidyverse packages work with most seemlessly. Now, that doesn't mean tidyverse packages *require* tibbles. In fact, they still work with data.frames, but the more you work with tidyverse and tidyverse-adjacent packages, the more you'll see the advantages of using tibbles.

@@ -497,6 +497,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Data are stored in all sorts of different file formats and structures. In this course, we’ll discuss each of these common formats and discuss how to get them into R so you can start working with them!</p>
 <div id="about-this-course" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> About This Course</h2>
+<p>Getting data into your statistical analysis system can be one of the most challenging parts of any data science project. Data must be imported and harmonized into a coherent format before any insights can be obtained. You will learn how to get data into R from commonly used formats and harmonizing different kinds of datasets from different sources. If you work in an organization where different departments collect data using different systems and different storage formats, then this course will provide essential tools for bringing those datasets together and making sense of the wealth of information in your organization.</p>
+<p>This course introduces the Tidyverse tools for importing data into R so that it can be prepared for analysis, visualization, and modeling. Common data formats are introduced, including delimited files, spreadsheets and relational databases, and techniques for obtaining data from the web are demonstrated, such as web scraping and web APIs.</p>
+<p>In this specialization we assume familiarity with the R programming language. If you are not yet familiar with R, we suggest you first complete <a href="https://www.coursera.org/learn/r-programming">R Programming</a> before returning to complete this course.</p>
 </div>
 <div id="tibbles" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> Tibbles</h2>
@@ -515,12 +518,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="creating-a-tibble" class="section level3" number="2.2.2">
 <h3><span class="header-section-number">2.2.2</span> Creating a tibble</h3>
 <p>The tibble package is part of the <code>tidyverse</code> and can thus be loaded in (once installed) using:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="get-data.html#cb7-1"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="get-data.html#cb1-1"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
 <div id="as_tibble" class="section level4" number="2.2.2.1">
 <h4><span class="header-section-number">2.2.2.1</span> <code>as_tibble()</code></h4>
 <p>Since many packages use the historical data.frame from base R, you’ll often find yourself in the situation that you have a data.frame and want to convert that data.frame to a tibble. To do so, the <code>as_tibble()</code> function is exactly what you’re looking for.</p>
 <p>For example, the <code>trees</code> dataset is a data.frame that’s available in base R. This dataset stores the diameter, height and volume for Black Cherry Trees. To convert this data.frame to a tibble you would use the following:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="get-data.html#cb8-1"></a><span class="kw">as_tibble</span>(trees)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="get-data.html#cb2-1"></a><span class="kw">as_tibble</span>(trees)</span></code></pre></div>
 <pre><code>## # A tibble: 31 x 3
 ##    Girth Height Volume
 ##    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
@@ -539,8 +542,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Additionally, you’ll note that the type of the variable is printed for each variable in the tibble. This helpful feature is another added bonus of tibbles relative to data.frame.</p>
 <p>If you <em>do</em> want to see more rows from the tibble, there are a few options! First, the <code>View()</code> function in RStudio is incredibly helpful. The input to this function is the data.frame or tibble you’d like to see. Specifically, <code>View(trees)</code> would provide you, the viewer, with a scrollable view (in a new tab) of the complete dataset.</p>
 <p>A second option is the fact that <code>print()</code> enables you to specify how many rows and columns you’d like to display. Here, we again display the <code>trees</code> data.frame as a tibble but specify that we’d only like to see 5 rows. <code>width = Inf</code> specifies that we’d like to see all the possible columns. Here, there are only 3, but for larger datasets, this can be helpful to specify.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="get-data.html#cb10-1"></a><span class="kw">as_tibble</span>(trees) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb10-2"><a href="get-data.html#cb10-2"></a><span class="st">  </span><span class="kw">print</span>(<span class="dt">n =</span> <span class="dv">5</span>, <span class="dt">width =</span> <span class="ot">Inf</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="get-data.html#cb4-1"></a><span class="kw">as_tibble</span>(trees) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb4-2"><a href="get-data.html#cb4-2"></a><span class="st">  </span><span class="kw">print</span>(<span class="dt">n =</span> <span class="dv">5</span>, <span class="dt">width =</span> <span class="ot">Inf</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 31 x 3
 ##   Girth Height Volume
 ##   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
@@ -555,12 +558,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">2.2.2.2</span> <code>tibble()</code></h4>
 <p>Alternatively, you can create a tibble on the fly by using <code>tibble()</code> and specifying the information you’d like stored in each column. Note that if you provide a single value, this value will be repeated across all rows of the tibble. This is referred to as “recycling inputs of lenth 1.”</p>
 <p>In the example here, we see that the column <code>c</code> will contain the value ‘1’ across all rows.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="get-data.html#cb12-1"></a><span class="kw">tibble</span>(</span>
-<span id="cb12-2"><a href="get-data.html#cb12-2"></a>  <span class="dt">a =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,</span>
-<span id="cb12-3"><a href="get-data.html#cb12-3"></a>  <span class="dt">b =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">10</span>,</span>
-<span id="cb12-4"><a href="get-data.html#cb12-4"></a>  <span class="dt">c =</span> <span class="dv">1</span>,</span>
-<span id="cb12-5"><a href="get-data.html#cb12-5"></a>  <span class="dt">z =</span> (a <span class="op">+</span><span class="st"> </span>b)<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>c</span>
-<span id="cb12-6"><a href="get-data.html#cb12-6"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="get-data.html#cb6-1"></a><span class="kw">tibble</span>(</span>
+<span id="cb6-2"><a href="get-data.html#cb6-2"></a>  <span class="dt">a =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,</span>
+<span id="cb6-3"><a href="get-data.html#cb6-3"></a>  <span class="dt">b =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">10</span>,</span>
+<span id="cb6-4"><a href="get-data.html#cb6-4"></a>  <span class="dt">c =</span> <span class="dv">1</span>,</span>
+<span id="cb6-5"><a href="get-data.html#cb6-5"></a>  <span class="dt">z =</span> (a <span class="op">+</span><span class="st"> </span>b)<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>c</span>
+<span id="cb6-6"><a href="get-data.html#cb6-6"></a>)</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 4
 ##       a     b     c     z
 ##   &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -571,11 +574,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5     5    10     1   226</code></pre>
 <p>The <code>tibble()</code> function allows you to quickly generate tibbles and even allows you to reference columns within the tibble you’re creating, as seen in column z of the example above.</p>
 <p>We also noted previously that tibbles can have column names that are not allowed in data.frame. In this example, we see that to utilize a nontraditional variable name, you surround the column name with backticks. Note that to refer to such columns in other tidyverse packages, you’ll continue to use backticks surrounding the variable name.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="get-data.html#cb14-1"></a><span class="kw">tibble</span>(</span>
-<span id="cb14-2"><a href="get-data.html#cb14-2"></a>  <span class="st">`</span><span class="dt">two words</span><span class="st">`</span> =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,</span>
-<span id="cb14-3"><a href="get-data.html#cb14-3"></a>  <span class="st">`</span><span class="dt">12</span><span class="st">`</span> =<span class="st"> &quot;numeric&quot;</span>,</span>
-<span id="cb14-4"><a href="get-data.html#cb14-4"></a>  <span class="st">`</span><span class="dt">:)</span><span class="st">`</span> =<span class="st"> &quot;smile&quot;</span>,</span>
-<span id="cb14-5"><a href="get-data.html#cb14-5"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="get-data.html#cb8-1"></a><span class="kw">tibble</span>(</span>
+<span id="cb8-2"><a href="get-data.html#cb8-2"></a>  <span class="st">`</span><span class="dt">two words</span><span class="st">`</span> =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,</span>
+<span id="cb8-3"><a href="get-data.html#cb8-3"></a>  <span class="st">`</span><span class="dt">12</span><span class="st">`</span> =<span class="st"> &quot;numeric&quot;</span>,</span>
+<span id="cb8-4"><a href="get-data.html#cb8-4"></a>  <span class="st">`</span><span class="dt">:)</span><span class="st">`</span> =<span class="st"> &quot;smile&quot;</span>,</span>
+<span id="cb8-5"><a href="get-data.html#cb8-5"></a>)</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 3
 ##   `two words` `12`    `:)` 
 ##         &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;
@@ -589,20 +592,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="subsetting" class="section level3" number="2.2.3">
 <h3><span class="header-section-number">2.2.3</span> Subsetting</h3>
 <p>Subsetting tibbles also differs slightly from how subsetting occurs with data.frame. When it comes to tibbles, <code>[[</code> can subset by name or position;`<code>$</code> only subsets by name. For example:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="get-data.html#cb16-1"></a>df &lt;-<span class="st"> </span><span class="kw">tibble</span>(</span>
-<span id="cb16-2"><a href="get-data.html#cb16-2"></a>  <span class="dt">a =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,</span>
-<span id="cb16-3"><a href="get-data.html#cb16-3"></a>  <span class="dt">b =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">10</span>,</span>
-<span id="cb16-4"><a href="get-data.html#cb16-4"></a>  <span class="dt">c =</span> <span class="dv">1</span>,</span>
-<span id="cb16-5"><a href="get-data.html#cb16-5"></a>  <span class="dt">z =</span> (a <span class="op">+</span><span class="st"> </span>b)<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>c</span>
-<span id="cb16-6"><a href="get-data.html#cb16-6"></a>)</span>
-<span id="cb16-7"><a href="get-data.html#cb16-7"></a></span>
-<span id="cb16-8"><a href="get-data.html#cb16-8"></a><span class="co"># Extract by name using $ or [[]]</span></span>
-<span id="cb16-9"><a href="get-data.html#cb16-9"></a>df<span class="op">$</span>z</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="get-data.html#cb10-1"></a>df &lt;-<span class="st"> </span><span class="kw">tibble</span>(</span>
+<span id="cb10-2"><a href="get-data.html#cb10-2"></a>  <span class="dt">a =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,</span>
+<span id="cb10-3"><a href="get-data.html#cb10-3"></a>  <span class="dt">b =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">10</span>,</span>
+<span id="cb10-4"><a href="get-data.html#cb10-4"></a>  <span class="dt">c =</span> <span class="dv">1</span>,</span>
+<span id="cb10-5"><a href="get-data.html#cb10-5"></a>  <span class="dt">z =</span> (a <span class="op">+</span><span class="st"> </span>b)<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>c</span>
+<span id="cb10-6"><a href="get-data.html#cb10-6"></a>)</span>
+<span id="cb10-7"><a href="get-data.html#cb10-7"></a></span>
+<span id="cb10-8"><a href="get-data.html#cb10-8"></a><span class="co"># Extract by name using $ or [[]]</span></span>
+<span id="cb10-9"><a href="get-data.html#cb10-9"></a>df<span class="op">$</span>z</span></code></pre></div>
 <pre><code>## [1]  50  82 122 170 226</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="get-data.html#cb18-1"></a>df[[<span class="st">&quot;z&quot;</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="get-data.html#cb12-1"></a>df[[<span class="st">&quot;z&quot;</span>]]</span></code></pre></div>
 <pre><code>## [1]  50  82 122 170 226</code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="get-data.html#cb20-1"></a><span class="co"># Extract by position requires [[]]</span></span>
-<span id="cb20-2"><a href="get-data.html#cb20-2"></a>df[[<span class="dv">4</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="get-data.html#cb14-1"></a><span class="co"># Extract by position requires [[]]</span></span>
+<span id="cb14-2"><a href="get-data.html#cb14-2"></a>df[[<span class="dv">4</span>]]</span></code></pre></div>
 <pre><code>## [1]  50  82 122 170 226</code></pre>
 <p>Having now discussed tibbles, which are the type of object most tidyverse and tidyverse-adjacent packages work best with, we now know the goal. In many cases, tibbles are ultimately what we want to work with in R. However, data are stored in many different formats outside of R. We’ll spend the rest of this course discussing those formats and talking about how to get those data into R so that you can start the process of working with and analyzing these data in R.</p>
 </div>
@@ -616,15 +619,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="reading-excel-files-into-r" class="section level4" number="2.3.1.1">
 <h4><span class="header-section-number">2.3.1.1</span> Reading Excel files into R</h4>
 <p>Reading spreadhseets from Excel into R is made possible thanks to the <code>readxl</code> package. This is not a core tidyverse package, so you’ll need to install and load the package in before use:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="get-data.html#cb22-1"></a><span class="kw">library</span>(readxl)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="get-data.html#cb16-1"></a><span class="kw">library</span>(readxl)</span></code></pre></div>
 <p>The function <code>read_excel()</code> is particularly helpful whenever you want read an Excel file into your R Environment. The only required argument of this function is the path to the Excel file on your computer. In the following example, <code>read_excel()</code> would look for the file “filename.xlsx” in your current working directory. If the file were located somewhere else on your computer, you would have to provide the <em>path</em> to that file.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="get-data.html#cb23-1"></a><span class="co"># read Excel file into R</span></span>
-<span id="cb23-2"><a href="get-data.html#cb23-2"></a>df_excel &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;filename.xlsx&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="get-data.html#cb17-1"></a><span class="co"># read Excel file into R</span></span>
+<span id="cb17-2"><a href="get-data.html#cb17-2"></a>df_excel &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;filename.xlsx&quot;</span>)</span></code></pre></div>
 <p>Within the <code>readxl</code> package there are a number of example datasets that we can use to demonstrate the packages functionality. To read the example dataset in, we’ll use the <code>readxl_example()</code> function.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="get-data.html#cb24-1"></a><span class="co"># read example file into R</span></span>
-<span id="cb24-2"><a href="get-data.html#cb24-2"></a>example &lt;-<span class="st"> </span><span class="kw">readxl_example</span>(<span class="st">&quot;datasets.xlsx&quot;</span>)</span>
-<span id="cb24-3"><a href="get-data.html#cb24-3"></a>df &lt;-<span class="st"> </span><span class="kw">read_excel</span>(example)</span>
-<span id="cb24-4"><a href="get-data.html#cb24-4"></a>df</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="get-data.html#cb18-1"></a><span class="co"># read example file into R</span></span>
+<span id="cb18-2"><a href="get-data.html#cb18-2"></a>example &lt;-<span class="st"> </span><span class="kw">readxl_example</span>(<span class="st">&quot;datasets.xlsx&quot;</span>)</span>
+<span id="cb18-3"><a href="get-data.html#cb18-3"></a>df &lt;-<span class="st"> </span><span class="kw">read_excel</span>(example)</span>
+<span id="cb18-4"><a href="get-data.html#cb18-4"></a>df</span></code></pre></div>
 <pre><code>## # A tibble: 150 x 5
 ##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  
@@ -647,8 +650,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>skip</code> - specifies the number of rows to skip before reading information from the file into R. Often blank rows or information about the data are stored at the top of the spreadsheet that you want R to ignore</li>
 </ul>
 <p>For an example, we are able to change the column names directly by passing a character string to the <code>col_names</code> argument:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="get-data.html#cb26-1"></a><span class="co"># specify column names on import</span></span>
-<span id="cb26-2"><a href="get-data.html#cb26-2"></a><span class="kw">read_excel</span>(example, <span class="dt">col_names =</span> LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="get-data.html#cb20-1"></a><span class="co"># specify column names on import</span></span>
+<span id="cb20-2"><a href="get-data.html#cb20-2"></a><span class="kw">read_excel</span>(example, <span class="dt">col_names =</span> LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])</span></code></pre></div>
 <pre><code>## # A tibble: 151 x 5
 ##    A            B           C            D           E      
 ##    &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;  
@@ -665,12 +668,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # … with 141 more rows</code></pre>
 <p>To take this a step further let’s discuss one of the lesser-known arguments of the <code>read_excel()</code> function: <code>.name_repair</code>. This argument allows for further fine-tuning and handling of column names.</p>
 <p>The default for this argument is <code>.name_repair = "unique"</code>. This checks to make sure that each column of the imported file has a unique name. If TRUE, readxl leaves them as is, as you see in the example here:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="get-data.html#cb28-1"></a><span class="co"># read example file into R using .name_repair default</span></span>
-<span id="cb28-2"><a href="get-data.html#cb28-2"></a><span class="kw">read_excel</span>(</span>
-<span id="cb28-3"><a href="get-data.html#cb28-3"></a>  <span class="kw">readxl_example</span>(<span class="st">&quot;deaths.xlsx&quot;</span>),</span>
-<span id="cb28-4"><a href="get-data.html#cb28-4"></a>  <span class="dt">range =</span> <span class="st">&quot;arts!A5:F8&quot;</span>,</span>
-<span id="cb28-5"><a href="get-data.html#cb28-5"></a>  <span class="dt">.name_repair =</span> <span class="st">&quot;unique&quot;</span></span>
-<span id="cb28-6"><a href="get-data.html#cb28-6"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="get-data.html#cb22-1"></a><span class="co"># read example file into R using .name_repair default</span></span>
+<span id="cb22-2"><a href="get-data.html#cb22-2"></a><span class="kw">read_excel</span>(</span>
+<span id="cb22-3"><a href="get-data.html#cb22-3"></a>  <span class="kw">readxl_example</span>(<span class="st">&quot;deaths.xlsx&quot;</span>),</span>
+<span id="cb22-4"><a href="get-data.html#cb22-4"></a>  <span class="dt">range =</span> <span class="st">&quot;arts!A5:F8&quot;</span>,</span>
+<span id="cb22-5"><a href="get-data.html#cb22-5"></a>  <span class="dt">.name_repair =</span> <span class="st">&quot;unique&quot;</span></span>
+<span id="cb22-6"><a href="get-data.html#cb22-6"></a>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 6
 ##   Name       Profession   Age `Has kids` `Date of birth`     `Date of death`    
 ##   &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt; &lt;lgl&gt;      &lt;dttm&gt;              &lt;dttm&gt;             
@@ -678,12 +681,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 2 Carrie Fi… actor         60 TRUE       1956-10-21 00:00:00 2016-12-27 00:00:00
 ## 3 Chuck Ber… musician      90 TRUE       1926-10-18 00:00:00 2017-03-18 00:00:00</code></pre>
 <p>Another option for this argument is <code>.name_repair = "universal"</code>. This ensures that column names don’t contain any forbidden characters or reserved words. It’s often a good idea to use this option if you plan to use these data in other packages downstream. This ensures that all the column names will work, regardless of the R package being used.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="get-data.html#cb30-1"></a><span class="co"># require use of universal naming conventions</span></span>
-<span id="cb30-2"><a href="get-data.html#cb30-2"></a><span class="kw">read_excel</span>(</span>
-<span id="cb30-3"><a href="get-data.html#cb30-3"></a>  <span class="kw">readxl_example</span>(<span class="st">&quot;deaths.xlsx&quot;</span>),</span>
-<span id="cb30-4"><a href="get-data.html#cb30-4"></a>  <span class="dt">range =</span> <span class="st">&quot;arts!A5:F8&quot;</span>,</span>
-<span id="cb30-5"><a href="get-data.html#cb30-5"></a>  <span class="dt">.name_repair =</span> <span class="st">&quot;universal&quot;</span></span>
-<span id="cb30-6"><a href="get-data.html#cb30-6"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="get-data.html#cb24-1"></a><span class="co"># require use of universal naming conventions</span></span>
+<span id="cb24-2"><a href="get-data.html#cb24-2"></a><span class="kw">read_excel</span>(</span>
+<span id="cb24-3"><a href="get-data.html#cb24-3"></a>  <span class="kw">readxl_example</span>(<span class="st">&quot;deaths.xlsx&quot;</span>),</span>
+<span id="cb24-4"><a href="get-data.html#cb24-4"></a>  <span class="dt">range =</span> <span class="st">&quot;arts!A5:F8&quot;</span>,</span>
+<span id="cb24-5"><a href="get-data.html#cb24-5"></a>  <span class="dt">.name_repair =</span> <span class="st">&quot;universal&quot;</span></span>
+<span id="cb24-6"><a href="get-data.html#cb24-6"></a>)</span></code></pre></div>
 <pre><code>## New names:
 ## * `Has kids` -&gt; Has.kids
 ## * `Date of birth` -&gt; Date.of.birth
@@ -696,12 +699,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 3 Chuck Berry  musician      90 TRUE     1926-10-18 00:00:00 2017-03-18 00:00:00</code></pre>
 <p>Note that when using <code>.name_repair = "universal"</code>, you’ll get a readout about which column names have been changed. Here you see that column names with a space in them have been chnaged to periods for word separation.</p>
 <p>Aside from these options, functions can be passed to <code>.name_repair</code>. For example, if you want all of your column names to be uppercase, you would use the following:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="get-data.html#cb33-1"></a><span class="co"># pass function for column naming</span></span>
-<span id="cb33-2"><a href="get-data.html#cb33-2"></a><span class="kw">read_excel</span>(</span>
-<span id="cb33-3"><a href="get-data.html#cb33-3"></a>  <span class="kw">readxl_example</span>(<span class="st">&quot;deaths.xlsx&quot;</span>),</span>
-<span id="cb33-4"><a href="get-data.html#cb33-4"></a>  <span class="dt">range =</span> <span class="st">&quot;arts!A5:F8&quot;</span>,</span>
-<span id="cb33-5"><a href="get-data.html#cb33-5"></a>  <span class="dt">.name_repair =</span> toupper</span>
-<span id="cb33-6"><a href="get-data.html#cb33-6"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="get-data.html#cb27-1"></a><span class="co"># pass function for column naming</span></span>
+<span id="cb27-2"><a href="get-data.html#cb27-2"></a><span class="kw">read_excel</span>(</span>
+<span id="cb27-3"><a href="get-data.html#cb27-3"></a>  <span class="kw">readxl_example</span>(<span class="st">&quot;deaths.xlsx&quot;</span>),</span>
+<span id="cb27-4"><a href="get-data.html#cb27-4"></a>  <span class="dt">range =</span> <span class="st">&quot;arts!A5:F8&quot;</span>,</span>
+<span id="cb27-5"><a href="get-data.html#cb27-5"></a>  <span class="dt">.name_repair =</span> toupper</span>
+<span id="cb27-6"><a href="get-data.html#cb27-6"></a>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 6
 ##   NAME       PROFESSION   AGE `HAS KIDS` `DATE OF BIRTH`     `DATE OF DEATH`    
 ##   &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt; &lt;lgl&gt;      &lt;dttm&gt;              &lt;dttm&gt;             
@@ -737,9 +740,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The <code>googlesheets</code> package is tidyverse-adjacent, so it requires its own installation and for you to load it into R before it can be used</p>
 <div id="getting-started-with-googlesheets" class="section level5" number="2.3.2.1.1">
 <h5><span class="header-section-number">2.3.2.1.1</span> Getting Started with <code>googlesheets</code></h5>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="get-data.html#cb35-1"></a><span class="co">#install.packages(&quot;googlesheets&quot;)</span></span>
-<span id="cb35-2"><a href="get-data.html#cb35-2"></a><span class="co"># load package</span></span>
-<span id="cb35-3"><a href="get-data.html#cb35-3"></a><span class="kw">library</span>(googlesheets)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="get-data.html#cb29-1"></a><span class="co">#install.packages(&quot;googlesheets&quot;)</span></span>
+<span id="cb29-2"><a href="get-data.html#cb29-2"></a><span class="co"># load package</span></span>
+<span id="cb29-3"><a href="get-data.html#cb29-3"></a><span class="kw">library</span>(googlesheets)</span></code></pre></div>
 <p>Now, let’s get to importing your survey data into R. Every time you start a new session, you need to authenticate the use of <code>googlesheets</code> package with your Google account. This is a great features as it ensures that you <em>want</em> to allow access to your Google Sheets and allows the Google Sheets API to make sure that you <em>should</em> have access to the files you’re going to try to access.</p>
 <p>The command <code>gs_auth(new_user = TRUE)</code> will open a new page in your browser that asks you which Google account’s Google Sheets you’d like to give access to. Click on the appropriate Google user to provide <code>googlesheets</code> access to the Google Sheets API.</p>
 <div class="figure">
@@ -756,8 +759,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h5><span class="header-section-number">2.3.2.1.2</span> Navigating <code>googlesheets</code>: <code>gs_ls()</code> and <code>gs_title()</code></h5>
 <p>Once authenticated, you can use the command <code>gs_ls()</code> to list all your worksheets on Google Sheets as a table.</p>
 <p>In order to ultimately access the information a specific Google Sheet, you have to first <strong>register</strong> the sheet. To do this we’ll use <code>gs_title()</code>. For the example below to work, you’ll need to have a Google Sheet named “survey” in your account. To access this sheet, navigate to [<a href="https://docs.google.com/spreadsheets/d/1FN7VVKzJJyifZFY5POdz_LalGTBYaC4SLB-X9vyDnbY/" class="uri">https://docs.google.com/spreadsheets/d/1FN7VVKzJJyifZFY5POdz_LalGTBYaC4SLB-X9vyDnbY/</a>] in your web browser.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="get-data.html#cb36-1"></a><span class="co"># register Google Sheet</span></span>
-<span id="cb36-2"><a href="get-data.html#cb36-2"></a>survey_sheet &lt;-<span class="st"> </span><span class="kw">gs_title</span>(<span class="st">&quot;survey&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="get-data.html#cb30-1"></a><span class="co"># register Google Sheet</span></span>
+<span id="cb30-2"><a href="get-data.html#cb30-2"></a>survey_sheet &lt;-<span class="st"> </span><span class="kw">gs_title</span>(<span class="st">&quot;survey&quot;</span>)</span></code></pre></div>
 <p>Note that we assign the information stored from registering this Google Sheet to the object <code>survey_sheet</code> so that we can use it again shortly.</p>
 <p>If you type the name of the sheet correctly <em>and</em> it exists in your Google Drive, you will see a message that says <em>Sheet successfully identified: “survey”</em>.</p>
 <div class="figure">
@@ -768,8 +771,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="reading-data-in-using-googlesheets-gs_read" class="section level5" number="2.3.2.1.3">
 <h5><span class="header-section-number">2.3.2.1.3</span> Reading data in using <code>googlesheets</code>: <code>gs_read()</code></h5>
 <p>At this point, your Google Sheet is registered and you can now read the data into R using the function <code>gs_read()</code>. The <code>survey_sheet</code> object output you generated using <code>gs_title()</code> will now be the input to <code>gs_read()</code>:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="get-data.html#cb37-1"></a><span class="co"># access information stored in survey_sheet</span></span>
-<span id="cb37-2"><a href="get-data.html#cb37-2"></a>survey_data &lt;-<span class="st"> </span><span class="kw">gs_read</span>(survey_sheet)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="get-data.html#cb31-1"></a><span class="co"># access information stored in survey_sheet</span></span>
+<span id="cb31-2"><a href="get-data.html#cb31-2"></a>survey_data &lt;-<span class="st"> </span><span class="kw">gs_read</span>(survey_sheet)</span></code></pre></div>
 <div class="figure">
 <img src="https://docs.google.com/presentation/d/1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA/export/png?id=1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA&amp;pageid=g3d555bce3d_0_28" alt="" />
 <p class="caption">Sheet successfully read into R</p>
@@ -794,14 +797,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="https://docs.google.com/presentation/d/1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c/export/png?id=1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c&amp;pageid=g6112cc596f_0_4" alt="" />
 <p class="caption">Where to find the title, key, and URL in Google Sheets</p>
 </div>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="get-data.html#cb38-1"></a><span class="co"># register in with title </span></span>
-<span id="cb38-2"><a href="get-data.html#cb38-2"></a><span class="kw">gs_title</span>(<span class="st">&quot;test-gs-gapminder&quot;</span>)</span>
-<span id="cb38-3"><a href="get-data.html#cb38-3"></a></span>
-<span id="cb38-4"><a href="get-data.html#cb38-4"></a><span class="co"># register with key</span></span>
-<span id="cb38-5"><a href="get-data.html#cb38-5"></a><span class="kw">gs_key</span>(<span class="st">&quot;1BzfL0kZUz1TsI5zxJF1WNF01IxvC67FbOJUiiGMZ_mQ&quot;</span>)</span>
-<span id="cb38-6"><a href="get-data.html#cb38-6"></a></span>
-<span id="cb38-7"><a href="get-data.html#cb38-7"></a><span class="co"># register with URL</span></span>
-<span id="cb38-8"><a href="get-data.html#cb38-8"></a><span class="kw">gs_url</span>(<span class="st">&quot;https://docs.google.com/spreadsheets/d/1BzfL0kZUz1TsI5zxJF1WNF01IxvC67FbOJUiiGMZ_mQ/edit#gid=1150108545&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="get-data.html#cb32-1"></a><span class="co"># register in with title </span></span>
+<span id="cb32-2"><a href="get-data.html#cb32-2"></a><span class="kw">gs_title</span>(<span class="st">&quot;test-gs-gapminder&quot;</span>)</span>
+<span id="cb32-3"><a href="get-data.html#cb32-3"></a></span>
+<span id="cb32-4"><a href="get-data.html#cb32-4"></a><span class="co"># register with key</span></span>
+<span id="cb32-5"><a href="get-data.html#cb32-5"></a><span class="kw">gs_key</span>(<span class="st">&quot;1BzfL0kZUz1TsI5zxJF1WNF01IxvC67FbOJUiiGMZ_mQ&quot;</span>)</span>
+<span id="cb32-6"><a href="get-data.html#cb32-6"></a></span>
+<span id="cb32-7"><a href="get-data.html#cb32-7"></a><span class="co"># register with URL</span></span>
+<span id="cb32-8"><a href="get-data.html#cb32-8"></a><span class="kw">gs_url</span>(<span class="st">&quot;https://docs.google.com/spreadsheets/d/1BzfL0kZUz1TsI5zxJF1WNF01IxvC67FbOJUiiGMZ_mQ/edit#gid=1150108545&quot;</span>)</span></code></pre></div>
 <p>Regardless of how you register the sheet, you’ll get an output to inform you that the sheet was successfully identified. (Note: if you have not opened up the <a href="https://docs.google.com/spreadsheets/d/1BzfL0kZUz1TsI5zxJF1WNF01IxvC67FbOJUiiGMZ_mQ/">Google Sheet</a> using the Google Drive account you specified during authentication, you will get an error.)</p>
 <div class="figure">
 <img src="https://docs.google.com/presentation/d/1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c/export/png?id=1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c&amp;pageid=g6112cc596f_0_9" alt="" />
@@ -812,8 +815,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h5><span class="header-section-number">2.3.2.1.4</span> Adding rows and editing cells</h5>
 <p>In addition to reading in data from Google Sheets directly using the <code>googlesheets</code> package, you can also modify your Google Sheet directly through R. For example, returning to our friends’ survey data example, you can edit a cell or add a row to your sheet.</p>
 <p>Let’s say you’d like to add your own respond to the survey. For this you can use the command <code>gs_add_row()</code>. Note that the <code>input</code> argument specifies what you would like to add in the new row. If everything goes well, you will get a message saying <em>Row successfully appended</em>.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="get-data.html#cb39-1"></a>my_response &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Me&quot;</span>, <span class="dv">10</span>, <span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb39-2"><a href="get-data.html#cb39-2"></a><span class="kw">gs_add_row</span>(survey_sheet, <span class="dt">input =</span> my_response)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="get-data.html#cb33-1"></a>my_response &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Me&quot;</span>, <span class="dv">10</span>, <span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb33-2"><a href="get-data.html#cb33-2"></a><span class="kw">gs_add_row</span>(survey_sheet, <span class="dt">input =</span> my_response)</span></code></pre></div>
 <div class="figure">
 <img src="https://docs.google.com/presentation/d/1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA/export/png?id=1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA&amp;pageid=g398ce98dcf_0_18" alt="" />
 <p class="caption"><code>gs_add_row()</code></p>
@@ -824,7 +827,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p class="caption">Survey Data with Added Row</p>
 </div>
 <p>To edit a specific cell you can use the command <code>gs_edit_cell()</code> but you will have to tell <code>googlesheets</code> which specific cell to edit. Let’s say we want to change the value of the cell <em>D4</em> from 0 to 2. For this we will use the <code>gs_edit_cells()</code> function. The <code>anchor</code> argument points to the cell that we want to modify and the <code>input</code> argument contains the new value that we want to assign to the cell.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="get-data.html#cb40-1"></a><span class="kw">gs_edit_cells</span>(survey_sheet, <span class="dt">anchor =</span> <span class="st">&quot;D4&quot;</span>, <span class="dt">input =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="get-data.html#cb34-1"></a><span class="kw">gs_edit_cells</span>(survey_sheet, <span class="dt">anchor =</span> <span class="st">&quot;D4&quot;</span>, <span class="dt">input =</span> <span class="dv">2</span>)</span></code></pre></div>
 <div class="figure">
 <img src="https://docs.google.com/presentation/d/1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA/export/png?id=1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA&amp;pageid=g398ce98dcf_0_29" alt="" />
 <p class="caption"><code>gs_edit_cells()</code></p>
@@ -859,14 +862,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="reading-csvs-into-r" class="section level3" number="2.4.2">
 <h3><span class="header-section-number">2.4.2</span> Reading CSVs into R</h3>
 <p>Now that you have a CSV file, let’s discuss how to get it into R! The best way to accomplish this is using the function <code>read_csv()</code> from the <code>readr</code> package. (Note, if you haven’t installed the <code>readr</code> package, you’ll have to do that first.) Inside the parenthesis of the function, write the name of the file in quotes, including the file extension (.csv). Make sure you type the exact file name. Save the imported data in a data frame called <code>df_csv</code>. Your data will now be imported into R environment. If you use the command <code>head(df_csv)</code> you will see the first several rows of your imported data frame:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="get-data.html#cb41-1"></a><span class="co">## install.packages(&quot;readr&quot;)</span></span>
-<span id="cb41-2"><a href="get-data.html#cb41-2"></a><span class="kw">library</span>(readr)</span>
-<span id="cb41-3"><a href="get-data.html#cb41-3"></a></span>
-<span id="cb41-4"><a href="get-data.html#cb41-4"></a><span class="co">## read CSV into R</span></span>
-<span id="cb41-5"><a href="get-data.html#cb41-5"></a>df_csv &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;sample_data - Sheet1.csv&quot;</span>)</span>
-<span id="cb41-6"><a href="get-data.html#cb41-6"></a></span>
-<span id="cb41-7"><a href="get-data.html#cb41-7"></a><span class="co">## look at the object</span></span>
-<span id="cb41-8"><a href="get-data.html#cb41-8"></a><span class="kw">head</span>(df_csv)</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="get-data.html#cb35-1"></a><span class="co">## install.packages(&quot;readr&quot;)</span></span>
+<span id="cb35-2"><a href="get-data.html#cb35-2"></a><span class="kw">library</span>(readr)</span>
+<span id="cb35-3"><a href="get-data.html#cb35-3"></a></span>
+<span id="cb35-4"><a href="get-data.html#cb35-4"></a><span class="co">## read CSV into R</span></span>
+<span id="cb35-5"><a href="get-data.html#cb35-5"></a>df_csv &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;sample_data - Sheet1.csv&quot;</span>)</span>
+<span id="cb35-6"><a href="get-data.html#cb35-6"></a></span>
+<span id="cb35-7"><a href="get-data.html#cb35-7"></a><span class="co">## look at the object</span></span>
+<span id="cb35-8"><a href="get-data.html#cb35-8"></a><span class="kw">head</span>(df_csv)</span></code></pre></div>
 <div class="figure">
 <img src="https://docs.google.com/presentation/d/199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM/export/png?id=199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM&amp;pageid=g399e5a917a_0_16" alt="" />
 <p class="caption"><code>read_csv()</code></p>
@@ -887,11 +890,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="reading-tsvs-into-r" class="section level3" number="2.5.1">
 <h3><span class="header-section-number">2.5.1</span> Reading TSVs into R</h3>
 <p>The process for reading these files into R is similar to what you’ve seen so far. We’ll again use the <code>readr</code> package, but we’ll instead use the <code>read_tsv()</code> function.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="get-data.html#cb42-1"></a><span class="co">## read TSV into R</span></span>
-<span id="cb42-2"><a href="get-data.html#cb42-2"></a>df_tsv &lt;-<span class="st"> </span><span class="kw">read_tsv</span>(<span class="st">&quot;sample_data - Sheet1.tsv&quot;</span>)</span>
-<span id="cb42-3"><a href="get-data.html#cb42-3"></a></span>
-<span id="cb42-4"><a href="get-data.html#cb42-4"></a><span class="co">## look at the object</span></span>
-<span id="cb42-5"><a href="get-data.html#cb42-5"></a><span class="kw">head</span>(df_tsv)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="get-data.html#cb36-1"></a><span class="co">## read TSV into R</span></span>
+<span id="cb36-2"><a href="get-data.html#cb36-2"></a>df_tsv &lt;-<span class="st"> </span><span class="kw">read_tsv</span>(<span class="st">&quot;sample_data - Sheet1.tsv&quot;</span>)</span>
+<span id="cb36-3"><a href="get-data.html#cb36-3"></a></span>
+<span id="cb36-4"><a href="get-data.html#cb36-4"></a><span class="co">## look at the object</span></span>
+<span id="cb36-5"><a href="get-data.html#cb36-5"></a><span class="kw">head</span>(df_tsv)</span></code></pre></div>
 </div>
 </div>
 <div id="delimited-files" class="section level2" number="2.6">
@@ -900,11 +903,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Google Sheets does not allow tab-separated files to be downloaded with the .txt file extension (since .tsv is more appropriate); however, if you were to have a file “sample_data.txt” uploaded into R, you could use the following code to read it into your R Environment, where " specifies that the file is tab-delimited.</p>
 <div id="reading-delimited-files-into-r" class="section level3" number="2.6.1">
 <h3><span class="header-section-number">2.6.1</span> Reading Delimited Files into R</h3>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="get-data.html#cb43-1"></a><span class="co">## read TXT into R</span></span>
-<span id="cb43-2"><a href="get-data.html#cb43-2"></a>df_txt &lt;-<span class="st"> </span><span class="kw">read_delim</span>(<span class="st">&quot;sample_data.txt&quot;</span>, <span class="dt">delim =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)</span>
-<span id="cb43-3"><a href="get-data.html#cb43-3"></a></span>
-<span id="cb43-4"><a href="get-data.html#cb43-4"></a><span class="co">## look at the object</span></span>
-<span id="cb43-5"><a href="get-data.html#cb43-5"></a><span class="kw">head</span>(df_txt)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="get-data.html#cb37-1"></a><span class="co">## read TXT into R</span></span>
+<span id="cb37-2"><a href="get-data.html#cb37-2"></a>df_txt &lt;-<span class="st"> </span><span class="kw">read_delim</span>(<span class="st">&quot;sample_data.txt&quot;</span>, <span class="dt">delim =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)</span>
+<span id="cb37-3"><a href="get-data.html#cb37-3"></a></span>
+<span id="cb37-4"><a href="get-data.html#cb37-4"></a><span class="co">## look at the object</span></span>
+<span id="cb37-5"><a href="get-data.html#cb37-5"></a><span class="kw">head</span>(df_txt)</span></code></pre></div>
 <p>This function allows you to specify how the file you’re reading is in delimited. This means, rather than R knowing by default whether or not the data are comma- or tab- separated, you’ll have to specify it within the argument <code>delim</code> in the function.</p>
 <p><code>read_delim()</code> is a more generic version of <code>read_csv()</code>. What this means is that you <em>could</em> use <code>read_delim()</code> to read in a CSV file. You would just need to specify that the file was comma-delimited if you were to use that function.</p>
 </div>
@@ -914,7 +917,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The last topic of this lesson is about how to export data from R. So far we learned about reading data into R. However, sometimes you would like to share <em>your</em> data with others and need to export your data from R to some format that your collaborators can see.</p>
 <p>As discussed above, CSV format is a good candidate because of its simplicity and compatibility. Let’s say you have a data frame in the R environment that you would like to export as a CSV. To do so, you could use <code>write_csv()</code> from the <code>readr</code> package.</p>
 <p>Since both methods are fairly similar, let’s look at the one from <code>readr</code> package. Since we’ve already created a data frame named <code>df_csv</code>, we can export it to a CSV file using the following code. After typing this command, a new CSV file called <code>my_csv_file.csv</code> will appear in the Files section.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="get-data.html#cb44-1"></a><span class="kw">write_csv</span>(df_csv, <span class="dt">path =</span> <span class="st">&quot;my_csv_file.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="get-data.html#cb38-1"></a><span class="kw">write_csv</span>(df_csv, <span class="dt">path =</span> <span class="st">&quot;my_csv_file.csv&quot;</span>)</span></code></pre></div>
 <p>You could similar save your data as a TSV file using the function <code>write_tsv()</code> function.</p>
 <p>We’ll finally note that there are default R functions <code>write.csv()</code> and <code>write.table()</code> that accomplish similar goals. You may see these in others’ code; however, we recommend sticking to the intuitive and quick <code>readr</code> functions discussed in this lesson.</p>
 </div>
@@ -929,27 +932,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Using a snippet of JSON data here, we see a portion of JSON data from Yelp explaining a restaurant. We’re looking at the <code>attributes</code> of this restaurant. Within <code>attributes</code>, there are four nested categories: <code>Take-out</code>, <code>Wi-Fi</code>, <code>Drive-Thru</code>, and <code>Good For</code>. In the hierarchy, attributes is at the top, while these four categories are within attributes. Within one of these attributes <code>Good For</code>, we see another level within the hierarchy. In this third level we see a number of other categories nested within <code>Good For</code>. This should give you a slightly better idea of how JSON data are structured.</p>
 <p>To get a sense of what JSON data look like, take a peak at this minimal example:</p>
 <p>Here, rather than reading</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="get-data.html#cb45-1"></a><span class="co">## generate a JSON object</span></span>
-<span id="cb45-2"><a href="get-data.html#cb45-2"></a>json &lt;-</span>
-<span id="cb45-3"><a href="get-data.html#cb45-3"></a><span class="st">&#39;[</span></span>
-<span id="cb45-4"><a href="get-data.html#cb45-4"></a><span class="st">  {&quot;Name&quot; : &quot;Woody&quot;, &quot;Age&quot; : 40, &quot;Occupation&quot; : &quot;Sherriff&quot;}, </span></span>
-<span id="cb45-5"><a href="get-data.html#cb45-5"></a><span class="st">  {&quot;Name&quot; : &quot;Buzz Lightyear&quot;, &quot;Age&quot; : 34, &quot;Occupation&quot; : &quot;Space Ranger&quot;},</span></span>
-<span id="cb45-6"><a href="get-data.html#cb45-6"></a><span class="st">  {&quot;Name&quot; : &quot;Andy&quot;, &quot;Occupation&quot; : &quot;Toy Owner&quot;}</span></span>
-<span id="cb45-7"><a href="get-data.html#cb45-7"></a><span class="st">]&#39;</span></span>
-<span id="cb45-8"><a href="get-data.html#cb45-8"></a></span>
-<span id="cb45-9"><a href="get-data.html#cb45-9"></a><span class="co">## take a look</span></span>
-<span id="cb45-10"><a href="get-data.html#cb45-10"></a>json</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="get-data.html#cb39-1"></a><span class="co">## generate a JSON object</span></span>
+<span id="cb39-2"><a href="get-data.html#cb39-2"></a>json &lt;-</span>
+<span id="cb39-3"><a href="get-data.html#cb39-3"></a><span class="st">&#39;[</span></span>
+<span id="cb39-4"><a href="get-data.html#cb39-4"></a><span class="st">  {&quot;Name&quot; : &quot;Woody&quot;, &quot;Age&quot; : 40, &quot;Occupation&quot; : &quot;Sherriff&quot;}, </span></span>
+<span id="cb39-5"><a href="get-data.html#cb39-5"></a><span class="st">  {&quot;Name&quot; : &quot;Buzz Lightyear&quot;, &quot;Age&quot; : 34, &quot;Occupation&quot; : &quot;Space Ranger&quot;},</span></span>
+<span id="cb39-6"><a href="get-data.html#cb39-6"></a><span class="st">  {&quot;Name&quot; : &quot;Andy&quot;, &quot;Occupation&quot; : &quot;Toy Owner&quot;}</span></span>
+<span id="cb39-7"><a href="get-data.html#cb39-7"></a><span class="st">]&#39;</span></span>
+<span id="cb39-8"><a href="get-data.html#cb39-8"></a></span>
+<span id="cb39-9"><a href="get-data.html#cb39-9"></a><span class="co">## take a look</span></span>
+<span id="cb39-10"><a href="get-data.html#cb39-10"></a>json</span></code></pre></div>
 <pre><code>## [1] &quot;[\n  {\&quot;Name\&quot; : \&quot;Woody\&quot;, \&quot;Age\&quot; : 40, \&quot;Occupation\&quot; : \&quot;Sherriff\&quot;}, \n  {\&quot;Name\&quot; : \&quot;Buzz Lightyear\&quot;, \&quot;Age\&quot; : 34, \&quot;Occupation\&quot; : \&quot;Space Ranger\&quot;},\n  {\&quot;Name\&quot; : \&quot;Andy\&quot;, \&quot;Occupation\&quot; : \&quot;Toy Owner\&quot;}\n]&quot;</code></pre>
 <p>Here, we’ve stored information about Toy Story characters, their age, and their occupation in an object called <code>json</code></p>
 <p>This format cannot, as it is, be easily worked with easily within R; however, <code>jsonlite</code> is just what to work with whenever you have data in JSON format. When using the defaults of the function <code>fromJSON()</code>, <code>jsonlite</code> will take the data from JSON array format and helpfully return a data frame.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="get-data.html#cb47-1"></a><span class="co">#install.packages(&quot;jsonlite&quot;)</span></span>
-<span id="cb47-2"><a href="get-data.html#cb47-2"></a><span class="kw">library</span>(jsonlite)</span>
-<span id="cb47-3"><a href="get-data.html#cb47-3"></a></span>
-<span id="cb47-4"><a href="get-data.html#cb47-4"></a><span class="co">## take JSON object and covert to a data frame</span></span>
-<span id="cb47-5"><a href="get-data.html#cb47-5"></a>mydf &lt;-<span class="st"> </span><span class="kw">fromJSON</span>(json)</span>
-<span id="cb47-6"><a href="get-data.html#cb47-6"></a></span>
-<span id="cb47-7"><a href="get-data.html#cb47-7"></a><span class="co">## take a look</span></span>
-<span id="cb47-8"><a href="get-data.html#cb47-8"></a>mydf</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="get-data.html#cb41-1"></a><span class="co">#install.packages(&quot;jsonlite&quot;)</span></span>
+<span id="cb41-2"><a href="get-data.html#cb41-2"></a><span class="kw">library</span>(jsonlite)</span>
+<span id="cb41-3"><a href="get-data.html#cb41-3"></a></span>
+<span id="cb41-4"><a href="get-data.html#cb41-4"></a><span class="co">## take JSON object and covert to a data frame</span></span>
+<span id="cb41-5"><a href="get-data.html#cb41-5"></a>mydf &lt;-<span class="st"> </span><span class="kw">fromJSON</span>(json)</span>
+<span id="cb41-6"><a href="get-data.html#cb41-6"></a></span>
+<span id="cb41-7"><a href="get-data.html#cb41-7"></a><span class="co">## take a look</span></span>
+<span id="cb41-8"><a href="get-data.html#cb41-8"></a>mydf</span></code></pre></div>
 <pre><code>##             Name Age   Occupation
 ## 1          Woody  40     Sherriff
 ## 2 Buzz Lightyear  34 Space Ranger
@@ -959,21 +962,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p class="caption"><code>fromJSON()</code></p>
 </div>
 <p>Data frames can also be returned to their original JSON format using the function: <code>toJSON()</code>.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="get-data.html#cb49-1"></a><span class="co">## take JSON object and convert to a data frame</span></span>
-<span id="cb49-2"><a href="get-data.html#cb49-2"></a>json &lt;-<span class="st"> </span><span class="kw">toJSON</span>(mydf)</span>
-<span id="cb49-3"><a href="get-data.html#cb49-3"></a>json</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="get-data.html#cb43-1"></a><span class="co">## take JSON object and convert to a data frame</span></span>
+<span id="cb43-2"><a href="get-data.html#cb43-2"></a>json &lt;-<span class="st"> </span><span class="kw">toJSON</span>(mydf)</span>
+<span id="cb43-3"><a href="get-data.html#cb43-3"></a>json</span></code></pre></div>
 <pre><code>## [{&quot;Name&quot;:&quot;Woody&quot;,&quot;Age&quot;:40,&quot;Occupation&quot;:&quot;Sherriff&quot;},{&quot;Name&quot;:&quot;Buzz Lightyear&quot;,&quot;Age&quot;:34,&quot;Occupation&quot;:&quot;Space Ranger&quot;},{&quot;Name&quot;:&quot;Andy&quot;,&quot;Occupation&quot;:&quot;Toy Owner&quot;}]</code></pre>
 <div class="figure">
 <img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_228" alt="" />
 <p class="caption"><code>toJSON()</code></p>
 </div>
 <p>While this gives us an idea of how to work with JSON formatted data in R, we haven’t yet discussed how to read a JSON file into R. When you have data in the JSON format (file extension: .json), you’ll use the <code>read_json()</code> function, which helpfully looks very similar to the other <code>read_</code> functions we’ve discussed so far:</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="get-data.html#cb51-1"></a><span class="co"># read JSON file into R</span></span>
-<span id="cb51-2"><a href="get-data.html#cb51-2"></a><span class="kw">read_json</span>(<span class="st">&quot;json_file.json&quot;</span>)</span>
-<span id="cb51-3"><a href="get-data.html#cb51-3"></a></span>
-<span id="cb51-4"><a href="get-data.html#cb51-4"></a><span class="co"># read JSON file into R and </span></span>
-<span id="cb51-5"><a href="get-data.html#cb51-5"></a><span class="co"># simplifies nested lists into vectors and data frames</span></span>
-<span id="cb51-6"><a href="get-data.html#cb51-6"></a><span class="kw">read_json</span>(<span class="st">&quot;json_file.json&quot;</span>, <span class="dt">simplifyVector =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="get-data.html#cb45-1"></a><span class="co"># read JSON file into R</span></span>
+<span id="cb45-2"><a href="get-data.html#cb45-2"></a><span class="kw">read_json</span>(<span class="st">&quot;json_file.json&quot;</span>)</span>
+<span id="cb45-3"><a href="get-data.html#cb45-3"></a></span>
+<span id="cb45-4"><a href="get-data.html#cb45-4"></a><span class="co"># read JSON file into R and </span></span>
+<span id="cb45-5"><a href="get-data.html#cb45-5"></a><span class="co"># simplifies nested lists into vectors and data frames</span></span>
+<span id="cb45-6"><a href="get-data.html#cb45-6"></a><span class="kw">read_json</span>(<span class="st">&quot;json_file.json&quot;</span>, <span class="dt">simplifyVector =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p>Note in our examples here that by default, <code>read_json()</code> reads the data in while retaining the JSON format. However, if you would like to simplify the information into a data.frame, you’ll want to specify the argument, <code>simplifyVector = TRUE</code>.</p>
 </div>
 <div id="xml" class="section level2" number="2.9">
@@ -985,8 +988,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>XML accomplishes the same goal as JSON, but it just does it in a different format. Thus, the two formats are commonly used for similar purposes – sharing information on the web; however, because the format in which they do this is different, a different R package is needed to process XML data. This packages is called <code>xml2</code>.</p>
 <p>We will look into the <code>xml2</code> package a bit more when we look at importing html files.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="get-data.html#cb52-1"></a><span class="co"># read XML file into R</span></span>
-<span id="cb52-2"><a href="get-data.html#cb52-2"></a><span class="kw">read_xml</span>(<span class="st">&quot;xml_file.xml&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="get-data.html#cb46-1"></a><span class="co"># read XML file into R</span></span>
+<span id="cb46-2"><a href="get-data.html#cb46-2"></a><span class="kw">read_xml</span>(<span class="st">&quot;xml_file.xml&quot;</span>)</span></code></pre></div>
 </div>
 <div id="databases" class="section level2" number="2.10">
 <h2><span class="header-section-number">2.10</span> Databases</h2>
@@ -1034,32 +1037,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p class="caption">relationship between two tables in the chinook database</p>
 </div>
 <p>Without any more details, let’s get to it! Here you’ll see the code to install and load the <code>RSQLite</code> package. You’ll then download the <code>chinook</code> sample database, connect to the database, and first obtain a list the tables in the database:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="get-data.html#cb53-1"></a><span class="co">## install and load packages</span></span>
-<span id="cb53-2"><a href="get-data.html#cb53-2"></a><span class="co">## this may take a minute or two</span></span>
-<span id="cb53-3"><a href="get-data.html#cb53-3"></a><span class="co"># install.packages(&quot;RSQLite&quot;)</span></span>
-<span id="cb53-4"><a href="get-data.html#cb53-4"></a><span class="co"># install.packages(&quot;httr&quot;)</span></span>
-<span id="cb53-5"><a href="get-data.html#cb53-5"></a><span class="kw">library</span>(RSQLite)</span>
-<span id="cb53-6"><a href="get-data.html#cb53-6"></a><span class="kw">library</span>(httr)</span>
-<span id="cb53-7"><a href="get-data.html#cb53-7"></a></span>
-<span id="cb53-8"><a href="get-data.html#cb53-8"></a><span class="co">## specify driver</span></span>
-<span id="cb53-9"><a href="get-data.html#cb53-9"></a>sqlite &lt;-<span class="st"> </span><span class="kw">dbDriver</span>(<span class="st">&quot;SQLite&quot;</span>)</span>
-<span id="cb53-10"><a href="get-data.html#cb53-10"></a></span>
-<span id="cb53-11"><a href="get-data.html#cb53-11"></a><span class="co">## download data</span></span>
-<span id="cb53-12"><a href="get-data.html#cb53-12"></a>url &lt;-<span class="st"> &quot;http://www.sqlitetutorial.net/wp-content/uploads/2018/03/chinook.zip&quot;</span></span>
-<span id="cb53-13"><a href="get-data.html#cb53-13"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.zip&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="get-data.html#cb47-1"></a><span class="co">## install and load packages</span></span>
+<span id="cb47-2"><a href="get-data.html#cb47-2"></a><span class="co">## this may take a minute or two</span></span>
+<span id="cb47-3"><a href="get-data.html#cb47-3"></a><span class="co"># install.packages(&quot;RSQLite&quot;)</span></span>
+<span id="cb47-4"><a href="get-data.html#cb47-4"></a><span class="co"># install.packages(&quot;httr&quot;)</span></span>
+<span id="cb47-5"><a href="get-data.html#cb47-5"></a><span class="kw">library</span>(RSQLite)</span>
+<span id="cb47-6"><a href="get-data.html#cb47-6"></a><span class="kw">library</span>(httr)</span>
+<span id="cb47-7"><a href="get-data.html#cb47-7"></a></span>
+<span id="cb47-8"><a href="get-data.html#cb47-8"></a><span class="co">## specify driver</span></span>
+<span id="cb47-9"><a href="get-data.html#cb47-9"></a>sqlite &lt;-<span class="st"> </span><span class="kw">dbDriver</span>(<span class="st">&quot;SQLite&quot;</span>)</span>
+<span id="cb47-10"><a href="get-data.html#cb47-10"></a></span>
+<span id="cb47-11"><a href="get-data.html#cb47-11"></a><span class="co">## download data</span></span>
+<span id="cb47-12"><a href="get-data.html#cb47-12"></a>url &lt;-<span class="st"> &quot;http://www.sqlitetutorial.net/wp-content/uploads/2018/03/chinook.zip&quot;</span></span>
+<span id="cb47-13"><a href="get-data.html#cb47-13"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.zip&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://www.sqlitetutorial.net/wp-content/uploads/2018/03/chinook.zip]
-##   Date: 2020-10-07 17:42
+##   Date: 2020-10-07 18:23
 ##   Status: 200
 ##   Content-Type: application/zip
 ##   Size: 306 kB
-## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpF8fWmH/file31be4338a7cf.zip</code></pre>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="get-data.html#cb55-1"></a><span class="kw">unzip</span>(tf)</span>
-<span id="cb55-2"><a href="get-data.html#cb55-2"></a></span>
-<span id="cb55-3"><a href="get-data.html#cb55-3"></a><span class="co">## Connect to Database</span></span>
-<span id="cb55-4"><a href="get-data.html#cb55-4"></a>db &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(sqlite, <span class="st">&#39;chinook.db&#39;</span>)</span>
-<span id="cb55-5"><a href="get-data.html#cb55-5"></a></span>
-<span id="cb55-6"><a href="get-data.html#cb55-6"></a><span class="co">## list tables in database</span></span>
-<span id="cb55-7"><a href="get-data.html#cb55-7"></a><span class="kw">dbListTables</span>(db)</span></code></pre></div>
+## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//Rtmpu8yfPk/file33a777c83073.zip</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="get-data.html#cb49-1"></a><span class="kw">unzip</span>(tf)</span>
+<span id="cb49-2"><a href="get-data.html#cb49-2"></a></span>
+<span id="cb49-3"><a href="get-data.html#cb49-3"></a><span class="co">## Connect to Database</span></span>
+<span id="cb49-4"><a href="get-data.html#cb49-4"></a>db &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(sqlite, <span class="st">&#39;chinook.db&#39;</span>)</span>
+<span id="cb49-5"><a href="get-data.html#cb49-5"></a></span>
+<span id="cb49-6"><a href="get-data.html#cb49-6"></a><span class="co">## list tables in database</span></span>
+<span id="cb49-7"><a href="get-data.html#cb49-7"></a><span class="kw">dbListTables</span>(db)</span></code></pre></div>
 <pre><code>##  [1] &quot;albums&quot;          &quot;artists&quot;         &quot;customers&quot;       &quot;employees&quot;      
 ##  [5] &quot;genres&quot;          &quot;invoice_items&quot;   &quot;invoices&quot;        &quot;media_types&quot;    
 ##  [9] &quot;playlist_track&quot;  &quot;playlists&quot;       &quot;sqlite_sequence&quot; &quot;sqlite_stat1&quot;   
@@ -1075,14 +1078,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">2.10.4</span> Working with Relational Data: <code>dplyr</code> &amp; <code>dbplyr</code></h3>
 <p>To access these tables within R, we’ll have to install the packages <code>dbplyr</code>, which enables us to access the parts of the database we’re going to be working with. <code>dbplyr</code> allows you to use the same functions you learned when working with <code>dplyr</code>; however, it allows you to use these functions with a <em>database</em>. While <code>dbplyr</code> has to be loaded to work with databases, you likely won’t notice that you’re using it beyond that. Otherwise, you’ll just work with the files as if you were working with <code>dplyr</code> functions!</p>
 <p>After installing and loading <code>dbplyr</code>, we’ll be able to use the helpful <code>tbl()</code> function to extract the two tables we’re interested in working with!</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="get-data.html#cb57-1"></a><span class="co">## install and load packages</span></span>
-<span id="cb57-2"><a href="get-data.html#cb57-2"></a><span class="co"># install.packages(&quot;dbplyr&quot;)</span></span>
-<span id="cb57-3"><a href="get-data.html#cb57-3"></a><span class="kw">library</span>(dbplyr)</span>
-<span id="cb57-4"><a href="get-data.html#cb57-4"></a><span class="kw">library</span>(dplyr)</span>
-<span id="cb57-5"><a href="get-data.html#cb57-5"></a></span>
-<span id="cb57-6"><a href="get-data.html#cb57-6"></a><span class="co">## get two tables</span></span>
-<span id="cb57-7"><a href="get-data.html#cb57-7"></a>albums &lt;-<span class="st"> </span><span class="kw">tbl</span>(db, <span class="st">&quot;albums&quot;</span>)</span>
-<span id="cb57-8"><a href="get-data.html#cb57-8"></a>artists &lt;-<span class="st"> </span><span class="kw">tbl</span>(db, <span class="st">&quot;artists&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="get-data.html#cb51-1"></a><span class="co">## install and load packages</span></span>
+<span id="cb51-2"><a href="get-data.html#cb51-2"></a><span class="co"># install.packages(&quot;dbplyr&quot;)</span></span>
+<span id="cb51-3"><a href="get-data.html#cb51-3"></a><span class="kw">library</span>(dbplyr)</span>
+<span id="cb51-4"><a href="get-data.html#cb51-4"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb51-5"><a href="get-data.html#cb51-5"></a></span>
+<span id="cb51-6"><a href="get-data.html#cb51-6"></a><span class="co">## get two tables</span></span>
+<span id="cb51-7"><a href="get-data.html#cb51-7"></a>albums &lt;-<span class="st"> </span><span class="kw">tbl</span>(db, <span class="st">&quot;albums&quot;</span>)</span>
+<span id="cb51-8"><a href="get-data.html#cb51-8"></a>artists &lt;-<span class="st"> </span><span class="kw">tbl</span>(db, <span class="st">&quot;artists&quot;</span>)</span></code></pre></div>
 </div>
 <div id="mutating-joins" class="section level3" number="2.10.5">
 <h3><span class="header-section-number">2.10.5</span> Mutating Joins</h3>
@@ -1114,11 +1117,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>Throughout this lesson we will use the coloring use see here to explain the joins, so we want to explain it explicitly here. Green cells are cells that will be used to make the merge happen and will be included in the resulting merged table. Blue cells are information that comes from the <code>artists</code> table that will be included after the merge. Red cells are pieces of information that come from the <code>albums</code> table that will be included after the merge. Finally, cells that are left white in the <code>artists</code> or <code>albums</code> table are cells that will not be included in the merge while cells that are white <em>after</em> the merge are NAs that have been added as a result of the merge.</p>
 <p>Now, to run this for our tables from the database, rather than just for a few rows in our toy example, you would do the following:</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="get-data.html#cb58-1"></a><span class="co">## do inner join</span></span>
-<span id="cb58-2"><a href="get-data.html#cb58-2"></a>inner &lt;-<span class="st"> </span><span class="kw">inner_join</span>(artists, albums, <span class="dt">by =</span> <span class="st">&quot;ArtistId&quot;</span>)</span>
-<span id="cb58-3"><a href="get-data.html#cb58-3"></a></span>
-<span id="cb58-4"><a href="get-data.html#cb58-4"></a><span class="co">## look at output as a tibble</span></span>
-<span id="cb58-5"><a href="get-data.html#cb58-5"></a><span class="kw">as_tibble</span>(inner)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="get-data.html#cb52-1"></a><span class="co">## do inner join</span></span>
+<span id="cb52-2"><a href="get-data.html#cb52-2"></a>inner &lt;-<span class="st"> </span><span class="kw">inner_join</span>(artists, albums, <span class="dt">by =</span> <span class="st">&quot;ArtistId&quot;</span>)</span>
+<span id="cb52-3"><a href="get-data.html#cb52-3"></a></span>
+<span id="cb52-4"><a href="get-data.html#cb52-4"></a><span class="co">## look at output as a tibble</span></span>
+<span id="cb52-5"><a href="get-data.html#cb52-5"></a><span class="kw">as_tibble</span>(inner)</span></code></pre></div>
 <pre><code>## # A tibble: 347 x 4
 ##    ArtistId Name                 AlbumId Title                                
 ##       &lt;int&gt; &lt;chr&gt;                  &lt;int&gt; &lt;chr&gt;                                
@@ -1152,11 +1155,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p class="caption">left join will fill in NAs</p>
 </div>
 <p>Now, to run this for our tables from the database, rather than just for a few rows in our toy example, you would do the following:</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="get-data.html#cb60-1"></a><span class="co">## do left join</span></span>
-<span id="cb60-2"><a href="get-data.html#cb60-2"></a>left &lt;-<span class="st"> </span><span class="kw">left_join</span>(artists, albums, <span class="dt">by =</span> <span class="st">&quot;ArtistId&quot;</span>)</span>
-<span id="cb60-3"><a href="get-data.html#cb60-3"></a></span>
-<span id="cb60-4"><a href="get-data.html#cb60-4"></a><span class="co">## look at output as a tibble</span></span>
-<span id="cb60-5"><a href="get-data.html#cb60-5"></a><span class="kw">as_tibble</span>(left)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="get-data.html#cb54-1"></a><span class="co">## do left join</span></span>
+<span id="cb54-2"><a href="get-data.html#cb54-2"></a>left &lt;-<span class="st"> </span><span class="kw">left_join</span>(artists, albums, <span class="dt">by =</span> <span class="st">&quot;ArtistId&quot;</span>)</span>
+<span id="cb54-3"><a href="get-data.html#cb54-3"></a></span>
+<span id="cb54-4"><a href="get-data.html#cb54-4"></a><span class="co">## look at output as a tibble</span></span>
+<span id="cb54-5"><a href="get-data.html#cb54-5"></a><span class="kw">as_tibble</span>(left)</span></code></pre></div>
 <pre><code>## # A tibble: 418 x 4
 ##    ArtistId Name                 AlbumId Title                                
 ##       &lt;int&gt; &lt;chr&gt;                  &lt;int&gt; &lt;chr&gt;                                
@@ -1190,11 +1193,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p class="caption">right join will fill in NAs</p>
 </div>
 <p>Now, to run this for our tables from the database, you would have to do something <em>slightly</em> different than what you saw above. Note in the code below that we have to change teh class of the tables from the database into tibbles before doing the join. This is because SQL does not currently support right or full joins, but <code>dplyr</code> does. Thus, we first have to be sure the data are a class that <code>dplyr</code> can work with using <code>as_tibble()</code>. Other than that, the code below is similar to what you’ve seen already:</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="get-data.html#cb62-1"></a><span class="co">## do right join</span></span>
-<span id="cb62-2"><a href="get-data.html#cb62-2"></a>right &lt;-<span class="st"> </span><span class="kw">right_join</span>(<span class="kw">as_tibble</span>(artists), <span class="kw">as_tibble</span>(albums), <span class="dt">by =</span> <span class="st">&quot;ArtistId&quot;</span>)</span>
-<span id="cb62-3"><a href="get-data.html#cb62-3"></a></span>
-<span id="cb62-4"><a href="get-data.html#cb62-4"></a><span class="co">## look at output as a tibble</span></span>
-<span id="cb62-5"><a href="get-data.html#cb62-5"></a><span class="kw">as_tibble</span>(right)</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="get-data.html#cb56-1"></a><span class="co">## do right join</span></span>
+<span id="cb56-2"><a href="get-data.html#cb56-2"></a>right &lt;-<span class="st"> </span><span class="kw">right_join</span>(<span class="kw">as_tibble</span>(artists), <span class="kw">as_tibble</span>(albums), <span class="dt">by =</span> <span class="st">&quot;ArtistId&quot;</span>)</span>
+<span id="cb56-3"><a href="get-data.html#cb56-3"></a></span>
+<span id="cb56-4"><a href="get-data.html#cb56-4"></a><span class="co">## look at output as a tibble</span></span>
+<span id="cb56-5"><a href="get-data.html#cb56-5"></a><span class="kw">as_tibble</span>(right)</span></code></pre></div>
 <pre><code>## # A tibble: 347 x 4
 ##    ArtistId Name                 AlbumId Title                                
 ##       &lt;int&gt; &lt;chr&gt;                  &lt;int&gt; &lt;chr&gt;                                
@@ -1228,11 +1231,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p class="caption">full join will fill in NAs</p>
 </div>
 <p>As you saw in the last example, to carry out a full join, we have to again specify that the objects are tibbles before being able to carry out the join</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="get-data.html#cb64-1"></a><span class="co">## do right join</span></span>
-<span id="cb64-2"><a href="get-data.html#cb64-2"></a>full &lt;-<span class="st"> </span><span class="kw">full_join</span>(<span class="kw">as_tibble</span>(artists), <span class="kw">as_tibble</span>(albums), <span class="dt">by =</span> <span class="st">&quot;ArtistId&quot;</span>)</span>
-<span id="cb64-3"><a href="get-data.html#cb64-3"></a></span>
-<span id="cb64-4"><a href="get-data.html#cb64-4"></a><span class="co">## look at output as a tibble</span></span>
-<span id="cb64-5"><a href="get-data.html#cb64-5"></a><span class="kw">as_tibble</span>(full)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="get-data.html#cb58-1"></a><span class="co">## do right join</span></span>
+<span id="cb58-2"><a href="get-data.html#cb58-2"></a>full &lt;-<span class="st"> </span><span class="kw">full_join</span>(<span class="kw">as_tibble</span>(artists), <span class="kw">as_tibble</span>(albums), <span class="dt">by =</span> <span class="st">&quot;ArtistId&quot;</span>)</span>
+<span id="cb58-3"><a href="get-data.html#cb58-3"></a></span>
+<span id="cb58-4"><a href="get-data.html#cb58-4"></a><span class="co">## look at output as a tibble</span></span>
+<span id="cb58-5"><a href="get-data.html#cb58-5"></a><span class="kw">as_tibble</span>(full)</span></code></pre></div>
 <pre><code>## # A tibble: 418 x 4
 ##    ArtistId Name                 AlbumId Title                                
 ##       &lt;int&gt; &lt;chr&gt;                  &lt;int&gt; &lt;chr&gt;                                
@@ -1287,11 +1290,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>As mentioned briefly above, most often when working with databases, you won’t be downloading the entire database. Instead, you’ll connect to a server somewhere else where the data live and query the data (search for the parts you need) from R.</p>
 <p>For example, in this lesson we downloaded the entire <code>chinook</code> database, but only ended up using <code>artists</code> and <code>albums</code>. In the future, instead of downloading <em>all</em> the data, you’ll just connect to the database and work with the parts you need.</p>
 <p>This will require connecting to the database with <code>host</code>, <code>user</code>, and <code>password</code>. This information will be provided by the database’s owners, but the syntax for entering this information into R to connect to the database would look something like what you see here:</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="get-data.html#cb66-1"></a>con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbConnect</span>(RMySQL<span class="op">::</span><span class="kw">MySQL</span>(), </span>
-<span id="cb66-2"><a href="get-data.html#cb66-2"></a>  <span class="dt">host =</span> <span class="st">&quot;database.host.com&quot;</span>,</span>
-<span id="cb66-3"><a href="get-data.html#cb66-3"></a>  <span class="dt">user =</span> <span class="st">&quot;janeeverydaydoe&quot;</span>,</span>
-<span id="cb66-4"><a href="get-data.html#cb66-4"></a>  <span class="dt">password =</span> rstudioapi<span class="op">::</span><span class="kw">askForPassword</span>(<span class="st">&quot;database_password&quot;</span>)</span>
-<span id="cb66-5"><a href="get-data.html#cb66-5"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="get-data.html#cb60-1"></a>con &lt;-<span class="st"> </span>DBI<span class="op">::</span><span class="kw">dbConnect</span>(RMySQL<span class="op">::</span><span class="kw">MySQL</span>(), </span>
+<span id="cb60-2"><a href="get-data.html#cb60-2"></a>  <span class="dt">host =</span> <span class="st">&quot;database.host.com&quot;</span>,</span>
+<span id="cb60-3"><a href="get-data.html#cb60-3"></a>  <span class="dt">user =</span> <span class="st">&quot;janeeverydaydoe&quot;</span>,</span>
+<span id="cb60-4"><a href="get-data.html#cb60-4"></a>  <span class="dt">password =</span> rstudioapi<span class="op">::</span><span class="kw">askForPassword</span>(<span class="st">&quot;database_password&quot;</span>)</span>
+<span id="cb60-5"><a href="get-data.html#cb60-5"></a>)</span></code></pre></div>
 <p>While not being discussed in detail here, it’s important to know that connecting to remote databases from R is possible and that this allows you to query the database without reading <em>all</em> the data from the database into R.</p>
 </div>
 </div>
@@ -1362,9 +1365,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Now we’re ready to use <code>rvest</code>’s functions. First, we’ll use <code>read_html()</code> (which actually comes from the <code>xml2</code> package) to read in the HTML from our webpage of interest.</p>
 <p>We’ll then use <code>html_nodes()</code> to specify which parts of the webpage we want to extract. Within this function we specify “strong”, as that’s what SelectorGadget told us to specify to “harvest” the information we’re interested in.</p>
 <p>Finally <code>html_text()</code> extracts the text from the tag we’ve specified, giving us that list of courses we wanted to see!</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="get-data.html#cb67-1"></a><span class="co">## load package</span></span>
-<span id="cb67-2"><a href="get-data.html#cb67-2"></a><span class="co"># install.packages(&quot;rvest&quot;)</span></span>
-<span id="cb67-3"><a href="get-data.html#cb67-3"></a><span class="kw">library</span>(rvest) <span class="co"># this loads the xml2 package too!</span></span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="get-data.html#cb61-1"></a><span class="co">## load package</span></span>
+<span id="cb61-2"><a href="get-data.html#cb61-2"></a><span class="co"># install.packages(&quot;rvest&quot;)</span></span>
+<span id="cb61-3"><a href="get-data.html#cb61-3"></a><span class="kw">library</span>(rvest) <span class="co"># this loads the xml2 package too!</span></span></code></pre></div>
 <pre><code>## Loading required package: xml2</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;rvest&#39;</code></pre>
@@ -1374,13 +1377,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## The following object is masked from &#39;package:readr&#39;:
 ## 
 ##     guess_encoding</code></pre>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="get-data.html#cb72-1"></a><span class="co">## provide URL</span></span>
-<span id="cb72-2"><a href="get-data.html#cb72-2"></a>courses &lt;-<span class="st"> </span><span class="kw">read_html</span>(<span class="st">&quot;http://jhudatascience.org/stable_website/webscrape.html&quot;</span>) <span class="co"># the function is from xml2</span></span>
-<span id="cb72-3"><a href="get-data.html#cb72-3"></a></span>
-<span id="cb72-4"><a href="get-data.html#cb72-4"></a><span class="co">## Get Courses</span></span>
-<span id="cb72-5"><a href="get-data.html#cb72-5"></a>courses <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb72-6"><a href="get-data.html#cb72-6"></a><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&quot;strong&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb72-7"><a href="get-data.html#cb72-7"></a><span class="st">  </span><span class="kw">html_text</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="get-data.html#cb66-1"></a><span class="co">## provide URL</span></span>
+<span id="cb66-2"><a href="get-data.html#cb66-2"></a>courses &lt;-<span class="st"> </span><span class="kw">read_html</span>(<span class="st">&quot;http://jhudatascience.org/stable_website/webscrape.html&quot;</span>) <span class="co"># the function is from xml2</span></span>
+<span id="cb66-3"><a href="get-data.html#cb66-3"></a></span>
+<span id="cb66-4"><a href="get-data.html#cb66-4"></a><span class="co">## Get Courses</span></span>
+<span id="cb66-5"><a href="get-data.html#cb66-5"></a>courses <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb66-6"><a href="get-data.html#cb66-6"></a><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&quot;strong&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb66-7"><a href="get-data.html#cb66-7"></a><span class="st">  </span><span class="kw">html_text</span>() </span></code></pre></div>
 <pre><code>## [1] &quot;rvest&quot;        &quot;httr&quot;         &quot;dbplyr&quot;       &quot;jsonlite&quot;     &quot;googlesheets&quot;</code></pre>
 <div class="figure">
 <img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_188" alt="" />
@@ -1429,18 +1432,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">2.12.2.2</span> API request: <code>GET()</code></h4>
 <p>Now that we know what our API endpoint is, we’re ready to make our <strong>API request</strong> using <code>GET()</code>.</p>
 <p>The goal of this request is to obtain information about what repositories are available in <em>your</em> GitHub account. To use the example below, you’ll want to change the username <code>janeeverydaydoe</code> to your GitHub username.</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="get-data.html#cb74-1"></a><span class="co">## load package</span></span>
-<span id="cb74-2"><a href="get-data.html#cb74-2"></a><span class="kw">library</span>(httr)</span>
-<span id="cb74-3"><a href="get-data.html#cb74-3"></a><span class="kw">library</span>(dplyr)</span>
-<span id="cb74-4"><a href="get-data.html#cb74-4"></a> 	</span>
-<span id="cb74-5"><a href="get-data.html#cb74-5"></a><span class="co">## Save GitHub username as variable</span></span>
-<span id="cb74-6"><a href="get-data.html#cb74-6"></a>username &lt;-<span class="st"> &#39;janeeverydaydoe&#39;</span></span>
-<span id="cb74-7"><a href="get-data.html#cb74-7"></a></span>
-<span id="cb74-8"><a href="get-data.html#cb74-8"></a><span class="co">## Save base endpoint as variable</span></span>
-<span id="cb74-9"><a href="get-data.html#cb74-9"></a>url_git &lt;-<span class="st"> &#39;https://api.github.com/&#39;</span></span>
-<span id="cb74-10"><a href="get-data.html#cb74-10"></a></span>
-<span id="cb74-11"><a href="get-data.html#cb74-11"></a><span class="co">## Construct API request</span></span>
-<span id="cb74-12"><a href="get-data.html#cb74-12"></a>api_response &lt;-<span class="st"> </span><span class="kw">GET</span>(<span class="dt">url =</span> <span class="kw">paste0</span>(url_git, <span class="st">&#39;users/&#39;</span>, username, <span class="st">&#39;/repos&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="get-data.html#cb68-1"></a><span class="co">## load package</span></span>
+<span id="cb68-2"><a href="get-data.html#cb68-2"></a><span class="kw">library</span>(httr)</span>
+<span id="cb68-3"><a href="get-data.html#cb68-3"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb68-4"><a href="get-data.html#cb68-4"></a> 	</span>
+<span id="cb68-5"><a href="get-data.html#cb68-5"></a><span class="co">## Save GitHub username as variable</span></span>
+<span id="cb68-6"><a href="get-data.html#cb68-6"></a>username &lt;-<span class="st"> &#39;janeeverydaydoe&#39;</span></span>
+<span id="cb68-7"><a href="get-data.html#cb68-7"></a></span>
+<span id="cb68-8"><a href="get-data.html#cb68-8"></a><span class="co">## Save base endpoint as variable</span></span>
+<span id="cb68-9"><a href="get-data.html#cb68-9"></a>url_git &lt;-<span class="st"> &#39;https://api.github.com/&#39;</span></span>
+<span id="cb68-10"><a href="get-data.html#cb68-10"></a></span>
+<span id="cb68-11"><a href="get-data.html#cb68-11"></a><span class="co">## Construct API request</span></span>
+<span id="cb68-12"><a href="get-data.html#cb68-12"></a>api_response &lt;-<span class="st"> </span><span class="kw">GET</span>(<span class="dt">url =</span> <span class="kw">paste0</span>(url_git, <span class="st">&#39;users/&#39;</span>, username, <span class="st">&#39;/repos&#39;</span>))</span></code></pre></div>
 <p>Note: In the code above, you see the function <code>paste0()</code>. This function concatenates (links together) each the pieces within the parentheses, where each piece is separated by a comma. This provides <code>GET()</code> with the URL we want to use as our endpoints!</p>
 <div class="figure">
 <img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_54" alt="" />
@@ -1450,8 +1453,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="api-response-content" class="section level4" number="2.12.2.3">
 <h4><span class="header-section-number">2.12.2.3</span> API response: <code>content()</code></h4>
 <p>Let’s first take a look at what other variables are available within the <code>api_response</code> object:</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="get-data.html#cb75-1"></a><span class="co">## See variables in response</span></span>
-<span id="cb75-2"><a href="get-data.html#cb75-2"></a><span class="kw">names</span>(api_response)</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="get-data.html#cb69-1"></a><span class="co">## See variables in response</span></span>
+<span id="cb69-2"><a href="get-data.html#cb69-2"></a><span class="kw">names</span>(api_response)</span></code></pre></div>
 <pre><code>##  [1] &quot;url&quot;         &quot;status_code&quot; &quot;headers&quot;     &quot;all_headers&quot; &quot;cookies&quot;    
 ##  [6] &quot;content&quot;     &quot;date&quot;        &quot;times&quot;       &quot;request&quot;     &quot;handle&quot;</code></pre>
 <div class="figure">
@@ -1459,23 +1462,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p class="caption"><code>httr</code> response</p>
 </div>
 <p>While we see ten different variables within <code>api_response</code>, we should probably first make sure that the request to GitHub’s API was successful. We can do this by checking the status code of the request, where “200” means that everything worked properly:</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="get-data.html#cb77-1"></a><span class="co">## Check Status Code of request</span></span>
-<span id="cb77-2"><a href="get-data.html#cb77-2"></a>api_response<span class="op">$</span>status_code</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="get-data.html#cb71-1"></a><span class="co">## Check Status Code of request</span></span>
+<span id="cb71-2"><a href="get-data.html#cb71-2"></a>api_response<span class="op">$</span>status_code</span></code></pre></div>
 <pre><code>## [1] 200</code></pre>
 <p>But, to be honest, we aren’t really interested in just knowing the request worked. We actually want to see what information is contained on our GitHub account.</p>
 <p>To do so we’ll take advantage of <code>httr</code>’s <code>content()</code> function, which as its name suggests, extracts the contents from an API request.</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="get-data.html#cb79-1"></a><span class="co">## Extract content from API response</span></span>
-<span id="cb79-2"><a href="get-data.html#cb79-2"></a>repo_content &lt;-<span class="st"> </span><span class="kw">content</span>(api_response)</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="get-data.html#cb73-1"></a><span class="co">## Extract content from API response</span></span>
+<span id="cb73-2"><a href="get-data.html#cb73-2"></a>repo_content &lt;-<span class="st"> </span><span class="kw">content</span>(api_response)</span></code></pre></div>
 <div class="figure">
 <img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_117" alt="" />
 <p class="caption"><code>httr</code> status code and <code>content()</code></p>
 </div>
 <p>You can see here that the length of <code>repo_content</code> in our case is 6 by looking at the Environment tab. This is because the GitHub account <code>janeeverydaydoe</code> had six repositories at the time of this API call. We can get some information about each repo by running the function below:</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="get-data.html#cb80-1"></a><span class="co">## function to get name and URL for each repo</span></span>
-<span id="cb80-2"><a href="get-data.html#cb80-2"></a><span class="kw">lapply</span>(repo_content, <span class="cf">function</span>(x) {</span>
-<span id="cb80-3"><a href="get-data.html#cb80-3"></a>  df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">repo =</span> x<span class="op">$</span>name,</span>
-<span id="cb80-4"><a href="get-data.html#cb80-4"></a>                   <span class="dt">address =</span> x<span class="op">$</span>html_url)}) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb80-5"><a href="get-data.html#cb80-5"></a><span class="st">  </span><span class="kw">bind_rows</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="get-data.html#cb74-1"></a><span class="co">## function to get name and URL for each repo</span></span>
+<span id="cb74-2"><a href="get-data.html#cb74-2"></a><span class="kw">lapply</span>(repo_content, <span class="cf">function</span>(x) {</span>
+<span id="cb74-3"><a href="get-data.html#cb74-3"></a>  df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">repo =</span> x<span class="op">$</span>name,</span>
+<span id="cb74-4"><a href="get-data.html#cb74-4"></a>                   <span class="dt">address =</span> x<span class="op">$</span>html_url)}) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb74-5"><a href="get-data.html#cb74-5"></a><span class="st">  </span><span class="kw">bind_rows</span>()</span></code></pre></div>
 <pre><code>## Warning: `data_frame()` is deprecated as of tibble 1.1.0.
 ## Please use `tibble()` instead.
 ## This warning is displayed once every 8 hours.
@@ -1506,11 +1509,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p class="caption">steak-survey on GitHub</p>
 </div>
 <p>To do so, we would do the following:</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="get-data.html#cb83-1"></a><span class="co">## Make API request</span></span>
-<span id="cb83-2"><a href="get-data.html#cb83-2"></a>api_response &lt;-<span class="st"> </span><span class="kw">GET</span>(<span class="dt">url =</span> <span class="st">&quot;https://raw.githubusercontent.com/fivethirtyeight/data/master/steak-survey/steak-risk-survey.csv&quot;</span>)</span>
-<span id="cb83-3"><a href="get-data.html#cb83-3"></a></span>
-<span id="cb83-4"><a href="get-data.html#cb83-4"></a><span class="co">## Extract content from API response</span></span>
-<span id="cb83-5"><a href="get-data.html#cb83-5"></a>df_steak &lt;-<span class="st"> </span><span class="kw">content</span>(api_response, <span class="dt">type=</span><span class="st">&quot;text/csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="get-data.html#cb77-1"></a><span class="co">## Make API request</span></span>
+<span id="cb77-2"><a href="get-data.html#cb77-2"></a>api_response &lt;-<span class="st"> </span><span class="kw">GET</span>(<span class="dt">url =</span> <span class="st">&quot;https://raw.githubusercontent.com/fivethirtyeight/data/master/steak-survey/steak-risk-survey.csv&quot;</span>)</span>
+<span id="cb77-3"><a href="get-data.html#cb77-3"></a></span>
+<span id="cb77-4"><a href="get-data.html#cb77-4"></a><span class="co">## Extract content from API response</span></span>
+<span id="cb77-5"><a href="get-data.html#cb77-5"></a>df_steak &lt;-<span class="st"> </span><span class="kw">content</span>(api_response, <span class="dt">type=</span><span class="st">&quot;text/csv&quot;</span>)</span></code></pre></div>
 <div class="figure">
 <img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_154" alt="" />
 <p class="caption"><code>GET()</code> steak-survey CSV</p>
@@ -1520,8 +1523,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="read_csv-from-a-url" class="section level3" number="2.12.4">
 <h3><span class="header-section-number">2.12.4</span> <code>read_csv()</code> from a URL</h3>
 <p>Before going any further, we’ll note that these data are in the CSV format and that the <code>read_csv()</code> function can read CSVs directly from a URL:</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="get-data.html#cb84-1"></a><span class="co">#use readr to read in CSV from a URL</span></span>
-<span id="cb84-2"><a href="get-data.html#cb84-2"></a>df &lt;-<span class="st"> </span><span class="kw">read_csv</span>( <span class="st">&quot;https://raw.githubusercontent.com/fivethirtyeight/data/master/steak-survey/steak-risk-survey.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="get-data.html#cb78-1"></a><span class="co">#use readr to read in CSV from a URL</span></span>
+<span id="cb78-2"><a href="get-data.html#cb78-2"></a>df &lt;-<span class="st"> </span><span class="kw">read_csv</span>( <span class="st">&quot;https://raw.githubusercontent.com/fivethirtyeight/data/master/steak-survey/steak-risk-survey.csv&quot;</span>)</span></code></pre></div>
 <p>While this is a simpler approach than the previous example, you’ll want to use this approach when reading CSVs from URL. However, you won’t always have data in the CSV format, so we wanted to be sure to demonstrate how to use <code>httr</code> when obtaining information from URLs using HTTP methods.</p>
 </div>
 <div id="api-keys" class="section level3" number="2.12.5">
@@ -1530,13 +1533,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Alternatively, while Google also has an API (or rather, <em>many</em> API’s), they aren’t quite as open. This makes good sense. There is no reason I should have access to the files on someone else’s Google Drive account. Controlling whose files one can access through Google’s API is an important privacy feature.</p>
 <p>In these cases, what is known as a key is required to gain access to the API. <strong>API keys</strong> are obtained from the website’s API site (ie, for Google’s APIs, you would start <a href="https://developers.google.com/apis-explorer/#p/">here</a>. Once acquired, these keys should <strong>never be shared on the Internet</strong>. There is a reason they’re required, after all. So, be sure to <strong>never push a key to GitHub or share it publicly</strong>. (If you do ever accidentally share a key on the Internet, return to the API and disable the key immediately.)</p>
 <p>For example, to access the Twitter API, you would obtain your key and necessary tokens from <a href="https://developer.twitter.com/en/docs/tweets/search/overview">Twitter’s API</a> and replace the text in the <code>key</code>, <code>secret</code>, <code>token</code> and <code>token_secret</code> arguments below. This would authenticate you to use Twitter’s API to acquire information about your home timeline.</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="get-data.html#cb85-1"></a>myapp =<span class="st"> </span><span class="kw">oauth_app</span>(<span class="st">&quot;twitter&quot;</span>,</span>
-<span id="cb85-2"><a href="get-data.html#cb85-2"></a>                   <span class="dt">key =</span> <span class="st">&quot;yourConsumerKeyHere&quot;</span>,</span>
-<span id="cb85-3"><a href="get-data.html#cb85-3"></a>                   <span class="dt">secret =</span> <span class="st">&quot;yourConsumerSecretHere&quot;</span>)</span>
-<span id="cb85-4"><a href="get-data.html#cb85-4"></a>sig =<span class="st"> </span><span class="kw">sign_oauth1.0</span>(myapp,</span>
-<span id="cb85-5"><a href="get-data.html#cb85-5"></a>                    <span class="dt">token =</span> <span class="st">&quot;yourTokenHere&quot;</span>,</span>
-<span id="cb85-6"><a href="get-data.html#cb85-6"></a>                    <span class="dt">token_secret =</span> <span class="st">&quot;yourTokenSecretHere&quot;</span>)</span>
-<span id="cb85-7"><a href="get-data.html#cb85-7"></a>homeTL =<span class="st"> </span><span class="kw">GET</span>(<span class="st">&quot;https://api.twitter.com/1.1/statuses/home_timeline.json&quot;</span>, sig)</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="get-data.html#cb79-1"></a>myapp =<span class="st"> </span><span class="kw">oauth_app</span>(<span class="st">&quot;twitter&quot;</span>,</span>
+<span id="cb79-2"><a href="get-data.html#cb79-2"></a>                   <span class="dt">key =</span> <span class="st">&quot;yourConsumerKeyHere&quot;</span>,</span>
+<span id="cb79-3"><a href="get-data.html#cb79-3"></a>                   <span class="dt">secret =</span> <span class="st">&quot;yourConsumerSecretHere&quot;</span>)</span>
+<span id="cb79-4"><a href="get-data.html#cb79-4"></a>sig =<span class="st"> </span><span class="kw">sign_oauth1.0</span>(myapp,</span>
+<span id="cb79-5"><a href="get-data.html#cb79-5"></a>                    <span class="dt">token =</span> <span class="st">&quot;yourTokenHere&quot;</span>,</span>
+<span id="cb79-6"><a href="get-data.html#cb79-6"></a>                    <span class="dt">token_secret =</span> <span class="st">&quot;yourTokenSecretHere&quot;</span>)</span>
+<span id="cb79-7"><a href="get-data.html#cb79-7"></a>homeTL =<span class="st"> </span><span class="kw">GET</span>(<span class="st">&quot;https://api.twitter.com/1.1/statuses/home_timeline.json&quot;</span>, sig)</span></code></pre></div>
 </div>
 </div>
 <div id="foreign-formats" class="section level2" number="2.13">
@@ -1545,40 +1548,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">2.13.1</span> <code>haven</code></h3>
 <p>Perhaps you or your collaborators use other types of statistical software such as <a href="https://en.wikipedia.org/wiki/SPSS">SPSS</a>, <a href="https://en.wikipedia.org/wiki/Stata">Stata</a>, and <a href="https://en.wikipedia.org/wiki/SAS_(software)">SAS</a>. Files supported by these software packages can be imported into R and exported from R using the <code>haven</code> package.</p>
 <p>As an example we will first write files for each of these software packages and then read them. The data needs to be in a data frame format and spaces and punctuation in variable names will cause issues. We will use the Toy Story character data frame that we created earlier for this example. Note that we are using the <code>here</code> package that was described in the introduction to save our files in a directory called <code>data</code> which is a subdirectory of the directory in which the <code>.Rproj</code> file is located.</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="get-data.html#cb86-1"></a><span class="co">#install.packages(&quot;haven&quot;)</span></span>
-<span id="cb86-2"><a href="get-data.html#cb86-2"></a><span class="kw">library</span>(haven)</span>
-<span id="cb86-3"><a href="get-data.html#cb86-3"></a></span>
-<span id="cb86-4"><a href="get-data.html#cb86-4"></a><span class="co">## SAS</span></span>
-<span id="cb86-5"><a href="get-data.html#cb86-5"></a><span class="kw">write_sas</span>(<span class="dt">data =</span> mydf, <span class="dt">path =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;mydf.sas7bdat&quot;</span>))</span>
-<span id="cb86-6"><a href="get-data.html#cb86-6"></a><span class="co"># read_sas() reads .sas7bdat and .sas7bcat files </span></span>
-<span id="cb86-7"><a href="get-data.html#cb86-7"></a>sas_mydf &lt;-<span class="kw">read_sas</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;mydf.sas7bdat&quot;</span>)) </span>
-<span id="cb86-8"><a href="get-data.html#cb86-8"></a>sas_mydf</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="get-data.html#cb80-1"></a><span class="co">#install.packages(&quot;haven&quot;)</span></span>
+<span id="cb80-2"><a href="get-data.html#cb80-2"></a><span class="kw">library</span>(haven)</span>
+<span id="cb80-3"><a href="get-data.html#cb80-3"></a></span>
+<span id="cb80-4"><a href="get-data.html#cb80-4"></a><span class="co">## SAS</span></span>
+<span id="cb80-5"><a href="get-data.html#cb80-5"></a><span class="kw">write_sas</span>(<span class="dt">data =</span> mydf, <span class="dt">path =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;mydf.sas7bdat&quot;</span>))</span>
+<span id="cb80-6"><a href="get-data.html#cb80-6"></a><span class="co"># read_sas() reads .sas7bdat and .sas7bcat files </span></span>
+<span id="cb80-7"><a href="get-data.html#cb80-7"></a>sas_mydf &lt;-<span class="kw">read_sas</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;mydf.sas7bdat&quot;</span>)) </span>
+<span id="cb80-8"><a href="get-data.html#cb80-8"></a>sas_mydf</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 3
 ##   Name             Age Occupation  
 ##   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;       
 ## 1 Woody             40 Sherriff    
 ## 2 Buzz Lightyear    34 Space Ranger
 ## 3 Andy              NA Toy Owner</code></pre>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="get-data.html#cb88-1"></a><span class="co"># use read_xpt() to read SAS transport files (version 5 and 8)</span></span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="get-data.html#cb82-1"></a><span class="co"># use read_xpt() to read SAS transport files (version 5 and 8)</span></span></code></pre></div>
 <p>We can also write the data frame to SPSS format.</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="get-data.html#cb89-1"></a><span class="co">## SPSS</span></span>
-<span id="cb89-2"><a href="get-data.html#cb89-2"></a><span class="kw">write_sav</span>(<span class="dt">data =</span> mydf, <span class="dt">path =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;mydf.sav&quot;</span>))</span>
-<span id="cb89-3"><a href="get-data.html#cb89-3"></a><span class="co"># use to read_sav() to read .sav files</span></span>
-<span id="cb89-4"><a href="get-data.html#cb89-4"></a>sav_mydf &lt;-<span class="kw">read_sav</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;mydf.sav&quot;</span>))</span>
-<span id="cb89-5"><a href="get-data.html#cb89-5"></a>sav_mydf</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="get-data.html#cb83-1"></a><span class="co">## SPSS</span></span>
+<span id="cb83-2"><a href="get-data.html#cb83-2"></a><span class="kw">write_sav</span>(<span class="dt">data =</span> mydf, <span class="dt">path =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;mydf.sav&quot;</span>))</span>
+<span id="cb83-3"><a href="get-data.html#cb83-3"></a><span class="co"># use to read_sav() to read .sav files</span></span>
+<span id="cb83-4"><a href="get-data.html#cb83-4"></a>sav_mydf &lt;-<span class="kw">read_sav</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;mydf.sav&quot;</span>))</span>
+<span id="cb83-5"><a href="get-data.html#cb83-5"></a>sav_mydf</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 3
 ##   Name             Age Occupation  
 ##   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;       
 ## 1 Woody             40 Sherriff    
 ## 2 Buzz Lightyear    34 Space Ranger
 ## 3 Andy              NA Toy Owner</code></pre>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="get-data.html#cb91-1"></a><span class="co"># use read_por() to read older .por files</span></span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="get-data.html#cb85-1"></a><span class="co"># use read_por() to read older .por files</span></span></code></pre></div>
 <p>Stata format is also supported.</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="get-data.html#cb92-1"></a><span class="co">## Stata</span></span>
-<span id="cb92-2"><a href="get-data.html#cb92-2"></a><span class="kw">write_dta</span>(<span class="dt">data =</span> mydf, <span class="dt">path =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;mydf.dta&quot;</span>))</span>
-<span id="cb92-3"><a href="get-data.html#cb92-3"></a><span class="co"># use to read_dta() to read .dta files </span></span>
-<span id="cb92-4"><a href="get-data.html#cb92-4"></a>dta_mydf &lt;-<span class="kw">read_dta</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;mydf.dta&quot;</span>))</span>
-<span id="cb92-5"><a href="get-data.html#cb92-5"></a>dta_mydf</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="get-data.html#cb86-1"></a><span class="co">## Stata</span></span>
+<span id="cb86-2"><a href="get-data.html#cb86-2"></a><span class="kw">write_dta</span>(<span class="dt">data =</span> mydf, <span class="dt">path =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;mydf.dta&quot;</span>))</span>
+<span id="cb86-3"><a href="get-data.html#cb86-3"></a><span class="co"># use to read_dta() to read .dta files </span></span>
+<span id="cb86-4"><a href="get-data.html#cb86-4"></a>dta_mydf &lt;-<span class="kw">read_dta</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;mydf.dta&quot;</span>))</span>
+<span id="cb86-5"><a href="get-data.html#cb86-5"></a>dta_mydf</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 3
 ##   Name             Age Occupation  
 ##   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;       
@@ -1612,33 +1615,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Like with text, there are packages in R that will help you carry out analysis of images. In particular, <code>magick</code> is particularly helpful for advanced image processing within R, allowing you to process, edit, and manipulate images within R. Like JSON and XML, where there is more than one file format for a similar task, there are also a number of different image file formats. We touched on the pros and cons of a number of these in the Data Visualization course; however, of importance here is the fact that the <code>magick</code> package is capable of working with many different types of images, including PNG, JPEG, and TIFF. The <code>magick</code> package has a particularly helpful <a href="https://cran.r-project.org/web/packages/magick/vignettes/intro.html#drawing_and_graphics">vignette</a> where you can learn the ins and outs of working with images using <code>magick</code>’s functionality. Their documentation will discuss how to read image data into R, how to edit images, and even how to add images to your R plots!</p>
 <p>[<code>magick</code> package’s example of adding an image to a plot]<img src="https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&amp;pageid=g3d555e2b2e_0_153" alt="Google Maps street view" /></p>
 <p>A really useful manipulation that one can perform is text extraction from images. Typically this works best with images that have text that is not angled and in a conventional font.</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="get-data.html#cb94-1"></a><span class="co"># install package</span></span>
-<span id="cb94-2"><a href="get-data.html#cb94-2"></a><span class="co">#install.packages(&quot;magick&quot;)</span></span>
-<span id="cb94-3"><a href="get-data.html#cb94-3"></a><span class="co"># load package</span></span>
-<span id="cb94-4"><a href="get-data.html#cb94-4"></a><span class="kw">library</span>(magick)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="get-data.html#cb88-1"></a><span class="co"># install package</span></span>
+<span id="cb88-2"><a href="get-data.html#cb88-2"></a><span class="co">#install.packages(&quot;magick&quot;)</span></span>
+<span id="cb88-3"><a href="get-data.html#cb88-3"></a><span class="co"># load package</span></span>
+<span id="cb88-4"><a href="get-data.html#cb88-4"></a><span class="kw">library</span>(magick)</span></code></pre></div>
 <pre><code>## Linking to ImageMagick 7.0.10.22
 ## Enabled features: freetype, ghostscript, lcms, webp
 ## Disabled features: cairo, fontconfig, fftw, pango, rsvg, x11</code></pre>
 <pre><code>## Using 16 threads</code></pre>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="get-data.html#cb97-1"></a>img1 &lt;-<span class="st"> </span><span class="kw">image_read</span>(<span class="st">&quot;https://ggplot2.tidyverse.org/logo.png&quot;</span>)</span>
-<span id="cb97-2"><a href="get-data.html#cb97-2"></a>img2 &lt;-<span class="st"> </span><span class="kw">image_read</span>(<span class="st">&quot;https://pbs.twimg.com/media/D5bccHZWkAQuPqS.png&quot;</span>)</span>
-<span id="cb97-3"><a href="get-data.html#cb97-3"></a><span class="co">#show the image</span></span>
-<span id="cb97-4"><a href="get-data.html#cb97-4"></a><span class="kw">print</span>(img1)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="get-data.html#cb91-1"></a>img1 &lt;-<span class="st"> </span><span class="kw">image_read</span>(<span class="st">&quot;https://ggplot2.tidyverse.org/logo.png&quot;</span>)</span>
+<span id="cb91-2"><a href="get-data.html#cb91-2"></a>img2 &lt;-<span class="st"> </span><span class="kw">image_read</span>(<span class="st">&quot;https://pbs.twimg.com/media/D5bccHZWkAQuPqS.png&quot;</span>)</span>
+<span id="cb91-3"><a href="get-data.html#cb91-3"></a><span class="co">#show the image</span></span>
+<span id="cb91-4"><a href="get-data.html#cb91-4"></a><span class="kw">print</span>(img1)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 7
 ##   format width height colorspace matte filesize density
 ##   &lt;chr&gt;  &lt;int&gt;  &lt;int&gt; &lt;chr&gt;      &lt;lgl&gt;    &lt;int&gt; &lt;chr&gt;  
 ## 1 PNG      240    278 sRGB       TRUE     38516 +85x+85</code></pre>
 <p><img src="02-get-data_files/figure-html/unnamed-chunk-48-1.png" width="120" /></p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="get-data.html#cb99-1"></a><span class="kw">print</span>(img2)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="get-data.html#cb93-1"></a><span class="kw">print</span>(img2)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 7
 ##   format width height colorspace matte filesize density
 ##   &lt;chr&gt;  &lt;int&gt;  &lt;int&gt; &lt;chr&gt;      &lt;lgl&gt;    &lt;int&gt; &lt;chr&gt;  
 ## 1 PNG      864    864 sRGB       TRUE     54056 +72x+72</code></pre>
 <p><img src="02-get-data_files/figure-html/unnamed-chunk-48-2.png" width="432" /></p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="get-data.html#cb101-1"></a><span class="co">#concatenate and print text</span></span>
-<span id="cb101-2"><a href="get-data.html#cb101-2"></a><span class="kw">cat</span>(<span class="kw">image_ocr</span>(img1))</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="get-data.html#cb95-1"></a><span class="co">#concatenate and print text</span></span>
+<span id="cb95-2"><a href="get-data.html#cb95-2"></a><span class="kw">cat</span>(<span class="kw">image_ocr</span>(img1))</span></code></pre></div>
 <pre><code>## ggplot2</code></pre>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="get-data.html#cb103-1"></a><span class="kw">cat</span>(<span class="kw">image_ocr</span>(img2))</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="get-data.html#cb97-1"></a><span class="kw">cat</span>(<span class="kw">image_ocr</span>(img2))</span></code></pre></div>
 <pre><code>## parsnip</code></pre>
 </div>
 </div>
@@ -1647,43 +1650,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Another really helpful package is the <code>googledrive</code> package which enables users to interact with their Google Drive directly from R.</p>
 <p>This requires having an established Google Drive account. You will be asked to authorize access for the package to interact with your Google Drive.</p>
 <p>Finding files in your drive can be done using <code>drive_find()</code>.</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="get-data.html#cb105-1"></a><span class="co"># install.packages(&quot;googledrive&quot;)</span></span>
-<span id="cb105-2"><a href="get-data.html#cb105-2"></a><span class="co"># load package</span></span>
-<span id="cb105-3"><a href="get-data.html#cb105-3"></a><span class="kw">library</span>(<span class="st">&quot;googledrive&quot;</span>)</span>
-<span id="cb105-4"><a href="get-data.html#cb105-4"></a><span class="co"># Files can be found based on file name words like this:</span></span>
-<span id="cb105-5"><a href="get-data.html#cb105-5"></a><span class="kw">drive_find</span>(<span class="dt">pattern =</span><span class="st">&quot;tidyverse&quot;</span>)</span>
-<span id="cb105-6"><a href="get-data.html#cb105-6"></a><span class="co"># Files can be found based on file type like this:</span></span>
-<span id="cb105-7"><a href="get-data.html#cb105-7"></a><span class="kw">drive_find</span>(<span class="dt">type =</span><span class="st">&quot;googlesheets&quot;</span>)</span>
-<span id="cb105-8"><a href="get-data.html#cb105-8"></a><span class="co"># Files that have specific types of visibility can be found like this:</span></span>
-<span id="cb105-9"><a href="get-data.html#cb105-9"></a>files &lt;-<span class="st"> </span><span class="kw">drive_find</span>(<span class="dt">q =</span> <span class="kw">c</span>(<span class="st">&quot;visibility = &#39;anyoneWithLink&#39;&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="get-data.html#cb99-1"></a><span class="co"># install.packages(&quot;googledrive&quot;)</span></span>
+<span id="cb99-2"><a href="get-data.html#cb99-2"></a><span class="co"># load package</span></span>
+<span id="cb99-3"><a href="get-data.html#cb99-3"></a><span class="kw">library</span>(<span class="st">&quot;googledrive&quot;</span>)</span>
+<span id="cb99-4"><a href="get-data.html#cb99-4"></a><span class="co"># Files can be found based on file name words like this:</span></span>
+<span id="cb99-5"><a href="get-data.html#cb99-5"></a><span class="kw">drive_find</span>(<span class="dt">pattern =</span><span class="st">&quot;tidyverse&quot;</span>)</span>
+<span id="cb99-6"><a href="get-data.html#cb99-6"></a><span class="co"># Files can be found based on file type like this:</span></span>
+<span id="cb99-7"><a href="get-data.html#cb99-7"></a><span class="kw">drive_find</span>(<span class="dt">type =</span><span class="st">&quot;googlesheets&quot;</span>)</span>
+<span id="cb99-8"><a href="get-data.html#cb99-8"></a><span class="co"># Files that have specific types of visibility can be found like this:</span></span>
+<span id="cb99-9"><a href="get-data.html#cb99-9"></a>files &lt;-<span class="st"> </span><span class="kw">drive_find</span>(<span class="dt">q =</span> <span class="kw">c</span>(<span class="st">&quot;visibility = &#39;anyoneWithLink&#39;&quot;</span>))</span></code></pre></div>
 <p>Files can be viewed from your default browser by using the <code>drive_browse()</code> function:</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="get-data.html#cb106-1"></a><span class="kw">drive_browse</span>(<span class="st">&quot;tidyverse&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="get-data.html#cb100-1"></a><span class="kw">drive_browse</span>(<span class="st">&quot;tidyverse&quot;</span>)</span></code></pre></div>
 <p>Files can be uploaded to your Google Drive using the <code>drive_upload()</code> function.</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="get-data.html#cb107-1"></a><span class="kw">drive_upload</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;tidyverse.txt&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="get-data.html#cb101-1"></a><span class="kw">drive_upload</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;tidyverse.txt&quot;</span>))</span></code></pre></div>
 <p>If we wanted this file to be converted and saved as a Google file, then we would do the following based on the type of Goggle document desired. Only certain types of files can be converted to each type of Google file.</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="get-data.html#cb108-1"></a><span class="kw">drive_upload</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;tidyverse.txt&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;document&quot;</span>)</span>
-<span id="cb108-2"><a href="get-data.html#cb108-2"></a><span class="kw">drive_upload</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;tidyverse.csv&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;spreadsheet&quot;</span>)</span>
-<span id="cb108-3"><a href="get-data.html#cb108-3"></a><span class="kw">drive_upload</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;tidyverse.pptx&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;presentation&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="get-data.html#cb102-1"></a><span class="kw">drive_upload</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;tidyverse.txt&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;document&quot;</span>)</span>
+<span id="cb102-2"><a href="get-data.html#cb102-2"></a><span class="kw">drive_upload</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;tidyverse.csv&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;spreadsheet&quot;</span>)</span>
+<span id="cb102-3"><a href="get-data.html#cb102-3"></a><span class="kw">drive_upload</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;tidyverse.pptx&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;presentation&quot;</span>)</span></code></pre></div>
 <p>Files can be downloaded using the <code>drive_download()</code>function. Google file types need to be converted to a conventional file type. For example one might save a googlesheet file to a CSV file. This would download a file called tidyverse.csv to your project directory. This file could then be used in an analysis.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="get-data.html#cb109-1"></a><span class="kw">drive_download</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;csv&quot;</span>)</span>
-<span id="cb109-2"><a href="get-data.html#cb109-2"></a>tidyverse_data &lt;-readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="kw">here</span>(<span class="st">&quot;tidyverse.csv&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="get-data.html#cb103-1"></a><span class="kw">drive_download</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;csv&quot;</span>)</span>
+<span id="cb103-2"><a href="get-data.html#cb103-2"></a>tidyverse_data &lt;-readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="kw">here</span>(<span class="st">&quot;tidyverse.csv&quot;</span>))</span></code></pre></div>
 <p>Files can be moved to trash using the <code>drive_trash()</code> function. This can be undone using the <code>drive_untrash()</code> function.
 The trash can also be emptied using <code>drive_empty_trash()</code>.</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="get-data.html#cb110-1"></a><span class="kw">drive_trash</span>(<span class="st">&quot;tidyverse.txt&quot;</span>)</span>
-<span id="cb110-2"><a href="get-data.html#cb110-2"></a><span class="kw">drive_untrash</span>(<span class="st">&quot;tidyverse.txt&quot;</span>)</span>
-<span id="cb110-3"><a href="get-data.html#cb110-3"></a><span class="kw">drive_empty_trash</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="get-data.html#cb104-1"></a><span class="kw">drive_trash</span>(<span class="st">&quot;tidyverse.txt&quot;</span>)</span>
+<span id="cb104-2"><a href="get-data.html#cb104-2"></a><span class="kw">drive_untrash</span>(<span class="st">&quot;tidyverse.txt&quot;</span>)</span>
+<span id="cb104-3"><a href="get-data.html#cb104-3"></a><span class="kw">drive_empty_trash</span>()</span></code></pre></div>
 <p>To permanently remove a file you can use the <code>drive_rm()</code> function. This does not keep the file in trash.</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="get-data.html#cb111-1"></a><span class="kw">drive_rm</span>(<span class="st">&quot;tidyverse.txt&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="get-data.html#cb105-1"></a><span class="kw">drive_rm</span>(<span class="st">&quot;tidyverse.txt&quot;</span>)</span></code></pre></div>
 <p>Files can be shared using the <code>drive_share()</code> function. The sharing status of a file can be checked using <code>drive_reveal()</code>.</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="get-data.html#cb112-1"></a><span class="kw">drive_share</span>(<span class="dt">file =</span> <span class="st">&quot;tidyverse&quot;</span>, </span>
-<span id="cb112-2"><a href="get-data.html#cb112-2"></a>            <span class="dt">role =</span> <span class="st">&quot;commenter&quot;</span>, </span>
-<span id="cb112-3"><a href="get-data.html#cb112-3"></a>            <span class="dt">type =</span> <span class="st">&quot;user&quot;</span>, </span>
-<span id="cb112-4"><a href="get-data.html#cb112-4"></a>            <span class="dt">emailAddress =</span> <span class="st">&quot;someone@example.com&quot;</span>,</span>
-<span id="cb112-5"><a href="get-data.html#cb112-5"></a>            <span class="dt">emailMessage =</span> <span class="st">&quot;Would greatly appreciate your feedback.&quot;</span>)</span>
-<span id="cb112-6"><a href="get-data.html#cb112-6"></a></span>
-<span id="cb112-7"><a href="get-data.html#cb112-7"></a><span class="kw">drove_share_anyone</span>(<span class="dt">file =</span> <span class="st">&quot;tidyverse&quot;</span>, <span class="dt">verbose =</span> <span class="ot">TRUE</span>) <span class="co"># anyone with link can read</span></span>
-<span id="cb112-8"><a href="get-data.html#cb112-8"></a></span>
-<span id="cb112-9"><a href="get-data.html#cb112-9"></a><span class="kw">drive_reveal</span>(<span class="dt">file =</span> <span class="st">&quot;tidyverse&quot;</span>, <span class="dt">what =</span> <span class="st">&quot;permissions&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="get-data.html#cb106-1"></a><span class="kw">drive_share</span>(<span class="dt">file =</span> <span class="st">&quot;tidyverse&quot;</span>, </span>
+<span id="cb106-2"><a href="get-data.html#cb106-2"></a>            <span class="dt">role =</span> <span class="st">&quot;commenter&quot;</span>, </span>
+<span id="cb106-3"><a href="get-data.html#cb106-3"></a>            <span class="dt">type =</span> <span class="st">&quot;user&quot;</span>, </span>
+<span id="cb106-4"><a href="get-data.html#cb106-4"></a>            <span class="dt">emailAddress =</span> <span class="st">&quot;someone@example.com&quot;</span>,</span>
+<span id="cb106-5"><a href="get-data.html#cb106-5"></a>            <span class="dt">emailMessage =</span> <span class="st">&quot;Would greatly appreciate your feedback.&quot;</span>)</span>
+<span id="cb106-6"><a href="get-data.html#cb106-6"></a></span>
+<span id="cb106-7"><a href="get-data.html#cb106-7"></a><span class="kw">drove_share_anyone</span>(<span class="dt">file =</span> <span class="st">&quot;tidyverse&quot;</span>, <span class="dt">verbose =</span> <span class="ot">TRUE</span>) <span class="co"># anyone with link can read</span></span>
+<span id="cb106-8"><a href="get-data.html#cb106-8"></a></span>
+<span id="cb106-9"><a href="get-data.html#cb106-9"></a><span class="kw">drive_reveal</span>(<span class="dt">file =</span> <span class="st">&quot;tidyverse&quot;</span>, <span class="dt">what =</span> <span class="st">&quot;permissions&quot;</span>)</span></code></pre></div>
 <p>There are many other helpful functions for interacting with the files in your Google Drive within the <code>googledrive</code> package.</p>
 </div>
 <div id="case-studies" class="section level2" number="2.16">
@@ -1702,7 +1705,7 @@ The trash can also be emptied using <code>drive_empty_trash()</code>.</p>
 <h4><span class="header-section-number">2.16.1.1</span> Healthcare Coverage Data</h4>
 <p>We’ll first read the data in. Note that we have to skip the first two lines, as there are two lines in the CSV that store information about the file before we get to the actual data.</p>
 <p>To see what we mean, you can always use the <code>read_lines()</code> function from <code>readr</code> to see the first few lines:</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="get-data.html#cb113-1"></a><span class="kw">read_lines</span>(<span class="dt">file =</span> <span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv&#39;</span>, <span class="dt">n_max =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="get-data.html#cb107-1"></a><span class="kw">read_lines</span>(<span class="dt">file =</span> <span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv&#39;</span>, <span class="dt">n_max =</span> <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##  [1] &quot;\&quot;Title: Health Insurance Coverage of the Total Population | The Henry J. Kaiser Family Foundation\&quot;&quot;                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 ##  [2] &quot;\&quot;Timeframe: 2013 - 2016\&quot;&quot;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 ##  [3] &quot;\&quot;Location\&quot;,\&quot;2013__Employer\&quot;,\&quot;2013__Non-Group\&quot;,\&quot;2013__Medicaid\&quot;,\&quot;2013__Medicare\&quot;,\&quot;2013__Other Public\&quot;,\&quot;2013__Uninsured\&quot;,\&quot;2013__Total\&quot;,\&quot;2014__Employer\&quot;,\&quot;2014__Non-Group\&quot;,\&quot;2014__Medicaid\&quot;,\&quot;2014__Medicare\&quot;,\&quot;2014__Other Public\&quot;,\&quot;2014__Uninsured\&quot;,\&quot;2014__Total\&quot;,\&quot;2015__Employer\&quot;,\&quot;2015__Non-Group\&quot;,\&quot;2015__Medicaid\&quot;,\&quot;2015__Medicare\&quot;,\&quot;2015__Other Public\&quot;,\&quot;2015__Uninsured\&quot;,\&quot;2015__Total\&quot;,\&quot;2016__Employer\&quot;,\&quot;2016__Non-Group\&quot;,\&quot;2016__Medicaid\&quot;,\&quot;2016__Medicare\&quot;,\&quot;2016__Other Public\&quot;,\&quot;2016__Uninsured\&quot;,\&quot;2016__Total\&quot;&quot;
@@ -1714,8 +1717,8 @@ The trash can also be emptied using <code>drive_empty_trash()</code>.</p>
 ##  [9] &quot;\&quot;California\&quot;,\&quot;17747300\&quot;,\&quot;1986400\&quot;,\&quot;8344800\&quot;,\&quot;3828500\&quot;,\&quot;675400\&quot;,\&quot;5594100\&quot;,\&quot;38176400\&quot;,\&quot;17703700\&quot;,\&quot;2778800\&quot;,\&quot;9618800\&quot;,\&quot;4049000\&quot;,\&quot;634400\&quot;,\&quot;3916700\&quot;,\&quot;38701300\&quot;,\&quot;17718300\&quot;,\&quot;3444200\&quot;,\&quot;10138100\&quot;,\&quot;4080100\&quot;,\&quot;752700\&quot;,\&quot;2980600\&quot;,\&quot;39113900\&quot;,\&quot;18116200\&quot;,\&quot;3195400\&quot;,\&quot;9853800\&quot;,\&quot;4436000\&quot;,\&quot;556100\&quot;,\&quot;3030800\&quot;,\&quot;39188300\&quot;&quot;                                                                                                                                                                                                         
 ## [10] &quot;\&quot;Colorado\&quot;,\&quot;2852500\&quot;,\&quot;426300\&quot;,\&quot;697300\&quot;,\&quot;549700\&quot;,\&quot;118100\&quot;,\&quot;654000\&quot;,\&quot;5297800\&quot;,\&quot;2489400\&quot;,\&quot;397900\&quot;,\&quot;1053700\&quot;,\&quot;619500\&quot;,\&quot;214000\&quot;,\&quot;602900\&quot;,\&quot;5377400\&quot;,\&quot;2706000\&quot;,\&quot;346900\&quot;,\&quot;1036600\&quot;,\&quot;708000\&quot;,\&quot;148000\&quot;,\&quot;475700\&quot;,\&quot;5421300\&quot;,\&quot;2872600\&quot;,\&quot;370000\&quot;,\&quot;855800\&quot;,\&quot;692400\&quot;,\&quot;190100\&quot;,\&quot;528400\&quot;,\&quot;5509200\&quot;&quot;</code></pre>
 <p>We’ll read in the data, starting with the third line of the file:</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="get-data.html#cb115-1"></a>coverage &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv&#39;</span>, </span>
-<span id="cb115-2"><a href="get-data.html#cb115-2"></a>                     <span class="dt">skip =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="get-data.html#cb109-1"></a>coverage &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv&#39;</span>, </span>
+<span id="cb109-2"><a href="get-data.html#cb109-2"></a>                     <span class="dt">skip =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## Warning: 26 parsing failures.
 ## row col   expected    actual                                                                                                              file
 ##  53  -- 29 columns 1 columns &#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv&#39;
@@ -1725,7 +1728,7 @@ The trash can also be emptied using <code>drive_empty_trash()</code>.</p>
 ##  57  -- 29 columns 1 columns &#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv&#39;
 ## ... ... .......... ......... .................................................................................................................
 ## See problems(...) for more details.</code></pre>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="get-data.html#cb117-1"></a>coverage</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="get-data.html#cb111-1"></a>coverage</span></code></pre></div>
 <pre><code>## # A tibble: 78 x 29
 ##    Location `2013__Employer` `2013__Non-Grou… `2013__Medicaid` `2013__Medicare`
 ##    &lt;chr&gt;               &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
@@ -1749,7 +1752,7 @@ The trash can also be emptied using <code>drive_empty_trash()</code>.</p>
 ## #   `2016__Non-Group` &lt;dbl&gt;, `2016__Medicaid` &lt;dbl&gt;, `2016__Medicare` &lt;dbl&gt;,
 ## #   `2016__Other Public` &lt;chr&gt;, `2016__Uninsured` &lt;dbl&gt;, `2016__Total` &lt;dbl&gt;</code></pre>
 <p>So, the first few lines of the dataset appear to store information for each state (observation) in the rows and different variables in the columns. What about the final few lines of the file?</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="get-data.html#cb119-1"></a><span class="kw">tail</span>(coverage, <span class="dt">n =</span> <span class="dv">30</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="get-data.html#cb113-1"></a><span class="kw">tail</span>(coverage, <span class="dt">n =</span> <span class="dv">30</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 30 x 29
 ##    Location `2013__Employer` `2013__Non-Grou… `2013__Medicaid` `2013__Medicare`
 ##    &lt;chr&gt;               &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
@@ -1773,12 +1776,12 @@ The trash can also be emptied using <code>drive_empty_trash()</code>.</p>
 ## #   `2016__Non-Group` &lt;dbl&gt;, `2016__Medicaid` &lt;dbl&gt;, `2016__Medicare` &lt;dbl&gt;,
 ## #   `2016__Other Public` &lt;chr&gt;, `2016__Uninsured` &lt;dbl&gt;, `2016__Total` &lt;dbl&gt;</code></pre>
 <p>Looks like there’s a lot of missing information there at the end of the file due the “Notes” observation. Seems as though Notes were added to the file that are not the actual data. We’ll want to only include rows before the “Notes” at the end of the file, using <code>n_max</code>:</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="get-data.html#cb121-1"></a><span class="co">## read coverage data into R</span></span>
-<span id="cb121-2"><a href="get-data.html#cb121-2"></a>coverage &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv&#39;</span>, </span>
-<span id="cb121-3"><a href="get-data.html#cb121-3"></a>                     <span class="dt">skip =</span> <span class="dv">2</span>,</span>
-<span id="cb121-4"><a href="get-data.html#cb121-4"></a>                     <span class="dt">n_max  =</span> <span class="kw">which</span>(coverage<span class="op">$</span>Location <span class="op">==</span><span class="st"> &quot;Notes&quot;</span>)<span class="op">-</span><span class="dv">1</span>)</span>
-<span id="cb121-5"><a href="get-data.html#cb121-5"></a></span>
-<span id="cb121-6"><a href="get-data.html#cb121-6"></a><span class="kw">tail</span>(coverage)</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="get-data.html#cb115-1"></a><span class="co">## read coverage data into R</span></span>
+<span id="cb115-2"><a href="get-data.html#cb115-2"></a>coverage &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv&#39;</span>, </span>
+<span id="cb115-3"><a href="get-data.html#cb115-3"></a>                     <span class="dt">skip =</span> <span class="dv">2</span>,</span>
+<span id="cb115-4"><a href="get-data.html#cb115-4"></a>                     <span class="dt">n_max  =</span> <span class="kw">which</span>(coverage<span class="op">$</span>Location <span class="op">==</span><span class="st"> &quot;Notes&quot;</span>)<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb115-5"><a href="get-data.html#cb115-5"></a></span>
+<span id="cb115-6"><a href="get-data.html#cb115-6"></a><span class="kw">tail</span>(coverage)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 29
 ##   Location `2013__Employer` `2013__Non-Grou… `2013__Medicaid` `2013__Medicare`
 ##   &lt;chr&gt;               &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
@@ -1798,7 +1801,7 @@ The trash can also be emptied using <code>drive_empty_trash()</code>.</p>
 ## #   `2016__Non-Group` &lt;dbl&gt;, `2016__Medicaid` &lt;dbl&gt;, `2016__Medicare` &lt;dbl&gt;,
 ## #   `2016__Other Public` &lt;chr&gt;, `2016__Uninsured` &lt;dbl&gt;, `2016__Total` &lt;dbl&gt;</code></pre>
 <p>Looks much better now! We can then use <code>glimpse()</code> to get a sense of what types of information are stored in our dataset.</p>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="get-data.html#cb123-1"></a><span class="kw">glimpse</span>(coverage)</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="get-data.html#cb117-1"></a><span class="kw">glimpse</span>(coverage)</span></code></pre></div>
 <pre><code>## Rows: 52
 ## Columns: 29
 ## $ Location             &lt;chr&gt; &quot;United States&quot;, &quot;Alabama&quot;, &quot;Alaska&quot;, &quot;Arizona&quot;,…
@@ -1835,9 +1838,9 @@ The trash can also be emptied using <code>drive_empty_trash()</code>.</p>
 <div id="healthcare-spending-data" class="section level4" number="2.16.1.2">
 <h4><span class="header-section-number">2.16.1.2</span> Healthcare Spending Data</h4>
 <p>Now, we’re ready to read in our healthcare spending data, using a similar approach as we did for the coverage data.</p>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="get-data.html#cb125-1"></a><span class="co">## read spending data into R</span></span>
-<span id="cb125-2"><a href="get-data.html#cb125-2"></a>spending &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-spending.csv&#39;</span>, </span>
-<span id="cb125-3"><a href="get-data.html#cb125-3"></a>                     <span class="dt">skip =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="get-data.html#cb119-1"></a><span class="co">## read spending data into R</span></span>
+<span id="cb119-2"><a href="get-data.html#cb119-2"></a>spending &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-spending.csv&#39;</span>, </span>
+<span id="cb119-3"><a href="get-data.html#cb119-3"></a>                     <span class="dt">skip =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## Warning: 12 parsing failures.
 ## row col   expected    actual                                                                                                              file
 ##  53  -- 25 columns 1 columns &#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-spending.csv&#39;
@@ -1847,11 +1850,11 @@ The trash can also be emptied using <code>drive_empty_trash()</code>.</p>
 ##  57  -- 25 columns 1 columns &#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-spending.csv&#39;
 ## ... ... .......... ......... .................................................................................................................
 ## See problems(...) for more details.</code></pre>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="get-data.html#cb127-1"></a><span class="co">#got some parsing errors...</span></span>
-<span id="cb127-2"><a href="get-data.html#cb127-2"></a>spending &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-spending.csv&#39;</span>, </span>
-<span id="cb127-3"><a href="get-data.html#cb127-3"></a>                     <span class="dt">skip =</span> <span class="dv">2</span>, </span>
-<span id="cb127-4"><a href="get-data.html#cb127-4"></a>                     <span class="dt">n_max  =</span> <span class="kw">which</span>(spending<span class="op">$</span>Location <span class="op">==</span><span class="st"> &quot;Notes&quot;</span>)<span class="op">-</span><span class="dv">1</span>)</span>
-<span id="cb127-5"><a href="get-data.html#cb127-5"></a><span class="kw">tail</span>(spending)</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="get-data.html#cb121-1"></a><span class="co">#got some parsing errors...</span></span>
+<span id="cb121-2"><a href="get-data.html#cb121-2"></a>spending &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-spending.csv&#39;</span>, </span>
+<span id="cb121-3"><a href="get-data.html#cb121-3"></a>                     <span class="dt">skip =</span> <span class="dv">2</span>, </span>
+<span id="cb121-4"><a href="get-data.html#cb121-4"></a>                     <span class="dt">n_max  =</span> <span class="kw">which</span>(spending<span class="op">$</span>Location <span class="op">==</span><span class="st"> &quot;Notes&quot;</span>)<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb121-5"><a href="get-data.html#cb121-5"></a><span class="kw">tail</span>(spending)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 25
 ##   Location `1991__Total He… `1992__Total He… `1993__Total He… `1994__Total He…
 ##   &lt;chr&gt;               &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
@@ -1877,11 +1880,11 @@ The trash can also be emptied using <code>drive_empty_trash()</code>.</p>
 Assuming we created a project called “project”, let’s save our raw coverage data in a raw_data directory within a directory called data inside of our RStudio project similarly to the work flows that we have seen in the introduction.</p>
 <p><img src="book_figures/file_structure.png" width="60%" style="display: block; margin: auto;" />
 After creating a directory called raw_data within a directory that we called data, we can now save our raw data for case study #1 using the <code>here</code> package by simply typing:</p>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="get-data.html#cb129-1"></a><span class="kw">library</span>(here)</span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="get-data.html#cb123-1"></a><span class="kw">library</span>(here)</span></code></pre></div>
 <pre><code>## here() starts at /Users/rdpeng/books/tidyversecourse</code></pre>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="get-data.html#cb131-1"></a><span class="kw">save</span>(coverage, spending, <span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;case_study_1.rda&quot;</span>))</span>
-<span id="cb131-2"><a href="get-data.html#cb131-2"></a><span class="co">#the coverage object and the spending object will get saved as case_study_1.rda within the raw_data directory which is a subdirectory of data </span></span>
-<span id="cb131-3"><a href="get-data.html#cb131-3"></a><span class="co">#the here package identifies where the project directory is located based on the .Rproj, and thus the path to this directory is not needed</span></span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="get-data.html#cb125-1"></a><span class="kw">save</span>(coverage, spending, <span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;case_study_1.rda&quot;</span>))</span>
+<span id="cb125-2"><a href="get-data.html#cb125-2"></a><span class="co">#the coverage object and the spending object will get saved as case_study_1.rda within the raw_data directory which is a subdirectory of data </span></span>
+<span id="cb125-3"><a href="get-data.html#cb125-3"></a><span class="co">#the here package identifies where the project directory is located based on the .Rproj, and thus the path to this directory is not needed</span></span></code></pre></div>
 </div>
 </div>
 <div id="case-study-2-firearms" class="section level3" number="2.16.2">
@@ -1891,10 +1894,10 @@ After creating a directory called raw_data within a directory that we called dat
 <div id="census-data" class="section level4" number="2.16.2.1">
 <h4><span class="header-section-number">2.16.2.1</span> Census Data</h4>
 <p>Population characteristics at the state level for 2017 are available:</p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="get-data.html#cb132-1"></a><span class="co"># read in the census data</span></span>
-<span id="cb132-2"><a href="get-data.html#cb132-2"></a>census &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/sc-est2017-alldata6.csv&#39;</span>,</span>
-<span id="cb132-3"><a href="get-data.html#cb132-3"></a>                   <span class="dt">n_max =</span> <span class="dv">236900</span>)</span>
-<span id="cb132-4"><a href="get-data.html#cb132-4"></a>census</span></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="get-data.html#cb126-1"></a><span class="co"># read in the census data</span></span>
+<span id="cb126-2"><a href="get-data.html#cb126-2"></a>census &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/sc-est2017-alldata6.csv&#39;</span>,</span>
+<span id="cb126-3"><a href="get-data.html#cb126-3"></a>                   <span class="dt">n_max =</span> <span class="dv">236900</span>)</span>
+<span id="cb126-4"><a href="get-data.html#cb126-4"></a>census</span></code></pre></div>
 <pre><code>## # A tibble: 236,844 x 19
 ##    SUMLEV REGION DIVISION STATE NAME    SEX ORIGIN  RACE   AGE CENSUS2010POP
 ##    &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;         &lt;dbl&gt;
@@ -1916,15 +1919,15 @@ After creating a directory called raw_data within a directory that we called dat
 <div id="counted-data" class="section level4" number="2.16.2.2">
 <h4><span class="header-section-number">2.16.2.2</span> Counted Data</h4>
 <p>The Counted project started to count persons killed by police in the US due to the fact “the US government has no comprehensive record of the number of people killed by law enforcement. These data can be read in from the CSV stored on GitHub, for 2015:</p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="get-data.html#cb134-1"></a><span class="co"># read in the counted data</span></span>
-<span id="cb134-2"><a href="get-data.html#cb134-2"></a>counted15 &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/the-counted-2015.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="get-data.html#cb128-1"></a><span class="co"># read in the counted data</span></span>
+<span id="cb128-2"><a href="get-data.html#cb128-2"></a>counted15 &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/the-counted-2015.csv&quot;</span>)</span></code></pre></div>
 </div>
 <div id="suicide-data" class="section level4" number="2.16.2.3">
 <h4><span class="header-section-number">2.16.2.3</span> Suicide Data</h4>
 <p>Information about suicide and suicide as a result of firearms can also be directly read into R from the CSVs stored on GitHub:</p>
-<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="get-data.html#cb135-1"></a><span class="co"># read in suicide data</span></span>
-<span id="cb135-2"><a href="get-data.html#cb135-2"></a>suicide_all &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/suicide_all.csv&quot;</span>)</span>
-<span id="cb135-3"><a href="get-data.html#cb135-3"></a>suicide_all</span></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="get-data.html#cb129-1"></a><span class="co"># read in suicide data</span></span>
+<span id="cb129-2"><a href="get-data.html#cb129-2"></a>suicide_all &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/suicide_all.csv&quot;</span>)</span>
+<span id="cb129-3"><a href="get-data.html#cb129-3"></a>suicide_all</span></code></pre></div>
 <pre><code>## # A tibble: 51 x 12
 ##    Sex   Race  State Ethnicity `Age Group` `First Year` `Last Year`
 ##    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;              &lt;dbl&gt;       &lt;dbl&gt;
@@ -1941,9 +1944,9 @@ After creating a directory called raw_data within a directory that we called dat
 ## # … with 41 more rows, and 5 more variables: `Cause of Death` &lt;chr&gt;,
 ## #   Deaths &lt;dbl&gt;, Population &lt;dbl&gt;, `Crude Rate` &lt;dbl&gt;, `Age-Adjusted
 ## #   Rate` &lt;chr&gt;</code></pre>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="get-data.html#cb137-1"></a><span class="co"># read in firearm suicide data</span></span>
-<span id="cb137-2"><a href="get-data.html#cb137-2"></a>suicide_firearm &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/suicide_firearm.csv&quot;</span>)</span>
-<span id="cb137-3"><a href="get-data.html#cb137-3"></a>suicide_firearm</span></code></pre></div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="get-data.html#cb131-1"></a><span class="co"># read in firearm suicide data</span></span>
+<span id="cb131-2"><a href="get-data.html#cb131-2"></a>suicide_firearm &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/suicide_firearm.csv&quot;</span>)</span>
+<span id="cb131-3"><a href="get-data.html#cb131-3"></a>suicide_firearm</span></code></pre></div>
 <pre><code>## # A tibble: 51 x 12
 ##    Sex   Race  State Ethnicity `Age Group` `First Year` `Last Year`
 ##    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;              &lt;dbl&gt;       &lt;dbl&gt;
@@ -1964,23 +1967,23 @@ After creating a directory called raw_data within a directory that we called dat
 <div id="brady-data" class="section level4" number="2.16.2.4">
 <h4><span class="header-section-number">2.16.2.4</span> Brady Data</h4>
 <p>For the Brady Scores data, quantifying numerical scores for firearm legislation in each state, we’ll need the <code>httr</code> package, as these data are stored in an Excel spreadsheet. Note, we could download these files to our local computer, store them, and read this file in using <code>readxl</code>’s <code>read_excel()</code> file, <em>or</em> we can use the <code>httr</code> package to download and store the file in a temporary directory, followed by <code>read_excel</code> to read them into R. We’ll go with this second option here to demonstrate how it works.</p>
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="get-data.html#cb139-1"></a><span class="kw">library</span>(readxl)</span>
-<span id="cb139-2"><a href="get-data.html#cb139-2"></a><span class="kw">library</span>(httr)</span>
-<span id="cb139-3"><a href="get-data.html#cb139-3"></a></span>
-<span id="cb139-4"><a href="get-data.html#cb139-4"></a><span class="co"># specify URL to file</span></span>
-<span id="cb139-5"><a href="get-data.html#cb139-5"></a>url =<span class="st"> &quot;https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/data/Brady-State-Scorecard-2015.xlsx?raw=true&quot;</span></span>
-<span id="cb139-6"><a href="get-data.html#cb139-6"></a></span>
-<span id="cb139-7"><a href="get-data.html#cb139-7"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
-<span id="cb139-8"><a href="get-data.html#cb139-8"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xlsx&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="get-data.html#cb133-1"></a><span class="kw">library</span>(readxl)</span>
+<span id="cb133-2"><a href="get-data.html#cb133-2"></a><span class="kw">library</span>(httr)</span>
+<span id="cb133-3"><a href="get-data.html#cb133-3"></a></span>
+<span id="cb133-4"><a href="get-data.html#cb133-4"></a><span class="co"># specify URL to file</span></span>
+<span id="cb133-5"><a href="get-data.html#cb133-5"></a>url =<span class="st"> &quot;https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/data/Brady-State-Scorecard-2015.xlsx?raw=true&quot;</span></span>
+<span id="cb133-6"><a href="get-data.html#cb133-6"></a></span>
+<span id="cb133-7"><a href="get-data.html#cb133-7"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
+<span id="cb133-8"><a href="get-data.html#cb133-8"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xlsx&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2020-10-07 17:43
+##   Date: 2020-10-07 18:23
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpF8fWmH/file31be74856499.xlsx</code></pre>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="get-data.html#cb141-1"></a>brady &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</span>
-<span id="cb141-2"><a href="get-data.html#cb141-2"></a></span>
-<span id="cb141-3"><a href="get-data.html#cb141-3"></a>brady</span></code></pre></div>
+## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//Rtmpu8yfPk/file33a774856499.xlsx</code></pre>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="get-data.html#cb135-1"></a>brady &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</span>
+<span id="cb135-2"><a href="get-data.html#cb135-2"></a></span>
+<span id="cb135-3"><a href="get-data.html#cb135-3"></a>brady</span></code></pre></div>
 <pre><code>## # A tibble: 116 x 54
 ##    `States can rec… `Category Point… `Sub Category P… Points AL    AK    AR   
 ##    &lt;chr&gt;                       &lt;dbl&gt;            &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
@@ -2006,21 +2009,21 @@ After creating a directory called raw_data within a directory that we called dat
 <div id="crime-data" class="section level4" number="2.16.2.5">
 <h4><span class="header-section-number">2.16.2.5</span> Crime Data</h4>
 <p>Crime data, from the FBI’s Uniform Crime Report, are stored as an Excel file, so we’ll use a similar approach as above for these data:</p>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="get-data.html#cb143-1"></a><span class="co"># specify URL to file</span></span>
-<span id="cb143-2"><a href="get-data.html#cb143-2"></a>url =<span class="st"> &quot;https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/data/table_5_crime_in_the_united_states_by_state_2015.xls?raw=true&quot;</span></span>
-<span id="cb143-3"><a href="get-data.html#cb143-3"></a></span>
-<span id="cb143-4"><a href="get-data.html#cb143-4"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
-<span id="cb143-5"><a href="get-data.html#cb143-5"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="get-data.html#cb137-1"></a><span class="co"># specify URL to file</span></span>
+<span id="cb137-2"><a href="get-data.html#cb137-2"></a>url =<span class="st"> &quot;https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/data/table_5_crime_in_the_united_states_by_state_2015.xls?raw=true&quot;</span></span>
+<span id="cb137-3"><a href="get-data.html#cb137-3"></a></span>
+<span id="cb137-4"><a href="get-data.html#cb137-4"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
+<span id="cb137-5"><a href="get-data.html#cb137-5"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2020-10-07 17:43
+##   Date: 2020-10-07 18:23
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpF8fWmH/file31be21980f48.xls</code></pre>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="get-data.html#cb145-1"></a>crime &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>, <span class="dt">skip =</span> <span class="dv">3</span>)</span>
-<span id="cb145-2"><a href="get-data.html#cb145-2"></a></span>
-<span id="cb145-3"><a href="get-data.html#cb145-3"></a><span class="co"># see data</span></span>
-<span id="cb145-4"><a href="get-data.html#cb145-4"></a>crime</span></code></pre></div>
+## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//Rtmpu8yfPk/file33a721980f48.xls</code></pre>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="get-data.html#cb139-1"></a>crime &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>, <span class="dt">skip =</span> <span class="dv">3</span>)</span>
+<span id="cb139-2"><a href="get-data.html#cb139-2"></a></span>
+<span id="cb139-3"><a href="get-data.html#cb139-3"></a><span class="co"># see data</span></span>
+<span id="cb139-4"><a href="get-data.html#cb139-4"></a>crime</span></code></pre></div>
 <pre><code>## # A tibble: 510 x 14
 ##    State Area  ...3  Population `Violent\ncrime… `Murder and \nn…
 ##    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;                 &lt;dbl&gt;            &lt;dbl&gt;
@@ -2043,21 +2046,21 @@ After creating a directory called raw_data within a directory that we called dat
 <div id="land-area-data" class="section level4" number="2.16.2.6">
 <h4><span class="header-section-number">2.16.2.6</span> Land Area Data</h4>
 <p>US Census 2010 Land Area data are also stored in an excel spreadsheet"</p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="get-data.html#cb147-1"></a><span class="co"># specify URL to file</span></span>
-<span id="cb147-2"><a href="get-data.html#cb147-2"></a>url =<span class="st"> &quot;https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/data/LND01.xls?raw=true&quot;</span></span>
-<span id="cb147-3"><a href="get-data.html#cb147-3"></a></span>
-<span id="cb147-4"><a href="get-data.html#cb147-4"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
-<span id="cb147-5"><a href="get-data.html#cb147-5"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="get-data.html#cb141-1"></a><span class="co"># specify URL to file</span></span>
+<span id="cb141-2"><a href="get-data.html#cb141-2"></a>url =<span class="st"> &quot;https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/data/LND01.xls?raw=true&quot;</span></span>
+<span id="cb141-3"><a href="get-data.html#cb141-3"></a></span>
+<span id="cb141-4"><a href="get-data.html#cb141-4"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
+<span id="cb141-5"><a href="get-data.html#cb141-5"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2020-10-07 17:43
+##   Date: 2020-10-07 18:23
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpF8fWmH/file31be5e37ee62.xls</code></pre>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="get-data.html#cb149-1"></a>land &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</span>
-<span id="cb149-2"><a href="get-data.html#cb149-2"></a></span>
-<span id="cb149-3"><a href="get-data.html#cb149-3"></a><span class="co"># see data</span></span>
-<span id="cb149-4"><a href="get-data.html#cb149-4"></a>land</span></code></pre></div>
+## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//Rtmpu8yfPk/file33a75e37ee62.xls</code></pre>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="get-data.html#cb143-1"></a>land &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</span>
+<span id="cb143-2"><a href="get-data.html#cb143-2"></a></span>
+<span id="cb143-3"><a href="get-data.html#cb143-3"></a><span class="co"># see data</span></span>
+<span id="cb143-4"><a href="get-data.html#cb143-4"></a>land</span></code></pre></div>
 <pre><code>## # A tibble: 3,198 x 34
 ##    Areaname STCOU LND010190F LND010190D LND010190N1 LND010190N2 LND010200F
 ##    &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;            &lt;dbl&gt;
@@ -2084,20 +2087,20 @@ After creating a directory called raw_data within a directory that we called dat
 <h4><span class="header-section-number">2.16.2.7</span> Unemployment Data</h4>
 <p>This data is available online from the BLS, but there is no easy download of the table. It is also difficult to simply copy and paste; it doesn’t hold it’s table format. Thus we will want to use web scraping to most easily and accurately obtain this information using the <code>rvest</code> package.</p>
 <p>As a reminder, to view the HTML of a webpage, right-click and select “View page source.”</p>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="get-data.html#cb151-1"></a><span class="kw">library</span>(rvest)</span>
-<span id="cb151-2"><a href="get-data.html#cb151-2"></a></span>
-<span id="cb151-3"><a href="get-data.html#cb151-3"></a><span class="co"># specify URL to where we&#39;ll be web scraping</span></span>
-<span id="cb151-4"><a href="get-data.html#cb151-4"></a>url &lt;-<span class="st"> </span><span class="kw">read_html</span>(<span class="st">&quot;https://www.bls.gov/lau/lastrk15.htm&quot;</span>)</span>
-<span id="cb151-5"><a href="get-data.html#cb151-5"></a></span>
-<span id="cb151-6"><a href="get-data.html#cb151-6"></a><span class="co"># scrape specific table desired</span></span>
-<span id="cb151-7"><a href="get-data.html#cb151-7"></a>out &lt;-<span class="st"> </span><span class="kw">html_nodes</span>(url, <span class="st">&quot;table&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb151-8"><a href="get-data.html#cb151-8"></a><span class="st">  </span>.[<span class="dv">2</span>] <span class="op">%&gt;%</span></span>
-<span id="cb151-9"><a href="get-data.html#cb151-9"></a><span class="st">  </span><span class="kw">html_table</span>(<span class="dt">fill =</span> <span class="ot">TRUE</span>) </span>
-<span id="cb151-10"><a href="get-data.html#cb151-10"></a></span>
-<span id="cb151-11"><a href="get-data.html#cb151-11"></a><span class="co"># store as a tibble</span></span>
-<span id="cb151-12"><a href="get-data.html#cb151-12"></a>unemployment &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(out[[<span class="dv">1</span>]]) </span>
-<span id="cb151-13"><a href="get-data.html#cb151-13"></a></span>
-<span id="cb151-14"><a href="get-data.html#cb151-14"></a>unemployment</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="get-data.html#cb145-1"></a><span class="kw">library</span>(rvest)</span>
+<span id="cb145-2"><a href="get-data.html#cb145-2"></a></span>
+<span id="cb145-3"><a href="get-data.html#cb145-3"></a><span class="co"># specify URL to where we&#39;ll be web scraping</span></span>
+<span id="cb145-4"><a href="get-data.html#cb145-4"></a>url &lt;-<span class="st"> </span><span class="kw">read_html</span>(<span class="st">&quot;https://www.bls.gov/lau/lastrk15.htm&quot;</span>)</span>
+<span id="cb145-5"><a href="get-data.html#cb145-5"></a></span>
+<span id="cb145-6"><a href="get-data.html#cb145-6"></a><span class="co"># scrape specific table desired</span></span>
+<span id="cb145-7"><a href="get-data.html#cb145-7"></a>out &lt;-<span class="st"> </span><span class="kw">html_nodes</span>(url, <span class="st">&quot;table&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb145-8"><a href="get-data.html#cb145-8"></a><span class="st">  </span>.[<span class="dv">2</span>] <span class="op">%&gt;%</span></span>
+<span id="cb145-9"><a href="get-data.html#cb145-9"></a><span class="st">  </span><span class="kw">html_table</span>(<span class="dt">fill =</span> <span class="ot">TRUE</span>) </span>
+<span id="cb145-10"><a href="get-data.html#cb145-10"></a></span>
+<span id="cb145-11"><a href="get-data.html#cb145-11"></a><span class="co"># store as a tibble</span></span>
+<span id="cb145-12"><a href="get-data.html#cb145-12"></a>unemployment &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(out[[<span class="dv">1</span>]]) </span>
+<span id="cb145-13"><a href="get-data.html#cb145-13"></a></span>
+<span id="cb145-14"><a href="get-data.html#cb145-14"></a>unemployment</span></code></pre></div>
 <pre><code>## # A tibble: 54 x 3
 ##    State           `2015rate` Rank 
 ##    &lt;chr&gt;           &lt;chr&gt;      &lt;chr&gt;
@@ -2114,10 +2117,10 @@ After creating a directory called raw_data within a directory that we called dat
 ## # … with 44 more rows</code></pre>
 <p>Then we get the values from each column of the data table. html_nodes acts as a CSS selector. The “table” class returns two tables from the webpage and we specify that we want the second table. From <code>out</code> we select the first in the list and store this as a tibble.</p>
 <p>Now that we have gathered all the raw data we will need for our second case study, let’s save it using the <code>here</code> package:</p>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="get-data.html#cb153-1"></a><span class="kw">library</span>(here)</span>
-<span id="cb153-2"><a href="get-data.html#cb153-2"></a><span class="kw">save</span>(census, counted15, suicide_all, suicide_firearm, brady, crime, land, unemployment , <span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;case_study_2.rda&quot;</span>))</span>
-<span id="cb153-3"><a href="get-data.html#cb153-3"></a><span class="co">#all of these objects (census, counted15 etc) will get saved as case_study_2.rda within the raw_data directory which is a subdirectory of data </span></span>
-<span id="cb153-4"><a href="get-data.html#cb153-4"></a><span class="co">#the here package identifies where the project directory is located based on the .Rproj, and thus the path to this directory is not needed</span></span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="get-data.html#cb147-1"></a><span class="kw">library</span>(here)</span>
+<span id="cb147-2"><a href="get-data.html#cb147-2"></a><span class="kw">save</span>(census, counted15, suicide_all, suicide_firearm, brady, crime, land, unemployment , <span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;case_study_2.rda&quot;</span>))</span>
+<span id="cb147-3"><a href="get-data.html#cb147-3"></a><span class="co">#all of these objects (census, counted15 etc) will get saved as case_study_2.rda within the raw_data directory which is a subdirectory of data </span></span>
+<span id="cb147-4"><a href="get-data.html#cb147-4"></a><span class="co">#the here package identifies where the project directory is located based on the .Rproj, and thus the path to this directory is not needed</span></span></code></pre></div>
 
 </div>
 </div>
@@ -2179,20 +2182,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>
