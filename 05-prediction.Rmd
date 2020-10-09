@@ -1229,11 +1229,10 @@ The closer this value is to 100%, the better your predictive model was. The clos
 
 Accuracy is a helpful way to assess error in categorical variables, but it can be used for numeric values too. However, it will only account a prediction "correct" if it matches exactly. In the case of age, if a sample's age is 10 and the model predicts it to be 10, the model will say it's been predicted correctly. However, if a sample's age is 10 and it is predicted to be 9, it will be counted as incorrect, even though it was close. A prediction off by a year will be marked just as incorrect as a sample predicted off by 50 years. Due to this, RMSE is often opted for instead of accuracy for continuous variables.
 
-### Machine Learning Examples
 
-To better understand all of the concepts we've just discussed, we'll walk through two examples, one for prediction of a continuous variable using linear regression and a second for prediction of a categorical value using a CART.
 
-### The `tidymodels` ecosystem
+
+## The `tidymodels` ecosystem
 
 There are *incredibly* helpful packages available in R thanks to the work of [Max Kuhn](https://twitter.com/topepos?lang=en). As mentioned above, there are hundreds of different machine learning algorithms. Max's R packages have compiled all of them into a single framework, allowing you to use *many* different machine learning models easily. Additionally, he has written a very [helpful book](http://appliedpredictivemodeling.com/) about predictive modeling. In addition there are many [helpful links](https://topepo.github.io/) about each of the packages. Max also previously developed the `caret` package (short for Classification And REgression Training.
 [Here](https://konradsemsch.netlify.com/2019/08/caret-vs-tidymodels-comparing-the-old-and-new/) you can see some of the dicussion about the difference between `caret` and `tidymodel`. In this [rstudio community thread](https://community.rstudio.com/t/caret-to-tidymodels/) you can see that Max stated that "The tidyverse is more about modular packages that are designed to play well with one another. The main issue with caret is that, being all in one package, it is very difficult to extend it into areas that people are interested in...The bottom line is that the tidymodels set should do what caret does and more." We will describe some of the advantages of the `tidymodels` packages.  We will focus on the following packages:                          
@@ -1248,15 +1247,13 @@ There are *incredibly* helpful packages available in R thanks to the work of [Ma
 
 To illistrate how to use each of these packages, we will work through some examples.
 
-#### Example of Classification
 
 
-
-#### Example of Continuous Variable Prediction: Linear Regression 
+### Example of Continuous Variable Prediction: Linear Regression 
 
 For this example, we'll keep it simple and use a dataset you've seen before: the `iris` dataset. This way you can focus on the syntax used in the `caret` package and the steps of predictive analysis. In this example, we'll attempt to use the data in the `iris` dataset to predict `Sepal.Length`
 
-##### Example of Data Splitting with rsample
+#### Example of Data Splitting with rsample
 
 As mentioned above, one of the first steps is often to take your dataset and split it into a training set and a testing set. To do this, we'll load the `rsample` package and use the `initial_split()`  function to split the dataset.
 
@@ -1322,7 +1319,7 @@ count(abalone, Rings) %>% plot()
 ```
 
 
-##### Example of Variable Selection
+#### Example of Variable Selection
 
 What if we first try to predict `Sepal.Length` in our training data from `Sepal.Width`. To do that, we provide the `train` function with the model and specify that the dataset we'll be using is the `iris` dataset. Additionally, we let the train function know that we want to run linear regression (`lm`) and that we want to assess our model's accuracy using the `RMSE` metric.
 
@@ -1385,12 +1382,12 @@ iris_tune %>%
   geom_point(aes(Sepal.Length,predictions2))
 
 ```
-##### Example Accuracy Assessment 
+#### Example Accuracy Assessment 
 Now when we look at the results we visually see improvement in the `Sepal.Length` predictions within the tuning dataset, which is also reflected in the decreased RMSE (0.325).
 
 Here, by including additional variables (often referred to as `features` in machine learning), we see improved prediction accuracy. There are more robust ways than trying a number of different variables in your model to select which should be included in your predictive model. These will be covered in lessons in the advanced track of this Course Set.
 
-##### Example of Model Selection
+#### Example of Model Selection
 
 In this example (and the example below), we've pre-specified which model we were going to use for the example ahead of time. However, there are many different regression models from which we could have chosen and a number of parameters in each that can be tuned, each of which can improve the predictive accuracy of your model. Learning how to choose and tune the best model will be discussed in lessons in the advanced track of this Course Set; however, for now we'll note that, as specified in the `caret` book, the `train()` function has a number of capabilities. It can:
 
@@ -1445,69 +1442,9 @@ Here, we see that in the tuning data, the CART accurately predicted the Species 
 - [The caret Package book](http://topepo.github.io/caret/index.html)
 - [Example of machine learning using caret and the iris dataset for classification](https://rstudio-pubs-static.s3.amazonaws.com/261616_3097bfd3aa4341faafede5ed2ca7bb39.html)
 
-### Parsnip
-
-* recipes - prepare data
-* juice / bake - create datasets
-* model specification
-* engine
-* prediction / posterior sims
-
-
-## Applications of `parsnip`
-
-* Basic machine learning: Airlines?
-* Fashion dataset
-* Some Bayesian thing (w/Stan)?
 
 
 ## Case Studies
-
-Now that we understand more about modeling, let's take a look at our case studies again. 
-
-Thus far, we have read the data into R,  wrangled the data into a usable format, and explored the data using visualizations. Now, we will use modeling to better understand if there are associations between variables in our data!
-
-Let's start by loading our wrangled tidy data that we previously saved:
-
-```{r, collapse = TRUE,message=FALSE}
-library(tidyverse)
-library(here)
-load(here("data", "tidy_data", "case_study_1_tidy.rda"))
-load(here("data", "tidy_data", "case_study_2_tidy.rda"))
-```
-
-### Case Study #1: Health Expenditures
-
-Recall that we wanted to evaluate the following questions of interest using a health care dataset (`hc`):
-
-1. Is there a relationship between healthcare coverage and healthcare spending in the United States?
-2. How does the spending distribution change across geographic regions in the United States?
-3. Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?
-
-```{r}
-# see health care data
-hc
-```
-
-
-
-### Case Study #2: Firearms
-
-Recall that we wanted to evaluate the following questions of interest using data related to firearm legislation and fatal police shootings (`firearm`):
-
-We are interested in the following question: 
-
->At the state-level, what is the relationship between firearm legislation strength and annual rate of fatal police shootings?
-
-```{r}
-# see firearms data
-firearms
-```
-
-AVOCADO - this is a repeat.. maybe thats ok?
-
-Recall that this dataset contains state level information about firearm ownership (broken down by ethnicity and gender), the population of each state (`total_pop`), the number of violent crimes (`violent_crime`), the “total state points” from the Brady Scorecard (`brady_scores`), the number of gunshots (`gunshot_tally`), the number of gunshots from armed, non-white, male individuals (`gunshot_filtered`), the annualized rate per 1,000,000 residents (`gunshot_rate`), the `unemployment rate` and `unemployment_rank`, population density (`density`), and firearm ownership as a percent of firearm suicides to all suicides (`ownership`).
-
 
 
 
