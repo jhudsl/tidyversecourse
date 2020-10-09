@@ -1432,11 +1432,10 @@ The closer this value is to 100%, the better your predictive model was. The clos
 
 Accuracy is a helpful way to assess error in categorical variables, but it can be used for numeric values too. However, it will only account a prediction "correct" if it matches exactly. In the case of age, if a sample's age is 10 and the model predicts it to be 10, the model will say it's been predicted correctly. However, if a sample's age is 10 and it is predicted to be 9, it will be counted as incorrect, even though it was close. A prediction off by a year will be marked just as incorrect as a sample predicted off by 50 years. Due to this, RMSE is often opted for instead of accuracy for continuous variables.
 
-### Machine Learning Examples
 
-To better understand all of the concepts we've just discussed, we'll walk through two examples, one for prediction of a continuous variable using linear regression and a second for prediction of a categorical value using a CART.
 
-### The `tidymodels` ecosystem
+
+## The `tidymodels` ecosystem
 
 There are *incredibly* helpful packages available in R thanks to the work of [Max Kuhn](https://twitter.com/topepos?lang=en). As mentioned above, there are hundreds of different machine learning algorithms. Max's R packages have compiled all of them into a single framework, allowing you to use *many* different machine learning models easily. Additionally, he has written a very [helpful book](http://appliedpredictivemodeling.com/) about predictive modeling. In addition there are many [helpful links](https://topepo.github.io/) about each of the packages. Max also previously developed the `caret` package (short for Classification And REgression Training.
 [Here](https://konradsemsch.netlify.com/2019/08/caret-vs-tidymodels-comparing-the-old-and-new/) you can see some of the dicussion about the difference between `caret` and `tidymodel`. In this [rstudio community thread](https://community.rstudio.com/t/caret-to-tidymodels/) you can see that Max stated that "The tidyverse is more about modular packages that are designed to play well with one another. The main issue with caret is that, being all in one package, it is very difficult to extend it into areas that people are interested in...The bottom line is that the tidymodels set should do what caret does and more." We will describe some of the advantages of the `tidymodels` packages.  We will focus on the following packages:                          
@@ -1451,15 +1450,13 @@ There are *incredibly* helpful packages available in R thanks to the work of [Ma
 
 To illistrate how to use each of these packages, we will work through some examples.
 
-#### Example of Classification
 
 
-
-#### Example of Continuous Variable Prediction: Linear Regression 
+### Example of Continuous Variable Prediction: Linear Regression 
 
 For this example, we'll keep it simple and use a dataset you've seen before: the `iris` dataset. This way you can focus on the syntax used in the `caret` package and the steps of predictive analysis. In this example, we'll attempt to use the data in the `iris` dataset to predict `Sepal.Length`
 
-##### Example of Data Splitting with rsample
+#### Example of Data Splitting with rsample
 
 As mentioned above, one of the first steps is often to take your dataset and split it into a training set and a testing set. To do this, we'll load the `rsample` package and use the `initial_split()`  function to split the dataset.
 
@@ -1681,7 +1678,7 @@ count(abalone, Rings) %>% plot()
 <img src="05-prediction_files/figure-html/unnamed-chunk-49-3.png" width="672" />
 
 
-##### Example of Variable Selection
+#### Example of Variable Selection
 
 What if we first try to predict `Sepal.Length` in our training data from `Sepal.Width`. To do that, we provide the `train` function with the model and specify that the dataset we'll be using is the `iris` dataset. Additionally, we let the train function know that we want to run linear regression (`lm`) and that we want to assess our model's accuracy using the `RMSE` metric.
 
@@ -1747,12 +1744,12 @@ iris_tune %>%
   ggplot() +
   geom_point(aes(Sepal.Length,predictions2))
 ```
-##### Example Accuracy Assessment 
+#### Example Accuracy Assessment 
 Now when we look at the results we visually see improvement in the `Sepal.Length` predictions within the tuning dataset, which is also reflected in the decreased RMSE (0.325).
 
 Here, by including additional variables (often referred to as `features` in machine learning), we see improved prediction accuracy. There are more robust ways than trying a number of different variables in your model to select which should be included in your predictive model. These will be covered in lessons in the advanced track of this Course Set.
 
-##### Example of Model Selection
+#### Example of Model Selection
 
 In this example (and the example below), we've pre-specified which model we were going to use for the example ahead of time. However, there are many different regression models from which we could have chosen and a number of parameters in each that can be tuned, each of which can improve the predictive accuracy of your model. Learning how to choose and tune the best model will be discussed in lessons in the advanced track of this Course Set; however, for now we'll note that, as specified in the `caret` book, the `train()` function has a number of capabilities. It can:
 
@@ -1810,109 +1807,9 @@ Here, we see that in the tuning data, the CART accurately predicted the Species 
 - [The caret Package book](http://topepo.github.io/caret/index.html)
 - [Example of machine learning using caret and the iris dataset for classification](https://rstudio-pubs-static.s3.amazonaws.com/261616_3097bfd3aa4341faafede5ed2ca7bb39.html)
 
-### Parsnip
-
-* recipes - prepare data
-* juice / bake - create datasets
-* model specification
-* engine
-* prediction / posterior sims
-
-
-## Applications of `parsnip`
-
-* Basic machine learning: Airlines?
-* Fashion dataset
-* Some Bayesian thing (w/Stan)?
 
 
 ## Case Studies
-
-Now that we understand more about modeling, let's take a look at our case studies again. 
-
-Thus far, we have read the data into R,  wrangled the data into a usable format, and explored the data using visualizations. Now, we will use modeling to better understand if there are associations between variables in our data!
-
-Let's start by loading our wrangled tidy data that we previously saved:
-
-
-```r
-library(tidyverse)
-library(here)
-load(here("data", "tidy_data", "case_study_1_tidy.rda"))
-load(here("data", "tidy_data", "case_study_2_tidy.rda"))
-```
-
-### Case Study #1: Health Expenditures
-
-Recall that we wanted to evaluate the following questions of interest using a health care dataset (`hc`):
-
-1. Is there a relationship between healthcare coverage and healthcare spending in the United States?
-2. How does the spending distribution change across geographic regions in the United States?
-3. Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?
-
-
-```r
-# see health care data
-hc
-```
-
-```
-## # A tibble: 612 x 10
-##    Location  year type  tot_coverage abb   region tot_spending tot_pop
-##    <chr>    <int> <chr>        <int> <chr> <fct>         <dbl>   <int>
-##  1 Alabama   2013 Empl…      2126500 AL    South         33788 4763900
-##  2 Alabama   2013 Non-…       174200 AL    South         33788 4763900
-##  3 Alabama   2013 Medi…       869700 AL    South         33788 4763900
-##  4 Alabama   2013 Medi…       783000 AL    South         33788 4763900
-##  5 Alabama   2013 Othe…        85600 AL    South         33788 4763900
-##  6 Alabama   2013 Unin…       724800 AL    South         33788 4763900
-##  7 Alabama   2014 Empl…      2202800 AL    South         35263 4768000
-##  8 Alabama   2014 Non-…       288900 AL    South         35263 4768000
-##  9 Alabama   2014 Medi…       891900 AL    South         35263 4768000
-## 10 Alabama   2014 Medi…       718400 AL    South         35263 4768000
-## # … with 602 more rows, and 2 more variables: prop_coverage <dbl>,
-## #   spending_capita <dbl>
-```
-
-
-
-### Case Study #2: Firearms
-
-Recall that we wanted to evaluate the following questions of interest using data related to firearm legislation and fatal police shootings (`firearm`):
-
-We are interested in the following question: 
-
->At the state-level, what is the relationship between firearm legislation strength and annual rate of fatal police shootings?
-
-
-```r
-# see firearms data
-firearms
-```
-
-```
-## # A tibble: 51 x 15
-##    NAME  white black hispanic  male total_pop violent_crime brady_scores
-##    <chr> <dbl> <dbl>    <dbl> <dbl>     <dbl>         <dbl>        <dbl>
-##  1 alab…  69.5 26.7      4.13  48.5   4850858          472.        -18  
-##  2 alas…  66.5  3.67     6.82  52.4    737979          730.        -30  
-##  3 ariz…  83.5  4.80    30.9   49.7   6802262          410.        -39  
-##  4 arka…  79.6 15.7      7.18  49.1   2975626          521.        -24  
-##  5 cali…  73.0  6.49    38.7   49.7  39032444          426.         76  
-##  6 colo…  87.6  4.47    21.3   50.3   5440445          321          22  
-##  7 conn…  80.9 11.6     15.3   48.8   3593862          218.         73  
-##  8 dela…  70.3 22.5      8.96  48.4    944107          499          41  
-##  9 dist…  44.1 48.5     10.7   47.4    672736         1269.         NA  
-## 10 flor…  77.7 16.9     24.7   48.9  20268567          462.        -20.5
-## # … with 41 more rows, and 7 more variables: gunshot_tally <int>,
-## #   gunshot_filtered <int>, gunshot_rate <dbl>, unemployment_rate <dbl>,
-## #   unemployment_rank <int>, density <dbl>, ownership <dbl>
-```
-
-AVOCADO - this is a repeat.. maybe thats ok?
-
-Recall that this dataset contains state level information about firearm ownership (broken down by ethnicity and gender), the population of each state (`total_pop`), the number of violent crimes (`violent_crime`), the “total state points” from the Brady Scorecard (`brady_scores`), the number of gunshots (`gunshot_tally`), the number of gunshots from armed, non-white, male individuals (`gunshot_filtered`), the annualized rate per 1,000,000 residents (`gunshot_rate`), the `unemployment rate` and `unemployment_rank`, population density (`density`), and firearm ownership as a percent of firearm suicides to all suicides (`ownership`).
-
 
 
 
