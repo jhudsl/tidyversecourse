@@ -572,7 +572,7 @@ To answer this question, a subset of the US population was studied, and the rese
 A common problem in many data science problem involves developing evidence for or against certain *hypotheses* or testable statements. Typically, the way these problems are structured is that a statement is made about the world (the hypothesis) and then the data are used (usually in the form of a summary statistic) to support or reject that statement.
 
 ### The `infer` package
-
+avocado
 
 
 ## Linear modeling
@@ -1021,24 +1021,8 @@ These have been nicely summarized by Jonas Kristoffer Lindelov in is blog post [
 
 ![](https://camo.githubusercontent.com/147c1b58a4ff12cbdbec5837cfda153c0a8ae3a3/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f2f6578706f72742f706e673f69643d31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f267061676569643d67356432323533623730355f325f313035)
 
-## Associational Modeling Applications
-
-Probably just need the case studies and not these: https://github.com/jhudsl/cds_dataanalysis/blob/master/manuscript/06_4_inferential_examples.md
-
-https://github.com/jhudsl/cds_dataanalysis/blob/master/manuscript/06_5_practice.md
-
-* Case Study: Health Expenditures / Coverage
-* Case Study: Firearms
-
-
-## Prediction modeling with  `parsnip` / tidymodels cycle
 
 ### Prediction modeling concepts
-
-* What is prediction / prediction error
-* train / test sets
-* evaluation metrics (mse, fpr, tpr, recall, etc.)
-* penalization (L2 ridge / L1 lasso)
 
 While the goal in inference is to learn something about the population, when we're talking about **prediction**, the focus is on the individual. The goal of predictive analysis and machine learning approaches is to **train a model using data** to make predictions about an individual.
 
@@ -1052,7 +1036,7 @@ Predicting the outcome of elections is a key example of predictive analysis, whe
 
 ### What is Machine Learning?
 
-So far we've been discussing predictive analysis. But, you may have heard people on the news or in daily life talking about "machine learning." The goal of machine learning is to build models (often referred to as algorithms) from the patterns in data that can be used for predictions in the future. For our purposes, it's safe to argue that when doing predictive analysis, we're actually doing machine learning. As such, we'll use machine learning throughout the rest of this lesson. Here, machine learning refers to using the relationships within a dataset to build a model that can be used for prediction.
+So far we've been discussing predictive analysis. But, you may have heard people on the news or in daily life talking about "machine learning." The goal of machine learning in prediction is to build models (often referred to as algorithms) from the patterns in data that can be used for predictions in the future. Here, machine learning refers to using the relationships within a dataset to build a model that can be used for prediction.
 
 That said, there is without a doubt an entire field of individuals dedicating themselves to machine learning. This lesson will just touch on the very basics within the field.
 
@@ -1126,7 +1110,7 @@ As a reminder, as was discussed in the inferential analysis, just because one va
 
 ### Model Selection
 
-Additionally, there are many ways to generate prediction models. Each model was developed for a different and specific purpose. We'll discuss a few types of predictive models here, with a focus on using linear regression. However, regardless of which model you choose to use for prediction, it's best to keep in mind that, in general, the **more data** you have and the **simpler your model is**, the best chance you have at accurately predicting future outcomes:
+Additionally, there are many ways to generate prediction models. Each model was developed for a different and specific purpose. However, regardless of which model you choose to use for prediction, it's best to keep in mind that, in general, the **more data** you have and the **simpler your model is**, the best chance you have at accurately predicting future outcomes:
 
 - More data - The more observations you have and the more variables you have to choose from to include in your model, the more likely you are to generate an accurate predictive model. Note, however, large datasets with lots of missing data or data that have been incorrectly entered are *not* better than small, complete, and accurate datasets. Having a trustworthy dataset to build your model is critical.
 
@@ -1199,12 +1183,12 @@ A common saying is that prediction is hard, especially about the future. This is
 Generally, if your predictions are correct, you're doing well! If your predictions are wrong, you're not doing as well. But, how do we define "well"?
 
 #### Error Rates
-To assess whether or not our predictive models are doing well, we calculate error rates. The two most common ways to assess how well our predictive models are doing are:
+To assess whether or not our predictive models are doing well, we calculate error rates. There are metrics used to measure model performance, however, the two most common ways to assess how well our predictive models are doing are:
 
 1) RMSE (Root-mean-square Error)
 2) Accuracy
 
-We'll note here that in order to assess error, you have to know the truth (the actual value) in addition to the predicted value. Thus, RMSE and Accuracy are assessed in the training and tuning data, where you *know* the actual value as well as the predicted value.
+We'll note here that in order to assess error, you have to know the truth (the actual value) in addition to the predicted value. Thus, RMSE and accuracy are assessed in the training and tuning data, where you *know* the actual value as well as the predicted value.
 
 
 ##### RMSE
@@ -1231,23 +1215,34 @@ Accuracy is a helpful way to assess error in categorical variables, but it can b
 
 
 
-
 ## The `tidymodels` ecosystem
 
-There are *incredibly* helpful packages available in R thanks to the work of [Max Kuhn](https://twitter.com/topepos?lang=en). As mentioned above, there are hundreds of different machine learning algorithms. Max's R packages have compiled all of them into a single framework, allowing you to use *many* different machine learning models easily. Additionally, he has written a very [helpful book](http://appliedpredictivemodeling.com/) about predictive modeling. In addition there are many [helpful links](https://topepo.github.io/) about each of the packages. Max also previously developed the `caret` package (short for Classification And REgression Training.
-[Here](https://konradsemsch.netlify.com/2019/08/caret-vs-tidymodels-comparing-the-old-and-new/) you can see some of the dicussion about the difference between `caret` and `tidymodel`. In this [rstudio community thread](https://community.rstudio.com/t/caret-to-tidymodels/) you can see that Max stated that "The tidyverse is more about modular packages that are designed to play well with one another. The main issue with caret is that, being all in one package, it is very difficult to extend it into areas that people are interested in...The bottom line is that the tidymodels set should do what caret does and more." We will describe some of the advantages of the `tidymodels` packages.  We will focus on the following packages:                          
+There are *incredibly* helpful packages available in R thanks to the work of [Max Kuhn](https://twitter.com/topepos?lang=en). As mentioned above, there are hundreds of different machine learning algorithms. Max's R packages have compiled all of them into a single framework, allowing you to use *many* different machine learning models easily. Additionally, he has written a very [helpful book](http://appliedpredictivemodeling.com/) about predictive modeling. There are also many [helpful links](https://topepo.github.io/) about each of the packages. Max previously developed the `caret` package (short for Classification And REgression Training) which has been widely used. [Here](https://konradsemsch.netlify.com/2019/08/caret-vs-tidymodels-comparing-the-old-and-new/) you can see some of the dicussion about the difference between `caret` and `tidymodels`. 
 
-* rsamples - split the data
-* recipes - prepare the data
-* parsnip - fit the data
-* yardstick - evaluate model performance
-* dials - paramater tuning
-* workflows - combining recipe and parsnip objects into a workflow
-* tune - hyper-paramater tuning 
-
-To illistrate how to use each of these packages, we will work through some examples.
+In this [rstudio community thread](https://community.rstudio.com/t/caret-to-tidymodels/) you can see that Max stated that "The tidyverse is more about modular packages that are designed to play well with one another. The main issue with caret is that, being all in one package, it is very difficult to extend it into areas that people are interested in...The bottom line is that the tidymodels set should do what caret does and more." We will describe some of the advantages of the `tidymodels` packages.  We will focus on the following packages:                          
 
 
+```{r, echo = FALSE, out.width="60%"}
+knitr::include_graphics(here::here("book_figures/simpletidymodels.png"))
+```
+
+* rsamples - to split the data into training and testing sets (as well as cross validation sets - more on that later!)  
+* recipes -  to prepare the data with preprocessing (assign variables and preprocessing steps)  
+* parsnip -  to specify and fit the data to a model  
+* yardstick and tune -  to evaluate model performance (tune is useful if using cross validation sets)  
+* workflows - combining recipe and parsnip objects into a workflow  (this makes it easier to keep track of what you have done and it makes it easier to modify specific steps)  
+* tune and dials - hyper-paramater tuning (more on that later too!)  
+* broom - to make the output from fitting a model easier to read  
+
+
+
+Here you can see a visual of how these packages work together in the process of performing a machine learning analysis:
+
+```{r, echo = FALSE, out.width="60%"}
+knitr::include_graphics(here::here("book_figures/MachineLearning_tidymodels.png"))
+```
+
+To illustrate how to use each of these packages, we will work through some examples.
 
 ### Example of Continuous Variable Prediction: Linear Regression 
 
