@@ -702,12 +702,6 @@ To answer this question, a subset of the US population was studied, and the rese
 
 ![](https://camo.githubusercontent.com/c05c5bdbba43b5d7003e1e0d7725fd2c316e3b46/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f317778434c79335a5157436332385073454e69383371674b45536b482d34346e6330747549534d526c5276632f6578706f72742f706e673f69643d317778434c79335a5157436332385073454e69383371674b45536b482d34346e6330747549534d526c527663267061676569643d67336461656133373331315f305f31353633)
 
-## Hypothesis Testing
-
-A common problem in many data science problem involves developing evidence for or against certain *hypotheses* or testable statements. Typically, the way these problems are structured is that a statement is made about the world (the hypothesis) and then the data are used (usually in the form of a summary statistic) to support or reject that statement.
-
-### The `infer` package
-avocado
 
 
 ## Linear modeling
@@ -1212,6 +1206,94 @@ These have been nicely summarized by Jonas Kristoffer Lindelov in is blog post [
 ![](https://camo.githubusercontent.com/147c1b58a4ff12cbdbec5837cfda153c0a8ae3a3/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f2f6578706f72742f706e673f69643d31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f267061676569643d67356432323533623730355f325f313035)
 
 
+## Hypothesis Testing
+
+avocado this was before linear modeling... I think it might work better here but I am not sure...
+
+As you may have noticed in the previous sections that we were asking a question about the data. We did so by testing if a particular answer to the question was true.
+
+For example:
+1) In the cherry tree analsysis we asked "Can we infer the height of a tree given its girth?"
+We expected that we could. Thus we had a statment that "tree height is influenced by girth or can be predicted by girth"
+
+2) In the car mileage analysis we asked  "Does car weight influence the miles the car can go per gallon of gasoline?"
+We expected that it did. Thus we had a statement that "weight influences car mileage"
+
+We took this further and asked "Does car weight and car engine type influece the miles that a car can go per gallon?"
+We again expected that it did. Thus we had a statement that " weight and engine type infleuces car mileage"
+
+3) In the soda can analysis we asked "Do soda cans really have 12 ounces of fluid". We expected that often do. Thus we had a statement that "soda cans typically have 12 onces, the mean amount is 12".
+
+A common problem in many data science problem involves developing evidence for or against certain testable statements like these statments above. These testable statements are called *hypotheses*. Typically, the way these problems are structured is that a statement is made about the world (the hypothesis) and then the data are used (usually in the form of a summary statistic) to support or reject that statement.
+
+
+Recall that we defined a p-value as "the probability of getting the observed results (or results more extreme) by chance alone." Often p-values are used to determine if one should accept or reject that statement. 
+
+Typically a p-value of 0.05 is used as the threshold, however remeber that it is best to report more than just the p-value, but also estimates and standard errors among other statistics. Different statistical tests allow for testing different hyptotheses.
+
+
+### The`Infer` Package
+
+The `infer` package simplifies inference analyses. Users can quickly calculate a variety of statistics and perform statistical tests including those that require resampling or simulations using data that is in `tidy` format.
+
+In fact users can even perform analyses based on specified hypotheses with the `hypothesize()` function.
+
+We will perform the same analysis about soda cans that we just did with this package to illustrate how to use it.
+
+Recall that we wanted to know if the observed ounces of soda can differs from the expected mean of 12 oz. Also recall that we had measurments for 100 soda cans (we made up this data). We had a testable statement or hypothesis that "soda cans typically have 12 onces, the mean amount is 12" and we wanted to know if this was true.
+
+This type of hypothesis is called a null hypothesis becuase it is a statement that expects no difference or change. The alternative hypothesis is the complement statement. it would be that the mean is not 12.
+
+OK, so now we will use the `infer` package to test if our null hypothesis is true.
+
+First, we need to get our data into a tidy format. Thus we will use the `as_tibble()` function of the `tidyr` package.
+
+
+```r
+soda_ounces <-as_tibble(soda_ounces)
+soda_ounces
+```
+
+```
+## # A tibble: 100 x 1
+##    value
+##    <dbl>
+##  1  12.0
+##  2  12.0
+##  3  12.0
+##  4  12.0
+##  5  12.0
+##  6  12.0
+##  7  12.0
+##  8  12.0
+##  9  12.0
+## 10  12.0
+## # … with 90 more rows
+```
+
+
+
+```r
+library(infer)
+soda_ounces %>%
+  specify(response = value) %>%
+  hypothesize(null = "point", mu = 12) %>%
+  #generate(reps = 1000, type = "bootstrap") %>%
+  #calculate(stat = "mean") %>% 
+  get_confidence_interval()
+```
+
+```
+## # A tibble: 1 x 2
+##   `2.5%` `97.5%`
+##    <dbl>   <dbl>
+## 1     NA      NA
+```
+
+avocado finish by describing why we would do resampling etc. and explaining the above steps... I am not sure yet what you can do without doing permutations...
+
+
+
 ### Prediction modeling concepts
 
 While the goal in inference is to learn something about the population, when we're talking about **prediction**, the focus is on the individual. The goal of predictive analysis and machine learning approaches is to **train a model using data** to make predictions about an individual.
@@ -1418,8 +1500,25 @@ Accuracy is a helpful way to assess error in categorical variables, but it can b
 
 There are *incredibly* helpful packages available in R thanks to the work of [Max Kuhn](https://twitter.com/topepos?lang=en). As mentioned above, there are hundreds of different machine learning algorithms. Max's R packages have compiled all of them into a single framework, allowing you to use *many* different machine learning models easily. Additionally, he has written a very [helpful book](http://appliedpredictivemodeling.com/) about predictive modeling. There are also many [helpful links](https://topepo.github.io/) about each of the packages. Max previously developed the `caret` package (short for Classification And REgression Training) which has been widely used. [Here](https://konradsemsch.netlify.com/2019/08/caret-vs-tidymodels-comparing-the-old-and-new/) you can see some of the dicussion about the difference between `caret` and `tidymodels`. 
 
-In this [rstudio community thread](https://community.rstudio.com/t/caret-to-tidymodels/) you can see that Max stated that "The tidyverse is more about modular packages that are designed to play well with one another. The main issue with caret is that, being all in one package, it is very difficult to extend it into areas that people are interested in...The bottom line is that the tidymodels set should do what caret does and more." We will describe some of the advantages of the `tidymodels` packages.  We will focus on the following packages although there are many more in the tidymodels ecosystem:                          
+In this [rstudio community thread](https://community.rstudio.com/t/caret-to-tidymodels/) you can see that Max stated that "The tidyverse is more about modular packages that are designed to play well with one another. The main issue with caret is that, being all in one package, it is very difficult to extend it into areas that people are interested in...The bottom line is that the tidymodels set should do what caret does and more." We will describe some of the advantages of the `tidymodels` packages.  
 
+### Benefits of `tidymodels`  
+
+The two major benefits of `tidymodels` are: 
+
+1. Standardized workflow/format/notation across different types of machine learning algorithms  
+
+Different notations are required for different algorithms as the algorithms have been developed by different people. This would require the painstaking process of reformatting the data to be compatible with each algorithm if multiple algorithms were tested.
+
+2. Can easily modify pre-processing, algorithm choice, and hyper-parameter tuning making optimization easy  
+
+Modifying a piece of the overall process is now easier than before because many of the steps are specified using the `tidymodels` packages in a convenient manner. Thus the entire process can be rerun after a simple change to pre-processing without much difficulty.
+
+
+
+### `tidymodels Packages
+
+We will focus on the following packages although there are many more in the tidymodels ecosystem:                          
 
 <img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/simpletidymodels.png" width="830" />
 
@@ -1440,36 +1539,62 @@ Here you can see a visual of how these packages work together in the process of 
 
 To illustrate how to use each of these packages, we will work through some examples.
 
+
+Other tidymodel packages include:
+![]https://pbs.twimg.com/media/Ef1Oac7WAAImCos.jpg
+
+1) `applicable` tests to see compares new data points with the training data to see how much the new data points appear to be an extrapolation of the training data.
+2) `baguette` is for speeding up bagging pipelines
+3) `butcher` is for dealing with pipelines that create model objects take up too much memory
+4) `discrim` has more model options classification
+5) `embed` has extra preprocessing options for categorical predictors
+6) `hardhat` helps you to make new modeling packages
+7) `infer` helps you perform statistical analyses more easily (in the context of this.?)avocado... also update if we talk about infer above
+8) `corrr` has more options for looking at correlation matrices
+9) `rules` has more model options for prediction rule ensembles
+10) `text recipes` has extra preprocessing options for using text data
+11) `tidypredict` is for running predictions inside  SQL databases
+12) `modeldb` is also for working within SQL datbases and it allows for `dplyr` and `tidyeval` use within a database
+13) `tidyposterior` compares models using resampling statistics
+
+Most of these packges offer advanced modeling options, with the exception of `corrr`.
+
 ### Example of Continuous Variable Prediction: Linear Regression 
 
-For this example, we'll keep it simple and use a dataset you've seen before: the `iris` dataset. This way you can focus on the syntax used in the `caret` package and the steps of predictive analysis. In this example, we'll attempt to use the data in the `iris` dataset to predict `Sepal.Length`.
+For this example, we'll keep it simple and use a dataset you've seen before: the `iris` dataset. This way you can focus on the syntax used in the `tidymodels` packages and the steps of predictive analysis. In this example, we'll attempt to use the data in the `iris` dataset to predict `Sepal.Length`.
 
-#### Example of Data Splitting with rsample
+#### Example of Data Splitting with `rsample`
 
-As mentioned above, one of the first steps is often to take your dataset and split it into a training set and a testing set. To do this, we'll load the `rsample` package and use the `initial_split()`  function to split the dataset.
+As mentioned above, one of the first steps is often to take your dataset and split it into a training set and a testing set. To do this, we'll load the `rsample` package and use the `initial_split()`  function to split the dataset.  
+
+We can specify what proportion of the data we would like to use for training using the `prop` argument. 
+
+Since the split is performed randomly, it is a good idea to use the set.seed() function in base R to ensure that if your rerun your code that your split will be the same next time.
 
 
 
 ```r
 library(rsample)
-split_iris <-initial_split(iris) 
+set.seed(1234)
+split_iris <-initial_split(iris, prop = 2/3) 
 split_iris
 ```
 
 ```
 ## <Analysis/Assess/Total>
-## <113/37/150>
+## <100/50/150>
 ```
 
 ```r
 # the default proportion is 1/4 testing and 3/4 training
 ```
-This results in printing the number of training data rows, the number testing data rows, and the total rows divided by "/". Here the training set is called the analysis set, while the testing set is called the assess set.
+
+This results in printing the number of training data rows, the number testing data rows, and the total rows - each is printed with the "/" as a division between the values. Here the training set is called the analysis set, while the testing set is called the assess set.
 
 
-After running this code , if we take a look at the training and tuning datasets, we can see that 70% of our observations are in the training dataset and the other 30% are in the tuning dataset, as we specified.
+We can see that about 70% of our observations are in the training dataset and the other 30% are in the tuning dataset, as we specified.
 
-We can then extract the training and testing data sets by using the `training()` and `testing()` functions of the `rsample` package.
+We can then extract the training and testing data sets by using the `training()` and `testing()` functions, also of the `rsample` package.
 
 
 ```r
@@ -1479,9 +1604,9 @@ head(training_iris)
 
 ```
 ##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-## 2           4.9         3.0          1.4         0.2  setosa
-## 4           4.6         3.1          1.5         0.2  setosa
+## 1           5.1         3.5          1.4         0.2  setosa
 ## 7           4.6         3.4          1.4         0.3  setosa
+## 8           5.0         3.4          1.5         0.2  setosa
 ## 9           4.4         2.9          1.4         0.2  setosa
 ## 10          4.9         3.1          1.5         0.1  setosa
 ## 11          5.4         3.7          1.5         0.2  setosa
@@ -1494,14 +1619,13 @@ head(testing_iris)
 
 ```
 ##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-## 1           5.1         3.5          1.4         0.2  setosa
+## 2           4.9         3.0          1.4         0.2  setosa
 ## 3           4.7         3.2          1.3         0.2  setosa
+## 4           4.6         3.1          1.5         0.2  setosa
 ## 5           5.0         3.6          1.4         0.2  setosa
 ## 6           5.4         3.9          1.7         0.4  setosa
-## 8           5.0         3.4          1.5         0.2  setosa
-## 16          5.7         4.4          1.5         0.4  setosa
+## 14          4.3         3.0          1.1         0.1  setosa
 ```
-
 
 avocado move this to the classification data example
 Importantly we can stratify our split by a particular feature of the data.
@@ -1534,12 +1658,124 @@ initial_split(iris, strata = Species, prop = 3/4)
 ## <114/36/150>
 ```
 
+#### Example of preparing for pre-processing the data with `recipes`
+
+After splitting the data, the next step is to process the training and testing data so that the data are are compatible and optimized to be used with the model. This involves assigning variables to specific roles within the model and pre-processing like scaling variables and removing redundant variables. This process is also called feature engineering.
+
+To do this in tidymodels, we will create what’s called a “**recipe**” using the recipes package, which is a standardized format for a sequence of steps for pre-processing the data. This can be very useful because it makes testing out different pre-processing steps or different algorithms with the same pre-processing very easy and reproducible. 
+
+Creating a recipe specifies **how a data frame of predictors should be created** - it specifies what variables to be used and the pre-processing steps, but it **does not execute these steps** or create the data frame of predictors.
+
+##### Step 1: Specify variables  with the `recipe()` function
+
+The first thing to do to create a recipe is to specify which variables we will be using as our outcome and predictors using the recipe() function. In terms of the metaphor of baking, we can think of this as listing our ingredients. Translating this to the recipes package, we use the `recipe()` function to assign roles to all the variables.
+
+We can do so in two ways:
+
+1. Using formula notation
+2. Assigning roles to each variable
+
+Let’s look at the first way using formula notation, which looks like this:
+
+outcome(s) ~ predictor(s)
+
+If in the case of multiple predictors or a multivariate situation with two outcomes, use a plus sign:
+
+outcome1 + outcome2 ~ predictor1 + predictor2
+
+If we want to include all predictors we can use a period like so:
+
+outcome_variable_name ~ .
+
+Let's make our first recipe with the `iris data`! We will first try to predict `Sepal.Length` in our training data from `Sepal.Width`. Thus, `Sepal.Length` is our outcome variable and `Sepal.Width` is our predictor.
+
+First we can specify our variables using formula notation:
 
 
+```r
+library(recipes)
+```
 
+```
+## 
+## Attaching package: 'recipes'
+```
+
+```
+## The following object is masked from 'package:stringr':
+## 
+##     fixed
+```
+
+```
+## The following object is masked from 'package:stats':
+## 
+##     step
+```
+
+```r
+first_recipe <- training_iris %>%
+                  recipe(Sepal.Length ~ Sepal.Width)
+first_recipe
+```
+
+```
+## Data Recipe
+## 
+## Inputs:
+## 
+##       role #variables
+##    outcome          1
+##  predictor          1
+```
+
+Alternatively, we could also specify the outcome and predictor(s) by assigning roles to the variables by using the `update_role()` function. Please see [here](https://tidymodels.github.io/recipes/reference/recipe.html) for examples of the variety of roles variables can take.  
+
+We first need to use the `recipe()` function with this method to specify what dat we are using.
+
+
+```r
+first_recipe <- recipe(training_iris) %>%
+                  recipes::update_role(Sepal.Length, new_role = "outcome")  %>%
+                  recipes::update_role(Sepal.Width, new_role = "predictor")
+first_recipe
+```
+
+```
+## Data Recipe
+## 
+## Inputs:
+## 
+##       role #variables
+##    outcome          1
+##  predictor          1
+## 
+##   3 variables with undeclared roles
+```
+
+We can also view our recipe in more detail using the base summary() function.
+
+
+```r
+summary(first_recipe)
+```
+
+```
+## # A tibble: 5 x 4
+##   variable     type    role      source  
+##   <chr>        <chr>   <chr>     <chr>   
+## 1 Sepal.Length numeric outcome   original
+## 2 Sepal.Width  numeric predictor original
+## 3 Petal.Length numeric <NA>      original
+## 4 Petal.Width  numeric <NA>      original
+## 5 Species      nominal <NA>      original
+```
+#### 
 
 
 #### Example of Variable Selection
+
+
 
 What if we first try to predict `Sepal.Length` in our training data from `Sepal.Width`. To do that, we provide the `train` function with the model and specify that the dataset we'll be using is the `iris` dataset. Additionally, we let the train function know that we want to run linear regression (`lm`) and that we want to assess our model's accuracy using the `RMSE` metric.
 
