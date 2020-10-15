@@ -577,10 +577,6 @@ avocado
 
 ## Linear modeling
 
-* lm, glm, glm.nb
-* t-tests
-* broom / tidy model processing
-* basic inference with linear models
 
 ### Linear Regression
 Inferential analysis is commonly the goal of statistical modeling, where you have a small amount of information to extrapolate and generalize that information to a larger group. One of the most common approaches used in statistical modeling is known as linear regression. Here, we'll discuss when using **linear regression** is appropriate, how to carry out the analysis in R, and how to interpret the results from this statistical approach.
@@ -813,7 +809,7 @@ Specifically, from the beta estimate, which is positive, we confirm that the rel
 ![](https://camo.githubusercontent.com/dd34a9970687a2d7316acb97ecdf8b16ab184671/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3176753341614944656443305a64334754736a614c745072437566725141436f724d4c3477645875644163672f6578706f72742f706e673f69643d3176753341614944656443305a64334754736a614c745072437566725141436f724d4c347764587564416367267061676569643d67336461656133373331315f305f31333039)
 
 
-The **beta estimate** (also known as the beta coefficient or coefficient in the Estimate column) is the amount **the dependent variable will change given a one unit increase in he independent variable**. In the case of the trees, a beta estimate of 0.256, says that for every inch a tree's girth increases, its height will increase by 0.256 inches. Thus, we not only know that there's a positive relationship between the two variables, but we know by precisely how much one variable will change given a single unit increase in the other variable. Note that we're looking at the second row in the output here, where the row label is "Height". This row quantifies the relationship between our two variables. The first row quantifies the intercept, or where the line crosses the y-axis.
+The **beta estimate** (also known as the beta coefficient or coefficient in the Estimate column) is the amount **the dependent variable will change given a one unit increase in the independent variable**. In the case of the trees, a beta estimate of 0.256, says that for every inch a tree's girth increases, its height will increase by 0.256 inches. Thus, we not only know that there's a positive relationship between the two variables, but we know by precisely how much one variable will change given a single unit increase in the other variable. Note that we're looking at the second row in the output here, where the row label is "Height". This row quantifies the relationship between our two variables. The first row quantifies the intercept, or where the line crosses the y-axis.
 
 The standard error and p-value are also included in this output. Error is typically something we want to minimize (in life and statistical analyses), so the *smaller* the error, the *more confident* we are in the association between these two variables.
 
@@ -1219,13 +1215,14 @@ Accuracy is a helpful way to assess error in categorical variables, but it can b
 
 There are *incredibly* helpful packages available in R thanks to the work of [Max Kuhn](https://twitter.com/topepos?lang=en). As mentioned above, there are hundreds of different machine learning algorithms. Max's R packages have compiled all of them into a single framework, allowing you to use *many* different machine learning models easily. Additionally, he has written a very [helpful book](http://appliedpredictivemodeling.com/) about predictive modeling. There are also many [helpful links](https://topepo.github.io/) about each of the packages. Max previously developed the `caret` package (short for Classification And REgression Training) which has been widely used. [Here](https://konradsemsch.netlify.com/2019/08/caret-vs-tidymodels-comparing-the-old-and-new/) you can see some of the dicussion about the difference between `caret` and `tidymodels`. 
 
-In this [rstudio community thread](https://community.rstudio.com/t/caret-to-tidymodels/) you can see that Max stated that "The tidyverse is more about modular packages that are designed to play well with one another. The main issue with caret is that, being all in one package, it is very difficult to extend it into areas that people are interested in...The bottom line is that the tidymodels set should do what caret does and more." We will describe some of the advantages of the `tidymodels` packages.  We will focus on the following packages:                          
+In this [rstudio community thread](https://community.rstudio.com/t/caret-to-tidymodels/) you can see that Max stated that "The tidyverse is more about modular packages that are designed to play well with one another. The main issue with caret is that, being all in one package, it is very difficult to extend it into areas that people are interested in...The bottom line is that the tidymodels set should do what caret does and more." We will describe some of the advantages of the `tidymodels` packages.  We will focus on the following packages although there are many more in the tidymodels ecosystem:                          
 
 
-```{r, echo = FALSE, out.width="60%"}
+```{r, echo = FALSE}
 knitr::include_graphics(here::here("book_figures/simpletidymodels.png"))
 ```
 
+avocado maybe remove below:
 * rsamples - to split the data into training and testing sets (as well as cross validation sets - more on that later!)  
 * recipes -  to prepare the data with preprocessing (assign variables and preprocessing steps)  
 * parsnip -  to specify and fit the data to a model  
@@ -1246,23 +1243,41 @@ To illustrate how to use each of these packages, we will work through some examp
 
 ### Example of Continuous Variable Prediction: Linear Regression 
 
-For this example, we'll keep it simple and use a dataset you've seen before: the `iris` dataset. This way you can focus on the syntax used in the `caret` package and the steps of predictive analysis. In this example, we'll attempt to use the data in the `iris` dataset to predict `Sepal.Length`
+For this example, we'll keep it simple and use a dataset you've seen before: the `iris` dataset. This way you can focus on the syntax used in the `tidymodels` packages and the steps of predictive analysis. In this example, we'll attempt to use the data in the `iris` dataset to predict `Sepal.Length`.
 
-#### Example of Data Splitting with rsample
+#### Example of Data Splitting with `rsample`
 
-As mentioned above, one of the first steps is often to take your dataset and split it into a training set and a testing set. To do this, we'll load the `rsample` package and use the `initial_split()`  function to split the dataset.
+As mentioned above, one of the first steps is often to take your dataset and split it into a training set and a testing set. To do this, we'll load the `rsample` package and use the `initial_split()`  function to split the dataset.  
+
+We can specify what proportion of the data we would like to use for training using the `prop` argument. 
+
+Since the split is performed randomly, it is a good idea to use the set.seed() function in base R to ensure that if your rerun your code that your split will be the same next time.
 
 
 ```{r}
 library(rsample)
-initial_split(iris, prop = 3/4) 
+set.seed(1234)
+split_iris <-initial_split(iris, prop = 2/3) 
+split_iris
 # the default proportion is 1/4 testing and 3/4 training
 ```
-This results in printing the number of training data rows, the number testing data rows, and the total rows divided by "/".
+
+This results in printing the number of training data rows, the number testing data rows, and the total rows - each is printed with the "/" as a division between the values. Here the training set is called the analysis set, while the testing set is called the assess set.
 
 
-After running this code , if we take a look at the training and tuning datasets, we can see that 70% of our observations are in the training dataset and the other 30% are in the tuning dataset, as we specified.
+We can see that about 70% of our observations are in the training dataset and the other 30% are in the tuning dataset, as we specified.
 
+We can then extract the training and testing data sets by using the `training()` and `testing()` functions, also of the `rsample` package.
+
+```{r}
+training_iris <-training(split_iris)
+head(training_iris)
+
+testing_iris <-testing(split_iris)
+head(testing_iris)
+```
+
+avocado move this to the classification data example
 Importantly we can stratify our split by a particular feature of the data.
 For example, let's say that we intend to classify different species of flowers based on there petal and sepal sizes. In this case the iris dataset would be very useful.
 
@@ -1275,46 +1290,66 @@ We therefore would want good representation of each in our testing and training 
 
 ```{r}
 initial_split(iris, strata = Species, prop = 3/4)
-library(AppliedPredictiveModeling)
-data("abalone")
 ```
 
-If we type:
+#### Example of preparing for pre-processing the data with `recipes`
+
+After splitting the data, the next step is to process the training and testing data so that the data are are compatible and optimized to be used with the model. This involves assigning variables to specific roles within the model and pre-processing like scaling variables and removing redundant variables. This process is also called feature engineering.
+
+To do this in tidymodels, we will create what’s called a “**recipe**” using the recipes package, which is a standardized format for a sequence of steps for pre-processing the data. This can be very useful because it makes testing out different pre-processing steps or different algorithms with the same pre-processing very easy and reproducible. 
+
+Creating a recipe specifies **how a data frame of predictors should be created** - it specifies what variables to be used and the pre-processing steps, but it **does not execute these steps** or create the data frame of predictors.
+
+##### Step 1: Specify variables  with the `recipe()` function
+
+The first thing to do to create a recipe is to specify which variables we will be using as our outcome and predictors using the recipe() function. In terms of the metaphor of baking, we can think of this as listing our ingredients. Translating this to the recipes package, we use the `recipe()` function to assign roles to all the variables.
+
+We can do so in two ways:
+
+1. Using formula notation
+2. Assigning roles to each variable
+
+Let’s look at the first way using formula notation, which looks like this:
+
+outcome(s) ~ predictor(s)
+
+If in the case of multiple predictors or a multivariate situation with two outcomes, use a plus sign:
+
+outcome1 + outcome2 ~ predictor1 + predictor2
+
+If we want to include all predictors we can use a period like so:
+
+outcome_variable_name ~ .
+
+Let's make our first recipe with the `iris data`! We will first try to predict `Sepal.Length` in our training data from `Sepal.Width`. Thus, `Sepal.Length` is our outcome variable and `Sepal.Width` is our predictor.
+
+First we can specify our variables using formula notation:
+
 ```{r}
-??abolone
+first_recipe <- training_iris %>%
+                  recipe(Sepal.Length ~ Sepal.Width)
+first_recipe
 ```
 
-We see the following information:
+Alternatively, we could also specify the outcome and predictor(s) by assigning roles to the variables by using the `update_role()` function. Please see [here](https://tidymodels.github.io/recipes/reference/recipe.html) for examples of the variety of roles variables can take.  Infact, the role can be actually be any value.
 
-"The Abalone data consist of data from 4177 abalones. The data consist of measurements of the type (male, female and infant), the longest shell measurement, the diameter, height and several weights (whole, shucked, viscera and shell). The outcome is the number of rings. The age of the abalone is the number of rings plus 1.5."
+We first need to use the `recipe()` function with this method to specify what dat we are using.
 
 ```{r}
-glimpse(abalone)
-dplyr::count(abalone, Rings)
-set.seed(1234)
-abalone_split<-rsample::initial_split(abalone, strata = Rings, prop = 3/4)
-abalone_split_nostrata<-rsample::initial_split(abalone, prop = 3/4)
-
+first_recipe <- recipe(training_iris) %>%
+                  recipes::update_role(Sepal.Length, new_role = "outcome")  %>%
+                  recipes::update_role(Sepal.Width, new_role = "predictor")
+first_recipe
 ```
 
-
-To actually extract the data, we can use the `training()` and `testing()` functions also of the `rsample` package.
+We can also view our recipe in more detail using the base summary() function.
 
 ```{r}
-train_abalone <- training(abalone_split_nostrata)
-test_abalone <-testing(abalone_split_nostrata)
-train_abalone <- training(abalone_split_nostrata)
-test_abalone <-testing(abalone_split_nostrata)
-count(train_abalone, Rings)
-count(test_abalone, Rings)
-count(test_abalone, Rings) %>% plot()
-count(train_abalone, Rings) %>% plot()
-count(abalone, Rings) %>% plot()
-
+summary(first_recipe)
 ```
-
-
 #### Example of Variable Selection
+
+
 
 What if we first try to predict `Sepal.Length` in our training data from `Sepal.Width`. To do that, we provide the `train` function with the model and specify that the dataset we'll be using is the `iris` dataset. Additionally, we let the train function know that we want to run linear regression (`lm`) and that we want to assess our model's accuracy using the `RMSE` metric.
 
