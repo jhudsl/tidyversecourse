@@ -150,7 +150,7 @@ df
 
 Here we also get information about the dimensions of our data object and the name and class of our variables.
 
-<img src="/Users/rdpeng/books/tidyversecourse/book_figures/tibble.png" width="60%" />
+<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/tibble.png" width="60%" />
 
 ### Missing Values
 
@@ -616,7 +616,7 @@ cor.test(pull(df %>% filter(bodywt<2000 & bodywt >1 & brainwt<1),bodywt),
 ## 	Pearson's product-moment correlation
 ## 
 ## data:  pull(df %>% filter(bodywt < 2000 & bodywt > 1 & brainwt < 1), bodywt) and pull(df %>% filter(bodywt < 2000 & bodywt > 1 & brainwt < 1), brainwt)
-## t = 6.6127, df = 27, p-value = 0.0000004283
+## t = 6.6127, df = 27, p-value = 4.283e-07
 ## alternative hypothesis: true correlation is not equal to 0
 ## 95 percent confidence interval:
 ##  0.5897381 0.8949042
@@ -707,15 +707,11 @@ To answer this question, a subset of the US population was studied, and the rese
 A common problem in many data science problem involves developing evidence for or against certain *hypotheses* or testable statements. Typically, the way these problems are structured is that a statement is made about the world (the hypothesis) and then the data are used (usually in the form of a summary statistic) to support or reject that statement.
 
 ### The `infer` package
-
+avocado
 
 
 ## Linear modeling
 
-* lm, glm, glm.nb
-* t-tests
-* broom / tidy model processing
-* basic inference with linear models
 
 ### Linear Regression
 Inferential analysis is commonly the goal of statistical modeling, where you have a small amount of information to extrapolate and generalize that information to a larger group. One of the most common approaches used in statistical modeling is known as linear regression. Here, we'll discuss when using **linear regression** is appropriate, how to carry out the analysis in R, and how to interpret the results from this statistical approach.
@@ -966,7 +962,7 @@ Specifically, from the beta estimate, which is positive, we confirm that the rel
 ![](https://camo.githubusercontent.com/dd34a9970687a2d7316acb97ecdf8b16ab184671/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3176753341614944656443305a64334754736a614c745072437566725141436f724d4c3477645875644163672f6578706f72742f706e673f69643d3176753341614944656443305a64334754736a614c745072437566725141436f724d4c347764587564416367267061676569643d67336461656133373331315f305f31333039)
 
 
-The **beta estimate** (also known as the beta coefficient or coefficient in the Estimate column) is the amount **the dependent variable will change given a one unit increase in he independent variable**. In the case of the trees, a beta estimate of 0.256, says that for every inch a tree's girth increases, its height will increase by 0.256 inches. Thus, we not only know that there's a positive relationship between the two variables, but we know by precisely how much one variable will change given a single unit increase in the other variable. Note that we're looking at the second row in the output here, where the row label is "Height". This row quantifies the relationship between our two variables. The first row quantifies the intercept, or where the line crosses the y-axis.
+The **beta estimate** (also known as the beta coefficient or coefficient in the Estimate column) is the amount **the dependent variable will change given a one unit increase in the independent variable**. In the case of the trees, a beta estimate of 0.256, says that for every inch a tree's girth increases, its height will increase by 0.256 inches. Thus, we not only know that there's a positive relationship between the two variables, but we know by precisely how much one variable will change given a single unit increase in the other variable. Note that we're looking at the second row in the output here, where the row label is "Height". This row quantifies the relationship between our two variables. The first row quantifies the intercept, or where the line crosses the y-axis.
 
 The standard error and p-value are also included in this output. Error is typically something we want to minimize (in life and statistical analyses), so the *smaller* the error, the *more confident* we are in the association between these two variables.
 
@@ -1215,24 +1211,8 @@ These have been nicely summarized by Jonas Kristoffer Lindelov in is blog post [
 
 ![](https://camo.githubusercontent.com/147c1b58a4ff12cbdbec5837cfda153c0a8ae3a3/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f2f6578706f72742f706e673f69643d31786a4d456a4b70717535626b67775049754961426d6444637a573761366c50426f61677a4774766e377a6f267061676569643d67356432323533623730355f325f313035)
 
-## Associational Modeling Applications
-
-Probably just need the case studies and not these: https://github.com/jhudsl/cds_dataanalysis/blob/master/manuscript/06_4_inferential_examples.md
-
-https://github.com/jhudsl/cds_dataanalysis/blob/master/manuscript/06_5_practice.md
-
-* Case Study: Health Expenditures / Coverage
-* Case Study: Firearms
-
-
-## Prediction modeling with  `parsnip` / tidymodels cycle
 
 ### Prediction modeling concepts
-
-* What is prediction / prediction error
-* train / test sets
-* evaluation metrics (mse, fpr, tpr, recall, etc.)
-* penalization (L2 ridge / L1 lasso)
 
 While the goal in inference is to learn something about the population, when we're talking about **prediction**, the focus is on the individual. The goal of predictive analysis and machine learning approaches is to **train a model using data** to make predictions about an individual.
 
@@ -1246,7 +1226,7 @@ Predicting the outcome of elections is a key example of predictive analysis, whe
 
 ### What is Machine Learning?
 
-So far we've been discussing predictive analysis. But, you may have heard people on the news or in daily life talking about "machine learning." The goal of machine learning is to build models (often referred to as algorithms) from the patterns in data that can be used for predictions in the future. For our purposes, it's safe to argue that when doing predictive analysis, we're actually doing machine learning. As such, we'll use machine learning throughout the rest of this lesson. Here, machine learning refers to using the relationships within a dataset to build a model that can be used for prediction.
+So far we've been discussing predictive analysis. But, you may have heard people on the news or in daily life talking about "machine learning." The goal of machine learning in prediction is to build models (often referred to as algorithms) from the patterns in data that can be used for predictions in the future. Here, machine learning refers to using the relationships within a dataset to build a model that can be used for prediction.
 
 That said, there is without a doubt an entire field of individuals dedicating themselves to machine learning. This lesson will just touch on the very basics within the field.
 
@@ -1329,7 +1309,7 @@ As a reminder, as was discussed in the inferential analysis, just because one va
 
 ### Model Selection
 
-Additionally, there are many ways to generate prediction models. Each model was developed for a different and specific purpose. We'll discuss a few types of predictive models here, with a focus on using linear regression. However, regardless of which model you choose to use for prediction, it's best to keep in mind that, in general, the **more data** you have and the **simpler your model is**, the best chance you have at accurately predicting future outcomes:
+Additionally, there are many ways to generate prediction models. Each model was developed for a different and specific purpose. However, regardless of which model you choose to use for prediction, it's best to keep in mind that, in general, the **more data** you have and the **simpler your model is**, the best chance you have at accurately predicting future outcomes:
 
 - More data - The more observations you have and the more variables you have to choose from to include in your model, the more likely you are to generate an accurate predictive model. Note, however, large datasets with lots of missing data or data that have been incorrectly entered are *not* better than small, complete, and accurate datasets. Having a trustworthy dataset to build your model is critical.
 
@@ -1402,12 +1382,12 @@ A common saying is that prediction is hard, especially about the future. This is
 Generally, if your predictions are correct, you're doing well! If your predictions are wrong, you're not doing as well. But, how do we define "well"?
 
 #### Error Rates
-To assess whether or not our predictive models are doing well, we calculate error rates. The two most common ways to assess how well our predictive models are doing are:
+To assess whether or not our predictive models are doing well, we calculate error rates. There are metrics used to measure model performance, however, the two most common ways to assess how well our predictive models are doing are:
 
 1) RMSE (Root-mean-square Error)
 2) Accuracy
 
-We'll note here that in order to assess error, you have to know the truth (the actual value) in addition to the predicted value. Thus, RMSE and Accuracy are assessed in the training and tuning data, where you *know* the actual value as well as the predicted value.
+We'll note here that in order to assess error, you have to know the truth (the actual value) in addition to the predicted value. Thus, RMSE and accuracy are assessed in the training and tuning data, where you *know* the actual value as well as the predicted value.
 
 
 ##### RMSE
@@ -1434,27 +1414,35 @@ Accuracy is a helpful way to assess error in categorical variables, but it can b
 
 
 
-
 ## The `tidymodels` ecosystem
 
-There are *incredibly* helpful packages available in R thanks to the work of [Max Kuhn](https://twitter.com/topepos?lang=en). As mentioned above, there are hundreds of different machine learning algorithms. Max's R packages have compiled all of them into a single framework, allowing you to use *many* different machine learning models easily. Additionally, he has written a very [helpful book](http://appliedpredictivemodeling.com/) about predictive modeling. In addition there are many [helpful links](https://topepo.github.io/) about each of the packages. Max also previously developed the `caret` package (short for Classification And REgression Training.
-[Here](https://konradsemsch.netlify.com/2019/08/caret-vs-tidymodels-comparing-the-old-and-new/) you can see some of the dicussion about the difference between `caret` and `tidymodel`. In this [rstudio community thread](https://community.rstudio.com/t/caret-to-tidymodels/) you can see that Max stated that "The tidyverse is more about modular packages that are designed to play well with one another. The main issue with caret is that, being all in one package, it is very difficult to extend it into areas that people are interested in...The bottom line is that the tidymodels set should do what caret does and more." We will describe some of the advantages of the `tidymodels` packages.  We will focus on the following packages:                          
+There are *incredibly* helpful packages available in R thanks to the work of [Max Kuhn](https://twitter.com/topepos?lang=en). As mentioned above, there are hundreds of different machine learning algorithms. Max's R packages have compiled all of them into a single framework, allowing you to use *many* different machine learning models easily. Additionally, he has written a very [helpful book](http://appliedpredictivemodeling.com/) about predictive modeling. There are also many [helpful links](https://topepo.github.io/) about each of the packages. Max previously developed the `caret` package (short for Classification And REgression Training) which has been widely used. [Here](https://konradsemsch.netlify.com/2019/08/caret-vs-tidymodels-comparing-the-old-and-new/) you can see some of the dicussion about the difference between `caret` and `tidymodels`. 
 
-* rsamples - split the data
-* recipes - prepare the data
-* parsnip - fit the data
-* yardstick - evaluate model performance
-* dials - paramater tuning
-* workflows - combining recipe and parsnip objects into a workflow
-* tune - hyper-paramater tuning 
-
-To illistrate how to use each of these packages, we will work through some examples.
+In this [rstudio community thread](https://community.rstudio.com/t/caret-to-tidymodels/) you can see that Max stated that "The tidyverse is more about modular packages that are designed to play well with one another. The main issue with caret is that, being all in one package, it is very difficult to extend it into areas that people are interested in...The bottom line is that the tidymodels set should do what caret does and more." We will describe some of the advantages of the `tidymodels` packages.  We will focus on the following packages although there are many more in the tidymodels ecosystem:                          
 
 
+<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/simpletidymodels.png" width="830" />
+
+avocado maybe remove below:
+* rsamples - to split the data into training and testing sets (as well as cross validation sets - more on that later!)  
+* recipes -  to prepare the data with preprocessing (assign variables and preprocessing steps)  
+* parsnip -  to specify and fit the data to a model  
+* yardstick and tune -  to evaluate model performance (tune is useful if using cross validation sets)  
+* workflows - combining recipe and parsnip objects into a workflow  (this makes it easier to keep track of what you have done and it makes it easier to modify specific steps)  
+* tune and dials - hyper-paramater tuning (more on that later too!)  
+* broom - to make the output from fitting a model easier to read  
+
+
+
+Here you can see a visual of how these packages work together in the process of performing a machine learning analysis:
+
+<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/MachineLearning_tidymodels.png" width="60%" />
+
+To illustrate how to use each of these packages, we will work through some examples.
 
 ### Example of Continuous Variable Prediction: Linear Regression 
 
-For this example, we'll keep it simple and use a dataset you've seen before: the `iris` dataset. This way you can focus on the syntax used in the `caret` package and the steps of predictive analysis. In this example, we'll attempt to use the data in the `iris` dataset to predict `Sepal.Length`
+For this example, we'll keep it simple and use a dataset you've seen before: the `iris` dataset. This way you can focus on the syntax used in the `caret` package and the steps of predictive analysis. In this example, we'll attempt to use the data in the `iris` dataset to predict `Sepal.Length`.
 
 #### Example of Data Splitting with rsample
 
@@ -1464,7 +1452,8 @@ As mentioned above, one of the first steps is often to take your dataset and spl
 
 ```r
 library(rsample)
-initial_split(iris, prop = 3/4) 
+split_iris <-initial_split(iris) 
+split_iris
 ```
 
 ```
@@ -1475,11 +1464,46 @@ initial_split(iris, prop = 3/4)
 ```r
 # the default proportion is 1/4 testing and 3/4 training
 ```
-This results in printing the number of training data rows, the number testing data rows, and the total rows divided by "/".
+This results in printing the number of training data rows, the number testing data rows, and the total rows divided by "/". Here the training set is called the analysis set, while the testing set is called the assess set.
 
 
 After running this code , if we take a look at the training and tuning datasets, we can see that 70% of our observations are in the training dataset and the other 30% are in the tuning dataset, as we specified.
 
+We can then extract the training and testing data sets by using the `training()` and `testing()` functions of the `rsample` package.
+
+
+```r
+training_iris <-training(split_iris)
+head(training_iris)
+```
+
+```
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 2           4.9         3.0          1.4         0.2  setosa
+## 4           4.6         3.1          1.5         0.2  setosa
+## 7           4.6         3.4          1.4         0.3  setosa
+## 9           4.4         2.9          1.4         0.2  setosa
+## 10          4.9         3.1          1.5         0.1  setosa
+## 11          5.4         3.7          1.5         0.2  setosa
+```
+
+```r
+testing_iris <-testing(split_iris)
+head(testing_iris)
+```
+
+```
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1           5.1         3.5          1.4         0.2  setosa
+## 3           4.7         3.2          1.3         0.2  setosa
+## 5           5.0         3.6          1.4         0.2  setosa
+## 6           5.4         3.9          1.7         0.4  setosa
+## 8           5.0         3.4          1.5         0.2  setosa
+## 16          5.7         4.4          1.5         0.4  setosa
+```
+
+
+avocado move this to the classification data example
 Importantly we can stratify our split by a particular feature of the data.
 For example, let's say that we intend to classify different species of flowers based on there petal and sepal sizes. In this case the iris dataset would be very useful.
 
@@ -1510,172 +1534,9 @@ initial_split(iris, strata = Species, prop = 3/4)
 ## <114/36/150>
 ```
 
-```r
-library(AppliedPredictiveModeling)
-data("abalone")
-```
-
-If we type:
-
-```r
-??abolone
-```
-
-We see the following information:
-
-"The Abalone data consist of data from 4177 abalones. The data consist of measurements of the type (male, female and infant), the longest shell measurement, the diameter, height and several weights (whole, shucked, viscera and shell). The outcome is the number of rings. The age of the abalone is the number of rings plus 1.5."
 
 
-```r
-glimpse(abalone)
-```
 
-```
-## Rows: 4,177
-## Columns: 9
-## $ Type          <fct> M, M, F, M, I, I, F, F, M, F, F, M, M, F, F, M, I, F, M…
-## $ LongestShell  <dbl> 0.455, 0.350, 0.530, 0.440, 0.330, 0.425, 0.530, 0.545,…
-## $ Diameter      <dbl> 0.365, 0.265, 0.420, 0.365, 0.255, 0.300, 0.415, 0.425,…
-## $ Height        <dbl> 0.095, 0.090, 0.135, 0.125, 0.080, 0.095, 0.150, 0.125,…
-## $ WholeWeight   <dbl> 0.5140, 0.2255, 0.6770, 0.5160, 0.2050, 0.3515, 0.7775,…
-## $ ShuckedWeight <dbl> 0.2245, 0.0995, 0.2565, 0.2155, 0.0895, 0.1410, 0.2370,…
-## $ VisceraWeight <dbl> 0.1010, 0.0485, 0.1415, 0.1140, 0.0395, 0.0775, 0.1415,…
-## $ ShellWeight   <dbl> 0.150, 0.070, 0.210, 0.155, 0.055, 0.120, 0.330, 0.260,…
-## $ Rings         <int> 15, 7, 9, 10, 7, 8, 20, 16, 9, 19, 14, 10, 11, 10, 10, …
-```
-
-```r
-dplyr::count(abalone, Rings)
-```
-
-```
-##    Rings   n
-## 1      1   1
-## 2      2   1
-## 3      3  15
-## 4      4  57
-## 5      5 115
-## 6      6 259
-## 7      7 391
-## 8      8 568
-## 9      9 689
-## 10    10 634
-## 11    11 487
-## 12    12 267
-## 13    13 203
-## 14    14 126
-## 15    15 103
-## 16    16  67
-## 17    17  58
-## 18    18  42
-## 19    19  32
-## 20    20  26
-## 21    21  14
-## 22    22   6
-## 23    23   9
-## 24    24   2
-## 25    25   1
-## 26    26   1
-## 27    27   2
-## 28    29   1
-```
-
-```r
-set.seed(1234)
-abalone_split<-rsample::initial_split(abalone, strata = Rings, prop = 3/4)
-abalone_split_nostrata<-rsample::initial_split(abalone, prop = 3/4)
-```
-
-
-To actually extract the data, we can use the `training()` and `testing()` functions also of the `rsample` package.
-
-
-```r
-train_abalone <- training(abalone_split_nostrata)
-test_abalone <-testing(abalone_split_nostrata)
-train_abalone <- training(abalone_split_nostrata)
-test_abalone <-testing(abalone_split_nostrata)
-count(train_abalone, Rings)
-```
-
-```
-##    Rings   n
-## 1      1   1
-## 2      2   1
-## 3      3  13
-## 4      4  46
-## 5      5  97
-## 6      6 195
-## 7      7 299
-## 8      8 409
-## 9      9 522
-## 10    10 460
-## 11    11 363
-## 12    12 211
-## 13    13 148
-## 14    14  96
-## 15    15  79
-## 16    16  50
-## 17    17  43
-## 18    18  32
-## 19    19  20
-## 20    20  23
-## 21    21   7
-## 22    22   6
-## 23    23   6
-## 24    24   1
-## 25    25   1
-## 26    26   1
-## 27    27   2
-## 28    29   1
-```
-
-```r
-count(test_abalone, Rings)
-```
-
-```
-##    Rings   n
-## 1      3   2
-## 2      4  11
-## 3      5  18
-## 4      6  64
-## 5      7  92
-## 6      8 159
-## 7      9 167
-## 8     10 174
-## 9     11 124
-## 10    12  56
-## 11    13  55
-## 12    14  30
-## 13    15  24
-## 14    16  17
-## 15    17  15
-## 16    18  10
-## 17    19  12
-## 18    20   3
-## 19    21   7
-## 20    23   3
-## 21    24   1
-```
-
-```r
-count(test_abalone, Rings) %>% plot()
-```
-
-<img src="05-prediction_files/figure-html/unnamed-chunk-49-1.png" width="672" />
-
-```r
-count(train_abalone, Rings) %>% plot()
-```
-
-<img src="05-prediction_files/figure-html/unnamed-chunk-49-2.png" width="672" />
-
-```r
-count(abalone, Rings) %>% plot()
-```
-
-<img src="05-prediction_files/figure-html/unnamed-chunk-49-3.png" width="672" />
 
 
 #### Example of Variable Selection
