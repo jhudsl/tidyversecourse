@@ -150,7 +150,7 @@ df
 
 Here we also get information about the dimensions of our data object and the name and class of our variables.
 
-<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/tibble.png" width="60%" />
+<img src="/Users/rdpeng/books/tidyversecourse/book_figures/tibble.png" width="60%" />
 
 ### Missing Values
 
@@ -616,7 +616,7 @@ cor.test(pull(df %>% filter(bodywt<2000 & bodywt >1 & brainwt<1),bodywt),
 ## 	Pearson's product-moment correlation
 ## 
 ## data:  pull(df %>% filter(bodywt < 2000 & bodywt > 1 & brainwt < 1), bodywt) and pull(df %>% filter(bodywt < 2000 & bodywt > 1 & brainwt < 1), brainwt)
-## t = 6.6127, df = 27, p-value = 4.283e-07
+## t = 6.6127, df = 27, p-value = 0.0000004283
 ## alternative hypothesis: true correlation is not equal to 0
 ## 95 percent confidence interval:
 ##  0.5897381 0.8949042
@@ -1284,10 +1284,14 @@ soda_ounces %>%
 ```
 
 ```
+## Using `level = 0.95` to compute confidence interval.
+```
+
+```
 ## # A tibble: 1 x 2
-##   `2.5%` `97.5%`
-##    <dbl>   <dbl>
-## 1     NA      NA
+##   lower_ci upper_ci
+##      <dbl>    <dbl>
+## 1       NA       NA
 ```
 
 avocado finish by describing why we would do resampling etc. and explaining the above steps... I am not sure yet what you can do without doing permutations...
@@ -1520,7 +1524,7 @@ Modifying a piece of the overall process is now easier than before because many 
 
 We will focus on the following packages although there are many more in the tidymodels ecosystem:                          
 
-<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/simpletidymodels.png" width="830" />
+<img src="/Users/rdpeng/books/tidyversecourse/book_figures/simpletidymodels.png" width="830" />
 
 avocado maybe remove below:
 * rsamples - to split the data into training and testing sets (as well as cross validation sets - more on that later!)  
@@ -1535,7 +1539,7 @@ avocado maybe remove below:
 
 Here you can see a visual of how these packages work together in the process of performing a machine learning analysis:
 
-<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/MachineLearning_tidymodels.png" width="60%" />
+<img src="/Users/rdpeng/books/tidyversecourse/book_figures/MachineLearning_tidymodels.png" width="60%" />
 
 To illustrate how to use each of these packages, we will work through some examples.
 
