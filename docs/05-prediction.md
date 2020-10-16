@@ -1307,6 +1307,7 @@ The `calculate()` function then allows for many different statstics to be calcul
 16) `ratio of props`
 17) `odds ratio`  
 
+
 Finally, the `get_confidence_interval()` as you might guess calculates a confidence interval.
 
 Now we will use these functions on our data.
@@ -1314,12 +1315,16 @@ Now we will use these functions on our data.
 
 ```r
 library(infer)
-soda_ounces %>%
+set.seed(342)
+
+CI <-soda_ounces %>%
   specify(response = value) %>%
   hypothesize(null = "point", mu = 12) %>%
   generate(rep = 1000, type = "bootstrap") %>%
   calculate(stat = "mean") %>% 
   get_confidence_interval()
+
+CI
 ```
 
 ```
@@ -1332,6 +1337,23 @@ soda_ounces %>%
 We can see that our confidence interval is very similar but slightly different from the results we obtained using the `t.test()` function and the `lm()` function. This is because we used a different method to calculate the confidence interval based on the bootstrap samples. Furthemore, the results will vary everytime the code is run because the bootstrap samples are randomly created each time.
 
 
+We can also make a visualization of the null distribution of the bootstrap samples using the `visualize()` function.
+
+
+```r
+set.seed(342)
+
+bootstrap_means <-soda_ounces %>%
+  specify(response = value) %>%
+  hypothesize(null = "point", mu = 12) %>%
+  generate(rep = 1000, type = "bootstrap") %>%
+  calculate(stat = "mean")
+
+bootstrap_means %>%
+  visualize()
+```
+
+<img src="05-prediction_files/figure-html/unnamed-chunk-43-1.png" width="672" />
 
 ### Prediction modeling concepts
 
@@ -1588,15 +1610,14 @@ Other tidymodel packages include:
 4) `discrim` has more model options classification  
 5) `embed` has extra preprocessing options for categorical predictors  
 6) `hardhat` helps you to make new modeling packages  
-7) `infer` helps you perform statistical analyses more easily (in the context of this.?)avocado... also update if we talk about infer above  
-8) `corrr` has more options for looking at correlation matrices  
-9) `rules` has more model options for prediction rule ensembles  
-10) `text recipes` has extra preprocessing options for using text data  
-11) `tidypredict` is for running predictions inside SQL databases  
-12) `modeldb` is also for working within SQL datbases and it allows for `dplyr` and `tidyeval` use within a database  
-13) `tidyposterior` compares models using resampling statistics  
+7) `corrr` has more options for looking at correlation matrices  
+8) `rules` has more model options for prediction rule ensembles  
+9) `text recipes` has extra preprocessing options for using text data  
+10) `tidypredict` is for running predictions inside SQL databases  
+11) `modeldb` is also for working within SQL datbases and it allows for `dplyr` and `tidyeval` use within a database  
+12) `tidyposterior` compares models using resampling statistics  
 
-Most of these packges offer advanced modeling options, with the exception of `corrr`.
+Most of these packges offer advanced modeling options.
 
 ### Example of Continuous Variable Prediction: Linear Regression 
 
@@ -1604,7 +1625,7 @@ For this example, we'll keep it simple and use a dataset you've seen before: the
 
 #### Example of Data Splitting with `rsample`
 
-As mentioned above, one of the first steps is often to take your dataset and split it into a training set and a testing set. To do this, we'll load the `rsample` package and use the `initial_split()`  function to split the dataset.  
+As mentioned above, one of the first steps is to take your dataset and split it into a training set and a testing set. To do this, we'll load the `rsample` package and use the `initial_split()` function to split the dataset.  
 
 We can specify what proportion of the data we would like to use for training using the `prop` argument. 
 
@@ -1726,7 +1747,7 @@ If we want to include all predictors we can use a period like so:
 
 outcome_variable_name ~ .
 
-Let's make our first recipe with the `iris data`! We will first try to predict `Sepal.Length` in our training data from `Sepal.Width`. Thus, `Sepal.Length` is our outcome variable and `Sepal.Width` is our predictor.
+Let's make our first recipe with the `iris data`! We will first try to predict `Sepal.Length` in our training data based on `Sepal.Width` and the `Species`. Thus, `Sepal.Length` is our outcome variable and `Sepal.Width` and `Species` are our predictor variables.
 
 First we can specify our variables using formula notation:
 
@@ -1754,7 +1775,7 @@ library(recipes)
 
 ```r
 first_recipe <- training_iris %>%
-                  recipe(Sepal.Length ~ Sepal.Width)
+                  recipe(Sepal.Length ~ Sepal.Width + Species)
 first_recipe
 ```
 
@@ -1765,18 +1786,19 @@ first_recipe
 ## 
 ##       role #variables
 ##    outcome          1
-##  predictor          1
+##  predictor          2
 ```
 
 Alternatively, we could also specify the outcome and predictor(s) by assigning roles to the variables by using the `update_role()` function. Please see [here](https://tidymodels.github.io/recipes/reference/recipe.html) for examples of the variety of roles variables can take.  
 
-We first need to use the `recipe()` function with this method to specify what dat we are using.
+We first need to use the `recipe()` function with this method to specify what data we are using.
 
 
 ```r
 first_recipe <- recipe(training_iris) %>%
                   recipes::update_role(Sepal.Length, new_role = "outcome")  %>%
-                  recipes::update_role(Sepal.Width, new_role = "predictor")
+                  recipes::update_role(Sepal.Width, new_role = "predictor") %>%
+                  recipes::update_role(Species, new_role = "predictor")
 first_recipe
 ```
 
@@ -1787,9 +1809,22 @@ first_recipe
 ## 
 ##       role #variables
 ##    outcome          1
-##  predictor          1
+##  predictor          2
 ## 
-##   3 variables with undeclared roles
+##   2 variables with undeclared roles
+```
+
+
+We can use the `formula()` function of the stats package to see how we have assigned our variables in formula notation.
+
+
+```r
+formula(first_recipe)
+```
+
+```
+## Sepal.Length ~ Sepal.Width + Species
+## <environment: 0x7f93250d5078>
 ```
 
 We can also view our recipe in more detail using the base summary() function.
@@ -1807,9 +1842,506 @@ summary(first_recipe)
 ## 2 Sepal.Width  numeric predictor original
 ## 3 Petal.Length numeric <NA>      original
 ## 4 Petal.Width  numeric <NA>      original
-## 5 Species      nominal <NA>      original
+## 5 Species      nominal predictor original
 ```
-#### 
+
+##### Step 2: Specify the pre-processing steps with `step*()` functions
+
+Next, we use the `step*()` functions from the `recipe` package to specify pre-processing steps. 
+
+**This [link](https://tidymodels.github.io/recipes/reference/index.html){target="_blank"} and this [link](https://cran.r-project.org/web/packages/recipes/recipes.pdf){target="_blank"} show the many options for recipe step functions.**
+
+<u>There are step functions for a variety of purposes:</u>
+
+1. [**Imputation**](https://en.wikipedia.org/wiki/Imputation_(statistics)){target="_blank"} -- filling in missing values based on the existing data 
+2. [**Transformation**](https://en.wikipedia.org/wiki/Data_transformation_(statistics)){target="_blank"} -- changing all values of a variable in the same way, typically to make it more normal or easier to interpret
+3. [**Discretization**](https://en.wikipedia.org/wiki/Discretization_of_continuous_features){target="_blank"} -- converting continuous values into discrete or nominal values - binning for example to reduce the number of possible levels (However this is generally not advisable!)
+4. [**Encoding / Creating Dummy Variables**](https://en.wikipedia.org/wiki/Dummy_variable_(statistics)){target="_blank"} -- creating a numeric code for categorical variables
+([**More on Dummy Variables and one hot encoding**](https://medium.com/p/b5840be3c41a/responses/show){target="_blank"})
+5. [**Data type conversions**](https://cran.r-project.org/web/packages/hablar/vignettes/convert.html){target="_blank"}  -- which means changing from integer to factor or numeric to date etc.
+6. [**Interaction**](https://statisticsbyjim.com/regression/interaction-effects/){target="_blank"}  term addition to the model -- which means that we would be modeling for predictors that would influence the capacity of each other to predict the outcome
+7. [**Normalization**](https://en.wikipedia.org/wiki/Normalization_(statistics)){target="_blank"} -- centering and scaling the data to a similar range of values
+8. [**Dimensionality Reduction/ Signal Extraction**](https://en.wikipedia.org/wiki/Dimensionality_reduction){target="_blank"} -- reducing the space of features or predictors to a smaller set of variables that capture the variation or signal in the original variables (ex. Principal Component Analysis and Independent Component Analysis)
+9. **Filtering** -- filtering options for removing variables (ex. remove variables that are highly correlated to others or remove variables with very little variance and therefore likely little predictive capacity)
+10. [**Row operations**](https://tartarus.org/gareth/maths/Linear_Algebra/row_operations.pdf){target="_blank"} -- performing functions on the values within the rows  (ex. rearranging, filtering, imputing)
+11. **Checking functions** -- Sanity checks to look for missing values, to look at the variable classes etc.
+
+All of the step functions look like `step_*()` with the `*` replaced with a name, except for the check functions which look like `check_*()`.
+
+There are several ways to select what variables to apply steps to:  
+
+1. Using `tidyselect` methods: `contains()`, `matches()`, `starts_with()`, `ends_with()`, `everything()`, `num_range()`  
+2. Using the type: `all_nominal()`, `all_numeric()` , `has_type()` 
+3. Using the role: `all_predictors()`, `all_outcomes()`, `has_role()`
+4. Using the name - use the actual name of the variable/variables of interest  
+
+Let's try adding a pre-processing step to our recipe.
+
+We might want to potentially one hot encode some of our categorical variables so that they can be used with certain algorithms like a linear regression require numeric predictors. 
+
+We can do this with the `step_dummy()` function and the `one_hot = TRUE` argument. 
+One hot encoding means that we do not simply encode our categorical variables numerically, as our numeric assignments can be interpreted by algorithms as having a particular rank or order. 
+Instead, binary variables made of 1s and 0s are used to arbitrarily assign a numeric value that has no apparent order.
+
+
+```r
+first_recipe <- first_recipe %>%
+  step_dummy(Species, one_hot = TRUE)
+
+first_recipe
+```
+
+```
+## Data Recipe
+## 
+## Inputs:
+## 
+##       role #variables
+##    outcome          1
+##  predictor          2
+## 
+##   2 variables with undeclared roles
+## 
+## Operations:
+## 
+## Dummy variables from Species
+```
+#### Example of optionally performing the preprocessing to see how it influences the data
+
+Optionally one can use the `prep()` function of the `recipes` package to update the recipe for manually performing the preprocessing to see how this infleunces the data. This step is however not required. The preprocessed training data can than be viewed by using the `juice()` function, while preprocessed testing data can be viewed using the `bake()` function.
+
+The `prep()` function estimates parameters (estimating the required quantities and statistics required by the steps for the variables) for pre-processing and updates the variables roles, as sometimes predictors may be removed, this allows the recipe to be ready to use on other data sets. 
+
+It **does not necessarily actually execute the pre-processing itself**, however we will specify using the `retain` argument for it to do this so that we can take a look at the pre-processed data.
+
+There are some important arguments to know about:
+
+1. `training` - you must supply a training data set to estimate parameters for pre-processing operations (recipe steps) - this may already be included in your recipe - as is the case for us
+2. `fresh` - if `fresh=TRUE`, - will retrain and estimate parameters for any previous steps that were already prepped if you add more steps to the recipe
+3. `verbose` - if `verbose=TRUE`, shows the progress as the steps are evaluated and the size of the pre-processed training set
+4. `retain` - if `retain=TRUE`, then the pre-processed training set will be saved within the recipe (as template). This is good if you are likely to add more steps and do not want to rerun the `prep()` on the previous steps. However this can make the recipe size large. This is necessary if you want to actually look at the pre-processed data.
+
+Let's try out the `prep()` function: 
+
+
+```r
+prepped_rec <- prep(first_recipe, verbose = TRUE, retain = TRUE )
+```
+
+```
+## oper 1 step dummy [training] 
+## The retained training set is ~ 0.01 Mb  in memory.
+```
+
+```r
+prepped_rec
+```
+
+```
+## Data Recipe
+## 
+## Inputs:
+## 
+##       role #variables
+##    outcome          1
+##  predictor          2
+## 
+##   2 variables with undeclared roles
+## 
+## Training data contained 100 data points and no missing data.
+## 
+## Operations:
+## 
+## Dummy variables from Species [trained]
+```
+
+```r
+names(prepped_rec)
+```
+
+```
+## [1] "var_info"       "term_info"      "steps"          "template"      
+## [5] "retained"       "tr_info"        "orig_lvls"      "last_term_info"
+```
+
+There are also lots of useful things to checkout in the output of `prep()`.
+You can see:
+
+1. the `steps` that were run  
+2. the original variable info (`var_info`)  
+3. the updated variable info after pre-processing (`term_info`)
+4. the new `levels` of the variables 
+5. the original levels of the variables (`orig_lvls`)
+6. info about the training data set size and completeness (`tr_info`)
+
+We can see these using the `$` notation:
+
+
+```r
+prepped_rec$var_info
+```
+
+```
+## # A tibble: 5 x 4
+##   variable     type    role      source  
+##   <chr>        <chr>   <chr>     <chr>   
+## 1 Sepal.Length numeric outcome   original
+## 2 Sepal.Width  numeric predictor original
+## 3 Petal.Length numeric <NA>      original
+## 4 Petal.Width  numeric <NA>      original
+## 5 Species      nominal predictor original
+```
+
+Now we can use `juice` to see the preprocessed training data.
+
+
+```r
+juiced_train <- juice(prepped_rec)
+glimpse(juiced_train)
+```
+
+```
+## Rows: 100
+## Columns: 7
+## $ Sepal.Length       <dbl> 5.1, 4.6, 5.0, 4.4, 4.9, 5.4, 4.8, 4.8, 5.8, 5.7, …
+## $ Sepal.Width        <dbl> 3.5, 3.4, 3.4, 2.9, 3.1, 3.7, 3.4, 3.0, 4.0, 4.4, …
+## $ Petal.Length       <dbl> 1.4, 1.4, 1.5, 1.4, 1.5, 1.5, 1.6, 1.4, 1.2, 1.5, …
+## $ Petal.Width        <dbl> 0.2, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.2, 0.4, …
+## $ Species_setosa     <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+## $ Species_versicolor <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ Species_virginica  <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+```
+
+We can see that the `Species` variable has been replaced by 3 variables representing the 3 different species numerically with zeros and ones.
+
+Now we do the same for our testing data using `bake()`. You generally want to leave your testing data alone, but it is good to look for issues like the introduction of NA values if you have complicated preprocessing steps and you want to make sure this performs as you expect.
+
+
+```r
+baked_test_pm <- recipes::bake(prepped_rec, new_data = testing_iris)
+glimpse(baked_test_pm)
+```
+
+```
+## Rows: 50
+## Columns: 7
+## $ Sepal.Length       <dbl> 4.9, 4.7, 4.6, 5.0, 5.4, 4.3, 5.2, 5.4, 5.1, 5.0, …
+## $ Sepal.Width        <dbl> 3.0, 3.2, 3.1, 3.6, 3.9, 3.0, 3.5, 3.4, 3.4, 3.5, …
+## $ Petal.Length       <dbl> 1.4, 1.3, 1.5, 1.4, 1.7, 1.1, 1.5, 1.5, 1.5, 1.3, …
+## $ Petal.Width        <dbl> 0.2, 0.2, 0.2, 0.2, 0.4, 0.1, 0.2, 0.4, 0.2, 0.3, …
+## $ Species_setosa     <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,…
+## $ Species_versicolor <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,…
+## $ Species_virginica  <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+```
+
+Great! Now back to the typical steps.
+
+#### Example of specifying the model with `parsnip`
+
+So far we have used the packages `rsample` to split the data and `recipes` to assign variable types, and to specify and prep our pre-processing (as well as to optionally extract the pre-processed data).
+
+We will now use the `parsnip` package (which is similar to the previous `caret` package - and hence why it is named after the vegetable) to specify our model.
+
+There are four things we need to define about our model:  
+
+1. The **type** of model (using specific functions in parsnip like `rand_forest()`, `logistic_reg()` etc.)  
+2. The package or **engine** that we will use to implement the type of model selected (using the `set_engine()` function) 
+3. The **mode** of learning - classification or regression (using the `set_mode()` function) 
+4. Any **arguments** necessary for the model/package selected (using the `set_args()`function -  for example the `mtry =` argument for random forest which is the number of variables to be used as options for splitting at each tree node)
+
+Let's walk through these steps one by one. 
+For our case, we are going to start our analysis with a linear regression but we will demonstrate how we can try different models.
+
+The first step is to define what type of model we would like to use. 
+See [here](https://www.tidymodels.org/find/parsnip/){target="_blank"} for modeling options in `parsnip`.
+
+We want to do a linear regression so we will use the `linear_reg()` function of the `parsnip` package.
+
+
+```r
+Lin_reg_model <- parsnip::linear_reg()
+Lin_reg_model
+```
+
+```
+## Linear Regression Model Specification (regression)
+```
+
+OK. So far, all we have defined is that we want to use a linear regression. Now let's tell `parsnip` more about what we want.
+
+We would like to use the [ordinary least squares](https://en.wikipedia.org/wiki/Ordinary_least_squares) method to fit our linear regression. 
+So we will tell `parsnip` that we want to use the `lm` package to implement our linear regression (there are many options actually such as [`rstan`](https://cran.r-project.org/web/packages/rstan/vignettes/rstan.html){target="_blank"}  [`glmnet`](https://cran.r-project.org/web/packages/glmnet/index.html){target="_blank"}, [`keras`](https://keras.rstudio.com/){target="_blank"}, and [`sparklyr`](https://therinspark.com/starting.html#starting-sparklyr-hello-world){target="_blank"}). See [here](https://parsnip.tidymodels.org/reference/linear_reg.html) for a description of the differences and using these different engines with `parsnip`.
+
+We will do so by using the `set_engine()` function of the `parsnip` package.
+
+
+```r
+Lin_reg_model <- 
+  Lin_reg_model  %>%
+  parsnip::set_engine("lm")
+
+Lin_reg_model
+```
+
+```
+## Linear Regression Model Specification (regression)
+## 
+## Computational engine: lm
+```
+
+Some packages can do either classification or regression, so it is a good idea to specify which mode you intend to perform. 
+Here, we aim to predict a continuous variable, thus we want to perform a `regression` analysis. 
+You can do this with the `set_mode()` function of the `parsnip` package, by using either `set_mode("classification")` or `set_mode("regression")`.
+
+
+```r
+Lin_reg_model <- 
+  Lin_reg_model %>%
+  parsnip::set_engine("lm") %>%
+  parsnip::set_mode("regression")
+
+Lin_reg_model
+```
+
+```
+## Linear Regression Model Specification (regression)
+## 
+## Computational engine: lm
+```
+#### Example of fitting the model
+
+We can  use the `parsnip` package with a newer package called `workflows` to fit our model. 
+
+The `workflows` package allows us to keep track of both our pre-processing steps and our model specification. It also allows us to implement fancier optimizations in an automated way and it can also handle post-processing operations. 
+
+We begin by creating a workflow using the `workflow()` function in the `workflows` package. 
+
+Next, we use `add_recipe()` (our pre-processing specifications) and we add our model with the `add_model()` function -- both functions from the `workflows` package.
+
+**Note**: We do not need to actually `prep()` our recipe before using workflows - this was just optional so we could take a look at the preprocessed data!
+
+
+```r
+iris_reg_wflow <-workflows::workflow() %>%
+           workflows::add_recipe(first_recipe) %>%
+           workflows::add_model(Lin_reg_model)
+iris_reg_wflow
+```
+
+```
+## ══ Workflow ═════════════════════════════════════════════════════════════════════════════════════════════════════════════
+## Preprocessor: Recipe
+## Model: linear_reg()
+## 
+## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## 1 Recipe Step
+## 
+## ● step_dummy()
+## 
+## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## Linear Regression Model Specification (regression)
+## 
+## Computational engine: lm
+```
+
+Ah, nice. 
+Notice how it tells us about both our pre-processing steps and our model specifications.
+
+Next, we "prepare the recipe" (or estimate the parameters) and fit the model to our training data all at once. 
+Printing the output, we can see the coefficients of the model.
+
+
+```r
+iris_reg_wflow_fit <- parsnip::fit(iris_reg_wflow, data = training_iris)
+iris_reg_wflow_fit
+```
+
+```
+## ══ Workflow [trained] ═══════════════════════════════════════════════════════════════════════════════════════════════════
+## Preprocessor: Recipe
+## Model: linear_reg()
+## 
+## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## 1 Recipe Step
+## 
+## ● step_dummy()
+## 
+## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## 
+## Call:
+## stats::lm(formula = formula, data = data)
+## 
+## Coefficients:
+##        (Intercept)         Sepal.Width      Species_setosa  Species_versicolor  
+##             4.5729              0.6897             -1.9176             -0.5727  
+##  Species_virginica  
+##                 NA
+```
+
+
+#### Example of assessing the model performance
+
+Recall that often for regression analysis we use the RMSE to assess model performance. 
+
+To get this we first need to get the predicted (also called "fitted") values.
+
+We can get these values using the `pull_workflow_fit()` function of the `workflows` package. These values are in the `$fit$fitted.values` slot of the output. We can however use the `augment()` function of the `broom` package however, to get more information about the prediction for each sample in the training data. This requires using the preprocessed training data from `juice()`.
+
+
+```r
+library(workflows)
+wf_fit <- iris_reg_wflow_fit %>% 
+  pull_workflow_fit()
+
+head(wf_fit$fit$fitted.values)
+```
+
+```
+##        1        2        3        4        5        6 
+## 5.069164 5.000194 5.000194 4.655345 4.793284 5.207103
+```
+
+```r
+wf_fitted_values <- 
+  broom::augment(wf_fit$fit, data = juiced_train) %>% 
+  select(Sepal.Length, .fitted:.std.resid)
+
+head(wf_fitted_values)
+```
+
+```
+## # A tibble: 6 x 8
+##   Sepal.Length .fitted .se.fit    .resid   .hat .sigma       .cooksd .std.resid
+##          <dbl>   <dbl>   <dbl>     <dbl>  <dbl>  <dbl>         <dbl>      <dbl>
+## 1          5.1    5.07  0.0707  0.0308   0.0286  0.420 0.0000413       0.0748  
+## 2          4.6    5.00  0.0712 -0.400    0.0290  0.418 0.00706        -0.972   
+## 3          5      5.00  0.0712 -0.000194 0.0290  0.420 0.00000000166  -0.000471
+## 4          4.4    4.66  0.0995 -0.255    0.0567  0.419 0.00595        -0.629   
+## 5          4.9    4.79  0.0841  0.107    0.0405  0.420 0.000717        0.261   
+## 6          5.4    5.21  0.0758  0.193    0.0329  0.420 0.00187         0.469
+```
+
+Nice, now we can see what the orginal value for `Sepal.Length` was right next to the predicted `.fitted` value, as well as standard errors and other metrics for each value. 
+
+Now we can use the `rmse()` function of the `yardstick` package to compare the `truth`, which is the `Sepal.Length` variable, to the predicted or estimate variable which in the previous output is called `.fitted`.
+
+
+```r
+yardstick::rmse(wf_fitted_values, 
+               truth = Sepal.Length, estimate = .fitted)
+```
+
+```
+## # A tibble: 1 x 3
+##   .metric .estimator .estimate
+##   <chr>   <chr>          <dbl>
+## 1 rmse    standard       0.410
+```
+
+We can see that our RMSE was r `yardstick::rmse(wf_fitted_values, truth = Sepal.Length, estimate = .fitted) %>% pull(.estimate)`. This is fairly low, so our model did pretty well.
+
+
+We can also make a plot to visualize how well we predicted `Sepal.Length`.
+
+
+```r
+wf_fitted_values %>%
+  ggplot(aes(x = Sepal.Length, y = .fitted)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs( x = "True Sepal Length", y = "Predicted Sepal Length")
+```
+
+```
+## `geom_smooth()` using formula 'y ~ x'
+```
+
+<img src="05-prediction_files/figure-html/unnamed-chunk-69-1.png" width="672" />
+
+We can see that overall our model predicted the sepal length fairly well. We can see that the model appeared to do less well at predicted very long sepal lengths.
+
+
+Typically we might modify our preprocessing steps or try a different model untill we were satisfied with the performance on our training data. Assuming we are satisified, we could then peform a final assessment of our model using the testing data. 
+
+With the `workflows` package, we can use the splitting information for our original data `split_iris` to fit the final model on the full training set and also on the testing data using the `last_fit()` function of the `tune` package. No pre-processing steps are required.
+
+
+We can do this by using the `last_fit()` function of the `tune` package.
+
+
+```r
+overallfit <-iris_reg_wflow %>%
+  tune::last_fit(split_iris)
+```
+
+```
+## ! Resample1: model (predictions): prediction from a rank-deficient fit may be misleading
+```
+
+```r
+overallfit
+```
+
+```
+## # Monte Carlo cross-validation (0.67/0.33) with 1 resamples  
+## # A tibble: 1 x 6
+##   splits       id           .metrics      .notes       .predictions    .workflow
+##   <list>       <chr>        <list>        <list>       <list>          <list>   
+## 1 <split [100… train/test … <tibble [2 ×… <tibble [1 … <tibble [50 × … <workflo…
+```
+
+We can then use the `collect_metrics()` function of the `tune` package to get the RMSE:
+
+
+```r
+collect_metrics(overallfit)
+```
+
+```
+## # A tibble: 2 x 3
+##   .metric .estimator .estimate
+##   <chr>   <chr>          <dbl>
+## 1 rmse    standard       0.481
+## 2 rsq     standard       0.710
+```
+
+We can see that our RMSE is pretty similar for the testing data as well. 
+
+
+### Example of Categorical Variable Prediction: Classification with CART
+
+Now we are going to show an example of using the `tidymodels` packages to perform prediction of a categorical variable.
+Again, we will use the `iris` dataset. However, this time the will predict the identity of the follower species (which is categorical) based on the other variables.
+
+We have already split our data into testing and training sets, so we don't need to do that again.
+
+However, we do need to create a new recipe with different variables assigned to different roles. This time we want to use `Species` as the outcome. We can use the `.` notation to indicate that we want to use the rest of the variables as predictors.
+
+
+```r
+cat_recipe <-iris %>%
+recipe(Species ~.)
+```
+
+This time we also want be doing any preprocessing steps for simplicity sake so our recipe is actually finished.
+
+Now our next step is to specify our model. The modeling options for parsnip are  [here](https://www.tidymodels.org/find/parsnip/){target="_blank"}. We will be using a Classification And Regression Tree (CART). This means that it can be used for either classification or regression (categorical or continuous outcome variables). Thus it is important that we set the mode for classification. We will use the `C5.0` as our engine.
+
+
+```r
+CART_model <- parsnip::decision_tree() %>%
+              parsnip::set_mode("classification") %>%
+              parsnip::set_engine("C5.0")
+CART_model
+```
+
+```
+## Decision Tree Model Specification (classification)
+## 
+## Computational engine: C5.0
+```
+
+
 
 
 #### Example of Variable Selection
@@ -1880,28 +2412,13 @@ iris_tune %>%
   ggplot() +
   geom_point(aes(Sepal.Length,predictions2))
 ```
-#### Example Accuracy Assessment 
-Now when we look at the results we visually see improvement in the `Sepal.Length` predictions within the tuning dataset, which is also reflected in the decreased RMSE (0.325).
 
-Here, by including additional variables (often referred to as `features` in machine learning), we see improved prediction accuracy. There are more robust ways than trying a number of different variables in your model to select which should be included in your predictive model. These will be covered in lessons in the advanced track of this Course Set.
 
-#### Example of Model Selection
-
-In this example (and the example below), we've pre-specified which model we were going to use for the example ahead of time. However, there are many different regression models from which we could have chosen and a number of parameters in each that can be tuned, each of which can improve the predictive accuracy of your model. Learning how to choose and tune the best model will be discussed in lessons in the advanced track of this Course Set; however, for now we'll note that, as specified in the `caret` book, the `train()` function has a number of capabilities. It can:
-
--evaluate how different tuning parameters in the model affect performance
--choose the "optimal" model, given these parameters
--estimate model performance (given a training set)
-
-Here, we haven't played around much with the tuning parameters; however, checking out the [documentation on how to do this](http://topepo.github.io/caret/model-training-and-tuning.html#fitting-models-without-parameter-tuning) can lead to improved prediction as you generate predictive models on your own.
 
 #### Example of Categorical Variable Prediction: CART
 
 A more natural prediction model given this dataset may be to predict what Species a flower is, given its measurements. We'll use the `iris` dataset to carry out this classification prediction here, using a CART.
 
-##### Example of Data Splitting
-
-Data splitting from above will be used here. Thus, our training set will still be `iris_train` and our tuning set `iris_tune`.
 
 ##### Example of Variable Selection
 

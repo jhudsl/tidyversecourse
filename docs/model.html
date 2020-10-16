@@ -414,6 +414,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.12.1" data-path="model.html"><a href="model.html#benefits-of-tidymodels"><i class="fa fa-check"></i><b>5.12.1</b> Benefits of <code>tidymodels</code></a></li>
 <li class="chapter" data-level="5.12.2" data-path="model.html"><a href="model.html#tidymodels-packages"><i class="fa fa-check"></i><b>5.12.2</b> `tidymodels Packages</a></li>
 <li class="chapter" data-level="5.12.3" data-path="model.html"><a href="model.html#example-of-continuous-variable-prediction-linear-regression"><i class="fa fa-check"></i><b>5.12.3</b> Example of Continuous Variable Prediction: Linear Regression</a></li>
+<li class="chapter" data-level="5.12.4" data-path="model.html"><a href="model.html#example-of-categorical-variable-prediction-classification-with-cart"><i class="fa fa-check"></i><b>5.12.4</b> Example of Categorical Variable Prediction: Classification with CART</a></li>
 </ul></li>
 <li class="chapter" data-level="5.13" data-path="model.html"><a href="model.html#case-studies-4"><i class="fa fa-check"></i><b>5.13</b> Case Studies</a></li>
 </ul></li>
@@ -1203,17 +1204,33 @@ We again expected that it did. Thus we had a statement that &quot; car mileage c
 <p>Finally, the <code>get_confidence_interval()</code> as you might guess calculates a confidence interval.</p>
 <p>Now we will use these functions on our data.</p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="kw">library</span>(infer)</a>
-<a class="sourceLine" id="cb64-2" data-line-number="2">soda_ounces <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb64-3" data-line-number="3"><span class="st">  </span><span class="kw">specify</span>(<span class="dt">response =</span> value) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb64-4" data-line-number="4"><span class="st">  </span><span class="kw">hypothesize</span>(<span class="dt">null =</span> <span class="st">&quot;point&quot;</span>, <span class="dt">mu =</span> <span class="dv">12</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb64-5" data-line-number="5"><span class="st">  </span><span class="kw">generate</span>(<span class="dt">rep =</span> <span class="dv">1000</span>, <span class="dt">type =</span> <span class="st">&quot;bootstrap&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb64-6" data-line-number="6"><span class="st">  </span><span class="kw">calculate</span>(<span class="dt">stat =</span> <span class="st">&quot;mean&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb64-7" data-line-number="7"><span class="st">  </span><span class="kw">get_confidence_interval</span>()</a></code></pre></div>
+<a class="sourceLine" id="cb64-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">342</span>)</a>
+<a class="sourceLine" id="cb64-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb64-4" data-line-number="4">CI &lt;-soda_ounces <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb64-5" data-line-number="5"><span class="st">  </span><span class="kw">specify</span>(<span class="dt">response =</span> value) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb64-6" data-line-number="6"><span class="st">  </span><span class="kw">hypothesize</span>(<span class="dt">null =</span> <span class="st">&quot;point&quot;</span>, <span class="dt">mu =</span> <span class="dv">12</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb64-7" data-line-number="7"><span class="st">  </span><span class="kw">generate</span>(<span class="dt">rep =</span> <span class="dv">1000</span>, <span class="dt">type =</span> <span class="st">&quot;bootstrap&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb64-8" data-line-number="8"><span class="st">  </span><span class="kw">calculate</span>(<span class="dt">stat =</span> <span class="st">&quot;mean&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb64-9" data-line-number="9"><span class="st">  </span><span class="kw">get_confidence_interval</span>()</a>
+<a class="sourceLine" id="cb64-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb64-11" data-line-number="11">CI</a></code></pre></div>
 <pre><code>## # A tibble: 1 x 2
 ##   `2.5%` `97.5%`
 ##    &lt;dbl&gt;   &lt;dbl&gt;
 ## 1   12.0    12.0</code></pre>
 <p>We can see that our confidence interval is very similar but slightly different from the results we obtained using the <code>t.test()</code> function and the <code>lm()</code> function. This is because we used a different method to calculate the confidence interval based on the bootstrap samples. Furthemore, the results will vary everytime the code is run because the bootstrap samples are randomly created each time.</p>
+<p>We can also make a visualization of the null distribution of the bootstrap samples using the <code>visualize()</code> function.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">342</span>)</a>
+<a class="sourceLine" id="cb66-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb66-3" data-line-number="3">bootstrap_means &lt;-soda_ounces <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb66-4" data-line-number="4"><span class="st">  </span><span class="kw">specify</span>(<span class="dt">response =</span> value) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb66-5" data-line-number="5"><span class="st">  </span><span class="kw">hypothesize</span>(<span class="dt">null =</span> <span class="st">&quot;point&quot;</span>, <span class="dt">mu =</span> <span class="dv">12</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb66-6" data-line-number="6"><span class="st">  </span><span class="kw">generate</span>(<span class="dt">rep =</span> <span class="dv">1000</span>, <span class="dt">type =</span> <span class="st">&quot;bootstrap&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb66-7" data-line-number="7"><span class="st">  </span><span class="kw">calculate</span>(<span class="dt">stat =</span> <span class="st">&quot;mean&quot;</span>)</a>
+<a class="sourceLine" id="cb66-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb66-9" data-line-number="9">bootstrap_means <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb66-10" data-line-number="10"><span class="st">  </span><span class="kw">visualize</span>()</a></code></pre></div>
+<p><img src="05-prediction_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
 </div>
 <div id="prediction-modeling-concepts" class="section level3">
 <h3><span class="header-section-number">5.11.2</span> Prediction modeling concepts</h3>
@@ -1252,20 +1269,20 @@ We again expected that it did. Thus we had a statement that &quot; car mileage c
 <div id="train" class="section level3">
 <h3><span class="header-section-number">5.11.7</span> Train</h3>
 <p>Training data are the data we described above. It is the data used to <em>build</em> your predictive model. These data are referred to as your training set.</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1">knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;book_figures/data_splitting.png&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1">knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;book_figures/data_splitting.png&quot;</span>)</a></code></pre></div>
 <p><img src="book_figures/data_splitting.png" width="480" /></p>
 </div>
 <div id="test" class="section level3">
 <h3><span class="header-section-number">5.11.8</span> Test</h3>
 <p>Before getting started, your original dataset is often split. Some (often 70%-75%) of the observations in your dataset are used to train the model, while 25%-30% are held out. This held-out set of observations from your original dataset are then used to improve the accuracy of model.</p>
 <p>These hold-out samples are used to see whether or not your predictive model accurately makes predictions in the set of samples not used to train the model.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1">knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;book_figures/data_splitting2.png&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1">knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;book_figures/data_splitting2.png&quot;</span>)</a></code></pre></div>
 <p><img src="book_figures/data_splitting2.png" width="480" /></p>
 </div>
 <div id="validate" class="section level3">
 <h3><span class="header-section-number">5.11.9</span> Validate</h3>
 <p>Finally, an independent dataset – one that is not from the same experiment or source as the data used to train and test your model are used to see whether or not your predictive model makes accurate predictions in a completely new dataset. Predictive models that can be generalized to and make accurate predictions in new datasets are the best predictive models.</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1">knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;book_figures/data_splitting3.png&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1">knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;book_figures/data_splitting3.png&quot;</span>)</a></code></pre></div>
 <p><img src="book_figures/data_splitting3.png" width="480" /></p>
 </div>
 <div id="variable-selection" class="section level3">
@@ -1387,7 +1404,7 @@ We again expected that it did. Thus we had a statement that &quot; car mileage c
 <p><img src="book_figures/MachineLearning_tidymodels.png" width="60%" /></p>
 <p>To illustrate how to use each of these packages, we will work through some examples.</p>
 <p>Other tidymodel packages include:
-<img src="#section" /><a href="https://pbs.twimg.com/media/Ef1Oac7WAAImCos.jpg" class="uri">https://pbs.twimg.com/media/Ef1Oac7WAAImCos.jpg</a></p>
+[]<a href="https://pbs.twimg.com/media/Ef1Oac7WAAImCos.jpg" class="uri">https://pbs.twimg.com/media/Ef1Oac7WAAImCos.jpg</a></p>
 <ol style="list-style-type: decimal">
 <li><code>applicable</code> compares new data points with the training data to see how much the new data points appear to be an extrapolation of the training data<br />
 </li>
@@ -1401,8 +1418,6 @@ We again expected that it did. Thus we had a statement that &quot; car mileage c
 </li>
 <li><code>hardhat</code> helps you to make new modeling packages<br />
 </li>
-<li><code>infer</code> helps you perform statistical analyses more easily (in the context of this.?)avocado… also update if we talk about infer above<br />
-</li>
 <li><code>corrr</code> has more options for looking at correlation matrices<br />
 </li>
 <li><code>rules</code> has more model options for prediction rule ensembles<br />
@@ -1415,28 +1430,28 @@ We again expected that it did. Thus we had a statement that &quot; car mileage c
 </li>
 <li><code>tidyposterior</code> compares models using resampling statistics</li>
 </ol>
-<p>Most of these packges offer advanced modeling options, with the exception of <code>corrr</code>.</p>
+<p>Most of these packges offer advanced modeling options.</p>
 </div>
 <div id="example-of-continuous-variable-prediction-linear-regression" class="section level3">
 <h3><span class="header-section-number">5.12.3</span> Example of Continuous Variable Prediction: Linear Regression</h3>
 <p>For this example, we’ll keep it simple and use a dataset you’ve seen before: the <code>iris</code> dataset. This way you can focus on the syntax used in the <code>tidymodels</code> packages and the steps of predictive analysis. In this example, we’ll attempt to use the data in the <code>iris</code> dataset to predict <code>Sepal.Length</code>.</p>
 <div id="example-of-data-splitting-with-rsample" class="section level4">
 <h4><span class="header-section-number">5.12.3.1</span> Example of Data Splitting with <code>rsample</code></h4>
-<p>As mentioned above, one of the first steps is often to take your dataset and split it into a training set and a testing set. To do this, we’ll load the <code>rsample</code> package and use the <code>initial_split()</code> function to split the dataset.</p>
+<p>As mentioned above, one of the first steps is to take your dataset and split it into a training set and a testing set. To do this, we’ll load the <code>rsample</code> package and use the <code>initial_split()</code> function to split the dataset.</p>
 <p>We can specify what proportion of the data we would like to use for training using the <code>prop</code> argument.</p>
 <p>Since the split is performed randomly, it is a good idea to use the set.seed() function in base R to ensure that if your rerun your code that your split will be the same next time.</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1"><span class="kw">library</span>(rsample)</a>
-<a class="sourceLine" id="cb69-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">1234</span>)</a>
-<a class="sourceLine" id="cb69-3" data-line-number="3">split_iris &lt;-<span class="kw">initial_split</span>(iris, <span class="dt">prop =</span> <span class="dv">2</span><span class="op">/</span><span class="dv">3</span>) </a>
-<a class="sourceLine" id="cb69-4" data-line-number="4">split_iris</a></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1"><span class="kw">library</span>(rsample)</a>
+<a class="sourceLine" id="cb70-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">1234</span>)</a>
+<a class="sourceLine" id="cb70-3" data-line-number="3">split_iris &lt;-<span class="kw">initial_split</span>(iris, <span class="dt">prop =</span> <span class="dv">2</span><span class="op">/</span><span class="dv">3</span>) </a>
+<a class="sourceLine" id="cb70-4" data-line-number="4">split_iris</a></code></pre></div>
 <pre><code>## &lt;Analysis/Assess/Total&gt;
 ## &lt;100/50/150&gt;</code></pre>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1"><span class="co"># the default proportion is 1/4 testing and 3/4 training</span></a></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1"><span class="co"># the default proportion is 1/4 testing and 3/4 training</span></a></code></pre></div>
 <p>This results in printing the number of training data rows, the number testing data rows, and the total rows - each is printed with the “/” as a division between the values. Here the training set is called the analysis set, while the testing set is called the assess set.</p>
 <p>We can see that about 70% of our observations are in the training dataset and the other 30% are in the tuning dataset, as we specified.</p>
 <p>We can then extract the training and testing data sets by using the <code>training()</code> and <code>testing()</code> functions, also of the <code>rsample</code> package.</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1">training_iris &lt;-<span class="kw">training</span>(split_iris)</a>
-<a class="sourceLine" id="cb72-2" data-line-number="2"><span class="kw">head</span>(training_iris)</a></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1">training_iris &lt;-<span class="kw">training</span>(split_iris)</a>
+<a class="sourceLine" id="cb73-2" data-line-number="2"><span class="kw">head</span>(training_iris)</a></code></pre></div>
 <pre><code>##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ## 1           5.1         3.5          1.4         0.2  setosa
 ## 7           4.6         3.4          1.4         0.3  setosa
@@ -1444,8 +1459,8 @@ We again expected that it did. Thus we had a statement that &quot; car mileage c
 ## 9           4.4         2.9          1.4         0.2  setosa
 ## 10          4.9         3.1          1.5         0.1  setosa
 ## 11          5.4         3.7          1.5         0.2  setosa</code></pre>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1">testing_iris &lt;-<span class="kw">testing</span>(split_iris)</a>
-<a class="sourceLine" id="cb74-2" data-line-number="2"><span class="kw">head</span>(testing_iris)</a></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1">testing_iris &lt;-<span class="kw">testing</span>(split_iris)</a>
+<a class="sourceLine" id="cb75-2" data-line-number="2"><span class="kw">head</span>(testing_iris)</a></code></pre></div>
 <pre><code>##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ## 2           4.9         3.0          1.4         0.2  setosa
 ## 3           4.7         3.2          1.3         0.2  setosa
@@ -1456,7 +1471,7 @@ We again expected that it did. Thus we had a statement that &quot; car mileage c
 <p>avocado move this to the classification data example
 Importantly we can stratify our split by a particular feature of the data.
 For example, let’s say that we intend to classify different species of flowers based on there petal and sepal sizes. In this case the iris dataset would be very useful.</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1"><span class="kw">str</span>(iris)</a></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1"><span class="kw">str</span>(iris)</a></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    150 obs. of  5 variables:
 ##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
 ##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
@@ -1465,7 +1480,7 @@ For example, let’s say that we intend to classify different species of flowers
 ##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
 <p>We can see that there are 3 different species in this dataset.
 We therefore would want good representation of each in our testing and training data.</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1"><span class="kw">initial_split</span>(iris, <span class="dt">strata =</span> Species, <span class="dt">prop =</span> <span class="dv">3</span><span class="op">/</span><span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1"><span class="kw">initial_split</span>(iris, <span class="dt">strata =</span> Species, <span class="dt">prop =</span> <span class="dv">3</span><span class="op">/</span><span class="dv">4</span>)</a></code></pre></div>
 <pre><code>## &lt;Analysis/Assess/Total&gt;
 ## &lt;114/36/150&gt;</code></pre>
 </div>
@@ -1488,9 +1503,9 @@ We therefore would want good representation of each in our testing and training 
 <p>outcome1 + outcome2 ~ predictor1 + predictor2</p>
 <p>If we want to include all predictors we can use a period like so:</p>
 <p>outcome_variable_name ~ .</p>
-<p>Let’s make our first recipe with the <code>iris data</code>! We will first try to predict <code>Sepal.Length</code> in our training data from <code>Sepal.Width</code>. Thus, <code>Sepal.Length</code> is our outcome variable and <code>Sepal.Width</code> is our predictor.</p>
+<p>Let’s make our first recipe with the <code>iris data</code>! We will first try to predict <code>Sepal.Length</code> in our training data based on <code>Sepal.Width</code> and the <code>Species</code>. Thus, <code>Sepal.Length</code> is our outcome variable and <code>Sepal.Width</code> and <code>Species</code> are our predictor variables.</p>
 <p>First we can specify our variables using formula notation:</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" data-line-number="1"><span class="kw">library</span>(recipes)</a></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" data-line-number="1"><span class="kw">library</span>(recipes)</a></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;recipes&#39;</code></pre>
 <pre><code>## The following object is masked from &#39;package:stringr&#39;:
@@ -1499,33 +1514,38 @@ We therefore would want good representation of each in our testing and training 
 <pre><code>## The following object is masked from &#39;package:stats&#39;:
 ## 
 ##     step</code></pre>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1">first_recipe &lt;-<span class="st"> </span>training_iris <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb84-2" data-line-number="2"><span class="st">                  </span><span class="kw">recipe</span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Sepal.Width)</a>
-<a class="sourceLine" id="cb84-3" data-line-number="3">first_recipe</a></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1">first_recipe &lt;-<span class="st"> </span>training_iris <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb85-2" data-line-number="2"><span class="st">                  </span><span class="kw">recipe</span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Sepal.Width <span class="op">+</span><span class="st"> </span>Species)</a>
+<a class="sourceLine" id="cb85-3" data-line-number="3">first_recipe</a></code></pre></div>
 <pre><code>## Data Recipe
 ## 
 ## Inputs:
 ## 
 ##       role #variables
 ##    outcome          1
-##  predictor          1</code></pre>
+##  predictor          2</code></pre>
 <p>Alternatively, we could also specify the outcome and predictor(s) by assigning roles to the variables by using the <code>update_role()</code> function. Please see <a href="https://tidymodels.github.io/recipes/reference/recipe.html">here</a> for examples of the variety of roles variables can take.</p>
-<p>We first need to use the <code>recipe()</code> function with this method to specify what dat we are using.</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1">first_recipe &lt;-<span class="st"> </span><span class="kw">recipe</span>(training_iris) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb86-2" data-line-number="2"><span class="st">                  </span>recipes<span class="op">::</span><span class="kw">update_role</span>(Sepal.Length, <span class="dt">new_role =</span> <span class="st">&quot;outcome&quot;</span>)  <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb86-3" data-line-number="3"><span class="st">                  </span>recipes<span class="op">::</span><span class="kw">update_role</span>(Sepal.Width, <span class="dt">new_role =</span> <span class="st">&quot;predictor&quot;</span>)</a>
-<a class="sourceLine" id="cb86-4" data-line-number="4">first_recipe</a></code></pre></div>
+<p>We first need to use the <code>recipe()</code> function with this method to specify what data we are using.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1">first_recipe &lt;-<span class="st"> </span><span class="kw">recipe</span>(training_iris) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb87-2" data-line-number="2"><span class="st">                  </span>recipes<span class="op">::</span><span class="kw">update_role</span>(Sepal.Length, <span class="dt">new_role =</span> <span class="st">&quot;outcome&quot;</span>)  <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb87-3" data-line-number="3"><span class="st">                  </span>recipes<span class="op">::</span><span class="kw">update_role</span>(Sepal.Width, <span class="dt">new_role =</span> <span class="st">&quot;predictor&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb87-4" data-line-number="4"><span class="st">                  </span>recipes<span class="op">::</span><span class="kw">update_role</span>(Species, <span class="dt">new_role =</span> <span class="st">&quot;predictor&quot;</span>)</a>
+<a class="sourceLine" id="cb87-5" data-line-number="5">first_recipe</a></code></pre></div>
 <pre><code>## Data Recipe
 ## 
 ## Inputs:
 ## 
 ##       role #variables
 ##    outcome          1
-##  predictor          1
+##  predictor          2
 ## 
-##   3 variables with undeclared roles</code></pre>
+##   2 variables with undeclared roles</code></pre>
+<p>We can use the <code>formula()</code> function of the stats package to see how we have assigned our variables in formula notation.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1"><span class="kw">formula</span>(first_recipe)</a></code></pre></div>
+<pre><code>## Sepal.Length ~ Sepal.Width + Species
+## &lt;environment: 0x7f93250d5078&gt;</code></pre>
 <p>We can also view our recipe in more detail using the base summary() function.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1"><span class="kw">summary</span>(first_recipe)</a></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1"><span class="kw">summary</span>(first_recipe)</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 4
 ##   variable     type    role      source  
 ##   &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;   
@@ -1533,101 +1553,394 @@ We therefore would want good representation of each in our testing and training 
 ## 2 Sepal.Width  numeric predictor original
 ## 3 Petal.Length numeric &lt;NA&gt;      original
 ## 4 Petal.Width  numeric &lt;NA&gt;      original
-## 5 Species      nominal &lt;NA&gt;      original</code></pre>
+## 5 Species      nominal predictor original</code></pre>
+</div>
+<div id="step-2-specify-the-pre-processing-steps-with-step-functions" class="section level5">
+<h5><span class="header-section-number">5.12.3.2.2</span> Step 2: Specify the pre-processing steps with <code>step*()</code> functions</h5>
+<p>Next, we use the <code>step*()</code> functions from the <code>recipe</code> package to specify pre-processing steps.</p>
+<p><strong>This <a href="https://tidymodels.github.io/recipes/reference/index.html" target="_blank">link</a> and this <a href="https://cran.r-project.org/web/packages/recipes/recipes.pdf" target="_blank">link</a> show the many options for recipe step functions.</strong></p>
+<p><u>There are step functions for a variety of purposes:</u></p>
+<ol style="list-style-type: decimal">
+<li><a href="https://en.wikipedia.org/wiki/Imputation_(statistics)" target="_blank"><strong>Imputation</strong></a> – filling in missing values based on the existing data</li>
+<li><a href="https://en.wikipedia.org/wiki/Data_transformation_(statistics)" target="_blank"><strong>Transformation</strong></a> – changing all values of a variable in the same way, typically to make it more normal or easier to interpret</li>
+<li><a href="https://en.wikipedia.org/wiki/Discretization_of_continuous_features" target="_blank"><strong>Discretization</strong></a> – converting continuous values into discrete or nominal values - binning for example to reduce the number of possible levels (However this is generally not advisable!)</li>
+<li><a href="https://en.wikipedia.org/wiki/Dummy_variable_(statistics)" target="_blank"><strong>Encoding / Creating Dummy Variables</strong></a> – creating a numeric code for categorical variables
+(<a href="https://medium.com/p/b5840be3c41a/responses/show" target="_blank"><strong>More on Dummy Variables and one hot encoding</strong></a>)</li>
+<li><a href="https://cran.r-project.org/web/packages/hablar/vignettes/convert.html" target="_blank"><strong>Data type conversions</strong></a> – which means changing from integer to factor or numeric to date etc.</li>
+<li><a href="https://statisticsbyjim.com/regression/interaction-effects/" target="_blank"><strong>Interaction</strong></a> term addition to the model – which means that we would be modeling for predictors that would influence the capacity of each other to predict the outcome</li>
+<li><a href="https://en.wikipedia.org/wiki/Normalization_(statistics)" target="_blank"><strong>Normalization</strong></a> – centering and scaling the data to a similar range of values</li>
+<li><a href="https://en.wikipedia.org/wiki/Dimensionality_reduction" target="_blank"><strong>Dimensionality Reduction/ Signal Extraction</strong></a> – reducing the space of features or predictors to a smaller set of variables that capture the variation or signal in the original variables (ex. Principal Component Analysis and Independent Component Analysis)</li>
+<li><strong>Filtering</strong> – filtering options for removing variables (ex. remove variables that are highly correlated to others or remove variables with very little variance and therefore likely little predictive capacity)</li>
+<li><a href="https://tartarus.org/gareth/maths/Linear_Algebra/row_operations.pdf" target="_blank"><strong>Row operations</strong></a> – performing functions on the values within the rows (ex. rearranging, filtering, imputing)</li>
+<li><strong>Checking functions</strong> – Sanity checks to look for missing values, to look at the variable classes etc.</li>
+</ol>
+<p>All of the step functions look like <code>step_*()</code> with the <code>*</code> replaced with a name, except for the check functions which look like <code>check_*()</code>.</p>
+<p>There are several ways to select what variables to apply steps to:</p>
+<ol style="list-style-type: decimal">
+<li>Using <code>tidyselect</code> methods: <code>contains()</code>, <code>matches()</code>, <code>starts_with()</code>, <code>ends_with()</code>, <code>everything()</code>, <code>num_range()</code><br />
+</li>
+<li>Using the type: <code>all_nominal()</code>, <code>all_numeric()</code> , <code>has_type()</code></li>
+<li>Using the role: <code>all_predictors()</code>, <code>all_outcomes()</code>, <code>has_role()</code></li>
+<li>Using the name - use the actual name of the variable/variables of interest</li>
+</ol>
+<p>Let’s try adding a pre-processing step to our recipe.</p>
+<p>We might want to potentially one hot encode some of our categorical variables so that they can be used with certain algorithms like a linear regression require numeric predictors.</p>
+<p>We can do this with the <code>step_dummy()</code> function and the <code>one_hot = TRUE</code> argument.
+One hot encoding means that we do not simply encode our categorical variables numerically, as our numeric assignments can be interpreted by algorithms as having a particular rank or order.
+Instead, binary variables made of 1s and 0s are used to arbitrarily assign a numeric value that has no apparent order.</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1">first_recipe &lt;-<span class="st"> </span>first_recipe <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb93-2" data-line-number="2"><span class="st">  </span><span class="kw">step_dummy</span>(Species, <span class="dt">one_hot =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb93-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb93-4" data-line-number="4">first_recipe</a></code></pre></div>
+<pre><code>## Data Recipe
+## 
+## Inputs:
+## 
+##       role #variables
+##    outcome          1
+##  predictor          2
+## 
+##   2 variables with undeclared roles
+## 
+## Operations:
+## 
+## Dummy variables from Species</code></pre>
 </div>
 </div>
-<div id="section" class="section level4">
-<h4><span class="header-section-number">5.12.3.3</span> </h4>
+<div id="example-of-optionally-performing-the-preprocessing-to-see-how-it-influences-the-data" class="section level4">
+<h4><span class="header-section-number">5.12.3.3</span> Example of optionally performing the preprocessing to see how it influences the data</h4>
+<p>Optionally one can use the <code>prep()</code> function of the <code>recipes</code> package to update the recipe for manually performing the preprocessing to see how this infleunces the data. This step is however not required. The preprocessed training data can than be viewed by using the <code>juice()</code> function, while preprocessed testing data can be viewed using the <code>bake()</code> function.</p>
+<p>The <code>prep()</code> function estimates parameters (estimating the required quantities and statistics required by the steps for the variables) for pre-processing and updates the variables roles, as sometimes predictors may be removed, this allows the recipe to be ready to use on other data sets.</p>
+<p>It <strong>does not necessarily actually execute the pre-processing itself</strong>, however we will specify using the <code>retain</code> argument for it to do this so that we can take a look at the pre-processed data.</p>
+<p>There are some important arguments to know about:</p>
+<ol style="list-style-type: decimal">
+<li><code>training</code> - you must supply a training data set to estimate parameters for pre-processing operations (recipe steps) - this may already be included in your recipe - as is the case for us</li>
+<li><code>fresh</code> - if <code>fresh=TRUE</code>, - will retrain and estimate parameters for any previous steps that were already prepped if you add more steps to the recipe</li>
+<li><code>verbose</code> - if <code>verbose=TRUE</code>, shows the progress as the steps are evaluated and the size of the pre-processed training set</li>
+<li><code>retain</code> - if <code>retain=TRUE</code>, then the pre-processed training set will be saved within the recipe (as template). This is good if you are likely to add more steps and do not want to rerun the <code>prep()</code> on the previous steps. However this can make the recipe size large. This is necessary if you want to actually look at the pre-processed data.</li>
+</ol>
+<p>Let’s try out the <code>prep()</code> function:</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1">prepped_rec &lt;-<span class="st"> </span><span class="kw">prep</span>(first_recipe, <span class="dt">verbose =</span> <span class="ot">TRUE</span>, <span class="dt">retain =</span> <span class="ot">TRUE</span> )</a></code></pre></div>
+<pre><code>## oper 1 step dummy [training] 
+## The retained training set is ~ 0.01 Mb  in memory.</code></pre>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1">prepped_rec</a></code></pre></div>
+<pre><code>## Data Recipe
+## 
+## Inputs:
+## 
+##       role #variables
+##    outcome          1
+##  predictor          2
+## 
+##   2 variables with undeclared roles
+## 
+## Training data contained 100 data points and no missing data.
+## 
+## Operations:
+## 
+## Dummy variables from Species [trained]</code></pre>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1"><span class="kw">names</span>(prepped_rec)</a></code></pre></div>
+<pre><code>## [1] &quot;var_info&quot;       &quot;term_info&quot;      &quot;steps&quot;          &quot;template&quot;      
+## [5] &quot;retained&quot;       &quot;tr_info&quot;        &quot;orig_lvls&quot;      &quot;last_term_info&quot;</code></pre>
+<p>There are also lots of useful things to checkout in the output of <code>prep()</code>.
+You can see:</p>
+<ol style="list-style-type: decimal">
+<li>the <code>steps</code> that were run<br />
+</li>
+<li>the original variable info (<code>var_info</code>)<br />
+</li>
+<li>the updated variable info after pre-processing (<code>term_info</code>)</li>
+<li>the new <code>levels</code> of the variables</li>
+<li>the original levels of the variables (<code>orig_lvls</code>)</li>
+<li>info about the training data set size and completeness (<code>tr_info</code>)</li>
+</ol>
+<p>We can see these using the <code>$</code> notation:</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" data-line-number="1">prepped_rec<span class="op">$</span>var_info</a></code></pre></div>
+<pre><code>## # A tibble: 5 x 4
+##   variable     type    role      source  
+##   &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;   
+## 1 Sepal.Length numeric outcome   original
+## 2 Sepal.Width  numeric predictor original
+## 3 Petal.Length numeric &lt;NA&gt;      original
+## 4 Petal.Width  numeric &lt;NA&gt;      original
+## 5 Species      nominal predictor original</code></pre>
+<p>Now we can use <code>juice</code> to see the preprocessed training data.</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" data-line-number="1">juiced_train &lt;-<span class="st"> </span><span class="kw">juice</span>(prepped_rec)</a>
+<a class="sourceLine" id="cb103-2" data-line-number="2"><span class="kw">glimpse</span>(juiced_train)</a></code></pre></div>
+<pre><code>## Rows: 100
+## Columns: 7
+## $ Sepal.Length       &lt;dbl&gt; 5.1, 4.6, 5.0, 4.4, 4.9, 5.4, 4.8, 4.8, 5.8, 5.7, …
+## $ Sepal.Width        &lt;dbl&gt; 3.5, 3.4, 3.4, 2.9, 3.1, 3.7, 3.4, 3.0, 4.0, 4.4, …
+## $ Petal.Length       &lt;dbl&gt; 1.4, 1.4, 1.5, 1.4, 1.5, 1.5, 1.6, 1.4, 1.2, 1.5, …
+## $ Petal.Width        &lt;dbl&gt; 0.2, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.2, 0.4, …
+## $ Species_setosa     &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+## $ Species_versicolor &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ Species_virginica  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…</code></pre>
+<p>We can see that the <code>Species</code> variable has been replaced by 3 variables representing the 3 different species numerically with zeros and ones.</p>
+<p>Now we do the same for our testing data using <code>bake()</code>. You generally want to leave your testing data alone, but it is good to look for issues like the introduction of NA values if you have complicated preprocessing steps and you want to make sure this performs as you expect.</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" data-line-number="1">baked_test_pm &lt;-<span class="st"> </span>recipes<span class="op">::</span><span class="kw">bake</span>(prepped_rec, <span class="dt">new_data =</span> testing_iris)</a>
+<a class="sourceLine" id="cb105-2" data-line-number="2"><span class="kw">glimpse</span>(baked_test_pm)</a></code></pre></div>
+<pre><code>## Rows: 50
+## Columns: 7
+## $ Sepal.Length       &lt;dbl&gt; 4.9, 4.7, 4.6, 5.0, 5.4, 4.3, 5.2, 5.4, 5.1, 5.0, …
+## $ Sepal.Width        &lt;dbl&gt; 3.0, 3.2, 3.1, 3.6, 3.9, 3.0, 3.5, 3.4, 3.4, 3.5, …
+## $ Petal.Length       &lt;dbl&gt; 1.4, 1.3, 1.5, 1.4, 1.7, 1.1, 1.5, 1.5, 1.5, 1.3, …
+## $ Petal.Width        &lt;dbl&gt; 0.2, 0.2, 0.2, 0.2, 0.4, 0.1, 0.2, 0.4, 0.2, 0.3, …
+## $ Species_setosa     &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,…
+## $ Species_versicolor &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,…
+## $ Species_virginica  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…</code></pre>
+<p>Great! Now back to the typical steps.</p>
 </div>
+<div id="example-of-specifying-the-model-with-parsnip" class="section level4">
+<h4><span class="header-section-number">5.12.3.4</span> Example of specifying the model with <code>parsnip</code></h4>
+<p>So far we have used the packages <code>rsample</code> to split the data and <code>recipes</code> to assign variable types, and to specify and prep our pre-processing (as well as to optionally extract the pre-processed data).</p>
+<p>We will now use the <code>parsnip</code> package (which is similar to the previous <code>caret</code> package - and hence why it is named after the vegetable) to specify our model.</p>
+<p>There are four things we need to define about our model:</p>
+<ol style="list-style-type: decimal">
+<li>The <strong>type</strong> of model (using specific functions in parsnip like <code>rand_forest()</code>, <code>logistic_reg()</code> etc.)<br />
+</li>
+<li>The package or <strong>engine</strong> that we will use to implement the type of model selected (using the <code>set_engine()</code> function)</li>
+<li>The <strong>mode</strong> of learning - classification or regression (using the <code>set_mode()</code> function)</li>
+<li>Any <strong>arguments</strong> necessary for the model/package selected (using the <code>set_args()</code>function - for example the <code>mtry =</code> argument for random forest which is the number of variables to be used as options for splitting at each tree node)</li>
+</ol>
+<p>Let’s walk through these steps one by one.
+For our case, we are going to start our analysis with a linear regression but we will demonstrate how we can try different models.</p>
+<p>The first step is to define what type of model we would like to use.
+See <a href="https://www.tidymodels.org/find/parsnip/" target="_blank">here</a> for modeling options in <code>parsnip</code>.</p>
+<p>We want to do a linear regression so we will use the <code>linear_reg()</code> function of the <code>parsnip</code> package.</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" data-line-number="1">Lin_reg_model &lt;-<span class="st"> </span>parsnip<span class="op">::</span><span class="kw">linear_reg</span>()</a>
+<a class="sourceLine" id="cb107-2" data-line-number="2">Lin_reg_model</a></code></pre></div>
+<pre><code>## Linear Regression Model Specification (regression)</code></pre>
+<p>OK. So far, all we have defined is that we want to use a linear regression. Now let’s tell <code>parsnip</code> more about what we want.</p>
+<p>We would like to use the <a href="https://en.wikipedia.org/wiki/Ordinary_least_squares">ordinary least squares</a> method to fit our linear regression.
+So we will tell <code>parsnip</code> that we want to use the <code>lm</code> package to implement our linear regression (there are many options actually such as <a href="https://cran.r-project.org/web/packages/rstan/vignettes/rstan.html" target="_blank"><code>rstan</code></a> <a href="https://cran.r-project.org/web/packages/glmnet/index.html" target="_blank"><code>glmnet</code></a>, <a href="https://keras.rstudio.com/" target="_blank"><code>keras</code></a>, and <a href="https://therinspark.com/starting.html#starting-sparklyr-hello-world" target="_blank"><code>sparklyr</code></a>). See <a href="https://parsnip.tidymodels.org/reference/linear_reg.html">here</a> for a description of the differences and using these different engines with <code>parsnip</code>.</p>
+<p>We will do so by using the <code>set_engine()</code> function of the <code>parsnip</code> package.</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb109-1" data-line-number="1">Lin_reg_model &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb109-2" data-line-number="2"><span class="st">  </span>Lin_reg_model  <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb109-3" data-line-number="3"><span class="st">  </span>parsnip<span class="op">::</span><span class="kw">set_engine</span>(<span class="st">&quot;lm&quot;</span>)</a>
+<a class="sourceLine" id="cb109-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb109-5" data-line-number="5">Lin_reg_model</a></code></pre></div>
+<pre><code>## Linear Regression Model Specification (regression)
+## 
+## Computational engine: lm</code></pre>
+<p>Some packages can do either classification or regression, so it is a good idea to specify which mode you intend to perform.
+Here, we aim to predict a continuous variable, thus we want to perform a <code>regression</code> analysis.
+You can do this with the <code>set_mode()</code> function of the <code>parsnip</code> package, by using either <code>set_mode(&quot;classification&quot;)</code> or <code>set_mode(&quot;regression&quot;)</code>.</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" data-line-number="1">Lin_reg_model &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb111-2" data-line-number="2"><span class="st">  </span>Lin_reg_model <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb111-3" data-line-number="3"><span class="st">  </span>parsnip<span class="op">::</span><span class="kw">set_engine</span>(<span class="st">&quot;lm&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb111-4" data-line-number="4"><span class="st">  </span>parsnip<span class="op">::</span><span class="kw">set_mode</span>(<span class="st">&quot;regression&quot;</span>)</a>
+<a class="sourceLine" id="cb111-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb111-6" data-line-number="6">Lin_reg_model</a></code></pre></div>
+<pre><code>## Linear Regression Model Specification (regression)
+## 
+## Computational engine: lm</code></pre>
+</div>
+<div id="example-of-fitting-the-model" class="section level4">
+<h4><span class="header-section-number">5.12.3.5</span> Example of fitting the model</h4>
+<p>We can use the <code>parsnip</code> package with a newer package called <code>workflows</code> to fit our model.</p>
+<p>The <code>workflows</code> package allows us to keep track of both our pre-processing steps and our model specification. It also allows us to implement fancier optimizations in an automated way and it can also handle post-processing operations.</p>
+<p>We begin by creating a workflow using the <code>workflow()</code> function in the <code>workflows</code> package.</p>
+<p>Next, we use <code>add_recipe()</code> (our pre-processing specifications) and we add our model with the <code>add_model()</code> function – both functions from the <code>workflows</code> package.</p>
+<p><strong>Note</strong>: We do not need to actually <code>prep()</code> our recipe before using workflows - this was just optional so we could take a look at the preprocessed data!</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" data-line-number="1">iris_reg_wflow &lt;-workflows<span class="op">::</span><span class="kw">workflow</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb113-2" data-line-number="2"><span class="st">           </span>workflows<span class="op">::</span><span class="kw">add_recipe</span>(first_recipe) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb113-3" data-line-number="3"><span class="st">           </span>workflows<span class="op">::</span><span class="kw">add_model</span>(Lin_reg_model)</a>
+<a class="sourceLine" id="cb113-4" data-line-number="4">iris_reg_wflow</a></code></pre></div>
+<pre><code>## ══ Workflow ═════════════════════════════════════════════════════════════════════════════════════════════════════════════
+## Preprocessor: Recipe
+## Model: linear_reg()
+## 
+## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## 1 Recipe Step
+## 
+## ● step_dummy()
+## 
+## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## Linear Regression Model Specification (regression)
+## 
+## Computational engine: lm</code></pre>
+<p>Ah, nice.
+Notice how it tells us about both our pre-processing steps and our model specifications.</p>
+<p>Next, we “prepare the recipe” (or estimate the parameters) and fit the model to our training data all at once.
+Printing the output, we can see the coefficients of the model.</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" data-line-number="1">iris_reg_wflow_fit &lt;-<span class="st"> </span>parsnip<span class="op">::</span><span class="kw">fit</span>(iris_reg_wflow, <span class="dt">data =</span> training_iris)</a>
+<a class="sourceLine" id="cb115-2" data-line-number="2">iris_reg_wflow_fit</a></code></pre></div>
+<pre><code>## ══ Workflow [trained] ═══════════════════════════════════════════════════════════════════════════════════════════════════
+## Preprocessor: Recipe
+## Model: linear_reg()
+## 
+## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## 1 Recipe Step
+## 
+## ● step_dummy()
+## 
+## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## 
+## Call:
+## stats::lm(formula = formula, data = data)
+## 
+## Coefficients:
+##        (Intercept)         Sepal.Width      Species_setosa  Species_versicolor  
+##             4.5729              0.6897             -1.9176             -0.5727  
+##  Species_virginica  
+##                 NA</code></pre>
+</div>
+<div id="example-of-assessing-the-model-performance" class="section level4">
+<h4><span class="header-section-number">5.12.3.6</span> Example of assessing the model performance</h4>
+<p>Recall that often for regression analysis we use the RMSE to assess model performance.</p>
+<p>To get this we first need to get the predicted (also called “fitted”) values.</p>
+<p>We can get these values using the <code>pull_workflow_fit()</code> function of the <code>workflows</code> package. These values are in the <code>$fit$fitted.values</code> slot of the output. We can however use the <code>augment()</code> function of the <code>broom</code> package however, to get more information about the prediction for each sample in the training data. This requires using the preprocessed training data from <code>juice()</code>.</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb117-1" data-line-number="1"><span class="kw">library</span>(workflows)</a>
+<a class="sourceLine" id="cb117-2" data-line-number="2">wf_fit &lt;-<span class="st"> </span>iris_reg_wflow_fit <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb117-3" data-line-number="3"><span class="st">  </span><span class="kw">pull_workflow_fit</span>()</a>
+<a class="sourceLine" id="cb117-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb117-5" data-line-number="5"><span class="kw">head</span>(wf_fit<span class="op">$</span>fit<span class="op">$</span>fitted.values)</a></code></pre></div>
+<pre><code>##        1        2        3        4        5        6 
+## 5.069164 5.000194 5.000194 4.655345 4.793284 5.207103</code></pre>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" data-line-number="1">wf_fitted_values &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb119-2" data-line-number="2"><span class="st">  </span>broom<span class="op">::</span><span class="kw">augment</span>(wf_fit<span class="op">$</span>fit, <span class="dt">data =</span> juiced_train) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb119-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(Sepal.Length, .fitted<span class="op">:</span>.std.resid)</a>
+<a class="sourceLine" id="cb119-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb119-5" data-line-number="5"><span class="kw">head</span>(wf_fitted_values)</a></code></pre></div>
+<pre><code>## # A tibble: 6 x 8
+##   Sepal.Length .fitted .se.fit    .resid   .hat .sigma       .cooksd .std.resid
+##          &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;
+## 1          5.1    5.07  0.0707  0.0308   0.0286  0.420 0.0000413       0.0748  
+## 2          4.6    5.00  0.0712 -0.400    0.0290  0.418 0.00706        -0.972   
+## 3          5      5.00  0.0712 -0.000194 0.0290  0.420 0.00000000166  -0.000471
+## 4          4.4    4.66  0.0995 -0.255    0.0567  0.419 0.00595        -0.629   
+## 5          4.9    4.79  0.0841  0.107    0.0405  0.420 0.000717        0.261   
+## 6          5.4    5.21  0.0758  0.193    0.0329  0.420 0.00187         0.469</code></pre>
+<p>Nice, now we can see what the orginal value for <code>Sepal.Length</code> was right next to the predicted <code>.fitted</code> value, as well as standard errors and other metrics for each value.</p>
+<p>Now we can use the <code>rmse()</code> function of the <code>yardstick</code> package to compare the <code>truth</code>, which is the <code>Sepal.Length</code> variable, to the predicted or estimate variable which in the previous output is called <code>.fitted</code>.</p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb121-1" data-line-number="1">yardstick<span class="op">::</span><span class="kw">rmse</span>(wf_fitted_values, </a>
+<a class="sourceLine" id="cb121-2" data-line-number="2">               <span class="dt">truth =</span> Sepal.Length, <span class="dt">estimate =</span> .fitted)</a></code></pre></div>
+<pre><code>## # A tibble: 1 x 3
+##   .metric .estimator .estimate
+##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+## 1 rmse    standard       0.410</code></pre>
+<p>We can see that our RMSE was r <code>yardstick::rmse(wf_fitted_values, truth = Sepal.Length, estimate = .fitted) %&gt;% pull(.estimate)</code>. This is fairly low, so our model did pretty well.</p>
+<p>We can also make a plot to visualize how well we predicted <code>Sepal.Length</code>.</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb123-1" data-line-number="1">wf_fitted_values <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb123-2" data-line-number="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Length, <span class="dt">y =</span> .fitted)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb123-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb123-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb123-5" data-line-number="5"><span class="st">  </span><span class="kw">labs</span>( <span class="dt">x =</span> <span class="st">&quot;True Sepal Length&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Predicted Sepal Length&quot;</span>)</a></code></pre></div>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="05-prediction_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<p>We can see that overall our model predicted the sepal length fairly well. We can see that the model appeared to do less well at predicted very long sepal lengths.</p>
+<p>Typically we might modify our preprocessing steps or try a different model untill we were satisfied with the performance on our training data. Assuming we are satisified, we could then peform a final assessment of our model using the testing data.</p>
+<p>With the <code>workflows</code> package, we can use the splitting information for our original data <code>split_iris</code> to fit the final model on the full training set and also on the testing data using the <code>last_fit()</code> function of the <code>tune</code> package. No pre-processing steps are required.</p>
+<p>We can do this by using the <code>last_fit()</code> function of the <code>tune</code> package.</p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb125-1" data-line-number="1">overallfit &lt;-iris_reg_wflow <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb125-2" data-line-number="2"><span class="st">  </span>tune<span class="op">::</span><span class="kw">last_fit</span>(split_iris)</a></code></pre></div>
+<pre><code>## ! Resample1: model (predictions): prediction from a rank-deficient fit may be misleading</code></pre>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb127-1" data-line-number="1">overallfit</a></code></pre></div>
+<pre><code>## # Monte Carlo cross-validation (0.67/0.33) with 1 resamples  
+## # A tibble: 1 x 6
+##   splits       id           .metrics      .notes       .predictions    .workflow
+##   &lt;list&gt;       &lt;chr&gt;        &lt;list&gt;        &lt;list&gt;       &lt;list&gt;          &lt;list&gt;   
+## 1 &lt;split [100… train/test … &lt;tibble [2 ×… &lt;tibble [1 … &lt;tibble [50 × … &lt;workflo…</code></pre>
+<p>We can then use the <code>collect_metrics()</code> function of the <code>tune</code> package to get the RMSE:</p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb129-1" data-line-number="1"><span class="kw">collect_metrics</span>(overallfit)</a></code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##   .metric .estimator .estimate
+##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+## 1 rmse    standard       0.481
+## 2 rsq     standard       0.710</code></pre>
+<p>We can see that our RMSE is pretty similar for the testing data as well.</p>
+</div>
+</div>
+<div id="example-of-categorical-variable-prediction-classification-with-cart" class="section level3">
+<h3><span class="header-section-number">5.12.4</span> Example of Categorical Variable Prediction: Classification with CART</h3>
+<p>Now we are going to show an example of using the <code>tidymodels</code> packages to perform prediction of a categorical variable.
+Again, we will use the <code>iris</code> dataset. However, this time the will predict the identity of the follower species (which is categorical) based on the other variables.</p>
+<p>We have already split our data into testing and training sets, so we don’t need to do that again.</p>
+<p>However, we do need to create a new recipe with different variables assigned to different roles. This time we want to use <code>Species</code> as the outcome. We can use the <code>.</code> notation to indicate that we want to use the rest of the variables as predictors.</p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb131-1" data-line-number="1">cat_recipe &lt;-iris <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb131-2" data-line-number="2"><span class="kw">recipe</span>(Species <span class="op">~</span>.)</a></code></pre></div>
+<p>This time we also want be doing any preprocessing steps for simplicity sake so our recipe is actually finished.</p>
+<p>Now our next step is to specify our model. The modeling options for parsnip are <a href="https://www.tidymodels.org/find/parsnip/" target="_blank">here</a>. We will be using a Classification And Regression Tree (CART). This means that it can be used for either classification or regression (categorical or continuous outcome variables). Thus it is important that we set the mode for classification. We will use the <code>C5.0</code> as our engine.</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb132-1" data-line-number="1">CART_model &lt;-<span class="st"> </span>parsnip<span class="op">::</span><span class="kw">decision_tree</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb132-2" data-line-number="2"><span class="st">              </span>parsnip<span class="op">::</span><span class="kw">set_mode</span>(<span class="st">&quot;classification&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb132-3" data-line-number="3"><span class="st">              </span>parsnip<span class="op">::</span><span class="kw">set_engine</span>(<span class="st">&quot;C5.0&quot;</span>)</a>
+<a class="sourceLine" id="cb132-4" data-line-number="4">CART_model</a></code></pre></div>
+<pre><code>## Decision Tree Model Specification (classification)
+## 
+## Computational engine: C5.0</code></pre>
 <div id="example-of-variable-selection" class="section level4">
-<h4><span class="header-section-number">5.12.3.4</span> Example of Variable Selection</h4>
+<h4><span class="header-section-number">5.12.4.1</span> Example of Variable Selection</h4>
 <p>What if we first try to predict <code>Sepal.Length</code> in our training data from <code>Sepal.Width</code>. To do that, we provide the <code>train</code> function with the model and specify that the dataset we’ll be using is the <code>iris</code> dataset. Additionally, we let the train function know that we want to run linear regression (<code>lm</code>) and that we want to assess our model’s accuracy using the <code>RMSE</code> metric.</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1"><span class="co">## train regression model</span></a>
-<a class="sourceLine" id="cb90-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
-<a class="sourceLine" id="cb90-3" data-line-number="3">fit.lm &lt;-<span class="st"> </span><span class="kw">train</span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Sepal.Width, </a>
-<a class="sourceLine" id="cb90-4" data-line-number="4">                <span class="dt">data =</span> iris, </a>
-<a class="sourceLine" id="cb90-5" data-line-number="5">                <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, </a>
-<a class="sourceLine" id="cb90-6" data-line-number="6">                <span class="dt">metric =</span> <span class="st">&quot;RMSE&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" data-line-number="1"><span class="co">## train regression model</span></a>
+<a class="sourceLine" id="cb134-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb134-3" data-line-number="3">fit.lm &lt;-<span class="st"> </span><span class="kw">train</span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Sepal.Width, </a>
+<a class="sourceLine" id="cb134-4" data-line-number="4">                <span class="dt">data =</span> iris, </a>
+<a class="sourceLine" id="cb134-5" data-line-number="5">                <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, </a>
+<a class="sourceLine" id="cb134-6" data-line-number="6">                <span class="dt">metric =</span> <span class="st">&quot;RMSE&quot;</span>)</a></code></pre></div>
 <p>After training the model, we take a look at our RMSE, and see that it is 0.85 for this dataset.</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1"><span class="co">## look at RMSE</span></a>
-<a class="sourceLine" id="cb91-2" data-line-number="2">fit.lm<span class="op">$</span>results</a></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" data-line-number="1"><span class="co">## look at RMSE</span></a>
+<a class="sourceLine" id="cb135-2" data-line-number="2">fit.lm<span class="op">$</span>results</a></code></pre></div>
 <p>Using this model, we would then generate predictions of <code>Sepal.Length</code> in the tuning dataset using the <code>predict()</code> function. Since we know the actual <code>Sepal.Length</code> in the tuning set, these predictions can then be visualized using a scatterplot.</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" data-line-number="1"><span class="co">## make predictions in tuning data set</span></a>
-<a class="sourceLine" id="cb92-2" data-line-number="2">predictions &lt;-<span class="st"> </span><span class="kw">predict</span>(fit.lm, iris_tune)</a>
-<a class="sourceLine" id="cb92-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb92-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb92-5" data-line-number="5"><span class="co">## visualize results</span></a>
-<a class="sourceLine" id="cb92-6" data-line-number="6">iris_tune <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb92-7" data-line-number="7"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">predictions =</span> predictions) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb92-8" data-line-number="8"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb92-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(Sepal.Length,predictions))</a></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb136-1" data-line-number="1"><span class="co">## make predictions in tuning data set</span></a>
+<a class="sourceLine" id="cb136-2" data-line-number="2">predictions &lt;-<span class="st"> </span><span class="kw">predict</span>(fit.lm, iris_tune)</a>
+<a class="sourceLine" id="cb136-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb136-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb136-5" data-line-number="5"><span class="co">## visualize results</span></a>
+<a class="sourceLine" id="cb136-6" data-line-number="6">iris_tune <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb136-7" data-line-number="7"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">predictions =</span> predictions) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb136-8" data-line-number="8"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb136-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(Sepal.Length,predictions))</a></code></pre></div>
 <p>Given the lack of correlation, we can see that this model does not predict sepal length in our tuning set well.</p>
 <p>In this first attempt, we specified which variable to use for prediction; however, what if we provided our regression model with all the variables in the dataset (specified by the . in the code here:</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1"><span class="co">## train regression model</span></a>
-<a class="sourceLine" id="cb93-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
-<a class="sourceLine" id="cb93-3" data-line-number="3">fit.lm2 &lt;-<span class="st"> </span><span class="kw">train</span>(Sepal.Length <span class="op">~</span><span class="st"> </span>., </a>
-<a class="sourceLine" id="cb93-4" data-line-number="4">                <span class="dt">data=</span>iris, </a>
-<a class="sourceLine" id="cb93-5" data-line-number="5">                <span class="dt">method=</span><span class="st">&quot;lm&quot;</span>, </a>
-<a class="sourceLine" id="cb93-6" data-line-number="6">                <span class="dt">metric=</span> <span class="st">&quot;RMSE&quot;</span>)</a>
-<a class="sourceLine" id="cb93-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb93-8" data-line-number="8"><span class="co">## look at RMSE</span></a>
-<a class="sourceLine" id="cb93-9" data-line-number="9">fit.lm2<span class="op">$</span>results</a>
-<a class="sourceLine" id="cb93-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb93-11" data-line-number="11"><span class="co">## make predictions in tuning data set</span></a>
-<a class="sourceLine" id="cb93-12" data-line-number="12">predictions2 &lt;-<span class="st"> </span><span class="kw">predict</span>(fit.lm2, iris_tune)</a>
-<a class="sourceLine" id="cb93-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb93-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb93-15" data-line-number="15"><span class="co">## visualize results</span></a>
-<a class="sourceLine" id="cb93-16" data-line-number="16">iris_tune <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb93-17" data-line-number="17"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">predictions =</span> predictions2) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb93-18" data-line-number="18"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb93-19" data-line-number="19"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(Sepal.Length,predictions2))</a></code></pre></div>
-</div>
-<div id="example-accuracy-assessment" class="section level4">
-<h4><span class="header-section-number">5.12.3.5</span> Example Accuracy Assessment</h4>
-<p>Now when we look at the results we visually see improvement in the <code>Sepal.Length</code> predictions within the tuning dataset, which is also reflected in the decreased RMSE (0.325).</p>
-<p>Here, by including additional variables (often referred to as <code>features</code> in machine learning), we see improved prediction accuracy. There are more robust ways than trying a number of different variables in your model to select which should be included in your predictive model. These will be covered in lessons in the advanced track of this Course Set.</p>
-</div>
-<div id="example-of-model-selection" class="section level4">
-<h4><span class="header-section-number">5.12.3.6</span> Example of Model Selection</h4>
-<p>In this example (and the example below), we’ve pre-specified which model we were going to use for the example ahead of time. However, there are many different regression models from which we could have chosen and a number of parameters in each that can be tuned, each of which can improve the predictive accuracy of your model. Learning how to choose and tune the best model will be discussed in lessons in the advanced track of this Course Set; however, for now we’ll note that, as specified in the <code>caret</code> book, the <code>train()</code> function has a number of capabilities. It can:</p>
-<p>-evaluate how different tuning parameters in the model affect performance
--choose the “optimal” model, given these parameters
--estimate model performance (given a training set)</p>
-<p>Here, we haven’t played around much with the tuning parameters; however, checking out the <a href="http://topepo.github.io/caret/model-training-and-tuning.html#fitting-models-without-parameter-tuning">documentation on how to do this</a> can lead to improved prediction as you generate predictive models on your own.</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb137-1" data-line-number="1"><span class="co">## train regression model</span></a>
+<a class="sourceLine" id="cb137-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb137-3" data-line-number="3">fit.lm2 &lt;-<span class="st"> </span><span class="kw">train</span>(Sepal.Length <span class="op">~</span><span class="st"> </span>., </a>
+<a class="sourceLine" id="cb137-4" data-line-number="4">                <span class="dt">data=</span>iris, </a>
+<a class="sourceLine" id="cb137-5" data-line-number="5">                <span class="dt">method=</span><span class="st">&quot;lm&quot;</span>, </a>
+<a class="sourceLine" id="cb137-6" data-line-number="6">                <span class="dt">metric=</span> <span class="st">&quot;RMSE&quot;</span>)</a>
+<a class="sourceLine" id="cb137-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb137-8" data-line-number="8"><span class="co">## look at RMSE</span></a>
+<a class="sourceLine" id="cb137-9" data-line-number="9">fit.lm2<span class="op">$</span>results</a>
+<a class="sourceLine" id="cb137-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb137-11" data-line-number="11"><span class="co">## make predictions in tuning data set</span></a>
+<a class="sourceLine" id="cb137-12" data-line-number="12">predictions2 &lt;-<span class="st"> </span><span class="kw">predict</span>(fit.lm2, iris_tune)</a>
+<a class="sourceLine" id="cb137-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb137-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb137-15" data-line-number="15"><span class="co">## visualize results</span></a>
+<a class="sourceLine" id="cb137-16" data-line-number="16">iris_tune <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb137-17" data-line-number="17"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">predictions =</span> predictions2) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb137-18" data-line-number="18"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb137-19" data-line-number="19"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(Sepal.Length,predictions2))</a></code></pre></div>
 </div>
 <div id="example-of-categorical-variable-prediction-cart" class="section level4">
-<h4><span class="header-section-number">5.12.3.7</span> Example of Categorical Variable Prediction: CART</h4>
+<h4><span class="header-section-number">5.12.4.2</span> Example of Categorical Variable Prediction: CART</h4>
 <p>A more natural prediction model given this dataset may be to predict what Species a flower is, given its measurements. We’ll use the <code>iris</code> dataset to carry out this classification prediction here, using a CART.</p>
-<div id="example-of-data-splitting" class="section level5">
-<h5><span class="header-section-number">5.12.3.7.1</span> Example of Data Splitting</h5>
-<p>Data splitting from above will be used here. Thus, our training set will still be <code>iris_train</code> and our tuning set <code>iris_tune</code>.</p>
-</div>
 <div id="example-of-variable-selection-1" class="section level5">
-<h5><span class="header-section-number">5.12.3.7.2</span> Example of Variable Selection</h5>
+<h5><span class="header-section-number">5.12.4.2.1</span> Example of Variable Selection</h5>
 <p>Given the relatively small nature of this dataset, we’ll build the CART using all of the data; however, further and more robust optimization of what variables are included in the model is possible within the <code>caret</code> package.</p>
 <p>Here we specify that we want to predict <code>Species</code>, that we want to use a CART to do so by setting the method to <code>rpart</code>, and that, since it’s a categorical variable, we’re going to use <code>Accuracy</code> to as our assessment metric.</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" data-line-number="1"><span class="co">## CART</span></a>
-<a class="sourceLine" id="cb94-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">7</span>)</a>
-<a class="sourceLine" id="cb94-3" data-line-number="3">fit.cart &lt;-<span class="st"> </span><span class="kw">train</span>(Species<span class="op">~</span>., </a>
-<a class="sourceLine" id="cb94-4" data-line-number="4">                <span class="dt">data =</span> iris, </a>
-<a class="sourceLine" id="cb94-5" data-line-number="5">                <span class="dt">method =</span> <span class="st">&quot;rpart&quot;</span>, </a>
-<a class="sourceLine" id="cb94-6" data-line-number="6">                <span class="dt">metric =</span> <span class="st">&quot;Accuracy&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" data-line-number="1"><span class="co">## CART</span></a>
+<a class="sourceLine" id="cb138-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb138-3" data-line-number="3">fit.cart &lt;-<span class="st"> </span><span class="kw">train</span>(Species<span class="op">~</span>., </a>
+<a class="sourceLine" id="cb138-4" data-line-number="4">                <span class="dt">data =</span> iris, </a>
+<a class="sourceLine" id="cb138-5" data-line-number="5">                <span class="dt">method =</span> <span class="st">&quot;rpart&quot;</span>, </a>
+<a class="sourceLine" id="cb138-6" data-line-number="6">                <span class="dt">metric =</span> <span class="st">&quot;Accuracy&quot;</span>)</a></code></pre></div>
 </div>
 <div id="example-of-accuracy-assessment" class="section level5">
-<h5><span class="header-section-number">5.12.3.7.3</span> Example of Accuracy Assessment</h5>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1"><span class="co">## look at Accuracy</span></a>
-<a class="sourceLine" id="cb95-2" data-line-number="2">fit.cart<span class="op">$</span>results</a>
-<a class="sourceLine" id="cb95-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb95-4" data-line-number="4"><span class="co">## make predictions in tuning data set</span></a>
-<a class="sourceLine" id="cb95-5" data-line-number="5">predictions_cart &lt;-<span class="st"> </span><span class="kw">predict</span>(fit.cart, iris_tune)</a></code></pre></div>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" data-line-number="1"><span class="kw">table</span>(iris_tune<span class="op">$</span>Species, predictions_cart)</a></code></pre></div>
+<h5><span class="header-section-number">5.12.4.2.2</span> Example of Accuracy Assessment</h5>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb139-1" data-line-number="1"><span class="co">## look at Accuracy</span></a>
+<a class="sourceLine" id="cb139-2" data-line-number="2">fit.cart<span class="op">$</span>results</a>
+<a class="sourceLine" id="cb139-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb139-4" data-line-number="4"><span class="co">## make predictions in tuning data set</span></a>
+<a class="sourceLine" id="cb139-5" data-line-number="5">predictions_cart &lt;-<span class="st"> </span><span class="kw">predict</span>(fit.cart, iris_tune)</a></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb140-1" data-line-number="1"><span class="kw">table</span>(iris_tune<span class="op">$</span>Species, predictions_cart)</a></code></pre></div>
 <p><img src="https://camo.githubusercontent.com/bbe64faad91b2e48e86cb37bf2c2877b9d749553/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f31313837" /></p>
 <p>Here, we see that in the tuning data, the CART accurately predicted the Species of most flowers using the model generated from the training data; however, it did make two incorrect predictions (the 1s in the table).</p>
 </div>
 </div>
 <div id="additional-resources" class="section level4">
-<h4><span class="header-section-number">5.12.3.8</span> Additional Resources</h4>
+<h4><span class="header-section-number">5.12.4.3</span> Additional Resources</h4>
 <ul>
 <li><a href="http://topepo.github.io/caret/index.html">The caret Package book</a></li>
 <li><a href="https://rstudio-pubs-static.s3.amazonaws.com/261616_3097bfd3aa4341faafede5ed2ca7bb39.html">Example of machine learning using caret and the iris dataset for classification</a></li>
