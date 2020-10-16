@@ -1014,21 +1014,20 @@ These have been nicely summarized by Jonas Kristoffer Lindelov in is blog post [
 
 ## Hypothesis Testing
 
-avocado this was before linear modeling... I think it might work better here but I am not sure...
-
-As you may have noticed in the previous sections that we were asking a question about the data. We did so by testing if a particular answer to the question was true.
+You may have noticed in the previous sections that we were asking a question about the data. We did so by testing if a particular answer to the question was true.
 
 For example:
-1) In the cherry tree analsysis we asked "Can we infer the height of a tree given its girth?"
-We expected that we could. Thus we had a statment that "tree height is influenced by girth or can be predicted by girth"
 
-2) In the car mileage analysis we asked  "Does car weight influence the miles the car can go per gallon of gasoline?"
-We expected that it did. Thus we had a statement that "weight influences car mileage"
+1) In the cherry tree analsysis we asked "Can we infer the height of a tree given its girth?"  
+We expected that we could. Thus we had a statment that "tree height is influenced by girth or can be predicted by girth"  
 
-We took this further and asked "Does car weight and car engine type influece the miles that a car can go per gallon?"
-We again expected that it did. Thus we had a statement that " weight and engine type infleuces car mileage"
+2) In the car mileage analysis we asked  "Does car weight influence the miles the car can go per gallon of gasoline?"  
+We expected that it did. Thus we had a statement that "weight influences car mileage"  
 
-3) In the soda can analysis we asked "Do soda cans really have 12 ounces of fluid". We expected that often do. Thus we had a statement that "soda cans typically have 12 onces, the mean amount is 12".
+We took this further and asked "Does car weight and car engine type influece the miles that a car can go per gallon?"  
+We again expected that it did. Thus we had a statement that " weight and engine type infleuces car mileage"  
+
+3) In the soda can analysis we asked "Do soda cans really have 12 ounces of fluid". We expected that often do. Thus we had a statement that "soda cans typically have 12 onces, the mean amount is 12".  
 
 A common problem in many data science problem involves developing evidence for or against certain testable statements like these statments above. These testable statements are called *hypotheses*. Typically, the way these problems are structured is that a statement is made about the world (the hypothesis) and then the data are used (usually in the form of a summary statistic) to support or reject that statement.
 
@@ -1040,7 +1039,7 @@ Typically a p-value of 0.05 is used as the threshold, however remeber that it is
 
 ### The`Infer` Package
 
-The `infer` package simplifies inference analyses. Users can quickly calculate a variety of statistics and perform statistical tests including those that require resampling or simulations using data that is in `tidy` format.
+The `infer` package simplifies inference analyses. Users can quickly calculate a variety of statistics and perform statistical tests including those that require resampling, permutation, or simulations using data that is in `tidy` format.
 
 In fact users can even perform analyses based on specified hypotheses with the `hypothesize()` function.
 
@@ -1048,7 +1047,7 @@ We will perform the same analysis about soda cans that we just did with this pac
 
 Recall that we wanted to know if the observed ounces of soda can differs from the expected mean of 12 oz. Also recall that we had measurments for 100 soda cans (we made up this data). We had a testable statement or hypothesis that "soda cans typically have 12 onces, the mean amount is 12" and we wanted to know if this was true.
 
-This type of hypothesis is called a null hypothesis becuase it is a statement that expects no difference or change. The alternative hypothesis is the complement statement. it would be that the mean is not 12.
+This type of hypothesis is called a null hypothesis becuase it is a statement that expects no difference or change. The alternative hypothesis is the complement statement. It would be that the mean is not 12.
 
 OK, so now we will use the `infer` package to test if our null hypothesis is true.
 
@@ -1058,15 +1057,55 @@ First, we need to get our data into a tidy format. Thus we will use the `as_tibb
 soda_ounces <-as_tibble(soda_ounces)
 soda_ounces
 ```
+Now we will use the `specify()` function of the `infer` package to indicate that the `value` variable is our response variable that will be used in our hypothesis. This is as you might expect more important when we have multiple variables in our data. Then we can specify our null hypothesis with the `hypothesize()` function.
 
+There are two options for the `null` argument of this function:
+1) point - this option should be used when there is one variable in the hypothesis, such as "the mean of this data x".
+2) independence - this option should be used when there are two populations, such as " the means of these two groups identical" or "this variable influences this other variable".
+
+
+Then if the point option is used, there are several additional arguments regarding what is being tested about that one variable. One can test a particular `mu` for mean, `med` for median, `sigma` for standard deviation, or `p` for the proportion of sucessess (for a categorical variable).
+
+Our hypothesis was "the mean amount of soda ounces is 12" thus we will use the `point` option for our `null` argument and we will specify a mean with the `mu` argument as 12.
+
+The major benefit of this package, besides allowing the user to think about the statistical analysis more than the programming required, is that the user can easily implement resampling, permutations, or simulations.
+
+What do we mean by this? 
+
+Resampling is a method where a random samples are drawn from the original to create a dataset of the same size as the orginal data (but with some samples repeated) and this is done repetitively over and over. This process is called Bootstraping. This provides more infromation about the confidence in our estimations about our sample.
+
+
+Permutation is a process where 
+
+
+Simulation is a process where
+
+The `calculate()` function then allows for many different statstics to be calculated including:
+1) `mean`  
+2) `median`  
+3) `sum`  
+4) `sd` for standard devation  
+5) `prop` for proportion for categorical variables
+6) `count`  
+7) `diff in means`  
+8) `dirf in medians`  
+9) `diff in props`  
+10) `Chisq`
+11) `F`
+12) `slope`
+13) `correlation`
+14) `t`
+15) `z`
+16) `ratio of props`
+17) `odds ratio`  
 
 ```{r}
 library(infer)
 soda_ounces %>%
   specify(response = value) %>%
   hypothesize(null = "point", mu = 12) %>%
-  #generate(reps = 1000, type = "bootstrap") %>%
-  #calculate(stat = "mean") %>% 
+  generate(reps = 1000, type = "bootstrap") %>%
+  calculate(stat = "mean") %>% 
   get_confidence_interval()
 ```
 
