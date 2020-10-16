@@ -1213,13 +1213,13 @@ You may have noticed in the previous sections that we were asking a question abo
 For example:
 
 1) In the cherry tree analsysis we asked "Can we infer the height of a tree given its girth?"  
-We expected that we could. Thus we had a statment that "tree height is influenced by girth or can be predicted by girth"  
+We expected that we could. Thus we had a statment that "tree height can be inferred by it's girth or can be predicted by girth"  
 
-2) In the car mileage analysis we asked  "Does car weight influence the miles the car can go per gallon of gasoline?"  
-We expected that it did. Thus we had a statement that "weight influences car mileage"  
+2) In the car mileage analysis we asked  "Can we infer the miles the car can go per gallon of gasoline based on the car weight?"  
+We expected that we could. Thus we had a statement that "car mileage can be inferred by car weight"  
 
-We took this further and asked "Does car weight and car engine type influece the miles that a car can go per gallon?"  
-We again expected that it did. Thus we had a statement that " weight and engine type infleuces car mileage"  
+We took this further and asked "Can we infer the miles the car can go per gallon of gasoline based on the car weight and care engine type?"  
+We again expected that it did. Thus we had a statement that " car mileage can be inferred  by weight and engine type"  
 
 3) In the soda can analysis we asked "Do soda cans really have 12 ounces of fluid". We expected that often do. Thus we had a statement that "soda cans typically have 12 onces, the mean amount is 12".  
 
@@ -1280,17 +1280,13 @@ Then if the point option is used, there are several additional arguments regardi
 
 Our hypothesis was "the mean amount of soda ounces is 12" thus we will use the `point` option for our `null` argument and we will specify a mean with the `mu` argument as 12.
 
-The major benefit of this package, besides allowing the user to think about the statistical analysis more than the programming required, is that the user can easily implement resampling, permutations, or simulations.
+The major benefit of this package, besides allowing the user to think about the statistical analysis more than the programming required, is that the user can easily implement interative methods like resampling.
 
 What do we mean by this? 
 
-Resampling is a method where a random samples are drawn from the original to create a dataset of the same size as the orginal data (but with some samples repeated) and this is done repetitively over and over. This process is called Bootstraping. This provides more infromation about the confidence in our estimations about our sample.
+Resampling is a method where a random samples are drawn from the original data to create a dataset of the same size as the orginal data (but with some samples repeated) and this is done repetitively over and over. This process is called Bootstraping. This provides more information about the confidence in our estimations from our sample about the true population that we are trying to investigate, as it gives us more of a sense the range of values for statistics like mean and meadian might vary using other samples.
 
-
-Permutation is a process where 
-
-
-Simulation is a process where
+To perform resampling, users can use the `generate()` function with the `type` argument set to `"bootsrap"` and use the `rep` argument to specify how many bootstrap resamples to generate.
 
 The `calculate()` function then allows for many different statstics to be calculated including:
 1) `mean`  
@@ -1311,13 +1307,17 @@ The `calculate()` function then allows for many different statstics to be calcul
 16) `ratio of props`
 17) `odds ratio`  
 
+Finally, the `get_confidence_interval()` as you might guess calculates a confidence interval.
+
+Now we will use these functions on our data.
+
 
 ```r
 library(infer)
 soda_ounces %>%
   specify(response = value) %>%
   hypothesize(null = "point", mu = 12) %>%
-  generate(reps = 1000, type = "bootstrap") %>%
+  generate(rep = 1000, type = "bootstrap") %>%
   calculate(stat = "mean") %>% 
   get_confidence_interval()
 ```
@@ -1329,7 +1329,7 @@ soda_ounces %>%
 ## 1   12.0    12.0
 ```
 
-avocado finish by describing why we would do resampling etc. and explaining the above steps... I am not sure yet what you can do without doing permutations...
+We can see that our confidence interval is very similar but slightly different from the results we obtained using the `t.test()` function and the `lm()` function. This is because we used a different method to calculate the confidence interval based on the bootstrap samples. Furthemore, the results will vary everytime the code is run because the bootstrap samples are randomly created each time.
 
 
 
@@ -1582,19 +1582,19 @@ To illustrate how to use each of these packages, we will work through some examp
 Other tidymodel packages include:
 ![]https://pbs.twimg.com/media/Ef1Oac7WAAImCos.jpg
 
-1) `applicable` tests to see compares new data points with the training data to see how much the new data points appear to be an extrapolation of the training data.
-2) `baguette` is for speeding up bagging pipelines
-3) `butcher` is for dealing with pipelines that create model objects take up too much memory
-4) `discrim` has more model options classification
-5) `embed` has extra preprocessing options for categorical predictors
-6) `hardhat` helps you to make new modeling packages
-7) `infer` helps you perform statistical analyses more easily (in the context of this.?)avocado... also update if we talk about infer above
-8) `corrr` has more options for looking at correlation matrices
-9) `rules` has more model options for prediction rule ensembles
-10) `text recipes` has extra preprocessing options for using text data
-11) `tidypredict` is for running predictions inside  SQL databases
-12) `modeldb` is also for working within SQL datbases and it allows for `dplyr` and `tidyeval` use within a database
-13) `tidyposterior` compares models using resampling statistics
+1) `applicable` compares new data points with the training data to see how much the new data points appear to be an extrapolation of the training data  
+2) `baguette` is for speeding up bagging pipelines  
+3) `butcher` is for dealing with pipelines that create model objects take up too much memory  
+4) `discrim` has more model options classification  
+5) `embed` has extra preprocessing options for categorical predictors  
+6) `hardhat` helps you to make new modeling packages  
+7) `infer` helps you perform statistical analyses more easily (in the context of this.?)avocado... also update if we talk about infer above  
+8) `corrr` has more options for looking at correlation matrices  
+9) `rules` has more model options for prediction rule ensembles  
+10) `text recipes` has extra preprocessing options for using text data  
+11) `tidypredict` is for running predictions inside SQL databases  
+12) `modeldb` is also for working within SQL datbases and it allows for `dplyr` and `tidyeval` use within a database  
+13) `tidyposterior` compares models using resampling statistics  
 
 Most of these packges offer advanced modeling options, with the exception of `corrr`.
 

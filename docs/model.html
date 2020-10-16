@@ -1135,12 +1135,12 @@ These have been nicely summarized by Jonas Kristoffer Lindelov in is blog post <
 <p>For example:</p>
 <ol style="list-style-type: decimal">
 <li><p>In the cherry tree analsysis we asked “Can we infer the height of a tree given its girth?”<br />
-We expected that we could. Thus we had a statment that “tree height is influenced by girth or can be predicted by girth”</p></li>
-<li><p>In the car mileage analysis we asked “Does car weight influence the miles the car can go per gallon of gasoline?”<br />
-We expected that it did. Thus we had a statement that “weight influences car mileage”</p></li>
+We expected that we could. Thus we had a statment that “tree height can be inferred by it’s girth or can be predicted by girth”</p></li>
+<li><p>In the car mileage analysis we asked “Can we infer the miles the car can go per gallon of gasoline based on the car weight?”<br />
+We expected that we could. Thus we had a statement that “car mileage can be inferred by car weight”</p></li>
 </ol>
-<p>We took this further and asked “Does car weight and car engine type influece the miles that a car can go per gallon?”<br />
-We again expected that it did. Thus we had a statement that &quot; weight and engine type infleuces car mileage&quot;</p>
+<p>We took this further and asked “Can we infer the miles the car can go per gallon of gasoline based on the car weight and care engine type?”<br />
+We again expected that it did. Thus we had a statement that &quot; car mileage can be inferred by weight and engine type&quot;</p>
 <ol start="3" style="list-style-type: decimal">
 <li>In the soda can analysis we asked “Do soda cans really have 12 ounces of fluid”. We expected that often do. Thus we had a statement that “soda cans typically have 12 onces, the mean amount is 12”.</li>
 </ol>
@@ -1178,11 +1178,10 @@ We again expected that it did. Thus we had a statement that &quot; weight and en
 2) independence - this option should be used when there are two populations, such as &quot; the means of these two groups identical&quot; or “this variable influences this other variable”.</p>
 <p>Then if the point option is used, there are several additional arguments regarding what is being tested about that one variable. One can test a particular <code>mu</code> for mean, <code>med</code> for median, <code>sigma</code> for standard deviation, or <code>p</code> for the proportion of sucessess (for a categorical variable).</p>
 <p>Our hypothesis was “the mean amount of soda ounces is 12” thus we will use the <code>point</code> option for our <code>null</code> argument and we will specify a mean with the <code>mu</code> argument as 12.</p>
-<p>The major benefit of this package, besides allowing the user to think about the statistical analysis more than the programming required, is that the user can easily implement resampling, permutations, or simulations.</p>
+<p>The major benefit of this package, besides allowing the user to think about the statistical analysis more than the programming required, is that the user can easily implement interative methods like resampling.</p>
 <p>What do we mean by this?</p>
-<p>Resampling is a method where a random samples are drawn from the original to create a dataset of the same size as the orginal data (but with some samples repeated) and this is done repetitively over and over. This process is called Bootstraping. This provides more infromation about the confidence in our estimations about our sample.</p>
-<p>Permutation is a process where</p>
-<p>Simulation is a process where</p>
+<p>Resampling is a method where a random samples are drawn from the original data to create a dataset of the same size as the orginal data (but with some samples repeated) and this is done repetitively over and over. This process is called Bootstraping. This provides more information about the confidence in our estimations from our sample about the true population that we are trying to investigate, as it gives us more of a sense the range of values for statistics like mean and meadian might vary using other samples.</p>
+<p>To perform resampling, users can use the <code>generate()</code> function with the <code>type</code> argument set to <code>&quot;bootsrap&quot;</code> and use the <code>rep</code> argument to specify how many bootstrap resamples to generate.</p>
 <p>The <code>calculate()</code> function then allows for many different statstics to be calculated including:
 1) <code>mean</code><br />
 2) <code>median</code><br />
@@ -1201,18 +1200,20 @@ We again expected that it did. Thus we had a statement that &quot; weight and en
 15) <code>z</code>
 16) <code>ratio of props</code>
 17) <code>odds ratio</code></p>
+<p>Finally, the <code>get_confidence_interval()</code> as you might guess calculates a confidence interval.</p>
+<p>Now we will use these functions on our data.</p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="kw">library</span>(infer)</a>
 <a class="sourceLine" id="cb64-2" data-line-number="2">soda_ounces <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb64-3" data-line-number="3"><span class="st">  </span><span class="kw">specify</span>(<span class="dt">response =</span> value) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb64-4" data-line-number="4"><span class="st">  </span><span class="kw">hypothesize</span>(<span class="dt">null =</span> <span class="st">&quot;point&quot;</span>, <span class="dt">mu =</span> <span class="dv">12</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb64-5" data-line-number="5"><span class="st">  </span><span class="kw">generate</span>(<span class="dt">reps =</span> <span class="dv">1000</span>, <span class="dt">type =</span> <span class="st">&quot;bootstrap&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb64-5" data-line-number="5"><span class="st">  </span><span class="kw">generate</span>(<span class="dt">rep =</span> <span class="dv">1000</span>, <span class="dt">type =</span> <span class="st">&quot;bootstrap&quot;</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb64-6" data-line-number="6"><span class="st">  </span><span class="kw">calculate</span>(<span class="dt">stat =</span> <span class="st">&quot;mean&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb64-7" data-line-number="7"><span class="st">  </span><span class="kw">get_confidence_interval</span>()</a></code></pre></div>
 <pre><code>## # A tibble: 1 x 2
 ##   `2.5%` `97.5%`
 ##    &lt;dbl&gt;   &lt;dbl&gt;
 ## 1   12.0    12.0</code></pre>
-<p>avocado finish by describing why we would do resampling etc. and explaining the above steps… I am not sure yet what you can do without doing permutations…</p>
+<p>We can see that our confidence interval is very similar but slightly different from the results we obtained using the <code>t.test()</code> function and the <code>lm()</code> function. This is because we used a different method to calculate the confidence interval based on the bootstrap samples. Furthemore, the results will vary everytime the code is run because the bootstrap samples are randomly created each time.</p>
 </div>
 <div id="prediction-modeling-concepts" class="section level3">
 <h3><span class="header-section-number">5.11.2</span> Prediction modeling concepts</h3>
@@ -1388,18 +1389,30 @@ We again expected that it did. Thus we had a statement that &quot; weight and en
 <p>Other tidymodel packages include:
 <img src="#section" /><a href="https://pbs.twimg.com/media/Ef1Oac7WAAImCos.jpg" class="uri">https://pbs.twimg.com/media/Ef1Oac7WAAImCos.jpg</a></p>
 <ol style="list-style-type: decimal">
-<li><code>applicable</code> tests to see compares new data points with the training data to see how much the new data points appear to be an extrapolation of the training data.</li>
-<li><code>baguette</code> is for speeding up bagging pipelines</li>
-<li><code>butcher</code> is for dealing with pipelines that create model objects take up too much memory</li>
-<li><code>discrim</code> has more model options classification</li>
-<li><code>embed</code> has extra preprocessing options for categorical predictors</li>
-<li><code>hardhat</code> helps you to make new modeling packages</li>
-<li><code>infer</code> helps you perform statistical analyses more easily (in the context of this.?)avocado… also update if we talk about infer above</li>
-<li><code>corrr</code> has more options for looking at correlation matrices</li>
-<li><code>rules</code> has more model options for prediction rule ensembles</li>
-<li><code>text recipes</code> has extra preprocessing options for using text data</li>
-<li><code>tidypredict</code> is for running predictions inside SQL databases</li>
-<li><code>modeldb</code> is also for working within SQL datbases and it allows for <code>dplyr</code> and <code>tidyeval</code> use within a database</li>
+<li><code>applicable</code> compares new data points with the training data to see how much the new data points appear to be an extrapolation of the training data<br />
+</li>
+<li><code>baguette</code> is for speeding up bagging pipelines<br />
+</li>
+<li><code>butcher</code> is for dealing with pipelines that create model objects take up too much memory<br />
+</li>
+<li><code>discrim</code> has more model options classification<br />
+</li>
+<li><code>embed</code> has extra preprocessing options for categorical predictors<br />
+</li>
+<li><code>hardhat</code> helps you to make new modeling packages<br />
+</li>
+<li><code>infer</code> helps you perform statistical analyses more easily (in the context of this.?)avocado… also update if we talk about infer above<br />
+</li>
+<li><code>corrr</code> has more options for looking at correlation matrices<br />
+</li>
+<li><code>rules</code> has more model options for prediction rule ensembles<br />
+</li>
+<li><code>text recipes</code> has extra preprocessing options for using text data<br />
+</li>
+<li><code>tidypredict</code> is for running predictions inside SQL databases<br />
+</li>
+<li><code>modeldb</code> is also for working within SQL datbases and it allows for <code>dplyr</code> and <code>tidyeval</code> use within a database<br />
+</li>
 <li><code>tidyposterior</code> compares models using resampling statistics</li>
 </ol>
 <p>Most of these packges offer advanced modeling options, with the exception of <code>corrr</code>.</p>
