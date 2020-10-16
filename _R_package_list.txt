@@ -1,5 +1,4 @@
 "googledrive"
-AppliedPredictiveModeling
 bookdown
 broom
 cowplot
@@ -18,6 +17,7 @@ googlesheets
 haven
 here
 httr
+infer
 janitor
 jsonlite
 kableExtra
@@ -31,6 +31,7 @@ ProjectTemplate
 purrr
 readr
 readxl
+recipes
 reshape2
 rsample
 RSQLite
