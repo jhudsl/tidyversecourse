@@ -689,15 +689,15 @@ Throughout this specialization, we're going to make use of a number of case stud
 
 ### Case Study #1: Health Expenditures
 
-To become familiar with the datasets in this case study, we have to first introduce a bit of information about health care and health policy within the United States. This is a complicated system. Individuals can receive assistance with health care costs (known as coverage) through government-led agencies (such as Medicare and Medicaid) or private insurance companies. This case study looks at health expenditures, including healthcare coverage and healthcare spending at the State level. Understanding more about health expenditures can better inform policy decisions related to health care. 
+Health policy in the States is complicated, and several forms of healthcare 
+coverage existed in the United States of America, including both federal government-led healthcare policy, and private insurance company. Before making any inference about the relationship between health condition and health policy, it is important for us to have a general idea about healthcare economics in the States. Thus, we are interested in getting sense of the health expenditure, including healthcare coverage and healthcare spending, across States. More specifically, the questions are:  
 
-#### Questions
+1. Is there a relationship between healthcare coverage and healthcare spending in the United States?   
 
-Ultimately, we'll use the datasets in this case study to answer the following questions:
+2. How does the spending distribution change across geographic regions in the United States?  
 
-1. Is there a relationship between healthcare coverage and healthcare spending in the United States?
-2. How does the spending distribution change across geographic regions in the United States?
-3. Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?
+3. Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?  
+
 
 #### Data: Healthcare
 
@@ -705,6 +705,10 @@ The two datasets used in this case study come from the [Henry J Kaiser Family Fo
 
 * [Health Insurance Coverage of the Total Population](https://www.kff.org/other/state-indicator/total-population/) - Includes years 2013-2016
 * [Health Care Expenditures by State of Residence (in millions)](https://www.kff.org/other/state-indicator/health-care-expenditures-by-state-of-residence-in-millions/) - Includes years 1991-2014
+
+
+We have downloaded, re-named and saved these files in the 
+[following zip file]().
 
        
 ### Case Study #2: Firearms
