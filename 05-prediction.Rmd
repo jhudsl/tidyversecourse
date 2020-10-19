@@ -1076,24 +1076,25 @@ Resampling is a method where a random samples are drawn from the original data t
 
 To perform resampling, users can use the `generate()` function with the `type` argument set to `"bootsrap"` and use the `rep` argument to specify how many bootstrap resamples to generate.
 
-The `calculate()` function then allows for many different statstics to be calculated including:
-1) `mean`  
+The `calculate()` function then allows for many different statstics to be calculated including:  
+
+1) `mean`   
 2) `median`  
 3) `sum`  
 4) `sd` for standard devation  
 5) `prop` for proportion for categorical variables
 6) `count`  
 7) `diff in means`  
-8) `dirf in medians`  
+8) `diff in medians`  
 9) `diff in props`  
-10) `Chisq`
-11) `F`
-12) `slope`
-13) `correlation`
-14) `t`
-15) `z`
-16) `ratio of props`
-17) `odds ratio`  
+10) `Chisq`  
+11) `F`  
+12) `slope`  
+13) `correlation`  
+14) `t`  
+15) `z`  
+16) `ratio of props`  
+17) `odds ratio`   
 
 
 Finally, the `get_confidence_interval()` as you might guess calculates a confidence interval.
@@ -1177,7 +1178,7 @@ In this lesson, we've decided to go with the terminology that fits the tidymodel
 ### Train
 Training data are the data we described above. It is the data used to *build* your predictive model. These data are referred to as your training set.
 
-```{r}
+```{r, echo = FALSE, fig.align="centered"}
 knitr::include_graphics("book_figures/data_splitting.png")
 ```
 
@@ -1187,7 +1188,7 @@ Before getting started, your original dataset is often split. Some (often 70%-75
 
 These hold-out samples are used to see whether or not your predictive model accurately makes predictions in the set of samples not used to train the model.
 
-```{r}
+```{r, echo = FALSE, fig.align="centered"}
 knitr::include_graphics("book_figures/data_splitting2.png")
 ```
 
@@ -1195,7 +1196,7 @@ knitr::include_graphics("book_figures/data_splitting2.png")
 
 Finally, an independent dataset -- one that is not from the same experiment or source as the data used to train and test your model are used to see whether or not your predictive model makes accurate predictions in a completely new dataset. Predictive models that can be generalized to and make accurate predictions in new datasets are the best predictive models.
 
-```{r}
+```{r, echo = FALSE, fig.align="centered"}
 knitr::include_graphics("book_figures/data_splitting3.png")
 ```
 
@@ -1266,7 +1267,7 @@ Additionally, here we're using a single variable (height) to model age. Clearly,
 
 Alternatively, when trying to predict a **categorical variable**, you'll want to look at classification methods, rather than regression (which is for continuous variables). In these cases you may consider using a **classification and regression tree (CART)** for prediction. While not the only classification method for machine learning, CARTs are a basic and commonly-used approach to prediction for categorical variables.
 
-Conceptually, when using a CART for prediction, a **decision tree** is generated from the training data. A decision tree branches the data based on variables within the data. For example, if we were trying to predict an individual's education level, we would likely use a dataset with information about many different people's income level, job title, and the number of children they have. These variable would then be used to generate the tree.
+Conceptually, when using a CART for prediction, a **decision tree** is generated from the training data. A decision tree branches the data based on variables within the data. For example, if we were trying to predict an individual's education level, we would likely use a dataset with information about many different people's income level, job title, and the number of children they have. These variables would then be used to generate the tree.
 
 For example, maybe the first branch would separate individuals who make less than 40,000 dollars a year. All of those in the training data who made less than 40K would go down the left-hand branch, while everyone else would go down the right-hand branch.
 
@@ -1366,7 +1367,7 @@ avocado maybe remove below:
 
 Here you can see a visual of how these packages work together in the process of performing a machine learning analysis:
 
-```{r, echo = FALSE, out.width="60%"}
+```{r, echo = FALSE, fig.align="centered"}
 knitr::include_graphics(here::here("book_figures/MachineLearning_tidymodels.png"))
 ```
 
@@ -1395,14 +1396,13 @@ Most of these packges offer advanced modeling options.
 
 For this example, we'll keep it simple and use a dataset you've seen before: the `iris` dataset. This way you can focus on the syntax used in the `tidymodels` packages and the steps of predictive analysis. In this example, we'll attempt to use the data in the `iris` dataset to predict `Sepal.Length`.
 
-#### Example of Data Splitting with `rsample`
+#### Step 1: Example of Data Splitting with `rsample`
 
 As mentioned above, one of the first steps is to take your dataset and split it into a training set and a testing set. To do this, we'll load the `rsample` package and use the `initial_split()` function to split the dataset.  
 
 We can specify what proportion of the data we would like to use for training using the `prop` argument. 
 
 Since the split is performed randomly, it is a good idea to use the set.seed() function in base R to ensure that if your rerun your code that your split will be the same next time.
-
 
 ```{r}
 library(rsample)
@@ -1442,7 +1442,7 @@ We therefore would want good representation of each in our testing and training 
 initial_split(iris, strata = Species, prop = 3/4)
 ```
 
-#### Example of preparing for pre-processing the data with `recipes`
+#### Step 2: Example of preparing for pre-processing the data with `recipes`
 
 After splitting the data, the next step is to process the training and testing data so that the data are are compatible and optimized to be used with the model. This involves assigning variables to specific roles within the model and pre-processing like scaling variables and removing redundant variables. This process is also called feature engineering.
 
@@ -1551,7 +1551,7 @@ first_recipe <- first_recipe %>%
 
 first_recipe
 ```
-#### Example of optionally performing the preprocessing to see how it influences the data
+#### Step 3: Example of optionally performing the preprocessing to see how it influences the data
 
 Optionally one can use the `prep()` function of the `recipes` package to update the recipe for manually performing the preprocessing to see how this infleunces the data. This step is however not required. The preprocessed training data can than be viewed by using the `juice()` function, while preprocessed testing data can be viewed using the `bake()` function.
 
@@ -1609,7 +1609,7 @@ glimpse(baked_test_pm)
 
 Great! Now back to the typical steps.
 
-#### Example of specifying the model with `parsnip`
+#### Step 4: Example of specifying the model with `parsnip`
 
 So far we have used the packages `rsample` to split the data and `recipes` to assign variable types, and to specify and prep our pre-processing (as well as to optionally extract the pre-processed data).
 
@@ -1662,7 +1662,7 @@ Lin_reg_model <-
 
 Lin_reg_model
 ```
-#### Example of fitting the model
+#### Step 5: Example of fitting the model
 
 We can  use the `parsnip` package with a newer package called `workflows` to fit our model. 
 
@@ -1694,7 +1694,7 @@ iris_reg_wflow_fit
 ```
 
 
-#### Example of assessing the model performance
+#### Step 6: Example of assessing the model performance
 
 Recall that often for regression analysis we use the RMSE to assess model performance. 
 
@@ -1752,7 +1752,7 @@ With the `workflows` package, we can use the splitting information for our origi
 
 We can do this by using the `last_fit()` function of the `tune` package.
 
-```{r}
+```{r, comment=FALSE}
 overallfit <-iris_reg_wflow %>%
   tune::last_fit(split_iris)
 overallfit
@@ -1767,37 +1767,200 @@ collect_metrics(overallfit)
 We can see that our RMSE is pretty similar for the testing data as well. 
 
 
-### Example of Categorical Variable Prediction: Classification with CART
+### Example of Categorical Variable Prediction: Classification with CART with cross validation and hyper-parameter tuning
 
 Now we are going to show an example of using the `tidymodels` packages to perform prediction of a categorical variable.
 Again, we will use the `iris` dataset. However, this time the will predict the identity of the follower species (which is categorical) based on the other variables.
 
-We have already split our data into testing and training sets, so we don't need to do that again.
+We have already split our data into testing and training sets, so we don't need to do that again. However, this time we will show an example of how to perform what is called cross validation. This process allows us to get a better estimate about the performance of our model using just our training data and splitting it into multiple pieces to assess the model fit on over and over. This is helpful for making sure that our data will be generalizable, meaning that it will work well with a variety of new datasets. This is also helpful for optimizing what we call hyper-parameters.
 
-However, we do need to create a new recipe with different variables assigned to different roles. This time we want to use `Species` as the outcome. We can use the `.` notation to indicate that we want to use the rest of the variables as predictors.
+Hyper-parameters are aspects about the model that we need to specify. Often packages will choose a default value, however it is better to use the training data to see what value appears to yield the best model performance. 
 
-```{r}
-cat_recipe <-iris %>%
-recipe(Species ~.)
+For example, this different options at each split in a decision tree is called a node. The minimum number of data points for a node to be split further when creating a decision tree model is a hyper-parameter.
+
+Recall from our example of a decision tree:
+![](https://camo.githubusercontent.com/439a80ec4e6ff697b120631837d13e1667f39c14/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f383433)
+
+If there were only 3 people who made more than 40,000 and our hyper-prameter for the minimum number of data points to continue creating new branches was 6, then this side of the tree would stop here. 
+
+We will show how to optimize this using cross validation, this process is also called "tuning", as we are tuning or adjusting the hyper-parameter untill we see the best performance with our training data.
+ 
+ 
+The first thing we need to do to perform this process is split our training data into cross validation samples.
+
+Technically creating our testing and training set out of our original training data is sometimes considered a form of [cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)){target="_blank"}, called the holdout method. 
+
+The reason we do this it so we can get a better sense of the accuracy of our model using data that we did not train it on. 
+
+However, we can actually do a better job of optimizing our model for accuracy if we also perform another type of [cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)){target="_blank"} on just the newly defined training set that we just created. 
+
+There are many [cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)){target="_blank"} methods and most can be easily implemented using the `rsample` package. 
+
+Here, we will use a very popular method called either [k-fold or v-fold cross validation](https://machinelearningmastery.com/k-fold-cross-validation/){target="_blank"}. 
+
+This method involves essentially preforming the hold out method iteratively with the training data. 
+
+First, the training set is divided into $v$ (or often called called $k$) equally sized smaller pieces. 
+
+There are many ways to do this. We will show one common method call vfold cross validation wich creates v equally sized subsets of the data. The number of v subsets to use is also a bit arbitrary, although generally speaking using 10 folds is good practice, but this depends on the variability within your data. 
+
+We are going to use 4 for the sake of expediency and simplicity in our figures. 
+
+
+```{r, echo = FALSE, fig.align="centered"}
+knitr::include_graphics(here::here("book_figures/vfold.png"))
 ```
 
-This time we also want be doing any preprocessing steps for simplicity sake so our recipe is actually finished.
+Next, the model is trained on the model on $v$-1 subsets of the data iteratively (removing a different $v$ until all possible $v$-1 sets have been evaluated) to get a sense of the performance of the model. 
+ 
 
-Now our next step is to specify our model. The modeling options for parsnip are  [here](https://www.tidymodels.org/find/parsnip/){target="_blank"}. We will be using a Classification And Regression Tree (CART). This means that it can be used for either classification or regression (categorical or continuous outcome variables). Thus it is important that we set the mode for classification. We will use the `C5.0` as our engine.
+```{r, echo = FALSE, fig.align="centered"}
 
-```{r}
-
-CART_model <- parsnip::decision_tree() %>%
-              parsnip::set_mode("classification") %>%
-              parsnip::set_engine("C5.0")
-CART_model
+knitr::include_graphics(here::here("book_figures/cross_validation.png"))
 
 ```
 
 
+#### Example of creating cross validation samples with `rsample`
+
+The [`vfold_cv()`](https://tidymodels.github.io/rsample/reference/vfold_cv.html){target="_blank"} function of the `rsample` package can be used to parse the training data into folds for $v$-fold cross validation.
+
+- The `v` argument specifies the number of folds to create.
+- The `repeats` argument specifies if any samples should be repeated across folds - default is `FALSE`
+- The `strata` argument specifies a variable to stratify samples across folds - just like in `initial_split()`.
+
+Again, because these are created at random, we need to use the base `set.seed()` function in order to obtain the same results each time we knit this document. 
+ 
+Remember that only the training data is used to create the cross validation samples.
+
+```{r}
+set.seed(1234)
+vfold_iris <- rsample::vfold_cv(data = training_iris, v = 4)
+vfold_iris
+pull(vfold_iris, splits)
+```
+
+Now we can see that we have created 4 folds of the data and we can see how many values were set aside for testing (called assessing for cross validation sets) and training (called analysis for cross validation sets) within each fold.
 
 
-#### Example of Variable Selection
+First we will just use cross validation to get a better sense of the accuracy using just the training data. Then we will show how to modify this to perform tuning.
+
+#### Example of creating another recipe, model and workflow
+
+We also need to create a new recipe with different variables assigned to different roles. This time we want to use `Species` as the outcome. We can use the `.` notation to indicate that we want to use the rest of the variables as predictors. Thus we will create a new `cat_recpipe` for where we are using a **cat**egorical variable as the outcome.
+
+```{r}
+cat_recipe <- iris %>%
+recipe(Species ~ .)
+```
+
+This time we will also not have any preprocessing steps for simplicity sake, thus our recipe is actually already finished.
+
+Now our next step is to specify our model. Again the modeling options for parsnip are  [here](https://www.tidymodels.org/find/parsnip/){target="_blank"}. We will be using a Classification And Regression Tree (CART), which we discussed previously. This method can be used for either classification or regression (categorical or continuous outcome variables). Thus it is important that we set the mode for classification. We will use the `rpart` package as our engine. To tune using this model we would need to specify it here as well. We will show that it just a bit. 
+
+```{r}
+library(rpart)
+cat_model <- parsnip::decision_tree() %>%
+             parsnip::set_mode("classification") %>%
+             parsnip::set_engine("rpart")
+cat_model
+
+```
+
+Great! Now we will make a workflow for this.
+
+```{r}
+iris_cat_wflow <-workflows::workflow() %>%
+           workflows::add_recipe(cat_recipe) %>%
+           workflows::add_model(cat_model)
+iris_cat_wflow
+
+```
+
+So our next step is to fit and tune the model with our training data cross validation subsets.
+
+
+###  Example of assessing model performance with cross validation using `tune`
+
+We could fit the model using our entire training dataset like we did previously and use yardstick to check the accuracy.
+
+```{r}
+iris_cat_wflow_fit <- parsnip::fit(iris_cat_wflow, data = training_iris)
+iris_cat_wflow_fit
+
+wf_fit_cat <- iris_cat_wflow_fit %>% 
+  pull_workflow_fit()
+```
+
+
+The output is a bit different for categorical variables. 
+We can also see variable.importance from the model fit, which shows which variables were most important for classifing the data values. This lists a score for each variable which shows the decrease in error when splitting by this variable relative to others. Avocado - can someone check that? 
+
+```{r}
+wf_fit_cat$fit$variable.importance
+
+```
+
+We can see that petal.Length was the most important for predicting `Species`.
+
+
+Recall that since we are using a categorical outcome variable, we want to use accuracy to assess model performance. Thus, we can use the  `accuracy()` funtion of the `yardstick` package instead of the `rmse()` function to assess the model. We first need to get the predicted values using the `predict()` function, as these are not in the fit output.
+
+```{r}
+pred_species<-predict(iris_cat_wflow_fit, new_data = training_iris)
+
+yardstick::accuracy(training_iris, 
+               truth = Species, estimate = pred_species$.pred_class)
+
+table(training_iris$Species, pred_species$.pred_class)
+```
+It looks like 97.3% of the time our model correctly predicted the right species.
+
+However, we can also fit the model to our cross validation folds using the `fit_resamples()` function of the `tune` package, by specifying our `workflow` object and the cross validation fold object we just created. 
+See [here](https://tidymodels.github.io/tune/reference/fit_resamples.html){target="_blank"} for more information.
+
+
+```{r}
+library(tune)
+set.seed(122)
+resample_fit <- tune::fit_resamples(iris_cat_wflow, vfold_iris)
+```
+
+We can now take a look at various performance metrics based on the fit of our cross validation "resamples". 
+
+To do this we will use the `show_best()` function of the `tune` package.
+
+```{r}
+tune::show_best(resample_fit, metric = "accuracy")
+```
+Now we have a sligtly better estimate of our model accuracy because we have assessed subsamples of our training data. Now the accuracy appears to be 94.7 percent. It is typically that the accuracy will be reduced using cross validation, as this is giving us a more realistic estimate.
+
+#### Example of tuning
+
+Nice, let's see how this changes when we now tune a hyper-parameter. We want to tune the `min_n` argument to tune for the minimum number of data points for each node. The arguments may vary for the engine that you are using. We need to specify this when we fit the model.
+
+```{r, eval = FALSE}
+set.seed(122)
+cat_model_tune <- parsnip::decision_tree(cost_complexity  = tune()) %>%
+                  parsnip::set_mode("classification") %>%
+                  parsnip::set_engine("rpart")
+cat_model_tune
+
+iris_cat_wflow_tune <-workflows::workflow() %>%
+                      workflows::add_recipe(cat_recipe) %>%
+                      workflows::add_model(cat_model_tune)
+iris_cat_wflow_tune
+
+resample_fit <- tune::fit_resamples(iris_cat_wflow_tune, vfold_iris)
+
+tune::show_best(resample_fit, metric = "accuracy")
+
+table(training_iris$Species, pred_species$.pred_class)
+
+```
+Avocado fix this...
+
+#### Example of Variable Selection - this is old about caret
 
 
 
@@ -1865,12 +2028,12 @@ iris_tune %>%
 
 
 
-#### Example of Categorical Variable Prediction: CART
+#### Example of Categorical Variable Prediction: CART -this is old
 
 A more natural prediction model given this dataset may be to predict what Species a flower is, given its measurements. We'll use the `iris` dataset to carry out this classification prediction here, using a CART.
 
 
-##### Example of Variable Selection
+##### Example of Variable Selection- this is old
 
 Given the relatively small nature of this dataset, we'll build the CART using all of the data; however, further and more robust optimization of what variables are included in the model is possible within the `caret` package.
 
@@ -1885,7 +2048,7 @@ fit.cart <- train(Species~.,
                 metric = "Accuracy")
 ```
 
-##### Example of Accuracy Assessment
+##### Example of Accuracy Assessment - this is old
 
 ```{r, eval = FALSE}
 ## look at Accuracy
@@ -1903,7 +2066,7 @@ table(iris_tune$Species, predictions_cart)
 
 Here, we see that in the tuning data, the CART accurately predicted the Species of most flowers using the model generated from the training data; however, it did make two incorrect predictions (the 1s in the table).
 
-#### Additional Resources
+#### Additional Resources - old
 - [The caret Package book](http://topepo.github.io/caret/index.html)
 - [Example of machine learning using caret and the iris dataset for classification](https://rstudio-pubs-static.s3.amazonaws.com/261616_3097bfd3aa4341faafede5ed2ca7bb39.html)
 
