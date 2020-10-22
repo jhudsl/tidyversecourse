@@ -1563,20 +1563,19 @@ Modifying a piece of the overall process is now easier than before because many 
 
 
 
-### `tidymodels Packages
+### Packages of the `tidymodels` ecosystem
 
 We will focus on the following packages although there are many more in the tidymodels ecosystem:                          
 
 <img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/simpletidymodels.png" width="830" />
 
-avocado maybe remove below:
-* rsamples - to split the data into training and testing sets (as well as cross validation sets - more on that later!)  
-* recipes -  to prepare the data with preprocessing (assign variables and preprocessing steps)  
-* parsnip -  to specify and fit the data to a model  
-* yardstick and tune -  to evaluate model performance (tune is useful if using cross validation sets)  
-* workflows - combining recipe and parsnip objects into a workflow  (this makes it easier to keep track of what you have done and it makes it easier to modify specific steps)  
-* tune and dials - hyper-paramater tuning (more on that later too!)  
-* broom - to make the output from fitting a model easier to read  
+1) rsamples - to split the data into training and testing sets (as well as cross validation sets - more on that later!)  
+2) recipes -  to prepare the data with preprocessing (assign variables and preprocessing steps)  
+3) parsnip -  to specify and fit the data to a model  
+4) yardstick and tune -  to evaluate model performance
+5) workflows - combining recipe and parsnip objects into a workflow  (this makes it easier to keep track of what you have done and it makes it easier to modify specific steps) 
+6) tune and dials - model optimization (more on what hyperparameters are later too!)  
+7) broom - to make the output from fitting a model easier to read  
 
 
 
@@ -1672,36 +1671,7 @@ head(testing_iris)
 ## 14          4.3         3.0          1.1         0.1  setosa
 ```
 
-avocado move this to the classification data example
-Importantly we can stratify our split by a particular feature of the data.
-For example, let's say that we intend to classify different species of flowers based on there petal and sepal sizes. In this case the iris dataset would be very useful.
 
-
-```r
-str(iris)
-```
-
-```
-## 'data.frame':	150 obs. of  5 variables:
-##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
-##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
-##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
-##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
-##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-```
-
-We can see that there are 3 different species in this dataset.
-We therefore would want good representation of each in our testing and training data.
-
-
-```r
-initial_split(iris, strata = Species, prop = 3/4)
-```
-
-```
-## <Analysis/Assess/Total>
-## <114/36/150>
-```
 
 #### Step 2: Example of preparing for pre-processing the data with `recipes`
 
@@ -1809,7 +1779,7 @@ formula(first_recipe)
 
 ```
 ## Sepal.Length ~ Sepal.Width + Species
-## <environment: 0x7f993fbe9680>
+## <environment: 0x7ff5ded310d0>
 ```
 
 We can also view our recipe in more detail using the base summary() function.
@@ -2108,8 +2078,8 @@ Next, we use `add_recipe()` (our pre-processing specifications) and we add our m
 
 ```r
 iris_reg_wflow <-workflows::workflow() %>%
-           workflows::add_recipe(first_recipe) %>%
-           workflows::add_model(Lin_reg_model)
+                 workflows::add_recipe(first_recipe) %>%
+                 workflows::add_model(Lin_reg_model)
 iris_reg_wflow
 ```
 
@@ -2170,7 +2140,7 @@ Recall that often for regression analysis we use the RMSE to assess model perfor
 
 To get this we first need to get the predicted (also called "fitted") values.
 
-We can get these values using the `pull_workflow_fit()` function of the `workflows` package. These values are in the `$fit$fitted.values` slot of the output. We can however use the `augment()` function of the `broom` package however, to get more information about the prediction for each sample in the training data. This requires using the preprocessed training data from `juice()`.
+We can get these values using the `pull_workflow_fit()` function of the `workflows` package. These values are in the `$fit$fitted.values` slot of the output. Alternatively, we can use the `predict()` function with the workflow and the training data specified as the `new_data`.
 
 
 ```r
@@ -2182,9 +2152,38 @@ head(wf_fit$fit$fitted.values)
 ```
 
 ```
-##        1        2        3        4        5        6 
-## 5.069164 5.000194 5.000194 4.655345 4.793284 5.207103
+FALSE        1        2        3        4        5        6 
+FALSE 5.069164 5.000194 5.000194 4.655345 4.793284 5.207103
 ```
+
+```r
+predict(iris_reg_wflow_fit, new_data = training_iris)
+```
+
+```
+FALSE Warning in predict.lm(object = object$fit, newdata = new_data, type =
+FALSE "response"): prediction from a rank-deficient fit may be misleading
+```
+
+```
+FALSE # A tibble: 100 x 1
+FALSE    .pred
+FALSE    <dbl>
+FALSE  1  5.07
+FALSE  2  5.00
+FALSE  3  5.00
+FALSE  4  4.66
+FALSE  5  4.79
+FALSE  6  5.21
+FALSE  7  5.00
+FALSE  8  4.72
+FALSE  9  5.41
+FALSE 10  5.69
+FALSE # … with 90 more rows
+```
+
+To get more information about the prediction for each sample, we can use the `augment()` function of the `broom` package. This requires using the preprocessed training data from `juice()`, as well as the predicted values from either of the two previous methods.
+
 
 ```r
 wf_fitted_values <- 
@@ -2195,25 +2194,36 @@ head(wf_fitted_values)
 ```
 
 ```
-## # A tibble: 6 x 8
-##   Sepal.Length .fitted .se.fit    .resid   .hat .sigma       .cooksd .std.resid
-##          <dbl>   <dbl>   <dbl>     <dbl>  <dbl>  <dbl>         <dbl>      <dbl>
-## 1          5.1    5.07  0.0707  0.0308   0.0286  0.420 0.0000413       0.0748  
-## 2          4.6    5.00  0.0712 -0.400    0.0290  0.418 0.00706        -0.972   
-## 3          5      5.00  0.0712 -0.000194 0.0290  0.420 0.00000000166  -0.000471
-## 4          4.4    4.66  0.0995 -0.255    0.0567  0.419 0.00595        -0.629   
-## 5          4.9    4.79  0.0841  0.107    0.0405  0.420 0.000717        0.261   
-## 6          5.4    5.21  0.0758  0.193    0.0329  0.420 0.00187         0.469
+FALSE # A tibble: 6 x 8
+FALSE   Sepal.Length .fitted .se.fit    .resid   .hat .sigma       .cooksd .std.resid
+FALSE          <dbl>   <dbl>   <dbl>     <dbl>  <dbl>  <dbl>         <dbl>      <dbl>
+FALSE 1          5.1    5.07  0.0707  0.0308   0.0286  0.420 0.0000413       0.0748  
+FALSE 2          4.6    5.00  0.0712 -0.400    0.0290  0.418 0.00706        -0.972   
+FALSE 3          5      5.00  0.0712 -0.000194 0.0290  0.420 0.00000000166  -0.000471
+FALSE 4          4.4    4.66  0.0995 -0.255    0.0567  0.419 0.00595        -0.629   
+FALSE 5          4.9    4.79  0.0841  0.107    0.0405  0.420 0.000717        0.261   
+FALSE 6          5.4    5.21  0.0758  0.193    0.0329  0.420 0.00187         0.469
 ```
 
-Nice, now we can see what the orginal value for `Sepal.Length` was right next to the predicted `.fitted` value, as well as standard errors and other metrics for each value. 
+```r
+# other option:
+# wf_fitted_values <- 
+#   broom::augment(predict(iris_reg_wflow_fit, new_data = training_iris), 
+#                  data = juiced_train) %>% 
+#   select(Sepal.Length, .fitted:.std.resid)
+# 
+# head(wf_fitted_values)
+```
+
+Nice, now we can see what the orginal value for `Sepal.Length` right next to the predicted `.fitted` value, as well as standard errors and other metrics for each value. 
 
 Now we can use the `rmse()` function of the `yardstick` package to compare the `truth`, which is the `Sepal.Length` variable, to the predicted or estimate variable which in the previous output is called `.fitted`.
 
 
 ```r
 yardstick::rmse(wf_fitted_values, 
-               truth = Sepal.Length, estimate = .fitted)
+               truth = Sepal.Length, 
+            estimate = .fitted)
 ```
 
 ```
@@ -2241,7 +2251,7 @@ wf_fitted_values %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-69-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-68-1.png" width="672" />
 
 We can see that overall our model predicted the sepal length fairly well. We can see that the model appeared to do less well at predicted very long sepal lengths.
 
@@ -2296,13 +2306,85 @@ We can see that our RMSE is pretty similar for the testing data as well.
 ### Example of Categorical Variable Prediction: Classification with CART with cross validation and hyper-parameter tuning
 
 Now we are going to show an example of using the `tidymodels` packages to perform prediction of a categorical variable.
+
 Again, we will use the `iris` dataset. However, this time the will predict the identity of the follower species (which is categorical) based on the other variables.
 
-We have already split our data into testing and training sets, so we don't need to do that again. However, this time we will show an example of how to perform what is called cross validation. This process allows us to get a better estimate about the performance of our model using just our training data and splitting it into multiple pieces to assess the model fit on over and over. This is helpful for making sure that our data will be generalizable, meaning that it will work well with a variety of new datasets. This is also helpful for optimizing what we call hyper-parameters.
+We have already split our data into testing and training sets, so we don't necessarily need to do that again.
+
+However, we can stratify our split by a particular feature of the data using the `strata` argument of the `initial_split()` function.
+
+This is useful to make sure that there is good representation of each species in our testing and training data.
+
+
+```r
+set.seed(1234)
+initial_split(iris, strata = Species, prop = 2/3)
+```
+
+```
+## <Analysis/Assess/Total>
+## <102/48/150>
+```
+
+```r
+training_iris <-training(split_iris)
+head(training_iris)
+```
+
+```
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1           5.1         3.5          1.4         0.2  setosa
+## 7           4.6         3.4          1.4         0.3  setosa
+## 8           5.0         3.4          1.5         0.2  setosa
+## 9           4.4         2.9          1.4         0.2  setosa
+## 10          4.9         3.1          1.5         0.1  setosa
+## 11          5.4         3.7          1.5         0.2  setosa
+```
+
+```r
+count(training_iris, Species)
+```
+
+```
+##      Species  n
+## 1     setosa 35
+## 2 versicolor 35
+## 3  virginica 30
+```
+
+```r
+testing_iris <-testing(split_iris)
+head(testing_iris)
+```
+
+```
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 2           4.9         3.0          1.4         0.2  setosa
+## 3           4.7         3.2          1.3         0.2  setosa
+## 4           4.6         3.1          1.5         0.2  setosa
+## 5           5.0         3.6          1.4         0.2  setosa
+## 6           5.4         3.9          1.7         0.4  setosa
+## 14          4.3         3.0          1.1         0.1  setosa
+```
+
+```r
+count(testing_iris, Species)
+```
+
+```
+##      Species  n
+## 1     setosa 15
+## 2 versicolor 15
+## 3  virginica 20
+```
+
+Great, indeed we have good representation of all 3 species in both the training and testing sets.
+
+This time we will also show an example of how to perform what is called cross validation. This process allows us to get a better estimate about the performance of our model using just our training data by splitting it into multiple pieces to assess the model fit over and over. This is helpful for making sure that our model will be generalizable, meaning that it will work well with a variety of new datasets. This is also helpful for optimizing what we call hyper-parameters. 
 
 Hyper-parameters are aspects about the model that we need to specify. Often packages will choose a default value, however it is better to use the training data to see what value appears to yield the best model performance. 
 
-For example, this different options at each split in a decision tree is called a node. The minimum number of data points for a node to be split further when creating a decision tree model is a hyper-parameter.
+For example, the different options at each split in a decision tree is called a node. The minimum number of data points for a node to be split further when creating a decision tree model is a hyper-parameter.
 
 Recall from our example of a decision tree:
 ![](https://camo.githubusercontent.com/439a80ec4e6ff697b120631837d13e1667f39c14/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f383433)
@@ -2318,24 +2400,25 @@ Technically creating our testing and training set out of our original training d
 
 The reason we do this it so we can get a better sense of the accuracy of our model using data that we did not train it on. 
 
-However, we can actually do a better job of optimizing our model for accuracy if we also perform another type of [cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)){target="_blank"} on just the newly defined training set that we just created. 
+However, we can do a better job of optimizing our model for accuracy if we also perform another type of [cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)){target="_blank"} on just the newly defined training set that we just created. 
 
 There are many [cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)){target="_blank"} methods and most can be easily implemented using the `rsample` package. 
 
-Here, we will use a very popular method called either [k-fold or v-fold cross validation](https://machinelearningmastery.com/k-fold-cross-validation/){target="_blank"}. 
+Here, we will use a very popular method called either [v-fold or k-fold cross validation](https://machinelearningmastery.com/k-fold-cross-validation/){target="_blank"}. 
 
-This method involves essentially preforming the hold out method iteratively with the training data. 
+This method involves essentially preforming the holdout method iteratively with the training data. 
 
 First, the training set is divided into $v$ (or often called called $k$) equally sized smaller pieces. 
+The number of $v$ subsets to use is also a bit arbitrary, although generally speaking using 10 folds is good practice, but this depends on the variability and size of your dataset. 
 
-There are many ways to do this. We will show one common method call vfold cross validation wich creates v equally sized subsets of the data. The number of v subsets to use is also a bit arbitrary, although generally speaking using 10 folds is good practice, but this depends on the variability within your data. 
-
-We are going to use 4 for the sake of expediency and simplicity in our figures. 
+We are going to use 4 folds for the sake of expediency and simplicity. 
 
 
 <img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/vfold.png" width="463" />
 
-Next, the model is trained on the model on $v$-1 subsets of the data iteratively (removing a different $v$ until all possible $v$-1 sets have been evaluated) to get a sense of the performance of the model. 
+The model will be trained on  $v$-1 subsets of the data iteratively (removing a different $v$ until all possible $v$-1 sets have been evaluated) to get a sense of the performance of the model. While one fold will be saved to act as a test set.
+
+In the case of tuning, multiple values for the hyper-parameter are tested to determine what yeilds the best model performance.
  
 
 <img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/cross_validation.png" width="389" />
@@ -2395,12 +2478,11 @@ pull(vfold_iris, splits)
 
 Now we can see that we have created 4 folds of the data and we can see how many values were set aside for testing (called assessing for cross validation sets) and training (called analysis for cross validation sets) within each fold.
 
-
-First we will just use cross validation to get a better sense of the accuracy using just the training data. Then we will show how to modify this to perform tuning.
+First we will just use cross validation to get a better sense of the accuracy of our model using just the training data. Then we will show how to modify this to perform tuning.
 
 #### Example of creating another recipe, model and workflow
 
-We also need to create a new recipe with different variables assigned to different roles. This time we want to use `Species` as the outcome. We can use the `.` notation to indicate that we want to use the rest of the variables as predictors. Thus we will create a new `cat_recpipe` for where we are using a **cat**egorical variable as the outcome.
+We also need to create a new recipe with different variables assigned to different roles. This time we want to use `Species` as the outcome. We can use the `.` notation to indicate that we want to use the rest of the variables as predictors. Thus we will create a new `cat_recpipe` where we are using a **cat**egorical variable as the outcome.
 
 
 ```r
@@ -2456,7 +2538,7 @@ So our next step is to fit and tune the model with our training data cross valid
 
 ###  Example of assessing model performance with cross validation using `tune`
 
-We could fit the model using our entire training dataset like we did previously and use yardstick to check the accuracy.
+First we will demonstrate how we could fit the model using our entire training dataset like we did previously and use yardstick to check the accuracy this time instead of RMSE.
 
 
 ```r
@@ -2492,7 +2574,7 @@ wf_fit_cat <- iris_cat_wflow_fit %>%
 
 
 The output is a bit different for categorical variables. 
-We can also see variable.importance from the model fit, which shows which variables were most important for classifing the data values. This lists a score for each variable which shows the decrease in error when splitting by this variable relative to others. Avocado - can someone check that? 
+We can also see variable importance from the model fit, which shows which variables were most important for classifing the data values. This lists a score for each variable which shows the decrease in error when splitting by this variable relative to others. Avocado - can someone check that? 
 
 
 ```r
@@ -2504,7 +2586,7 @@ wf_fit_cat$fit$variable.importance
 ##     60.79119     55.28797     33.53538     26.81636
 ```
 
-We can see that petal.Length was the most important for predicting `Species`.
+We can see that `Petal.Width` was the most important for predicting `Species`.
 
 
 Recall that since we are using a categorical outcome variable, we want to use accuracy to assess model performance. Thus, we can use the  `accuracy()` funtion of the `yardstick` package instead of the `rmse()` function to assess the model. We first need to get the predicted values using the `predict()` function, as these are not in the fit output.
@@ -2524,20 +2606,60 @@ yardstick::accuracy(training_iris,
 ## 1 accuracy multiclass      0.97
 ```
 
+
+It looks like 97% of the time our model correctly predicted the right species.
+
+
+We can also see which species were correctly predicted using `count` function.
+
+
 ```r
-table(training_iris$Species, pred_species$.pred_class)
+count(training_iris,Species)
 ```
 
 ```
-##             
-##              setosa versicolor virginica
-##   setosa         35          0         0
-##   versicolor      0         34         1
-##   virginica       0          2        28
+##      Species  n
+## 1     setosa 35
+## 2 versicolor 35
+## 3  virginica 30
 ```
-It looks like 97.3% of the time our model correctly predicted the right species.
 
-However, we can also fit the model to our cross validation folds using the `fit_resamples()` function of the `tune` package, by specifying our `workflow` object and the cross validation fold object we just created. 
+```r
+count(pred_species, .pred_class)
+```
+
+```
+## # A tibble: 3 x 2
+##   .pred_class     n
+##   <fct>       <int>
+## 1 setosa         35
+## 2 versicolor     36
+## 3 virginica      29
+```
+We can see that one extra verisocolor iris was predicted, and one fewer virginica iris.
+
+To see exactly which rows resulted in incorrect predictions, we can bind the predicted speies to the training data like so. This can be helpful to see if there is something particular about the incorrectly predicted values that might explain why they are incorrectly predicted.
+
+
+```r
+predicted_and_truth <-bind_cols(training_iris, 
+        predicted_species = pull(pred_species, .pred_class))
+
+head(predicted_and_truth)
+```
+
+```
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species predicted_species
+## 1          5.1         3.5          1.4         0.2  setosa            setosa
+## 2          4.6         3.4          1.4         0.3  setosa            setosa
+## 3          5.0         3.4          1.5         0.2  setosa            setosa
+## 4          4.4         2.9          1.4         0.2  setosa            setosa
+## 5          4.9         3.1          1.5         0.1  setosa            setosa
+## 6          5.4         3.7          1.5         0.2  setosa            setosa
+```
+
+
+However, we to fit the model to our cross validation folds we can use the `fit_resamples()` function of the `tune` package, by specifying our `workflow` object and the cross validation fold object we just created. 
 See [here](https://tidymodels.github.io/tune/reference/fit_resamples.html){target="_blank"} for more information.
 
 
@@ -2550,20 +2672,36 @@ resample_fit <- tune::fit_resamples(iris_cat_wflow, vfold_iris)
 
 We can now take a look at various performance metrics based on the fit of our cross validation "resamples". 
 
-To do this we will use the `show_best()` function of the `tune` package.
+To do this we will use the `collect_metrics` function of the `tune` package. This will show us the mean of the accuracy estimate of the 4 different cross validation folds.
 
 
 ```r
-tune::show_best(resample_fit, metric = "accuracy")
+resample_fit
 ```
 
 ```
-## # A tibble: 1 x 5
+## #  4-fold cross-validation 
+## # A tibble: 4 x 4
+##   splits          id    .metrics         .notes          
+##   <list>          <chr> <list>           <list>          
+## 1 <split [75/25]> Fold1 <tibble [2 × 3]> <tibble [0 × 1]>
+## 2 <split [75/25]> Fold2 <tibble [2 × 3]> <tibble [0 × 1]>
+## 3 <split [75/25]> Fold3 <tibble [2 × 3]> <tibble [0 × 1]>
+## 4 <split [75/25]> Fold4 <tibble [2 × 3]> <tibble [0 × 1]>
+```
+
+```r
+collect_metrics(resample_fit)
+```
+
+```
+## # A tibble: 2 x 5
 ##   .metric  .estimator  mean     n std_err
 ##   <chr>    <chr>      <dbl> <int>   <dbl>
-## 1 accuracy multiclass  0.94     4  0.0258
+## 1 accuracy multiclass 0.94      4  0.0258
+## 2 roc_auc  hand_till  0.961     4  0.0172
 ```
-Now we have a sligtly better estimate of our model accuracy because we have assessed subsamples of our training data. Now the accuracy appears to be 94.7 percent. It is typically that the accuracy will be reduced using cross validation, as this is giving us a more realistic estimate.
+The accuracy appears to be 94.7 percent. Often the performance will be reduced using cross validation.
 
 #### Example of tuning
 
@@ -2572,14 +2710,21 @@ Nice, let's see how this changes when we now tune a hyper-parameter. We want to 
 
 ```r
 set.seed(122)
-cat_model_tune <- parsnip::decision_tree(cost_complexity  = tune()) %>%
+library(tune)
+cat_model_tune <- parsnip::decision_tree(min_n  = tune() ) %>%
                   parsnip::set_mode("classification") %>%
                   parsnip::set_engine("rpart")
+
+# cat_model_tune <- parsnip::rand_forest(min_n  = tune()) %>%
+#                   parsnip::set_mode("classification") %>%
+#                   parsnip::set_engine("randomForest")
 cat_model_tune
 
 iris_cat_wflow_tune <-workflows::workflow() %>%
                       workflows::add_recipe(cat_recipe) %>%
                       workflows::add_model(cat_model_tune)
+
+
 iris_cat_wflow_tune
 
 resample_fit <- tune::fit_resamples(iris_cat_wflow_tune, vfold_iris)
