@@ -1548,7 +1548,7 @@ We again expected that it did. Thus we had a statement that &quot; car mileage c
 <p>We can use the <code>formula()</code> function of the stats package to see how we have assigned our variables in formula notation.</p>
 <div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1"><span class="kw">formula</span>(first_recipe)</a></code></pre></div>
 <pre><code>## Sepal.Length ~ Sepal.Width + Species
-## &lt;environment: 0x7ff5ded310d0&gt;</code></pre>
+## &lt;environment: 0x7f9adcec5f30&gt;</code></pre>
 <p>We can also view our recipe in more detail using the base summary() function.</p>
 <div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1"><span class="kw">summary</span>(first_recipe)</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 4
@@ -2110,108 +2110,47 @@ See <a href="https://tidymodels.github.io/tune/reference/fit_resamples.html" tar
 <p>The accuracy appears to be 94.7 percent. Often the performance will be reduced using cross validation.</p>
 <div id="example-of-tuning" class="section level4">
 <h4><span class="header-section-number">5.12.5.1</span> Example of tuning</h4>
-<p>Nice, let’s see how this changes when we now tune a hyper-parameter. We want to tune the <code>min_n</code> argument to tune for the minimum number of data points for each node. The arguments may vary for the engine that you are using. We need to specify this when we fit the model.</p>
+<p>Nice, let’s see how this changes when we now tune a hyper-parameter. We want to tune the <code>min_n</code> argument to tune for the minimum number of data points for each node. The arguments may vary for the engine that you are using. We need to specify this when we fit the model using the <code>tune()</code> function like so:</p>
 <div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">122</span>)</a>
 <a class="sourceLine" id="cb165-2" data-line-number="2"><span class="kw">library</span>(tune)</a>
-<a class="sourceLine" id="cb165-3" data-line-number="3">cat_model_tune &lt;-<span class="st"> </span>parsnip<span class="op">::</span><span class="kw">decision_tree</span>(<span class="dt">min_n  =</span> <span class="kw">tune</span>() ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb165-3" data-line-number="3">cat_model_tune &lt;-<span class="st"> </span>parsnip<span class="op">::</span><span class="kw">decision_tree</span>(<span class="dt">min_n =</span> <span class="kw">tune</span>()) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb165-4" data-line-number="4"><span class="st">                  </span>parsnip<span class="op">::</span><span class="kw">set_mode</span>(<span class="st">&quot;classification&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb165-5" data-line-number="5"><span class="st">                  </span>parsnip<span class="op">::</span><span class="kw">set_engine</span>(<span class="st">&quot;rpart&quot;</span>)</a>
-<a class="sourceLine" id="cb165-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb165-7" data-line-number="7"><span class="co"># cat_model_tune &lt;- parsnip::rand_forest(min_n  = tune()) %&gt;%</span></a>
-<a class="sourceLine" id="cb165-8" data-line-number="8"><span class="co">#                   parsnip::set_mode(&quot;classification&quot;) %&gt;%</span></a>
-<a class="sourceLine" id="cb165-9" data-line-number="9"><span class="co">#                   parsnip::set_engine(&quot;randomForest&quot;)</span></a>
-<a class="sourceLine" id="cb165-10" data-line-number="10">cat_model_tune</a>
-<a class="sourceLine" id="cb165-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb165-12" data-line-number="12">iris_cat_wflow_tune &lt;-workflows<span class="op">::</span><span class="kw">workflow</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb165-13" data-line-number="13"><span class="st">                      </span>workflows<span class="op">::</span><span class="kw">add_recipe</span>(cat_recipe) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb165-14" data-line-number="14"><span class="st">                      </span>workflows<span class="op">::</span><span class="kw">add_model</span>(cat_model_tune)</a>
-<a class="sourceLine" id="cb165-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb165-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb165-17" data-line-number="17">iris_cat_wflow_tune</a>
-<a class="sourceLine" id="cb165-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb165-19" data-line-number="19">resample_fit &lt;-<span class="st"> </span>tune<span class="op">::</span><span class="kw">fit_resamples</span>(iris_cat_wflow_tune, vfold_iris)</a>
-<a class="sourceLine" id="cb165-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb165-21" data-line-number="21">tune<span class="op">::</span><span class="kw">show_best</span>(resample_fit, <span class="dt">metric =</span> <span class="st">&quot;accuracy&quot;</span>)</a>
-<a class="sourceLine" id="cb165-22" data-line-number="22"></a>
-<a class="sourceLine" id="cb165-23" data-line-number="23"><span class="kw">table</span>(training_iris<span class="op">$</span>Species, pred_species<span class="op">$</span>.pred_class)</a></code></pre></div>
-<p>Avocado fix this…</p>
-</div>
-<div id="example-of-variable-selection---this-is-old-about-caret" class="section level4">
-<h4><span class="header-section-number">5.12.5.2</span> Example of Variable Selection - this is old about caret</h4>
-<p>What if we first try to predict <code>Sepal.Length</code> in our training data from <code>Sepal.Width</code>. To do that, we provide the <code>train</code> function with the model and specify that the dataset we’ll be using is the <code>iris</code> dataset. Additionally, we let the train function know that we want to run linear regression (<code>lm</code>) and that we want to assess our model’s accuracy using the <code>RMSE</code> metric.</p>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" data-line-number="1"><span class="co">## train regression model</span></a>
-<a class="sourceLine" id="cb166-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
-<a class="sourceLine" id="cb166-3" data-line-number="3">fit.lm &lt;-<span class="st"> </span><span class="kw">train</span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Sepal.Width, </a>
-<a class="sourceLine" id="cb166-4" data-line-number="4">                <span class="dt">data =</span> iris, </a>
-<a class="sourceLine" id="cb166-5" data-line-number="5">                <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, </a>
-<a class="sourceLine" id="cb166-6" data-line-number="6">                <span class="dt">metric =</span> <span class="st">&quot;RMSE&quot;</span>)</a></code></pre></div>
-<p>After training the model, we take a look at our RMSE, and see that it is 0.85 for this dataset.</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" data-line-number="1"><span class="co">## look at RMSE</span></a>
-<a class="sourceLine" id="cb167-2" data-line-number="2">fit.lm<span class="op">$</span>results</a></code></pre></div>
-<p>Using this model, we would then generate predictions of <code>Sepal.Length</code> in the tuning dataset using the <code>predict()</code> function. Since we know the actual <code>Sepal.Length</code> in the tuning set, these predictions can then be visualized using a scatterplot.</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" data-line-number="1"><span class="co">## make predictions in tuning data set</span></a>
-<a class="sourceLine" id="cb168-2" data-line-number="2">predictions &lt;-<span class="st"> </span><span class="kw">predict</span>(fit.lm, iris_tune)</a>
-<a class="sourceLine" id="cb168-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb168-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb168-5" data-line-number="5"><span class="co">## visualize results</span></a>
-<a class="sourceLine" id="cb168-6" data-line-number="6">iris_tune <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb168-7" data-line-number="7"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">predictions =</span> predictions) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb168-8" data-line-number="8"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb168-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(Sepal.Length,predictions))</a></code></pre></div>
-<p>Given the lack of correlation, we can see that this model does not predict sepal length in our tuning set well.</p>
-<p>In this first attempt, we specified which variable to use for prediction; however, what if we provided our regression model with all the variables in the dataset (specified by the . in the code here:</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" data-line-number="1"><span class="co">## train regression model</span></a>
-<a class="sourceLine" id="cb169-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
-<a class="sourceLine" id="cb169-3" data-line-number="3">fit.lm2 &lt;-<span class="st"> </span><span class="kw">train</span>(Sepal.Length <span class="op">~</span><span class="st"> </span>., </a>
-<a class="sourceLine" id="cb169-4" data-line-number="4">                <span class="dt">data=</span>iris, </a>
-<a class="sourceLine" id="cb169-5" data-line-number="5">                <span class="dt">method=</span><span class="st">&quot;lm&quot;</span>, </a>
-<a class="sourceLine" id="cb169-6" data-line-number="6">                <span class="dt">metric=</span> <span class="st">&quot;RMSE&quot;</span>)</a>
-<a class="sourceLine" id="cb169-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb169-8" data-line-number="8"><span class="co">## look at RMSE</span></a>
-<a class="sourceLine" id="cb169-9" data-line-number="9">fit.lm2<span class="op">$</span>results</a>
-<a class="sourceLine" id="cb169-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb169-11" data-line-number="11"><span class="co">## make predictions in tuning data set</span></a>
-<a class="sourceLine" id="cb169-12" data-line-number="12">predictions2 &lt;-<span class="st"> </span><span class="kw">predict</span>(fit.lm2, iris_tune)</a>
-<a class="sourceLine" id="cb169-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb169-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb169-15" data-line-number="15"><span class="co">## visualize results</span></a>
-<a class="sourceLine" id="cb169-16" data-line-number="16">iris_tune <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb169-17" data-line-number="17"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">predictions =</span> predictions2) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb169-18" data-line-number="18"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb169-19" data-line-number="19"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(Sepal.Length,predictions2))</a></code></pre></div>
-</div>
-<div id="example-of-categorical-variable-prediction-cart--this-is-old" class="section level4">
-<h4><span class="header-section-number">5.12.5.3</span> Example of Categorical Variable Prediction: CART -this is old</h4>
-<p>A more natural prediction model given this dataset may be to predict what Species a flower is, given its measurements. We’ll use the <code>iris</code> dataset to carry out this classification prediction here, using a CART.</p>
-<div id="example-of-variable-selection--this-is-old" class="section level5">
-<h5><span class="header-section-number">5.12.5.3.1</span> Example of Variable Selection- this is old</h5>
-<p>Given the relatively small nature of this dataset, we’ll build the CART using all of the data; however, further and more robust optimization of what variables are included in the model is possible within the <code>caret</code> package.</p>
-<p>Here we specify that we want to predict <code>Species</code>, that we want to use a CART to do so by setting the method to <code>rpart</code>, and that, since it’s a categorical variable, we’re going to use <code>Accuracy</code> to as our assessment metric.</p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" data-line-number="1"><span class="co">## CART</span></a>
-<a class="sourceLine" id="cb170-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">7</span>)</a>
-<a class="sourceLine" id="cb170-3" data-line-number="3">fit.cart &lt;-<span class="st"> </span><span class="kw">train</span>(Species<span class="op">~</span>., </a>
-<a class="sourceLine" id="cb170-4" data-line-number="4">                <span class="dt">data =</span> iris, </a>
-<a class="sourceLine" id="cb170-5" data-line-number="5">                <span class="dt">method =</span> <span class="st">&quot;rpart&quot;</span>, </a>
-<a class="sourceLine" id="cb170-6" data-line-number="6">                <span class="dt">metric =</span> <span class="st">&quot;Accuracy&quot;</span>)</a></code></pre></div>
-</div>
-<div id="example-of-accuracy-assessment---this-is-old" class="section level5">
-<h5><span class="header-section-number">5.12.5.3.2</span> Example of Accuracy Assessment - this is old</h5>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" data-line-number="1"><span class="co">## look at Accuracy</span></a>
-<a class="sourceLine" id="cb171-2" data-line-number="2">fit.cart<span class="op">$</span>results</a>
-<a class="sourceLine" id="cb171-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb171-4" data-line-number="4"><span class="co">## make predictions in tuning data set</span></a>
-<a class="sourceLine" id="cb171-5" data-line-number="5">predictions_cart &lt;-<span class="st"> </span><span class="kw">predict</span>(fit.cart, iris_tune)</a></code></pre></div>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" data-line-number="1"><span class="kw">table</span>(iris_tune<span class="op">$</span>Species, predictions_cart)</a></code></pre></div>
-<p><img src="https://camo.githubusercontent.com/bbe64faad91b2e48e86cb37bf2c2877b9d749553/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f31313837" /></p>
-<p>Here, we see that in the tuning data, the CART accurately predicted the Species of most flowers using the model generated from the training data; however, it did make two incorrect predictions (the 1s in the table).</p>
-</div>
-</div>
-<div id="additional-resources---old" class="section level4">
-<h4><span class="header-section-number">5.12.5.4</span> Additional Resources - old</h4>
-<ul>
-<li><a href="http://topepo.github.io/caret/index.html">The caret Package book</a></li>
-<li><a href="https://rstudio-pubs-static.s3.amazonaws.com/261616_3097bfd3aa4341faafede5ed2ca7bb39.html">Example of machine learning using caret and the iris dataset for classification</a></li>
-</ul>
+<a class="sourceLine" id="cb165-5" data-line-number="5"><span class="st">                  </span>parsnip<span class="op">::</span><span class="kw">set_engine</span>(<span class="st">&quot;rpart&quot;</span>) </a>
+<a class="sourceLine" id="cb165-6" data-line-number="6">cat_model_tune</a></code></pre></div>
+<pre><code>## Decision Tree Model Specification (classification)
+## 
+## Main Arguments:
+##   min_n = tune()
+## 
+## Computational engine: rpart</code></pre>
+<p>Now we can create a new workflow using the categorical recipe and the tuning model:</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" data-line-number="1">iris_cat_wflow_tune &lt;-workflows<span class="op">::</span><span class="kw">workflow</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb167-2" data-line-number="2"><span class="st">                      </span>workflows<span class="op">::</span><span class="kw">add_recipe</span>(cat_recipe) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb167-3" data-line-number="3"><span class="st">                      </span>workflows<span class="op">::</span><span class="kw">add_model</span>(cat_model_tune)</a></code></pre></div>
+<p>We can use the <code>tune_grid()</code> function of the <code>tune()</code> package to use the workflow and fit the <code>vfold_iris</code> cross validation samples of our training data to test out a number of different values for the <code>min_n</code> argument for our model. The <code>grid()</code> argument specifies how many different values to try out.</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" data-line-number="1">reasmple_fit &lt;-<span class="kw">tune_grid</span>(iris_cat_wflow_tune, <span class="dt">resamples =</span> vfold_iris, <span class="dt">grid =</span> <span class="dv">10</span>)</a></code></pre></div>
+<p>Again we can use the <code>collect_netrics()</code> function to get the accuracy for each of the tested <code>min_n</code> values. Or, we can use the <code>show_best()</code> function of the <code>tune</code> package to see the <code>min_n</code> values for the top performing models (those with the highest accuracy).</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" data-line-number="1">resample_fit&lt;-iris_cat_wflow_tune <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tune_grid</span>(<span class="dt">resamples =</span> vfold_iris, <span class="dt">grid =</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb169-2" data-line-number="2">tune<span class="op">::</span><span class="kw">collect_metrics</span>(resample_fit)</a></code></pre></div>
+<pre><code>## # A tibble: 8 x 6
+##   min_n .metric  .estimator  mean     n std_err
+##   &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
+## 1    11 accuracy multiclass 0.94      4  0.0258
+## 2    11 roc_auc  hand_till  0.961     4  0.0172
+## 3    18 accuracy multiclass 0.94      4  0.0258
+## 4    18 roc_auc  hand_till  0.961     4  0.0172
+## 5    25 accuracy multiclass 0.94      4  0.0258
+## 6    25 roc_auc  hand_till  0.961     4  0.0172
+## 7    31 accuracy multiclass 0.94      4  0.0258
+## 8    31 roc_auc  hand_till  0.961     4  0.0172</code></pre>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" data-line-number="1">tune<span class="op">::</span><span class="kw">show_best</span>(resample_fit, <span class="dt">metric =</span> <span class="st">&quot;accuracy&quot;</span>)</a></code></pre></div>
+<pre><code>## # A tibble: 4 x 6
+##   min_n .metric  .estimator  mean     n std_err
+##   &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
+## 1    11 accuracy multiclass  0.94     4  0.0258
+## 2    18 accuracy multiclass  0.94     4  0.0258
+## 3    25 accuracy multiclass  0.94     4  0.0258
+## 4    31 accuracy multiclass  0.94     4  0.0258</code></pre>
 </div>
 </div>
 </div>
