@@ -1779,7 +1779,7 @@ formula(first_recipe)
 
 ```
 ## Sepal.Length ~ Sepal.Width + Species
-## <environment: 0x7ff5ded310d0>
+## <environment: 0x7f9adcec5f30>
 ```
 
 We can also view our recipe in more detail using the base summary() function.
@@ -2705,151 +2705,78 @@ The accuracy appears to be 94.7 percent. Often the performance will be reduced u
 
 #### Example of tuning
 
-Nice, let's see how this changes when we now tune a hyper-parameter. We want to tune the `min_n` argument to tune for the minimum number of data points for each node. The arguments may vary for the engine that you are using. We need to specify this when we fit the model.
+Nice, let's see how this changes when we now tune a hyper-parameter. We want to tune the `min_n` argument to tune for the minimum number of data points for each node. The arguments may vary for the engine that you are using. We need to specify this when we fit the model using the `tune()` function like so:
 
 
 ```r
 set.seed(122)
 library(tune)
-cat_model_tune <- parsnip::decision_tree(min_n  = tune() ) %>%
+cat_model_tune <- parsnip::decision_tree(min_n = tune()) %>%
                   parsnip::set_mode("classification") %>%
-                  parsnip::set_engine("rpart")
-
-# cat_model_tune <- parsnip::rand_forest(min_n  = tune()) %>%
-#                   parsnip::set_mode("classification") %>%
-#                   parsnip::set_engine("randomForest")
+                  parsnip::set_engine("rpart") 
 cat_model_tune
+```
 
+```
+## Decision Tree Model Specification (classification)
+## 
+## Main Arguments:
+##   min_n = tune()
+## 
+## Computational engine: rpart
+```
+
+Now we can create a new workflow using the categorical recipe and the tuning model:
+
+
+```r
 iris_cat_wflow_tune <-workflows::workflow() %>%
                       workflows::add_recipe(cat_recipe) %>%
                       workflows::add_model(cat_model_tune)
+```
 
 
-iris_cat_wflow_tune
+We can use the `tune_grid()` function of the `tune()` package to use the workflow and fit the `vfold_iris` cross validation samples of our training data to test out a number of different values for the `min_n` argument for our model. The `grid()` argument specifies how many different values to try out.
 
-resample_fit <- tune::fit_resamples(iris_cat_wflow_tune, vfold_iris)
+```r
+reasmple_fit <-tune_grid(iris_cat_wflow_tune, resamples = vfold_iris, grid = 10)
+```
 
+Again we can use the `collect_netrics()` function to get the accuracy for each of the tested `min_n` values. Or, we can use the `show_best()` function of the `tune` package to see the `min_n` values for the top performing models (those with the highest accuracy).
+
+```r
+resample_fit<-iris_cat_wflow_tune %>% tune_grid(resamples = vfold_iris, grid = 4)
+tune::collect_metrics(resample_fit)
+```
+
+```
+## # A tibble: 8 x 6
+##   min_n .metric  .estimator  mean     n std_err
+##   <int> <chr>    <chr>      <dbl> <int>   <dbl>
+## 1    11 accuracy multiclass 0.94      4  0.0258
+## 2    11 roc_auc  hand_till  0.961     4  0.0172
+## 3    18 accuracy multiclass 0.94      4  0.0258
+## 4    18 roc_auc  hand_till  0.961     4  0.0172
+## 5    25 accuracy multiclass 0.94      4  0.0258
+## 6    25 roc_auc  hand_till  0.961     4  0.0172
+## 7    31 accuracy multiclass 0.94      4  0.0258
+## 8    31 roc_auc  hand_till  0.961     4  0.0172
+```
+
+```r
 tune::show_best(resample_fit, metric = "accuracy")
-
-table(training_iris$Species, pred_species$.pred_class)
-```
-Avocado fix this...
-
-#### Example of Variable Selection - this is old about caret
-
-
-
-What if we first try to predict `Sepal.Length` in our training data from `Sepal.Width`. To do that, we provide the `train` function with the model and specify that the dataset we'll be using is the `iris` dataset. Additionally, we let the train function know that we want to run linear regression (`lm`) and that we want to assess our model's accuracy using the `RMSE` metric.
-
-
-```r
-## train regression model
-set.seed(123)
-fit.lm <- train(Sepal.Length ~ Sepal.Width, 
-                data = iris, 
-                method = "lm", 
-                metric = "RMSE")
 ```
 
-
-After training the model, we take a look at our RMSE, and see that it is 0.85 for this dataset.
-
-
-```r
-## look at RMSE
-fit.lm$results
+```
+## # A tibble: 4 x 6
+##   min_n .metric  .estimator  mean     n std_err
+##   <int> <chr>    <chr>      <dbl> <int>   <dbl>
+## 1    11 accuracy multiclass  0.94     4  0.0258
+## 2    18 accuracy multiclass  0.94     4  0.0258
+## 3    25 accuracy multiclass  0.94     4  0.0258
+## 4    31 accuracy multiclass  0.94     4  0.0258
 ```
 
-
-Using this model, we would then generate predictions of `Sepal.Length` in the tuning dataset using the `predict()` function. Since we know the actual `Sepal.Length` in the tuning set, these predictions can then be visualized using a scatterplot.
-
-
-```r
-## make predictions in tuning data set
-predictions <- predict(fit.lm, iris_tune)
-
-
-## visualize results
-iris_tune %>%
-  mutate(predictions = predictions) %>%
-  ggplot() +
-  geom_point(aes(Sepal.Length,predictions))
-```
-
-
-Given the lack of correlation, we can see that this model does not predict sepal length in our tuning set well.
-
-In this first attempt, we specified which variable to use for prediction; however, what if we provided our regression model with all the variables in the dataset (specified by the . in the code here:
-
-
-```r
-## train regression model
-set.seed(123)
-fit.lm2 <- train(Sepal.Length ~ ., 
-                data=iris, 
-                method="lm", 
-                metric= "RMSE")
-
-## look at RMSE
-fit.lm2$results
-
-## make predictions in tuning data set
-predictions2 <- predict(fit.lm2, iris_tune)
-
-
-## visualize results
-iris_tune %>%
-  mutate(predictions = predictions2) %>%
-  ggplot() +
-  geom_point(aes(Sepal.Length,predictions2))
-```
-
-
-
-#### Example of Categorical Variable Prediction: CART -this is old
-
-A more natural prediction model given this dataset may be to predict what Species a flower is, given its measurements. We'll use the `iris` dataset to carry out this classification prediction here, using a CART.
-
-
-##### Example of Variable Selection- this is old
-
-Given the relatively small nature of this dataset, we'll build the CART using all of the data; however, further and more robust optimization of what variables are included in the model is possible within the `caret` package.
-
-Here we specify that we want to predict `Species`, that we want to use a CART to do so by setting the method to `rpart`, and that, since it's a categorical variable, we're going to use `Accuracy` to as our assessment metric.
-
-
-```r
-## CART
-set.seed(7)
-fit.cart <- train(Species~., 
-                data = iris, 
-                method = "rpart", 
-                metric = "Accuracy")
-```
-
-##### Example of Accuracy Assessment - this is old
-
-
-```r
-## look at Accuracy
-fit.cart$results
-
-## make predictions in tuning data set
-predictions_cart <- predict(fit.cart, iris_tune)
-```
-
-
-```r
-table(iris_tune$Species, predictions_cart)
-```
-
-![](https://camo.githubusercontent.com/bbe64faad91b2e48e86cb37bf2c2877b9d749553/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f31313837)
-
-Here, we see that in the tuning data, the CART accurately predicted the Species of most flowers using the model generated from the training data; however, it did make two incorrect predictions (the 1s in the table).
-
-#### Additional Resources - old
-- [The caret Package book](http://topepo.github.io/caret/index.html)
-- [Example of machine learning using caret and the iris dataset for classification](https://rstudio-pubs-static.s3.amazonaws.com/261616_3097bfd3aa4341faafede5ed2ca7bb39.html)
 
 
 
