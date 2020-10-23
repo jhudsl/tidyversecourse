@@ -1779,7 +1779,7 @@ formula(first_recipe)
 
 ```
 ## Sepal.Length ~ Sepal.Width + Species
-## <environment: 0x7fe9cdcf5818>
+## <environment: 0x7fadd9960900>
 ```
 
 We can also view our recipe in more detail using the base summary() function.
@@ -3257,5 +3257,1266 @@ corrplot::corrplot(PM_cor, tl.cex = 0.5)
 ```
 
 <img src="05-prediction_files/figure-html/unnamed-chunk-94-1.png" width="672" />
+
+We can see that the development variables (`imp`) variables are correlated with each other as we might expect. 
+We also see that the road density variables seem to be correlated with each other, and the emission variables seem to be correlated with each other. 
+
+
+Also notice that none of the predictors are highly correlated with our outcome variable (`value`).
+
+Now that we have a sense of what our data are, we can get started with building a machine learning model to predict air pollution. 
+
+
+#### Splitting the Data
+
+
+```r
+set.seed(1234)
+pm_split <- rsample::initial_split(data = pm, prop = 2/3)
+pm_split
+```
+
+```
+## <Analysis/Assess/Total>
+## <584/292/876>
+```
+
+We can see the number of monitors in our training, testing, and original data by typing in the name of our split object. The result will look like this:
+<training data sample number, testing data sample number, original sample number> 
+
+Importantly the `initial_split` function only determines what rows of our `pm` data frame should be assigned for training or testing, it does not actually split the data. 
+
+To extract the testing and training data we can use the `training()` and `testing()` functions also of the `rsample` package.
+
+
+```r
+train_pm <-rsample::training(pm_split)
+test_pm <-rsample::testing(pm_split)
+```
+
+We also intend to perform cross validation, so we will now split the training data further using the [`vfold_cv()`](https://tidymodels.github.io/rsample/reference/vfold_cv.html){target="_blank"} function of the `rsample` package can be used to parse the training data into folds for $v$-fold cross validation.
+
+Again, because these are created at random, we need to use the base `set.seed()` function in order to obtain the same results each time we knit this document.  We will create 10 folds.
+
+
+
+```r
+set.seed(1234)
+vfold_pm <- rsample::vfold_cv(data = train_pm, v = 10)
+vfold_pm
+```
+
+```
+## #  10-fold cross-validation 
+## # A tibble: 10 x 2
+##    splits           id    
+##    <list>           <chr> 
+##  1 <split [525/59]> Fold01
+##  2 <split [525/59]> Fold02
+##  3 <split [525/59]> Fold03
+##  4 <split [525/59]> Fold04
+##  5 <split [526/58]> Fold05
+##  6 <split [526/58]> Fold06
+##  7 <split [526/58]> Fold07
+##  8 <split [526/58]> Fold08
+##  9 <split [526/58]> Fold09
+## 10 <split [526/58]> Fold10
+```
+
+```r
+pull(vfold_pm, splits)
+```
+
+```
+## [[1]]
+## <Analysis/Assess/Total>
+## <525/59/584>
+## 
+## [[2]]
+## <Analysis/Assess/Total>
+## <525/59/584>
+## 
+## [[3]]
+## <Analysis/Assess/Total>
+## <525/59/584>
+## 
+## [[4]]
+## <Analysis/Assess/Total>
+## <525/59/584>
+## 
+## [[5]]
+## <Analysis/Assess/Total>
+## <526/58/584>
+## 
+## [[6]]
+## <Analysis/Assess/Total>
+## <526/58/584>
+## 
+## [[7]]
+## <Analysis/Assess/Total>
+## <526/58/584>
+## 
+## [[8]]
+## <Analysis/Assess/Total>
+## <526/58/584>
+## 
+## [[9]]
+## <Analysis/Assess/Total>
+## <526/58/584>
+## 
+## [[10]]
+## <Analysis/Assess/Total>
+## <526/58/584>
+```
+
+Great!
+
+Now let's make a recipe!
+
+#### Making a Recipe
+Now with our data, we will start by making a recipe for our training data.
+If you recall, the continuous outcome variable is `value` (the average annual gravimetric monitor PM~2.5~ concentration in ug/m^3^). 
+Our features (or predictor variables) are all the other variables except the monitor ID, which is an `id` variable.
+
+The reason not to include the `id` variable is because this variable includes the county number and a number designating which particular monitor the values came from (of the monitors there are in that county). 
+Since this number is arbitrary and the county information is also given in the data, and the fact that each monitor only has one value in the `value` variable, nothing is gained by including this variable and it may instead introduce noise. 
+However, it is useful to keep this data to take a look at what is happening later. 
+We will show you what to do in this case in just a bit.
+
+In the simplest case, we might use all predictors like this:
+
+
+```r
+#install.packages(tidymodels)
+library(tidymodels)
+```
+
+```
+## ── Attaching packages ─────────────────────────────────────────────────────────────────────────────── tidymodels 0.1.0 ──
+```
+
+```
+## ✓ dials     0.0.7     ✓ yardstick 0.0.6
+```
+
+```
+## ── Conflicts ────────────────────────────────────────────────────────────────────────────────── tidymodels_conflicts() ──
+## x scales::discard()     masks purrr::discard()
+## x magrittr::extract()   masks tidyr::extract()
+## x dplyr::filter()       masks stats::filter()
+## x xts::first()          masks dplyr::first()
+## x recipes::fixed()      masks stringr::fixed()
+## x dplyr::lag()          masks stats::lag()
+## x xts::last()           masks dplyr::last()
+## x dials::prune()        masks rpart::prune()
+## x magrittr::set_names() masks purrr::set_names()
+## x yardstick::spec()     masks readr::spec()
+## x recipes::step()       masks stats::step()
+```
+
+```r
+simple_rec <- train_pm %>%
+  recipes::recipe(value ~ .)
+
+simple_rec
+```
+
+```
+## Data Recipe
+## 
+## Inputs:
+## 
+##       role #variables
+##    outcome          1
+##  predictor         49
+```
+
+Now, let's get back to the `id` variable. 
+Instead of including it as a predictor variable, we could also use the `update_role()` function of the `recipes` package.
+
+
+```r
+simple_rec <- train_pm %>%
+  recipes::recipe(value ~ .) %>%
+  recipes::update_role(id, new_role = "id variable")
+
+simple_rec
+```
+
+```
+## Data Recipe
+## 
+## Inputs:
+## 
+##         role #variables
+##  id variable          1
+##      outcome          1
+##    predictor         48
+```
+
+
+If we want to take a look at our formula from our recipe, we can do use the `formula()` function of the `stats` package.
+
+
+```r
+formula(simple_rec)
+```
+
+```
+## value ~ fips + lat + lon + state + county + city + CMAQ + zcta + 
+##     zcta_area + zcta_pop + imp_a500 + imp_a1000 + imp_a5000 + 
+##     imp_a10000 + imp_a15000 + county_area + county_pop + log_dist_to_prisec + 
+##     log_pri_length_5000 + log_pri_length_10000 + log_pri_length_15000 + 
+##     log_pri_length_25000 + log_prisec_length_500 + log_prisec_length_1000 + 
+##     log_prisec_length_5000 + log_prisec_length_10000 + log_prisec_length_15000 + 
+##     log_prisec_length_25000 + log_nei_2008_pm25_sum_10000 + log_nei_2008_pm25_sum_15000 + 
+##     log_nei_2008_pm25_sum_25000 + log_nei_2008_pm10_sum_10000 + 
+##     log_nei_2008_pm10_sum_15000 + log_nei_2008_pm10_sum_25000 + 
+##     popdens_county + popdens_zcta + nohs + somehs + hs + somecollege + 
+##     associate + bachelor + grad + pov + hs_orless + urc2013 + 
+##     urc2006 + aod
+## <environment: 0x7fadf236b5b8>
+```
+
+**This [link](https://tidymodels.github.io/recipes/reference/index.html){target="_blank"} and this [link](https://cran.r-project.org/web/packages/recipes/recipes.pdf){target="_blank"} show the many options for recipe step functions.**
+
+<u>There are step functions for a variety of purposes:</u>
+
+1. [**Imputation**](https://en.wikipedia.org/wiki/Imputation_(statistics)){target="_blank"} -- filling in missing values based on the existing data 
+2. [**Transformation**](https://en.wikipedia.org/wiki/Data_transformation_(statistics)){target="_blank"} -- changing all values of a variable in the same way, typically to make it more normal or easier to interpret
+3. [**Discretization**](https://en.wikipedia.org/wiki/Discretization_of_continuous_features){target="_blank"} -- converting continuous values into discrete or nominal values - binning for example to reduce the number of possible levels (However this is generally not advisable!)
+4. [**Encoding / Creating Dummy Variables**](https://en.wikipedia.org/wiki/Dummy_variable_(statistics)){target="_blank"} -- creating a numeric code for categorical variables
+([**More on Dummy Variables and one hot encoding**](https://medium.com/p/b5840be3c41a/responses/show){target="_blank"})
+5. [**Data type conversions**](https://cran.r-project.org/web/packages/hablar/vignettes/convert.html){target="_blank"}  -- which means changing from integer to factor or numeric to date etc.
+6. [**Interaction**](https://statisticsbyjim.com/regression/interaction-effects/){target="_blank"}  term addition to the model -- which means that we would be modeling for predictors that would influence the capacity of each other to predict the outcome
+7. [**Normalization**](https://en.wikipedia.org/wiki/Normalization_(statistics)){target="_blank"} -- centering and scaling the data to a similar range of values
+8. [**Dimensionality Reduction/ Signal Extraction**](https://en.wikipedia.org/wiki/Dimensionality_reduction){target="_blank"} -- reducing the space of features or predictors to a smaller set of variables that capture the variation or signal in the original variables (ex. Principal Component Analysis and Independent Component Analysis)
+9. **Filtering** -- filtering options for removing variables (ex. remove variables that are highly correlated to others or remove variables with very little variance and therefore likely little predictive capacity)
+10. [**Row operations**](https://tartarus.org/gareth/maths/Linear_Algebra/row_operations.pdf){target="_blank"} -- performing functions on the values within the rows  (ex. rearranging, filtering, imputing)
+11. **Checking functions** -- Sanity checks to look for missing values, to look at the variable classes etc.
+
+All of the step functions look like `step_*()` with the `*` replaced with a name, except for the check functions which look like `check_*()`.
+
+There are several ways to select what variables to apply steps to:  
+
+1. Using `tidyselect` methods: `contains()`, `matches()`, `starts_with()`, `ends_with()`, `everything()`, `num_range()`  
+2. Using the type: `all_nominal()`, `all_numeric()` , `has_type()` 
+3. Using the role: `all_predictors()`, `all_outcomes()`, `has_role()`
+4. Using the name - use the actual name of the variable/variables of interest  
+
+Let's try adding some steps to our recipe.
+
+We want to dummy encode our categorical variables so that they are numeric as we plan to use a linear regression for our model.
+
+We will use the one hot encoding means that we do not simply encode our categorical variables numerically, as our numeric assignments can be interpreted by algorithms as having a particular rank or order. 
+Instead, binary variables made of 1s and 0s are used to arbitrarily assign a numeric value that has no apparent order.
+
+
+```r
+simple_rec %>%
+  step_dummy(state, county, city, zcta, one_hot = TRUE)
+```
+
+```
+## Data Recipe
+## 
+## Inputs:
+## 
+##         role #variables
+##  id variable          1
+##      outcome          1
+##    predictor         48
+## 
+## Operations:
+## 
+## Dummy variables from state, county, city, zcta
+```
+
+
+Our `fips` variable includes a numeric code for state and county - and therefore is essentially a proxy for county.
+Since we already have county, we will just use it and keep the `fips` ID as another ID variable.
+
+We can remove the `fips` variable from the predictors using `update_role()` to make sure that the role is no longer `"predictor"`. 
+
+We can make the role anything we want actually, so we will keep it something identifiable.
+
+
+```r
+simple_rec %>%
+  update_role("fips", new_role = "county id")
+```
+
+```
+## Data Recipe
+## 
+## Inputs:
+## 
+##         role #variables
+##    county id          1
+##  id variable          1
+##      outcome          1
+##    predictor         47
+```
+
+
+We also want to remove variables that appear to be redundant and are highly correlated with others, as we know from our exploratory data analysis that many of our variables are correlated with one another. 
+We can do this using the `step_corr()` function.
+
+We don't want to remove some of our variables, like the `CMAQ` and `aod` variables, we can specify this using the `-` sign before the names of these variables like so:
+
+
+```r
+simple_rec %>%
+  step_corr(all_predictors(), - CMAQ, - aod)
+```
+
+```
+## Data Recipe
+## 
+## Inputs:
+## 
+##         role #variables
+##  id variable          1
+##      outcome          1
+##    predictor         48
+## 
+## Operations:
+## 
+## Correlation filter on all_predictors, -, CMAQ, -, aod
+```
+
+
+It is also a good idea to remove variables with near-zero variance, which can be done with the `step_nzv()` function. 
+
+Variables have low variance if all the values are very similar, the values are very sparse, or if they are highly imbalanced. Again we don't want to remove our `CMAQ` and `aod` variables.
+
+
+```r
+simple_rec %>%
+  step_nzv(all_predictors(), - CMAQ, - aod)
+```
+
+```
+## Data Recipe
+## 
+## Inputs:
+## 
+##         role #variables
+##  id variable          1
+##      outcome          1
+##    predictor         48
+## 
+## Operations:
+## 
+## Sparse, unbalanced variable filter on all_predictors, -, CMAQ, -, aod
+```
+
+Let's put all this together now. 
+
+**Remember: it is important to add the steps to the recipe in an order that makes sense just like with a cooking recipe.**
+
+First, we are going to create numeric values for our categorical variables, then we will look at correlation and near-zero variance. 
+Again, we do not want to remove the `CMAQ` and `aod` variables, so we can make sure they are kept in the model by excluding them from those steps. 
+If we specifically wanted to remove a predictor we could use `step_rm()`.
+
+
+```r
+simple_rec <- train_pm %>%
+  recipes::recipe(value ~ .) %>%
+  recipes::update_role(id, new_role = "id variable") %>%
+  update_role("fips", new_role = "county id") %>%
+  step_dummy(state, county, city, zcta, one_hot = TRUE) %>%
+  step_corr(all_predictors(), - CMAQ, - aod)%>%
+  step_nzv(all_predictors(), - CMAQ, - aod)
+  
+simple_rec
+```
+
+```
+## Data Recipe
+## 
+## Inputs:
+## 
+##         role #variables
+##    county id          1
+##  id variable          1
+##      outcome          1
+##    predictor         47
+## 
+## Operations:
+## 
+## Dummy variables from state, county, city, zcta
+## Correlation filter on all_predictors, -, CMAQ, -, aod
+## Sparse, unbalanced variable filter on all_predictors, -, CMAQ, -, aod
+```
+
+Nice! Now let's check our pre-processing.
+
+#### Running pre-processing
+
+First we need to use the `prep()` function of the `recipes` package to prepare for pre-processing. However, we will specify that we also want to run and retain the pre-processing for the training data using the `retain = TRUE` argument.
+
+
+```r
+prepped_rec <- prep(simple_rec, verbose = TRUE, retain = TRUE)
+```
+
+```
+## oper 1 step dummy [training] 
+## oper 2 step corr [training]
+```
+
+```
+## Warning in cor(x, use = use, method = method): the standard deviation is zero
+```
+
+```
+## Warning: The correlation matrix has missing values. 274 columns were excluded
+## from the filter.
+```
+
+```
+## oper 3 step nzv [training] 
+## The retained training set is ~ 0.26 Mb  in memory.
+```
+
+```r
+names(prepped_rec)
+```
+
+```
+## [1] "var_info"       "term_info"      "steps"          "template"      
+## [5] "levels"         "retained"       "tr_info"        "orig_lvls"     
+## [9] "last_term_info"
+```
+
+
+Since we retained our pre-processed training data (i.e. `prep(retain=TRUE)`), we can take a look at it like by using the `juice()` function of the `recipes` package like this:
+
+
+```r
+juiced_train <- juice(prepped_rec)
+glimpse(juiced_train)
+```
+
+```
+## Rows: 584
+## Columns: 36
+## $ id                          <fct> 1003.001, 1027.0001, 1033.1002, 1055.001,…
+## $ fips                        <fct> 1003, 1027, 1033, 1055, 1069, 1073, 1073,…
+## $ lat                         <dbl> 30.49800, 33.28126, 34.75878, 33.99375, 3…
+## $ lon                         <dbl> -87.88141, -85.80218, -87.65056, -85.9910…
+## $ CMAQ                        <dbl> 8.098836, 9.766208, 9.402679, 9.241744, 9…
+## $ zcta_area                   <dbl> 190980522, 374132430, 16716984, 154069359…
+## $ zcta_pop                    <dbl> 27829, 5103, 9042, 20045, 30217, 9010, 16…
+## $ imp_a500                    <dbl> 0.01730104, 1.96972318, 19.17301038, 16.4…
+## $ imp_a15000                  <dbl> 1.4386207, 0.3359198, 5.2472094, 5.161210…
+## $ county_area                 <dbl> 4117521611, 1564252280, 1534877333, 13856…
+## $ county_pop                  <dbl> 182265, 13932, 54428, 104430, 101547, 658…
+## $ log_dist_to_prisec          <dbl> 4.648181, 7.219907, 5.760131, 5.261457, 7…
+## $ log_pri_length_5000         <dbl> 8.517193, 8.517193, 8.517193, 9.066563, 8…
+## $ log_pri_length_25000        <dbl> 11.32735, 10.12663, 10.15769, 12.01356, 1…
+## $ log_prisec_length_500       <dbl> 7.295356, 6.214608, 8.611945, 8.740680, 6…
+## $ log_prisec_length_1000      <dbl> 8.195119, 7.600902, 9.735569, 9.627898, 7…
+## $ log_prisec_length_5000      <dbl> 10.815042, 10.170878, 11.770407, 11.72888…
+## $ log_prisec_length_10000     <dbl> 11.886803, 11.405543, 12.840663, 12.76827…
+## $ log_nei_2008_pm10_sum_15000 <dbl> 2.26783411, 3.31111648, 6.70127741, 4.462…
+## $ log_nei_2008_pm10_sum_25000 <dbl> 5.628728, 3.311116, 7.148858, 4.678311, 3…
+## $ popdens_county              <dbl> 44.265706, 8.906492, 35.460814, 75.367038…
+## $ popdens_zcta                <dbl> 145.7164307, 13.6395554, 540.8870404, 130…
+## $ nohs                        <dbl> 3.3, 11.6, 7.3, 4.3, 5.8, 7.1, 2.7, 11.1,…
+## $ somehs                      <dbl> 4.9, 19.1, 15.8, 13.3, 11.6, 17.1, 6.6, 1…
+## $ hs                          <dbl> 25.1, 33.9, 30.6, 27.8, 29.8, 37.2, 30.7,…
+## $ somecollege                 <dbl> 19.7, 18.8, 20.9, 29.2, 21.4, 23.5, 25.7,…
+## $ associate                   <dbl> 8.2, 8.0, 7.6, 10.1, 7.9, 7.3, 8.0, 4.1, …
+## $ bachelor                    <dbl> 25.3, 5.5, 12.7, 10.0, 13.7, 5.9, 17.6, 7…
+## $ grad                        <dbl> 13.5, 3.1, 5.1, 5.4, 9.8, 2.0, 8.7, 2.9, …
+## $ pov                         <dbl> 6.1, 19.5, 19.0, 8.8, 15.6, 25.5, 7.3, 8.…
+## $ hs_orless                   <dbl> 33.3, 64.6, 53.7, 45.4, 47.2, 61.4, 40.0,…
+## $ urc2013                     <dbl> 4, 6, 4, 4, 4, 1, 1, 1, 1, 1, 2, 3, 3, 3,…
+## $ aod                         <dbl> 37.363636, 34.818182, 36.000000, 43.41666…
+## $ value                       <dbl> 9.597647, 10.800000, 11.212174, 12.375394…
+## $ state_California            <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ city_Not.in.a.city          <dbl> 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0,…
+```
+
+For easy comparison sake - here is our original data:
+
+
+```r
+glimpse(pm)
+```
+
+```
+## Rows: 876
+## Columns: 50
+## $ id                          <fct> 1003.001, 1027.0001, 1033.1002, 1049.1003…
+## $ value                       <dbl> 9.597647, 10.800000, 11.212174, 11.659091…
+## $ fips                        <fct> 1003, 1027, 1033, 1049, 1055, 1069, 1073,…
+## $ lat                         <dbl> 30.49800, 33.28126, 34.75878, 34.28763, 3…
+## $ lon                         <dbl> -87.88141, -85.80218, -87.65056, -85.9683…
+## $ state                       <chr> "Alabama", "Alabama", "Alabama", "Alabama…
+## $ county                      <chr> "Baldwin", "Clay", "Colbert", "DeKalb", "…
+## $ city                        <chr> "Fairhope", "Ashland", "Muscle Shoals", "…
+## $ CMAQ                        <dbl> 8.098836, 9.766208, 9.402679, 8.534772, 9…
+## $ zcta                        <fct> 36532, 36251, 35660, 35962, 35901, 36303,…
+## $ zcta_area                   <dbl> 190980522, 374132430, 16716984, 203836235…
+## $ zcta_pop                    <dbl> 27829, 5103, 9042, 8300, 20045, 30217, 90…
+## $ imp_a500                    <dbl> 0.01730104, 1.96972318, 19.17301038, 5.78…
+## $ imp_a1000                   <dbl> 1.4096021, 0.8531574, 11.1448962, 3.86764…
+## $ imp_a5000                   <dbl> 3.3360118, 0.9851479, 15.1786154, 1.23114…
+## $ imp_a10000                  <dbl> 1.9879187, 0.5208189, 9.7253870, 1.031646…
+## $ imp_a15000                  <dbl> 1.4386207, 0.3359198, 5.2472094, 0.973044…
+## $ county_area                 <dbl> 4117521611, 1564252280, 1534877333, 20126…
+## $ county_pop                  <dbl> 182265, 13932, 54428, 71109, 104430, 1015…
+## $ log_dist_to_prisec          <dbl> 4.648181, 7.219907, 5.760131, 3.721489, 5…
+## $ log_pri_length_5000         <dbl> 8.517193, 8.517193, 8.517193, 8.517193, 9…
+## $ log_pri_length_10000        <dbl> 9.210340, 9.210340, 9.274303, 10.409411, …
+## $ log_pri_length_15000        <dbl> 9.630228, 9.615805, 9.658899, 11.173626, …
+## $ log_pri_length_25000        <dbl> 11.32735, 10.12663, 10.15769, 11.90959, 1…
+## $ log_prisec_length_500       <dbl> 7.295356, 6.214608, 8.611945, 7.310155, 8…
+## $ log_prisec_length_1000      <dbl> 8.195119, 7.600902, 9.735569, 8.585843, 9…
+## $ log_prisec_length_5000      <dbl> 10.815042, 10.170878, 11.770407, 10.21420…
+## $ log_prisec_length_10000     <dbl> 11.88680, 11.40554, 12.84066, 11.50894, 1…
+## $ log_prisec_length_15000     <dbl> 12.205723, 12.042963, 13.282656, 12.35366…
+## $ log_prisec_length_25000     <dbl> 13.41395, 12.79980, 13.79973, 13.55979, 1…
+## $ log_nei_2008_pm25_sum_10000 <dbl> 0.318035438, 3.218632928, 6.573127301, 0.…
+## $ log_nei_2008_pm25_sum_15000 <dbl> 1.967358961, 3.218632928, 6.581917457, 3.…
+## $ log_nei_2008_pm25_sum_25000 <dbl> 5.067308, 3.218633, 6.875900, 4.887665, 4…
+## $ log_nei_2008_pm10_sum_10000 <dbl> 1.35588511, 3.31111648, 6.69187313, 0.000…
+## $ log_nei_2008_pm10_sum_15000 <dbl> 2.26783411, 3.31111648, 6.70127741, 3.350…
+## $ log_nei_2008_pm10_sum_25000 <dbl> 5.628728, 3.311116, 7.148858, 5.171920, 4…
+## $ popdens_county              <dbl> 44.265706, 8.906492, 35.460814, 35.330814…
+## $ popdens_zcta                <dbl> 145.716431, 13.639555, 540.887040, 40.718…
+## $ nohs                        <dbl> 3.3, 11.6, 7.3, 14.3, 4.3, 5.8, 7.1, 2.7,…
+## $ somehs                      <dbl> 4.9, 19.1, 15.8, 16.7, 13.3, 11.6, 17.1, …
+## $ hs                          <dbl> 25.1, 33.9, 30.6, 35.0, 27.8, 29.8, 37.2,…
+## $ somecollege                 <dbl> 19.7, 18.8, 20.9, 14.9, 29.2, 21.4, 23.5,…
+## $ associate                   <dbl> 8.2, 8.0, 7.6, 5.5, 10.1, 7.9, 7.3, 8.0, …
+## $ bachelor                    <dbl> 25.3, 5.5, 12.7, 7.9, 10.0, 13.7, 5.9, 17…
+## $ grad                        <dbl> 13.5, 3.1, 5.1, 5.8, 5.4, 9.8, 2.0, 8.7, …
+## $ pov                         <dbl> 6.1, 19.5, 19.0, 13.8, 8.8, 15.6, 25.5, 7…
+## $ hs_orless                   <dbl> 33.3, 64.6, 53.7, 66.0, 45.4, 47.2, 61.4,…
+## $ urc2013                     <dbl> 4, 6, 4, 6, 4, 4, 1, 1, 1, 1, 1, 1, 1, 2,…
+## $ urc2006                     <dbl> 5, 6, 4, 5, 4, 4, 1, 1, 1, 1, 1, 1, 1, 2,…
+## $ aod                         <dbl> 37.36364, 34.81818, 36.00000, 33.08333, 4…
+```
+
+
+Notice how we only have 36 variables now instead of 50! 
+Two of these are our ID variables (`fips` and the actual monitor ID (`id`)) and one is our outcome (`value`). 
+Thus we only have 33 predictors now. 
+We can also see that variables that we no longer have any categorical variables. 
+Variables like `state` are gone and only `state_California` remains as it was the only state identity to have nonzero variance.
+We can also see that there were more monitors listed as `"Not in a city"` than any city. 
+
+##### Extract pre-processed testing data using `bake()`
+
+According to the `tidymodels` documentation:
+
+> `bake()` takes a trained recipe and applies the operations to a data set to create a design matrix.
+ For example: it applies the centering to new data sets using these means used to create the recipe
+
+Therefore, if you wanted to look at the pre-processed testing data you would use the `bake()` function of the `recipes` package.
+
+
+```r
+baked_test_pm <- recipes::bake(prepped_rec, new_data = test_pm)
+```
+
+```
+## Warning: There are new levels in a factor: Maine
+```
+
+```
+## Warning: There are new levels in a factor: Morgan, Talladega, Yavapai, Yuma,
+## Ashley, Alameda, Colusa, Kings, Placer, Riverside, Sutter, Yolo, Pueblo, New
+## London, Sussex, Citrus, St. Lucie, Seminole, Bibb, Clarke, Clayton, Dougherty,
+## Hall, Macon, Randolph, Sangamon, Allen, Henry, Howard, LaPorte, Spencer,
+## Woodbury, Sedgwick, Bell, Henderson, Aroostook, Anne Arundel, Berkshire,
+## Middlesex, Allegan, Genesee, Ingham, Kalamazoo, Lenawee, Manistee, St. Clair,
+## Washtenaw, Mille Lacs, Bolivar, Forrest, Hinds, Jones, Buchanan, Cedar, Greene,
+## Yellowstone, Grafton, Morris, Chaves, Niagara, Queens, Buncombe, Catawba,
+## Durham, Gaston, Guilford, Haywood, Lenoir, McDowell, Mitchell, Rowan, Athens,
+## Clermont, Lawrence, Portage, Preble, Scioto, Trumbull, Tulsa, Harney, Klamath,
+## Beaver, Dauphin, Oconee, Spartanburg, Codington, Bexar, Brewster, Nueces, Box
+## Elder, Bennington, Arlington, Henrico, Hampton City, Lynchburg City, Snohomish,
+## Cabell, Monongalia, Ashland, Dane, Dodge, Forest, St. Croix, Taylor, Converse,
+## Park
+```
+
+```
+## Warning: There are new levels in a factor: Crossville, Leeds, Hoover,
+## Huntsville, Decatur, Childersburg, Casa Grande, Nogales, Prescott Valley,
+## Yuma, Crossett, Mena, Livermore, Oakland, Fremont, Colusa, Clovis, Calexico,
+## Brawley, Ridgecrest, Corcoran, Los Angeles, Reseda, Pico Rivera, Mission
+## Viejo, Roseville, Portola, Riverside, Indio, Palm Springs, Rubidoux, Mira
+## Loma, Sacramento, El Cajon, San Luis Obispo, Santa Barbara, Redding, Yuba
+## City, Thousand Oaks, Woodland, Longmont, Pueblo, Norwalk, Waterbury, Norwich,
+## Seaford, Panama City, Hollywood, Valrico, Fort Myers, Royal Palm Beach, Saint
+## Petersburg, Lakeland, Fort Pierce, Sanford, Macon, Garden City, Athens-Clarke
+## County (Remainder), Forest Park, Powder Springs, Warner Robins, Franklin,
+## McCook, Des Plaines, Cicero, Aurora, Joliet, Fort Wayne, New Albany, Kokomo,
+## East Chicago, Michigan City, Dale, Sioux City, Wichita, Middlesborough
+## (corporate name for Middlesboro), Baton Rouge, Kenner, Marrero, Presque Isle,
+## Glen Burnie, Beltsville, Pittsfield, Chelmsford (Chelmsford Center), Holland,
+## Flint, Lansing, Kalamazoo, Grand Rapids, Tecumseh, Manistee, Port Huron,
+## Ypsilanti, Allen Park, St. Louis Park, Onamia, Natchez, Hattiesburg, Pascagoula,
+## Laurel, Tupelo, St. Joseph, Arnold, Ladue, Whitefish, West Yellowstone, Helena
+## Valley West Central, Billings, Grand Island, Lincoln, North Las Vegas, Lebanon,
+## Fort Lee, Pennsauken (Pensauken), Union City, Hopewell (Township of), North
+## Brunswick Township, Morristown, Rahway, Roswell, Niagara Falls, Asheville,
+## Hickory, Pittsboro, Durham, Gastonia, Greensboro, Waynesville, Kinston, Spruce
+## Pine, Candor, Rockwell, Batavia, Brook Park, Yellow Springs, Sharonville, St.
+## Bernard, Steubenville, Ironton, Ravenna, New Paris, Warren, Anadarko, Tulsa,
+## Burns, Altamont, Oakridge, Liberty, McDonald, Beaver Falls, Carlisle, Taylors,
+## Watertown, East Ridge, San Antonio, Port Arthur, Corpus Christi, Leander,
+## Brigham City, Cottonwood West, Highland, Spanish Fork, Ogden, Bennington,
+## Arlington, Groveton, McLean, East Highland Park, Hampton, Lynchburg, Vancouver,
+## Darrington, Marysville, Huntington, Clarksburg, Morgantown, Wheeling, Madison,
+## Potosi, Cody
+```
+
+```r
+glimpse(baked_test_pm)
+```
+
+```
+## Rows: 292
+## Columns: 36
+## $ id                          <fct> 1049.1003, 1073.101, 1073.2006, 1089.0014…
+## $ fips                        <fct> 1049, 1073, 1073, 1089, 1103, 1121, 4013,…
+## $ lat                         <dbl> 34.28763, 33.54528, 33.38639, 34.68767, 3…
+## $ lon                         <dbl> -85.96830, -86.54917, -86.81667, -86.5863…
+## $ CMAQ                        <dbl> 8.534772, 9.303766, 10.235612, 9.343611, …
+## $ zcta_area                   <dbl> 203836235, 148994881, 56063756, 46963946,…
+## $ zcta_pop                    <dbl> 8300, 14212, 32390, 21297, 30545, 7713, 5…
+## $ imp_a500                    <dbl> 5.78200692, 0.06055363, 42.42820069, 23.2…
+## $ imp_a15000                  <dbl> 0.9730444, 2.9956557, 12.7487614, 10.3555…
+## $ county_area                 <dbl> 2012662359, 2878192209, 2878192209, 20761…
+## $ county_pop                  <dbl> 71109, 658466, 658466, 334811, 119490, 82…
+## $ log_dist_to_prisec          <dbl> 3.721489, 7.301545, 4.721755, 4.659519, 6…
+## $ log_pri_length_5000         <dbl> 8.517193, 9.683336, 10.737240, 8.517193, …
+## $ log_pri_length_25000        <dbl> 11.90959, 12.53777, 12.99669, 11.47391, 1…
+## $ log_prisec_length_500       <dbl> 7.310155, 6.214608, 7.528913, 8.760549, 6…
+## $ log_prisec_length_1000      <dbl> 8.585843, 7.600902, 9.342290, 9.543183, 8…
+## $ log_prisec_length_5000      <dbl> 10.214200, 11.262645, 11.713190, 11.48606…
+## $ log_prisec_length_10000     <dbl> 11.50894, 12.14101, 12.53899, 12.68440, 1…
+## $ log_nei_2008_pm10_sum_15000 <dbl> 3.3500444, 6.6241114, 5.8268686, 3.861625…
+## $ log_nei_2008_pm10_sum_25000 <dbl> 5.1719202, 7.5490587, 8.8205542, 5.219092…
+## $ popdens_county              <dbl> 35.330814, 228.777633, 228.777633, 161.26…
+## $ popdens_zcta                <dbl> 40.718962, 95.385827, 577.735106, 453.475…
+## $ nohs                        <dbl> 14.3, 7.2, 0.8, 1.2, 4.8, 16.7, 19.1, 6.4…
+## $ somehs                      <dbl> 16.7, 12.2, 2.6, 3.1, 7.8, 33.3, 15.6, 9.…
+## $ hs                          <dbl> 35.0, 32.2, 12.9, 15.1, 28.7, 37.5, 26.5,…
+## $ somecollege                 <dbl> 14.9, 19.0, 17.9, 20.5, 25.0, 12.5, 18.0,…
+## $ associate                   <dbl> 5.5, 6.8, 5.2, 6.5, 7.5, 0.0, 6.0, 8.8, 3…
+## $ bachelor                    <dbl> 7.9, 14.8, 35.5, 30.4, 18.2, 0.0, 10.6, 1…
+## $ grad                        <dbl> 5.8, 7.7, 25.2, 23.3, 8.0, 0.0, 4.1, 5.7,…
+## $ pov                         <dbl> 13.8, 10.5, 2.1, 5.2, 8.3, 18.8, 21.4, 14…
+## $ hs_orless                   <dbl> 66.0, 51.6, 16.3, 19.4, 41.3, 87.5, 61.2,…
+## $ urc2013                     <dbl> 6, 1, 1, 3, 4, 5, 1, 2, 5, 4, 4, 6, 6, 1,…
+## $ aod                         <dbl> 33.08333, 42.45455, 44.25000, 42.41667, 4…
+## $ value                       <dbl> 11.659091, 13.114545, 12.228125, 12.23294…
+## $ state_California            <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,…
+## $ city_Not.in.a.city          <dbl> NA, NA, NA, NA, NA, NA, 0, NA, NA, NA, NA…
+```
+
+Notice that our `city_Not.in.a.city` variable seems to be NA values. 
+Why might that be?
+
+Ah! Perhaps it is because some of our levels were not previously seen in the training set!
+
+Let's take a look using the [set operations](https://www.probabilitycourse.com/chapter1/1_2_2_set_operations.php){target="_blank"} of the `dplyr` package. 
+We can take a look at cities that were different between the test and training set.
+
+
+```r
+traincities <- train_pm %>% distinct(city)
+testcities <- test_pm %>% distinct(city)
+
+#get the number of cities that were different
+dim(dplyr::setdiff(traincities, testcities))
+```
+
+```
+## [1] 376   1
+```
+
+```r
+#get the number of cities that overlapped
+dim(dplyr::intersect(traincities, testcities))
+```
+
+```
+## [1] 51  1
+```
+
+Indeed, there are lots of different cities in our test data that are not in our training data!
+
+
+So, let go back to our `pm` data set and modify the `city` variable to just be values of `in a city` or `not in a city` using the `case_when()` function of `dplyr`.
+This function allows you to vectorize multiple `if_else()` statements.
+
+
+```r
+pm %>%
+  mutate(city = case_when(city == "Not in a city" ~ "Not in a city",
+                          city != "Not in a city" ~ "In a city"))
+```
+
+```
+## # A tibble: 876 x 50
+##    id    value fips    lat   lon state county city   CMAQ zcta  zcta_area
+##    <fct> <dbl> <fct> <dbl> <dbl> <chr> <chr>  <chr> <dbl> <fct>     <dbl>
+##  1 1003…  9.60 1003   30.5 -87.9 Alab… Baldw… In a…  8.10 36532 190980522
+##  2 1027… 10.8  1027   33.3 -85.8 Alab… Clay   In a…  9.77 36251 374132430
+##  3 1033… 11.2  1033   34.8 -87.7 Alab… Colbe… In a…  9.40 35660  16716984
+##  4 1049… 11.7  1049   34.3 -86.0 Alab… DeKalb In a…  8.53 35962 203836235
+##  5 1055… 12.4  1055   34.0 -86.0 Alab… Etowah In a…  9.24 35901 154069359
+##  6 1069… 10.5  1069   31.2 -85.4 Alab… Houst… In a…  9.12 36303 162685124
+##  7 1073… 15.6  1073   33.6 -86.8 Alab… Jeffe… In a… 10.2  35207  26929603
+##  8 1073… 12.4  1073   33.3 -87.0 Alab… Jeffe… Not … 10.2  35111 166239542
+##  9 1073… 11.1  1073   33.5 -87.3 Alab… Jeffe… Not …  8.16 35444 385566685
+## 10 1073… 13.1  1073   33.5 -86.5 Alab… Jeffe… In a…  9.30 35094 148994881
+## # … with 866 more rows, and 39 more variables: zcta_pop <dbl>, imp_a500 <dbl>,
+## #   imp_a1000 <dbl>, imp_a5000 <dbl>, imp_a10000 <dbl>, imp_a15000 <dbl>,
+## #   county_area <dbl>, county_pop <dbl>, log_dist_to_prisec <dbl>,
+## #   log_pri_length_5000 <dbl>, log_pri_length_10000 <dbl>,
+## #   log_pri_length_15000 <dbl>, log_pri_length_25000 <dbl>,
+## #   log_prisec_length_500 <dbl>, log_prisec_length_1000 <dbl>,
+## #   log_prisec_length_5000 <dbl>, log_prisec_length_10000 <dbl>,
+## #   log_prisec_length_15000 <dbl>, log_prisec_length_25000 <dbl>,
+## #   log_nei_2008_pm25_sum_10000 <dbl>, log_nei_2008_pm25_sum_15000 <dbl>,
+## #   log_nei_2008_pm25_sum_25000 <dbl>, log_nei_2008_pm10_sum_10000 <dbl>,
+## #   log_nei_2008_pm10_sum_15000 <dbl>, log_nei_2008_pm10_sum_25000 <dbl>,
+## #   popdens_county <dbl>, popdens_zcta <dbl>, nohs <dbl>, somehs <dbl>,
+## #   hs <dbl>, somecollege <dbl>, associate <dbl>, bachelor <dbl>, grad <dbl>,
+## #   pov <dbl>, hs_orless <dbl>, urc2013 <dbl>, urc2006 <dbl>, aod <dbl>
+```
+
+
+Alternatively you could create a [custom step function](https://recipes.tidymodels.org/articles/Custom_Steps.html){target="_blank"} to do this and add this to your recipe, but that is beyond the scope of this case study. 
+
+We will need to repeat all the steps (splitting the data, pre-processing, etc) as the levels of our variables have now changed. 
+
+While we are doing this, we might also have this issue for `county`. 
+
+The `county` variables appears to get dropped due to either correlation or near zero variance. 
+
+It is likely due to near zero variance because this is the more granular of these geographic categorical variables and likely sparse.
+
+
+```r
+pm %<>%
+  mutate(city = case_when(city == "Not in a city" ~ "Not in a city",
+                          city != "Not in a city" ~ "In a city"))
+
+set.seed(1234) # same seed as before
+pm_split <-rsample::initial_split(data = pm, prop = 2/3)
+pm_split
+```
+
+```
+## <Analysis/Assess/Total>
+## <584/292/876>
+```
+
+```r
+ train_pm <-rsample::training(pm_split)
+ test_pm <-rsample::testing(pm_split)
+```
+
+Now we will create a new recipe:
+
+
+```r
+novel_rec <-train_pm %>%
+    recipe() %>%
+    update_role(everything(), new_role = "predictor") %>%
+    update_role(value, new_role = "outcome") %>%
+    update_role(id, new_role = "id variable") %>%
+    update_role("fips", new_role = "county id") %>%
+    step_dummy(state, county, city, zcta, one_hot = TRUE) %>%
+    step_corr(all_numeric()) %>%
+    step_nzv(all_numeric()) 
+```
+
+Now we will check the pre-processed data again to see if we still have `NA` values.
+
+
+```r
+prepped_rec <- prep(novel_rec, verbose = TRUE, retain = TRUE)
+```
+
+```
+## oper 1 step dummy [training] 
+## oper 2 step corr [training]
+```
+
+```
+## Warning in cor(x, use = use, method = method): the standard deviation is zero
+```
+
+```
+## Warning: The correlation matrix has missing values. 274 columns were excluded
+## from the filter.
+```
+
+```
+## oper 3 step nzv [training] 
+## The retained training set is ~ 0.26 Mb  in memory.
+```
+
+```r
+juiced_train <- juice(prepped_rec)
+glimpse(juiced_train)
+```
+
+```
+## Rows: 584
+## Columns: 36
+## $ id                          <fct> 1003.001, 1027.0001, 1033.1002, 1055.001,…
+## $ value                       <dbl> 9.597647, 10.800000, 11.212174, 12.375394…
+## $ fips                        <fct> 1003, 1027, 1033, 1055, 1069, 1073, 1073,…
+## $ lat                         <dbl> 30.49800, 33.28126, 34.75878, 33.99375, 3…
+## $ lon                         <dbl> -87.88141, -85.80218, -87.65056, -85.9910…
+## $ CMAQ                        <dbl> 8.098836, 9.766208, 9.402679, 9.241744, 9…
+## $ zcta_area                   <dbl> 190980522, 374132430, 16716984, 154069359…
+## $ zcta_pop                    <dbl> 27829, 5103, 9042, 20045, 30217, 9010, 16…
+## $ imp_a500                    <dbl> 0.01730104, 1.96972318, 19.17301038, 16.4…
+## $ imp_a15000                  <dbl> 1.4386207, 0.3359198, 5.2472094, 5.161210…
+## $ county_area                 <dbl> 4117521611, 1564252280, 1534877333, 13856…
+## $ county_pop                  <dbl> 182265, 13932, 54428, 104430, 101547, 658…
+## $ log_dist_to_prisec          <dbl> 4.648181, 7.219907, 5.760131, 5.261457, 7…
+## $ log_pri_length_5000         <dbl> 8.517193, 8.517193, 8.517193, 9.066563, 8…
+## $ log_pri_length_25000        <dbl> 11.32735, 10.12663, 10.15769, 12.01356, 1…
+## $ log_prisec_length_500       <dbl> 7.295356, 6.214608, 8.611945, 8.740680, 6…
+## $ log_prisec_length_1000      <dbl> 8.195119, 7.600902, 9.735569, 9.627898, 7…
+## $ log_prisec_length_5000      <dbl> 10.815042, 10.170878, 11.770407, 11.72888…
+## $ log_prisec_length_10000     <dbl> 11.886803, 11.405543, 12.840663, 12.76827…
+## $ log_nei_2008_pm10_sum_15000 <dbl> 2.26783411, 3.31111648, 6.70127741, 4.462…
+## $ log_nei_2008_pm10_sum_25000 <dbl> 5.628728, 3.311116, 7.148858, 4.678311, 3…
+## $ popdens_county              <dbl> 44.265706, 8.906492, 35.460814, 75.367038…
+## $ popdens_zcta                <dbl> 145.7164307, 13.6395554, 540.8870404, 130…
+## $ nohs                        <dbl> 3.3, 11.6, 7.3, 4.3, 5.8, 7.1, 2.7, 11.1,…
+## $ somehs                      <dbl> 4.9, 19.1, 15.8, 13.3, 11.6, 17.1, 6.6, 1…
+## $ hs                          <dbl> 25.1, 33.9, 30.6, 27.8, 29.8, 37.2, 30.7,…
+## $ somecollege                 <dbl> 19.7, 18.8, 20.9, 29.2, 21.4, 23.5, 25.7,…
+## $ associate                   <dbl> 8.2, 8.0, 7.6, 10.1, 7.9, 7.3, 8.0, 4.1, …
+## $ bachelor                    <dbl> 25.3, 5.5, 12.7, 10.0, 13.7, 5.9, 17.6, 7…
+## $ grad                        <dbl> 13.5, 3.1, 5.1, 5.4, 9.8, 2.0, 8.7, 2.9, …
+## $ pov                         <dbl> 6.1, 19.5, 19.0, 8.8, 15.6, 25.5, 7.3, 8.…
+## $ hs_orless                   <dbl> 33.3, 64.6, 53.7, 45.4, 47.2, 61.4, 40.0,…
+## $ urc2013                     <dbl> 4, 6, 4, 4, 4, 1, 1, 1, 1, 1, 2, 3, 3, 3,…
+## $ aod                         <dbl> 37.363636, 34.818182, 36.000000, 43.41666…
+## $ state_California            <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ city_Not.in.a.city          <dbl> 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0,…
+```
+
+```r
+baked_test_pm <- recipes::bake(prepped_rec, new_data = test_pm)
+```
+
+```
+## Warning: There are new levels in a factor: Maine
+```
+
+```
+## Warning: There are new levels in a factor: Morgan, Talladega, Yavapai, Yuma,
+## Ashley, Alameda, Colusa, Kings, Placer, Riverside, Sutter, Yolo, Pueblo, New
+## London, Sussex, Citrus, St. Lucie, Seminole, Bibb, Clarke, Clayton, Dougherty,
+## Hall, Macon, Randolph, Sangamon, Allen, Henry, Howard, LaPorte, Spencer,
+## Woodbury, Sedgwick, Bell, Henderson, Aroostook, Anne Arundel, Berkshire,
+## Middlesex, Allegan, Genesee, Ingham, Kalamazoo, Lenawee, Manistee, St. Clair,
+## Washtenaw, Mille Lacs, Bolivar, Forrest, Hinds, Jones, Buchanan, Cedar, Greene,
+## Yellowstone, Grafton, Morris, Chaves, Niagara, Queens, Buncombe, Catawba,
+## Durham, Gaston, Guilford, Haywood, Lenoir, McDowell, Mitchell, Rowan, Athens,
+## Clermont, Lawrence, Portage, Preble, Scioto, Trumbull, Tulsa, Harney, Klamath,
+## Beaver, Dauphin, Oconee, Spartanburg, Codington, Bexar, Brewster, Nueces, Box
+## Elder, Bennington, Arlington, Henrico, Hampton City, Lynchburg City, Snohomish,
+## Cabell, Monongalia, Ashland, Dane, Dodge, Forest, St. Croix, Taylor, Converse,
+## Park
+```
+
+```r
+glimpse(baked_test_pm)
+```
+
+```
+## Rows: 292
+## Columns: 36
+## $ id                          <fct> 1049.1003, 1073.101, 1073.2006, 1089.0014…
+## $ value                       <dbl> 11.659091, 13.114545, 12.228125, 12.23294…
+## $ fips                        <fct> 1049, 1073, 1073, 1089, 1103, 1121, 4013,…
+## $ lat                         <dbl> 34.28763, 33.54528, 33.38639, 34.68767, 3…
+## $ lon                         <dbl> -85.96830, -86.54917, -86.81667, -86.5863…
+## $ CMAQ                        <dbl> 8.534772, 9.303766, 10.235612, 9.343611, …
+## $ zcta_area                   <dbl> 203836235, 148994881, 56063756, 46963946,…
+## $ zcta_pop                    <dbl> 8300, 14212, 32390, 21297, 30545, 7713, 5…
+## $ imp_a500                    <dbl> 5.78200692, 0.06055363, 42.42820069, 23.2…
+## $ imp_a15000                  <dbl> 0.9730444, 2.9956557, 12.7487614, 10.3555…
+## $ county_area                 <dbl> 2012662359, 2878192209, 2878192209, 20761…
+## $ county_pop                  <dbl> 71109, 658466, 658466, 334811, 119490, 82…
+## $ log_dist_to_prisec          <dbl> 3.721489, 7.301545, 4.721755, 4.659519, 6…
+## $ log_pri_length_5000         <dbl> 8.517193, 9.683336, 10.737240, 8.517193, …
+## $ log_pri_length_25000        <dbl> 11.90959, 12.53777, 12.99669, 11.47391, 1…
+## $ log_prisec_length_500       <dbl> 7.310155, 6.214608, 7.528913, 8.760549, 6…
+## $ log_prisec_length_1000      <dbl> 8.585843, 7.600902, 9.342290, 9.543183, 8…
+## $ log_prisec_length_5000      <dbl> 10.214200, 11.262645, 11.713190, 11.48606…
+## $ log_prisec_length_10000     <dbl> 11.50894, 12.14101, 12.53899, 12.68440, 1…
+## $ log_nei_2008_pm10_sum_15000 <dbl> 3.3500444, 6.6241114, 5.8268686, 3.861625…
+## $ log_nei_2008_pm10_sum_25000 <dbl> 5.1719202, 7.5490587, 8.8205542, 5.219092…
+## $ popdens_county              <dbl> 35.330814, 228.777633, 228.777633, 161.26…
+## $ popdens_zcta                <dbl> 40.718962, 95.385827, 577.735106, 453.475…
+## $ nohs                        <dbl> 14.3, 7.2, 0.8, 1.2, 4.8, 16.7, 19.1, 6.4…
+## $ somehs                      <dbl> 16.7, 12.2, 2.6, 3.1, 7.8, 33.3, 15.6, 9.…
+## $ hs                          <dbl> 35.0, 32.2, 12.9, 15.1, 28.7, 37.5, 26.5,…
+## $ somecollege                 <dbl> 14.9, 19.0, 17.9, 20.5, 25.0, 12.5, 18.0,…
+## $ associate                   <dbl> 5.5, 6.8, 5.2, 6.5, 7.5, 0.0, 6.0, 8.8, 3…
+## $ bachelor                    <dbl> 7.9, 14.8, 35.5, 30.4, 18.2, 0.0, 10.6, 1…
+## $ grad                        <dbl> 5.8, 7.7, 25.2, 23.3, 8.0, 0.0, 4.1, 5.7,…
+## $ pov                         <dbl> 13.8, 10.5, 2.1, 5.2, 8.3, 18.8, 21.4, 14…
+## $ hs_orless                   <dbl> 66.0, 51.6, 16.3, 19.4, 41.3, 87.5, 61.2,…
+## $ urc2013                     <dbl> 6, 1, 1, 3, 4, 5, 1, 2, 5, 4, 4, 6, 6, 1,…
+## $ aod                         <dbl> 33.08333, 42.45455, 44.25000, 42.41667, 4…
+## $ state_California            <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,…
+## $ city_Not.in.a.city          <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+```
+
+Great now we no longer have `NA` values!
+
+#### Specifying the Model
+
+The first step is to define what type of model we would like to use. For our case, we are going to start our analysis with a linear regression but we will demonstrate how we can try different models.
+
+See [here](https://www.tidymodels.org/find/parsnip/){target="_blank"} for modeling options in `parsnip`.
+
+
+
+```r
+PM_model <- parsnip::linear_reg() # PM was used in the name for particulate matter
+PM_model
+```
+
+```
+## Linear Regression Model Specification (regression)
+```
+
+OK. So far, all we have defined is that we want to use a linear regression...  
+Let's tell `parsnip` more about what we want.
+
+We would like to use the [ordinary least squares](https://en.wikipedia.org/wiki/Ordinary_least_squares) method to fit our linear regression. 
+So we will tell `parsnip` that we want to use the `lm` package to implement our linear regression (there are many options actually such as [`rstan`](https://cran.r-project.org/web/packages/rstan/vignettes/rstan.html){target="_blank"}  [`glmnet`](https://cran.r-project.org/web/packages/glmnet/index.html){target="_blank"}, [`keras`](https://keras.rstudio.com/){target="_blank"}, and [`sparklyr`](https://therinspark.com/starting.html#starting-sparklyr-hello-world){target="_blank"}). See [here](https://parsnip.tidymodels.org/reference/linear_reg.html) for a description of the differences and using these different engines with `parsnip`.
+
+We will do so by using the `set_engine()` function of the `parsnip` package.
+
+
+```r
+lm_PM_model <- 
+  PM_model  %>%
+  parsnip::set_engine("lm")
+
+lm_PM_model
+```
+
+```
+## Linear Regression Model Specification (regression)
+## 
+## Computational engine: lm
+```
+
+Here, we aim to predict the air pollution. 
+You can do this with the `set_mode()` function of the `parsnip` package, by using either `set_mode("classification")` or `set_mode("regression")`.
+
+
+```r
+lm_PM_model <- 
+  PM_model  %>%
+  parsnip::set_engine("lm") %>%
+  set_mode("regression")
+
+lm_PM_model
+```
+
+```
+## Linear Regression Model Specification (regression)
+## 
+## Computational engine: lm
+```
+
+Now we will use the `workflows` package allows us to keep track of both our pre-processing steps and our model specification. It also allows us to implement fancier optimizations in an automated way.
+
+If you recall `novel_rec` is the recipe we previously created with the `recipes` package and `lm_PM_model` was created when we specified our model with the `parsnip` package.
+Here, we combine everything together into a `workflow()`. 
+
+
+```r
+PM_wflow <-workflows::workflow() %>%
+           workflows::add_recipe(novel_rec) %>%
+           workflows::add_model(lm_PM_model)
+PM_wflow
+```
+
+```
+## ══ Workflow ═════════════════════════════════════════════════════════════════════════════════════════════════════════════
+## Preprocessor: Recipe
+## Model: linear_reg()
+## 
+## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## 3 Recipe Steps
+## 
+## ● step_dummy()
+## ● step_corr()
+## ● step_nzv()
+## 
+## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## Linear Regression Model Specification (regression)
+## 
+## Computational engine: lm
+```
+
+
+Ah, nice. 
+Notice how it tells us about both our pre-processing steps and our model specifications.
+
+Next, we "prepare the recipe" (or estimate the parameters) and fit the model to our training data all at once. 
+Printing the output, we can see the coefficients of the model.
+
+
+```r
+PM_wflow_fit <- parsnip::fit(PM_wflow, data = train_pm)
+```
+
+```
+## Warning in cor(x, use = use, method = method): the standard deviation is zero
+```
+
+```
+## Warning: The correlation matrix has missing values. 274 columns were excluded
+## from the filter.
+```
+
+```r
+PM_wflow_fit
+```
+
+```
+## ══ Workflow [trained] ═══════════════════════════════════════════════════════════════════════════════════════════════════
+## Preprocessor: Recipe
+## Model: linear_reg()
+## 
+## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## 3 Recipe Steps
+## 
+## ● step_dummy()
+## ● step_corr()
+## ● step_nzv()
+## 
+## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## 
+## Call:
+## stats::lm(formula = formula, data = data)
+## 
+## Coefficients:
+##                 (Intercept)                          lat  
+##                   2.221e+02                    3.773e-02  
+##                         lon                         CMAQ  
+##                   3.023e-02                    2.896e-01  
+##                   zcta_area                     zcta_pop  
+##                   3.592e-10                    7.988e-06  
+##                    imp_a500                   imp_a15000  
+##                   6.543e-03                   -1.252e-03  
+##                 county_area                   county_pop  
+##                  -2.241e-11                   -2.052e-07  
+##          log_dist_to_prisec          log_pri_length_5000  
+##                   4.182e-02                   -2.207e-01  
+##        log_pri_length_25000        log_prisec_length_500  
+##                   9.277e-02                    2.651e-01  
+##      log_prisec_length_1000       log_prisec_length_5000  
+##                  -1.654e-02                    4.451e-01  
+##     log_prisec_length_10000  log_nei_2008_pm10_sum_15000  
+##                   1.510e-01                    1.029e-01  
+## log_nei_2008_pm10_sum_25000               popdens_county  
+##                   6.448e-02                   -3.905e-05  
+##                popdens_zcta                         nohs  
+##                  -2.098e-05                   -2.195e+00  
+##                      somehs                           hs  
+##                  -2.232e+00                   -2.235e+00  
+##                 somecollege                    associate  
+##                  -2.237e+00                   -2.237e+00  
+##                    bachelor                         grad  
+##                  -2.239e+00                   -2.248e+00  
+##                         pov                    hs_orless  
+##                   5.400e-03                           NA  
+##                     urc2013                          aod  
+##                   1.848e-01                    2.521e-02  
+##            state_California           city_Not.in.a.city  
+##                   3.509e+00                    4.137e-01
+```
+
+## Assessing the model fit
+
+After we fit our model, we can use the `broom` package to look at the output from the fitted model in an easy/tidy.   
+
+The `tidy()` function returns a tidy data frame with coefficients from the model (one row per coefficient).
+
+Many other `broom` functions currently only work with `parsnip` objects, not raw `workflows` objects. 
+
+However, we can use the `tidy` function if we first use the `pull_workflow_fit()` function.
+
+
+```r
+wflowoutput <- PM_wflow_fit %>% 
+  pull_workflow_fit() %>% 
+  broom::tidy() 
+  wflowoutput
+```
+
+```
+## # A tibble: 33 x 5
+##    term         estimate std.error statistic  p.value
+##    <chr>           <dbl>     <dbl>     <dbl>    <dbl>
+##  1 (Intercept)  2.22e+ 2  1.20e+ 2     1.85  6.51e- 2
+##  2 lat          3.77e- 2  2.45e- 2     1.54  1.24e- 1
+##  3 lon          3.02e- 2  9.31e- 3     3.25  1.23e- 3
+##  4 CMAQ         2.90e- 1  4.29e- 2     6.75  3.66e-11
+##  5 zcta_area    3.59e-10  3.04e-10     1.18  2.38e- 1
+##  6 zcta_pop     7.99e- 6  5.55e- 6     1.44  1.50e- 1
+##  7 imp_a500     6.54e- 3  7.49e- 3     0.874 3.82e- 1
+##  8 imp_a15000  -1.25e- 3  1.19e- 2    -0.105 9.16e- 1
+##  9 county_area -2.24e-11  1.63e-11    -1.38  1.69e- 1
+## 10 county_pop  -2.05e- 7  9.31e- 8    -2.20  2.79e- 2
+## # … with 23 more rows
+```
+
+We have fit our model on our training data, which means we have created a model to predict values of air pollution based on the predictors that we have included. Yay!
+
+One last thing before we leave this section. 
+We often are interested in getting a sense of which variables are the most important in our model. 
+We can explore the variable importance using the `vip()` function of the `vip` package. 
+This function create a bar plot of variable importance scores for each predictor variable (or feature) in a model. 
+The bar plot is ordered by importance (highest to smallest). 
+
+
+Notice again that we need to use the `pull_workflow_fit()` function.
+
+Let's take a look at the top 10 contributing variables:
+
+
+```r
+#install.packages(vip)
+library(vip)
+```
+
+```
+## 
+## Attaching package: 'vip'
+```
+
+```
+## The following object is masked from 'package:utils':
+## 
+##     vi
+```
+
+```r
+PM_wflow_fit %>% 
+  pull_workflow_fit() %>% 
+  vip(num_features = 10)
+```
+
+<img src="05-prediction_files/figure-html/unnamed-chunk-121-1.png" width="672" />
+
+The state in which the monitor was located and the CMAQ model and the aod satellite information appear to be the most important for predicting the air pollution at a given monitor.
+
+#### Model performance
+
+
+In this next section, our goal is to assess the overall model performance. 
+The way we do this is to compare the similarity between the predicted estimates of the outcome variable produced by the model and the true outcome variable values. 
+
+Machine learning (ML) is an optimization problem that tries to minimize the distance between our predicted outcome $\hat{Y} = f(X)$ and actual outcome $Y$ using our features (or predictor variables) $X$ as input to a function $f$ that we want to estimate. 
+
+
+As our goal in this section is to assess overall model performance, we will now talk about different distance metrics that you can use. 
+
+First, let's pull out our predicted outcome values $\hat{Y} = f(X)$ from the models we fit (using different approaches). 
+
+
+
+```r
+wf_fit <- PM_wflow_fit %>% 
+  pull_workflow_fit()
+
+wf_fitted_values <- wf_fit$fit$fitted.values
+head(wf_fitted_values)
+```
+
+```
+##         1         2         3         4         5         6 
+##  9.480088 10.418317 11.786217 11.295655 10.806653 11.091767
+```
+
+Alternatively, we can get the fitted values using the `augment()` function of the `broom` package using the output from `workflows`: 
+
+
+```r
+wf_fitted_values <- 
+  broom::augment(wf_fit$fit, data = juiced_train) %>% 
+  select(value, .fitted:.std.resid)
+
+head(wf_fitted_values)
+```
+
+```
+## # A tibble: 6 x 8
+##   value .fitted .se.fit .resid   .hat .sigma    .cooksd .std.resid
+##   <dbl>   <dbl>   <dbl>  <dbl>  <dbl>  <dbl>      <dbl>      <dbl>
+## 1  9.60    9.48   0.375  0.118 0.0323   2.09 0.00000333     0.0573
+## 2 10.8    10.4    0.383  0.382 0.0338   2.09 0.0000368      0.186 
+## 3 11.2    11.8    0.404 -0.574 0.0376   2.09 0.0000933     -0.281 
+## 4 12.4    11.3    0.366  1.08  0.0309   2.09 0.000267       0.526 
+## 5 10.5    10.8    0.424 -0.298 0.0413   2.09 0.0000278     -0.146 
+## 6 15.6    11.1    0.380  4.50  0.0332   2.08 0.00501        2.20
+```
+
+Note that becuase we use the actual workflow here, we can (and actually need to) use the raw data instead of the pre-processed data.
+
+
+```r
+values_pred_train <- 
+  predict(PM_wflow_fit, train_pm) %>% 
+  bind_cols(train_pm %>% select(value, fips, county, id)) 
+```
+
+```
+## Warning in predict.lm(object = object$fit, newdata = new_data, type =
+## "response"): prediction from a rank-deficient fit may be misleading
+```
+
+```r
+values_pred_train
+```
+
+```
+## # A tibble: 584 x 5
+##    .pred value fips  county    id       
+##    <dbl> <dbl> <fct> <chr>     <fct>    
+##  1  9.48  9.60 1003  Baldwin   1003.001 
+##  2 10.4  10.8  1027  Clay      1027.0001
+##  3 11.8  11.2  1033  Colbert   1033.1002
+##  4 11.3  12.4  1055  Etowah    1055.001 
+##  5 10.8  10.5  1069  Houston   1069.0003
+##  6 11.1  15.6  1073  Jefferson 1073.0023
+##  7 10.2  12.4  1073  Jefferson 1073.1005
+##  8  8.28 11.1  1073  Jefferson 1073.1009
+##  9 11.5  14.6  1073  Jefferson 1073.2003
+## 10 10.6  12.0  1073  Jefferson 1073.5002
+## # … with 574 more rows
+```
+
+avocado simplify this here and earlier??
+
 
 

@@ -420,6 +420,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.13" data-path="model.html"><a href="model.html#case-studies-4"><i class="fa fa-check"></i><b>5.13</b> Case Studies</a><ul>
 <li class="chapter" data-level="5.13.1" data-path="model.html"><a href="model.html#case-study-1-predicting-annual-air-pollution"><i class="fa fa-check"></i><b>5.13.1</b> Case Study #1: Predicting Annual Air Pollution</a></li>
 </ul></li>
+<li class="chapter" data-level="5.14" data-path="model.html"><a href="model.html#assessing-the-model-fit"><i class="fa fa-check"></i><b>5.14</b> Assessing the model fit</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
 <li class="divider"></li>
@@ -1550,7 +1551,7 @@ We again expected that it did. Thus we had a statement that &quot; car mileage c
 <p>We can use the <code>formula()</code> function of the stats package to see how we have assigned our variables in formula notation.</p>
 <div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1"><span class="kw">formula</span>(first_recipe)</a></code></pre></div>
 <pre><code>## Sepal.Length ~ Sepal.Width + Species
-## &lt;environment: 0x7fe9cdcf5818&gt;</code></pre>
+## &lt;environment: 0x7fadd9960900&gt;</code></pre>
 <p>We can also view our recipe in more detail using the base summary() function.</p>
 <div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1"><span class="kw">summary</span>(first_recipe)</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 4
@@ -3323,8 +3324,875 @@ We can see that there are 49 states represented in the data.</p>
 <div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" data-line-number="1">PM_cor &lt;-<span class="st"> </span><span class="kw">cor</span>(pm <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select_if</span>(is.numeric))</a>
 <a class="sourceLine" id="cb191-2" data-line-number="2">corrplot<span class="op">::</span><span class="kw">corrplot</span>(PM_cor, <span class="dt">tl.cex =</span> <span class="fl">0.5</span>)</a></code></pre></div>
 <p><img src="05-prediction_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
-
+<p>We can see that the development variables (<code>imp</code>) variables are correlated with each other as we might expect.
+We also see that the road density variables seem to be correlated with each other, and the emission variables seem to be correlated with each other.</p>
+<p>Also notice that none of the predictors are highly correlated with our outcome variable (<code>value</code>).</p>
+<p>Now that we have a sense of what our data are, we can get started with building a machine learning model to predict air pollution.</p>
 </div>
+<div id="splitting-the-data" class="section level4">
+<h4><span class="header-section-number">5.13.1.5</span> Splitting the Data</h4>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">1234</span>)</a>
+<a class="sourceLine" id="cb192-2" data-line-number="2">pm_split &lt;-<span class="st"> </span>rsample<span class="op">::</span><span class="kw">initial_split</span>(<span class="dt">data =</span> pm, <span class="dt">prop =</span> <span class="dv">2</span><span class="op">/</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb192-3" data-line-number="3">pm_split</a></code></pre></div>
+<pre><code>## &lt;Analysis/Assess/Total&gt;
+## &lt;584/292/876&gt;</code></pre>
+<p>We can see the number of monitors in our training, testing, and original data by typing in the name of our split object. The result will look like this:
+&lt;training data sample number, testing data sample number, original sample number&gt;</p>
+<p>Importantly the <code>initial_split</code> function only determines what rows of our <code>pm</code> data frame should be assigned for training or testing, it does not actually split the data.</p>
+<p>To extract the testing and training data we can use the <code>training()</code> and <code>testing()</code> functions also of the <code>rsample</code> package.</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" data-line-number="1">train_pm &lt;-rsample<span class="op">::</span><span class="kw">training</span>(pm_split)</a>
+<a class="sourceLine" id="cb194-2" data-line-number="2">test_pm &lt;-rsample<span class="op">::</span><span class="kw">testing</span>(pm_split)</a></code></pre></div>
+<p>We also intend to perform cross validation, so we will now split the training data further using the <a href="https://tidymodels.github.io/rsample/reference/vfold_cv.html" target="_blank"><code>vfold_cv()</code></a> function of the <code>rsample</code> package can be used to parse the training data into folds for <span class="math inline">\(v\)</span>-fold cross validation.</p>
+<p>Again, because these are created at random, we need to use the base <code>set.seed()</code> function in order to obtain the same results each time we knit this document. We will create 10 folds.</p>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">1234</span>)</a>
+<a class="sourceLine" id="cb195-2" data-line-number="2">vfold_pm &lt;-<span class="st"> </span>rsample<span class="op">::</span><span class="kw">vfold_cv</span>(<span class="dt">data =</span> train_pm, <span class="dt">v =</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb195-3" data-line-number="3">vfold_pm</a></code></pre></div>
+<pre><code>## #  10-fold cross-validation 
+## # A tibble: 10 x 2
+##    splits           id    
+##    &lt;list&gt;           &lt;chr&gt; 
+##  1 &lt;split [525/59]&gt; Fold01
+##  2 &lt;split [525/59]&gt; Fold02
+##  3 &lt;split [525/59]&gt; Fold03
+##  4 &lt;split [525/59]&gt; Fold04
+##  5 &lt;split [526/58]&gt; Fold05
+##  6 &lt;split [526/58]&gt; Fold06
+##  7 &lt;split [526/58]&gt; Fold07
+##  8 &lt;split [526/58]&gt; Fold08
+##  9 &lt;split [526/58]&gt; Fold09
+## 10 &lt;split [526/58]&gt; Fold10</code></pre>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" data-line-number="1"><span class="kw">pull</span>(vfold_pm, splits)</a></code></pre></div>
+<pre><code>## [[1]]
+## &lt;Analysis/Assess/Total&gt;
+## &lt;525/59/584&gt;
+## 
+## [[2]]
+## &lt;Analysis/Assess/Total&gt;
+## &lt;525/59/584&gt;
+## 
+## [[3]]
+## &lt;Analysis/Assess/Total&gt;
+## &lt;525/59/584&gt;
+## 
+## [[4]]
+## &lt;Analysis/Assess/Total&gt;
+## &lt;525/59/584&gt;
+## 
+## [[5]]
+## &lt;Analysis/Assess/Total&gt;
+## &lt;526/58/584&gt;
+## 
+## [[6]]
+## &lt;Analysis/Assess/Total&gt;
+## &lt;526/58/584&gt;
+## 
+## [[7]]
+## &lt;Analysis/Assess/Total&gt;
+## &lt;526/58/584&gt;
+## 
+## [[8]]
+## &lt;Analysis/Assess/Total&gt;
+## &lt;526/58/584&gt;
+## 
+## [[9]]
+## &lt;Analysis/Assess/Total&gt;
+## &lt;526/58/584&gt;
+## 
+## [[10]]
+## &lt;Analysis/Assess/Total&gt;
+## &lt;526/58/584&gt;</code></pre>
+<p>Great!</p>
+<p>Now let’s make a recipe!</p>
+</div>
+<div id="making-a-recipe" class="section level4">
+<h4><span class="header-section-number">5.13.1.6</span> Making a Recipe</h4>
+<p>Now with our data, we will start by making a recipe for our training data.
+If you recall, the continuous outcome variable is <code>value</code> (the average annual gravimetric monitor PM<sub>2.5</sub> concentration in ug/m<sup>3</sup>).
+Our features (or predictor variables) are all the other variables except the monitor ID, which is an <code>id</code> variable.</p>
+<p>The reason not to include the <code>id</code> variable is because this variable includes the county number and a number designating which particular monitor the values came from (of the monitors there are in that county).
+Since this number is arbitrary and the county information is also given in the data, and the fact that each monitor only has one value in the <code>value</code> variable, nothing is gained by including this variable and it may instead introduce noise.
+However, it is useful to keep this data to take a look at what is happening later.
+We will show you what to do in this case in just a bit.</p>
+<p>In the simplest case, we might use all predictors like this:</p>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" data-line-number="1"><span class="co">#install.packages(tidymodels)</span></a>
+<a class="sourceLine" id="cb199-2" data-line-number="2"><span class="kw">library</span>(tidymodels)</a></code></pre></div>
+<pre><code>## ── Attaching packages ─────────────────────────────────────────────────────────────────────────────── tidymodels 0.1.0 ──</code></pre>
+<pre><code>## ✓ dials     0.0.7     ✓ yardstick 0.0.6</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────────────────────────────────────────────── tidymodels_conflicts() ──
+## x scales::discard()     masks purrr::discard()
+## x magrittr::extract()   masks tidyr::extract()
+## x dplyr::filter()       masks stats::filter()
+## x xts::first()          masks dplyr::first()
+## x recipes::fixed()      masks stringr::fixed()
+## x dplyr::lag()          masks stats::lag()
+## x xts::last()           masks dplyr::last()
+## x dials::prune()        masks rpart::prune()
+## x magrittr::set_names() masks purrr::set_names()
+## x yardstick::spec()     masks readr::spec()
+## x recipes::step()       masks stats::step()</code></pre>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" data-line-number="1">simple_rec &lt;-<span class="st"> </span>train_pm <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb203-2" data-line-number="2"><span class="st">  </span>recipes<span class="op">::</span><span class="kw">recipe</span>(value <span class="op">~</span><span class="st"> </span>.)</a>
+<a class="sourceLine" id="cb203-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb203-4" data-line-number="4">simple_rec</a></code></pre></div>
+<pre><code>## Data Recipe
+## 
+## Inputs:
+## 
+##       role #variables
+##    outcome          1
+##  predictor         49</code></pre>
+<p>Now, let’s get back to the <code>id</code> variable.
+Instead of including it as a predictor variable, we could also use the <code>update_role()</code> function of the <code>recipes</code> package.</p>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb205-1" data-line-number="1">simple_rec &lt;-<span class="st"> </span>train_pm <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb205-2" data-line-number="2"><span class="st">  </span>recipes<span class="op">::</span><span class="kw">recipe</span>(value <span class="op">~</span><span class="st"> </span>.) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb205-3" data-line-number="3"><span class="st">  </span>recipes<span class="op">::</span><span class="kw">update_role</span>(id, <span class="dt">new_role =</span> <span class="st">&quot;id variable&quot;</span>)</a>
+<a class="sourceLine" id="cb205-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb205-5" data-line-number="5">simple_rec</a></code></pre></div>
+<pre><code>## Data Recipe
+## 
+## Inputs:
+## 
+##         role #variables
+##  id variable          1
+##      outcome          1
+##    predictor         48</code></pre>
+<p>If we want to take a look at our formula from our recipe, we can do use the <code>formula()</code> function of the <code>stats</code> package.</p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb207-1" data-line-number="1"><span class="kw">formula</span>(simple_rec)</a></code></pre></div>
+<pre><code>## value ~ fips + lat + lon + state + county + city + CMAQ + zcta + 
+##     zcta_area + zcta_pop + imp_a500 + imp_a1000 + imp_a5000 + 
+##     imp_a10000 + imp_a15000 + county_area + county_pop + log_dist_to_prisec + 
+##     log_pri_length_5000 + log_pri_length_10000 + log_pri_length_15000 + 
+##     log_pri_length_25000 + log_prisec_length_500 + log_prisec_length_1000 + 
+##     log_prisec_length_5000 + log_prisec_length_10000 + log_prisec_length_15000 + 
+##     log_prisec_length_25000 + log_nei_2008_pm25_sum_10000 + log_nei_2008_pm25_sum_15000 + 
+##     log_nei_2008_pm25_sum_25000 + log_nei_2008_pm10_sum_10000 + 
+##     log_nei_2008_pm10_sum_15000 + log_nei_2008_pm10_sum_25000 + 
+##     popdens_county + popdens_zcta + nohs + somehs + hs + somecollege + 
+##     associate + bachelor + grad + pov + hs_orless + urc2013 + 
+##     urc2006 + aod
+## &lt;environment: 0x7fadf236b5b8&gt;</code></pre>
+<p><strong>This <a href="https://tidymodels.github.io/recipes/reference/index.html" target="_blank">link</a> and this <a href="https://cran.r-project.org/web/packages/recipes/recipes.pdf" target="_blank">link</a> show the many options for recipe step functions.</strong></p>
+<p><u>There are step functions for a variety of purposes:</u></p>
+<ol style="list-style-type: decimal">
+<li><a href="https://en.wikipedia.org/wiki/Imputation_(statistics)" target="_blank"><strong>Imputation</strong></a> – filling in missing values based on the existing data</li>
+<li><a href="https://en.wikipedia.org/wiki/Data_transformation_(statistics)" target="_blank"><strong>Transformation</strong></a> – changing all values of a variable in the same way, typically to make it more normal or easier to interpret</li>
+<li><a href="https://en.wikipedia.org/wiki/Discretization_of_continuous_features" target="_blank"><strong>Discretization</strong></a> – converting continuous values into discrete or nominal values - binning for example to reduce the number of possible levels (However this is generally not advisable!)</li>
+<li><a href="https://en.wikipedia.org/wiki/Dummy_variable_(statistics)" target="_blank"><strong>Encoding / Creating Dummy Variables</strong></a> – creating a numeric code for categorical variables
+(<a href="https://medium.com/p/b5840be3c41a/responses/show" target="_blank"><strong>More on Dummy Variables and one hot encoding</strong></a>)</li>
+<li><a href="https://cran.r-project.org/web/packages/hablar/vignettes/convert.html" target="_blank"><strong>Data type conversions</strong></a> – which means changing from integer to factor or numeric to date etc.</li>
+<li><a href="https://statisticsbyjim.com/regression/interaction-effects/" target="_blank"><strong>Interaction</strong></a> term addition to the model – which means that we would be modeling for predictors that would influence the capacity of each other to predict the outcome</li>
+<li><a href="https://en.wikipedia.org/wiki/Normalization_(statistics)" target="_blank"><strong>Normalization</strong></a> – centering and scaling the data to a similar range of values</li>
+<li><a href="https://en.wikipedia.org/wiki/Dimensionality_reduction" target="_blank"><strong>Dimensionality Reduction/ Signal Extraction</strong></a> – reducing the space of features or predictors to a smaller set of variables that capture the variation or signal in the original variables (ex. Principal Component Analysis and Independent Component Analysis)</li>
+<li><strong>Filtering</strong> – filtering options for removing variables (ex. remove variables that are highly correlated to others or remove variables with very little variance and therefore likely little predictive capacity)</li>
+<li><a href="https://tartarus.org/gareth/maths/Linear_Algebra/row_operations.pdf" target="_blank"><strong>Row operations</strong></a> – performing functions on the values within the rows (ex. rearranging, filtering, imputing)</li>
+<li><strong>Checking functions</strong> – Sanity checks to look for missing values, to look at the variable classes etc.</li>
+</ol>
+<p>All of the step functions look like <code>step_*()</code> with the <code>*</code> replaced with a name, except for the check functions which look like <code>check_*()</code>.</p>
+<p>There are several ways to select what variables to apply steps to:</p>
+<ol style="list-style-type: decimal">
+<li>Using <code>tidyselect</code> methods: <code>contains()</code>, <code>matches()</code>, <code>starts_with()</code>, <code>ends_with()</code>, <code>everything()</code>, <code>num_range()</code><br />
+</li>
+<li>Using the type: <code>all_nominal()</code>, <code>all_numeric()</code> , <code>has_type()</code></li>
+<li>Using the role: <code>all_predictors()</code>, <code>all_outcomes()</code>, <code>has_role()</code></li>
+<li>Using the name - use the actual name of the variable/variables of interest</li>
+</ol>
+<p>Let’s try adding some steps to our recipe.</p>
+<p>We want to dummy encode our categorical variables so that they are numeric as we plan to use a linear regression for our model.</p>
+<p>We will use the one hot encoding means that we do not simply encode our categorical variables numerically, as our numeric assignments can be interpreted by algorithms as having a particular rank or order.
+Instead, binary variables made of 1s and 0s are used to arbitrarily assign a numeric value that has no apparent order.</p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb209-1" data-line-number="1">simple_rec <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb209-2" data-line-number="2"><span class="st">  </span><span class="kw">step_dummy</span>(state, county, city, zcta, <span class="dt">one_hot =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## Data Recipe
+## 
+## Inputs:
+## 
+##         role #variables
+##  id variable          1
+##      outcome          1
+##    predictor         48
+## 
+## Operations:
+## 
+## Dummy variables from state, county, city, zcta</code></pre>
+<p>Our <code>fips</code> variable includes a numeric code for state and county - and therefore is essentially a proxy for county.
+Since we already have county, we will just use it and keep the <code>fips</code> ID as another ID variable.</p>
+<p>We can remove the <code>fips</code> variable from the predictors using <code>update_role()</code> to make sure that the role is no longer <code>&quot;predictor&quot;</code>.</p>
+<p>We can make the role anything we want actually, so we will keep it something identifiable.</p>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb211-1" data-line-number="1">simple_rec <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb211-2" data-line-number="2"><span class="st">  </span><span class="kw">update_role</span>(<span class="st">&quot;fips&quot;</span>, <span class="dt">new_role =</span> <span class="st">&quot;county id&quot;</span>)</a></code></pre></div>
+<pre><code>## Data Recipe
+## 
+## Inputs:
+## 
+##         role #variables
+##    county id          1
+##  id variable          1
+##      outcome          1
+##    predictor         47</code></pre>
+<p>We also want to remove variables that appear to be redundant and are highly correlated with others, as we know from our exploratory data analysis that many of our variables are correlated with one another.
+We can do this using the <code>step_corr()</code> function.</p>
+<p>We don’t want to remove some of our variables, like the <code>CMAQ</code> and <code>aod</code> variables, we can specify this using the <code>-</code> sign before the names of these variables like so:</p>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb213-1" data-line-number="1">simple_rec <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb213-2" data-line-number="2"><span class="st">  </span><span class="kw">step_corr</span>(<span class="kw">all_predictors</span>(), <span class="op">-</span><span class="st"> </span>CMAQ, <span class="op">-</span><span class="st"> </span>aod)</a></code></pre></div>
+<pre><code>## Data Recipe
+## 
+## Inputs:
+## 
+##         role #variables
+##  id variable          1
+##      outcome          1
+##    predictor         48
+## 
+## Operations:
+## 
+## Correlation filter on all_predictors, -, CMAQ, -, aod</code></pre>
+<p>It is also a good idea to remove variables with near-zero variance, which can be done with the <code>step_nzv()</code> function.</p>
+<p>Variables have low variance if all the values are very similar, the values are very sparse, or if they are highly imbalanced. Again we don’t want to remove our <code>CMAQ</code> and <code>aod</code> variables.</p>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb215-1" data-line-number="1">simple_rec <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb215-2" data-line-number="2"><span class="st">  </span><span class="kw">step_nzv</span>(<span class="kw">all_predictors</span>(), <span class="op">-</span><span class="st"> </span>CMAQ, <span class="op">-</span><span class="st"> </span>aod)</a></code></pre></div>
+<pre><code>## Data Recipe
+## 
+## Inputs:
+## 
+##         role #variables
+##  id variable          1
+##      outcome          1
+##    predictor         48
+## 
+## Operations:
+## 
+## Sparse, unbalanced variable filter on all_predictors, -, CMAQ, -, aod</code></pre>
+<p>Let’s put all this together now.</p>
+<p><strong>Remember: it is important to add the steps to the recipe in an order that makes sense just like with a cooking recipe.</strong></p>
+<p>First, we are going to create numeric values for our categorical variables, then we will look at correlation and near-zero variance.
+Again, we do not want to remove the <code>CMAQ</code> and <code>aod</code> variables, so we can make sure they are kept in the model by excluding them from those steps.
+If we specifically wanted to remove a predictor we could use <code>step_rm()</code>.</p>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb217-1" data-line-number="1">simple_rec &lt;-<span class="st"> </span>train_pm <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb217-2" data-line-number="2"><span class="st">  </span>recipes<span class="op">::</span><span class="kw">recipe</span>(value <span class="op">~</span><span class="st"> </span>.) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb217-3" data-line-number="3"><span class="st">  </span>recipes<span class="op">::</span><span class="kw">update_role</span>(id, <span class="dt">new_role =</span> <span class="st">&quot;id variable&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb217-4" data-line-number="4"><span class="st">  </span><span class="kw">update_role</span>(<span class="st">&quot;fips&quot;</span>, <span class="dt">new_role =</span> <span class="st">&quot;county id&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb217-5" data-line-number="5"><span class="st">  </span><span class="kw">step_dummy</span>(state, county, city, zcta, <span class="dt">one_hot =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb217-6" data-line-number="6"><span class="st">  </span><span class="kw">step_corr</span>(<span class="kw">all_predictors</span>(), <span class="op">-</span><span class="st"> </span>CMAQ, <span class="op">-</span><span class="st"> </span>aod)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb217-7" data-line-number="7"><span class="st">  </span><span class="kw">step_nzv</span>(<span class="kw">all_predictors</span>(), <span class="op">-</span><span class="st"> </span>CMAQ, <span class="op">-</span><span class="st"> </span>aod)</a>
+<a class="sourceLine" id="cb217-8" data-line-number="8">  </a>
+<a class="sourceLine" id="cb217-9" data-line-number="9">simple_rec</a></code></pre></div>
+<pre><code>## Data Recipe
+## 
+## Inputs:
+## 
+##         role #variables
+##    county id          1
+##  id variable          1
+##      outcome          1
+##    predictor         47
+## 
+## Operations:
+## 
+## Dummy variables from state, county, city, zcta
+## Correlation filter on all_predictors, -, CMAQ, -, aod
+## Sparse, unbalanced variable filter on all_predictors, -, CMAQ, -, aod</code></pre>
+<p>Nice! Now let’s check our pre-processing.</p>
+</div>
+<div id="running-pre-processing" class="section level4">
+<h4><span class="header-section-number">5.13.1.7</span> Running pre-processing</h4>
+<p>First we need to use the <code>prep()</code> function of the <code>recipes</code> package to prepare for pre-processing. However, we will specify that we also want to run and retain the pre-processing for the training data using the <code>retain = TRUE</code> argument.</p>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" data-line-number="1">prepped_rec &lt;-<span class="st"> </span><span class="kw">prep</span>(simple_rec, <span class="dt">verbose =</span> <span class="ot">TRUE</span>, <span class="dt">retain =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## oper 1 step dummy [training] 
+## oper 2 step corr [training]</code></pre>
+<pre><code>## Warning in cor(x, use = use, method = method): the standard deviation is zero</code></pre>
+<pre><code>## Warning: The correlation matrix has missing values. 274 columns were excluded
+## from the filter.</code></pre>
+<pre><code>## oper 3 step nzv [training] 
+## The retained training set is ~ 0.26 Mb  in memory.</code></pre>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" data-line-number="1"><span class="kw">names</span>(prepped_rec)</a></code></pre></div>
+<pre><code>## [1] &quot;var_info&quot;       &quot;term_info&quot;      &quot;steps&quot;          &quot;template&quot;      
+## [5] &quot;levels&quot;         &quot;retained&quot;       &quot;tr_info&quot;        &quot;orig_lvls&quot;     
+## [9] &quot;last_term_info&quot;</code></pre>
+<p>Since we retained our pre-processed training data (i.e. <code>prep(retain=TRUE)</code>), we can take a look at it like by using the <code>juice()</code> function of the <code>recipes</code> package like this:</p>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" data-line-number="1">juiced_train &lt;-<span class="st"> </span><span class="kw">juice</span>(prepped_rec)</a>
+<a class="sourceLine" id="cb226-2" data-line-number="2"><span class="kw">glimpse</span>(juiced_train)</a></code></pre></div>
+<pre><code>## Rows: 584
+## Columns: 36
+## $ id                          &lt;fct&gt; 1003.001, 1027.0001, 1033.1002, 1055.001,…
+## $ fips                        &lt;fct&gt; 1003, 1027, 1033, 1055, 1069, 1073, 1073,…
+## $ lat                         &lt;dbl&gt; 30.49800, 33.28126, 34.75878, 33.99375, 3…
+## $ lon                         &lt;dbl&gt; -87.88141, -85.80218, -87.65056, -85.9910…
+## $ CMAQ                        &lt;dbl&gt; 8.098836, 9.766208, 9.402679, 9.241744, 9…
+## $ zcta_area                   &lt;dbl&gt; 190980522, 374132430, 16716984, 154069359…
+## $ zcta_pop                    &lt;dbl&gt; 27829, 5103, 9042, 20045, 30217, 9010, 16…
+## $ imp_a500                    &lt;dbl&gt; 0.01730104, 1.96972318, 19.17301038, 16.4…
+## $ imp_a15000                  &lt;dbl&gt; 1.4386207, 0.3359198, 5.2472094, 5.161210…
+## $ county_area                 &lt;dbl&gt; 4117521611, 1564252280, 1534877333, 13856…
+## $ county_pop                  &lt;dbl&gt; 182265, 13932, 54428, 104430, 101547, 658…
+## $ log_dist_to_prisec          &lt;dbl&gt; 4.648181, 7.219907, 5.760131, 5.261457, 7…
+## $ log_pri_length_5000         &lt;dbl&gt; 8.517193, 8.517193, 8.517193, 9.066563, 8…
+## $ log_pri_length_25000        &lt;dbl&gt; 11.32735, 10.12663, 10.15769, 12.01356, 1…
+## $ log_prisec_length_500       &lt;dbl&gt; 7.295356, 6.214608, 8.611945, 8.740680, 6…
+## $ log_prisec_length_1000      &lt;dbl&gt; 8.195119, 7.600902, 9.735569, 9.627898, 7…
+## $ log_prisec_length_5000      &lt;dbl&gt; 10.815042, 10.170878, 11.770407, 11.72888…
+## $ log_prisec_length_10000     &lt;dbl&gt; 11.886803, 11.405543, 12.840663, 12.76827…
+## $ log_nei_2008_pm10_sum_15000 &lt;dbl&gt; 2.26783411, 3.31111648, 6.70127741, 4.462…
+## $ log_nei_2008_pm10_sum_25000 &lt;dbl&gt; 5.628728, 3.311116, 7.148858, 4.678311, 3…
+## $ popdens_county              &lt;dbl&gt; 44.265706, 8.906492, 35.460814, 75.367038…
+## $ popdens_zcta                &lt;dbl&gt; 145.7164307, 13.6395554, 540.8870404, 130…
+## $ nohs                        &lt;dbl&gt; 3.3, 11.6, 7.3, 4.3, 5.8, 7.1, 2.7, 11.1,…
+## $ somehs                      &lt;dbl&gt; 4.9, 19.1, 15.8, 13.3, 11.6, 17.1, 6.6, 1…
+## $ hs                          &lt;dbl&gt; 25.1, 33.9, 30.6, 27.8, 29.8, 37.2, 30.7,…
+## $ somecollege                 &lt;dbl&gt; 19.7, 18.8, 20.9, 29.2, 21.4, 23.5, 25.7,…
+## $ associate                   &lt;dbl&gt; 8.2, 8.0, 7.6, 10.1, 7.9, 7.3, 8.0, 4.1, …
+## $ bachelor                    &lt;dbl&gt; 25.3, 5.5, 12.7, 10.0, 13.7, 5.9, 17.6, 7…
+## $ grad                        &lt;dbl&gt; 13.5, 3.1, 5.1, 5.4, 9.8, 2.0, 8.7, 2.9, …
+## $ pov                         &lt;dbl&gt; 6.1, 19.5, 19.0, 8.8, 15.6, 25.5, 7.3, 8.…
+## $ hs_orless                   &lt;dbl&gt; 33.3, 64.6, 53.7, 45.4, 47.2, 61.4, 40.0,…
+## $ urc2013                     &lt;dbl&gt; 4, 6, 4, 4, 4, 1, 1, 1, 1, 1, 2, 3, 3, 3,…
+## $ aod                         &lt;dbl&gt; 37.363636, 34.818182, 36.000000, 43.41666…
+## $ value                       &lt;dbl&gt; 9.597647, 10.800000, 11.212174, 12.375394…
+## $ state_California            &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ city_Not.in.a.city          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0,…</code></pre>
+<p>For easy comparison sake - here is our original data:</p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" data-line-number="1"><span class="kw">glimpse</span>(pm)</a></code></pre></div>
+<pre><code>## Rows: 876
+## Columns: 50
+## $ id                          &lt;fct&gt; 1003.001, 1027.0001, 1033.1002, 1049.1003…
+## $ value                       &lt;dbl&gt; 9.597647, 10.800000, 11.212174, 11.659091…
+## $ fips                        &lt;fct&gt; 1003, 1027, 1033, 1049, 1055, 1069, 1073,…
+## $ lat                         &lt;dbl&gt; 30.49800, 33.28126, 34.75878, 34.28763, 3…
+## $ lon                         &lt;dbl&gt; -87.88141, -85.80218, -87.65056, -85.9683…
+## $ state                       &lt;chr&gt; &quot;Alabama&quot;, &quot;Alabama&quot;, &quot;Alabama&quot;, &quot;Alabama…
+## $ county                      &lt;chr&gt; &quot;Baldwin&quot;, &quot;Clay&quot;, &quot;Colbert&quot;, &quot;DeKalb&quot;, &quot;…
+## $ city                        &lt;chr&gt; &quot;Fairhope&quot;, &quot;Ashland&quot;, &quot;Muscle Shoals&quot;, &quot;…
+## $ CMAQ                        &lt;dbl&gt; 8.098836, 9.766208, 9.402679, 8.534772, 9…
+## $ zcta                        &lt;fct&gt; 36532, 36251, 35660, 35962, 35901, 36303,…
+## $ zcta_area                   &lt;dbl&gt; 190980522, 374132430, 16716984, 203836235…
+## $ zcta_pop                    &lt;dbl&gt; 27829, 5103, 9042, 8300, 20045, 30217, 90…
+## $ imp_a500                    &lt;dbl&gt; 0.01730104, 1.96972318, 19.17301038, 5.78…
+## $ imp_a1000                   &lt;dbl&gt; 1.4096021, 0.8531574, 11.1448962, 3.86764…
+## $ imp_a5000                   &lt;dbl&gt; 3.3360118, 0.9851479, 15.1786154, 1.23114…
+## $ imp_a10000                  &lt;dbl&gt; 1.9879187, 0.5208189, 9.7253870, 1.031646…
+## $ imp_a15000                  &lt;dbl&gt; 1.4386207, 0.3359198, 5.2472094, 0.973044…
+## $ county_area                 &lt;dbl&gt; 4117521611, 1564252280, 1534877333, 20126…
+## $ county_pop                  &lt;dbl&gt; 182265, 13932, 54428, 71109, 104430, 1015…
+## $ log_dist_to_prisec          &lt;dbl&gt; 4.648181, 7.219907, 5.760131, 3.721489, 5…
+## $ log_pri_length_5000         &lt;dbl&gt; 8.517193, 8.517193, 8.517193, 8.517193, 9…
+## $ log_pri_length_10000        &lt;dbl&gt; 9.210340, 9.210340, 9.274303, 10.409411, …
+## $ log_pri_length_15000        &lt;dbl&gt; 9.630228, 9.615805, 9.658899, 11.173626, …
+## $ log_pri_length_25000        &lt;dbl&gt; 11.32735, 10.12663, 10.15769, 11.90959, 1…
+## $ log_prisec_length_500       &lt;dbl&gt; 7.295356, 6.214608, 8.611945, 7.310155, 8…
+## $ log_prisec_length_1000      &lt;dbl&gt; 8.195119, 7.600902, 9.735569, 8.585843, 9…
+## $ log_prisec_length_5000      &lt;dbl&gt; 10.815042, 10.170878, 11.770407, 10.21420…
+## $ log_prisec_length_10000     &lt;dbl&gt; 11.88680, 11.40554, 12.84066, 11.50894, 1…
+## $ log_prisec_length_15000     &lt;dbl&gt; 12.205723, 12.042963, 13.282656, 12.35366…
+## $ log_prisec_length_25000     &lt;dbl&gt; 13.41395, 12.79980, 13.79973, 13.55979, 1…
+## $ log_nei_2008_pm25_sum_10000 &lt;dbl&gt; 0.318035438, 3.218632928, 6.573127301, 0.…
+## $ log_nei_2008_pm25_sum_15000 &lt;dbl&gt; 1.967358961, 3.218632928, 6.581917457, 3.…
+## $ log_nei_2008_pm25_sum_25000 &lt;dbl&gt; 5.067308, 3.218633, 6.875900, 4.887665, 4…
+## $ log_nei_2008_pm10_sum_10000 &lt;dbl&gt; 1.35588511, 3.31111648, 6.69187313, 0.000…
+## $ log_nei_2008_pm10_sum_15000 &lt;dbl&gt; 2.26783411, 3.31111648, 6.70127741, 3.350…
+## $ log_nei_2008_pm10_sum_25000 &lt;dbl&gt; 5.628728, 3.311116, 7.148858, 5.171920, 4…
+## $ popdens_county              &lt;dbl&gt; 44.265706, 8.906492, 35.460814, 35.330814…
+## $ popdens_zcta                &lt;dbl&gt; 145.716431, 13.639555, 540.887040, 40.718…
+## $ nohs                        &lt;dbl&gt; 3.3, 11.6, 7.3, 14.3, 4.3, 5.8, 7.1, 2.7,…
+## $ somehs                      &lt;dbl&gt; 4.9, 19.1, 15.8, 16.7, 13.3, 11.6, 17.1, …
+## $ hs                          &lt;dbl&gt; 25.1, 33.9, 30.6, 35.0, 27.8, 29.8, 37.2,…
+## $ somecollege                 &lt;dbl&gt; 19.7, 18.8, 20.9, 14.9, 29.2, 21.4, 23.5,…
+## $ associate                   &lt;dbl&gt; 8.2, 8.0, 7.6, 5.5, 10.1, 7.9, 7.3, 8.0, …
+## $ bachelor                    &lt;dbl&gt; 25.3, 5.5, 12.7, 7.9, 10.0, 13.7, 5.9, 17…
+## $ grad                        &lt;dbl&gt; 13.5, 3.1, 5.1, 5.8, 5.4, 9.8, 2.0, 8.7, …
+## $ pov                         &lt;dbl&gt; 6.1, 19.5, 19.0, 13.8, 8.8, 15.6, 25.5, 7…
+## $ hs_orless                   &lt;dbl&gt; 33.3, 64.6, 53.7, 66.0, 45.4, 47.2, 61.4,…
+## $ urc2013                     &lt;dbl&gt; 4, 6, 4, 6, 4, 4, 1, 1, 1, 1, 1, 1, 1, 2,…
+## $ urc2006                     &lt;dbl&gt; 5, 6, 4, 5, 4, 4, 1, 1, 1, 1, 1, 1, 1, 2,…
+## $ aod                         &lt;dbl&gt; 37.36364, 34.81818, 36.00000, 33.08333, 4…</code></pre>
+<p>Notice how we only have 36 variables now instead of 50!
+Two of these are our ID variables (<code>fips</code> and the actual monitor ID (<code>id</code>)) and one is our outcome (<code>value</code>).
+Thus we only have 33 predictors now.
+We can also see that variables that we no longer have any categorical variables.
+Variables like <code>state</code> are gone and only <code>state_California</code> remains as it was the only state identity to have nonzero variance.
+We can also see that there were more monitors listed as <code>&quot;Not in a city&quot;</code> than any city.</p>
+<div id="extract-pre-processed-testing-data-using-bake" class="section level5">
+<h5><span class="header-section-number">5.13.1.7.1</span> Extract pre-processed testing data using <code>bake()</code></h5>
+<p>According to the <code>tidymodels</code> documentation:</p>
+<blockquote>
+<p><code>bake()</code> takes a trained recipe and applies the operations to a data set to create a design matrix.
+For example: it applies the centering to new data sets using these means used to create the recipe</p>
+</blockquote>
+<p>Therefore, if you wanted to look at the pre-processed testing data you would use the <code>bake()</code> function of the <code>recipes</code> package.</p>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" data-line-number="1">baked_test_pm &lt;-<span class="st"> </span>recipes<span class="op">::</span><span class="kw">bake</span>(prepped_rec, <span class="dt">new_data =</span> test_pm)</a></code></pre></div>
+<pre><code>## Warning: There are new levels in a factor: Maine</code></pre>
+<pre><code>## Warning: There are new levels in a factor: Morgan, Talladega, Yavapai, Yuma,
+## Ashley, Alameda, Colusa, Kings, Placer, Riverside, Sutter, Yolo, Pueblo, New
+## London, Sussex, Citrus, St. Lucie, Seminole, Bibb, Clarke, Clayton, Dougherty,
+## Hall, Macon, Randolph, Sangamon, Allen, Henry, Howard, LaPorte, Spencer,
+## Woodbury, Sedgwick, Bell, Henderson, Aroostook, Anne Arundel, Berkshire,
+## Middlesex, Allegan, Genesee, Ingham, Kalamazoo, Lenawee, Manistee, St. Clair,
+## Washtenaw, Mille Lacs, Bolivar, Forrest, Hinds, Jones, Buchanan, Cedar, Greene,
+## Yellowstone, Grafton, Morris, Chaves, Niagara, Queens, Buncombe, Catawba,
+## Durham, Gaston, Guilford, Haywood, Lenoir, McDowell, Mitchell, Rowan, Athens,
+## Clermont, Lawrence, Portage, Preble, Scioto, Trumbull, Tulsa, Harney, Klamath,
+## Beaver, Dauphin, Oconee, Spartanburg, Codington, Bexar, Brewster, Nueces, Box
+## Elder, Bennington, Arlington, Henrico, Hampton City, Lynchburg City, Snohomish,
+## Cabell, Monongalia, Ashland, Dane, Dodge, Forest, St. Croix, Taylor, Converse,
+## Park</code></pre>
+<pre><code>## Warning: There are new levels in a factor: Crossville, Leeds, Hoover,
+## Huntsville, Decatur, Childersburg, Casa Grande, Nogales, Prescott Valley,
+## Yuma, Crossett, Mena, Livermore, Oakland, Fremont, Colusa, Clovis, Calexico,
+## Brawley, Ridgecrest, Corcoran, Los Angeles, Reseda, Pico Rivera, Mission
+## Viejo, Roseville, Portola, Riverside, Indio, Palm Springs, Rubidoux, Mira
+## Loma, Sacramento, El Cajon, San Luis Obispo, Santa Barbara, Redding, Yuba
+## City, Thousand Oaks, Woodland, Longmont, Pueblo, Norwalk, Waterbury, Norwich,
+## Seaford, Panama City, Hollywood, Valrico, Fort Myers, Royal Palm Beach, Saint
+## Petersburg, Lakeland, Fort Pierce, Sanford, Macon, Garden City, Athens-Clarke
+## County (Remainder), Forest Park, Powder Springs, Warner Robins, Franklin,
+## McCook, Des Plaines, Cicero, Aurora, Joliet, Fort Wayne, New Albany, Kokomo,
+## East Chicago, Michigan City, Dale, Sioux City, Wichita, Middlesborough
+## (corporate name for Middlesboro), Baton Rouge, Kenner, Marrero, Presque Isle,
+## Glen Burnie, Beltsville, Pittsfield, Chelmsford (Chelmsford Center), Holland,
+## Flint, Lansing, Kalamazoo, Grand Rapids, Tecumseh, Manistee, Port Huron,
+## Ypsilanti, Allen Park, St. Louis Park, Onamia, Natchez, Hattiesburg, Pascagoula,
+## Laurel, Tupelo, St. Joseph, Arnold, Ladue, Whitefish, West Yellowstone, Helena
+## Valley West Central, Billings, Grand Island, Lincoln, North Las Vegas, Lebanon,
+## Fort Lee, Pennsauken (Pensauken), Union City, Hopewell (Township of), North
+## Brunswick Township, Morristown, Rahway, Roswell, Niagara Falls, Asheville,
+## Hickory, Pittsboro, Durham, Gastonia, Greensboro, Waynesville, Kinston, Spruce
+## Pine, Candor, Rockwell, Batavia, Brook Park, Yellow Springs, Sharonville, St.
+## Bernard, Steubenville, Ironton, Ravenna, New Paris, Warren, Anadarko, Tulsa,
+## Burns, Altamont, Oakridge, Liberty, McDonald, Beaver Falls, Carlisle, Taylors,
+## Watertown, East Ridge, San Antonio, Port Arthur, Corpus Christi, Leander,
+## Brigham City, Cottonwood West, Highland, Spanish Fork, Ogden, Bennington,
+## Arlington, Groveton, McLean, East Highland Park, Hampton, Lynchburg, Vancouver,
+## Darrington, Marysville, Huntington, Clarksburg, Morgantown, Wheeling, Madison,
+## Potosi, Cody</code></pre>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" data-line-number="1"><span class="kw">glimpse</span>(baked_test_pm)</a></code></pre></div>
+<pre><code>## Rows: 292
+## Columns: 36
+## $ id                          &lt;fct&gt; 1049.1003, 1073.101, 1073.2006, 1089.0014…
+## $ fips                        &lt;fct&gt; 1049, 1073, 1073, 1089, 1103, 1121, 4013,…
+## $ lat                         &lt;dbl&gt; 34.28763, 33.54528, 33.38639, 34.68767, 3…
+## $ lon                         &lt;dbl&gt; -85.96830, -86.54917, -86.81667, -86.5863…
+## $ CMAQ                        &lt;dbl&gt; 8.534772, 9.303766, 10.235612, 9.343611, …
+## $ zcta_area                   &lt;dbl&gt; 203836235, 148994881, 56063756, 46963946,…
+## $ zcta_pop                    &lt;dbl&gt; 8300, 14212, 32390, 21297, 30545, 7713, 5…
+## $ imp_a500                    &lt;dbl&gt; 5.78200692, 0.06055363, 42.42820069, 23.2…
+## $ imp_a15000                  &lt;dbl&gt; 0.9730444, 2.9956557, 12.7487614, 10.3555…
+## $ county_area                 &lt;dbl&gt; 2012662359, 2878192209, 2878192209, 20761…
+## $ county_pop                  &lt;dbl&gt; 71109, 658466, 658466, 334811, 119490, 82…
+## $ log_dist_to_prisec          &lt;dbl&gt; 3.721489, 7.301545, 4.721755, 4.659519, 6…
+## $ log_pri_length_5000         &lt;dbl&gt; 8.517193, 9.683336, 10.737240, 8.517193, …
+## $ log_pri_length_25000        &lt;dbl&gt; 11.90959, 12.53777, 12.99669, 11.47391, 1…
+## $ log_prisec_length_500       &lt;dbl&gt; 7.310155, 6.214608, 7.528913, 8.760549, 6…
+## $ log_prisec_length_1000      &lt;dbl&gt; 8.585843, 7.600902, 9.342290, 9.543183, 8…
+## $ log_prisec_length_5000      &lt;dbl&gt; 10.214200, 11.262645, 11.713190, 11.48606…
+## $ log_prisec_length_10000     &lt;dbl&gt; 11.50894, 12.14101, 12.53899, 12.68440, 1…
+## $ log_nei_2008_pm10_sum_15000 &lt;dbl&gt; 3.3500444, 6.6241114, 5.8268686, 3.861625…
+## $ log_nei_2008_pm10_sum_25000 &lt;dbl&gt; 5.1719202, 7.5490587, 8.8205542, 5.219092…
+## $ popdens_county              &lt;dbl&gt; 35.330814, 228.777633, 228.777633, 161.26…
+## $ popdens_zcta                &lt;dbl&gt; 40.718962, 95.385827, 577.735106, 453.475…
+## $ nohs                        &lt;dbl&gt; 14.3, 7.2, 0.8, 1.2, 4.8, 16.7, 19.1, 6.4…
+## $ somehs                      &lt;dbl&gt; 16.7, 12.2, 2.6, 3.1, 7.8, 33.3, 15.6, 9.…
+## $ hs                          &lt;dbl&gt; 35.0, 32.2, 12.9, 15.1, 28.7, 37.5, 26.5,…
+## $ somecollege                 &lt;dbl&gt; 14.9, 19.0, 17.9, 20.5, 25.0, 12.5, 18.0,…
+## $ associate                   &lt;dbl&gt; 5.5, 6.8, 5.2, 6.5, 7.5, 0.0, 6.0, 8.8, 3…
+## $ bachelor                    &lt;dbl&gt; 7.9, 14.8, 35.5, 30.4, 18.2, 0.0, 10.6, 1…
+## $ grad                        &lt;dbl&gt; 5.8, 7.7, 25.2, 23.3, 8.0, 0.0, 4.1, 5.7,…
+## $ pov                         &lt;dbl&gt; 13.8, 10.5, 2.1, 5.2, 8.3, 18.8, 21.4, 14…
+## $ hs_orless                   &lt;dbl&gt; 66.0, 51.6, 16.3, 19.4, 41.3, 87.5, 61.2,…
+## $ urc2013                     &lt;dbl&gt; 6, 1, 1, 3, 4, 5, 1, 2, 5, 4, 4, 6, 6, 1,…
+## $ aod                         &lt;dbl&gt; 33.08333, 42.45455, 44.25000, 42.41667, 4…
+## $ value                       &lt;dbl&gt; 11.659091, 13.114545, 12.228125, 12.23294…
+## $ state_California            &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,…
+## $ city_Not.in.a.city          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, 0, NA, NA, NA, NA…</code></pre>
+<p>Notice that our <code>city_Not.in.a.city</code> variable seems to be NA values.
+Why might that be?</p>
+<p>Ah! Perhaps it is because some of our levels were not previously seen in the training set!</p>
+<p>Let’s take a look using the <a href="https://www.probabilitycourse.com/chapter1/1_2_2_set_operations.php" target="_blank">set operations</a> of the <code>dplyr</code> package.
+We can take a look at cities that were different between the test and training set.</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" data-line-number="1">traincities &lt;-<span class="st"> </span>train_pm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>(city)</a>
+<a class="sourceLine" id="cb236-2" data-line-number="2">testcities &lt;-<span class="st"> </span>test_pm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>(city)</a>
+<a class="sourceLine" id="cb236-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb236-4" data-line-number="4"><span class="co">#get the number of cities that were different</span></a>
+<a class="sourceLine" id="cb236-5" data-line-number="5"><span class="kw">dim</span>(dplyr<span class="op">::</span><span class="kw">setdiff</span>(traincities, testcities))</a></code></pre></div>
+<pre><code>## [1] 376   1</code></pre>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" data-line-number="1"><span class="co">#get the number of cities that overlapped</span></a>
+<a class="sourceLine" id="cb238-2" data-line-number="2"><span class="kw">dim</span>(dplyr<span class="op">::</span><span class="kw">intersect</span>(traincities, testcities))</a></code></pre></div>
+<pre><code>## [1] 51  1</code></pre>
+<p>Indeed, there are lots of different cities in our test data that are not in our training data!</p>
+<p>So, let go back to our <code>pm</code> data set and modify the <code>city</code> variable to just be values of <code>in a city</code> or <code>not in a city</code> using the <code>case_when()</code> function of <code>dplyr</code>.
+This function allows you to vectorize multiple <code>if_else()</code> statements.</p>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" data-line-number="1">pm <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb240-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">city =</span> <span class="kw">case_when</span>(city <span class="op">==</span><span class="st"> &quot;Not in a city&quot;</span> <span class="op">~</span><span class="st"> &quot;Not in a city&quot;</span>,</a>
+<a class="sourceLine" id="cb240-3" data-line-number="3">                          city <span class="op">!=</span><span class="st"> &quot;Not in a city&quot;</span> <span class="op">~</span><span class="st"> &quot;In a city&quot;</span>))</a></code></pre></div>
+<pre><code>## # A tibble: 876 x 50
+##    id    value fips    lat   lon state county city   CMAQ zcta  zcta_area
+##    &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt; &lt;fct&gt;     &lt;dbl&gt;
+##  1 1003…  9.60 1003   30.5 -87.9 Alab… Baldw… In a…  8.10 36532 190980522
+##  2 1027… 10.8  1027   33.3 -85.8 Alab… Clay   In a…  9.77 36251 374132430
+##  3 1033… 11.2  1033   34.8 -87.7 Alab… Colbe… In a…  9.40 35660  16716984
+##  4 1049… 11.7  1049   34.3 -86.0 Alab… DeKalb In a…  8.53 35962 203836235
+##  5 1055… 12.4  1055   34.0 -86.0 Alab… Etowah In a…  9.24 35901 154069359
+##  6 1069… 10.5  1069   31.2 -85.4 Alab… Houst… In a…  9.12 36303 162685124
+##  7 1073… 15.6  1073   33.6 -86.8 Alab… Jeffe… In a… 10.2  35207  26929603
+##  8 1073… 12.4  1073   33.3 -87.0 Alab… Jeffe… Not … 10.2  35111 166239542
+##  9 1073… 11.1  1073   33.5 -87.3 Alab… Jeffe… Not …  8.16 35444 385566685
+## 10 1073… 13.1  1073   33.5 -86.5 Alab… Jeffe… In a…  9.30 35094 148994881
+## # … with 866 more rows, and 39 more variables: zcta_pop &lt;dbl&gt;, imp_a500 &lt;dbl&gt;,
+## #   imp_a1000 &lt;dbl&gt;, imp_a5000 &lt;dbl&gt;, imp_a10000 &lt;dbl&gt;, imp_a15000 &lt;dbl&gt;,
+## #   county_area &lt;dbl&gt;, county_pop &lt;dbl&gt;, log_dist_to_prisec &lt;dbl&gt;,
+## #   log_pri_length_5000 &lt;dbl&gt;, log_pri_length_10000 &lt;dbl&gt;,
+## #   log_pri_length_15000 &lt;dbl&gt;, log_pri_length_25000 &lt;dbl&gt;,
+## #   log_prisec_length_500 &lt;dbl&gt;, log_prisec_length_1000 &lt;dbl&gt;,
+## #   log_prisec_length_5000 &lt;dbl&gt;, log_prisec_length_10000 &lt;dbl&gt;,
+## #   log_prisec_length_15000 &lt;dbl&gt;, log_prisec_length_25000 &lt;dbl&gt;,
+## #   log_nei_2008_pm25_sum_10000 &lt;dbl&gt;, log_nei_2008_pm25_sum_15000 &lt;dbl&gt;,
+## #   log_nei_2008_pm25_sum_25000 &lt;dbl&gt;, log_nei_2008_pm10_sum_10000 &lt;dbl&gt;,
+## #   log_nei_2008_pm10_sum_15000 &lt;dbl&gt;, log_nei_2008_pm10_sum_25000 &lt;dbl&gt;,
+## #   popdens_county &lt;dbl&gt;, popdens_zcta &lt;dbl&gt;, nohs &lt;dbl&gt;, somehs &lt;dbl&gt;,
+## #   hs &lt;dbl&gt;, somecollege &lt;dbl&gt;, associate &lt;dbl&gt;, bachelor &lt;dbl&gt;, grad &lt;dbl&gt;,
+## #   pov &lt;dbl&gt;, hs_orless &lt;dbl&gt;, urc2013 &lt;dbl&gt;, urc2006 &lt;dbl&gt;, aod &lt;dbl&gt;</code></pre>
+<p>Alternatively you could create a <a href="https://recipes.tidymodels.org/articles/Custom_Steps.html" target="_blank">custom step function</a> to do this and add this to your recipe, but that is beyond the scope of this case study.</p>
+<p>We will need to repeat all the steps (splitting the data, pre-processing, etc) as the levels of our variables have now changed.</p>
+<p>While we are doing this, we might also have this issue for <code>county</code>.</p>
+<p>The <code>county</code> variables appears to get dropped due to either correlation or near zero variance.</p>
+<p>It is likely due to near zero variance because this is the more granular of these geographic categorical variables and likely sparse.</p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" data-line-number="1">pm <span class="op">%&lt;&gt;%</span></a>
+<a class="sourceLine" id="cb242-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">city =</span> <span class="kw">case_when</span>(city <span class="op">==</span><span class="st"> &quot;Not in a city&quot;</span> <span class="op">~</span><span class="st"> &quot;Not in a city&quot;</span>,</a>
+<a class="sourceLine" id="cb242-3" data-line-number="3">                          city <span class="op">!=</span><span class="st"> &quot;Not in a city&quot;</span> <span class="op">~</span><span class="st"> &quot;In a city&quot;</span>))</a>
+<a class="sourceLine" id="cb242-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb242-5" data-line-number="5"><span class="kw">set.seed</span>(<span class="dv">1234</span>) <span class="co"># same seed as before</span></a>
+<a class="sourceLine" id="cb242-6" data-line-number="6">pm_split &lt;-rsample<span class="op">::</span><span class="kw">initial_split</span>(<span class="dt">data =</span> pm, <span class="dt">prop =</span> <span class="dv">2</span><span class="op">/</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb242-7" data-line-number="7">pm_split</a></code></pre></div>
+<pre><code>## &lt;Analysis/Assess/Total&gt;
+## &lt;584/292/876&gt;</code></pre>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" data-line-number="1"> train_pm &lt;-rsample<span class="op">::</span><span class="kw">training</span>(pm_split)</a>
+<a class="sourceLine" id="cb244-2" data-line-number="2"> test_pm &lt;-rsample<span class="op">::</span><span class="kw">testing</span>(pm_split)</a></code></pre></div>
+<p>Now we will create a new recipe:</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" data-line-number="1">novel_rec &lt;-train_pm <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb245-2" data-line-number="2"><span class="st">    </span><span class="kw">recipe</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb245-3" data-line-number="3"><span class="st">    </span><span class="kw">update_role</span>(<span class="kw">everything</span>(), <span class="dt">new_role =</span> <span class="st">&quot;predictor&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb245-4" data-line-number="4"><span class="st">    </span><span class="kw">update_role</span>(value, <span class="dt">new_role =</span> <span class="st">&quot;outcome&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb245-5" data-line-number="5"><span class="st">    </span><span class="kw">update_role</span>(id, <span class="dt">new_role =</span> <span class="st">&quot;id variable&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb245-6" data-line-number="6"><span class="st">    </span><span class="kw">update_role</span>(<span class="st">&quot;fips&quot;</span>, <span class="dt">new_role =</span> <span class="st">&quot;county id&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb245-7" data-line-number="7"><span class="st">    </span><span class="kw">step_dummy</span>(state, county, city, zcta, <span class="dt">one_hot =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb245-8" data-line-number="8"><span class="st">    </span><span class="kw">step_corr</span>(<span class="kw">all_numeric</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb245-9" data-line-number="9"><span class="st">    </span><span class="kw">step_nzv</span>(<span class="kw">all_numeric</span>()) </a></code></pre></div>
+<p>Now we will check the pre-processed data again to see if we still have <code>NA</code> values.</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" data-line-number="1">prepped_rec &lt;-<span class="st"> </span><span class="kw">prep</span>(novel_rec, <span class="dt">verbose =</span> <span class="ot">TRUE</span>, <span class="dt">retain =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## oper 1 step dummy [training] 
+## oper 2 step corr [training]</code></pre>
+<pre><code>## Warning in cor(x, use = use, method = method): the standard deviation is zero</code></pre>
+<pre><code>## Warning: The correlation matrix has missing values. 274 columns were excluded
+## from the filter.</code></pre>
+<pre><code>## oper 3 step nzv [training] 
+## The retained training set is ~ 0.26 Mb  in memory.</code></pre>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" data-line-number="1">juiced_train &lt;-<span class="st"> </span><span class="kw">juice</span>(prepped_rec)</a>
+<a class="sourceLine" id="cb251-2" data-line-number="2"><span class="kw">glimpse</span>(juiced_train)</a></code></pre></div>
+<pre><code>## Rows: 584
+## Columns: 36
+## $ id                          &lt;fct&gt; 1003.001, 1027.0001, 1033.1002, 1055.001,…
+## $ value                       &lt;dbl&gt; 9.597647, 10.800000, 11.212174, 12.375394…
+## $ fips                        &lt;fct&gt; 1003, 1027, 1033, 1055, 1069, 1073, 1073,…
+## $ lat                         &lt;dbl&gt; 30.49800, 33.28126, 34.75878, 33.99375, 3…
+## $ lon                         &lt;dbl&gt; -87.88141, -85.80218, -87.65056, -85.9910…
+## $ CMAQ                        &lt;dbl&gt; 8.098836, 9.766208, 9.402679, 9.241744, 9…
+## $ zcta_area                   &lt;dbl&gt; 190980522, 374132430, 16716984, 154069359…
+## $ zcta_pop                    &lt;dbl&gt; 27829, 5103, 9042, 20045, 30217, 9010, 16…
+## $ imp_a500                    &lt;dbl&gt; 0.01730104, 1.96972318, 19.17301038, 16.4…
+## $ imp_a15000                  &lt;dbl&gt; 1.4386207, 0.3359198, 5.2472094, 5.161210…
+## $ county_area                 &lt;dbl&gt; 4117521611, 1564252280, 1534877333, 13856…
+## $ county_pop                  &lt;dbl&gt; 182265, 13932, 54428, 104430, 101547, 658…
+## $ log_dist_to_prisec          &lt;dbl&gt; 4.648181, 7.219907, 5.760131, 5.261457, 7…
+## $ log_pri_length_5000         &lt;dbl&gt; 8.517193, 8.517193, 8.517193, 9.066563, 8…
+## $ log_pri_length_25000        &lt;dbl&gt; 11.32735, 10.12663, 10.15769, 12.01356, 1…
+## $ log_prisec_length_500       &lt;dbl&gt; 7.295356, 6.214608, 8.611945, 8.740680, 6…
+## $ log_prisec_length_1000      &lt;dbl&gt; 8.195119, 7.600902, 9.735569, 9.627898, 7…
+## $ log_prisec_length_5000      &lt;dbl&gt; 10.815042, 10.170878, 11.770407, 11.72888…
+## $ log_prisec_length_10000     &lt;dbl&gt; 11.886803, 11.405543, 12.840663, 12.76827…
+## $ log_nei_2008_pm10_sum_15000 &lt;dbl&gt; 2.26783411, 3.31111648, 6.70127741, 4.462…
+## $ log_nei_2008_pm10_sum_25000 &lt;dbl&gt; 5.628728, 3.311116, 7.148858, 4.678311, 3…
+## $ popdens_county              &lt;dbl&gt; 44.265706, 8.906492, 35.460814, 75.367038…
+## $ popdens_zcta                &lt;dbl&gt; 145.7164307, 13.6395554, 540.8870404, 130…
+## $ nohs                        &lt;dbl&gt; 3.3, 11.6, 7.3, 4.3, 5.8, 7.1, 2.7, 11.1,…
+## $ somehs                      &lt;dbl&gt; 4.9, 19.1, 15.8, 13.3, 11.6, 17.1, 6.6, 1…
+## $ hs                          &lt;dbl&gt; 25.1, 33.9, 30.6, 27.8, 29.8, 37.2, 30.7,…
+## $ somecollege                 &lt;dbl&gt; 19.7, 18.8, 20.9, 29.2, 21.4, 23.5, 25.7,…
+## $ associate                   &lt;dbl&gt; 8.2, 8.0, 7.6, 10.1, 7.9, 7.3, 8.0, 4.1, …
+## $ bachelor                    &lt;dbl&gt; 25.3, 5.5, 12.7, 10.0, 13.7, 5.9, 17.6, 7…
+## $ grad                        &lt;dbl&gt; 13.5, 3.1, 5.1, 5.4, 9.8, 2.0, 8.7, 2.9, …
+## $ pov                         &lt;dbl&gt; 6.1, 19.5, 19.0, 8.8, 15.6, 25.5, 7.3, 8.…
+## $ hs_orless                   &lt;dbl&gt; 33.3, 64.6, 53.7, 45.4, 47.2, 61.4, 40.0,…
+## $ urc2013                     &lt;dbl&gt; 4, 6, 4, 4, 4, 1, 1, 1, 1, 1, 2, 3, 3, 3,…
+## $ aod                         &lt;dbl&gt; 37.363636, 34.818182, 36.000000, 43.41666…
+## $ state_California            &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ city_Not.in.a.city          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0,…</code></pre>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb253-1" data-line-number="1">baked_test_pm &lt;-<span class="st"> </span>recipes<span class="op">::</span><span class="kw">bake</span>(prepped_rec, <span class="dt">new_data =</span> test_pm)</a></code></pre></div>
+<pre><code>## Warning: There are new levels in a factor: Maine</code></pre>
+<pre><code>## Warning: There are new levels in a factor: Morgan, Talladega, Yavapai, Yuma,
+## Ashley, Alameda, Colusa, Kings, Placer, Riverside, Sutter, Yolo, Pueblo, New
+## London, Sussex, Citrus, St. Lucie, Seminole, Bibb, Clarke, Clayton, Dougherty,
+## Hall, Macon, Randolph, Sangamon, Allen, Henry, Howard, LaPorte, Spencer,
+## Woodbury, Sedgwick, Bell, Henderson, Aroostook, Anne Arundel, Berkshire,
+## Middlesex, Allegan, Genesee, Ingham, Kalamazoo, Lenawee, Manistee, St. Clair,
+## Washtenaw, Mille Lacs, Bolivar, Forrest, Hinds, Jones, Buchanan, Cedar, Greene,
+## Yellowstone, Grafton, Morris, Chaves, Niagara, Queens, Buncombe, Catawba,
+## Durham, Gaston, Guilford, Haywood, Lenoir, McDowell, Mitchell, Rowan, Athens,
+## Clermont, Lawrence, Portage, Preble, Scioto, Trumbull, Tulsa, Harney, Klamath,
+## Beaver, Dauphin, Oconee, Spartanburg, Codington, Bexar, Brewster, Nueces, Box
+## Elder, Bennington, Arlington, Henrico, Hampton City, Lynchburg City, Snohomish,
+## Cabell, Monongalia, Ashland, Dane, Dodge, Forest, St. Croix, Taylor, Converse,
+## Park</code></pre>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" data-line-number="1"><span class="kw">glimpse</span>(baked_test_pm)</a></code></pre></div>
+<pre><code>## Rows: 292
+## Columns: 36
+## $ id                          &lt;fct&gt; 1049.1003, 1073.101, 1073.2006, 1089.0014…
+## $ value                       &lt;dbl&gt; 11.659091, 13.114545, 12.228125, 12.23294…
+## $ fips                        &lt;fct&gt; 1049, 1073, 1073, 1089, 1103, 1121, 4013,…
+## $ lat                         &lt;dbl&gt; 34.28763, 33.54528, 33.38639, 34.68767, 3…
+## $ lon                         &lt;dbl&gt; -85.96830, -86.54917, -86.81667, -86.5863…
+## $ CMAQ                        &lt;dbl&gt; 8.534772, 9.303766, 10.235612, 9.343611, …
+## $ zcta_area                   &lt;dbl&gt; 203836235, 148994881, 56063756, 46963946,…
+## $ zcta_pop                    &lt;dbl&gt; 8300, 14212, 32390, 21297, 30545, 7713, 5…
+## $ imp_a500                    &lt;dbl&gt; 5.78200692, 0.06055363, 42.42820069, 23.2…
+## $ imp_a15000                  &lt;dbl&gt; 0.9730444, 2.9956557, 12.7487614, 10.3555…
+## $ county_area                 &lt;dbl&gt; 2012662359, 2878192209, 2878192209, 20761…
+## $ county_pop                  &lt;dbl&gt; 71109, 658466, 658466, 334811, 119490, 82…
+## $ log_dist_to_prisec          &lt;dbl&gt; 3.721489, 7.301545, 4.721755, 4.659519, 6…
+## $ log_pri_length_5000         &lt;dbl&gt; 8.517193, 9.683336, 10.737240, 8.517193, …
+## $ log_pri_length_25000        &lt;dbl&gt; 11.90959, 12.53777, 12.99669, 11.47391, 1…
+## $ log_prisec_length_500       &lt;dbl&gt; 7.310155, 6.214608, 7.528913, 8.760549, 6…
+## $ log_prisec_length_1000      &lt;dbl&gt; 8.585843, 7.600902, 9.342290, 9.543183, 8…
+## $ log_prisec_length_5000      &lt;dbl&gt; 10.214200, 11.262645, 11.713190, 11.48606…
+## $ log_prisec_length_10000     &lt;dbl&gt; 11.50894, 12.14101, 12.53899, 12.68440, 1…
+## $ log_nei_2008_pm10_sum_15000 &lt;dbl&gt; 3.3500444, 6.6241114, 5.8268686, 3.861625…
+## $ log_nei_2008_pm10_sum_25000 &lt;dbl&gt; 5.1719202, 7.5490587, 8.8205542, 5.219092…
+## $ popdens_county              &lt;dbl&gt; 35.330814, 228.777633, 228.777633, 161.26…
+## $ popdens_zcta                &lt;dbl&gt; 40.718962, 95.385827, 577.735106, 453.475…
+## $ nohs                        &lt;dbl&gt; 14.3, 7.2, 0.8, 1.2, 4.8, 16.7, 19.1, 6.4…
+## $ somehs                      &lt;dbl&gt; 16.7, 12.2, 2.6, 3.1, 7.8, 33.3, 15.6, 9.…
+## $ hs                          &lt;dbl&gt; 35.0, 32.2, 12.9, 15.1, 28.7, 37.5, 26.5,…
+## $ somecollege                 &lt;dbl&gt; 14.9, 19.0, 17.9, 20.5, 25.0, 12.5, 18.0,…
+## $ associate                   &lt;dbl&gt; 5.5, 6.8, 5.2, 6.5, 7.5, 0.0, 6.0, 8.8, 3…
+## $ bachelor                    &lt;dbl&gt; 7.9, 14.8, 35.5, 30.4, 18.2, 0.0, 10.6, 1…
+## $ grad                        &lt;dbl&gt; 5.8, 7.7, 25.2, 23.3, 8.0, 0.0, 4.1, 5.7,…
+## $ pov                         &lt;dbl&gt; 13.8, 10.5, 2.1, 5.2, 8.3, 18.8, 21.4, 14…
+## $ hs_orless                   &lt;dbl&gt; 66.0, 51.6, 16.3, 19.4, 41.3, 87.5, 61.2,…
+## $ urc2013                     &lt;dbl&gt; 6, 1, 1, 3, 4, 5, 1, 2, 5, 4, 4, 6, 6, 1,…
+## $ aod                         &lt;dbl&gt; 33.08333, 42.45455, 44.25000, 42.41667, 4…
+## $ state_California            &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,…
+## $ city_Not.in.a.city          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…</code></pre>
+<p>Great now we no longer have <code>NA</code> values!</p>
+</div>
+</div>
+<div id="specifying-the-model" class="section level4">
+<h4><span class="header-section-number">5.13.1.8</span> Specifying the Model</h4>
+<p>The first step is to define what type of model we would like to use. For our case, we are going to start our analysis with a linear regression but we will demonstrate how we can try different models.</p>
+<p>See <a href="https://www.tidymodels.org/find/parsnip/" target="_blank">here</a> for modeling options in <code>parsnip</code>.</p>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb258-1" data-line-number="1">PM_model &lt;-<span class="st"> </span>parsnip<span class="op">::</span><span class="kw">linear_reg</span>() <span class="co"># PM was used in the name for particulate matter</span></a>
+<a class="sourceLine" id="cb258-2" data-line-number="2">PM_model</a></code></pre></div>
+<pre><code>## Linear Regression Model Specification (regression)</code></pre>
+<p>OK. So far, all we have defined is that we want to use a linear regression…<br />
+Let’s tell <code>parsnip</code> more about what we want.</p>
+<p>We would like to use the <a href="https://en.wikipedia.org/wiki/Ordinary_least_squares">ordinary least squares</a> method to fit our linear regression.
+So we will tell <code>parsnip</code> that we want to use the <code>lm</code> package to implement our linear regression (there are many options actually such as <a href="https://cran.r-project.org/web/packages/rstan/vignettes/rstan.html" target="_blank"><code>rstan</code></a> <a href="https://cran.r-project.org/web/packages/glmnet/index.html" target="_blank"><code>glmnet</code></a>, <a href="https://keras.rstudio.com/" target="_blank"><code>keras</code></a>, and <a href="https://therinspark.com/starting.html#starting-sparklyr-hello-world" target="_blank"><code>sparklyr</code></a>). See <a href="https://parsnip.tidymodels.org/reference/linear_reg.html">here</a> for a description of the differences and using these different engines with <code>parsnip</code>.</p>
+<p>We will do so by using the <code>set_engine()</code> function of the <code>parsnip</code> package.</p>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb260-1" data-line-number="1">lm_PM_model &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb260-2" data-line-number="2"><span class="st">  </span>PM_model  <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb260-3" data-line-number="3"><span class="st">  </span>parsnip<span class="op">::</span><span class="kw">set_engine</span>(<span class="st">&quot;lm&quot;</span>)</a>
+<a class="sourceLine" id="cb260-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb260-5" data-line-number="5">lm_PM_model</a></code></pre></div>
+<pre><code>## Linear Regression Model Specification (regression)
+## 
+## Computational engine: lm</code></pre>
+<p>Here, we aim to predict the air pollution.
+You can do this with the <code>set_mode()</code> function of the <code>parsnip</code> package, by using either <code>set_mode(&quot;classification&quot;)</code> or <code>set_mode(&quot;regression&quot;)</code>.</p>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb262-1" data-line-number="1">lm_PM_model &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb262-2" data-line-number="2"><span class="st">  </span>PM_model  <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb262-3" data-line-number="3"><span class="st">  </span>parsnip<span class="op">::</span><span class="kw">set_engine</span>(<span class="st">&quot;lm&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb262-4" data-line-number="4"><span class="st">  </span><span class="kw">set_mode</span>(<span class="st">&quot;regression&quot;</span>)</a>
+<a class="sourceLine" id="cb262-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb262-6" data-line-number="6">lm_PM_model</a></code></pre></div>
+<pre><code>## Linear Regression Model Specification (regression)
+## 
+## Computational engine: lm</code></pre>
+<p>Now we will use the <code>workflows</code> package allows us to keep track of both our pre-processing steps and our model specification. It also allows us to implement fancier optimizations in an automated way.</p>
+<p>If you recall <code>novel_rec</code> is the recipe we previously created with the <code>recipes</code> package and <code>lm_PM_model</code> was created when we specified our model with the <code>parsnip</code> package.
+Here, we combine everything together into a <code>workflow()</code>.</p>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb264-1" data-line-number="1">PM_wflow &lt;-workflows<span class="op">::</span><span class="kw">workflow</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb264-2" data-line-number="2"><span class="st">           </span>workflows<span class="op">::</span><span class="kw">add_recipe</span>(novel_rec) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb264-3" data-line-number="3"><span class="st">           </span>workflows<span class="op">::</span><span class="kw">add_model</span>(lm_PM_model)</a>
+<a class="sourceLine" id="cb264-4" data-line-number="4">PM_wflow</a></code></pre></div>
+<pre><code>## ══ Workflow ═════════════════════════════════════════════════════════════════════════════════════════════════════════════
+## Preprocessor: Recipe
+## Model: linear_reg()
+## 
+## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## 3 Recipe Steps
+## 
+## ● step_dummy()
+## ● step_corr()
+## ● step_nzv()
+## 
+## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## Linear Regression Model Specification (regression)
+## 
+## Computational engine: lm</code></pre>
+<p>Ah, nice.
+Notice how it tells us about both our pre-processing steps and our model specifications.</p>
+<p>Next, we “prepare the recipe” (or estimate the parameters) and fit the model to our training data all at once.
+Printing the output, we can see the coefficients of the model.</p>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb266-1" data-line-number="1">PM_wflow_fit &lt;-<span class="st"> </span>parsnip<span class="op">::</span><span class="kw">fit</span>(PM_wflow, <span class="dt">data =</span> train_pm)</a></code></pre></div>
+<pre><code>## Warning in cor(x, use = use, method = method): the standard deviation is zero</code></pre>
+<pre><code>## Warning: The correlation matrix has missing values. 274 columns were excluded
+## from the filter.</code></pre>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb269-1" data-line-number="1">PM_wflow_fit</a></code></pre></div>
+<pre><code>## ══ Workflow [trained] ═══════════════════════════════════════════════════════════════════════════════════════════════════
+## Preprocessor: Recipe
+## Model: linear_reg()
+## 
+## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## 3 Recipe Steps
+## 
+## ● step_dummy()
+## ● step_corr()
+## ● step_nzv()
+## 
+## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## 
+## Call:
+## stats::lm(formula = formula, data = data)
+## 
+## Coefficients:
+##                 (Intercept)                          lat  
+##                   2.221e+02                    3.773e-02  
+##                         lon                         CMAQ  
+##                   3.023e-02                    2.896e-01  
+##                   zcta_area                     zcta_pop  
+##                   3.592e-10                    7.988e-06  
+##                    imp_a500                   imp_a15000  
+##                   6.543e-03                   -1.252e-03  
+##                 county_area                   county_pop  
+##                  -2.241e-11                   -2.052e-07  
+##          log_dist_to_prisec          log_pri_length_5000  
+##                   4.182e-02                   -2.207e-01  
+##        log_pri_length_25000        log_prisec_length_500  
+##                   9.277e-02                    2.651e-01  
+##      log_prisec_length_1000       log_prisec_length_5000  
+##                  -1.654e-02                    4.451e-01  
+##     log_prisec_length_10000  log_nei_2008_pm10_sum_15000  
+##                   1.510e-01                    1.029e-01  
+## log_nei_2008_pm10_sum_25000               popdens_county  
+##                   6.448e-02                   -3.905e-05  
+##                popdens_zcta                         nohs  
+##                  -2.098e-05                   -2.195e+00  
+##                      somehs                           hs  
+##                  -2.232e+00                   -2.235e+00  
+##                 somecollege                    associate  
+##                  -2.237e+00                   -2.237e+00  
+##                    bachelor                         grad  
+##                  -2.239e+00                   -2.248e+00  
+##                         pov                    hs_orless  
+##                   5.400e-03                           NA  
+##                     urc2013                          aod  
+##                   1.848e-01                    2.521e-02  
+##            state_California           city_Not.in.a.city  
+##                   3.509e+00                    4.137e-01</code></pre>
+</div>
+</div>
+</div>
+<div id="assessing-the-model-fit" class="section level2">
+<h2><span class="header-section-number">5.14</span> Assessing the model fit</h2>
+<p>After we fit our model, we can use the <code>broom</code> package to look at the output from the fitted model in an easy/tidy.</p>
+<p>The <code>tidy()</code> function returns a tidy data frame with coefficients from the model (one row per coefficient).</p>
+<p>Many other <code>broom</code> functions currently only work with <code>parsnip</code> objects, not raw <code>workflows</code> objects.</p>
+<p>However, we can use the <code>tidy</code> function if we first use the <code>pull_workflow_fit()</code> function.</p>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb271-1" data-line-number="1">wflowoutput &lt;-<span class="st"> </span>PM_wflow_fit <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb271-2" data-line-number="2"><span class="st">  </span><span class="kw">pull_workflow_fit</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb271-3" data-line-number="3"><span class="st">  </span>broom<span class="op">::</span><span class="kw">tidy</span>() </a>
+<a class="sourceLine" id="cb271-4" data-line-number="4">  wflowoutput</a></code></pre></div>
+<pre><code>## # A tibble: 33 x 5
+##    term         estimate std.error statistic  p.value
+##    &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+##  1 (Intercept)  2.22e+ 2  1.20e+ 2     1.85  6.51e- 2
+##  2 lat          3.77e- 2  2.45e- 2     1.54  1.24e- 1
+##  3 lon          3.02e- 2  9.31e- 3     3.25  1.23e- 3
+##  4 CMAQ         2.90e- 1  4.29e- 2     6.75  3.66e-11
+##  5 zcta_area    3.59e-10  3.04e-10     1.18  2.38e- 1
+##  6 zcta_pop     7.99e- 6  5.55e- 6     1.44  1.50e- 1
+##  7 imp_a500     6.54e- 3  7.49e- 3     0.874 3.82e- 1
+##  8 imp_a15000  -1.25e- 3  1.19e- 2    -0.105 9.16e- 1
+##  9 county_area -2.24e-11  1.63e-11    -1.38  1.69e- 1
+## 10 county_pop  -2.05e- 7  9.31e- 8    -2.20  2.79e- 2
+## # … with 23 more rows</code></pre>
+<p>We have fit our model on our training data, which means we have created a model to predict values of air pollution based on the predictors that we have included. Yay!</p>
+<p>One last thing before we leave this section.
+We often are interested in getting a sense of which variables are the most important in our model.
+We can explore the variable importance using the <code>vip()</code> function of the <code>vip</code> package.
+This function create a bar plot of variable importance scores for each predictor variable (or feature) in a model.
+The bar plot is ordered by importance (highest to smallest).</p>
+<p>Notice again that we need to use the <code>pull_workflow_fit()</code> function.</p>
+<p>Let’s take a look at the top 10 contributing variables:</p>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb273-1" data-line-number="1"><span class="co">#install.packages(vip)</span></a>
+<a class="sourceLine" id="cb273-2" data-line-number="2"><span class="kw">library</span>(vip)</a></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;vip&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:utils&#39;:
+## 
+##     vi</code></pre>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb276-1" data-line-number="1">PM_wflow_fit <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb276-2" data-line-number="2"><span class="st">  </span><span class="kw">pull_workflow_fit</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb276-3" data-line-number="3"><span class="st">  </span><span class="kw">vip</span>(<span class="dt">num_features =</span> <span class="dv">10</span>)</a></code></pre></div>
+<p><img src="05-prediction_files/figure-html/unnamed-chunk-121-1.png" width="672" /></p>
+<p>The state in which the monitor was located and the CMAQ model and the aod satellite information appear to be the most important for predicting the air pollution at a given monitor.</p>
+<div id="model-performance" class="section level4">
+<h4><span class="header-section-number">5.14.0.1</span> Model performance</h4>
+<p>In this next section, our goal is to assess the overall model performance.
+The way we do this is to compare the similarity between the predicted estimates of the outcome variable produced by the model and the true outcome variable values.</p>
+<p>Machine learning (ML) is an optimization problem that tries to minimize the distance between our predicted outcome <span class="math inline">\(\hat{Y} = f(X)\)</span> and actual outcome <span class="math inline">\(Y\)</span> using our features (or predictor variables) <span class="math inline">\(X\)</span> as input to a function <span class="math inline">\(f\)</span> that we want to estimate.</p>
+<p>As our goal in this section is to assess overall model performance, we will now talk about different distance metrics that you can use.</p>
+<p>First, let’s pull out our predicted outcome values <span class="math inline">\(\hat{Y} = f(X)\)</span> from the models we fit (using different approaches).</p>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" data-line-number="1">wf_fit &lt;-<span class="st"> </span>PM_wflow_fit <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb277-2" data-line-number="2"><span class="st">  </span><span class="kw">pull_workflow_fit</span>()</a>
+<a class="sourceLine" id="cb277-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb277-4" data-line-number="4">wf_fitted_values &lt;-<span class="st"> </span>wf_fit<span class="op">$</span>fit<span class="op">$</span>fitted.values</a>
+<a class="sourceLine" id="cb277-5" data-line-number="5"><span class="kw">head</span>(wf_fitted_values)</a></code></pre></div>
+<pre><code>##         1         2         3         4         5         6 
+##  9.480088 10.418317 11.786217 11.295655 10.806653 11.091767</code></pre>
+<p>Alternatively, we can get the fitted values using the <code>augment()</code> function of the <code>broom</code> package using the output from <code>workflows</code>:</p>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb279-1" data-line-number="1">wf_fitted_values &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb279-2" data-line-number="2"><span class="st">  </span>broom<span class="op">::</span><span class="kw">augment</span>(wf_fit<span class="op">$</span>fit, <span class="dt">data =</span> juiced_train) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb279-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(value, .fitted<span class="op">:</span>.std.resid)</a>
+<a class="sourceLine" id="cb279-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb279-5" data-line-number="5"><span class="kw">head</span>(wf_fitted_values)</a></code></pre></div>
+<pre><code>## # A tibble: 6 x 8
+##   value .fitted .se.fit .resid   .hat .sigma    .cooksd .std.resid
+##   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1  9.60    9.48   0.375  0.118 0.0323   2.09 0.00000333     0.0573
+## 2 10.8    10.4    0.383  0.382 0.0338   2.09 0.0000368      0.186 
+## 3 11.2    11.8    0.404 -0.574 0.0376   2.09 0.0000933     -0.281 
+## 4 12.4    11.3    0.366  1.08  0.0309   2.09 0.000267       0.526 
+## 5 10.5    10.8    0.424 -0.298 0.0413   2.09 0.0000278     -0.146 
+## 6 15.6    11.1    0.380  4.50  0.0332   2.08 0.00501        2.20</code></pre>
+<p>Note that becuase we use the actual workflow here, we can (and actually need to) use the raw data instead of the pre-processed data.</p>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb281-1" data-line-number="1">values_pred_train &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb281-2" data-line-number="2"><span class="st">  </span><span class="kw">predict</span>(PM_wflow_fit, train_pm) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb281-3" data-line-number="3"><span class="st">  </span><span class="kw">bind_cols</span>(train_pm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(value, fips, county, id)) </a></code></pre></div>
+<pre><code>## Warning in predict.lm(object = object$fit, newdata = new_data, type =
+## &quot;response&quot;): prediction from a rank-deficient fit may be misleading</code></pre>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb283-1" data-line-number="1">values_pred_train</a></code></pre></div>
+<pre><code>## # A tibble: 584 x 5
+##    .pred value fips  county    id       
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;chr&gt;     &lt;fct&gt;    
+##  1  9.48  9.60 1003  Baldwin   1003.001 
+##  2 10.4  10.8  1027  Clay      1027.0001
+##  3 11.8  11.2  1033  Colbert   1033.1002
+##  4 11.3  12.4  1055  Etowah    1055.001 
+##  5 10.8  10.5  1069  Houston   1069.0003
+##  6 11.1  15.6  1073  Jefferson 1073.0023
+##  7 10.2  12.4  1073  Jefferson 1073.1005
+##  8  8.28 11.1  1073  Jefferson 1073.1009
+##  9 11.5  14.6  1073  Jefferson 1073.2003
+## 10 10.6  12.0  1073  Jefferson 1073.5002
+## # … with 574 more rows</code></pre>
+<p>avocado simplify this here and earlier??</p>
+
 </div>
 </div>
 </div>

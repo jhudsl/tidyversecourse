@@ -2231,4 +2231,459 @@ PM_cor <- cor(pm %>% dplyr::select_if(is.numeric))
 corrplot::corrplot(PM_cor, tl.cex = 0.5)
 ```
 
+We can see that the development variables (`imp`) variables are correlated with each other as we might expect. 
+We also see that the road density variables seem to be correlated with each other, and the emission variables seem to be correlated with each other. 
+
+
+Also notice that none of the predictors are highly correlated with our outcome variable (`value`).
+
+Now that we have a sense of what our data are, we can get started with building a machine learning model to predict air pollution. 
+
+
+#### Splitting the Data
+
+```{r}
+set.seed(1234)
+pm_split <- rsample::initial_split(data = pm, prop = 2/3)
+pm_split
+```
+
+We can see the number of monitors in our training, testing, and original data by typing in the name of our split object. The result will look like this:
+<training data sample number, testing data sample number, original sample number> 
+
+Importantly the `initial_split` function only determines what rows of our `pm` data frame should be assigned for training or testing, it does not actually split the data. 
+
+To extract the testing and training data we can use the `training()` and `testing()` functions also of the `rsample` package.
+
+```{r}
+train_pm <-rsample::training(pm_split)
+test_pm <-rsample::testing(pm_split)
+```
+
+We also intend to perform cross validation, so we will now split the training data further using the [`vfold_cv()`](https://tidymodels.github.io/rsample/reference/vfold_cv.html){target="_blank"} function of the `rsample` package can be used to parse the training data into folds for $v$-fold cross validation.
+
+Again, because these are created at random, we need to use the base `set.seed()` function in order to obtain the same results each time we knit this document.  We will create 10 folds.
+
+
+```{r}
+set.seed(1234)
+vfold_pm <- rsample::vfold_cv(data = train_pm, v = 10)
+vfold_pm
+pull(vfold_pm, splits)
+```
+
+Great!
+
+Now let's make a recipe!
+
+#### Making a Recipe
+Now with our data, we will start by making a recipe for our training data.
+If you recall, the continuous outcome variable is `value` (the average annual gravimetric monitor PM~2.5~ concentration in ug/m^3^). 
+Our features (or predictor variables) are all the other variables except the monitor ID, which is an `id` variable.
+
+The reason not to include the `id` variable is because this variable includes the county number and a number designating which particular monitor the values came from (of the monitors there are in that county). 
+Since this number is arbitrary and the county information is also given in the data, and the fact that each monitor only has one value in the `value` variable, nothing is gained by including this variable and it may instead introduce noise. 
+However, it is useful to keep this data to take a look at what is happening later. 
+We will show you what to do in this case in just a bit.
+
+In the simplest case, we might use all predictors like this:
+
+```{r}
+#install.packages(tidymodels)
+library(tidymodels)
+simple_rec <- train_pm %>%
+  recipes::recipe(value ~ .)
+
+simple_rec
+```
+
+Now, let's get back to the `id` variable. 
+Instead of including it as a predictor variable, we could also use the `update_role()` function of the `recipes` package.
+
+```{r}
+simple_rec <- train_pm %>%
+  recipes::recipe(value ~ .) %>%
+  recipes::update_role(id, new_role = "id variable")
+
+simple_rec
+```
+
+
+If we want to take a look at our formula from our recipe, we can do use the `formula()` function of the `stats` package.
+
+```{r}
+formula(simple_rec)
+```
+
+**This [link](https://tidymodels.github.io/recipes/reference/index.html){target="_blank"} and this [link](https://cran.r-project.org/web/packages/recipes/recipes.pdf){target="_blank"} show the many options for recipe step functions.**
+
+<u>There are step functions for a variety of purposes:</u>
+
+1. [**Imputation**](https://en.wikipedia.org/wiki/Imputation_(statistics)){target="_blank"} -- filling in missing values based on the existing data 
+2. [**Transformation**](https://en.wikipedia.org/wiki/Data_transformation_(statistics)){target="_blank"} -- changing all values of a variable in the same way, typically to make it more normal or easier to interpret
+3. [**Discretization**](https://en.wikipedia.org/wiki/Discretization_of_continuous_features){target="_blank"} -- converting continuous values into discrete or nominal values - binning for example to reduce the number of possible levels (However this is generally not advisable!)
+4. [**Encoding / Creating Dummy Variables**](https://en.wikipedia.org/wiki/Dummy_variable_(statistics)){target="_blank"} -- creating a numeric code for categorical variables
+([**More on Dummy Variables and one hot encoding**](https://medium.com/p/b5840be3c41a/responses/show){target="_blank"})
+5. [**Data type conversions**](https://cran.r-project.org/web/packages/hablar/vignettes/convert.html){target="_blank"}  -- which means changing from integer to factor or numeric to date etc.
+6. [**Interaction**](https://statisticsbyjim.com/regression/interaction-effects/){target="_blank"}  term addition to the model -- which means that we would be modeling for predictors that would influence the capacity of each other to predict the outcome
+7. [**Normalization**](https://en.wikipedia.org/wiki/Normalization_(statistics)){target="_blank"} -- centering and scaling the data to a similar range of values
+8. [**Dimensionality Reduction/ Signal Extraction**](https://en.wikipedia.org/wiki/Dimensionality_reduction){target="_blank"} -- reducing the space of features or predictors to a smaller set of variables that capture the variation or signal in the original variables (ex. Principal Component Analysis and Independent Component Analysis)
+9. **Filtering** -- filtering options for removing variables (ex. remove variables that are highly correlated to others or remove variables with very little variance and therefore likely little predictive capacity)
+10. [**Row operations**](https://tartarus.org/gareth/maths/Linear_Algebra/row_operations.pdf){target="_blank"} -- performing functions on the values within the rows  (ex. rearranging, filtering, imputing)
+11. **Checking functions** -- Sanity checks to look for missing values, to look at the variable classes etc.
+
+All of the step functions look like `step_*()` with the `*` replaced with a name, except for the check functions which look like `check_*()`.
+
+There are several ways to select what variables to apply steps to:  
+
+1. Using `tidyselect` methods: `contains()`, `matches()`, `starts_with()`, `ends_with()`, `everything()`, `num_range()`  
+2. Using the type: `all_nominal()`, `all_numeric()` , `has_type()` 
+3. Using the role: `all_predictors()`, `all_outcomes()`, `has_role()`
+4. Using the name - use the actual name of the variable/variables of interest  
+
+Let's try adding some steps to our recipe.
+
+We want to dummy encode our categorical variables so that they are numeric as we plan to use a linear regression for our model.
+
+We will use the one hot encoding means that we do not simply encode our categorical variables numerically, as our numeric assignments can be interpreted by algorithms as having a particular rank or order. 
+Instead, binary variables made of 1s and 0s are used to arbitrarily assign a numeric value that has no apparent order.
+
+```{r}
+simple_rec %>%
+  step_dummy(state, county, city, zcta, one_hot = TRUE)
+  
+```
+
+
+Our `fips` variable includes a numeric code for state and county - and therefore is essentially a proxy for county.
+Since we already have county, we will just use it and keep the `fips` ID as another ID variable.
+
+We can remove the `fips` variable from the predictors using `update_role()` to make sure that the role is no longer `"predictor"`. 
+
+We can make the role anything we want actually, so we will keep it something identifiable.
+
+```{r}
+
+simple_rec %>%
+  update_role("fips", new_role = "county id")
+```
+
+
+We also want to remove variables that appear to be redundant and are highly correlated with others, as we know from our exploratory data analysis that many of our variables are correlated with one another. 
+We can do this using the `step_corr()` function.
+
+We don't want to remove some of our variables, like the `CMAQ` and `aod` variables, we can specify this using the `-` sign before the names of these variables like so:
+
+```{r}
+simple_rec %>%
+  step_corr(all_predictors(), - CMAQ, - aod)
+```
+
+
+It is also a good idea to remove variables with near-zero variance, which can be done with the `step_nzv()` function. 
+
+Variables have low variance if all the values are very similar, the values are very sparse, or if they are highly imbalanced. Again we don't want to remove our `CMAQ` and `aod` variables.
+
+```{r}
+simple_rec %>%
+  step_nzv(all_predictors(), - CMAQ, - aod)
+```
+
+Let's put all this together now. 
+
+**Remember: it is important to add the steps to the recipe in an order that makes sense just like with a cooking recipe.**
+
+First, we are going to create numeric values for our categorical variables, then we will look at correlation and near-zero variance. 
+Again, we do not want to remove the `CMAQ` and `aod` variables, so we can make sure they are kept in the model by excluding them from those steps. 
+If we specifically wanted to remove a predictor we could use `step_rm()`.
+
+```{r}
+simple_rec <- train_pm %>%
+  recipes::recipe(value ~ .) %>%
+  recipes::update_role(id, new_role = "id variable") %>%
+  update_role("fips", new_role = "county id") %>%
+  step_dummy(state, county, city, zcta, one_hot = TRUE) %>%
+  step_corr(all_predictors(), - CMAQ, - aod)%>%
+  step_nzv(all_predictors(), - CMAQ, - aod)
+  
+simple_rec
+```
+
+Nice! Now let's check our pre-processing.
+
+#### Running pre-processing
+
+First we need to use the `prep()` function of the `recipes` package to prepare for pre-processing. However, we will specify that we also want to run and retain the pre-processing for the training data using the `retain = TRUE` argument.
+
+```{r}
+prepped_rec <- prep(simple_rec, verbose = TRUE, retain = TRUE)
+names(prepped_rec)
+```
+
+
+Since we retained our pre-processed training data (i.e. `prep(retain=TRUE)`), we can take a look at it like by using the `juice()` function of the `recipes` package like this:
+
+```{r}
+juiced_train <- juice(prepped_rec)
+glimpse(juiced_train)
+```
+
+For easy comparison sake - here is our original data:
+
+```{r}
+glimpse(pm)
+```
+
+
+Notice how we only have 36 variables now instead of 50! 
+Two of these are our ID variables (`fips` and the actual monitor ID (`id`)) and one is our outcome (`value`). 
+Thus we only have 33 predictors now. 
+We can also see that variables that we no longer have any categorical variables. 
+Variables like `state` are gone and only `state_California` remains as it was the only state identity to have nonzero variance.
+We can also see that there were more monitors listed as `"Not in a city"` than any city. 
+
+##### Extract pre-processed testing data using `bake()`
+
+According to the `tidymodels` documentation:
+
+> `bake()` takes a trained recipe and applies the operations to a data set to create a design matrix.
+ For example: it applies the centering to new data sets using these means used to create the recipe
+
+Therefore, if you wanted to look at the pre-processed testing data you would use the `bake()` function of the `recipes` package.
+
+```{r}
+baked_test_pm <- recipes::bake(prepped_rec, new_data = test_pm)
+glimpse(baked_test_pm)
+```
+
+Notice that our `city_Not.in.a.city` variable seems to be NA values. 
+Why might that be?
+
+Ah! Perhaps it is because some of our levels were not previously seen in the training set!
+
+Let's take a look using the [set operations](https://www.probabilitycourse.com/chapter1/1_2_2_set_operations.php){target="_blank"} of the `dplyr` package. 
+We can take a look at cities that were different between the test and training set.
+
+```{r}
+traincities <- train_pm %>% distinct(city)
+testcities <- test_pm %>% distinct(city)
+
+#get the number of cities that were different
+dim(dplyr::setdiff(traincities, testcities))
+
+#get the number of cities that overlapped
+dim(dplyr::intersect(traincities, testcities))
+```
+
+Indeed, there are lots of different cities in our test data that are not in our training data!
+
+
+So, let go back to our `pm` data set and modify the `city` variable to just be values of `in a city` or `not in a city` using the `case_when()` function of `dplyr`.
+This function allows you to vectorize multiple `if_else()` statements.
+
+```{r}
+pm %>%
+  mutate(city = case_when(city == "Not in a city" ~ "Not in a city",
+                          city != "Not in a city" ~ "In a city"))
+```
+
+
+Alternatively you could create a [custom step function](https://recipes.tidymodels.org/articles/Custom_Steps.html){target="_blank"} to do this and add this to your recipe, but that is beyond the scope of this case study. 
+
+We will need to repeat all the steps (splitting the data, pre-processing, etc) as the levels of our variables have now changed. 
+
+While we are doing this, we might also have this issue for `county`. 
+
+The `county` variables appears to get dropped due to either correlation or near zero variance. 
+
+It is likely due to near zero variance because this is the more granular of these geographic categorical variables and likely sparse.
+
+```{r}
+pm %<>%
+  mutate(city = case_when(city == "Not in a city" ~ "Not in a city",
+                          city != "Not in a city" ~ "In a city"))
+
+set.seed(1234) # same seed as before
+pm_split <-rsample::initial_split(data = pm, prop = 2/3)
+pm_split
+ train_pm <-rsample::training(pm_split)
+ test_pm <-rsample::testing(pm_split)
+```
+
+Now we will create a new recipe:
+
+```{r}
+novel_rec <-train_pm %>%
+    recipe() %>%
+    update_role(everything(), new_role = "predictor") %>%
+    update_role(value, new_role = "outcome") %>%
+    update_role(id, new_role = "id variable") %>%
+    update_role("fips", new_role = "county id") %>%
+    step_dummy(state, county, city, zcta, one_hot = TRUE) %>%
+    step_corr(all_numeric()) %>%
+    step_nzv(all_numeric()) 
+```
+
+Now we will check the pre-processed data again to see if we still have `NA` values.
+
+```{r}
+prepped_rec <- prep(novel_rec, verbose = TRUE, retain = TRUE)
+juiced_train <- juice(prepped_rec)
+glimpse(juiced_train)
+baked_test_pm <- recipes::bake(prepped_rec, new_data = test_pm)
+glimpse(baked_test_pm)
+```
+
+Great now we no longer have `NA` values!
+
+#### Specifying the Model
+
+The first step is to define what type of model we would like to use. For our case, we are going to start our analysis with a linear regression but we will demonstrate how we can try different models.
+
+See [here](https://www.tidymodels.org/find/parsnip/){target="_blank"} for modeling options in `parsnip`.
+
+
+```{r}
+PM_model <- parsnip::linear_reg() # PM was used in the name for particulate matter
+PM_model
+```
+
+OK. So far, all we have defined is that we want to use a linear regression...  
+Let's tell `parsnip` more about what we want.
+
+We would like to use the [ordinary least squares](https://en.wikipedia.org/wiki/Ordinary_least_squares) method to fit our linear regression. 
+So we will tell `parsnip` that we want to use the `lm` package to implement our linear regression (there are many options actually such as [`rstan`](https://cran.r-project.org/web/packages/rstan/vignettes/rstan.html){target="_blank"}  [`glmnet`](https://cran.r-project.org/web/packages/glmnet/index.html){target="_blank"}, [`keras`](https://keras.rstudio.com/){target="_blank"}, and [`sparklyr`](https://therinspark.com/starting.html#starting-sparklyr-hello-world){target="_blank"}). See [here](https://parsnip.tidymodels.org/reference/linear_reg.html) for a description of the differences and using these different engines with `parsnip`.
+
+We will do so by using the `set_engine()` function of the `parsnip` package.
+
+```{r}
+lm_PM_model <- 
+  PM_model  %>%
+  parsnip::set_engine("lm")
+
+lm_PM_model
+```
+
+Here, we aim to predict the air pollution. 
+You can do this with the `set_mode()` function of the `parsnip` package, by using either `set_mode("classification")` or `set_mode("regression")`.
+
+```{r}
+lm_PM_model <- 
+  PM_model  %>%
+  parsnip::set_engine("lm") %>%
+  set_mode("regression")
+
+lm_PM_model
+```
+
+Now we will use the `workflows` package allows us to keep track of both our pre-processing steps and our model specification. It also allows us to implement fancier optimizations in an automated way.
+
+If you recall `novel_rec` is the recipe we previously created with the `recipes` package and `lm_PM_model` was created when we specified our model with the `parsnip` package.
+Here, we combine everything together into a `workflow()`. 
+
+```{r}
+PM_wflow <-workflows::workflow() %>%
+           workflows::add_recipe(novel_rec) %>%
+           workflows::add_model(lm_PM_model)
+PM_wflow
+```
+
+
+Ah, nice. 
+Notice how it tells us about both our pre-processing steps and our model specifications.
+
+Next, we "prepare the recipe" (or estimate the parameters) and fit the model to our training data all at once. 
+Printing the output, we can see the coefficients of the model.
+
+```{r}
+PM_wflow_fit <- parsnip::fit(PM_wflow, data = train_pm)
+PM_wflow_fit
+```
+
+## Assessing the model fit
+
+After we fit our model, we can use the `broom` package to look at the output from the fitted model in an easy/tidy.   
+
+The `tidy()` function returns a tidy data frame with coefficients from the model (one row per coefficient).
+
+Many other `broom` functions currently only work with `parsnip` objects, not raw `workflows` objects. 
+
+However, we can use the `tidy` function if we first use the `pull_workflow_fit()` function.
+
+```{r}
+wflowoutput <- PM_wflow_fit %>% 
+  pull_workflow_fit() %>% 
+  broom::tidy() 
+  wflowoutput
+```
+
+We have fit our model on our training data, which means we have created a model to predict values of air pollution based on the predictors that we have included. Yay!
+
+One last thing before we leave this section. 
+We often are interested in getting a sense of which variables are the most important in our model. 
+We can explore the variable importance using the `vip()` function of the `vip` package. 
+This function create a bar plot of variable importance scores for each predictor variable (or feature) in a model. 
+The bar plot is ordered by importance (highest to smallest). 
+
+
+Notice again that we need to use the `pull_workflow_fit()` function.
+
+Let's take a look at the top 10 contributing variables:
+
+```{r}
+#install.packages(vip)
+library(vip)
+PM_wflow_fit %>% 
+  pull_workflow_fit() %>% 
+  vip(num_features = 10)
+```
+
+The state in which the monitor was located and the CMAQ model and the aod satellite information appear to be the most important for predicting the air pollution at a given monitor.
+
+#### Model performance
+
+
+In this next section, our goal is to assess the overall model performance. 
+The way we do this is to compare the similarity between the predicted estimates of the outcome variable produced by the model and the true outcome variable values. 
+
+Machine learning (ML) is an optimization problem that tries to minimize the distance between our predicted outcome $\hat{Y} = f(X)$ and actual outcome $Y$ using our features (or predictor variables) $X$ as input to a function $f$ that we want to estimate. 
+
+
+As our goal in this section is to assess overall model performance, we will now talk about different distance metrics that you can use. 
+
+First, let's pull out our predicted outcome values $\hat{Y} = f(X)$ from the models we fit (using different approaches). 
+
+
+```{r}
+wf_fit <- PM_wflow_fit %>% 
+  pull_workflow_fit()
+
+wf_fitted_values <- wf_fit$fit$fitted.values
+head(wf_fitted_values)
+```
+
+Alternatively, we can get the fitted values using the `augment()` function of the `broom` package using the output from `workflows`: 
+
+```{r}
+wf_fitted_values <- 
+  broom::augment(wf_fit$fit, data = juiced_train) %>% 
+  select(value, .fitted:.std.resid)
+
+head(wf_fitted_values)
+```
+
+Note that becuase we use the actual workflow here, we can (and actually need to) use the raw data instead of the pre-processed data.
+
+```{r}
+values_pred_train <- 
+  predict(PM_wflow_fit, train_pm) %>% 
+  bind_cols(train_pm %>% select(value, fips, county, id)) 
+
+values_pred_train
+
+```
+
+avocado simplify this here and earlier??
+
+
 
