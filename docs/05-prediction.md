@@ -1779,7 +1779,7 @@ formula(first_recipe)
 
 ```
 ## Sepal.Length ~ Sepal.Width + Species
-## <environment: 0x7fadd9960900>
+## <environment: 0x7fab128c50a0>
 ```
 
 We can also view our recipe in more detail using the base summary() function.
@@ -2739,28 +2739,21 @@ iris_cat_wflow_tune <-workflows::workflow() %>%
 We can use the `tune_grid()` function of the `tune()` package to use the workflow and fit the `vfold_iris` cross validation samples of our training data to test out a number of different values for the `min_n` argument for our model. The `grid()` argument specifies how many different values to try out.
 
 ```r
-reasmple_fit <-tune_grid(iris_cat_wflow_tune, resamples = vfold_iris, grid = 10)
+reasmple_fit <-tune_grid(iris_cat_wflow_tune, resamples = vfold_iris, grid = 4)
 ```
 
 Again we can use the `collect_netrics()` function to get the accuracy for each of the tested `min_n` values. Or, we can use the `show_best()` function of the `tune` package to see the `min_n` values for the top performing models (those with the highest accuracy).
 
 ```r
-resample_fit<-iris_cat_wflow_tune %>% tune_grid(resamples = vfold_iris, grid = 4)
 tune::collect_metrics(resample_fit)
 ```
 
 ```
-## # A tibble: 8 x 6
-##   min_n .metric  .estimator  mean     n std_err
-##   <int> <chr>    <chr>      <dbl> <int>   <dbl>
-## 1    11 accuracy multiclass 0.94      4  0.0258
-## 2    11 roc_auc  hand_till  0.961     4  0.0172
-## 3    18 accuracy multiclass 0.94      4  0.0258
-## 4    18 roc_auc  hand_till  0.961     4  0.0172
-## 5    25 accuracy multiclass 0.94      4  0.0258
-## 6    25 roc_auc  hand_till  0.961     4  0.0172
-## 7    31 accuracy multiclass 0.94      4  0.0258
-## 8    31 roc_auc  hand_till  0.961     4  0.0172
+## # A tibble: 2 x 5
+##   .metric  .estimator  mean     n std_err
+##   <chr>    <chr>      <dbl> <int>   <dbl>
+## 1 accuracy multiclass 0.94      4  0.0258
+## 2 roc_auc  hand_till  0.961     4  0.0172
 ```
 
 ```r
@@ -2768,13 +2761,10 @@ tune::show_best(resample_fit, metric = "accuracy")
 ```
 
 ```
-## # A tibble: 4 x 6
-##   min_n .metric  .estimator  mean     n std_err
-##   <int> <chr>    <chr>      <dbl> <int>   <dbl>
-## 1    11 accuracy multiclass  0.94     4  0.0258
-## 2    18 accuracy multiclass  0.94     4  0.0258
-## 3    25 accuracy multiclass  0.94     4  0.0258
-## 4    31 accuracy multiclass  0.94     4  0.0258
+## # A tibble: 1 x 5
+##   .metric  .estimator  mean     n std_err
+##   <chr>    <chr>      <dbl> <int>   <dbl>
+## 1 accuracy multiclass  0.94     4  0.0258
 ```
 
 
@@ -3294,80 +3284,6 @@ train_pm <-rsample::training(pm_split)
 test_pm <-rsample::testing(pm_split)
 ```
 
-We also intend to perform cross validation, so we will now split the training data further using the [`vfold_cv()`](https://tidymodels.github.io/rsample/reference/vfold_cv.html){target="_blank"} function of the `rsample` package can be used to parse the training data into folds for $v$-fold cross validation.
-
-Again, because these are created at random, we need to use the base `set.seed()` function in order to obtain the same results each time we knit this document.  We will create 10 folds.
-
-
-
-```r
-set.seed(1234)
-vfold_pm <- rsample::vfold_cv(data = train_pm, v = 10)
-vfold_pm
-```
-
-```
-## #  10-fold cross-validation 
-## # A tibble: 10 x 2
-##    splits           id    
-##    <list>           <chr> 
-##  1 <split [525/59]> Fold01
-##  2 <split [525/59]> Fold02
-##  3 <split [525/59]> Fold03
-##  4 <split [525/59]> Fold04
-##  5 <split [526/58]> Fold05
-##  6 <split [526/58]> Fold06
-##  7 <split [526/58]> Fold07
-##  8 <split [526/58]> Fold08
-##  9 <split [526/58]> Fold09
-## 10 <split [526/58]> Fold10
-```
-
-```r
-pull(vfold_pm, splits)
-```
-
-```
-## [[1]]
-## <Analysis/Assess/Total>
-## <525/59/584>
-## 
-## [[2]]
-## <Analysis/Assess/Total>
-## <525/59/584>
-## 
-## [[3]]
-## <Analysis/Assess/Total>
-## <525/59/584>
-## 
-## [[4]]
-## <Analysis/Assess/Total>
-## <525/59/584>
-## 
-## [[5]]
-## <Analysis/Assess/Total>
-## <526/58/584>
-## 
-## [[6]]
-## <Analysis/Assess/Total>
-## <526/58/584>
-## 
-## [[7]]
-## <Analysis/Assess/Total>
-## <526/58/584>
-## 
-## [[8]]
-## <Analysis/Assess/Total>
-## <526/58/584>
-## 
-## [[9]]
-## <Analysis/Assess/Total>
-## <526/58/584>
-## 
-## [[10]]
-## <Analysis/Assess/Total>
-## <526/58/584>
-```
 
 Great!
 
@@ -3475,7 +3391,7 @@ formula(simple_rec)
 ##     popdens_county + popdens_zcta + nohs + somehs + hs + somecollege + 
 ##     associate + bachelor + grad + pov + hs_orless + urc2013 + 
 ##     urc2006 + aod
-## <environment: 0x7fadf236b5b8>
+## <environment: 0x7fab17ae1d40>
 ```
 
 **This [link](https://tidymodels.github.io/recipes/reference/index.html){target="_blank"} and this [link](https://cran.r-project.org/web/packages/recipes/recipes.pdf){target="_blank"} show the many options for recipe step functions.**
@@ -4426,7 +4342,7 @@ PM_wflow_fit %>%
   vip(num_features = 10)
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-121-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-120-1.png" width="672" />
 
 The state in which the monitor was located and the CMAQ model and the aod satellite information appear to be the most important for predicting the air pollution at a given monitor.
 
@@ -4518,5 +4434,752 @@ values_pred_train
 
 avocado simplify this here and earlier??
 
+#### Visualizing model performance
+
+Now, we can compare the predicted outcome values (or fitted values) $\hat{Y}$ to the actual outcome values $Y$ that we observed: 
+
+
+```r
+wf_fitted_values %>% 
+  ggplot(aes(x =  value, y = .fitted)) + 
+  geom_point() + 
+  xlab("actual outcome values") + 
+  ylab("predicted outcome values")
+```
+
+<img src="05-prediction_files/figure-html/unnamed-chunk-124-1.png" width="672" />
+
+OK, so our range of the predicted outcome values appears to be smaller than the real values. 
+We could probably do a bit better.
+
+
+### Quantifying model performance 
+
+Next, let's use different distance functions $d(\cdot)$ to assess how far off our predicted outcome $\hat{Y} = f(X)$ and actual outcome $Y$ values are from each other: 
+
+$$d(Y - \hat{Y})$$
+
+There are entire scholarly fields of research dedicated to identifying different distance metrics $d(\cdot)$ for machine learning applications. However, we will focus on [root mean squared error](https://en.wikipedia.org/wiki/Root-mean-square_deviation){target="_blank"} (`rmse`)   
+
+$$RMSE = \sqrt{\frac{\sum_{i=1}^{n}{(\hat{y_t}- y_t)}^2}{n}}$$
+
+One way to calculate these metrics within the `tidymodels` framework is to use the `yardstick` package using the `metrics()` function. 
+
+
+```r
+yardstick::metrics(wf_fitted_values, 
+                   truth = value, estimate = .fitted)
+```
+
+```
+## # A tibble: 3 x 3
+##   .metric .estimator .estimate
+##   <chr>   <chr>          <dbl>
+## 1 rmse    standard       2.02 
+## 2 rsq     standard       0.431
+## 3 mae     standard       1.49
+```
+
+Alternatively if you only wanted one metric you could use the `mae()`, `rsq()`, or `rmse()` functions, respectively. 
+
+
+```r
+yardstick::rmse(wf_fitted_values, 
+               truth = value, estimate = .fitted)
+```
+
+```
+## # A tibble: 1 x 3
+##   .metric .estimator .estimate
+##   <chr>   <chr>          <dbl>
+## 1 rmse    standard        2.02
+```
+
+### Assessing model performance on $v$-folds using `tune`
+
+We also intend to perform cross validation, so we will now split the training data further using the [`vfold_cv()`](https://tidymodels.github.io/rsample/reference/vfold_cv.html){target="_blank"} function of the `rsample` package can be used to parse the training data into folds for $v$-fold cross validation.
+
+Again, because these are created at random, we need to use the base `set.seed()` function in order to obtain the same results each time we knit this document.  We will create 10 folds.
+
+
+
+```r
+set.seed(1234)
+
+vfold_pm <- rsample::vfold_cv(data = train_pm, v = 10)
+vfold_pm
+```
+
+```
+## #  10-fold cross-validation 
+## # A tibble: 10 x 2
+##    splits           id    
+##    <list>           <chr> 
+##  1 <split [525/59]> Fold01
+##  2 <split [525/59]> Fold02
+##  3 <split [525/59]> Fold03
+##  4 <split [525/59]> Fold04
+##  5 <split [526/58]> Fold05
+##  6 <split [526/58]> Fold06
+##  7 <split [526/58]> Fold07
+##  8 <split [526/58]> Fold08
+##  9 <split [526/58]> Fold09
+## 10 <split [526/58]> Fold10
+```
+
+```r
+pull(vfold_pm, splits)
+```
+
+```
+## [[1]]
+## <Analysis/Assess/Total>
+## <525/59/584>
+## 
+## [[2]]
+## <Analysis/Assess/Total>
+## <525/59/584>
+## 
+## [[3]]
+## <Analysis/Assess/Total>
+## <525/59/584>
+## 
+## [[4]]
+## <Analysis/Assess/Total>
+## <525/59/584>
+## 
+## [[5]]
+## <Analysis/Assess/Total>
+## <526/58/584>
+## 
+## [[6]]
+## <Analysis/Assess/Total>
+## <526/58/584>
+## 
+## [[7]]
+## <Analysis/Assess/Total>
+## <526/58/584>
+## 
+## [[8]]
+## <Analysis/Assess/Total>
+## <526/58/584>
+## 
+## [[9]]
+## <Analysis/Assess/Total>
+## <526/58/584>
+## 
+## [[10]]
+## <Analysis/Assess/Total>
+## <526/58/584>
+```
+
+We can fit the model to our cross validation folds using the `fit_resamples()` function of the `tune` package, by specifying our `workflow` object and the cross validation fold object we just created. 
+See [here](https://tidymodels.github.io/tune/reference/fit_resamples.html){target="_blank"} for more information.
+
+
+```r
+set.seed(122)
+resample_fit <- tune::fit_resamples(PM_wflow, vfold_pm)
+```
+
+```
+## ! Fold01: recipe: the standard deviation is zero, The correlation matrix has missi...
+```
+
+```
+## ! Fold01: model (predictions): There are new levels in a factor: Shelby, Faulkner,...
+```
+
+```
+## ! Fold02: recipe: the standard deviation is zero, The correlation matrix has missi...
+```
+
+```
+## ! Fold02: model (predictions): There are new levels in a factor: White, Nevada, St...
+```
+
+```
+## ! Fold03: recipe: the standard deviation is zero, The correlation matrix has missi...
+```
+
+```
+## ! Fold03: model (predictions): There are new levels in a factor: Houston, Garland,...
+```
+
+```
+## ! Fold04: recipe: the standard deviation is zero, The correlation matrix has missi...
+```
+
+```
+## ! Fold04: model (predictions): There are new levels in a factor: Baldwin, Apache, ...
+```
+
+```
+## ! Fold05: recipe: the standard deviation is zero, The correlation matrix has missi...
+```
+
+```
+## ! Fold05: model (predictions): There are new levels in a factor: Russell, Phillips...
+```
+
+```
+## ! Fold06: recipe: the standard deviation is zero, The correlation matrix has missi...
+```
+
+```
+## ! Fold06: model (predictions): There are new levels in a factor: Crittenden, Monte...
+```
+
+```
+## ! Fold07: recipe: the standard deviation is zero, The correlation matrix has missi...
+```
+
+```
+## ! Fold07: model (predictions): There are new levels in a factor: Arkansas, Sebasti...
+```
+
+```
+## ! Fold08: recipe: the standard deviation is zero, The correlation matrix has missi...
+```
+
+```
+## ! Fold08: model (predictions): There are new levels in a factor: Etowah, Coconino,...
+```
+
+```
+## ! Fold09: recipe: the standard deviation is zero, The correlation matrix has missi...
+```
+
+```
+## ! Fold09: model (predictions): There are new levels in a factor: Tuscaloosa, Cochi...
+```
+
+```
+## ! Fold10: recipe: the standard deviation is zero, The correlation matrix has missi...
+```
+
+```
+## ! Fold10: model (predictions): There are new levels in a factor: Colbert, Walker, ...
+```
+
+We can now take a look at various performance metrics based on the fit of our cross validation "resamples". 
+
+To do this we will use the `collect_metrics` function of the `tune` package. This will show us the mean of the accuracy estimate of the 4 different cross validation folds.
+
+
+```r
+resample_fit
+```
+
+```
+## #  10-fold cross-validation 
+## # A tibble: 10 x 4
+##    splits           id     .metrics         .notes          
+##    <list>           <chr>  <list>           <list>          
+##  1 <split [525/59]> Fold01 <tibble [2 × 3]> <tibble [2 × 1]>
+##  2 <split [525/59]> Fold02 <tibble [2 × 3]> <tibble [2 × 1]>
+##  3 <split [525/59]> Fold03 <tibble [2 × 3]> <tibble [2 × 1]>
+##  4 <split [525/59]> Fold04 <tibble [2 × 3]> <tibble [2 × 1]>
+##  5 <split [526/58]> Fold05 <tibble [2 × 3]> <tibble [2 × 1]>
+##  6 <split [526/58]> Fold06 <tibble [2 × 3]> <tibble [2 × 1]>
+##  7 <split [526/58]> Fold07 <tibble [2 × 3]> <tibble [2 × 1]>
+##  8 <split [526/58]> Fold08 <tibble [2 × 3]> <tibble [2 × 1]>
+##  9 <split [526/58]> Fold09 <tibble [2 × 3]> <tibble [2 × 1]>
+## 10 <split [526/58]> Fold10 <tibble [2 × 3]> <tibble [2 × 1]>
+```
+
+```r
+collect_metrics(resample_fit)
+```
+
+```
+## # A tibble: 2 x 5
+##   .metric .estimator  mean     n std_err
+##   <chr>   <chr>      <dbl> <int>   <dbl>
+## 1 rmse    standard   2.13     10  0.114 
+## 2 rsq     standard   0.370    10  0.0318
+```
+In the previous section, we demonstrated how to build a machine learning model (specifically a linear regression model) to predict air pollution with the `tidymodels` framework. 
+
+In the next few section, we will demonstrate another machine learning model. 
+
+
+## Random Forest
+
+Now, we are going to predict our outcome variable (air pollution) using a decision tree method called [random forest](https://en.wikipedia.org/wiki/Random_forest){target="_blank"}.
+
+In the case of random forest, multiple decision trees are created - hence the name forest, and each tree is built using a random subset of the training data (with replacement) - hence the full name random forest. This random aspect helps to keep the algorithm from overfitting the data.
+
+The mean of the predictions from each of the trees is used in the final output.
+
+In our case, we are going to use the random forest method of the the `randomForest` package. 
+
+This package is currently not compatible with categorical variables that have more than 53 levels. See [here](https://cran.r-project.org/web/packages/randomForest/NEWS) for the documentation about when this was updated from 25 levels. Thus we will to remove the `zcta`  and `county` variables.
+
+Note that the `step_novel()` function is necessary here for `state` to get all cross validation folds to work, because there will be different levels included in each fold test and training sets, thus there are new levels for some of the test sets which will result in an error.  
+
+According to the [documentation](https://www.rdocumentation.org/packages/recipes/versions/0.1.13/topics/step_novel) for the `recipes` package:
+
+> step_novel creates a specification of a recipe step that will assign a previously unseen factor level to a new value.
+
+
+
+```r
+RF_rec <- recipe(train_pm) %>%
+    update_role(everything(), new_role = "predictor")%>%
+    update_role(value, new_role = "outcome")%>%
+    update_role(id, new_role = "id variable") %>%
+    update_role("fips", new_role = "county id") %>%
+    step_novel("state") %>%
+    step_string2factor("state", "county", "city") %>%
+    step_rm("county") %>%
+    step_rm("zcta") %>%
+    step_corr(all_numeric())%>%
+    step_nzv(all_numeric())
+```
+
+The `rand_forest()` function of the `parsnip` package has three important arguments that act as an interface for the different possible engines to perform a random forest analysis:
+
+1. `mtry` - The number of predictor variables (or features) that will be randomly sampled at each split when creating the tree models. The default number for regression analyses is the number of predictors divided by 3. 
+2. `min_n` - The minimum number of data points in a node that are required for the node to be split further.
+3. `trees` - the number of trees in the ensemble
+
+We will start by trying an `mtry` value of 10 and a `min_n` value of 3.
+
+Now that we have our recipe (`RF_rec`), let's specify the model with `rand_forest()` from `parsnip` with the `mode = "regression"` argument to specify our outcome variable (air pollution) is continuous. 
+
+
+```r
+PMtree_model <- 
+  parsnip::rand_forest(mtry = 10, min_n = 3, 
+                       mode = "regression")
+PMtree_model
+```
+
+```
+## Random Forest Model Specification (regression)
+## 
+## Main Arguments:
+##   mtry = 10
+##   min_n = 3
+```
+
+Next, we set the engine and mode:
+
+Note that you could also use the `ranger` or `spark` packages instead of `randomForest`.
+If you were to use the `ranger` package to implement the random forest analysis you would need to specify an `importance` argument to be able to evaluate predictor importance.  The options are `impurity` or `permutation`.
+
+These other packages have different advantages and disadvantages- for example `ranger` and `spark` are not as limiting for the number of categories for categorical variables. For more information see their documentation: [here](https://cran.r-project.org/web/packages/ranger/ranger.pdf) for ranger, [here](http://spark.apache.org/docs/latest/mllib-ensembles.html#random-forests) for `spark`, and [here](https://cran.r-project.org/web/packages/randomForest/randomForest.pdf) for `randomForest`.
+
+See [here](https://parsnip.tidymodels.org/reference/rand_forest.html) for more documentation about implementing these engine options with tidymodels. Note that there are also [other](https://www.linkedin.com/pulse/different-random-forest-packages-r-madhur-modi/) R packages for implementing random forest algorithms, but these three packages (`ranger`, `spark`, and `randomForest`) are currently compatible with `tidymodels`.
+
+
+```r
+RF_PM_model <- 
+  PMtree_model %>%
+  set_engine("randomForest") %>%
+  set_mode("regression")
+
+RF_PM_model
+```
+
+```
+## Random Forest Model Specification (regression)
+## 
+## Main Arguments:
+##   mtry = 10
+##   min_n = 3
+## 
+## Computational engine: randomForest
+```
+
+Then, we put this all together into a `workflow`: 
+
+
+```r
+RF_wflow <- workflows::workflow() %>%
+            workflows::add_recipe(RF_rec) %>%
+            workflows::add_model(RF_PM_model)
+RF_wflow
+```
+
+```
+## ══ Workflow ═════════════════════════════════════════════════════════════════════════════════════════════════════════════
+## Preprocessor: Recipe
+## Model: rand_forest()
+## 
+## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## 6 Recipe Steps
+## 
+## ● step_novel()
+## ● step_string2factor()
+## ● step_rm()
+## ● step_rm()
+## ● step_corr()
+## ● step_nzv()
+## 
+## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## Random Forest Model Specification (regression)
+## 
+## Main Arguments:
+##   mtry = 10
+##   min_n = 3
+## 
+## Computational engine: randomForest
+```
+
+Finally, we fit the data to the model:
+
+
+```r
+RF_wflow_fit <- parsnip::fit(RF_wflow, data = train_pm)
+```
+
+
+```r
+RF_wflow_fit
+```
+
+```
+## ══ Workflow [trained] ═══════════════════════════════════════════════════════════════════════════════════════════════════
+## Preprocessor: Recipe
+## Model: rand_forest()
+## 
+## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## 6 Recipe Steps
+## 
+## ● step_novel()
+## ● step_string2factor()
+## ● step_rm()
+## ● step_rm()
+## ● step_corr()
+## ● step_nzv()
+## 
+## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## 
+## Call:
+##  randomForest(x = as.data.frame(x), y = y, mtry = ~10, nodesize = ~3) 
+##                Type of random forest: regression
+##                      Number of trees: 500
+## No. of variables tried at each split: 10
+## 
+##           Mean of squared residuals: 2.87938
+##                     % Var explained: 60.04
+```
+
+<img src="05-prediction_files/figure-html/unnamed-chunk-136-1.png" width="672" />
+
+Interesting! In the previous model the CMAQ values and the state where the monitor was located were also the top two most important, however predictors about education levels of the communities where the monitor was located was among the top most important. Now we see that population density and proximity to sources of emissions and roads are among the top ten.
+
+
+Now let's take a look at model performance by fitting the data using cross validation:
+
+
+```r
+set.seed(456)
+resample_RF_fit <- tune::fit_resamples(RF_wflow, vfold_pm)
+collect_metrics(resample_RF_fit)
+```
+
+OK, so our first model had a mean `rmse` value of 2.17.
+It looks like the random forest model had  a much lower `rmse` value of 1.72.
+
+
+If we tuned our random forest model based on the number of trees or the value for `mtry` (which is "The number of predictors that will be randomly sampled at each split when creating the tree models"), we might get a model with even better performance.
+
+However, our cross validated mean rmse value of 1.72 is quite good because our range of true outcome values is much larger: (3.496, 22.259).
+
+
+#### Model Tuning
+
+[Hyperparameters](https://en.wikipedia.org/wiki/Hyperparameter_(machine_learning)) are often things that we need to specify about a model. For example, the number of predictor variables (or features) that will be randomly sampled at each split when creating the tree models called `mtry` is a hyperparameter. The default number for regression analyses is the number of predictors divided by 3. Instead of arbitrarily specifying this, we can try to determine the best option for model performance by a process called tuning. 
+
+Now let's try some tuning.
+
+Let's take a closer look at the `mtry` and `min_n` hyperparametrs in our Random Forest model.
+
+We aren't exactly sure what values of `mtry` and `min_n` achieve good accuracy yet keep our model generalizable for other data.
+
+This is when our cross validation methods become really handy because now we can test out different values for each of these hyperparameters to assess what values seem to work best for model performance on these resamples of our training set data.
+
+Previously we specified our model like so:
+
+```r
+RF_PM_model <- 
+  parsnip::rand_forest(mtry = 10, min_n = 3, 
+                       mode = "regression") %>%
+  set_engine("randomForest") %>%
+  set_mode("regression")
+
+RF_PM_model
+```
+
+```
+## Random Forest Model Specification (regression)
+## 
+## Main Arguments:
+##   mtry = 10
+##   min_n = 3
+## 
+## Computational engine: randomForest
+```
+
+Now instead of specifying a value for the `mtry` and `min_n` arguments, we can use the `tune()` function of the `tune` package like so: `mtry = tune()`. This indicates that these hyperparameters are to be tuned. 
+
+
+```r
+tune_RF_model <- rand_forest(mtry = tune(), min_n = tune(),
+                             mode = "regression") %>%
+  set_engine("randomForest") %>%
+  set_mode("regression")
+    
+
+tune_RF_model
+```
+
+```
+## Random Forest Model Specification (regression)
+## 
+## Main Arguments:
+##   mtry = tune()
+##   min_n = tune()
+## 
+## Computational engine: randomForest
+```
+
+Again we will add this to a workflow, the only difference here is that we are using a different model specification with `tune_RF_model` instead of `RF_model`:
+
+
+```r
+RF_tune_wflow <- workflows::workflow() %>%
+            workflows::add_recipe(RF_rec) %>%
+            workflows::add_model(tune_RF_model)
+RF_tune_wflow
+```
+
+```
+## ══ Workflow ═════════════════════════════════════════════════════════════════════════════════════════════════════════════
+## Preprocessor: Recipe
+## Model: rand_forest()
+## 
+## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## 6 Recipe Steps
+## 
+## ● step_novel()
+## ● step_string2factor()
+## ● step_rm()
+## ● step_rm()
+## ● step_corr()
+## ● step_nzv()
+## 
+## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## Random Forest Model Specification (regression)
+## 
+## Main Arguments:
+##   mtry = tune()
+##   min_n = tune()
+## 
+## Computational engine: randomForest
+```
+
+Now we can use the `tune_grid()` function of the `tune` package to evaluate different combinations of values for `mtry` and `min_n` using our cross validation samples of our training set (`vfold_pm`) to see what combination of values performs best.
+
+To use this function we will specify the workflow using the `object` argument  and the samples to use using the `resamples` argument. The `grid` argument specifies how many possible options for each argument should be attempted.
+
+By default 10 different values will be attempted for each hyperparameter that is being tuned.
+
+We can use the `doParallel` package to allow us to fit all these models to our cross validation samples faster. So if you were performing this on a computer with multiple cores or processors, then different models with different hyperparameter values can be fit to the cross validation samples simultaneously across different cores or processors. 
+
+You can see how many cores you have access to on your system using the `detectCores()` function in the `parallel` package. 
+
+
+```r
+parallel::detectCores()
+```
+
+```
+## [1] 8
+```
+
+The `registerDoParallel()` function will use the number for cores specified using the `cores=` arguement, or it will assign it automatically to one-half of the number of cores detected by the `parallel` package. 
+
+We need to use `set.seed()` here because the values chosen for `mtry` and `min_n` may vary if we preform this evaluation again because they are chosen semi-randomly (meaning that they are within a range of reasonable values but still random).
+
+Note: this step will take some time.
+
+Avocado need to make sure like iris classification example...
+
+
+
+```r
+doParallel::registerDoParallel(cores=2)
+set.seed(123)
+tune_RF_results <- tune_grid(object = RF_tune_wflow, resamples = vfold_pm, grid = 20)
+```
+
+```
+## i Creating pre-processing data to finalize unknown parameter: mtry
+```
+
+```r
+reasmple_fit <-tune_grid(iris_cat_wflow_tune, resamples = vfold_iris, grid = 10)
+
+tune_RF_results
+```
+
+```
+## #  10-fold cross-validation 
+## # A tibble: 10 x 4
+##    splits           id     .metrics          .notes          
+##    <list>           <chr>  <list>            <list>          
+##  1 <split [525/59]> Fold01 <tibble [40 × 5]> <tibble [0 × 1]>
+##  2 <split [525/59]> Fold02 <tibble [40 × 5]> <tibble [0 × 1]>
+##  3 <split [525/59]> Fold03 <tibble [40 × 5]> <tibble [0 × 1]>
+##  4 <split [525/59]> Fold04 <tibble [40 × 5]> <tibble [0 × 1]>
+##  5 <split [526/58]> Fold05 <tibble [40 × 5]> <tibble [0 × 1]>
+##  6 <split [526/58]> Fold06 <tibble [40 × 5]> <tibble [1 × 1]>
+##  7 <split [526/58]> Fold07 <tibble [40 × 5]> <tibble [0 × 1]>
+##  8 <split [526/58]> Fold08 <tibble [40 × 5]> <tibble [0 × 1]>
+##  9 <split [526/58]> Fold09 <tibble [40 × 5]> <tibble [0 × 1]>
+## 10 <split [526/58]> Fold10 <tibble [40 × 5]> <tibble [0 × 1]>
+```
+
+See [the tune getting started guide ](https://tidymodels.github.io/tune/articles/getting_started.html){target="_blank"} for more information about implementing this in `tidymodels`.
+
+If you wanted more control over this process you could specify how the different possible options for `mtry` and `min_n` in the `tune_grid()` function using the grid_*()` functions of the `dials` package to create a more specific grid.
+
+Be default the values for the hyperparameters being tuned are chosen semi-randomly (meaning that they are within a range of reasonable values but still random)..
+
+
+Now we can use the `collect_metrics()` function again to take a look at what happened with our cross validation tests. We can see the different values chosen for `mtry` and `min_n` and the mean rmse and rsq values across the cross validation samples.
+
+
+```r
+tune_RF_results%>%
+  collect_metrics()
+```
+
+```
+## # A tibble: 40 x 7
+##     mtry min_n .metric .estimator  mean     n std_err
+##    <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
+##  1     1    27 rmse    standard   2.05     10  0.144 
+##  2     1    27 rsq     standard   0.489    10  0.0377
+##  3     4    30 rmse    standard   1.81     10  0.144 
+##  4     4    30 rsq     standard   0.592    10  0.0393
+##  5     6    32 rmse    standard   1.76     10  0.147 
+##  6     6    32 rsq     standard   0.607    10  0.0408
+##  7     7    18 rmse    standard   1.72     10  0.139 
+##  8     7    18 rsq     standard   0.618    10  0.0391
+##  9     8    23 rmse    standard   1.73     10  0.143 
+## 10     8    23 rsq     standard   0.610    10  0.0377
+## # … with 30 more rows
+```
+
+We can now use the `show_best()` function as it was truly intended, to see what values for `min_n` and `mtry` resulted in the best performance.
+
+
+```r
+show_best(tune_RF_results, metric = "rmse", n =1)
+```
+
+```
+## # A tibble: 1 x 7
+##    mtry min_n .metric .estimator  mean     n std_err
+##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
+## 1    13     7 rmse    standard    1.67    10   0.146
+```
+There we have it... looks like an `mtry` of 17 and `min_n` of 4 had the best `rmse` value. You can verify this in the above output, but it is easier to just pull this row out using this function. We can see that the mean `rmse` value across the cross validation sets was 1.720. Before tuning it was 1.725  with a similar `std_err` so the performance was very slightly improved.
+
+
+#### ## Final model performance evaluation
+
+Now that we have decided that we have reasonable performance with our training data, we can stop building our model and evaluate performance with our testing data. 
+
+Here, we will use the random forest model that we built to predict values for the monitors in the testing data and we will use the values for `mtry` and `min_n` that we just determined based on our tuning analysis to achieve the best performance.
+
+So, first we need to specify these values in a workflow. We can use the `select_best()` function of the `tune` package to grab the values that were determined to be best for `mtry` and `min_n`.
+
+
+
+
+```r
+tuned_RF_values<- select_best(tune_RF_results, "rmse")
+tuned_RF_values
+```
+
+```
+## # A tibble: 1 x 2
+##    mtry min_n
+##   <int> <int>
+## 1    13     7
+```
+
+Now we can finalize the model/workflow that we we used for tuning with these values.
+
+
+
+```r
+RF_tuned_wflow <-RF_tune_wflow %>%
+  tune::finalize_workflow(tuned_RF_values)
+```
+
+
+With the `workflows` package, we can use the splitting information for our original data `pm_split` to fit the final model on the full training set and also on the testing data using the `last_fit()` function of the `tune` package. No pre-processing steps are required.
+
+The results will show the performance using the testing data.
+
+
+
+```r
+overallfit <-tune::last_fit(RF_tuned_wflow, pm_split)
+ # or
+overallfit <-RF_wflow %>%
+  tune::last_fit(pm_split)
+```
+
+The `overallfit` output has a lot of really useful information about how the model, the data test and training split, and the predictions for the testing data.
+
+To see the performance on the test data we can use the `collect_metrics()` function like we did before.
+
+```r
+  collect_metrics(overallfit)
+```
+
+```
+## # A tibble: 2 x 3
+##   .metric .estimator .estimate
+##   <chr>   <chr>          <dbl>
+## 1 rmse    standard       1.44 
+## 2 rsq     standard       0.640
+```
+
+Awesome! We can see that our rmse of 1.44 is quite similar with our testing data cross validation sets. We achieved quite good performance, which suggests that we would could predict other locations with more sparse monitoring based on our predictors with reasonable accuracy.
+
+Now if you wanted to take a look at the predicted values for the test set (the 292 rows with predictions out of the 876 original monitor values) you can use the  `collect_predictions()` function of the `tune()` package:
+
+
+```r
+test_predictions <-collect_predictions(overallfit)
+```
+
+
+```r
+head(test_predictions)
+```
+
+```
+## # A tibble: 6 x 4
+##   id               .pred  .row value
+##   <chr>            <dbl> <int> <dbl>
+## 1 train/test split  11.1     4  11.7
+## 2 train/test split  11.8    10  13.1
+## 3 train/test split  12.1    12  12.2
+## 4 train/test split  11.4    15  12.2
+## 5 train/test split  11.4    19  11.4
+## 6 train/test split  12.1    22  12.2
+```
+
+Nice!
 
 
