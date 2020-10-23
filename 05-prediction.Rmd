@@ -2131,12 +2131,104 @@ We have one CSV file that contains both our single **outcome variable** and all 
 Next, we import our data into R now so that we can explore the data further. 
 We will call our data object `pm` for particulate matter. 
 We import the data using the `read_csv()` function from the `readr` package. 
-```{r, eval = FALSE}
-pm <- readr::read_csv(here("docs", "pm25_data.csv"))
+```{r}
+library(here)
+pm <- readr::read_csv(here("data","tidy_data","pm25_data.csv"))
 ```
 
+#### Data Exploration and Wrangling
+
+First, let's just get a general sense of our data. 
+
+```{r}
+library(dplyr)
+pm %>%
+  glimpse()
+```
+
+We can see that there are 876 monitors (rows) and that we have 50 total variables (columns) - one of which is the outcome variable. In this case, the outcome variable is called `value`. 
+
+Notice that some of the variables that we would think of as factors (or categorical data) are currently of class character as indicated by the `<chr>` just to the right of the column names/variable names in the `glimpse()` output. This means that the variable values are character strings, such as words or phrases. 
+
+The other variables are of class `<dbl>`, which stands for double precision which indicates that the are numeric and that they have decimal values. In contrast, one could have integer values which would not allow for decimal numbers. Here is a [link](https://en.wikipedia.org/wiki/Double-precision_floating-point_format){target="_blank"} for more information on double precision numeric values.
+
+Another common data class is factor which is abbreviated like this: `<fct>`. A factor is something that has unique levels but there is no appreciable order to the levels. For example we can have a numeric value that is just an id that we want to be interpreted as just a unique level and not as the number that it would typically indicate. This would be useful for several of our variables:
+
+1. the monitor ID (`id`)
+2. the Federal Information Processing Standard number for the county where the monitor was located (`fips`)
+3. the zip code tabulation area (`zcta`)
+
+None of the values actually have any real numeric meaning, so we want to make sure that R does not interpret them as if they do. 
+
+So let's convert these variables into factors. 
+We can do this using the `across()` function of the `dplyr` package and the `as.factor()` base function. 
+The `across()` function has two main arguments: (i) the columns you want to operate on and (ii) the function or list of functions to apply to each column. 
 
 
+```{r}
+library(magrittr)
+pm <-pm %>%
+  mutate(across(c(id, fips, zcta), as.factor)) 
 
+glimpse(pm)
+```
+
+Great! Now we can see that these variables are now factors as indicated by `<fct>` after the variable name.
+
+The `skim()` function of the `skimr` package is also really helpful for getting a general sense of your data.
+By design, it provides summary statistics about variables in the data set. 
+
+```{r}
+library(skimr)
+skim(pm)
+```
+
+Notice how there is a column called `n_missing` about the number of values that are missing. 
+
+This is also indicated by the `complete_rate` variable (or missing/number of observations). 
+
+In our data set, it looks like our data do not contain any missing data. 
+
+Also notice how the function provides separate tables of summary statistics for each data type: character, factor and numeric. 
+
+Next, the `n_unqiue` column shows us the number of unique values for each of our columns. 
+We can see that there are 49 states represented in the data.
+
+We can see that for many variables there are many low values as the distribution shows two peaks, one near zero and another with a higher value. 
+
+This is true for the `imp` variables (measures of development), the `nei` variables (measures of emission sources) and the road density variables. 
+
+We can also see that the range of some of the variables is very large, in particular the area and population related variables.
+
+
+Let's take a look to see which states are included using the `distinct()` function of the `dplyr` package:
+
+
+```{r}
+pm %>% 
+  distinct(state) 
+```
+
+#### Evaluate correlation
+
+In prediction analyses, it is also useful to evaluate if any of the variables are correlated. Why should we care about this?
+
+If we are using a linear regression to model our data then we might run into a problem called multicolinearity which can lead us to misinterpret what is really predictive of our outcome variable. This phenomenon occurs when the predictor variables actually predict one another. 
+
+Another reason we should look out for correlation is that we don't want to include redundant variables. This can add unnecessary noise to our algorithm causing a reduction in prediction accuracy and it can cause our algorithm to be unnecessarily slower. Finally, it can also make it difficult to interpret what variables are actually predictive.
+
+
+Intuitively we can expect some of our variables to be correlated.
+
+The `corrplot` package is another option to look at correlation among possible predictors, and particularly useful if we have many predictors. 
+
+First, we calculate the Pearson correlation coefficients between all features pairwise using the `cor()` function of the `stats` package (which is loaded automatically). Then we use the `corrplot::corrplot()` function.  First we need to select only the numeric variables using `dplyr`.
+
+```{r}
+# install.packages("corrplot")
+library(corrplot)
+PM_cor <- cor(pm %>% dplyr::select_if(is.numeric))
+corrplot::corrplot(PM_cor, tl.cex = 0.5)
+```
 
 
