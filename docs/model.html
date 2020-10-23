@@ -420,7 +420,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.13" data-path="model.html"><a href="model.html#case-studies-4"><i class="fa fa-check"></i><b>5.13</b> Case Studies</a><ul>
 <li class="chapter" data-level="5.13.1" data-path="model.html"><a href="model.html#case-study-1-predicting-annual-air-pollution"><i class="fa fa-check"></i><b>5.13.1</b> Case Study #1: Predicting Annual Air Pollution</a></li>
 </ul></li>
-<li class="chapter" data-level="5.14" data-path="model.html"><a href="model.html#assessing-the-model-fit"><i class="fa fa-check"></i><b>5.14</b> Assessing the model fit</a></li>
+<li class="chapter" data-level="5.14" data-path="model.html"><a href="model.html#assessing-the-model-fit"><i class="fa fa-check"></i><b>5.14</b> Assessing the model fit</a><ul>
+<li class="chapter" data-level="5.14.1" data-path="model.html"><a href="model.html#quantifying-model-performance"><i class="fa fa-check"></i><b>5.14.1</b> Quantifying model performance</a></li>
+<li class="chapter" data-level="5.14.2" data-path="model.html"><a href="model.html#assessing-model-performance-on-v-folds-using-tune"><i class="fa fa-check"></i><b>5.14.2</b> Assessing model performance on <span class="math inline">\(v\)</span>-folds using <code>tune</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.15" data-path="model.html"><a href="model.html#random-forest"><i class="fa fa-check"></i><b>5.15</b> Random Forest</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
 <li class="divider"></li>
@@ -1551,7 +1555,7 @@ We again expected that it did. Thus we had a statement that &quot; car mileage c
 <p>We can use the <code>formula()</code> function of the stats package to see how we have assigned our variables in formula notation.</p>
 <div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1"><span class="kw">formula</span>(first_recipe)</a></code></pre></div>
 <pre><code>## Sepal.Length ~ Sepal.Width + Species
-## &lt;environment: 0x7fadd9960900&gt;</code></pre>
+## &lt;environment: 0x7fab128c50a0&gt;</code></pre>
 <p>We can also view our recipe in more detail using the base summary() function.</p>
 <div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1"><span class="kw">summary</span>(first_recipe)</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 4
@@ -2131,29 +2135,19 @@ See <a href="https://tidymodels.github.io/tune/reference/fit_resamples.html" tar
 <a class="sourceLine" id="cb167-2" data-line-number="2"><span class="st">                      </span>workflows<span class="op">::</span><span class="kw">add_recipe</span>(cat_recipe) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb167-3" data-line-number="3"><span class="st">                      </span>workflows<span class="op">::</span><span class="kw">add_model</span>(cat_model_tune)</a></code></pre></div>
 <p>We can use the <code>tune_grid()</code> function of the <code>tune()</code> package to use the workflow and fit the <code>vfold_iris</code> cross validation samples of our training data to test out a number of different values for the <code>min_n</code> argument for our model. The <code>grid()</code> argument specifies how many different values to try out.</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" data-line-number="1">reasmple_fit &lt;-<span class="kw">tune_grid</span>(iris_cat_wflow_tune, <span class="dt">resamples =</span> vfold_iris, <span class="dt">grid =</span> <span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" data-line-number="1">reasmple_fit &lt;-<span class="kw">tune_grid</span>(iris_cat_wflow_tune, <span class="dt">resamples =</span> vfold_iris, <span class="dt">grid =</span> <span class="dv">4</span>)</a></code></pre></div>
 <p>Again we can use the <code>collect_netrics()</code> function to get the accuracy for each of the tested <code>min_n</code> values. Or, we can use the <code>show_best()</code> function of the <code>tune</code> package to see the <code>min_n</code> values for the top performing models (those with the highest accuracy).</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" data-line-number="1">resample_fit&lt;-iris_cat_wflow_tune <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tune_grid</span>(<span class="dt">resamples =</span> vfold_iris, <span class="dt">grid =</span> <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb169-2" data-line-number="2">tune<span class="op">::</span><span class="kw">collect_metrics</span>(resample_fit)</a></code></pre></div>
-<pre><code>## # A tibble: 8 x 6
-##   min_n .metric  .estimator  mean     n std_err
-##   &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
-## 1    11 accuracy multiclass 0.94      4  0.0258
-## 2    11 roc_auc  hand_till  0.961     4  0.0172
-## 3    18 accuracy multiclass 0.94      4  0.0258
-## 4    18 roc_auc  hand_till  0.961     4  0.0172
-## 5    25 accuracy multiclass 0.94      4  0.0258
-## 6    25 roc_auc  hand_till  0.961     4  0.0172
-## 7    31 accuracy multiclass 0.94      4  0.0258
-## 8    31 roc_auc  hand_till  0.961     4  0.0172</code></pre>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" data-line-number="1">tune<span class="op">::</span><span class="kw">collect_metrics</span>(resample_fit)</a></code></pre></div>
+<pre><code>## # A tibble: 2 x 5
+##   .metric  .estimator  mean     n std_err
+##   &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
+## 1 accuracy multiclass 0.94      4  0.0258
+## 2 roc_auc  hand_till  0.961     4  0.0172</code></pre>
 <div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" data-line-number="1">tune<span class="op">::</span><span class="kw">show_best</span>(resample_fit, <span class="dt">metric =</span> <span class="st">&quot;accuracy&quot;</span>)</a></code></pre></div>
-<pre><code>## # A tibble: 4 x 6
-##   min_n .metric  .estimator  mean     n std_err
-##   &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
-## 1    11 accuracy multiclass  0.94     4  0.0258
-## 2    18 accuracy multiclass  0.94     4  0.0258
-## 3    25 accuracy multiclass  0.94     4  0.0258
-## 4    31 accuracy multiclass  0.94     4  0.0258</code></pre>
+<pre><code>## # A tibble: 1 x 5
+##   .metric  .estimator  mean     n std_err
+##   &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
+## 1 accuracy multiclass  0.94     4  0.0258</code></pre>
 </div>
 </div>
 </div>
@@ -3342,65 +3336,6 @@ We also see that the road density variables seem to be correlated with each othe
 <p>To extract the testing and training data we can use the <code>training()</code> and <code>testing()</code> functions also of the <code>rsample</code> package.</p>
 <div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" data-line-number="1">train_pm &lt;-rsample<span class="op">::</span><span class="kw">training</span>(pm_split)</a>
 <a class="sourceLine" id="cb194-2" data-line-number="2">test_pm &lt;-rsample<span class="op">::</span><span class="kw">testing</span>(pm_split)</a></code></pre></div>
-<p>We also intend to perform cross validation, so we will now split the training data further using the <a href="https://tidymodels.github.io/rsample/reference/vfold_cv.html" target="_blank"><code>vfold_cv()</code></a> function of the <code>rsample</code> package can be used to parse the training data into folds for <span class="math inline">\(v\)</span>-fold cross validation.</p>
-<p>Again, because these are created at random, we need to use the base <code>set.seed()</code> function in order to obtain the same results each time we knit this document. We will create 10 folds.</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">1234</span>)</a>
-<a class="sourceLine" id="cb195-2" data-line-number="2">vfold_pm &lt;-<span class="st"> </span>rsample<span class="op">::</span><span class="kw">vfold_cv</span>(<span class="dt">data =</span> train_pm, <span class="dt">v =</span> <span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb195-3" data-line-number="3">vfold_pm</a></code></pre></div>
-<pre><code>## #  10-fold cross-validation 
-## # A tibble: 10 x 2
-##    splits           id    
-##    &lt;list&gt;           &lt;chr&gt; 
-##  1 &lt;split [525/59]&gt; Fold01
-##  2 &lt;split [525/59]&gt; Fold02
-##  3 &lt;split [525/59]&gt; Fold03
-##  4 &lt;split [525/59]&gt; Fold04
-##  5 &lt;split [526/58]&gt; Fold05
-##  6 &lt;split [526/58]&gt; Fold06
-##  7 &lt;split [526/58]&gt; Fold07
-##  8 &lt;split [526/58]&gt; Fold08
-##  9 &lt;split [526/58]&gt; Fold09
-## 10 &lt;split [526/58]&gt; Fold10</code></pre>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" data-line-number="1"><span class="kw">pull</span>(vfold_pm, splits)</a></code></pre></div>
-<pre><code>## [[1]]
-## &lt;Analysis/Assess/Total&gt;
-## &lt;525/59/584&gt;
-## 
-## [[2]]
-## &lt;Analysis/Assess/Total&gt;
-## &lt;525/59/584&gt;
-## 
-## [[3]]
-## &lt;Analysis/Assess/Total&gt;
-## &lt;525/59/584&gt;
-## 
-## [[4]]
-## &lt;Analysis/Assess/Total&gt;
-## &lt;525/59/584&gt;
-## 
-## [[5]]
-## &lt;Analysis/Assess/Total&gt;
-## &lt;526/58/584&gt;
-## 
-## [[6]]
-## &lt;Analysis/Assess/Total&gt;
-## &lt;526/58/584&gt;
-## 
-## [[7]]
-## &lt;Analysis/Assess/Total&gt;
-## &lt;526/58/584&gt;
-## 
-## [[8]]
-## &lt;Analysis/Assess/Total&gt;
-## &lt;526/58/584&gt;
-## 
-## [[9]]
-## &lt;Analysis/Assess/Total&gt;
-## &lt;526/58/584&gt;
-## 
-## [[10]]
-## &lt;Analysis/Assess/Total&gt;
-## &lt;526/58/584&gt;</code></pre>
 <p>Great!</p>
 <p>Now let’s make a recipe!</p>
 </div>
@@ -3414,8 +3349,8 @@ Since this number is arbitrary and the county information is also given in the d
 However, it is useful to keep this data to take a look at what is happening later.
 We will show you what to do in this case in just a bit.</p>
 <p>In the simplest case, we might use all predictors like this:</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" data-line-number="1"><span class="co">#install.packages(tidymodels)</span></a>
-<a class="sourceLine" id="cb199-2" data-line-number="2"><span class="kw">library</span>(tidymodels)</a></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" data-line-number="1"><span class="co">#install.packages(tidymodels)</span></a>
+<a class="sourceLine" id="cb195-2" data-line-number="2"><span class="kw">library</span>(tidymodels)</a></code></pre></div>
 <pre><code>## ── Attaching packages ─────────────────────────────────────────────────────────────────────────────── tidymodels 0.1.0 ──</code></pre>
 <pre><code>## ✓ dials     0.0.7     ✓ yardstick 0.0.6</code></pre>
 <pre><code>## ── Conflicts ────────────────────────────────────────────────────────────────────────────────── tidymodels_conflicts() ──
@@ -3430,10 +3365,10 @@ We will show you what to do in this case in just a bit.</p>
 ## x magrittr::set_names() masks purrr::set_names()
 ## x yardstick::spec()     masks readr::spec()
 ## x recipes::step()       masks stats::step()</code></pre>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" data-line-number="1">simple_rec &lt;-<span class="st"> </span>train_pm <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb203-2" data-line-number="2"><span class="st">  </span>recipes<span class="op">::</span><span class="kw">recipe</span>(value <span class="op">~</span><span class="st"> </span>.)</a>
-<a class="sourceLine" id="cb203-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb203-4" data-line-number="4">simple_rec</a></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" data-line-number="1">simple_rec &lt;-<span class="st"> </span>train_pm <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb199-2" data-line-number="2"><span class="st">  </span>recipes<span class="op">::</span><span class="kw">recipe</span>(value <span class="op">~</span><span class="st"> </span>.)</a>
+<a class="sourceLine" id="cb199-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb199-4" data-line-number="4">simple_rec</a></code></pre></div>
 <pre><code>## Data Recipe
 ## 
 ## Inputs:
@@ -3443,11 +3378,11 @@ We will show you what to do in this case in just a bit.</p>
 ##  predictor         49</code></pre>
 <p>Now, let’s get back to the <code>id</code> variable.
 Instead of including it as a predictor variable, we could also use the <code>update_role()</code> function of the <code>recipes</code> package.</p>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb205-1" data-line-number="1">simple_rec &lt;-<span class="st"> </span>train_pm <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb205-2" data-line-number="2"><span class="st">  </span>recipes<span class="op">::</span><span class="kw">recipe</span>(value <span class="op">~</span><span class="st"> </span>.) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb205-3" data-line-number="3"><span class="st">  </span>recipes<span class="op">::</span><span class="kw">update_role</span>(id, <span class="dt">new_role =</span> <span class="st">&quot;id variable&quot;</span>)</a>
-<a class="sourceLine" id="cb205-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb205-5" data-line-number="5">simple_rec</a></code></pre></div>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" data-line-number="1">simple_rec &lt;-<span class="st"> </span>train_pm <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb201-2" data-line-number="2"><span class="st">  </span>recipes<span class="op">::</span><span class="kw">recipe</span>(value <span class="op">~</span><span class="st"> </span>.) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb201-3" data-line-number="3"><span class="st">  </span>recipes<span class="op">::</span><span class="kw">update_role</span>(id, <span class="dt">new_role =</span> <span class="st">&quot;id variable&quot;</span>)</a>
+<a class="sourceLine" id="cb201-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb201-5" data-line-number="5">simple_rec</a></code></pre></div>
 <pre><code>## Data Recipe
 ## 
 ## Inputs:
@@ -3457,7 +3392,7 @@ Instead of including it as a predictor variable, we could also use the <code>upd
 ##      outcome          1
 ##    predictor         48</code></pre>
 <p>If we want to take a look at our formula from our recipe, we can do use the <code>formula()</code> function of the <code>stats</code> package.</p>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb207-1" data-line-number="1"><span class="kw">formula</span>(simple_rec)</a></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" data-line-number="1"><span class="kw">formula</span>(simple_rec)</a></code></pre></div>
 <pre><code>## value ~ fips + lat + lon + state + county + city + CMAQ + zcta + 
 ##     zcta_area + zcta_pop + imp_a500 + imp_a1000 + imp_a5000 + 
 ##     imp_a10000 + imp_a15000 + county_area + county_pop + log_dist_to_prisec + 
@@ -3470,7 +3405,7 @@ Instead of including it as a predictor variable, we could also use the <code>upd
 ##     popdens_county + popdens_zcta + nohs + somehs + hs + somecollege + 
 ##     associate + bachelor + grad + pov + hs_orless + urc2013 + 
 ##     urc2006 + aod
-## &lt;environment: 0x7fadf236b5b8&gt;</code></pre>
+## &lt;environment: 0x7fab17ae1d40&gt;</code></pre>
 <p><strong>This <a href="https://tidymodels.github.io/recipes/reference/index.html" target="_blank">link</a> and this <a href="https://cran.r-project.org/web/packages/recipes/recipes.pdf" target="_blank">link</a> show the many options for recipe step functions.</strong></p>
 <p><u>There are step functions for a variety of purposes:</u></p>
 <ol style="list-style-type: decimal">
@@ -3500,8 +3435,8 @@ Instead of including it as a predictor variable, we could also use the <code>upd
 <p>We want to dummy encode our categorical variables so that they are numeric as we plan to use a linear regression for our model.</p>
 <p>We will use the one hot encoding means that we do not simply encode our categorical variables numerically, as our numeric assignments can be interpreted by algorithms as having a particular rank or order.
 Instead, binary variables made of 1s and 0s are used to arbitrarily assign a numeric value that has no apparent order.</p>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb209-1" data-line-number="1">simple_rec <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb209-2" data-line-number="2"><span class="st">  </span><span class="kw">step_dummy</span>(state, county, city, zcta, <span class="dt">one_hot =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb205-1" data-line-number="1">simple_rec <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb205-2" data-line-number="2"><span class="st">  </span><span class="kw">step_dummy</span>(state, county, city, zcta, <span class="dt">one_hot =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## Data Recipe
 ## 
 ## Inputs:
@@ -3518,8 +3453,8 @@ Instead, binary variables made of 1s and 0s are used to arbitrarily assign a num
 Since we already have county, we will just use it and keep the <code>fips</code> ID as another ID variable.</p>
 <p>We can remove the <code>fips</code> variable from the predictors using <code>update_role()</code> to make sure that the role is no longer <code>&quot;predictor&quot;</code>.</p>
 <p>We can make the role anything we want actually, so we will keep it something identifiable.</p>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb211-1" data-line-number="1">simple_rec <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb211-2" data-line-number="2"><span class="st">  </span><span class="kw">update_role</span>(<span class="st">&quot;fips&quot;</span>, <span class="dt">new_role =</span> <span class="st">&quot;county id&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb207-1" data-line-number="1">simple_rec <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb207-2" data-line-number="2"><span class="st">  </span><span class="kw">update_role</span>(<span class="st">&quot;fips&quot;</span>, <span class="dt">new_role =</span> <span class="st">&quot;county id&quot;</span>)</a></code></pre></div>
 <pre><code>## Data Recipe
 ## 
 ## Inputs:
@@ -3532,8 +3467,8 @@ Since we already have county, we will just use it and keep the <code>fips</code>
 <p>We also want to remove variables that appear to be redundant and are highly correlated with others, as we know from our exploratory data analysis that many of our variables are correlated with one another.
 We can do this using the <code>step_corr()</code> function.</p>
 <p>We don’t want to remove some of our variables, like the <code>CMAQ</code> and <code>aod</code> variables, we can specify this using the <code>-</code> sign before the names of these variables like so:</p>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb213-1" data-line-number="1">simple_rec <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb213-2" data-line-number="2"><span class="st">  </span><span class="kw">step_corr</span>(<span class="kw">all_predictors</span>(), <span class="op">-</span><span class="st"> </span>CMAQ, <span class="op">-</span><span class="st"> </span>aod)</a></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb209-1" data-line-number="1">simple_rec <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb209-2" data-line-number="2"><span class="st">  </span><span class="kw">step_corr</span>(<span class="kw">all_predictors</span>(), <span class="op">-</span><span class="st"> </span>CMAQ, <span class="op">-</span><span class="st"> </span>aod)</a></code></pre></div>
 <pre><code>## Data Recipe
 ## 
 ## Inputs:
@@ -3548,8 +3483,8 @@ We can do this using the <code>step_corr()</code> function.</p>
 ## Correlation filter on all_predictors, -, CMAQ, -, aod</code></pre>
 <p>It is also a good idea to remove variables with near-zero variance, which can be done with the <code>step_nzv()</code> function.</p>
 <p>Variables have low variance if all the values are very similar, the values are very sparse, or if they are highly imbalanced. Again we don’t want to remove our <code>CMAQ</code> and <code>aod</code> variables.</p>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb215-1" data-line-number="1">simple_rec <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb215-2" data-line-number="2"><span class="st">  </span><span class="kw">step_nzv</span>(<span class="kw">all_predictors</span>(), <span class="op">-</span><span class="st"> </span>CMAQ, <span class="op">-</span><span class="st"> </span>aod)</a></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb211-1" data-line-number="1">simple_rec <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb211-2" data-line-number="2"><span class="st">  </span><span class="kw">step_nzv</span>(<span class="kw">all_predictors</span>(), <span class="op">-</span><span class="st"> </span>CMAQ, <span class="op">-</span><span class="st"> </span>aod)</a></code></pre></div>
 <pre><code>## Data Recipe
 ## 
 ## Inputs:
@@ -3567,15 +3502,15 @@ We can do this using the <code>step_corr()</code> function.</p>
 <p>First, we are going to create numeric values for our categorical variables, then we will look at correlation and near-zero variance.
 Again, we do not want to remove the <code>CMAQ</code> and <code>aod</code> variables, so we can make sure they are kept in the model by excluding them from those steps.
 If we specifically wanted to remove a predictor we could use <code>step_rm()</code>.</p>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb217-1" data-line-number="1">simple_rec &lt;-<span class="st"> </span>train_pm <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb217-2" data-line-number="2"><span class="st">  </span>recipes<span class="op">::</span><span class="kw">recipe</span>(value <span class="op">~</span><span class="st"> </span>.) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb217-3" data-line-number="3"><span class="st">  </span>recipes<span class="op">::</span><span class="kw">update_role</span>(id, <span class="dt">new_role =</span> <span class="st">&quot;id variable&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb217-4" data-line-number="4"><span class="st">  </span><span class="kw">update_role</span>(<span class="st">&quot;fips&quot;</span>, <span class="dt">new_role =</span> <span class="st">&quot;county id&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb217-5" data-line-number="5"><span class="st">  </span><span class="kw">step_dummy</span>(state, county, city, zcta, <span class="dt">one_hot =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb217-6" data-line-number="6"><span class="st">  </span><span class="kw">step_corr</span>(<span class="kw">all_predictors</span>(), <span class="op">-</span><span class="st"> </span>CMAQ, <span class="op">-</span><span class="st"> </span>aod)<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb217-7" data-line-number="7"><span class="st">  </span><span class="kw">step_nzv</span>(<span class="kw">all_predictors</span>(), <span class="op">-</span><span class="st"> </span>CMAQ, <span class="op">-</span><span class="st"> </span>aod)</a>
-<a class="sourceLine" id="cb217-8" data-line-number="8">  </a>
-<a class="sourceLine" id="cb217-9" data-line-number="9">simple_rec</a></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb213-1" data-line-number="1">simple_rec &lt;-<span class="st"> </span>train_pm <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb213-2" data-line-number="2"><span class="st">  </span>recipes<span class="op">::</span><span class="kw">recipe</span>(value <span class="op">~</span><span class="st"> </span>.) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb213-3" data-line-number="3"><span class="st">  </span>recipes<span class="op">::</span><span class="kw">update_role</span>(id, <span class="dt">new_role =</span> <span class="st">&quot;id variable&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb213-4" data-line-number="4"><span class="st">  </span><span class="kw">update_role</span>(<span class="st">&quot;fips&quot;</span>, <span class="dt">new_role =</span> <span class="st">&quot;county id&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb213-5" data-line-number="5"><span class="st">  </span><span class="kw">step_dummy</span>(state, county, city, zcta, <span class="dt">one_hot =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb213-6" data-line-number="6"><span class="st">  </span><span class="kw">step_corr</span>(<span class="kw">all_predictors</span>(), <span class="op">-</span><span class="st"> </span>CMAQ, <span class="op">-</span><span class="st"> </span>aod)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb213-7" data-line-number="7"><span class="st">  </span><span class="kw">step_nzv</span>(<span class="kw">all_predictors</span>(), <span class="op">-</span><span class="st"> </span>CMAQ, <span class="op">-</span><span class="st"> </span>aod)</a>
+<a class="sourceLine" id="cb213-8" data-line-number="8">  </a>
+<a class="sourceLine" id="cb213-9" data-line-number="9">simple_rec</a></code></pre></div>
 <pre><code>## Data Recipe
 ## 
 ## Inputs:
@@ -3596,7 +3531,7 @@ If we specifically wanted to remove a predictor we could use <code>step_rm()</co
 <div id="running-pre-processing" class="section level4">
 <h4><span class="header-section-number">5.13.1.7</span> Running pre-processing</h4>
 <p>First we need to use the <code>prep()</code> function of the <code>recipes</code> package to prepare for pre-processing. However, we will specify that we also want to run and retain the pre-processing for the training data using the <code>retain = TRUE</code> argument.</p>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" data-line-number="1">prepped_rec &lt;-<span class="st"> </span><span class="kw">prep</span>(simple_rec, <span class="dt">verbose =</span> <span class="ot">TRUE</span>, <span class="dt">retain =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb215-1" data-line-number="1">prepped_rec &lt;-<span class="st"> </span><span class="kw">prep</span>(simple_rec, <span class="dt">verbose =</span> <span class="ot">TRUE</span>, <span class="dt">retain =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## oper 1 step dummy [training] 
 ## oper 2 step corr [training]</code></pre>
 <pre><code>## Warning in cor(x, use = use, method = method): the standard deviation is zero</code></pre>
@@ -3604,13 +3539,13 @@ If we specifically wanted to remove a predictor we could use <code>step_rm()</co
 ## from the filter.</code></pre>
 <pre><code>## oper 3 step nzv [training] 
 ## The retained training set is ~ 0.26 Mb  in memory.</code></pre>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" data-line-number="1"><span class="kw">names</span>(prepped_rec)</a></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" data-line-number="1"><span class="kw">names</span>(prepped_rec)</a></code></pre></div>
 <pre><code>## [1] &quot;var_info&quot;       &quot;term_info&quot;      &quot;steps&quot;          &quot;template&quot;      
 ## [5] &quot;levels&quot;         &quot;retained&quot;       &quot;tr_info&quot;        &quot;orig_lvls&quot;     
 ## [9] &quot;last_term_info&quot;</code></pre>
 <p>Since we retained our pre-processed training data (i.e. <code>prep(retain=TRUE)</code>), we can take a look at it like by using the <code>juice()</code> function of the <code>recipes</code> package like this:</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" data-line-number="1">juiced_train &lt;-<span class="st"> </span><span class="kw">juice</span>(prepped_rec)</a>
-<a class="sourceLine" id="cb226-2" data-line-number="2"><span class="kw">glimpse</span>(juiced_train)</a></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" data-line-number="1">juiced_train &lt;-<span class="st"> </span><span class="kw">juice</span>(prepped_rec)</a>
+<a class="sourceLine" id="cb222-2" data-line-number="2"><span class="kw">glimpse</span>(juiced_train)</a></code></pre></div>
 <pre><code>## Rows: 584
 ## Columns: 36
 ## $ id                          &lt;fct&gt; 1003.001, 1027.0001, 1033.1002, 1055.001,…
@@ -3650,7 +3585,7 @@ If we specifically wanted to remove a predictor we could use <code>step_rm()</co
 ## $ state_California            &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
 ## $ city_Not.in.a.city          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0,…</code></pre>
 <p>For easy comparison sake - here is our original data:</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" data-line-number="1"><span class="kw">glimpse</span>(pm)</a></code></pre></div>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" data-line-number="1"><span class="kw">glimpse</span>(pm)</a></code></pre></div>
 <pre><code>## Rows: 876
 ## Columns: 50
 ## $ id                          &lt;fct&gt; 1003.001, 1027.0001, 1033.1002, 1049.1003…
@@ -3717,7 +3652,7 @@ We can also see that there were more monitors listed as <code>&quot;Not in a cit
 For example: it applies the centering to new data sets using these means used to create the recipe</p>
 </blockquote>
 <p>Therefore, if you wanted to look at the pre-processed testing data you would use the <code>bake()</code> function of the <code>recipes</code> package.</p>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" data-line-number="1">baked_test_pm &lt;-<span class="st"> </span>recipes<span class="op">::</span><span class="kw">bake</span>(prepped_rec, <span class="dt">new_data =</span> test_pm)</a></code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" data-line-number="1">baked_test_pm &lt;-<span class="st"> </span>recipes<span class="op">::</span><span class="kw">bake</span>(prepped_rec, <span class="dt">new_data =</span> test_pm)</a></code></pre></div>
 <pre><code>## Warning: There are new levels in a factor: Maine</code></pre>
 <pre><code>## Warning: There are new levels in a factor: Morgan, Talladega, Yavapai, Yuma,
 ## Ashley, Alameda, Colusa, Kings, Placer, Riverside, Sutter, Yolo, Pueblo, New
@@ -3762,7 +3697,7 @@ For example: it applies the centering to new data sets using these means used to
 ## Arlington, Groveton, McLean, East Highland Park, Hampton, Lynchburg, Vancouver,
 ## Darrington, Marysville, Huntington, Clarksburg, Morgantown, Wheeling, Madison,
 ## Potosi, Cody</code></pre>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" data-line-number="1"><span class="kw">glimpse</span>(baked_test_pm)</a></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" data-line-number="1"><span class="kw">glimpse</span>(baked_test_pm)</a></code></pre></div>
 <pre><code>## Rows: 292
 ## Columns: 36
 ## $ id                          &lt;fct&gt; 1049.1003, 1073.101, 1073.2006, 1089.0014…
@@ -3806,21 +3741,21 @@ Why might that be?</p>
 <p>Ah! Perhaps it is because some of our levels were not previously seen in the training set!</p>
 <p>Let’s take a look using the <a href="https://www.probabilitycourse.com/chapter1/1_2_2_set_operations.php" target="_blank">set operations</a> of the <code>dplyr</code> package.
 We can take a look at cities that were different between the test and training set.</p>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" data-line-number="1">traincities &lt;-<span class="st"> </span>train_pm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>(city)</a>
-<a class="sourceLine" id="cb236-2" data-line-number="2">testcities &lt;-<span class="st"> </span>test_pm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>(city)</a>
-<a class="sourceLine" id="cb236-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb236-4" data-line-number="4"><span class="co">#get the number of cities that were different</span></a>
-<a class="sourceLine" id="cb236-5" data-line-number="5"><span class="kw">dim</span>(dplyr<span class="op">::</span><span class="kw">setdiff</span>(traincities, testcities))</a></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" data-line-number="1">traincities &lt;-<span class="st"> </span>train_pm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>(city)</a>
+<a class="sourceLine" id="cb232-2" data-line-number="2">testcities &lt;-<span class="st"> </span>test_pm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>(city)</a>
+<a class="sourceLine" id="cb232-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb232-4" data-line-number="4"><span class="co">#get the number of cities that were different</span></a>
+<a class="sourceLine" id="cb232-5" data-line-number="5"><span class="kw">dim</span>(dplyr<span class="op">::</span><span class="kw">setdiff</span>(traincities, testcities))</a></code></pre></div>
 <pre><code>## [1] 376   1</code></pre>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" data-line-number="1"><span class="co">#get the number of cities that overlapped</span></a>
-<a class="sourceLine" id="cb238-2" data-line-number="2"><span class="kw">dim</span>(dplyr<span class="op">::</span><span class="kw">intersect</span>(traincities, testcities))</a></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" data-line-number="1"><span class="co">#get the number of cities that overlapped</span></a>
+<a class="sourceLine" id="cb234-2" data-line-number="2"><span class="kw">dim</span>(dplyr<span class="op">::</span><span class="kw">intersect</span>(traincities, testcities))</a></code></pre></div>
 <pre><code>## [1] 51  1</code></pre>
 <p>Indeed, there are lots of different cities in our test data that are not in our training data!</p>
 <p>So, let go back to our <code>pm</code> data set and modify the <code>city</code> variable to just be values of <code>in a city</code> or <code>not in a city</code> using the <code>case_when()</code> function of <code>dplyr</code>.
 This function allows you to vectorize multiple <code>if_else()</code> statements.</p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" data-line-number="1">pm <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb240-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">city =</span> <span class="kw">case_when</span>(city <span class="op">==</span><span class="st"> &quot;Not in a city&quot;</span> <span class="op">~</span><span class="st"> &quot;Not in a city&quot;</span>,</a>
-<a class="sourceLine" id="cb240-3" data-line-number="3">                          city <span class="op">!=</span><span class="st"> &quot;Not in a city&quot;</span> <span class="op">~</span><span class="st"> &quot;In a city&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" data-line-number="1">pm <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb236-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">city =</span> <span class="kw">case_when</span>(city <span class="op">==</span><span class="st"> &quot;Not in a city&quot;</span> <span class="op">~</span><span class="st"> &quot;Not in a city&quot;</span>,</a>
+<a class="sourceLine" id="cb236-3" data-line-number="3">                          city <span class="op">!=</span><span class="st"> &quot;Not in a city&quot;</span> <span class="op">~</span><span class="st"> &quot;In a city&quot;</span>))</a></code></pre></div>
 <pre><code>## # A tibble: 876 x 50
 ##    id    value fips    lat   lon state county city   CMAQ zcta  zcta_area
 ##    &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt; &lt;fct&gt;     &lt;dbl&gt;
@@ -3853,29 +3788,29 @@ This function allows you to vectorize multiple <code>if_else()</code> statements
 <p>While we are doing this, we might also have this issue for <code>county</code>.</p>
 <p>The <code>county</code> variables appears to get dropped due to either correlation or near zero variance.</p>
 <p>It is likely due to near zero variance because this is the more granular of these geographic categorical variables and likely sparse.</p>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" data-line-number="1">pm <span class="op">%&lt;&gt;%</span></a>
-<a class="sourceLine" id="cb242-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">city =</span> <span class="kw">case_when</span>(city <span class="op">==</span><span class="st"> &quot;Not in a city&quot;</span> <span class="op">~</span><span class="st"> &quot;Not in a city&quot;</span>,</a>
-<a class="sourceLine" id="cb242-3" data-line-number="3">                          city <span class="op">!=</span><span class="st"> &quot;Not in a city&quot;</span> <span class="op">~</span><span class="st"> &quot;In a city&quot;</span>))</a>
-<a class="sourceLine" id="cb242-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb242-5" data-line-number="5"><span class="kw">set.seed</span>(<span class="dv">1234</span>) <span class="co"># same seed as before</span></a>
-<a class="sourceLine" id="cb242-6" data-line-number="6">pm_split &lt;-rsample<span class="op">::</span><span class="kw">initial_split</span>(<span class="dt">data =</span> pm, <span class="dt">prop =</span> <span class="dv">2</span><span class="op">/</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb242-7" data-line-number="7">pm_split</a></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" data-line-number="1">pm <span class="op">%&lt;&gt;%</span></a>
+<a class="sourceLine" id="cb238-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">city =</span> <span class="kw">case_when</span>(city <span class="op">==</span><span class="st"> &quot;Not in a city&quot;</span> <span class="op">~</span><span class="st"> &quot;Not in a city&quot;</span>,</a>
+<a class="sourceLine" id="cb238-3" data-line-number="3">                          city <span class="op">!=</span><span class="st"> &quot;Not in a city&quot;</span> <span class="op">~</span><span class="st"> &quot;In a city&quot;</span>))</a>
+<a class="sourceLine" id="cb238-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb238-5" data-line-number="5"><span class="kw">set.seed</span>(<span class="dv">1234</span>) <span class="co"># same seed as before</span></a>
+<a class="sourceLine" id="cb238-6" data-line-number="6">pm_split &lt;-rsample<span class="op">::</span><span class="kw">initial_split</span>(<span class="dt">data =</span> pm, <span class="dt">prop =</span> <span class="dv">2</span><span class="op">/</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb238-7" data-line-number="7">pm_split</a></code></pre></div>
 <pre><code>## &lt;Analysis/Assess/Total&gt;
 ## &lt;584/292/876&gt;</code></pre>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" data-line-number="1"> train_pm &lt;-rsample<span class="op">::</span><span class="kw">training</span>(pm_split)</a>
-<a class="sourceLine" id="cb244-2" data-line-number="2"> test_pm &lt;-rsample<span class="op">::</span><span class="kw">testing</span>(pm_split)</a></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" data-line-number="1"> train_pm &lt;-rsample<span class="op">::</span><span class="kw">training</span>(pm_split)</a>
+<a class="sourceLine" id="cb240-2" data-line-number="2"> test_pm &lt;-rsample<span class="op">::</span><span class="kw">testing</span>(pm_split)</a></code></pre></div>
 <p>Now we will create a new recipe:</p>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" data-line-number="1">novel_rec &lt;-train_pm <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb245-2" data-line-number="2"><span class="st">    </span><span class="kw">recipe</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb245-3" data-line-number="3"><span class="st">    </span><span class="kw">update_role</span>(<span class="kw">everything</span>(), <span class="dt">new_role =</span> <span class="st">&quot;predictor&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb245-4" data-line-number="4"><span class="st">    </span><span class="kw">update_role</span>(value, <span class="dt">new_role =</span> <span class="st">&quot;outcome&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb245-5" data-line-number="5"><span class="st">    </span><span class="kw">update_role</span>(id, <span class="dt">new_role =</span> <span class="st">&quot;id variable&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb245-6" data-line-number="6"><span class="st">    </span><span class="kw">update_role</span>(<span class="st">&quot;fips&quot;</span>, <span class="dt">new_role =</span> <span class="st">&quot;county id&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb245-7" data-line-number="7"><span class="st">    </span><span class="kw">step_dummy</span>(state, county, city, zcta, <span class="dt">one_hot =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb245-8" data-line-number="8"><span class="st">    </span><span class="kw">step_corr</span>(<span class="kw">all_numeric</span>()) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb245-9" data-line-number="9"><span class="st">    </span><span class="kw">step_nzv</span>(<span class="kw">all_numeric</span>()) </a></code></pre></div>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" data-line-number="1">novel_rec &lt;-train_pm <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb241-2" data-line-number="2"><span class="st">    </span><span class="kw">recipe</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb241-3" data-line-number="3"><span class="st">    </span><span class="kw">update_role</span>(<span class="kw">everything</span>(), <span class="dt">new_role =</span> <span class="st">&quot;predictor&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb241-4" data-line-number="4"><span class="st">    </span><span class="kw">update_role</span>(value, <span class="dt">new_role =</span> <span class="st">&quot;outcome&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb241-5" data-line-number="5"><span class="st">    </span><span class="kw">update_role</span>(id, <span class="dt">new_role =</span> <span class="st">&quot;id variable&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb241-6" data-line-number="6"><span class="st">    </span><span class="kw">update_role</span>(<span class="st">&quot;fips&quot;</span>, <span class="dt">new_role =</span> <span class="st">&quot;county id&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb241-7" data-line-number="7"><span class="st">    </span><span class="kw">step_dummy</span>(state, county, city, zcta, <span class="dt">one_hot =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb241-8" data-line-number="8"><span class="st">    </span><span class="kw">step_corr</span>(<span class="kw">all_numeric</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb241-9" data-line-number="9"><span class="st">    </span><span class="kw">step_nzv</span>(<span class="kw">all_numeric</span>()) </a></code></pre></div>
 <p>Now we will check the pre-processed data again to see if we still have <code>NA</code> values.</p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" data-line-number="1">prepped_rec &lt;-<span class="st"> </span><span class="kw">prep</span>(novel_rec, <span class="dt">verbose =</span> <span class="ot">TRUE</span>, <span class="dt">retain =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" data-line-number="1">prepped_rec &lt;-<span class="st"> </span><span class="kw">prep</span>(novel_rec, <span class="dt">verbose =</span> <span class="ot">TRUE</span>, <span class="dt">retain =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## oper 1 step dummy [training] 
 ## oper 2 step corr [training]</code></pre>
 <pre><code>## Warning in cor(x, use = use, method = method): the standard deviation is zero</code></pre>
@@ -3883,8 +3818,8 @@ This function allows you to vectorize multiple <code>if_else()</code> statements
 ## from the filter.</code></pre>
 <pre><code>## oper 3 step nzv [training] 
 ## The retained training set is ~ 0.26 Mb  in memory.</code></pre>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" data-line-number="1">juiced_train &lt;-<span class="st"> </span><span class="kw">juice</span>(prepped_rec)</a>
-<a class="sourceLine" id="cb251-2" data-line-number="2"><span class="kw">glimpse</span>(juiced_train)</a></code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb247-1" data-line-number="1">juiced_train &lt;-<span class="st"> </span><span class="kw">juice</span>(prepped_rec)</a>
+<a class="sourceLine" id="cb247-2" data-line-number="2"><span class="kw">glimpse</span>(juiced_train)</a></code></pre></div>
 <pre><code>## Rows: 584
 ## Columns: 36
 ## $ id                          &lt;fct&gt; 1003.001, 1027.0001, 1033.1002, 1055.001,…
@@ -3923,7 +3858,7 @@ This function allows you to vectorize multiple <code>if_else()</code> statements
 ## $ aod                         &lt;dbl&gt; 37.363636, 34.818182, 36.000000, 43.41666…
 ## $ state_California            &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
 ## $ city_Not.in.a.city          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0,…</code></pre>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb253-1" data-line-number="1">baked_test_pm &lt;-<span class="st"> </span>recipes<span class="op">::</span><span class="kw">bake</span>(prepped_rec, <span class="dt">new_data =</span> test_pm)</a></code></pre></div>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb249-1" data-line-number="1">baked_test_pm &lt;-<span class="st"> </span>recipes<span class="op">::</span><span class="kw">bake</span>(prepped_rec, <span class="dt">new_data =</span> test_pm)</a></code></pre></div>
 <pre><code>## Warning: There are new levels in a factor: Maine</code></pre>
 <pre><code>## Warning: There are new levels in a factor: Morgan, Talladega, Yavapai, Yuma,
 ## Ashley, Alameda, Colusa, Kings, Placer, Riverside, Sutter, Yolo, Pueblo, New
@@ -3939,7 +3874,7 @@ This function allows you to vectorize multiple <code>if_else()</code> statements
 ## Elder, Bennington, Arlington, Henrico, Hampton City, Lynchburg City, Snohomish,
 ## Cabell, Monongalia, Ashland, Dane, Dodge, Forest, St. Croix, Taylor, Converse,
 ## Park</code></pre>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" data-line-number="1"><span class="kw">glimpse</span>(baked_test_pm)</a></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb252-1" data-line-number="1"><span class="kw">glimpse</span>(baked_test_pm)</a></code></pre></div>
 <pre><code>## Rows: 292
 ## Columns: 36
 ## $ id                          &lt;fct&gt; 1049.1003, 1073.101, 1073.2006, 1089.0014…
@@ -3985,40 +3920,40 @@ This function allows you to vectorize multiple <code>if_else()</code> statements
 <h4><span class="header-section-number">5.13.1.8</span> Specifying the Model</h4>
 <p>The first step is to define what type of model we would like to use. For our case, we are going to start our analysis with a linear regression but we will demonstrate how we can try different models.</p>
 <p>See <a href="https://www.tidymodels.org/find/parsnip/" target="_blank">here</a> for modeling options in <code>parsnip</code>.</p>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb258-1" data-line-number="1">PM_model &lt;-<span class="st"> </span>parsnip<span class="op">::</span><span class="kw">linear_reg</span>() <span class="co"># PM was used in the name for particulate matter</span></a>
-<a class="sourceLine" id="cb258-2" data-line-number="2">PM_model</a></code></pre></div>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb254-1" data-line-number="1">PM_model &lt;-<span class="st"> </span>parsnip<span class="op">::</span><span class="kw">linear_reg</span>() <span class="co"># PM was used in the name for particulate matter</span></a>
+<a class="sourceLine" id="cb254-2" data-line-number="2">PM_model</a></code></pre></div>
 <pre><code>## Linear Regression Model Specification (regression)</code></pre>
 <p>OK. So far, all we have defined is that we want to use a linear regression…<br />
 Let’s tell <code>parsnip</code> more about what we want.</p>
 <p>We would like to use the <a href="https://en.wikipedia.org/wiki/Ordinary_least_squares">ordinary least squares</a> method to fit our linear regression.
 So we will tell <code>parsnip</code> that we want to use the <code>lm</code> package to implement our linear regression (there are many options actually such as <a href="https://cran.r-project.org/web/packages/rstan/vignettes/rstan.html" target="_blank"><code>rstan</code></a> <a href="https://cran.r-project.org/web/packages/glmnet/index.html" target="_blank"><code>glmnet</code></a>, <a href="https://keras.rstudio.com/" target="_blank"><code>keras</code></a>, and <a href="https://therinspark.com/starting.html#starting-sparklyr-hello-world" target="_blank"><code>sparklyr</code></a>). See <a href="https://parsnip.tidymodels.org/reference/linear_reg.html">here</a> for a description of the differences and using these different engines with <code>parsnip</code>.</p>
 <p>We will do so by using the <code>set_engine()</code> function of the <code>parsnip</code> package.</p>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb260-1" data-line-number="1">lm_PM_model &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb260-2" data-line-number="2"><span class="st">  </span>PM_model  <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb260-3" data-line-number="3"><span class="st">  </span>parsnip<span class="op">::</span><span class="kw">set_engine</span>(<span class="st">&quot;lm&quot;</span>)</a>
-<a class="sourceLine" id="cb260-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb260-5" data-line-number="5">lm_PM_model</a></code></pre></div>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" data-line-number="1">lm_PM_model &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb256-2" data-line-number="2"><span class="st">  </span>PM_model  <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb256-3" data-line-number="3"><span class="st">  </span>parsnip<span class="op">::</span><span class="kw">set_engine</span>(<span class="st">&quot;lm&quot;</span>)</a>
+<a class="sourceLine" id="cb256-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb256-5" data-line-number="5">lm_PM_model</a></code></pre></div>
 <pre><code>## Linear Regression Model Specification (regression)
 ## 
 ## Computational engine: lm</code></pre>
 <p>Here, we aim to predict the air pollution.
 You can do this with the <code>set_mode()</code> function of the <code>parsnip</code> package, by using either <code>set_mode(&quot;classification&quot;)</code> or <code>set_mode(&quot;regression&quot;)</code>.</p>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb262-1" data-line-number="1">lm_PM_model &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb262-2" data-line-number="2"><span class="st">  </span>PM_model  <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb262-3" data-line-number="3"><span class="st">  </span>parsnip<span class="op">::</span><span class="kw">set_engine</span>(<span class="st">&quot;lm&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb262-4" data-line-number="4"><span class="st">  </span><span class="kw">set_mode</span>(<span class="st">&quot;regression&quot;</span>)</a>
-<a class="sourceLine" id="cb262-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb262-6" data-line-number="6">lm_PM_model</a></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb258-1" data-line-number="1">lm_PM_model &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb258-2" data-line-number="2"><span class="st">  </span>PM_model  <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb258-3" data-line-number="3"><span class="st">  </span>parsnip<span class="op">::</span><span class="kw">set_engine</span>(<span class="st">&quot;lm&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb258-4" data-line-number="4"><span class="st">  </span><span class="kw">set_mode</span>(<span class="st">&quot;regression&quot;</span>)</a>
+<a class="sourceLine" id="cb258-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb258-6" data-line-number="6">lm_PM_model</a></code></pre></div>
 <pre><code>## Linear Regression Model Specification (regression)
 ## 
 ## Computational engine: lm</code></pre>
 <p>Now we will use the <code>workflows</code> package allows us to keep track of both our pre-processing steps and our model specification. It also allows us to implement fancier optimizations in an automated way.</p>
 <p>If you recall <code>novel_rec</code> is the recipe we previously created with the <code>recipes</code> package and <code>lm_PM_model</code> was created when we specified our model with the <code>parsnip</code> package.
 Here, we combine everything together into a <code>workflow()</code>.</p>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb264-1" data-line-number="1">PM_wflow &lt;-workflows<span class="op">::</span><span class="kw">workflow</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb264-2" data-line-number="2"><span class="st">           </span>workflows<span class="op">::</span><span class="kw">add_recipe</span>(novel_rec) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb264-3" data-line-number="3"><span class="st">           </span>workflows<span class="op">::</span><span class="kw">add_model</span>(lm_PM_model)</a>
-<a class="sourceLine" id="cb264-4" data-line-number="4">PM_wflow</a></code></pre></div>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb260-1" data-line-number="1">PM_wflow &lt;-workflows<span class="op">::</span><span class="kw">workflow</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb260-2" data-line-number="2"><span class="st">           </span>workflows<span class="op">::</span><span class="kw">add_recipe</span>(novel_rec) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb260-3" data-line-number="3"><span class="st">           </span>workflows<span class="op">::</span><span class="kw">add_model</span>(lm_PM_model)</a>
+<a class="sourceLine" id="cb260-4" data-line-number="4">PM_wflow</a></code></pre></div>
 <pre><code>## ══ Workflow ═════════════════════════════════════════════════════════════════════════════════════════════════════════════
 ## Preprocessor: Recipe
 ## Model: linear_reg()
@@ -4038,11 +3973,11 @@ Here, we combine everything together into a <code>workflow()</code>.</p>
 Notice how it tells us about both our pre-processing steps and our model specifications.</p>
 <p>Next, we “prepare the recipe” (or estimate the parameters) and fit the model to our training data all at once.
 Printing the output, we can see the coefficients of the model.</p>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb266-1" data-line-number="1">PM_wflow_fit &lt;-<span class="st"> </span>parsnip<span class="op">::</span><span class="kw">fit</span>(PM_wflow, <span class="dt">data =</span> train_pm)</a></code></pre></div>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb262-1" data-line-number="1">PM_wflow_fit &lt;-<span class="st"> </span>parsnip<span class="op">::</span><span class="kw">fit</span>(PM_wflow, <span class="dt">data =</span> train_pm)</a></code></pre></div>
 <pre><code>## Warning in cor(x, use = use, method = method): the standard deviation is zero</code></pre>
 <pre><code>## Warning: The correlation matrix has missing values. 274 columns were excluded
 ## from the filter.</code></pre>
-<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb269-1" data-line-number="1">PM_wflow_fit</a></code></pre></div>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb265-1" data-line-number="1">PM_wflow_fit</a></code></pre></div>
 <pre><code>## ══ Workflow [trained] ═══════════════════════════════════════════════════════════════════════════════════════════════════
 ## Preprocessor: Recipe
 ## Model: linear_reg()
@@ -4103,10 +4038,10 @@ Printing the output, we can see the coefficients of the model.</p>
 <p>The <code>tidy()</code> function returns a tidy data frame with coefficients from the model (one row per coefficient).</p>
 <p>Many other <code>broom</code> functions currently only work with <code>parsnip</code> objects, not raw <code>workflows</code> objects.</p>
 <p>However, we can use the <code>tidy</code> function if we first use the <code>pull_workflow_fit()</code> function.</p>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb271-1" data-line-number="1">wflowoutput &lt;-<span class="st"> </span>PM_wflow_fit <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb271-2" data-line-number="2"><span class="st">  </span><span class="kw">pull_workflow_fit</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb271-3" data-line-number="3"><span class="st">  </span>broom<span class="op">::</span><span class="kw">tidy</span>() </a>
-<a class="sourceLine" id="cb271-4" data-line-number="4">  wflowoutput</a></code></pre></div>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb267-1" data-line-number="1">wflowoutput &lt;-<span class="st"> </span>PM_wflow_fit <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb267-2" data-line-number="2"><span class="st">  </span><span class="kw">pull_workflow_fit</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb267-3" data-line-number="3"><span class="st">  </span>broom<span class="op">::</span><span class="kw">tidy</span>() </a>
+<a class="sourceLine" id="cb267-4" data-line-number="4">  wflowoutput</a></code></pre></div>
 <pre><code>## # A tibble: 33 x 5
 ##    term         estimate std.error statistic  p.value
 ##    &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
@@ -4129,17 +4064,17 @@ This function create a bar plot of variable importance scores for each predictor
 The bar plot is ordered by importance (highest to smallest).</p>
 <p>Notice again that we need to use the <code>pull_workflow_fit()</code> function.</p>
 <p>Let’s take a look at the top 10 contributing variables:</p>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb273-1" data-line-number="1"><span class="co">#install.packages(vip)</span></a>
-<a class="sourceLine" id="cb273-2" data-line-number="2"><span class="kw">library</span>(vip)</a></code></pre></div>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb269-1" data-line-number="1"><span class="co">#install.packages(vip)</span></a>
+<a class="sourceLine" id="cb269-2" data-line-number="2"><span class="kw">library</span>(vip)</a></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;vip&#39;</code></pre>
 <pre><code>## The following object is masked from &#39;package:utils&#39;:
 ## 
 ##     vi</code></pre>
-<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb276-1" data-line-number="1">PM_wflow_fit <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb276-2" data-line-number="2"><span class="st">  </span><span class="kw">pull_workflow_fit</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb276-3" data-line-number="3"><span class="st">  </span><span class="kw">vip</span>(<span class="dt">num_features =</span> <span class="dv">10</span>)</a></code></pre></div>
-<p><img src="05-prediction_files/figure-html/unnamed-chunk-121-1.png" width="672" /></p>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb272-1" data-line-number="1">PM_wflow_fit <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb272-2" data-line-number="2"><span class="st">  </span><span class="kw">pull_workflow_fit</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb272-3" data-line-number="3"><span class="st">  </span><span class="kw">vip</span>(<span class="dt">num_features =</span> <span class="dv">10</span>)</a></code></pre></div>
+<p><img src="05-prediction_files/figure-html/unnamed-chunk-120-1.png" width="672" /></p>
 <p>The state in which the monitor was located and the CMAQ model and the aod satellite information appear to be the most important for predicting the air pollution at a given monitor.</p>
 <div id="model-performance" class="section level4">
 <h4><span class="header-section-number">5.14.0.1</span> Model performance</h4>
@@ -4148,19 +4083,19 @@ The way we do this is to compare the similarity between the predicted estimates 
 <p>Machine learning (ML) is an optimization problem that tries to minimize the distance between our predicted outcome <span class="math inline">\(\hat{Y} = f(X)\)</span> and actual outcome <span class="math inline">\(Y\)</span> using our features (or predictor variables) <span class="math inline">\(X\)</span> as input to a function <span class="math inline">\(f\)</span> that we want to estimate.</p>
 <p>As our goal in this section is to assess overall model performance, we will now talk about different distance metrics that you can use.</p>
 <p>First, let’s pull out our predicted outcome values <span class="math inline">\(\hat{Y} = f(X)\)</span> from the models we fit (using different approaches).</p>
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" data-line-number="1">wf_fit &lt;-<span class="st"> </span>PM_wflow_fit <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb277-2" data-line-number="2"><span class="st">  </span><span class="kw">pull_workflow_fit</span>()</a>
-<a class="sourceLine" id="cb277-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb277-4" data-line-number="4">wf_fitted_values &lt;-<span class="st"> </span>wf_fit<span class="op">$</span>fit<span class="op">$</span>fitted.values</a>
-<a class="sourceLine" id="cb277-5" data-line-number="5"><span class="kw">head</span>(wf_fitted_values)</a></code></pre></div>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb273-1" data-line-number="1">wf_fit &lt;-<span class="st"> </span>PM_wflow_fit <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb273-2" data-line-number="2"><span class="st">  </span><span class="kw">pull_workflow_fit</span>()</a>
+<a class="sourceLine" id="cb273-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb273-4" data-line-number="4">wf_fitted_values &lt;-<span class="st"> </span>wf_fit<span class="op">$</span>fit<span class="op">$</span>fitted.values</a>
+<a class="sourceLine" id="cb273-5" data-line-number="5"><span class="kw">head</span>(wf_fitted_values)</a></code></pre></div>
 <pre><code>##         1         2         3         4         5         6 
 ##  9.480088 10.418317 11.786217 11.295655 10.806653 11.091767</code></pre>
 <p>Alternatively, we can get the fitted values using the <code>augment()</code> function of the <code>broom</code> package using the output from <code>workflows</code>:</p>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb279-1" data-line-number="1">wf_fitted_values &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb279-2" data-line-number="2"><span class="st">  </span>broom<span class="op">::</span><span class="kw">augment</span>(wf_fit<span class="op">$</span>fit, <span class="dt">data =</span> juiced_train) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb279-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(value, .fitted<span class="op">:</span>.std.resid)</a>
-<a class="sourceLine" id="cb279-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb279-5" data-line-number="5"><span class="kw">head</span>(wf_fitted_values)</a></code></pre></div>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb275-1" data-line-number="1">wf_fitted_values &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb275-2" data-line-number="2"><span class="st">  </span>broom<span class="op">::</span><span class="kw">augment</span>(wf_fit<span class="op">$</span>fit, <span class="dt">data =</span> juiced_train) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb275-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(value, .fitted<span class="op">:</span>.std.resid)</a>
+<a class="sourceLine" id="cb275-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb275-5" data-line-number="5"><span class="kw">head</span>(wf_fitted_values)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 8
 ##   value .fitted .se.fit .resid   .hat .sigma    .cooksd .std.resid
 ##   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
@@ -4171,12 +4106,12 @@ The way we do this is to compare the similarity between the predicted estimates 
 ## 5 10.5    10.8    0.424 -0.298 0.0413   2.09 0.0000278     -0.146 
 ## 6 15.6    11.1    0.380  4.50  0.0332   2.08 0.00501        2.20</code></pre>
 <p>Note that becuase we use the actual workflow here, we can (and actually need to) use the raw data instead of the pre-processed data.</p>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb281-1" data-line-number="1">values_pred_train &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb281-2" data-line-number="2"><span class="st">  </span><span class="kw">predict</span>(PM_wflow_fit, train_pm) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb281-3" data-line-number="3"><span class="st">  </span><span class="kw">bind_cols</span>(train_pm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(value, fips, county, id)) </a></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" data-line-number="1">values_pred_train &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb277-2" data-line-number="2"><span class="st">  </span><span class="kw">predict</span>(PM_wflow_fit, train_pm) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb277-3" data-line-number="3"><span class="st">  </span><span class="kw">bind_cols</span>(train_pm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(value, fips, county, id)) </a></code></pre></div>
 <pre><code>## Warning in predict.lm(object = object$fit, newdata = new_data, type =
 ## &quot;response&quot;): prediction from a rank-deficient fit may be misleading</code></pre>
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb283-1" data-line-number="1">values_pred_train</a></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb279-1" data-line-number="1">values_pred_train</a></code></pre></div>
 <pre><code>## # A tibble: 584 x 5
 ##    .pred value fips  county    id       
 ##    &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;chr&gt;     &lt;fct&gt;    
@@ -4192,6 +4127,443 @@ The way we do this is to compare the similarity between the predicted estimates 
 ## 10 10.6  12.0  1073  Jefferson 1073.5002
 ## # … with 574 more rows</code></pre>
 <p>avocado simplify this here and earlier??</p>
+</div>
+<div id="visualizing-model-performance" class="section level4">
+<h4><span class="header-section-number">5.14.0.2</span> Visualizing model performance</h4>
+<p>Now, we can compare the predicted outcome values (or fitted values) <span class="math inline">\(\hat{Y}\)</span> to the actual outcome values <span class="math inline">\(Y\)</span> that we observed:</p>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb281-1" data-line-number="1">wf_fitted_values <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb281-2" data-line-number="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span>  value, <span class="dt">y =</span> .fitted)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb281-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb281-4" data-line-number="4"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;actual outcome values&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb281-5" data-line-number="5"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;predicted outcome values&quot;</span>)</a></code></pre></div>
+<p><img src="05-prediction_files/figure-html/unnamed-chunk-124-1.png" width="672" /></p>
+<p>OK, so our range of the predicted outcome values appears to be smaller than the real values.
+We could probably do a bit better.</p>
+</div>
+<div id="quantifying-model-performance" class="section level3">
+<h3><span class="header-section-number">5.14.1</span> Quantifying model performance</h3>
+<p>Next, let’s use different distance functions <span class="math inline">\(d(\cdot)\)</span> to assess how far off our predicted outcome <span class="math inline">\(\hat{Y} = f(X)\)</span> and actual outcome <span class="math inline">\(Y\)</span> values are from each other:</p>
+<p><span class="math display">\[d(Y - \hat{Y})\]</span></p>
+<p>There are entire scholarly fields of research dedicated to identifying different distance metrics <span class="math inline">\(d(\cdot)\)</span> for machine learning applications. However, we will focus on <a href="https://en.wikipedia.org/wiki/Root-mean-square_deviation" target="_blank">root mean squared error</a> (<code>rmse</code>)</p>
+<p><span class="math display">\[RMSE = \sqrt{\frac{\sum_{i=1}^{n}{(\hat{y_t}- y_t)}^2}{n}}\]</span></p>
+<p>One way to calculate these metrics within the <code>tidymodels</code> framework is to use the <code>yardstick</code> package using the <code>metrics()</code> function.</p>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb282-1" data-line-number="1">yardstick<span class="op">::</span><span class="kw">metrics</span>(wf_fitted_values, </a>
+<a class="sourceLine" id="cb282-2" data-line-number="2">                   <span class="dt">truth =</span> value, <span class="dt">estimate =</span> .fitted)</a></code></pre></div>
+<pre><code>## # A tibble: 3 x 3
+##   .metric .estimator .estimate
+##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+## 1 rmse    standard       2.02 
+## 2 rsq     standard       0.431
+## 3 mae     standard       1.49</code></pre>
+<p>Alternatively if you only wanted one metric you could use the <code>mae()</code>, <code>rsq()</code>, or <code>rmse()</code> functions, respectively.</p>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb284-1" data-line-number="1">yardstick<span class="op">::</span><span class="kw">rmse</span>(wf_fitted_values, </a>
+<a class="sourceLine" id="cb284-2" data-line-number="2">               <span class="dt">truth =</span> value, <span class="dt">estimate =</span> .fitted)</a></code></pre></div>
+<pre><code>## # A tibble: 1 x 3
+##   .metric .estimator .estimate
+##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+## 1 rmse    standard        2.02</code></pre>
+</div>
+<div id="assessing-model-performance-on-v-folds-using-tune" class="section level3">
+<h3><span class="header-section-number">5.14.2</span> Assessing model performance on <span class="math inline">\(v\)</span>-folds using <code>tune</code></h3>
+<p>We also intend to perform cross validation, so we will now split the training data further using the <a href="https://tidymodels.github.io/rsample/reference/vfold_cv.html" target="_blank"><code>vfold_cv()</code></a> function of the <code>rsample</code> package can be used to parse the training data into folds for <span class="math inline">\(v\)</span>-fold cross validation.</p>
+<p>Again, because these are created at random, we need to use the base <code>set.seed()</code> function in order to obtain the same results each time we knit this document. We will create 10 folds.</p>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb286-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">1234</span>)</a>
+<a class="sourceLine" id="cb286-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb286-3" data-line-number="3">vfold_pm &lt;-<span class="st"> </span>rsample<span class="op">::</span><span class="kw">vfold_cv</span>(<span class="dt">data =</span> train_pm, <span class="dt">v =</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb286-4" data-line-number="4">vfold_pm</a></code></pre></div>
+<pre><code>## #  10-fold cross-validation 
+## # A tibble: 10 x 2
+##    splits           id    
+##    &lt;list&gt;           &lt;chr&gt; 
+##  1 &lt;split [525/59]&gt; Fold01
+##  2 &lt;split [525/59]&gt; Fold02
+##  3 &lt;split [525/59]&gt; Fold03
+##  4 &lt;split [525/59]&gt; Fold04
+##  5 &lt;split [526/58]&gt; Fold05
+##  6 &lt;split [526/58]&gt; Fold06
+##  7 &lt;split [526/58]&gt; Fold07
+##  8 &lt;split [526/58]&gt; Fold08
+##  9 &lt;split [526/58]&gt; Fold09
+## 10 &lt;split [526/58]&gt; Fold10</code></pre>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb288-1" data-line-number="1"><span class="kw">pull</span>(vfold_pm, splits)</a></code></pre></div>
+<pre><code>## [[1]]
+## &lt;Analysis/Assess/Total&gt;
+## &lt;525/59/584&gt;
+## 
+## [[2]]
+## &lt;Analysis/Assess/Total&gt;
+## &lt;525/59/584&gt;
+## 
+## [[3]]
+## &lt;Analysis/Assess/Total&gt;
+## &lt;525/59/584&gt;
+## 
+## [[4]]
+## &lt;Analysis/Assess/Total&gt;
+## &lt;525/59/584&gt;
+## 
+## [[5]]
+## &lt;Analysis/Assess/Total&gt;
+## &lt;526/58/584&gt;
+## 
+## [[6]]
+## &lt;Analysis/Assess/Total&gt;
+## &lt;526/58/584&gt;
+## 
+## [[7]]
+## &lt;Analysis/Assess/Total&gt;
+## &lt;526/58/584&gt;
+## 
+## [[8]]
+## &lt;Analysis/Assess/Total&gt;
+## &lt;526/58/584&gt;
+## 
+## [[9]]
+## &lt;Analysis/Assess/Total&gt;
+## &lt;526/58/584&gt;
+## 
+## [[10]]
+## &lt;Analysis/Assess/Total&gt;
+## &lt;526/58/584&gt;</code></pre>
+<p>We can fit the model to our cross validation folds using the <code>fit_resamples()</code> function of the <code>tune</code> package, by specifying our <code>workflow</code> object and the cross validation fold object we just created.
+See <a href="https://tidymodels.github.io/tune/reference/fit_resamples.html" target="_blank">here</a> for more information.</p>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">122</span>)</a>
+<a class="sourceLine" id="cb290-2" data-line-number="2">resample_fit &lt;-<span class="st"> </span>tune<span class="op">::</span><span class="kw">fit_resamples</span>(PM_wflow, vfold_pm)</a></code></pre></div>
+<pre><code>## ! Fold01: recipe: the standard deviation is zero, The correlation matrix has missi...</code></pre>
+<pre><code>## ! Fold01: model (predictions): There are new levels in a factor: Shelby, Faulkner,...</code></pre>
+<pre><code>## ! Fold02: recipe: the standard deviation is zero, The correlation matrix has missi...</code></pre>
+<pre><code>## ! Fold02: model (predictions): There are new levels in a factor: White, Nevada, St...</code></pre>
+<pre><code>## ! Fold03: recipe: the standard deviation is zero, The correlation matrix has missi...</code></pre>
+<pre><code>## ! Fold03: model (predictions): There are new levels in a factor: Houston, Garland,...</code></pre>
+<pre><code>## ! Fold04: recipe: the standard deviation is zero, The correlation matrix has missi...</code></pre>
+<pre><code>## ! Fold04: model (predictions): There are new levels in a factor: Baldwin, Apache, ...</code></pre>
+<pre><code>## ! Fold05: recipe: the standard deviation is zero, The correlation matrix has missi...</code></pre>
+<pre><code>## ! Fold05: model (predictions): There are new levels in a factor: Russell, Phillips...</code></pre>
+<pre><code>## ! Fold06: recipe: the standard deviation is zero, The correlation matrix has missi...</code></pre>
+<pre><code>## ! Fold06: model (predictions): There are new levels in a factor: Crittenden, Monte...</code></pre>
+<pre><code>## ! Fold07: recipe: the standard deviation is zero, The correlation matrix has missi...</code></pre>
+<pre><code>## ! Fold07: model (predictions): There are new levels in a factor: Arkansas, Sebasti...</code></pre>
+<pre><code>## ! Fold08: recipe: the standard deviation is zero, The correlation matrix has missi...</code></pre>
+<pre><code>## ! Fold08: model (predictions): There are new levels in a factor: Etowah, Coconino,...</code></pre>
+<pre><code>## ! Fold09: recipe: the standard deviation is zero, The correlation matrix has missi...</code></pre>
+<pre><code>## ! Fold09: model (predictions): There are new levels in a factor: Tuscaloosa, Cochi...</code></pre>
+<pre><code>## ! Fold10: recipe: the standard deviation is zero, The correlation matrix has missi...</code></pre>
+<pre><code>## ! Fold10: model (predictions): There are new levels in a factor: Colbert, Walker, ...</code></pre>
+<p>We can now take a look at various performance metrics based on the fit of our cross validation “resamples”.</p>
+<p>To do this we will use the <code>collect_metrics</code> function of the <code>tune</code> package. This will show us the mean of the accuracy estimate of the 4 different cross validation folds.</p>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb311-1" data-line-number="1">resample_fit</a></code></pre></div>
+<pre><code>## #  10-fold cross-validation 
+## # A tibble: 10 x 4
+##    splits           id     .metrics         .notes          
+##    &lt;list&gt;           &lt;chr&gt;  &lt;list&gt;           &lt;list&gt;          
+##  1 &lt;split [525/59]&gt; Fold01 &lt;tibble [2 × 3]&gt; &lt;tibble [2 × 1]&gt;
+##  2 &lt;split [525/59]&gt; Fold02 &lt;tibble [2 × 3]&gt; &lt;tibble [2 × 1]&gt;
+##  3 &lt;split [525/59]&gt; Fold03 &lt;tibble [2 × 3]&gt; &lt;tibble [2 × 1]&gt;
+##  4 &lt;split [525/59]&gt; Fold04 &lt;tibble [2 × 3]&gt; &lt;tibble [2 × 1]&gt;
+##  5 &lt;split [526/58]&gt; Fold05 &lt;tibble [2 × 3]&gt; &lt;tibble [2 × 1]&gt;
+##  6 &lt;split [526/58]&gt; Fold06 &lt;tibble [2 × 3]&gt; &lt;tibble [2 × 1]&gt;
+##  7 &lt;split [526/58]&gt; Fold07 &lt;tibble [2 × 3]&gt; &lt;tibble [2 × 1]&gt;
+##  8 &lt;split [526/58]&gt; Fold08 &lt;tibble [2 × 3]&gt; &lt;tibble [2 × 1]&gt;
+##  9 &lt;split [526/58]&gt; Fold09 &lt;tibble [2 × 3]&gt; &lt;tibble [2 × 1]&gt;
+## 10 &lt;split [526/58]&gt; Fold10 &lt;tibble [2 × 3]&gt; &lt;tibble [2 × 1]&gt;</code></pre>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb313-1" data-line-number="1"><span class="kw">collect_metrics</span>(resample_fit)</a></code></pre></div>
+<pre><code>## # A tibble: 2 x 5
+##   .metric .estimator  mean     n std_err
+##   &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
+## 1 rmse    standard   2.13     10  0.114 
+## 2 rsq     standard   0.370    10  0.0318</code></pre>
+<p>In the previous section, we demonstrated how to build a machine learning model (specifically a linear regression model) to predict air pollution with the <code>tidymodels</code> framework.</p>
+<p>In the next few section, we will demonstrate another machine learning model.</p>
+</div>
+</div>
+<div id="random-forest" class="section level2">
+<h2><span class="header-section-number">5.15</span> Random Forest</h2>
+<p>Now, we are going to predict our outcome variable (air pollution) using a decision tree method called <a href="https://en.wikipedia.org/wiki/Random_forest" target="_blank">random forest</a>.</p>
+<p>In the case of random forest, multiple decision trees are created - hence the name forest, and each tree is built using a random subset of the training data (with replacement) - hence the full name random forest. This random aspect helps to keep the algorithm from overfitting the data.</p>
+<p>The mean of the predictions from each of the trees is used in the final output.</p>
+<p>In our case, we are going to use the random forest method of the the <code>randomForest</code> package.</p>
+<p>This package is currently not compatible with categorical variables that have more than 53 levels. See <a href="https://cran.r-project.org/web/packages/randomForest/NEWS">here</a> for the documentation about when this was updated from 25 levels. Thus we will to remove the <code>zcta</code> and <code>county</code> variables.</p>
+<p>Note that the <code>step_novel()</code> function is necessary here for <code>state</code> to get all cross validation folds to work, because there will be different levels included in each fold test and training sets, thus there are new levels for some of the test sets which will result in an error.</p>
+<p>According to the <a href="https://www.rdocumentation.org/packages/recipes/versions/0.1.13/topics/step_novel">documentation</a> for the <code>recipes</code> package:</p>
+<blockquote>
+<p>step_novel creates a specification of a recipe step that will assign a previously unseen factor level to a new value.</p>
+</blockquote>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb315-1" data-line-number="1">RF_rec &lt;-<span class="st"> </span><span class="kw">recipe</span>(train_pm) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb315-2" data-line-number="2"><span class="st">    </span><span class="kw">update_role</span>(<span class="kw">everything</span>(), <span class="dt">new_role =</span> <span class="st">&quot;predictor&quot;</span>)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb315-3" data-line-number="3"><span class="st">    </span><span class="kw">update_role</span>(value, <span class="dt">new_role =</span> <span class="st">&quot;outcome&quot;</span>)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb315-4" data-line-number="4"><span class="st">    </span><span class="kw">update_role</span>(id, <span class="dt">new_role =</span> <span class="st">&quot;id variable&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb315-5" data-line-number="5"><span class="st">    </span><span class="kw">update_role</span>(<span class="st">&quot;fips&quot;</span>, <span class="dt">new_role =</span> <span class="st">&quot;county id&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb315-6" data-line-number="6"><span class="st">    </span><span class="kw">step_novel</span>(<span class="st">&quot;state&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb315-7" data-line-number="7"><span class="st">    </span><span class="kw">step_string2factor</span>(<span class="st">&quot;state&quot;</span>, <span class="st">&quot;county&quot;</span>, <span class="st">&quot;city&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb315-8" data-line-number="8"><span class="st">    </span><span class="kw">step_rm</span>(<span class="st">&quot;county&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb315-9" data-line-number="9"><span class="st">    </span><span class="kw">step_rm</span>(<span class="st">&quot;zcta&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb315-10" data-line-number="10"><span class="st">    </span><span class="kw">step_corr</span>(<span class="kw">all_numeric</span>())<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb315-11" data-line-number="11"><span class="st">    </span><span class="kw">step_nzv</span>(<span class="kw">all_numeric</span>())</a></code></pre></div>
+<p>The <code>rand_forest()</code> function of the <code>parsnip</code> package has three important arguments that act as an interface for the different possible engines to perform a random forest analysis:</p>
+<ol style="list-style-type: decimal">
+<li><code>mtry</code> - The number of predictor variables (or features) that will be randomly sampled at each split when creating the tree models. The default number for regression analyses is the number of predictors divided by 3.</li>
+<li><code>min_n</code> - The minimum number of data points in a node that are required for the node to be split further.</li>
+<li><code>trees</code> - the number of trees in the ensemble</li>
+</ol>
+<p>We will start by trying an <code>mtry</code> value of 10 and a <code>min_n</code> value of 3.</p>
+<p>Now that we have our recipe (<code>RF_rec</code>), let’s specify the model with <code>rand_forest()</code> from <code>parsnip</code> with the <code>mode = &quot;regression&quot;</code> argument to specify our outcome variable (air pollution) is continuous.</p>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb316-1" data-line-number="1">PMtree_model &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb316-2" data-line-number="2"><span class="st">  </span>parsnip<span class="op">::</span><span class="kw">rand_forest</span>(<span class="dt">mtry =</span> <span class="dv">10</span>, <span class="dt">min_n =</span> <span class="dv">3</span>, </a>
+<a class="sourceLine" id="cb316-3" data-line-number="3">                       <span class="dt">mode =</span> <span class="st">&quot;regression&quot;</span>)</a>
+<a class="sourceLine" id="cb316-4" data-line-number="4">PMtree_model</a></code></pre></div>
+<pre><code>## Random Forest Model Specification (regression)
+## 
+## Main Arguments:
+##   mtry = 10
+##   min_n = 3</code></pre>
+<p>Next, we set the engine and mode:</p>
+<p>Note that you could also use the <code>ranger</code> or <code>spark</code> packages instead of <code>randomForest</code>.
+If you were to use the <code>ranger</code> package to implement the random forest analysis you would need to specify an <code>importance</code> argument to be able to evaluate predictor importance. The options are <code>impurity</code> or <code>permutation</code>.</p>
+<p>These other packages have different advantages and disadvantages- for example <code>ranger</code> and <code>spark</code> are not as limiting for the number of categories for categorical variables. For more information see their documentation: <a href="https://cran.r-project.org/web/packages/ranger/ranger.pdf">here</a> for ranger, <a href="http://spark.apache.org/docs/latest/mllib-ensembles.html#random-forests">here</a> for <code>spark</code>, and <a href="https://cran.r-project.org/web/packages/randomForest/randomForest.pdf">here</a> for <code>randomForest</code>.</p>
+<p>See <a href="https://parsnip.tidymodels.org/reference/rand_forest.html">here</a> for more documentation about implementing these engine options with tidymodels. Note that there are also <a href="https://www.linkedin.com/pulse/different-random-forest-packages-r-madhur-modi/">other</a> R packages for implementing random forest algorithms, but these three packages (<code>ranger</code>, <code>spark</code>, and <code>randomForest</code>) are currently compatible with <code>tidymodels</code>.</p>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb318-1" data-line-number="1">RF_PM_model &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb318-2" data-line-number="2"><span class="st">  </span>PMtree_model <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb318-3" data-line-number="3"><span class="st">  </span><span class="kw">set_engine</span>(<span class="st">&quot;randomForest&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb318-4" data-line-number="4"><span class="st">  </span><span class="kw">set_mode</span>(<span class="st">&quot;regression&quot;</span>)</a>
+<a class="sourceLine" id="cb318-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb318-6" data-line-number="6">RF_PM_model</a></code></pre></div>
+<pre><code>## Random Forest Model Specification (regression)
+## 
+## Main Arguments:
+##   mtry = 10
+##   min_n = 3
+## 
+## Computational engine: randomForest</code></pre>
+<p>Then, we put this all together into a <code>workflow</code>:</p>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb320-1" data-line-number="1">RF_wflow &lt;-<span class="st"> </span>workflows<span class="op">::</span><span class="kw">workflow</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb320-2" data-line-number="2"><span class="st">            </span>workflows<span class="op">::</span><span class="kw">add_recipe</span>(RF_rec) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb320-3" data-line-number="3"><span class="st">            </span>workflows<span class="op">::</span><span class="kw">add_model</span>(RF_PM_model)</a>
+<a class="sourceLine" id="cb320-4" data-line-number="4">RF_wflow</a></code></pre></div>
+<pre><code>## ══ Workflow ═════════════════════════════════════════════════════════════════════════════════════════════════════════════
+## Preprocessor: Recipe
+## Model: rand_forest()
+## 
+## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## 6 Recipe Steps
+## 
+## ● step_novel()
+## ● step_string2factor()
+## ● step_rm()
+## ● step_rm()
+## ● step_corr()
+## ● step_nzv()
+## 
+## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## Random Forest Model Specification (regression)
+## 
+## Main Arguments:
+##   mtry = 10
+##   min_n = 3
+## 
+## Computational engine: randomForest</code></pre>
+<p>Finally, we fit the data to the model:</p>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb322-1" data-line-number="1">RF_wflow_fit &lt;-<span class="st"> </span>parsnip<span class="op">::</span><span class="kw">fit</span>(RF_wflow, <span class="dt">data =</span> train_pm)</a></code></pre></div>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb323-1" data-line-number="1">RF_wflow_fit</a></code></pre></div>
+<pre><code>## ══ Workflow [trained] ═══════════════════════════════════════════════════════════════════════════════════════════════════
+## Preprocessor: Recipe
+## Model: rand_forest()
+## 
+## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## 6 Recipe Steps
+## 
+## ● step_novel()
+## ● step_string2factor()
+## ● step_rm()
+## ● step_rm()
+## ● step_corr()
+## ● step_nzv()
+## 
+## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## 
+## Call:
+##  randomForest(x = as.data.frame(x), y = y, mtry = ~10, nodesize = ~3) 
+##                Type of random forest: regression
+##                      Number of trees: 500
+## No. of variables tried at each split: 10
+## 
+##           Mean of squared residuals: 2.87938
+##                     % Var explained: 60.04</code></pre>
+<p><img src="05-prediction_files/figure-html/unnamed-chunk-136-1.png" width="672" /></p>
+<p>Interesting! In the previous model the CMAQ values and the state where the monitor was located were also the top two most important, however predictors about education levels of the communities where the monitor was located was among the top most important. Now we see that population density and proximity to sources of emissions and roads are among the top ten.</p>
+<p>Now let’s take a look at model performance by fitting the data using cross validation:</p>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb325-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">456</span>)</a>
+<a class="sourceLine" id="cb325-2" data-line-number="2">resample_RF_fit &lt;-<span class="st"> </span>tune<span class="op">::</span><span class="kw">fit_resamples</span>(RF_wflow, vfold_pm)</a>
+<a class="sourceLine" id="cb325-3" data-line-number="3"><span class="kw">collect_metrics</span>(resample_RF_fit)</a></code></pre></div>
+<p>OK, so our first model had a mean <code>rmse</code> value of 2.17.
+It looks like the random forest model had a much lower <code>rmse</code> value of 1.72.</p>
+<p>If we tuned our random forest model based on the number of trees or the value for <code>mtry</code> (which is “The number of predictors that will be randomly sampled at each split when creating the tree models”), we might get a model with even better performance.</p>
+<p>However, our cross validated mean rmse value of 1.72 is quite good because our range of true outcome values is much larger: (3.496, 22.259).</p>
+<div id="model-tuning" class="section level4">
+<h4><span class="header-section-number">5.15.0.1</span> Model Tuning</h4>
+<p><a href="https://en.wikipedia.org/wiki/Hyperparameter_(machine_learning)">Hyperparameters</a> are often things that we need to specify about a model. For example, the number of predictor variables (or features) that will be randomly sampled at each split when creating the tree models called <code>mtry</code> is a hyperparameter. The default number for regression analyses is the number of predictors divided by 3. Instead of arbitrarily specifying this, we can try to determine the best option for model performance by a process called tuning.</p>
+<p>Now let’s try some tuning.</p>
+<p>Let’s take a closer look at the <code>mtry</code> and <code>min_n</code> hyperparametrs in our Random Forest model.</p>
+<p>We aren’t exactly sure what values of <code>mtry</code> and <code>min_n</code> achieve good accuracy yet keep our model generalizable for other data.</p>
+<p>This is when our cross validation methods become really handy because now we can test out different values for each of these hyperparameters to assess what values seem to work best for model performance on these resamples of our training set data.</p>
+<p>Previously we specified our model like so:</p>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb326-1" data-line-number="1">RF_PM_model &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb326-2" data-line-number="2"><span class="st">  </span>parsnip<span class="op">::</span><span class="kw">rand_forest</span>(<span class="dt">mtry =</span> <span class="dv">10</span>, <span class="dt">min_n =</span> <span class="dv">3</span>, </a>
+<a class="sourceLine" id="cb326-3" data-line-number="3">                       <span class="dt">mode =</span> <span class="st">&quot;regression&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb326-4" data-line-number="4"><span class="st">  </span><span class="kw">set_engine</span>(<span class="st">&quot;randomForest&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb326-5" data-line-number="5"><span class="st">  </span><span class="kw">set_mode</span>(<span class="st">&quot;regression&quot;</span>)</a>
+<a class="sourceLine" id="cb326-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb326-7" data-line-number="7">RF_PM_model</a></code></pre></div>
+<pre><code>## Random Forest Model Specification (regression)
+## 
+## Main Arguments:
+##   mtry = 10
+##   min_n = 3
+## 
+## Computational engine: randomForest</code></pre>
+<p>Now instead of specifying a value for the <code>mtry</code> and <code>min_n</code> arguments, we can use the <code>tune()</code> function of the <code>tune</code> package like so: <code>mtry = tune()</code>. This indicates that these hyperparameters are to be tuned.</p>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb328-1" data-line-number="1">tune_RF_model &lt;-<span class="st"> </span><span class="kw">rand_forest</span>(<span class="dt">mtry =</span> <span class="kw">tune</span>(), <span class="dt">min_n =</span> <span class="kw">tune</span>(),</a>
+<a class="sourceLine" id="cb328-2" data-line-number="2">                             <span class="dt">mode =</span> <span class="st">&quot;regression&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb328-3" data-line-number="3"><span class="st">  </span><span class="kw">set_engine</span>(<span class="st">&quot;randomForest&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb328-4" data-line-number="4"><span class="st">  </span><span class="kw">set_mode</span>(<span class="st">&quot;regression&quot;</span>)</a>
+<a class="sourceLine" id="cb328-5" data-line-number="5">    </a>
+<a class="sourceLine" id="cb328-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb328-7" data-line-number="7">tune_RF_model</a></code></pre></div>
+<pre><code>## Random Forest Model Specification (regression)
+## 
+## Main Arguments:
+##   mtry = tune()
+##   min_n = tune()
+## 
+## Computational engine: randomForest</code></pre>
+<p>Again we will add this to a workflow, the only difference here is that we are using a different model specification with <code>tune_RF_model</code> instead of <code>RF_model</code>:</p>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb330-1" data-line-number="1">RF_tune_wflow &lt;-<span class="st"> </span>workflows<span class="op">::</span><span class="kw">workflow</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb330-2" data-line-number="2"><span class="st">            </span>workflows<span class="op">::</span><span class="kw">add_recipe</span>(RF_rec) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb330-3" data-line-number="3"><span class="st">            </span>workflows<span class="op">::</span><span class="kw">add_model</span>(tune_RF_model)</a>
+<a class="sourceLine" id="cb330-4" data-line-number="4">RF_tune_wflow</a></code></pre></div>
+<pre><code>## ══ Workflow ═════════════════════════════════════════════════════════════════════════════════════════════════════════════
+## Preprocessor: Recipe
+## Model: rand_forest()
+## 
+## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## 6 Recipe Steps
+## 
+## ● step_novel()
+## ● step_string2factor()
+## ● step_rm()
+## ● step_rm()
+## ● step_corr()
+## ● step_nzv()
+## 
+## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## Random Forest Model Specification (regression)
+## 
+## Main Arguments:
+##   mtry = tune()
+##   min_n = tune()
+## 
+## Computational engine: randomForest</code></pre>
+<p>Now we can use the <code>tune_grid()</code> function of the <code>tune</code> package to evaluate different combinations of values for <code>mtry</code> and <code>min_n</code> using our cross validation samples of our training set (<code>vfold_pm</code>) to see what combination of values performs best.</p>
+<p>To use this function we will specify the workflow using the <code>object</code> argument and the samples to use using the <code>resamples</code> argument. The <code>grid</code> argument specifies how many possible options for each argument should be attempted.</p>
+<p>By default 10 different values will be attempted for each hyperparameter that is being tuned.</p>
+<p>We can use the <code>doParallel</code> package to allow us to fit all these models to our cross validation samples faster. So if you were performing this on a computer with multiple cores or processors, then different models with different hyperparameter values can be fit to the cross validation samples simultaneously across different cores or processors.</p>
+<p>You can see how many cores you have access to on your system using the <code>detectCores()</code> function in the <code>parallel</code> package.</p>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb332-1" data-line-number="1">parallel<span class="op">::</span><span class="kw">detectCores</span>()</a></code></pre></div>
+<pre><code>## [1] 8</code></pre>
+<p>The <code>registerDoParallel()</code> function will use the number for cores specified using the <code>cores=</code> arguement, or it will assign it automatically to one-half of the number of cores detected by the <code>parallel</code> package.</p>
+<p>We need to use <code>set.seed()</code> here because the values chosen for <code>mtry</code> and <code>min_n</code> may vary if we preform this evaluation again because they are chosen semi-randomly (meaning that they are within a range of reasonable values but still random).</p>
+<p>Note: this step will take some time.</p>
+<p>Avocado need to make sure like iris classification example…</p>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb334-1" data-line-number="1">doParallel<span class="op">::</span><span class="kw">registerDoParallel</span>(<span class="dt">cores=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb334-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb334-3" data-line-number="3">tune_RF_results &lt;-<span class="st"> </span><span class="kw">tune_grid</span>(<span class="dt">object =</span> RF_tune_wflow, <span class="dt">resamples =</span> vfold_pm, <span class="dt">grid =</span> <span class="dv">20</span>)</a></code></pre></div>
+<pre><code>## i Creating pre-processing data to finalize unknown parameter: mtry</code></pre>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb336-1" data-line-number="1">reasmple_fit &lt;-<span class="kw">tune_grid</span>(iris_cat_wflow_tune, <span class="dt">resamples =</span> vfold_iris, <span class="dt">grid =</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb336-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb336-3" data-line-number="3">tune_RF_results</a></code></pre></div>
+<pre><code>## #  10-fold cross-validation 
+## # A tibble: 10 x 4
+##    splits           id     .metrics          .notes          
+##    &lt;list&gt;           &lt;chr&gt;  &lt;list&gt;            &lt;list&gt;          
+##  1 &lt;split [525/59]&gt; Fold01 &lt;tibble [40 × 5]&gt; &lt;tibble [0 × 1]&gt;
+##  2 &lt;split [525/59]&gt; Fold02 &lt;tibble [40 × 5]&gt; &lt;tibble [0 × 1]&gt;
+##  3 &lt;split [525/59]&gt; Fold03 &lt;tibble [40 × 5]&gt; &lt;tibble [0 × 1]&gt;
+##  4 &lt;split [525/59]&gt; Fold04 &lt;tibble [40 × 5]&gt; &lt;tibble [0 × 1]&gt;
+##  5 &lt;split [526/58]&gt; Fold05 &lt;tibble [40 × 5]&gt; &lt;tibble [0 × 1]&gt;
+##  6 &lt;split [526/58]&gt; Fold06 &lt;tibble [40 × 5]&gt; &lt;tibble [1 × 1]&gt;
+##  7 &lt;split [526/58]&gt; Fold07 &lt;tibble [40 × 5]&gt; &lt;tibble [0 × 1]&gt;
+##  8 &lt;split [526/58]&gt; Fold08 &lt;tibble [40 × 5]&gt; &lt;tibble [0 × 1]&gt;
+##  9 &lt;split [526/58]&gt; Fold09 &lt;tibble [40 × 5]&gt; &lt;tibble [0 × 1]&gt;
+## 10 &lt;split [526/58]&gt; Fold10 &lt;tibble [40 × 5]&gt; &lt;tibble [0 × 1]&gt;</code></pre>
+<p>See <a href="https://tidymodels.github.io/tune/articles/getting_started.html" target="_blank">the tune getting started guide</a> for more information about implementing this in <code>tidymodels</code>.</p>
+<p>If you wanted more control over this process you could specify how the different possible options for <code>mtry</code> and <code>min_n</code> in the <code>tune_grid()</code> function using the grid_*()<code>functions of the</code>dials` package to create a more specific grid.</p>
+<p>Be default the values for the hyperparameters being tuned are chosen semi-randomly (meaning that they are within a range of reasonable values but still random)..</p>
+<p>Now we can use the <code>collect_metrics()</code> function again to take a look at what happened with our cross validation tests. We can see the different values chosen for <code>mtry</code> and <code>min_n</code> and the mean rmse and rsq values across the cross validation samples.</p>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb338-1" data-line-number="1">tune_RF_results<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb338-2" data-line-number="2"><span class="st">  </span><span class="kw">collect_metrics</span>()</a></code></pre></div>
+<pre><code>## # A tibble: 40 x 7
+##     mtry min_n .metric .estimator  mean     n std_err
+##    &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
+##  1     1    27 rmse    standard   2.05     10  0.144 
+##  2     1    27 rsq     standard   0.489    10  0.0377
+##  3     4    30 rmse    standard   1.81     10  0.144 
+##  4     4    30 rsq     standard   0.592    10  0.0393
+##  5     6    32 rmse    standard   1.76     10  0.147 
+##  6     6    32 rsq     standard   0.607    10  0.0408
+##  7     7    18 rmse    standard   1.72     10  0.139 
+##  8     7    18 rsq     standard   0.618    10  0.0391
+##  9     8    23 rmse    standard   1.73     10  0.143 
+## 10     8    23 rsq     standard   0.610    10  0.0377
+## # … with 30 more rows</code></pre>
+<p>We can now use the <code>show_best()</code> function as it was truly intended, to see what values for <code>min_n</code> and <code>mtry</code> resulted in the best performance.</p>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb340-1" data-line-number="1"><span class="kw">show_best</span>(tune_RF_results, <span class="dt">metric =</span> <span class="st">&quot;rmse&quot;</span>, <span class="dt">n =</span><span class="dv">1</span>)</a></code></pre></div>
+<pre><code>## # A tibble: 1 x 7
+##    mtry min_n .metric .estimator  mean     n std_err
+##   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
+## 1    13     7 rmse    standard    1.67    10   0.146</code></pre>
+<p>There we have it… looks like an <code>mtry</code> of 17 and <code>min_n</code> of 4 had the best <code>rmse</code> value. You can verify this in the above output, but it is easier to just pull this row out using this function. We can see that the mean <code>rmse</code> value across the cross validation sets was 1.720. Before tuning it was 1.725 with a similar <code>std_err</code> so the performance was very slightly improved.</p>
+</div>
+<div id="final-model-performance-evaluation" class="section level4">
+<h4><span class="header-section-number">5.15.0.2</span> ## Final model performance evaluation</h4>
+<p>Now that we have decided that we have reasonable performance with our training data, we can stop building our model and evaluate performance with our testing data.</p>
+<p>Here, we will use the random forest model that we built to predict values for the monitors in the testing data and we will use the values for <code>mtry</code> and <code>min_n</code> that we just determined based on our tuning analysis to achieve the best performance.</p>
+<p>So, first we need to specify these values in a workflow. We can use the <code>select_best()</code> function of the <code>tune</code> package to grab the values that were determined to be best for <code>mtry</code> and <code>min_n</code>.</p>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb342-1" data-line-number="1">tuned_RF_values&lt;-<span class="st"> </span><span class="kw">select_best</span>(tune_RF_results, <span class="st">&quot;rmse&quot;</span>)</a>
+<a class="sourceLine" id="cb342-2" data-line-number="2">tuned_RF_values</a></code></pre></div>
+<pre><code>## # A tibble: 1 x 2
+##    mtry min_n
+##   &lt;int&gt; &lt;int&gt;
+## 1    13     7</code></pre>
+<p>Now we can finalize the model/workflow that we we used for tuning with these values.</p>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb344-1" data-line-number="1">RF_tuned_wflow &lt;-RF_tune_wflow <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb344-2" data-line-number="2"><span class="st">  </span>tune<span class="op">::</span><span class="kw">finalize_workflow</span>(tuned_RF_values)</a></code></pre></div>
+<p>With the <code>workflows</code> package, we can use the splitting information for our original data <code>pm_split</code> to fit the final model on the full training set and also on the testing data using the <code>last_fit()</code> function of the <code>tune</code> package. No pre-processing steps are required.</p>
+<p>The results will show the performance using the testing data.</p>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb345-1" data-line-number="1">overallfit &lt;-tune<span class="op">::</span><span class="kw">last_fit</span>(RF_tuned_wflow, pm_split)</a>
+<a class="sourceLine" id="cb345-2" data-line-number="2"> <span class="co"># or</span></a>
+<a class="sourceLine" id="cb345-3" data-line-number="3">overallfit &lt;-RF_wflow <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb345-4" data-line-number="4"><span class="st">  </span>tune<span class="op">::</span><span class="kw">last_fit</span>(pm_split)</a></code></pre></div>
+<p>The <code>overallfit</code> output has a lot of really useful information about how the model, the data test and training split, and the predictions for the testing data.</p>
+<p>To see the performance on the test data we can use the <code>collect_metrics()</code> function like we did before.</p>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb346-1" data-line-number="1">  <span class="kw">collect_metrics</span>(overallfit)</a></code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##   .metric .estimator .estimate
+##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+## 1 rmse    standard       1.44 
+## 2 rsq     standard       0.640</code></pre>
+<p>Awesome! We can see that our rmse of 1.44 is quite similar with our testing data cross validation sets. We achieved quite good performance, which suggests that we would could predict other locations with more sparse monitoring based on our predictors with reasonable accuracy.</p>
+<p>Now if you wanted to take a look at the predicted values for the test set (the 292 rows with predictions out of the 876 original monitor values) you can use the <code>collect_predictions()</code> function of the <code>tune()</code> package:</p>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb348-1" data-line-number="1">test_predictions &lt;-<span class="kw">collect_predictions</span>(overallfit)</a></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb349-1" data-line-number="1"><span class="kw">head</span>(test_predictions)</a></code></pre></div>
+<pre><code>## # A tibble: 6 x 4
+##   id               .pred  .row value
+##   &lt;chr&gt;            &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;
+## 1 train/test split  11.1     4  11.7
+## 2 train/test split  11.8    10  13.1
+## 3 train/test split  12.1    12  12.2
+## 4 train/test split  11.4    15  12.2
+## 5 train/test split  11.4    19  11.4
+## 6 train/test split  12.1    22  12.2</code></pre>
+<p>Nice!</p>
 
 </div>
 </div>
