@@ -150,7 +150,7 @@ df
 
 Here we also get information about the dimensions of our data object and the name and class of our variables.
 
-<img src="/Users/rdpeng/books/tidyversecourse/book_figures/tibble.png" width="60%" />
+<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/tibble.png" width="60%" />
 
 ### Missing Values
 
@@ -616,7 +616,7 @@ cor.test(pull(df %>% filter(bodywt<2000 & bodywt >1 & brainwt<1),bodywt),
 ## 	Pearson's product-moment correlation
 ## 
 ## data:  pull(df %>% filter(bodywt < 2000 & bodywt > 1 & brainwt < 1), bodywt) and pull(df %>% filter(bodywt < 2000 & bodywt > 1 & brainwt < 1), brainwt)
-## t = 6.6127, df = 27, p-value = 0.0000004283
+## t = 6.6127, df = 27, p-value = 4.283e-07
 ## alternative hypothesis: true correlation is not equal to 0
 ## 95 percent confidence interval:
 ##  0.5897381 0.8949042
@@ -1324,21 +1324,15 @@ CI <-soda_ounces %>%
   generate(rep = 1000, type = "bootstrap") %>%
   calculate(stat = "mean") %>% 
   get_confidence_interval()
-```
 
-```
-## Using `level = 0.95` to compute confidence interval.
-```
-
-```r
 CI
 ```
 
 ```
 ## # A tibble: 1 x 2
-##   lower_ci upper_ci
-##      <dbl>    <dbl>
-## 1     12.0     12.0
+##   `2.5%` `97.5%`
+##    <dbl>   <dbl>
+## 1   12.0    12.0
 ```
 
 We can see that our confidence interval is very similar but slightly different from the results we obtained using the `t.test()` function and the `lm()` function. This is because we used a different method to calculate the confidence interval based on the bootstrap samples. Furthemore, the results will vary everytime the code is run because the bootstrap samples are randomly created each time.
@@ -1573,7 +1567,7 @@ Modifying a piece of the overall process is now easier than before because many 
 
 We will focus on the following packages although there are many more in the tidymodels ecosystem:                          
 
-<img src="/Users/rdpeng/books/tidyversecourse/book_figures/simpletidymodels.png" width="830" />
+<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/simpletidymodels.png" width="830" />
 
 1) rsamples - to split the data into training and testing sets (as well as cross validation sets - more on that later!)  
 2) recipes -  to prepare the data with preprocessing (assign variables and preprocessing steps)  
@@ -1587,7 +1581,7 @@ We will focus on the following packages although there are many more in the tidy
 
 Here you can see a visual of how these packages work together in the process of performing a machine learning analysis:
 
-<img src="/Users/rdpeng/books/tidyversecourse/book_figures/MachineLearning_tidymodels.png" width="1252" />
+<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/MachineLearning_tidymodels.png" width="1252" />
 
 To illustrate how to use each of these packages, we will work through some examples.
 
@@ -1785,7 +1779,7 @@ formula(first_recipe)
 
 ```
 ## Sepal.Length ~ Sepal.Width + Species
-## <environment: 0x7f855a744ba8>
+## <environment: 0x7fe51b248520>
 ```
 
 We can also view our recipe in more detail using the base summary() function.
@@ -2090,16 +2084,16 @@ iris_reg_wflow
 ```
 
 ```
-## ══ Workflow ════════════════════════════════════════════════════════════════════
+## ══ Workflow ═════════════════════════════════════════════════════════════════════════════════════════════════════════════
 ## Preprocessor: Recipe
 ## Model: linear_reg()
 ## 
-## ── Preprocessor ────────────────────────────────────────────────────────────────
+## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## 1 Recipe Step
 ## 
 ## ● step_dummy()
 ## 
-## ── Model ───────────────────────────────────────────────────────────────────────
+## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## Linear Regression Model Specification (regression)
 ## 
 ## Computational engine: lm
@@ -2118,19 +2112,19 @@ iris_reg_wflow_fit
 ```
 
 ```
-## ══ Workflow [trained] ══════════════════════════════════════════════════════════
+## ══ Workflow [trained] ═══════════════════════════════════════════════════════════════════════════════════════════════════
 ## Preprocessor: Recipe
 ## Model: linear_reg()
 ## 
-## ── Preprocessor ────────────────────────────────────────────────────────────────
+## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## 1 Recipe Step
 ## 
 ## ● step_dummy()
 ## 
-## ── Model ───────────────────────────────────────────────────────────────────────
+## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## 
 ## Call:
-## stats::lm(formula = ..y ~ ., data = data)
+## stats::lm(formula = formula, data = data)
 ## 
 ## Coefficients:
 ##        (Intercept)         Sepal.Width      Species_setosa  Species_versicolor  
@@ -2200,15 +2194,15 @@ head(wf_fitted_values)
 ```
 
 ```
-FALSE # A tibble: 6 x 3
-FALSE   Sepal.Length .fitted .std.resid
-FALSE          <dbl>   <dbl>      <dbl>
-FALSE 1          5.1    5.07   0.0748  
-FALSE 2          4.6    5.00  -0.972   
-FALSE 3          5      5.00  -0.000471
-FALSE 4          4.4    4.66  -0.629   
-FALSE 5          4.9    4.79   0.261   
-FALSE 6          5.4    5.21   0.469
+FALSE # A tibble: 6 x 8
+FALSE   Sepal.Length .fitted .se.fit    .resid   .hat .sigma       .cooksd .std.resid
+FALSE          <dbl>   <dbl>   <dbl>     <dbl>  <dbl>  <dbl>         <dbl>      <dbl>
+FALSE 1          5.1    5.07  0.0707  0.0308   0.0286  0.420 0.0000413       0.0748  
+FALSE 2          4.6    5.00  0.0712 -0.400    0.0290  0.418 0.00706        -0.972   
+FALSE 3          5      5.00  0.0712 -0.000194 0.0290  0.420 0.00000000166  -0.000471
+FALSE 4          4.4    4.66  0.0995 -0.255    0.0567  0.419 0.00595        -0.629   
+FALSE 5          4.9    4.79  0.0841  0.107    0.0405  0.420 0.000717        0.261   
+FALSE 6          5.4    5.21  0.0758  0.193    0.0329  0.420 0.00187         0.469
 ```
 
 ```r
@@ -2284,12 +2278,6 @@ overallfit
 ```
 
 ```
-FALSE Warning: This tuning result has notes. Example notes on model fitting include:
-FALSE model (predictions): prediction from a rank-deficient fit may be misleading
-```
-
-```
-FALSE # Resampling results
 FALSE # Monte Carlo cross-validation (0.67/0.33) with 1 resamples  
 FALSE # A tibble: 1 x 6
 FALSE   splits       id           .metrics      .notes       .predictions    .workflow
@@ -2426,14 +2414,14 @@ The number of $v$ subsets to use is also a bit arbitrary, although generally spe
 We are going to use 4 folds for the sake of expediency and simplicity. 
 
 
-<img src="/Users/rdpeng/books/tidyversecourse/book_figures/vfold.png" width="463" />
+<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/vfold.png" width="463" />
 
 The model will be trained on  $v$-1 subsets of the data iteratively (removing a different $v$ until all possible $v$-1 sets have been evaluated) to get a sense of the performance of the model. While one fold will be saved to act as a test set.
 
 In the case of tuning, multiple values for the hyper-parameter are tested to determine what yeilds the best model performance.
  
 
-<img src="/Users/rdpeng/books/tidyversecourse/book_figures/cross_validation.png" width="389" />
+<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/cross_validation.png" width="389" />
 
 
 #### Example of creating cross validation samples with `rsample`
@@ -2532,14 +2520,14 @@ iris_cat_wflow
 ```
 
 ```
-## ══ Workflow ════════════════════════════════════════════════════════════════════
+## ══ Workflow ═════════════════════════════════════════════════════════════════════════════════════════════════════════════
 ## Preprocessor: Recipe
 ## Model: decision_tree()
 ## 
-## ── Preprocessor ────────────────────────────────────────────────────────────────
+## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## 0 Recipe Steps
 ## 
-## ── Model ───────────────────────────────────────────────────────────────────────
+## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## Decision Tree Model Specification (classification)
 ## 
 ## Computational engine: rpart
@@ -2559,14 +2547,14 @@ iris_cat_wflow_fit
 ```
 
 ```
-## ══ Workflow [trained] ══════════════════════════════════════════════════════════
+## ══ Workflow [trained] ═══════════════════════════════════════════════════════════════════════════════════════════════════
 ## Preprocessor: Recipe
 ## Model: decision_tree()
 ## 
-## ── Preprocessor ────────────────────────────────────────────────────────────────
+## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## 0 Recipe Steps
 ## 
-## ── Model ───────────────────────────────────────────────────────────────────────
+## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## n= 100 
 ## 
 ## node), split, n, loss, yval, (yprob)
@@ -2692,8 +2680,7 @@ resample_fit
 ```
 
 ```
-## # Resampling results
-## # 4-fold cross-validation 
+## #  4-fold cross-validation 
 ## # A tibble: 4 x 4
 ##   splits          id    .metrics         .notes          
 ##   <list>          <chr> <list>           <list>          
@@ -2763,17 +2750,17 @@ tune::collect_metrics(resample_fit)
 ```
 
 ```
-## # A tibble: 8 x 7
-##   min_n .metric  .estimator  mean     n std_err .config
-##   <int> <chr>    <chr>      <dbl> <int>   <dbl> <chr>  
-## 1    25 accuracy multiclass 0.94      4  0.0258 Model1 
-## 2    25 roc_auc  hand_till  0.961     4  0.0172 Model1 
-## 3    11 accuracy multiclass 0.94      4  0.0258 Model2 
-## 4    11 roc_auc  hand_till  0.961     4  0.0172 Model2 
-## 5    31 accuracy multiclass 0.94      4  0.0258 Model3 
-## 6    31 roc_auc  hand_till  0.961     4  0.0172 Model3 
-## 7    18 accuracy multiclass 0.94      4  0.0258 Model4 
-## 8    18 roc_auc  hand_till  0.961     4  0.0172 Model4
+## # A tibble: 8 x 6
+##   min_n .metric  .estimator  mean     n std_err
+##   <int> <chr>    <chr>      <dbl> <int>   <dbl>
+## 1    11 accuracy multiclass 0.94      4  0.0258
+## 2    11 roc_auc  hand_till  0.961     4  0.0172
+## 3    18 accuracy multiclass 0.94      4  0.0258
+## 4    18 roc_auc  hand_till  0.961     4  0.0172
+## 5    25 accuracy multiclass 0.94      4  0.0258
+## 6    25 roc_auc  hand_till  0.961     4  0.0172
+## 7    31 accuracy multiclass 0.94      4  0.0258
+## 8    31 roc_auc  hand_till  0.961     4  0.0172
 ```
 
 ```r
@@ -2781,19 +2768,135 @@ tune::show_best(resample_fit, metric = "accuracy")
 ```
 
 ```
-## # A tibble: 4 x 7
-##   min_n .metric  .estimator  mean     n std_err .config
-##   <int> <chr>    <chr>      <dbl> <int>   <dbl> <chr>  
-## 1    25 accuracy multiclass  0.94     4  0.0258 Model1 
-## 2    11 accuracy multiclass  0.94     4  0.0258 Model2 
-## 3    31 accuracy multiclass  0.94     4  0.0258 Model3 
-## 4    18 accuracy multiclass  0.94     4  0.0258 Model4
+## # A tibble: 4 x 6
+##   min_n .metric  .estimator  mean     n std_err
+##   <int> <chr>    <chr>      <dbl> <int>   <dbl>
+## 1    11 accuracy multiclass  0.94     4  0.0258
+## 2    18 accuracy multiclass  0.94     4  0.0258
+## 3    25 accuracy multiclass  0.94     4  0.0258
+## 4    31 accuracy multiclass  0.94     4  0.0258
+```
+
+
+## Case Studies
+
+Now we will demonstrate a more involved example with a case study.
+
+### Case Study #1: Predicting Annual Air Pollution
+
+A variety of different sources contribute different types of pollutants to what we call air pollution. 
+
+1) **Gaseous** - Carbon Monoxide (CO), Ozone (O~3~), Nitrogen Oxides(NO, NO~2~), Sulpher Dioxide (SO~2~)
+2) **Particulate** - small liquids and solids suspended in the air (includes lead- can include certain types of dust)
+3) **Dust** - small solids (larger than particulates) that can be suspended in the air for some time but eventually settle
+4) **Biological** - pollen, bacteria, viruses, mold spores
+
+
+Air pollution particulates are generally described by their **size**.
+
+There are 3 major categories:
+
+1) **Large Coarse** Particulate Mater - has diameter of >10 micrometers (10 µm) 
+
+2) **Coarse** Particulate Mater (called **PM~10-2.5~**) - has diameter of between 2.5 µm and 10 µm
+
+3) **Fine** Particulate Mater (called **PM~2.5~**) - has diameter of < 2.5 µm 
+
+**PM~10~** includes any particulate mater <10 µm (both coarse and fine particulate mater)
+
+
+Of these different sizes, fine particulate mater air pollution is the most associated with health risk.
+
+In this case study, we will use fine particulate mater air pollution monitor data from **[gravimetric monitors](https://publiclab.org/wiki/filter-pm){target="_blank"}** (see picture below) operated by the US [Enivornmental Protection Agency (EPA)](https://www.epa.gov/){target="_blank"}.
+
+Roughly 90% of these monitors are located within cities. Hence, there is limited data about air pollution levels of more rural areas. 
+
+To get a better sense of the pollution exposures for the individuals living in these areas, methods like machine learning can be useful to estimate air pollution levels in **areas with little to no monitoring**. 
+
+
+We will use data like population density, road density, among other features, to build a model to predict the known monitored fine particulate air pollution levels. Such a model can then be used to estimate levels of pollution in  places with poor monitoring.
+
+#### The Data
+
+There are 48 predictors with values for 876 monitors (observations). 
+
+The data comes from the US [Enivornmental Protection Agency (EPA)](https://www.epa.gov/){target="_blank"}, the [National Aeronautics and Space Administration (NASA)](https://www.nasa.gov/){target="_blank"}, the US [Census](https://www.census.gov/about/what/census-at-a-glance.html){target="_blank"}, and the [National Center for Health Statistics (NCHS)](https://www.cdc.gov/nchs/about/index.htm){target="_blank"}.
+
+<details><summary> Click here to see a table about the set of features </summary>
+
+Variable   | Details                                                                        
+---------- |-------------
+**id**  | Monitor number  <br> -- the county number is indicated before the decimal <br> -- the monitor number is indicated after the decimal <br>  **Example**: 1073.0023  is Jefferson county (1073) and .0023 one of 8 monitors 
+**fips** | Federal information processing standard number for the county where the monitor is located <br> -- 5 digit id code for counties (zero is often the first value and sometimes is not shown) <br> -- the first 2 numbers indicate the state <br> -- the last three numbers indicate the county <br>  **Example**: Alabama's state code is 01 because it is first alphabetically <br> (note: Alaska and Hawaii are not included because they are not part of the contiguous US)  
+**Lat** | Latitude of the monitor in degrees  
+**Lon** | Longitude of the monitor in degrees  
+**state** | State where the monitor is located
+**county** | County where the monitor is located
+**city** | City where the monitor is located
+**CMAQ**  | Estimated values of air pollution from a computational model called [**Community Multiscale Air Quality (CMAQ)**](https://www.epa.gov/cmaq){target="_blank"} <br> --  A monitoring system that simulates the physics of the atmosphere using chemistry and weather data to predict the air pollution <br> -- ***Does not use any of the PM~2.5~ gravimetric monitoring data.*** (There is a version that does use the gravimetric monitoring data, but not this one!) <br> -- Data from the EPA
+**zcta** | [Zip Code Tabulation Area](https://www2.census.gov/geo/pdfs/education/brochures/ZCTAs.pdf){target="_blank"} where the monitor is located <br> -- Postal Zip codes are converted into "generalized areal representations" that are non-overlapping  <br> -- Data from the 2010 Census  
+**zcta_area** | Land area of the zip code area in meters squared  <br> -- Data from the 2010 Census  
+**zcta_pop** | Population in the zip code area  <br> -- Data from the 2010 Census  
+**imp_a500** | Impervious surface measure <br> -- Within a circle with a radius of 500 meters around the monitor <br> -- Impervious surface are roads, concrete, parking lots, buildings <br> -- This is a measure of development 
+**imp_a1000** | Impervious surface measure <br> --  Within a circle with a radius of 1000 meters around the monitor
+**imp_a5000** | Impervious surface measure <br> --  Within a circle with a radius of 5000 meters around the monitor  
+**imp_a10000** | Impervious surface measure <br> --  Within a circle with a radius of 10000 meters around the monitor   
+**imp_a15000** | Impervious surface measure <br> --  Within a circle with a radius of 15000 meters around the monitor  
+**county_area** | Land area of the county of the monitor in meters squared  
+**county_pop** | Population of the county of the monitor  
+**Log_dist_to_prisec** | Log (Natural log) distance to a primary or secondary road from the monitor <br> -- Highway or major road  
+**log_pri_length_5000** | Count of primary road length in meters in a circle with a radius of 5000 meters around the monitor (Natural log) <br> -- Highways only  
+**log_pri_length_10000** | Count of primary road length in meters in a circle with a radius of 10000 meters around the monitor (Natural log) <br> -- Highways only  
+**log_pri_length_15000** | Count of primary road length in meters in a circle with a radius of 15000 meters around the monitor (Natural log) <br> -- Highways only  
+**log_pri_length_25000** | Count of primary road length in meters in a circle with a radius of 25000 meters around the monitor (Natural log) <br> -- Highways only  
+**log_prisec_length_500** | Count of primary and secondary road length in meters in a circle with a radius of 500 meters around the monitor (Natural log)  <br> -- Highway and secondary roads  
+**log_prisec_length_1000** | Count of primary and secondary road length in meters in a circle with a radius of 1000 meters around the monitor (Natural log)  <br> -- Highway and secondary roads  
+**log_prisec_length_5000** | Count of primary and secondary road length in meters in a circle with a radius of 5000 meters around the monitor (Natural log)  <br> -- Highway and secondary roads  
+**log_prisec_length_10000** | Count of primary and secondary road length in meters in a circle with a radius of 10000 meters around the monitor (Natural log)  <br> -- Highway and secondary roads  
+**log_prisec_length_15000** | Count of primary and secondary road length in meters in a circle with a radius of 15000 meters around the monitor (Natural log)  <br> -- Highway and secondary roads  
+**log_prisec_length_25000** | Count of primary and secondary road length in meters in a circle with a radius of 25000 meters around the monitor (Natural log)  <br> -- Highway and secondary roads      
+**log_nei_2008_pm25_sum_10000** | Tons of emissions from major sources data base (annual data) sum of all sources within a circle with a radius of 10000 meters of distance around the monitor (Natural log)    
+**log_nei_2008_pm25_sum_15000** | Tons of emissions from major sources data base (annual data) sum of all sources within a circle with a radius of 15000 meters of distance around the monitor (Natural log)     
+**log_nei_2008_pm25_sum_25000** | Tons of emissions from major sources data base (annual data) sum of all sources within a circle with a radius of 25000 meters of distance around the monitor (Natural log)     
+**log_nei_2008_pm10_sum_10000** | Tons of emissions from major sources data base (annual data) sum of all sources within a circle with a radius of 10000 meters of distance around the monitor (Natural log)      
+**log_nei_2008_pm10_sum_15000**| Tons of emissions from major sources data base (annual data) sum of all sources within a circle with a radius of 15000 meters of distance around the monitor (Natural log)      
+**log_nei_2008_pm10_sum_25000** | Tons of emissions from major sources data base (annual data) sum of all sources within a circle with a radius of 25000 meters of distance around the monitor (Natural log)      
+**popdens_county** | Population density (number of people per kilometer squared area of the county)
+**popdens_zcta** | Population density (number of people per kilometer squared area of zcta)
+**nohs** | Percentage of people in zcta area where the monitor is that **do not have a high school degree** <br> -- Data from the Census
+**somehs** | Percentage of people in zcta area where the monitor whose highest formal educational attainment was **some high school education** <br> -- Data from the Census
+**hs** | Percentage of people in zcta area where the monitor whose highest formal educational attainment was completing a **high school degree** <br> -- Data from the Census  
+**somecollege** | Percentage of people in zcta area where the monitor whose highest formal educational attainment was completing **some college education** <br> -- Data from the Census 
+**associate** | Percentage of people in zcta area where the monitor whose highest formal educational attainment was completing an **associate degree** <br> -- Data from the Census 
+**bachelor** | Percentage of people in zcta area where the monitor whose highest formal educational attainment was a **bachelor's degree** <br> -- Data from the Census 
+**grad** | Percentage of people in zcta area where the monitor whose highest formal educational attainment was a **graduate degree** <br> -- Data from the Census 
+**pov** | Percentage of people in zcta area where the monitor is that lived in [**poverty**](https://aspe.hhs.gov/2008-hhs-poverty-guidelines) in 2008 - or would it have been 2007 guidelines??https://aspe.hhs.gov/2007-hhs-poverty-guidelines <br> -- Data from the Census  
+**hs_orless** |  Percentage of people in zcta area where the monitor whose highest formal educational attainment was a **high school degree or less** (sum of nohs, somehs, and hs)  
+**urc2013** | [2013 Urban-rural classification](https://www.cdc.gov/nchs/data/series/sr_02/sr02_166.pdf){target="_blank"} of the county where the monitor is located <br> -- 6 category variable - 1 is totally urban 6 is completely rural <br>  -- Data from the National Center for Health Statistics](https://www.cdc.gov/nchs/index.htm){target="_blank"}     
+**urc2006** | [2006 Urban-rural classification](https://www.cdc.gov/nchs/data/series/sr_02/sr02_154.pdf){target="_blank"} of the county where the monitor is located <br> -- 6 category variable - 1 is totally urban 6 is completely rural <br> -- Data from the [National Center for Health Statistics](https://www.cdc.gov/nchs/index.htm){target="_blank"}     
+**aod** | Aerosol Optical Depth measurement from a NASA satellite <br> -- based on the diffraction of a laser <br> -- used as a proxy of particulate pollution <br> -- unit-less - higher value indicates more pollution <br> -- Data from NASA  
+
+</details>
+
+
+Many of these features have to do with the circular area around the monitor called the "buffer", but you don't need to worry much about this.
+
+
+
+#### Data Import
+
+We have one CSV file that contains both our single **outcome variable** and all of our **features** (or predictor variables).
+
+Next, we import our data into R now so that we can explore the data further. 
+We will call our data object `pm` for particulate matter. 
+We import the data using the `read_csv()` function from the `readr` package. 
+
+```r
+pm <- readr::read_csv(here("docs", "pm25_data.csv"))
 ```
 
 
 
-
-## Case Studies
 
 
 
