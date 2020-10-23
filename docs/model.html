@@ -1550,7 +1550,7 @@ We again expected that it did. Thus we had a statement that &quot; car mileage c
 <p>We can use the <code>formula()</code> function of the stats package to see how we have assigned our variables in formula notation.</p>
 <div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1"><span class="kw">formula</span>(first_recipe)</a></code></pre></div>
 <pre><code>## Sepal.Length ~ Sepal.Width + Species
-## &lt;environment: 0x7fe51b248520&gt;</code></pre>
+## &lt;environment: 0x7fe9cdcf5818&gt;</code></pre>
 <p>We can also view our recipe in more detail using the base summary() function.</p>
 <div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1"><span class="kw">summary</span>(first_recipe)</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 4
@@ -2406,7 +2406,923 @@ See <a href="https://tidymodels.github.io/tune/reference/fit_resamples.html" tar
 <p>Next, we import our data into R now so that we can explore the data further.
 We will call our data object <code>pm</code> for particulate matter.
 We import the data using the <code>read_csv()</code> function from the <code>readr</code> package.</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" data-line-number="1">pm &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="kw">here</span>(<span class="st">&quot;docs&quot;</span>, <span class="st">&quot;pm25_data.csv&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" data-line-number="1"><span class="kw">library</span>(here)</a></code></pre></div>
+<pre><code>## here() starts at /Users/carriewright/Documents/GitHub/tidyversecourse</code></pre>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" data-line-number="1">pm &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="kw">here</span>(<span class="st">&quot;data&quot;</span>,<span class="st">&quot;tidy_data&quot;</span>,<span class="st">&quot;pm25_data.csv&quot;</span>))</a></code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   .default = col_double(),
+##   state = col_character(),
+##   county = col_character(),
+##   city = col_character()
+## )</code></pre>
+<pre><code>## See spec(...) for full column specifications.</code></pre>
+</div>
+<div id="data-exploration-and-wrangling" class="section level4">
+<h4><span class="header-section-number">5.13.1.3</span> Data Exploration and Wrangling</h4>
+<p>First, let’s just get a general sense of our data.</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb178-2" data-line-number="2">pm <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb178-3" data-line-number="3"><span class="st">  </span><span class="kw">glimpse</span>()</a></code></pre></div>
+<pre><code>## Rows: 876
+## Columns: 50
+## $ id                          &lt;dbl&gt; 1003.001, 1027.000, 1033.100, 1049.100, 1…
+## $ value                       &lt;dbl&gt; 9.597647, 10.800000, 11.212174, 11.659091…
+## $ fips                        &lt;dbl&gt; 1003, 1027, 1033, 1049, 1055, 1069, 1073,…
+## $ lat                         &lt;dbl&gt; 30.49800, 33.28126, 34.75878, 34.28763, 3…
+## $ lon                         &lt;dbl&gt; -87.88141, -85.80218, -87.65056, -85.9683…
+## $ state                       &lt;chr&gt; &quot;Alabama&quot;, &quot;Alabama&quot;, &quot;Alabama&quot;, &quot;Alabama…
+## $ county                      &lt;chr&gt; &quot;Baldwin&quot;, &quot;Clay&quot;, &quot;Colbert&quot;, &quot;DeKalb&quot;, &quot;…
+## $ city                        &lt;chr&gt; &quot;Fairhope&quot;, &quot;Ashland&quot;, &quot;Muscle Shoals&quot;, &quot;…
+## $ CMAQ                        &lt;dbl&gt; 8.098836, 9.766208, 9.402679, 8.534772, 9…
+## $ zcta                        &lt;dbl&gt; 36532, 36251, 35660, 35962, 35901, 36303,…
+## $ zcta_area                   &lt;dbl&gt; 190980522, 374132430, 16716984, 203836235…
+## $ zcta_pop                    &lt;dbl&gt; 27829, 5103, 9042, 8300, 20045, 30217, 90…
+## $ imp_a500                    &lt;dbl&gt; 0.01730104, 1.96972318, 19.17301038, 5.78…
+## $ imp_a1000                   &lt;dbl&gt; 1.4096021, 0.8531574, 11.1448962, 3.86764…
+## $ imp_a5000                   &lt;dbl&gt; 3.3360118, 0.9851479, 15.1786154, 1.23114…
+## $ imp_a10000                  &lt;dbl&gt; 1.9879187, 0.5208189, 9.7253870, 1.031646…
+## $ imp_a15000                  &lt;dbl&gt; 1.4386207, 0.3359198, 5.2472094, 0.973044…
+## $ county_area                 &lt;dbl&gt; 4117521611, 1564252280, 1534877333, 20126…
+## $ county_pop                  &lt;dbl&gt; 182265, 13932, 54428, 71109, 104430, 1015…
+## $ log_dist_to_prisec          &lt;dbl&gt; 4.648181, 7.219907, 5.760131, 3.721489, 5…
+## $ log_pri_length_5000         &lt;dbl&gt; 8.517193, 8.517193, 8.517193, 8.517193, 9…
+## $ log_pri_length_10000        &lt;dbl&gt; 9.210340, 9.210340, 9.274303, 10.409411, …
+## $ log_pri_length_15000        &lt;dbl&gt; 9.630228, 9.615805, 9.658899, 11.173626, …
+## $ log_pri_length_25000        &lt;dbl&gt; 11.32735, 10.12663, 10.15769, 11.90959, 1…
+## $ log_prisec_length_500       &lt;dbl&gt; 7.295356, 6.214608, 8.611945, 7.310155, 8…
+## $ log_prisec_length_1000      &lt;dbl&gt; 8.195119, 7.600902, 9.735569, 8.585843, 9…
+## $ log_prisec_length_5000      &lt;dbl&gt; 10.815042, 10.170878, 11.770407, 10.21420…
+## $ log_prisec_length_10000     &lt;dbl&gt; 11.88680, 11.40554, 12.84066, 11.50894, 1…
+## $ log_prisec_length_15000     &lt;dbl&gt; 12.205723, 12.042963, 13.282656, 12.35366…
+## $ log_prisec_length_25000     &lt;dbl&gt; 13.41395, 12.79980, 13.79973, 13.55979, 1…
+## $ log_nei_2008_pm25_sum_10000 &lt;dbl&gt; 0.318035438, 3.218632928, 6.573127301, 0.…
+## $ log_nei_2008_pm25_sum_15000 &lt;dbl&gt; 1.967358961, 3.218632928, 6.581917457, 3.…
+## $ log_nei_2008_pm25_sum_25000 &lt;dbl&gt; 5.067308, 3.218633, 6.875900, 4.887665, 4…
+## $ log_nei_2008_pm10_sum_10000 &lt;dbl&gt; 1.35588511, 3.31111648, 6.69187313, 0.000…
+## $ log_nei_2008_pm10_sum_15000 &lt;dbl&gt; 2.26783411, 3.31111648, 6.70127741, 3.350…
+## $ log_nei_2008_pm10_sum_25000 &lt;dbl&gt; 5.628728, 3.311116, 7.148858, 5.171920, 4…
+## $ popdens_county              &lt;dbl&gt; 44.265706, 8.906492, 35.460814, 35.330814…
+## $ popdens_zcta                &lt;dbl&gt; 145.716431, 13.639555, 540.887040, 40.718…
+## $ nohs                        &lt;dbl&gt; 3.3, 11.6, 7.3, 14.3, 4.3, 5.8, 7.1, 2.7,…
+## $ somehs                      &lt;dbl&gt; 4.9, 19.1, 15.8, 16.7, 13.3, 11.6, 17.1, …
+## $ hs                          &lt;dbl&gt; 25.1, 33.9, 30.6, 35.0, 27.8, 29.8, 37.2,…
+## $ somecollege                 &lt;dbl&gt; 19.7, 18.8, 20.9, 14.9, 29.2, 21.4, 23.5,…
+## $ associate                   &lt;dbl&gt; 8.2, 8.0, 7.6, 5.5, 10.1, 7.9, 7.3, 8.0, …
+## $ bachelor                    &lt;dbl&gt; 25.3, 5.5, 12.7, 7.9, 10.0, 13.7, 5.9, 17…
+## $ grad                        &lt;dbl&gt; 13.5, 3.1, 5.1, 5.8, 5.4, 9.8, 2.0, 8.7, …
+## $ pov                         &lt;dbl&gt; 6.1, 19.5, 19.0, 13.8, 8.8, 15.6, 25.5, 7…
+## $ hs_orless                   &lt;dbl&gt; 33.3, 64.6, 53.7, 66.0, 45.4, 47.2, 61.4,…
+## $ urc2013                     &lt;dbl&gt; 4, 6, 4, 6, 4, 4, 1, 1, 1, 1, 1, 1, 1, 2,…
+## $ urc2006                     &lt;dbl&gt; 5, 6, 4, 5, 4, 4, 1, 1, 1, 1, 1, 1, 1, 2,…
+## $ aod                         &lt;dbl&gt; 37.36364, 34.81818, 36.00000, 33.08333, 4…</code></pre>
+<p>We can see that there are 876 monitors (rows) and that we have 50 total variables (columns) - one of which is the outcome variable. In this case, the outcome variable is called <code>value</code>.</p>
+<p>Notice that some of the variables that we would think of as factors (or categorical data) are currently of class character as indicated by the <code>&lt;chr&gt;</code> just to the right of the column names/variable names in the <code>glimpse()</code> output. This means that the variable values are character strings, such as words or phrases.</p>
+<p>The other variables are of class <code>&lt;dbl&gt;</code>, which stands for double precision which indicates that the are numeric and that they have decimal values. In contrast, one could have integer values which would not allow for decimal numbers. Here is a <a href="https://en.wikipedia.org/wiki/Double-precision_floating-point_format" target="_blank">link</a> for more information on double precision numeric values.</p>
+<p>Another common data class is factor which is abbreviated like this: <code>&lt;fct&gt;</code>. A factor is something that has unique levels but there is no appreciable order to the levels. For example we can have a numeric value that is just an id that we want to be interpreted as just a unique level and not as the number that it would typically indicate. This would be useful for several of our variables:</p>
+<ol style="list-style-type: decimal">
+<li>the monitor ID (<code>id</code>)</li>
+<li>the Federal Information Processing Standard number for the county where the monitor was located (<code>fips</code>)</li>
+<li>the zip code tabulation area (<code>zcta</code>)</li>
+</ol>
+<p>None of the values actually have any real numeric meaning, so we want to make sure that R does not interpret them as if they do.</p>
+<p>So let’s convert these variables into factors.
+We can do this using the <code>across()</code> function of the <code>dplyr</code> package and the <code>as.factor()</code> base function.
+The <code>across()</code> function has two main arguments: (i) the columns you want to operate on and (ii) the function or list of functions to apply to each column.</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" data-line-number="1"><span class="kw">library</span>(magrittr)</a></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;magrittr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     set_names</code></pre>
+<pre><code>## The following object is masked from &#39;package:tidyr&#39;:
+## 
+##     extract</code></pre>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" data-line-number="1">pm &lt;-pm <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb184-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">c</span>(id, fips, zcta), as.factor)) </a>
+<a class="sourceLine" id="cb184-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb184-4" data-line-number="4"><span class="kw">glimpse</span>(pm)</a></code></pre></div>
+<pre><code>## Rows: 876
+## Columns: 50
+## $ id                          &lt;fct&gt; 1003.001, 1027.0001, 1033.1002, 1049.1003…
+## $ value                       &lt;dbl&gt; 9.597647, 10.800000, 11.212174, 11.659091…
+## $ fips                        &lt;fct&gt; 1003, 1027, 1033, 1049, 1055, 1069, 1073,…
+## $ lat                         &lt;dbl&gt; 30.49800, 33.28126, 34.75878, 34.28763, 3…
+## $ lon                         &lt;dbl&gt; -87.88141, -85.80218, -87.65056, -85.9683…
+## $ state                       &lt;chr&gt; &quot;Alabama&quot;, &quot;Alabama&quot;, &quot;Alabama&quot;, &quot;Alabama…
+## $ county                      &lt;chr&gt; &quot;Baldwin&quot;, &quot;Clay&quot;, &quot;Colbert&quot;, &quot;DeKalb&quot;, &quot;…
+## $ city                        &lt;chr&gt; &quot;Fairhope&quot;, &quot;Ashland&quot;, &quot;Muscle Shoals&quot;, &quot;…
+## $ CMAQ                        &lt;dbl&gt; 8.098836, 9.766208, 9.402679, 8.534772, 9…
+## $ zcta                        &lt;fct&gt; 36532, 36251, 35660, 35962, 35901, 36303,…
+## $ zcta_area                   &lt;dbl&gt; 190980522, 374132430, 16716984, 203836235…
+## $ zcta_pop                    &lt;dbl&gt; 27829, 5103, 9042, 8300, 20045, 30217, 90…
+## $ imp_a500                    &lt;dbl&gt; 0.01730104, 1.96972318, 19.17301038, 5.78…
+## $ imp_a1000                   &lt;dbl&gt; 1.4096021, 0.8531574, 11.1448962, 3.86764…
+## $ imp_a5000                   &lt;dbl&gt; 3.3360118, 0.9851479, 15.1786154, 1.23114…
+## $ imp_a10000                  &lt;dbl&gt; 1.9879187, 0.5208189, 9.7253870, 1.031646…
+## $ imp_a15000                  &lt;dbl&gt; 1.4386207, 0.3359198, 5.2472094, 0.973044…
+## $ county_area                 &lt;dbl&gt; 4117521611, 1564252280, 1534877333, 20126…
+## $ county_pop                  &lt;dbl&gt; 182265, 13932, 54428, 71109, 104430, 1015…
+## $ log_dist_to_prisec          &lt;dbl&gt; 4.648181, 7.219907, 5.760131, 3.721489, 5…
+## $ log_pri_length_5000         &lt;dbl&gt; 8.517193, 8.517193, 8.517193, 8.517193, 9…
+## $ log_pri_length_10000        &lt;dbl&gt; 9.210340, 9.210340, 9.274303, 10.409411, …
+## $ log_pri_length_15000        &lt;dbl&gt; 9.630228, 9.615805, 9.658899, 11.173626, …
+## $ log_pri_length_25000        &lt;dbl&gt; 11.32735, 10.12663, 10.15769, 11.90959, 1…
+## $ log_prisec_length_500       &lt;dbl&gt; 7.295356, 6.214608, 8.611945, 7.310155, 8…
+## $ log_prisec_length_1000      &lt;dbl&gt; 8.195119, 7.600902, 9.735569, 8.585843, 9…
+## $ log_prisec_length_5000      &lt;dbl&gt; 10.815042, 10.170878, 11.770407, 10.21420…
+## $ log_prisec_length_10000     &lt;dbl&gt; 11.88680, 11.40554, 12.84066, 11.50894, 1…
+## $ log_prisec_length_15000     &lt;dbl&gt; 12.205723, 12.042963, 13.282656, 12.35366…
+## $ log_prisec_length_25000     &lt;dbl&gt; 13.41395, 12.79980, 13.79973, 13.55979, 1…
+## $ log_nei_2008_pm25_sum_10000 &lt;dbl&gt; 0.318035438, 3.218632928, 6.573127301, 0.…
+## $ log_nei_2008_pm25_sum_15000 &lt;dbl&gt; 1.967358961, 3.218632928, 6.581917457, 3.…
+## $ log_nei_2008_pm25_sum_25000 &lt;dbl&gt; 5.067308, 3.218633, 6.875900, 4.887665, 4…
+## $ log_nei_2008_pm10_sum_10000 &lt;dbl&gt; 1.35588511, 3.31111648, 6.69187313, 0.000…
+## $ log_nei_2008_pm10_sum_15000 &lt;dbl&gt; 2.26783411, 3.31111648, 6.70127741, 3.350…
+## $ log_nei_2008_pm10_sum_25000 &lt;dbl&gt; 5.628728, 3.311116, 7.148858, 5.171920, 4…
+## $ popdens_county              &lt;dbl&gt; 44.265706, 8.906492, 35.460814, 35.330814…
+## $ popdens_zcta                &lt;dbl&gt; 145.716431, 13.639555, 540.887040, 40.718…
+## $ nohs                        &lt;dbl&gt; 3.3, 11.6, 7.3, 14.3, 4.3, 5.8, 7.1, 2.7,…
+## $ somehs                      &lt;dbl&gt; 4.9, 19.1, 15.8, 16.7, 13.3, 11.6, 17.1, …
+## $ hs                          &lt;dbl&gt; 25.1, 33.9, 30.6, 35.0, 27.8, 29.8, 37.2,…
+## $ somecollege                 &lt;dbl&gt; 19.7, 18.8, 20.9, 14.9, 29.2, 21.4, 23.5,…
+## $ associate                   &lt;dbl&gt; 8.2, 8.0, 7.6, 5.5, 10.1, 7.9, 7.3, 8.0, …
+## $ bachelor                    &lt;dbl&gt; 25.3, 5.5, 12.7, 7.9, 10.0, 13.7, 5.9, 17…
+## $ grad                        &lt;dbl&gt; 13.5, 3.1, 5.1, 5.8, 5.4, 9.8, 2.0, 8.7, …
+## $ pov                         &lt;dbl&gt; 6.1, 19.5, 19.0, 13.8, 8.8, 15.6, 25.5, 7…
+## $ hs_orless                   &lt;dbl&gt; 33.3, 64.6, 53.7, 66.0, 45.4, 47.2, 61.4,…
+## $ urc2013                     &lt;dbl&gt; 4, 6, 4, 6, 4, 4, 1, 1, 1, 1, 1, 1, 1, 2,…
+## $ urc2006                     &lt;dbl&gt; 5, 6, 4, 5, 4, 4, 1, 1, 1, 1, 1, 1, 1, 2,…
+## $ aod                         &lt;dbl&gt; 37.36364, 34.81818, 36.00000, 33.08333, 4…</code></pre>
+<p>Great! Now we can see that these variables are now factors as indicated by <code>&lt;fct&gt;</code> after the variable name.</p>
+<p>The <code>skim()</code> function of the <code>skimr</code> package is also really helpful for getting a general sense of your data.
+By design, it provides summary statistics about variables in the data set.</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb186-1" data-line-number="1"><span class="kw">library</span>(skimr)</a>
+<a class="sourceLine" id="cb186-2" data-line-number="2"><span class="kw">skim</span>(pm)</a></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-92">Table 5.1: </span>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">pm</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">876</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">50</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">character</td>
+<td align="left">3</td>
+</tr>
+<tr class="odd">
+<td align="left">factor</td>
+<td align="left">3</td>
+</tr>
+<tr class="even">
+<td align="left">numeric</td>
+<td align="left">44</td>
+</tr>
+<tr class="odd">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">min</th>
+<th align="right">max</th>
+<th align="right">empty</th>
+<th align="right">n_unique</th>
+<th align="right">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">state</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">20</td>
+<td align="right">0</td>
+<td align="right">49</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">county</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">20</td>
+<td align="right">0</td>
+<td align="right">471</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">city</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">48</td>
+<td align="right">0</td>
+<td align="right">607</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: factor</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="left">ordered</th>
+<th align="right">n_unique</th>
+<th align="left">top_counts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">id</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="left">FALSE</td>
+<td align="right">876</td>
+<td align="left">100: 1, 102: 1, 103: 1, 104: 1</td>
+</tr>
+<tr class="even">
+<td align="left">fips</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="left">FALSE</td>
+<td align="right">569</td>
+<td align="left">170: 12, 603: 10, 261: 9, 107: 8</td>
+</tr>
+<tr class="odd">
+<td align="left">zcta</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="left">FALSE</td>
+<td align="right">842</td>
+<td align="left">475: 3, 110: 2, 160: 2, 290: 2</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">value</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">10.81</td>
+<td align="right">2.580000e+00</td>
+<td align="right">3.02</td>
+<td align="right">9.27</td>
+<td align="right">11.15</td>
+<td align="right">12.37</td>
+<td align="right">2.316000e+01</td>
+<td align="left">▂▆▇▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">lat</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">38.48</td>
+<td align="right">4.620000e+00</td>
+<td align="right">25.47</td>
+<td align="right">35.03</td>
+<td align="right">39.30</td>
+<td align="right">41.66</td>
+<td align="right">4.840000e+01</td>
+<td align="left">▁▃▅▇▂</td>
+</tr>
+<tr class="odd">
+<td align="left">lon</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">-91.74</td>
+<td align="right">1.496000e+01</td>
+<td align="right">-124.18</td>
+<td align="right">-99.16</td>
+<td align="right">-87.47</td>
+<td align="right">-80.69</td>
+<td align="right">-6.804000e+01</td>
+<td align="left">▃▂▃▇▃</td>
+</tr>
+<tr class="even">
+<td align="left">CMAQ</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">8.41</td>
+<td align="right">2.970000e+00</td>
+<td align="right">1.63</td>
+<td align="right">6.53</td>
+<td align="right">8.62</td>
+<td align="right">10.24</td>
+<td align="right">2.313000e+01</td>
+<td align="left">▃▇▃▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">zcta_area</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">183173481.91</td>
+<td align="right">5.425989e+08</td>
+<td align="right">15459.00</td>
+<td align="right">14204601.75</td>
+<td align="right">37653560.50</td>
+<td align="right">160041508.25</td>
+<td align="right">8.164821e+09</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">zcta_pop</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">24227.58</td>
+<td align="right">1.777216e+04</td>
+<td align="right">0.00</td>
+<td align="right">9797.00</td>
+<td align="right">22014.00</td>
+<td align="right">35004.75</td>
+<td align="right">9.539700e+04</td>
+<td align="left">▇▇▃▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">imp_a500</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">24.72</td>
+<td align="right">1.934000e+01</td>
+<td align="right">0.00</td>
+<td align="right">3.70</td>
+<td align="right">25.12</td>
+<td align="right">40.22</td>
+<td align="right">6.961000e+01</td>
+<td align="left">▇▅▆▃▂</td>
+</tr>
+<tr class="even">
+<td align="left">imp_a1000</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">24.26</td>
+<td align="right">1.802000e+01</td>
+<td align="right">0.00</td>
+<td align="right">5.32</td>
+<td align="right">24.53</td>
+<td align="right">38.59</td>
+<td align="right">6.750000e+01</td>
+<td align="left">▇▅▆▃▁</td>
+</tr>
+<tr class="odd">
+<td align="left">imp_a5000</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">19.93</td>
+<td align="right">1.472000e+01</td>
+<td align="right">0.05</td>
+<td align="right">6.79</td>
+<td align="right">19.07</td>
+<td align="right">30.11</td>
+<td align="right">7.460000e+01</td>
+<td align="left">▇▆▃▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">imp_a10000</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">15.82</td>
+<td align="right">1.381000e+01</td>
+<td align="right">0.09</td>
+<td align="right">4.54</td>
+<td align="right">12.36</td>
+<td align="right">24.17</td>
+<td align="right">7.209000e+01</td>
+<td align="left">▇▃▂▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">imp_a15000</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">13.43</td>
+<td align="right">1.312000e+01</td>
+<td align="right">0.11</td>
+<td align="right">3.24</td>
+<td align="right">9.67</td>
+<td align="right">20.55</td>
+<td align="right">7.110000e+01</td>
+<td align="left">▇▃▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">county_area</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3768701992.12</td>
+<td align="right">6.212830e+09</td>
+<td align="right">33703512.00</td>
+<td align="right">1116536297.50</td>
+<td align="right">1690826566.50</td>
+<td align="right">2878192209.00</td>
+<td align="right">5.194723e+10</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">county_pop</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">687298.44</td>
+<td align="right">1.293489e+06</td>
+<td align="right">783.00</td>
+<td align="right">100948.00</td>
+<td align="right">280730.50</td>
+<td align="right">743159.00</td>
+<td align="right">9.818605e+06</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">log_dist_to_prisec</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">6.19</td>
+<td align="right">1.410000e+00</td>
+<td align="right">-1.46</td>
+<td align="right">5.43</td>
+<td align="right">6.36</td>
+<td align="right">7.15</td>
+<td align="right">1.045000e+01</td>
+<td align="left">▁▁▃▇▁</td>
+</tr>
+<tr class="odd">
+<td align="left">log_pri_length_5000</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">9.82</td>
+<td align="right">1.080000e+00</td>
+<td align="right">8.52</td>
+<td align="right">8.52</td>
+<td align="right">10.05</td>
+<td align="right">10.73</td>
+<td align="right">1.205000e+01</td>
+<td align="left">▇▂▆▅▂</td>
+</tr>
+<tr class="even">
+<td align="left">log_pri_length_10000</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">10.92</td>
+<td align="right">1.130000e+00</td>
+<td align="right">9.21</td>
+<td align="right">9.80</td>
+<td align="right">11.17</td>
+<td align="right">11.83</td>
+<td align="right">1.302000e+01</td>
+<td align="left">▇▂▇▇▃</td>
+</tr>
+<tr class="odd">
+<td align="left">log_pri_length_15000</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">11.50</td>
+<td align="right">1.150000e+00</td>
+<td align="right">9.62</td>
+<td align="right">10.87</td>
+<td align="right">11.72</td>
+<td align="right">12.40</td>
+<td align="right">1.359000e+01</td>
+<td align="left">▆▂▇▇▃</td>
+</tr>
+<tr class="even">
+<td align="left">log_pri_length_25000</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">12.24</td>
+<td align="right">1.100000e+00</td>
+<td align="right">10.13</td>
+<td align="right">11.69</td>
+<td align="right">12.46</td>
+<td align="right">13.05</td>
+<td align="right">1.436000e+01</td>
+<td align="left">▅▃▇▇▃</td>
+</tr>
+<tr class="odd">
+<td align="left">log_prisec_length_500</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">6.99</td>
+<td align="right">9.500000e-01</td>
+<td align="right">6.21</td>
+<td align="right">6.21</td>
+<td align="right">6.21</td>
+<td align="right">7.82</td>
+<td align="right">9.400000e+00</td>
+<td align="left">▇▁▂▂▁</td>
+</tr>
+<tr class="even">
+<td align="left">log_prisec_length_1000</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">8.56</td>
+<td align="right">7.900000e-01</td>
+<td align="right">7.60</td>
+<td align="right">7.60</td>
+<td align="right">8.66</td>
+<td align="right">9.20</td>
+<td align="right">1.047000e+01</td>
+<td align="left">▇▅▆▃▁</td>
+</tr>
+<tr class="odd">
+<td align="left">log_prisec_length_5000</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">11.28</td>
+<td align="right">7.800000e-01</td>
+<td align="right">8.52</td>
+<td align="right">10.91</td>
+<td align="right">11.42</td>
+<td align="right">11.83</td>
+<td align="right">1.278000e+01</td>
+<td align="left">▁▁▃▇▃</td>
+</tr>
+<tr class="even">
+<td align="left">log_prisec_length_10000</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">12.41</td>
+<td align="right">7.300000e-01</td>
+<td align="right">9.21</td>
+<td align="right">11.99</td>
+<td align="right">12.53</td>
+<td align="right">12.94</td>
+<td align="right">1.385000e+01</td>
+<td align="left">▁▁▃▇▅</td>
+</tr>
+<tr class="odd">
+<td align="left">log_prisec_length_15000</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">13.03</td>
+<td align="right">7.200000e-01</td>
+<td align="right">9.62</td>
+<td align="right">12.59</td>
+<td align="right">13.13</td>
+<td align="right">13.57</td>
+<td align="right">1.441000e+01</td>
+<td align="left">▁▁▃▇▅</td>
+</tr>
+<tr class="even">
+<td align="left">log_prisec_length_25000</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">13.82</td>
+<td align="right">7.000000e-01</td>
+<td align="right">10.13</td>
+<td align="right">13.38</td>
+<td align="right">13.92</td>
+<td align="right">14.35</td>
+<td align="right">1.523000e+01</td>
+<td align="left">▁▁▃▇▆</td>
+</tr>
+<tr class="odd">
+<td align="left">log_nei_2008_pm25_sum_10000</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.97</td>
+<td align="right">2.350000e+00</td>
+<td align="right">0.00</td>
+<td align="right">2.15</td>
+<td align="right">4.29</td>
+<td align="right">5.69</td>
+<td align="right">9.120000e+00</td>
+<td align="left">▆▅▇▆▂</td>
+</tr>
+<tr class="even">
+<td align="left">log_nei_2008_pm25_sum_15000</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4.72</td>
+<td align="right">2.250000e+00</td>
+<td align="right">0.00</td>
+<td align="right">3.47</td>
+<td align="right">5.00</td>
+<td align="right">6.35</td>
+<td align="right">9.420000e+00</td>
+<td align="left">▃▃▇▇▂</td>
+</tr>
+<tr class="odd">
+<td align="left">log_nei_2008_pm25_sum_25000</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5.67</td>
+<td align="right">2.110000e+00</td>
+<td align="right">0.00</td>
+<td align="right">4.66</td>
+<td align="right">5.91</td>
+<td align="right">7.28</td>
+<td align="right">9.650000e+00</td>
+<td align="left">▂▂▇▇▃</td>
+</tr>
+<tr class="even">
+<td align="left">log_nei_2008_pm10_sum_10000</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4.35</td>
+<td align="right">2.320000e+00</td>
+<td align="right">0.00</td>
+<td align="right">2.69</td>
+<td align="right">4.62</td>
+<td align="right">6.07</td>
+<td align="right">9.340000e+00</td>
+<td align="left">▅▅▇▇▂</td>
+</tr>
+<tr class="odd">
+<td align="left">log_nei_2008_pm10_sum_15000</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5.10</td>
+<td align="right">2.180000e+00</td>
+<td align="right">0.00</td>
+<td align="right">3.87</td>
+<td align="right">5.39</td>
+<td align="right">6.72</td>
+<td align="right">9.710000e+00</td>
+<td align="left">▂▃▇▇▂</td>
+</tr>
+<tr class="even">
+<td align="left">log_nei_2008_pm10_sum_25000</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">6.07</td>
+<td align="right">2.010000e+00</td>
+<td align="right">0.00</td>
+<td align="right">5.10</td>
+<td align="right">6.37</td>
+<td align="right">7.52</td>
+<td align="right">9.880000e+00</td>
+<td align="left">▁▂▆▇▃</td>
+</tr>
+<tr class="odd">
+<td align="left">popdens_county</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">551.76</td>
+<td align="right">1.711510e+03</td>
+<td align="right">0.26</td>
+<td align="right">40.77</td>
+<td align="right">156.67</td>
+<td align="right">510.81</td>
+<td align="right">2.682191e+04</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">popdens_zcta</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1279.66</td>
+<td align="right">2.757490e+03</td>
+<td align="right">0.00</td>
+<td align="right">101.15</td>
+<td align="right">610.35</td>
+<td align="right">1382.52</td>
+<td align="right">3.041884e+04</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">nohs</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">6.99</td>
+<td align="right">7.210000e+00</td>
+<td align="right">0.00</td>
+<td align="right">2.70</td>
+<td align="right">5.10</td>
+<td align="right">8.80</td>
+<td align="right">1.000000e+02</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">somehs</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">10.17</td>
+<td align="right">6.200000e+00</td>
+<td align="right">0.00</td>
+<td align="right">5.90</td>
+<td align="right">9.40</td>
+<td align="right">13.90</td>
+<td align="right">7.220000e+01</td>
+<td align="left">▇▂▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">hs</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">30.32</td>
+<td align="right">1.140000e+01</td>
+<td align="right">0.00</td>
+<td align="right">23.80</td>
+<td align="right">30.75</td>
+<td align="right">36.10</td>
+<td align="right">1.000000e+02</td>
+<td align="left">▂▇▂▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">somecollege</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">21.58</td>
+<td align="right">8.600000e+00</td>
+<td align="right">0.00</td>
+<td align="right">17.50</td>
+<td align="right">21.30</td>
+<td align="right">24.70</td>
+<td align="right">1.000000e+02</td>
+<td align="left">▆▇▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">associate</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">7.13</td>
+<td align="right">4.010000e+00</td>
+<td align="right">0.00</td>
+<td align="right">4.90</td>
+<td align="right">7.10</td>
+<td align="right">8.80</td>
+<td align="right">7.140000e+01</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">bachelor</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">14.90</td>
+<td align="right">9.710000e+00</td>
+<td align="right">0.00</td>
+<td align="right">8.80</td>
+<td align="right">12.95</td>
+<td align="right">19.22</td>
+<td align="right">1.000000e+02</td>
+<td align="left">▇▂▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">grad</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">8.91</td>
+<td align="right">8.650000e+00</td>
+<td align="right">0.00</td>
+<td align="right">3.90</td>
+<td align="right">6.70</td>
+<td align="right">11.00</td>
+<td align="right">1.000000e+02</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">pov</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">14.95</td>
+<td align="right">1.133000e+01</td>
+<td align="right">0.00</td>
+<td align="right">6.50</td>
+<td align="right">12.10</td>
+<td align="right">21.22</td>
+<td align="right">6.590000e+01</td>
+<td align="left">▇▅▂▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">hs_orless</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">47.48</td>
+<td align="right">1.675000e+01</td>
+<td align="right">0.00</td>
+<td align="right">37.92</td>
+<td align="right">48.65</td>
+<td align="right">59.10</td>
+<td align="right">1.000000e+02</td>
+<td align="left">▁▃▇▃▁</td>
+</tr>
+<tr class="even">
+<td align="left">urc2013</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.92</td>
+<td align="right">1.520000e+00</td>
+<td align="right">1.00</td>
+<td align="right">2.00</td>
+<td align="right">3.00</td>
+<td align="right">4.00</td>
+<td align="right">6.000000e+00</td>
+<td align="left">▇▅▃▂▁</td>
+</tr>
+<tr class="odd">
+<td align="left">urc2006</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.97</td>
+<td align="right">1.520000e+00</td>
+<td align="right">1.00</td>
+<td align="right">2.00</td>
+<td align="right">3.00</td>
+<td align="right">4.00</td>
+<td align="right">6.000000e+00</td>
+<td align="left">▇▅▃▂▁</td>
+</tr>
+<tr class="even">
+<td align="left">aod</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">43.70</td>
+<td align="right">1.956000e+01</td>
+<td align="right">5.00</td>
+<td align="right">31.66</td>
+<td align="right">40.17</td>
+<td align="right">49.67</td>
+<td align="right">1.430000e+02</td>
+<td align="left">▃▇▁▁▁</td>
+</tr>
+</tbody>
+</table>
+<p>Notice how there is a column called <code>n_missing</code> about the number of values that are missing.</p>
+<p>This is also indicated by the <code>complete_rate</code> variable (or missing/number of observations).</p>
+<p>In our data set, it looks like our data do not contain any missing data.</p>
+<p>Also notice how the function provides separate tables of summary statistics for each data type: character, factor and numeric.</p>
+<p>Next, the <code>n_unqiue</code> column shows us the number of unique values for each of our columns.
+We can see that there are 49 states represented in the data.</p>
+<p>We can see that for many variables there are many low values as the distribution shows two peaks, one near zero and another with a higher value.</p>
+<p>This is true for the <code>imp</code> variables (measures of development), the <code>nei</code> variables (measures of emission sources) and the road density variables.</p>
+<p>We can also see that the range of some of the variables is very large, in particular the area and population related variables.</p>
+<p>Let’s take a look to see which states are included using the <code>distinct()</code> function of the <code>dplyr</code> package:</p>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" data-line-number="1">pm <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb187-2" data-line-number="2"><span class="st">  </span><span class="kw">distinct</span>(state) </a></code></pre></div>
+<pre><code>## # A tibble: 49 x 1
+##    state               
+##    &lt;chr&gt;               
+##  1 Alabama             
+##  2 Arizona             
+##  3 Arkansas            
+##  4 California          
+##  5 Colorado            
+##  6 Connecticut         
+##  7 Delaware            
+##  8 District Of Columbia
+##  9 Florida             
+## 10 Georgia             
+## # … with 39 more rows</code></pre>
+</div>
+<div id="evaluate-correlation" class="section level4">
+<h4><span class="header-section-number">5.13.1.4</span> Evaluate correlation</h4>
+<p>In prediction analyses, it is also useful to evaluate if any of the variables are correlated. Why should we care about this?</p>
+<p>If we are using a linear regression to model our data then we might run into a problem called multicolinearity which can lead us to misinterpret what is really predictive of our outcome variable. This phenomenon occurs when the predictor variables actually predict one another.</p>
+<p>Another reason we should look out for correlation is that we don’t want to include redundant variables. This can add unnecessary noise to our algorithm causing a reduction in prediction accuracy and it can cause our algorithm to be unnecessarily slower. Finally, it can also make it difficult to interpret what variables are actually predictive.</p>
+<p>Intuitively we can expect some of our variables to be correlated.</p>
+<p>The <code>corrplot</code> package is another option to look at correlation among possible predictors, and particularly useful if we have many predictors.</p>
+<p>First, we calculate the Pearson correlation coefficients between all features pairwise using the <code>cor()</code> function of the <code>stats</code> package (which is loaded automatically). Then we use the <code>corrplot::corrplot()</code> function. First we need to select only the numeric variables using <code>dplyr</code>.</p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" data-line-number="1"><span class="co"># install.packages(&quot;corrplot&quot;)</span></a>
+<a class="sourceLine" id="cb189-2" data-line-number="2"><span class="kw">library</span>(corrplot)</a></code></pre></div>
+<pre><code>## corrplot 0.84 loaded</code></pre>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" data-line-number="1">PM_cor &lt;-<span class="st"> </span><span class="kw">cor</span>(pm <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select_if</span>(is.numeric))</a>
+<a class="sourceLine" id="cb191-2" data-line-number="2">corrplot<span class="op">::</span><span class="kw">corrplot</span>(PM_cor, <span class="dt">tl.cex =</span> <span class="fl">0.5</span>)</a></code></pre></div>
+<p><img src="05-prediction_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
 
 </div>
 </div>

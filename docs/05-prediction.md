@@ -1779,7 +1779,7 @@ formula(first_recipe)
 
 ```
 ## Sepal.Length ~ Sepal.Width + Species
-## <environment: 0x7fe51b248520>
+## <environment: 0x7fe9cdcf5818>
 ```
 
 We can also view our recipe in more detail using the base summary() function.
@@ -2892,11 +2892,370 @@ We will call our data object `pm` for particulate matter.
 We import the data using the `read_csv()` function from the `readr` package. 
 
 ```r
-pm <- readr::read_csv(here("docs", "pm25_data.csv"))
+library(here)
+```
+
+```
+## here() starts at /Users/carriewright/Documents/GitHub/tidyversecourse
+```
+
+```r
+pm <- readr::read_csv(here("data","tidy_data","pm25_data.csv"))
+```
+
+```
+## Parsed with column specification:
+## cols(
+##   .default = col_double(),
+##   state = col_character(),
+##   county = col_character(),
+##   city = col_character()
+## )
+```
+
+```
+## See spec(...) for full column specifications.
+```
+
+#### Data Exploration and Wrangling
+
+First, let's just get a general sense of our data. 
+
+
+```r
+library(dplyr)
+pm %>%
+  glimpse()
+```
+
+```
+## Rows: 876
+## Columns: 50
+## $ id                          <dbl> 1003.001, 1027.000, 1033.100, 1049.100, 1…
+## $ value                       <dbl> 9.597647, 10.800000, 11.212174, 11.659091…
+## $ fips                        <dbl> 1003, 1027, 1033, 1049, 1055, 1069, 1073,…
+## $ lat                         <dbl> 30.49800, 33.28126, 34.75878, 34.28763, 3…
+## $ lon                         <dbl> -87.88141, -85.80218, -87.65056, -85.9683…
+## $ state                       <chr> "Alabama", "Alabama", "Alabama", "Alabama…
+## $ county                      <chr> "Baldwin", "Clay", "Colbert", "DeKalb", "…
+## $ city                        <chr> "Fairhope", "Ashland", "Muscle Shoals", "…
+## $ CMAQ                        <dbl> 8.098836, 9.766208, 9.402679, 8.534772, 9…
+## $ zcta                        <dbl> 36532, 36251, 35660, 35962, 35901, 36303,…
+## $ zcta_area                   <dbl> 190980522, 374132430, 16716984, 203836235…
+## $ zcta_pop                    <dbl> 27829, 5103, 9042, 8300, 20045, 30217, 90…
+## $ imp_a500                    <dbl> 0.01730104, 1.96972318, 19.17301038, 5.78…
+## $ imp_a1000                   <dbl> 1.4096021, 0.8531574, 11.1448962, 3.86764…
+## $ imp_a5000                   <dbl> 3.3360118, 0.9851479, 15.1786154, 1.23114…
+## $ imp_a10000                  <dbl> 1.9879187, 0.5208189, 9.7253870, 1.031646…
+## $ imp_a15000                  <dbl> 1.4386207, 0.3359198, 5.2472094, 0.973044…
+## $ county_area                 <dbl> 4117521611, 1564252280, 1534877333, 20126…
+## $ county_pop                  <dbl> 182265, 13932, 54428, 71109, 104430, 1015…
+## $ log_dist_to_prisec          <dbl> 4.648181, 7.219907, 5.760131, 3.721489, 5…
+## $ log_pri_length_5000         <dbl> 8.517193, 8.517193, 8.517193, 8.517193, 9…
+## $ log_pri_length_10000        <dbl> 9.210340, 9.210340, 9.274303, 10.409411, …
+## $ log_pri_length_15000        <dbl> 9.630228, 9.615805, 9.658899, 11.173626, …
+## $ log_pri_length_25000        <dbl> 11.32735, 10.12663, 10.15769, 11.90959, 1…
+## $ log_prisec_length_500       <dbl> 7.295356, 6.214608, 8.611945, 7.310155, 8…
+## $ log_prisec_length_1000      <dbl> 8.195119, 7.600902, 9.735569, 8.585843, 9…
+## $ log_prisec_length_5000      <dbl> 10.815042, 10.170878, 11.770407, 10.21420…
+## $ log_prisec_length_10000     <dbl> 11.88680, 11.40554, 12.84066, 11.50894, 1…
+## $ log_prisec_length_15000     <dbl> 12.205723, 12.042963, 13.282656, 12.35366…
+## $ log_prisec_length_25000     <dbl> 13.41395, 12.79980, 13.79973, 13.55979, 1…
+## $ log_nei_2008_pm25_sum_10000 <dbl> 0.318035438, 3.218632928, 6.573127301, 0.…
+## $ log_nei_2008_pm25_sum_15000 <dbl> 1.967358961, 3.218632928, 6.581917457, 3.…
+## $ log_nei_2008_pm25_sum_25000 <dbl> 5.067308, 3.218633, 6.875900, 4.887665, 4…
+## $ log_nei_2008_pm10_sum_10000 <dbl> 1.35588511, 3.31111648, 6.69187313, 0.000…
+## $ log_nei_2008_pm10_sum_15000 <dbl> 2.26783411, 3.31111648, 6.70127741, 3.350…
+## $ log_nei_2008_pm10_sum_25000 <dbl> 5.628728, 3.311116, 7.148858, 5.171920, 4…
+## $ popdens_county              <dbl> 44.265706, 8.906492, 35.460814, 35.330814…
+## $ popdens_zcta                <dbl> 145.716431, 13.639555, 540.887040, 40.718…
+## $ nohs                        <dbl> 3.3, 11.6, 7.3, 14.3, 4.3, 5.8, 7.1, 2.7,…
+## $ somehs                      <dbl> 4.9, 19.1, 15.8, 16.7, 13.3, 11.6, 17.1, …
+## $ hs                          <dbl> 25.1, 33.9, 30.6, 35.0, 27.8, 29.8, 37.2,…
+## $ somecollege                 <dbl> 19.7, 18.8, 20.9, 14.9, 29.2, 21.4, 23.5,…
+## $ associate                   <dbl> 8.2, 8.0, 7.6, 5.5, 10.1, 7.9, 7.3, 8.0, …
+## $ bachelor                    <dbl> 25.3, 5.5, 12.7, 7.9, 10.0, 13.7, 5.9, 17…
+## $ grad                        <dbl> 13.5, 3.1, 5.1, 5.8, 5.4, 9.8, 2.0, 8.7, …
+## $ pov                         <dbl> 6.1, 19.5, 19.0, 13.8, 8.8, 15.6, 25.5, 7…
+## $ hs_orless                   <dbl> 33.3, 64.6, 53.7, 66.0, 45.4, 47.2, 61.4,…
+## $ urc2013                     <dbl> 4, 6, 4, 6, 4, 4, 1, 1, 1, 1, 1, 1, 1, 2,…
+## $ urc2006                     <dbl> 5, 6, 4, 5, 4, 4, 1, 1, 1, 1, 1, 1, 1, 2,…
+## $ aod                         <dbl> 37.36364, 34.81818, 36.00000, 33.08333, 4…
+```
+
+We can see that there are 876 monitors (rows) and that we have 50 total variables (columns) - one of which is the outcome variable. In this case, the outcome variable is called `value`. 
+
+Notice that some of the variables that we would think of as factors (or categorical data) are currently of class character as indicated by the `<chr>` just to the right of the column names/variable names in the `glimpse()` output. This means that the variable values are character strings, such as words or phrases. 
+
+The other variables are of class `<dbl>`, which stands for double precision which indicates that the are numeric and that they have decimal values. In contrast, one could have integer values which would not allow for decimal numbers. Here is a [link](https://en.wikipedia.org/wiki/Double-precision_floating-point_format){target="_blank"} for more information on double precision numeric values.
+
+Another common data class is factor which is abbreviated like this: `<fct>`. A factor is something that has unique levels but there is no appreciable order to the levels. For example we can have a numeric value that is just an id that we want to be interpreted as just a unique level and not as the number that it would typically indicate. This would be useful for several of our variables:
+
+1. the monitor ID (`id`)
+2. the Federal Information Processing Standard number for the county where the monitor was located (`fips`)
+3. the zip code tabulation area (`zcta`)
+
+None of the values actually have any real numeric meaning, so we want to make sure that R does not interpret them as if they do. 
+
+So let's convert these variables into factors. 
+We can do this using the `across()` function of the `dplyr` package and the `as.factor()` base function. 
+The `across()` function has two main arguments: (i) the columns you want to operate on and (ii) the function or list of functions to apply to each column. 
+
+
+
+```r
+library(magrittr)
+```
+
+```
+## 
+## Attaching package: 'magrittr'
+```
+
+```
+## The following object is masked from 'package:purrr':
+## 
+##     set_names
+```
+
+```
+## The following object is masked from 'package:tidyr':
+## 
+##     extract
+```
+
+```r
+pm <-pm %>%
+  mutate(across(c(id, fips, zcta), as.factor)) 
+
+glimpse(pm)
+```
+
+```
+## Rows: 876
+## Columns: 50
+## $ id                          <fct> 1003.001, 1027.0001, 1033.1002, 1049.1003…
+## $ value                       <dbl> 9.597647, 10.800000, 11.212174, 11.659091…
+## $ fips                        <fct> 1003, 1027, 1033, 1049, 1055, 1069, 1073,…
+## $ lat                         <dbl> 30.49800, 33.28126, 34.75878, 34.28763, 3…
+## $ lon                         <dbl> -87.88141, -85.80218, -87.65056, -85.9683…
+## $ state                       <chr> "Alabama", "Alabama", "Alabama", "Alabama…
+## $ county                      <chr> "Baldwin", "Clay", "Colbert", "DeKalb", "…
+## $ city                        <chr> "Fairhope", "Ashland", "Muscle Shoals", "…
+## $ CMAQ                        <dbl> 8.098836, 9.766208, 9.402679, 8.534772, 9…
+## $ zcta                        <fct> 36532, 36251, 35660, 35962, 35901, 36303,…
+## $ zcta_area                   <dbl> 190980522, 374132430, 16716984, 203836235…
+## $ zcta_pop                    <dbl> 27829, 5103, 9042, 8300, 20045, 30217, 90…
+## $ imp_a500                    <dbl> 0.01730104, 1.96972318, 19.17301038, 5.78…
+## $ imp_a1000                   <dbl> 1.4096021, 0.8531574, 11.1448962, 3.86764…
+## $ imp_a5000                   <dbl> 3.3360118, 0.9851479, 15.1786154, 1.23114…
+## $ imp_a10000                  <dbl> 1.9879187, 0.5208189, 9.7253870, 1.031646…
+## $ imp_a15000                  <dbl> 1.4386207, 0.3359198, 5.2472094, 0.973044…
+## $ county_area                 <dbl> 4117521611, 1564252280, 1534877333, 20126…
+## $ county_pop                  <dbl> 182265, 13932, 54428, 71109, 104430, 1015…
+## $ log_dist_to_prisec          <dbl> 4.648181, 7.219907, 5.760131, 3.721489, 5…
+## $ log_pri_length_5000         <dbl> 8.517193, 8.517193, 8.517193, 8.517193, 9…
+## $ log_pri_length_10000        <dbl> 9.210340, 9.210340, 9.274303, 10.409411, …
+## $ log_pri_length_15000        <dbl> 9.630228, 9.615805, 9.658899, 11.173626, …
+## $ log_pri_length_25000        <dbl> 11.32735, 10.12663, 10.15769, 11.90959, 1…
+## $ log_prisec_length_500       <dbl> 7.295356, 6.214608, 8.611945, 7.310155, 8…
+## $ log_prisec_length_1000      <dbl> 8.195119, 7.600902, 9.735569, 8.585843, 9…
+## $ log_prisec_length_5000      <dbl> 10.815042, 10.170878, 11.770407, 10.21420…
+## $ log_prisec_length_10000     <dbl> 11.88680, 11.40554, 12.84066, 11.50894, 1…
+## $ log_prisec_length_15000     <dbl> 12.205723, 12.042963, 13.282656, 12.35366…
+## $ log_prisec_length_25000     <dbl> 13.41395, 12.79980, 13.79973, 13.55979, 1…
+## $ log_nei_2008_pm25_sum_10000 <dbl> 0.318035438, 3.218632928, 6.573127301, 0.…
+## $ log_nei_2008_pm25_sum_15000 <dbl> 1.967358961, 3.218632928, 6.581917457, 3.…
+## $ log_nei_2008_pm25_sum_25000 <dbl> 5.067308, 3.218633, 6.875900, 4.887665, 4…
+## $ log_nei_2008_pm10_sum_10000 <dbl> 1.35588511, 3.31111648, 6.69187313, 0.000…
+## $ log_nei_2008_pm10_sum_15000 <dbl> 2.26783411, 3.31111648, 6.70127741, 3.350…
+## $ log_nei_2008_pm10_sum_25000 <dbl> 5.628728, 3.311116, 7.148858, 5.171920, 4…
+## $ popdens_county              <dbl> 44.265706, 8.906492, 35.460814, 35.330814…
+## $ popdens_zcta                <dbl> 145.716431, 13.639555, 540.887040, 40.718…
+## $ nohs                        <dbl> 3.3, 11.6, 7.3, 14.3, 4.3, 5.8, 7.1, 2.7,…
+## $ somehs                      <dbl> 4.9, 19.1, 15.8, 16.7, 13.3, 11.6, 17.1, …
+## $ hs                          <dbl> 25.1, 33.9, 30.6, 35.0, 27.8, 29.8, 37.2,…
+## $ somecollege                 <dbl> 19.7, 18.8, 20.9, 14.9, 29.2, 21.4, 23.5,…
+## $ associate                   <dbl> 8.2, 8.0, 7.6, 5.5, 10.1, 7.9, 7.3, 8.0, …
+## $ bachelor                    <dbl> 25.3, 5.5, 12.7, 7.9, 10.0, 13.7, 5.9, 17…
+## $ grad                        <dbl> 13.5, 3.1, 5.1, 5.8, 5.4, 9.8, 2.0, 8.7, …
+## $ pov                         <dbl> 6.1, 19.5, 19.0, 13.8, 8.8, 15.6, 25.5, 7…
+## $ hs_orless                   <dbl> 33.3, 64.6, 53.7, 66.0, 45.4, 47.2, 61.4,…
+## $ urc2013                     <dbl> 4, 6, 4, 6, 4, 4, 1, 1, 1, 1, 1, 1, 1, 2,…
+## $ urc2006                     <dbl> 5, 6, 4, 5, 4, 4, 1, 1, 1, 1, 1, 1, 1, 2,…
+## $ aod                         <dbl> 37.36364, 34.81818, 36.00000, 33.08333, 4…
+```
+
+Great! Now we can see that these variables are now factors as indicated by `<fct>` after the variable name.
+
+The `skim()` function of the `skimr` package is also really helpful for getting a general sense of your data.
+By design, it provides summary statistics about variables in the data set. 
+
+
+```r
+library(skimr)
+skim(pm)
 ```
 
 
+Table: (\#tab:unnamed-chunk-92)Data summary
+
+                                
+-------------------------  -----
+Name                       pm   
+Number of rows             876  
+Number of columns          50   
+_______________________         
+Column type frequency:          
+character                  3    
+factor                     3    
+numeric                    44   
+________________________        
+Group variables            None 
+-------------------------  -----
 
 
+**Variable type: character**
+
+skim_variable    n_missing   complete_rate   min   max   empty   n_unique   whitespace
+--------------  ----------  --------------  ----  ----  ------  ---------  -----------
+state                    0               1     4    20       0         49            0
+county                   0               1     3    20       0        471            0
+city                     0               1     4    48       0        607            0
+
+
+**Variable type: factor**
+
+skim_variable    n_missing   complete_rate  ordered    n_unique  top_counts                       
+--------------  ----------  --------------  --------  ---------  ---------------------------------
+id                       0               1  FALSE           876  100: 1, 102: 1, 103: 1, 104: 1   
+fips                     0               1  FALSE           569  170: 12, 603: 10, 261: 9, 107: 8 
+zcta                     0               1  FALSE           842  475: 3, 110: 2, 160: 2, 290: 2   
+
+
+**Variable type: numeric**
+
+skim_variable                  n_missing   complete_rate            mean             sd            p0             p25             p50             p75            p100  hist  
+----------------------------  ----------  --------------  --------------  -------------  ------------  --------------  --------------  --------------  --------------  ------
+value                                  0               1           10.81   2.580000e+00          3.02            9.27           11.15           12.37    2.316000e+01  ▂▆▇▁▁ 
+lat                                    0               1           38.48   4.620000e+00         25.47           35.03           39.30           41.66    4.840000e+01  ▁▃▅▇▂ 
+lon                                    0               1          -91.74   1.496000e+01       -124.18          -99.16          -87.47          -80.69   -6.804000e+01  ▃▂▃▇▃ 
+CMAQ                                   0               1            8.41   2.970000e+00          1.63            6.53            8.62           10.24    2.313000e+01  ▃▇▃▁▁ 
+zcta_area                              0               1    183173481.91   5.425989e+08      15459.00     14204601.75     37653560.50    160041508.25    8.164821e+09  ▇▁▁▁▁ 
+zcta_pop                               0               1        24227.58   1.777216e+04          0.00         9797.00        22014.00        35004.75    9.539700e+04  ▇▇▃▁▁ 
+imp_a500                               0               1           24.72   1.934000e+01          0.00            3.70           25.12           40.22    6.961000e+01  ▇▅▆▃▂ 
+imp_a1000                              0               1           24.26   1.802000e+01          0.00            5.32           24.53           38.59    6.750000e+01  ▇▅▆▃▁ 
+imp_a5000                              0               1           19.93   1.472000e+01          0.05            6.79           19.07           30.11    7.460000e+01  ▇▆▃▁▁ 
+imp_a10000                             0               1           15.82   1.381000e+01          0.09            4.54           12.36           24.17    7.209000e+01  ▇▃▂▁▁ 
+imp_a15000                             0               1           13.43   1.312000e+01          0.11            3.24            9.67           20.55    7.110000e+01  ▇▃▁▁▁ 
+county_area                            0               1   3768701992.12   6.212830e+09   33703512.00   1116536297.50   1690826566.50   2878192209.00    5.194723e+10  ▇▁▁▁▁ 
+county_pop                             0               1       687298.44   1.293489e+06        783.00       100948.00       280730.50       743159.00    9.818605e+06  ▇▁▁▁▁ 
+log_dist_to_prisec                     0               1            6.19   1.410000e+00         -1.46            5.43            6.36            7.15    1.045000e+01  ▁▁▃▇▁ 
+log_pri_length_5000                    0               1            9.82   1.080000e+00          8.52            8.52           10.05           10.73    1.205000e+01  ▇▂▆▅▂ 
+log_pri_length_10000                   0               1           10.92   1.130000e+00          9.21            9.80           11.17           11.83    1.302000e+01  ▇▂▇▇▃ 
+log_pri_length_15000                   0               1           11.50   1.150000e+00          9.62           10.87           11.72           12.40    1.359000e+01  ▆▂▇▇▃ 
+log_pri_length_25000                   0               1           12.24   1.100000e+00         10.13           11.69           12.46           13.05    1.436000e+01  ▅▃▇▇▃ 
+log_prisec_length_500                  0               1            6.99   9.500000e-01          6.21            6.21            6.21            7.82    9.400000e+00  ▇▁▂▂▁ 
+log_prisec_length_1000                 0               1            8.56   7.900000e-01          7.60            7.60            8.66            9.20    1.047000e+01  ▇▅▆▃▁ 
+log_prisec_length_5000                 0               1           11.28   7.800000e-01          8.52           10.91           11.42           11.83    1.278000e+01  ▁▁▃▇▃ 
+log_prisec_length_10000                0               1           12.41   7.300000e-01          9.21           11.99           12.53           12.94    1.385000e+01  ▁▁▃▇▅ 
+log_prisec_length_15000                0               1           13.03   7.200000e-01          9.62           12.59           13.13           13.57    1.441000e+01  ▁▁▃▇▅ 
+log_prisec_length_25000                0               1           13.82   7.000000e-01         10.13           13.38           13.92           14.35    1.523000e+01  ▁▁▃▇▆ 
+log_nei_2008_pm25_sum_10000            0               1            3.97   2.350000e+00          0.00            2.15            4.29            5.69    9.120000e+00  ▆▅▇▆▂ 
+log_nei_2008_pm25_sum_15000            0               1            4.72   2.250000e+00          0.00            3.47            5.00            6.35    9.420000e+00  ▃▃▇▇▂ 
+log_nei_2008_pm25_sum_25000            0               1            5.67   2.110000e+00          0.00            4.66            5.91            7.28    9.650000e+00  ▂▂▇▇▃ 
+log_nei_2008_pm10_sum_10000            0               1            4.35   2.320000e+00          0.00            2.69            4.62            6.07    9.340000e+00  ▅▅▇▇▂ 
+log_nei_2008_pm10_sum_15000            0               1            5.10   2.180000e+00          0.00            3.87            5.39            6.72    9.710000e+00  ▂▃▇▇▂ 
+log_nei_2008_pm10_sum_25000            0               1            6.07   2.010000e+00          0.00            5.10            6.37            7.52    9.880000e+00  ▁▂▆▇▃ 
+popdens_county                         0               1          551.76   1.711510e+03          0.26           40.77          156.67          510.81    2.682191e+04  ▇▁▁▁▁ 
+popdens_zcta                           0               1         1279.66   2.757490e+03          0.00          101.15          610.35         1382.52    3.041884e+04  ▇▁▁▁▁ 
+nohs                                   0               1            6.99   7.210000e+00          0.00            2.70            5.10            8.80    1.000000e+02  ▇▁▁▁▁ 
+somehs                                 0               1           10.17   6.200000e+00          0.00            5.90            9.40           13.90    7.220000e+01  ▇▂▁▁▁ 
+hs                                     0               1           30.32   1.140000e+01          0.00           23.80           30.75           36.10    1.000000e+02  ▂▇▂▁▁ 
+somecollege                            0               1           21.58   8.600000e+00          0.00           17.50           21.30           24.70    1.000000e+02  ▆▇▁▁▁ 
+associate                              0               1            7.13   4.010000e+00          0.00            4.90            7.10            8.80    7.140000e+01  ▇▁▁▁▁ 
+bachelor                               0               1           14.90   9.710000e+00          0.00            8.80           12.95           19.22    1.000000e+02  ▇▂▁▁▁ 
+grad                                   0               1            8.91   8.650000e+00          0.00            3.90            6.70           11.00    1.000000e+02  ▇▁▁▁▁ 
+pov                                    0               1           14.95   1.133000e+01          0.00            6.50           12.10           21.22    6.590000e+01  ▇▅▂▁▁ 
+hs_orless                              0               1           47.48   1.675000e+01          0.00           37.92           48.65           59.10    1.000000e+02  ▁▃▇▃▁ 
+urc2013                                0               1            2.92   1.520000e+00          1.00            2.00            3.00            4.00    6.000000e+00  ▇▅▃▂▁ 
+urc2006                                0               1            2.97   1.520000e+00          1.00            2.00            3.00            4.00    6.000000e+00  ▇▅▃▂▁ 
+aod                                    0               1           43.70   1.956000e+01          5.00           31.66           40.17           49.67    1.430000e+02  ▃▇▁▁▁ 
+
+Notice how there is a column called `n_missing` about the number of values that are missing. 
+
+This is also indicated by the `complete_rate` variable (or missing/number of observations). 
+
+In our data set, it looks like our data do not contain any missing data. 
+
+Also notice how the function provides separate tables of summary statistics for each data type: character, factor and numeric. 
+
+Next, the `n_unqiue` column shows us the number of unique values for each of our columns. 
+We can see that there are 49 states represented in the data.
+
+We can see that for many variables there are many low values as the distribution shows two peaks, one near zero and another with a higher value. 
+
+This is true for the `imp` variables (measures of development), the `nei` variables (measures of emission sources) and the road density variables. 
+
+We can also see that the range of some of the variables is very large, in particular the area and population related variables.
+
+
+Let's take a look to see which states are included using the `distinct()` function of the `dplyr` package:
+
+
+
+```r
+pm %>% 
+  distinct(state) 
+```
+
+```
+## # A tibble: 49 x 1
+##    state               
+##    <chr>               
+##  1 Alabama             
+##  2 Arizona             
+##  3 Arkansas            
+##  4 California          
+##  5 Colorado            
+##  6 Connecticut         
+##  7 Delaware            
+##  8 District Of Columbia
+##  9 Florida             
+## 10 Georgia             
+## # … with 39 more rows
+```
+
+#### Evaluate correlation
+
+In prediction analyses, it is also useful to evaluate if any of the variables are correlated. Why should we care about this?
+
+If we are using a linear regression to model our data then we might run into a problem called multicolinearity which can lead us to misinterpret what is really predictive of our outcome variable. This phenomenon occurs when the predictor variables actually predict one another. 
+
+Another reason we should look out for correlation is that we don't want to include redundant variables. This can add unnecessary noise to our algorithm causing a reduction in prediction accuracy and it can cause our algorithm to be unnecessarily slower. Finally, it can also make it difficult to interpret what variables are actually predictive.
+
+
+Intuitively we can expect some of our variables to be correlated.
+
+The `corrplot` package is another option to look at correlation among possible predictors, and particularly useful if we have many predictors. 
+
+First, we calculate the Pearson correlation coefficients between all features pairwise using the `cor()` function of the `stats` package (which is loaded automatically). Then we use the `corrplot::corrplot()` function.  First we need to select only the numeric variables using `dplyr`.
+
+
+```r
+# install.packages("corrplot")
+library(corrplot)
+```
+
+```
+## corrplot 0.84 loaded
+```
+
+```r
+PM_cor <- cor(pm %>% dplyr::select_if(is.numeric))
+corrplot::corrplot(PM_cor, tl.cex = 0.5)
+```
+
+<img src="05-prediction_files/figure-html/unnamed-chunk-94-1.png" width="672" />
 
 
