@@ -150,7 +150,7 @@ df
 
 Here we also get information about the dimensions of our data object and the name and class of our variables.
 
-<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/tibble.png" width="60%" />
+<img src="/Users/rdpeng/books/tidyversecourse/book_figures/tibble.png" width="60%" />
 
 ### Missing Values
 
@@ -616,7 +616,7 @@ cor.test(pull(df %>% filter(bodywt<2000 & bodywt >1 & brainwt<1),bodywt),
 ## 	Pearson's product-moment correlation
 ## 
 ## data:  pull(df %>% filter(bodywt < 2000 & bodywt > 1 & brainwt < 1), bodywt) and pull(df %>% filter(bodywt < 2000 & bodywt > 1 & brainwt < 1), brainwt)
-## t = 6.6127, df = 27, p-value = 4.283e-07
+## t = 6.6127, df = 27, p-value = 0.0000004283
 ## alternative hypothesis: true correlation is not equal to 0
 ## 95 percent confidence interval:
 ##  0.5897381 0.8949042
@@ -1324,15 +1324,21 @@ CI <-soda_ounces %>%
   generate(rep = 1000, type = "bootstrap") %>%
   calculate(stat = "mean") %>% 
   get_confidence_interval()
+```
 
+```
+## Using `level = 0.95` to compute confidence interval.
+```
+
+```r
 CI
 ```
 
 ```
 ## # A tibble: 1 x 2
-##   `2.5%` `97.5%`
-##    <dbl>   <dbl>
-## 1   12.0    12.0
+##   lower_ci upper_ci
+##      <dbl>    <dbl>
+## 1     12.0     12.0
 ```
 
 We can see that our confidence interval is very similar but slightly different from the results we obtained using the `t.test()` function and the `lm()` function. This is because we used a different method to calculate the confidence interval based on the bootstrap samples. Furthemore, the results will vary everytime the code is run because the bootstrap samples are randomly created each time.
@@ -1567,7 +1573,7 @@ Modifying a piece of the overall process is now easier than before because many 
 
 We will focus on the following packages although there are many more in the tidymodels ecosystem:                          
 
-<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/simpletidymodels.png" width="830" />
+<img src="/Users/rdpeng/books/tidyversecourse/book_figures/simpletidymodels.png" width="830" />
 
 1) rsamples - to split the data into training and testing sets (as well as cross validation sets - more on that later!)  
 2) recipes -  to prepare the data with preprocessing (assign variables and preprocessing steps)  
@@ -1581,7 +1587,7 @@ We will focus on the following packages although there are many more in the tidy
 
 Here you can see a visual of how these packages work together in the process of performing a machine learning analysis:
 
-<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/MachineLearning_tidymodels.png" width="1252" />
+<img src="/Users/rdpeng/books/tidyversecourse/book_figures/MachineLearning_tidymodels.png" width="1252" />
 
 To illustrate how to use each of these packages, we will work through some examples.
 
@@ -1779,7 +1785,7 @@ formula(first_recipe)
 
 ```
 ## Sepal.Length ~ Sepal.Width + Species
-## <environment: 0x7f9adcec5f30>
+## <environment: 0x7f855a744ba8>
 ```
 
 We can also view our recipe in more detail using the base summary() function.
@@ -2084,16 +2090,16 @@ iris_reg_wflow
 ```
 
 ```
-## ══ Workflow ═════════════════════════════════════════════════════════════════════════════════════════════════════════════
+## ══ Workflow ════════════════════════════════════════════════════════════════════
 ## Preprocessor: Recipe
 ## Model: linear_reg()
 ## 
-## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Preprocessor ────────────────────────────────────────────────────────────────
 ## 1 Recipe Step
 ## 
 ## ● step_dummy()
 ## 
-## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Model ───────────────────────────────────────────────────────────────────────
 ## Linear Regression Model Specification (regression)
 ## 
 ## Computational engine: lm
@@ -2112,19 +2118,19 @@ iris_reg_wflow_fit
 ```
 
 ```
-## ══ Workflow [trained] ═══════════════════════════════════════════════════════════════════════════════════════════════════
+## ══ Workflow [trained] ══════════════════════════════════════════════════════════
 ## Preprocessor: Recipe
 ## Model: linear_reg()
 ## 
-## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Preprocessor ────────────────────────────────────────────────────────────────
 ## 1 Recipe Step
 ## 
 ## ● step_dummy()
 ## 
-## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Model ───────────────────────────────────────────────────────────────────────
 ## 
 ## Call:
-## stats::lm(formula = formula, data = data)
+## stats::lm(formula = ..y ~ ., data = data)
 ## 
 ## Coefficients:
 ##        (Intercept)         Sepal.Width      Species_setosa  Species_versicolor  
@@ -2194,15 +2200,15 @@ head(wf_fitted_values)
 ```
 
 ```
-FALSE # A tibble: 6 x 8
-FALSE   Sepal.Length .fitted .se.fit    .resid   .hat .sigma       .cooksd .std.resid
-FALSE          <dbl>   <dbl>   <dbl>     <dbl>  <dbl>  <dbl>         <dbl>      <dbl>
-FALSE 1          5.1    5.07  0.0707  0.0308   0.0286  0.420 0.0000413       0.0748  
-FALSE 2          4.6    5.00  0.0712 -0.400    0.0290  0.418 0.00706        -0.972   
-FALSE 3          5      5.00  0.0712 -0.000194 0.0290  0.420 0.00000000166  -0.000471
-FALSE 4          4.4    4.66  0.0995 -0.255    0.0567  0.419 0.00595        -0.629   
-FALSE 5          4.9    4.79  0.0841  0.107    0.0405  0.420 0.000717        0.261   
-FALSE 6          5.4    5.21  0.0758  0.193    0.0329  0.420 0.00187         0.469
+FALSE # A tibble: 6 x 3
+FALSE   Sepal.Length .fitted .std.resid
+FALSE          <dbl>   <dbl>      <dbl>
+FALSE 1          5.1    5.07   0.0748  
+FALSE 2          4.6    5.00  -0.972   
+FALSE 3          5      5.00  -0.000471
+FALSE 4          4.4    4.66  -0.629   
+FALSE 5          4.9    4.79   0.261   
+FALSE 6          5.4    5.21   0.469
 ```
 
 ```r
@@ -2278,6 +2284,12 @@ overallfit
 ```
 
 ```
+FALSE Warning: This tuning result has notes. Example notes on model fitting include:
+FALSE model (predictions): prediction from a rank-deficient fit may be misleading
+```
+
+```
+FALSE # Resampling results
 FALSE # Monte Carlo cross-validation (0.67/0.33) with 1 resamples  
 FALSE # A tibble: 1 x 6
 FALSE   splits       id           .metrics      .notes       .predictions    .workflow
@@ -2414,14 +2426,14 @@ The number of $v$ subsets to use is also a bit arbitrary, although generally spe
 We are going to use 4 folds for the sake of expediency and simplicity. 
 
 
-<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/vfold.png" width="463" />
+<img src="/Users/rdpeng/books/tidyversecourse/book_figures/vfold.png" width="463" />
 
 The model will be trained on  $v$-1 subsets of the data iteratively (removing a different $v$ until all possible $v$-1 sets have been evaluated) to get a sense of the performance of the model. While one fold will be saved to act as a test set.
 
 In the case of tuning, multiple values for the hyper-parameter are tested to determine what yeilds the best model performance.
  
 
-<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/cross_validation.png" width="389" />
+<img src="/Users/rdpeng/books/tidyversecourse/book_figures/cross_validation.png" width="389" />
 
 
 #### Example of creating cross validation samples with `rsample`
@@ -2520,14 +2532,14 @@ iris_cat_wflow
 ```
 
 ```
-## ══ Workflow ═════════════════════════════════════════════════════════════════════════════════════════════════════════════
+## ══ Workflow ════════════════════════════════════════════════════════════════════
 ## Preprocessor: Recipe
 ## Model: decision_tree()
 ## 
-## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Preprocessor ────────────────────────────────────────────────────────────────
 ## 0 Recipe Steps
 ## 
-## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Model ───────────────────────────────────────────────────────────────────────
 ## Decision Tree Model Specification (classification)
 ## 
 ## Computational engine: rpart
@@ -2547,14 +2559,14 @@ iris_cat_wflow_fit
 ```
 
 ```
-## ══ Workflow [trained] ═══════════════════════════════════════════════════════════════════════════════════════════════════
+## ══ Workflow [trained] ══════════════════════════════════════════════════════════
 ## Preprocessor: Recipe
 ## Model: decision_tree()
 ## 
-## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Preprocessor ────────────────────────────────────────────────────────────────
 ## 0 Recipe Steps
 ## 
-## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Model ───────────────────────────────────────────────────────────────────────
 ## n= 100 
 ## 
 ## node), split, n, loss, yval, (yprob)
@@ -2680,7 +2692,8 @@ resample_fit
 ```
 
 ```
-## #  4-fold cross-validation 
+## # Resampling results
+## # 4-fold cross-validation 
 ## # A tibble: 4 x 4
 ##   splits          id    .metrics         .notes          
 ##   <list>          <chr> <list>           <list>          
@@ -2750,17 +2763,17 @@ tune::collect_metrics(resample_fit)
 ```
 
 ```
-## # A tibble: 8 x 6
-##   min_n .metric  .estimator  mean     n std_err
-##   <int> <chr>    <chr>      <dbl> <int>   <dbl>
-## 1    11 accuracy multiclass 0.94      4  0.0258
-## 2    11 roc_auc  hand_till  0.961     4  0.0172
-## 3    18 accuracy multiclass 0.94      4  0.0258
-## 4    18 roc_auc  hand_till  0.961     4  0.0172
-## 5    25 accuracy multiclass 0.94      4  0.0258
-## 6    25 roc_auc  hand_till  0.961     4  0.0172
-## 7    31 accuracy multiclass 0.94      4  0.0258
-## 8    31 roc_auc  hand_till  0.961     4  0.0172
+## # A tibble: 8 x 7
+##   min_n .metric  .estimator  mean     n std_err .config
+##   <int> <chr>    <chr>      <dbl> <int>   <dbl> <chr>  
+## 1    25 accuracy multiclass 0.94      4  0.0258 Model1 
+## 2    25 roc_auc  hand_till  0.961     4  0.0172 Model1 
+## 3    11 accuracy multiclass 0.94      4  0.0258 Model2 
+## 4    11 roc_auc  hand_till  0.961     4  0.0172 Model2 
+## 5    31 accuracy multiclass 0.94      4  0.0258 Model3 
+## 6    31 roc_auc  hand_till  0.961     4  0.0172 Model3 
+## 7    18 accuracy multiclass 0.94      4  0.0258 Model4 
+## 8    18 roc_auc  hand_till  0.961     4  0.0172 Model4
 ```
 
 ```r
@@ -2768,13 +2781,13 @@ tune::show_best(resample_fit, metric = "accuracy")
 ```
 
 ```
-## # A tibble: 4 x 6
-##   min_n .metric  .estimator  mean     n std_err
-##   <int> <chr>    <chr>      <dbl> <int>   <dbl>
-## 1    11 accuracy multiclass  0.94     4  0.0258
-## 2    18 accuracy multiclass  0.94     4  0.0258
-## 3    25 accuracy multiclass  0.94     4  0.0258
-## 4    31 accuracy multiclass  0.94     4  0.0258
+## # A tibble: 4 x 7
+##   min_n .metric  .estimator  mean     n std_err .config
+##   <int> <chr>    <chr>      <dbl> <int>   <dbl> <chr>  
+## 1    25 accuracy multiclass  0.94     4  0.0258 Model1 
+## 2    11 accuracy multiclass  0.94     4  0.0258 Model2 
+## 3    31 accuracy multiclass  0.94     4  0.0258 Model3 
+## 4    18 accuracy multiclass  0.94     4  0.0258 Model4
 ```
 
 
