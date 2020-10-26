@@ -139,7 +139,7 @@ glimpse(df)
 
 ![](https://camo.githubusercontent.com/141353fef57cd97b26d64e39311e23584e165c6a/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336461343162643136615f305f3536)
 
-Also becuase the data is in tibble format, we can gain alot of information by just viewing the data itself.
+Also because the data is in tibble format, we can gain a lot of information by just viewing the data itself.
 
 
 
@@ -158,9 +158,9 @@ In any analysis, missing data can cause a problem. Thus, it's best to get an und
 
 However, individuals who are less familiar with R code missingness in a number of different ways in their data: -999, N/A, ., or a blank space. As such, it's best to check to see how missingness is coded in your dataset. A reminder: sometimes different variables within a single dataset will code missingness differently. This shouldn't happen, but it does, so always use caution when looking for missingness.
 
-In this dataset, all missing values are coded as NA, and from the output of str(df) (or glimpse(df)), we see that at least a few variables have NA values. We'll want to quantify this missingness though to see which variables have missing data and how many observations within each variable have missing data.
+In this dataset, all missing values are coded as `NA`, and from the output of `str(df)` (or `glimpse(df)`), we see that at least a few variables have NA values. We'll want to quantify this missingness though to see which variables have missing data and how many observations within each variable have missing data.
 
-To do this, we can write a function that will calculate missingness within each of our variables. To do this we'll combine a few functions. In the code here is.na() returns a logical (TRUE/FALSE) depending upon whether or not the value is missing (TRUE if it is missing). sum() then calculates the number of TRUE values there are within an observation. We wrap this into a function and then use sapply() to calculate the number of missing values in each variable. The second bit of code does the exact same thing but divides those numbers by the total number of observations (using nrow(df). For each variable, this returns the proportion of missingness:
+To do this, we can write a function that will calculate missingness within each of our variables. To do this we'll combine a few functions. In the code here, `is.na()` returns a logical (`TRUE`/`FALSE`) depending upon whether or not the value is missing (`TRUE` if it is missing). The `sum()` function then calculates the number of `TRUE` values there are within an observation. We then use `map()` to calculate the number of missing values in each variable. The second bit of code does the exact same thing but divides those numbers by the total number of observations (using `nrow(df)`). For each variable, this returns the proportion of missingness:
 
 
 ```r
@@ -179,7 +179,7 @@ df %>%
         bind_cols()
 ```
 
-There are also some useful visualization methods for evaluating missingness. You could manually do this with ggplot, but there are two packages called [naniar](https://github.com/njtierney/naniar) and visdat[https://github.com/ropensci/visdat](https://github.com/ropensci/visdat) written by [Nicholas Tierney](https://www.njtierney.com/about/) that are very helpful. The `visdat` package was used previously in one of our case studies.
+There are also some useful visualization methods for evaluating missingness. You could manually do this with `ggplot2`, but there are two packages called [`naniar`](https://github.com/njtierney/naniar) and [`visdat`](https://github.com/ropensci/visdat) written by [Nicholas Tierney](https://www.njtierney.com/about/) that are very helpful. The `visdat` package was used previously in one of our case studies.
 
 
 ```r
@@ -192,7 +192,7 @@ vis_miss(df)
 
 ![](https://camo.githubusercontent.com/ca8c32d6ead89207c9bd0bc8dd1918d40e38f19f/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336461343162643136615f305f323332)
 
-Here, we see the variables listed along the top with percentages summarizing how many observations are missing data for that particular variable. Each row in the visualization is a different observation. Missing data are black. Non-missing values are in grey. Focusing again on brainwt, we can see the 27 missing values visually. We can also see that sleep_cycle has the most missingness, while many variables have no missing data.
+Here, we see the variables listed along the top with percentages summarizing how many observations are missing data for that particular variable. Each row in the visualization is a different observation. Missing data are black. Non-missing values are in grey. Focusing again on `brainwt`, we can see the 27 missing values visually. We can also see that sleep_cycle has the most missingness, while many variables have no missing data.
 
 ### Shape
 
@@ -241,7 +241,7 @@ Alternatively, sometimes data follow a skewed distribution. In a skewed distribu
  
 ![](https://camo.githubusercontent.com/8eb383b932b3df2dd351a07da959843aa7538b2f/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336461343162643136615f305f333830)
 
-To see an example from the msleep dataset, we'll look at the variable sleep_rem. Here we see that the data are skewed right, given the shift in values away from the right, leading to a long right tail. Here, most of the values are at the lower end of the range.
+To see an example from the `msleep` dataset, we'll look at the variable sleep_rem. Here we see that the data are skewed right, given the shift in values away from the right, leading to a long right tail. Here, most of the values are at the lower end of the range.
 
 
 ```r
@@ -409,7 +409,7 @@ skim(df)
 
 ![](https://camo.githubusercontent.com/93949f44cb7234b321ee5851c00a6c508bfe6aa4/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336461343162643136615f305f343535)
 
-Using this function we can quickly get an idea about missingness, varaibility, central tendency, and shape, and outliers all at once. 
+Using this function we can quickly get an idea about missingness, variability, central tendency, and shape, and outliers all at once. 
 
 The output from `skim()` separately summarizes categorical and continuous variables. For continuous variables you get information about the mean and median (`p50`) column. You know what the range of the variable is (`p0` is the minimum value, `p100` is the maximum value for continuous variables). You also get a measure of variability with the standard deviation (`sd`). It even quantifies the number of missing values (missing) and shows you the distribution or shape of each variable (`hist`)! Potential outliers can also be identified from the hist column and the p100 and p0 columns. This function can be incredibly useful to get a quick snapshot of what's going on with your dataset.
 
@@ -454,7 +454,7 @@ dplyr::filter(df, bodywt > 2000)
 Looks like both data points are for elephants.
 
 
-Therefore, we might consider perfroming an anlysis both with and without the elephant data, to see if it influences the overall result.
+Therefore, we might consider performing an analysis both with and without the elephant data, to see if it influences the overall result.
 
 
 ### Evaluating Relationships
@@ -463,7 +463,7 @@ Another important aspect of exploratory analysis is looking at relationships bet
 
 Again visualizations can be very helpful. 
 
-We might want to look at the relationships between all of our continuous variables. A good way to do this is to use a visualization of **correlation**. As a reminder, correlation is a measure of the relationship or interdependence of two variables.  In otherwords, how much do the values of one variable change with the values of another. Correlation can be either positive or negative and it ranges from -1 to 1, with 1 and -1 indicating perfect correlation (1 being positive and -1 being negative) and 0 indicating no correlation. We will describe this in greater detail when we look at associations.
+We might want to look at the relationships between all of our continuous variables. A good way to do this is to use a visualization of **correlation**. As a reminder, correlation is a measure of the relationship or interdependence of two variables.  In other words, how much do the values of one variable change with the values of another. Correlation can be either positive or negative and it ranges from -1 to 1, with 1 and -1 indicating perfect correlation (1 being positive and -1 being negative) and 0 indicating no correlation. We will describe this in greater detail when we look at associations.
 
 Here are some very useful plots that can be generated using the `GGally` package and the `PerformanceAnalytics` package to examine if variables are correlated.
 
@@ -557,9 +557,9 @@ cor.test(pull(df %>% filter(bodywt<2000 & bodywt >1),bodywt),
 ##       cor 
 ## 0.4606273
 ```
-We can see from this plot that in general `brainwt` is correlated with `bodywt`. Or in otherwords, `brainwt` tends to increase with `bodywt`.
+We can see from this plot that in general `brainwt` is correlated with `bodywt`. Or in other words, `brainwt` tends to increase with `bodywt`.
 
-But it also looks like we have an outlier for our brainwt variable! There is a very high `brainwt` value that is greater than 1.
+But it also looks like we have an outlier for our `brainwt` variable! There is a very high `brainwt` value that is greater than 1.
 
 We can also see it in our histogram of this variable:
 
@@ -633,7 +633,7 @@ We can see from these plots that the `brainwt` variable seems have a relationshi
 Inferential Analysis is what analysts carry out after they've described and explored their data set. After understanding your dataset better, analysts often try to infer something from the data. 
 This is done using **statistical tests**.
 
-We discussed a bit about how we can use models to perform inferance and prediction analyses. What does this mean?
+We discussed a bit about how we can use models to perform inference and prediction analyses. What does this mean?
 
 The goal of inferential analyses is to use a relatively **small** sample of data to **infer** or say something about the **population at large**. This is required because often we want to answer questions about a population. Let's take a dummy example here where we have a population of 14 shapes. Here, in this graphic, the shapes represent individuals in the population and the colors of the shapes can be either pink or grey:
 
@@ -1212,8 +1212,8 @@ You may have noticed in the previous sections that we were asking a question abo
 
 For example:
 
-1) In the cherry tree analsysis we asked "Can we infer the height of a tree given its girth?"  
-We expected that we could. Thus we had a statment that "tree height can be inferred by it's girth or can be predicted by girth"  
+1) In the cherry tree analysis we asked "Can we infer the height of a tree given its girth?"  
+We expected that we could. Thus we had a statement that "tree height can be inferred by it's girth or can be predicted by girth"  
 
 2) In the car mileage analysis we asked  "Can we infer the miles the car can go per gallon of gasoline based on the car weight?"  
 We expected that we could. Thus we had a statement that "car mileage can be inferred by car weight"  
@@ -1221,14 +1221,14 @@ We expected that we could. Thus we had a statement that "car mileage can be infe
 We took this further and asked "Can we infer the miles the car can go per gallon of gasoline based on the car weight and care engine type?"  
 We again expected that it did. Thus we had a statement that " car mileage can be inferred  by weight and engine type"  
 
-3) In the soda can analysis we asked "Do soda cans really have 12 ounces of fluid". We expected that often do. Thus we had a statement that "soda cans typically have 12 onces, the mean amount is 12".  
+3) In the soda can analysis we asked "Do soda cans really have 12 ounces of fluid". We expected that often do. Thus we had a statement that "soda cans typically have 12 ounces, the mean amount is 12".  
 
-A common problem in many data science problem involves developing evidence for or against certain testable statements like these statments above. These testable statements are called *hypotheses*. Typically, the way these problems are structured is that a statement is made about the world (the hypothesis) and then the data are used (usually in the form of a summary statistic) to support or reject that statement.
+A common problem in many data science problem involves developing evidence for or against certain testable statements like these statements above. These testable statements are called *hypotheses*. Typically, the way these problems are structured is that a statement is made about the world (the hypothesis) and then the data are used (usually in the form of a summary statistic) to support or reject that statement.
 
 
 Recall that we defined a p-value as "the probability of getting the observed results (or results more extreme) by chance alone." Often p-values are used to determine if one should accept or reject that statement. 
 
-Typically a p-value of 0.05 is used as the threshold, however remeber that it is best to report more than just the p-value, but also estimates and standard errors among other statistics. Different statistical tests allow for testing different hyptotheses.
+Typically a p-value of 0.05 is used as the threshold, however remember that it is best to report more than just the p-value, but also estimates and standard errors among other statistics. Different statistical tests allow for testing different hypotheses.
 
 
 ### The`Infer` Package
@@ -1239,9 +1239,9 @@ In fact users can even perform analyses based on specified hypotheses with the `
 
 We will perform the same analysis about soda cans that we just did with this package to illustrate how to use it.
 
-Recall that we wanted to know if the observed ounces of soda can differs from the expected mean of 12 oz. Also recall that we had measurments for 100 soda cans (we made up this data). We had a testable statement or hypothesis that "soda cans typically have 12 onces, the mean amount is 12" and we wanted to know if this was true.
+Recall that we wanted to know if the observed ounces of soda can differs from the expected mean of 12 oz. Also recall that we had measurements for 100 soda cans (we made up this data). We had a testable statement or hypothesis that "soda cans typically have 12 ounces, the mean amount is 12" and we wanted to know if this was true.
 
-This type of hypothesis is called a null hypothesis becuase it is a statement that expects no difference or change. The alternative hypothesis is the complement statement. It would be that the mean is not 12.
+This type of hypothesis is called a null hypothesis because it is a statement that expects no difference or change. The alternative hypothesis is the complement statement. It would be that the mean is not 12.
 
 OK, so now we will use the `infer` package to test if our null hypothesis is true.
 
@@ -1276,24 +1276,24 @@ There are two options for the `null` argument of this function:
 2) independence - this option should be used when there are two populations, such as " the means of these two groups identical" or "this variable influences this other variable".
 
 
-Then if the point option is used, there are several additional arguments regarding what is being tested about that one variable. One can test a particular `mu` for mean, `med` for median, `sigma` for standard deviation, or `p` for the proportion of sucessess (for a categorical variable).
+Then if the point option is used, there are several additional arguments regarding what is being tested about that one variable. One can test a particular `mu` for mean, `med` for median, `sigma` for standard deviation, or `p` for the proportion of successes (for a categorical variable).
 
 Our hypothesis was "the mean amount of soda ounces is 12" thus we will use the `point` option for our `null` argument and we will specify a mean with the `mu` argument as 12.
 
-The major benefit of this package, besides allowing the user to think about the statistical analysis more than the programming required, is that the user can easily implement interative methods like resampling.
+The major benefit of this package, besides allowing the user to think about the statistical analysis more than the programming required, is that the user can easily implement iterative methods like resampling.
 
 What do we mean by this? 
 
-Resampling is a method where a random samples are drawn from the original data to create a dataset of the same size as the orginal data (but with some samples repeated) and this is done repetitively over and over. This process is called Bootstraping. This provides more information about the confidence in our estimations from our sample about the true population that we are trying to investigate, as it gives us more of a sense the range of values for statistics like mean and meadian might vary using other samples.
+Resampling is a method where a random samples are drawn from the original data to create a dataset of the same size as the original data (but with some samples repeated) and this is done repetitively over and over. This process is called Bootstrapping. This provides more information about the confidence in our estimations from our sample about the true population that we are trying to investigate, as it gives us more of a sense the range of values for statistics like mean and median might vary using other samples.
 
 To perform resampling, users can use the `generate()` function with the `type` argument set to `"bootsrap"` and use the `rep` argument to specify how many bootstrap resamples to generate.
 
-The `calculate()` function then allows for many different statstics to be calculated including:  
+The `calculate()` function then allows for many different statistics to be calculated including:  
 
 1) `mean`   
 2) `median`  
 3) `sum`  
-4) `sd` for standard devation  
+4) `sd` for standard deviation  
 5) `prop` for proportion for categorical variables
 6) `count`  
 7) `diff in means`  
@@ -1335,7 +1335,7 @@ CI
 ## 1   12.0    12.0
 ```
 
-We can see that our confidence interval is very similar but slightly different from the results we obtained using the `t.test()` function and the `lm()` function. This is because we used a different method to calculate the confidence interval based on the bootstrap samples. Furthemore, the results will vary everytime the code is run because the bootstrap samples are randomly created each time.
+We can see that our confidence interval is very similar but slightly different from the results we obtained using the `t.test()` function and the `lm()` function. This is because we used a different method to calculate the confidence interval based on the bootstrap samples. Furthermore, the results will vary every time the code is run because the bootstrap samples are randomly created each time.
 
 
 We can also make a visualization of the null distribution of the bootstrap samples using the `visualize()` function.
@@ -1545,9 +1545,9 @@ Accuracy is a helpful way to assess error in categorical variables, but it can b
 
 ## The `tidymodels` ecosystem
 
-There are *incredibly* helpful packages available in R thanks to the work of [Max Kuhn](https://twitter.com/topepos?lang=en). As mentioned above, there are hundreds of different machine learning algorithms. Max's R packages have compiled all of them into a single framework, allowing you to use *many* different machine learning models easily. Additionally, he has written a very [helpful book](http://appliedpredictivemodeling.com/) about predictive modeling. There are also many [helpful links](https://topepo.github.io/) about each of the packages. Max previously developed the `caret` package (short for Classification And REgression Training) which has been widely used. [Here](https://konradsemsch.netlify.com/2019/08/caret-vs-tidymodels-comparing-the-old-and-new/) you can see some of the dicussion about the difference between `caret` and `tidymodels`. 
+There are *incredibly* helpful packages available in R thanks to the work of [Max Kuhn](https://twitter.com/topepos?lang=en). As mentioned above, there are hundreds of different machine learning algorithms. Max's R packages have compiled all of them into a single framework, allowing you to use *many* different machine learning models easily. Additionally, he has written a very [helpful book](http://appliedpredictivemodeling.com/) about predictive modeling. There are also many [helpful links](https://topepo.github.io/) about each of the packages. Max previously developed the `caret` package (short for Classification And Regression Training) which has been widely used. [Here](https://konradsemsch.netlify.com/2019/08/caret-vs-tidymodels-comparing-the-old-and-new/) you can see some of the discussion about the difference between `caret` and `tidymodels`. 
 
-In this [rstudio community thread](https://community.rstudio.com/t/caret-to-tidymodels/) you can see that Max stated that "The tidyverse is more about modular packages that are designed to play well with one another. The main issue with caret is that, being all in one package, it is very difficult to extend it into areas that people are interested in...The bottom line is that the tidymodels set should do what caret does and more." We will describe some of the advantages of the `tidymodels` packages.  
+In this [rstudio community thread](https://community.rstudio.com/t/caret-to-tidymodels/) you can see that Max stated that "The `tidyverse` is more about modular packages that are designed to play well with one another. The main issue with caret is that, being all in one package, it is very difficult to extend it into areas that people are interested in...The bottom line is that the tidymodels set should do what caret does and more." We will describe some of the advantages of the `tidymodels` packages.  
 
 ### Benefits of `tidymodels`  
 
@@ -1557,9 +1557,9 @@ The two major benefits of `tidymodels` are:
 
 Different notations are required for different algorithms as the algorithms have been developed by different people. This would require the painstaking process of reformatting the data to be compatible with each algorithm if multiple algorithms were tested.
 
-2. Can easily modify pre-processing, algorithm choice, and hyper-parameter tuning making optimization easy  
+2. Can easily modify preprocessing, algorithm choice, and hyperparameter tuning making optimization easy  
 
-Modifying a piece of the overall process is now easier than before because many of the steps are specified using the `tidymodels` packages in a convenient manner. Thus the entire process can be rerun after a simple change to pre-processing without much difficulty.
+Modifying a piece of the overall process is now easier than before because many of the steps are specified using the `tidymodels` packages in a convenient manner. Thus the entire process can be rerun after a simple change to preprocessing without much difficulty.
 
 
 
@@ -1569,13 +1569,13 @@ We will focus on the following packages although there are many more in the tidy
 
 <img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/simpletidymodels.png" width="830" />
 
-1) rsamples - to split the data into training and testing sets (as well as cross validation sets - more on that later!)  
-2) recipes -  to prepare the data with preprocessing (assign variables and preprocessing steps)  
-3) parsnip -  to specify and fit the data to a model  
-4) yardstick and tune -  to evaluate model performance
-5) workflows - combining recipe and parsnip objects into a workflow  (this makes it easier to keep track of what you have done and it makes it easier to modify specific steps) 
-6) tune and dials - model optimization (more on what hyperparameters are later too!)  
-7) broom - to make the output from fitting a model easier to read  
+1) `rsamples` - to split the data into training and testing sets (as well as cross validation sets - more on that later!)  
+2) `recipes` -  to prepare the data with preprocessing (assign variables and preprocessing steps)  
+3) `parsnip` -  to specify and fit the data to a model  
+4) `yardstick` and `tune` -  to evaluate model performance
+5) `workflows` - combining recipe and parsnip objects into a workflow  (this makes it easier to keep track of what you have done and it makes it easier to modify specific steps) 
+6) `tune` and `dials` - model optimization (more on what hyperparameters are later too!)  
+7) `broom` - to make the output from fitting a model easier to read  
 
 
 
@@ -1586,8 +1586,10 @@ Here you can see a visual of how these packages work together in the process of 
 To illustrate how to use each of these packages, we will work through some examples.
 
 
-Other tidymodel packages include:
-![]https://pbs.twimg.com/media/Ef1Oac7WAAImCos.jpg
+Other `tidymodels` packages include:
+
+<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/tidymodels_packages.jpg" width="600" />
+[[source](https://pbs.twimg.com/media/Ef1Oac7WAAImCos.jpg)]
 
 1) `applicable` compares new data points with the training data to see how much the new data points appear to be an extrapolation of the training data  
 2) `baguette` is for speeding up bagging pipelines  
@@ -1599,10 +1601,10 @@ Other tidymodel packages include:
 8) `rules` has more model options for prediction rule ensembles  
 9) `text recipes` has extra preprocessing options for using text data  
 10) `tidypredict` is for running predictions inside SQL databases  
-11) `modeldb` is also for working within SQL datbases and it allows for `dplyr` and `tidyeval` use within a database  
+11) `modeldb` is also for working within SQL databases and it allows for `dplyr` and `tidyeval` use within a database  
 12) `tidyposterior` compares models using resampling statistics  
 
-Most of these packges offer advanced modeling options.
+Most of these packages offer advanced modeling options.
 
 ### Example of Continuous Variable Prediction: Linear Regression 
 
@@ -1673,13 +1675,13 @@ head(testing_iris)
 
 
 
-#### Step 2: Example of preparing for pre-processing the data with `recipes`
+#### Step 2: Example of preparing for preprocessing the data with `recipes`
 
-After splitting the data, the next step is to process the training and testing data so that the data are are compatible and optimized to be used with the model. This involves assigning variables to specific roles within the model and pre-processing like scaling variables and removing redundant variables. This process is also called feature engineering.
+After splitting the data, the next step is to process the training and testing data so that the data are are compatible and optimized to be used with the model. This involves assigning variables to specific roles within the model and preprocessing like scaling variables and removing redundant variables. This process is also called feature engineering.
 
-To do this in tidymodels, we will create what’s called a “**recipe**” using the recipes package, which is a standardized format for a sequence of steps for pre-processing the data. This can be very useful because it makes testing out different pre-processing steps or different algorithms with the same pre-processing very easy and reproducible. 
+To do this in tidymodels, we will create what’s called a “**recipe**” using the recipes package, which is a standardized format for a sequence of steps for preprocessing the data. This can be very useful because it makes testing out different preprocessing steps or different algorithms with the same preprocessing very easy and reproducible. 
 
-Creating a recipe specifies **how a data frame of predictors should be created** - it specifies what variables to be used and the pre-processing steps, but it **does not execute these steps** or create the data frame of predictors.
+Creating a recipe specifies **how a data frame of predictors should be created** - it specifies what variables to be used and the preprocessing steps, but it **does not execute these steps** or create the data frame of predictors.
 
 ##### Step 1: Specify variables  with the `recipe()` function
 
@@ -1779,7 +1781,7 @@ formula(first_recipe)
 
 ```
 ## Sepal.Length ~ Sepal.Width + Species
-## <environment: 0x7fab128c50a0>
+## <environment: 0x7fe506733518>
 ```
 
 We can also view our recipe in more detail using the base summary() function.
@@ -1800,9 +1802,9 @@ summary(first_recipe)
 ## 5 Species      nominal predictor original
 ```
 
-##### Step 2: Specify the pre-processing steps with `step*()` functions
+##### Step 2: Specify the preprocessing steps with `step*()` functions
 
-Next, we use the `step*()` functions from the `recipe` package to specify pre-processing steps. 
+Next, we use the `step*()` functions from the `recipe` package to specify preprocessing steps. 
 
 **This [link](https://tidymodels.github.io/recipes/reference/index.html){target="_blank"} and this [link](https://cran.r-project.org/web/packages/recipes/recipes.pdf){target="_blank"} show the many options for recipe step functions.**
 
@@ -1830,7 +1832,7 @@ There are several ways to select what variables to apply steps to:
 3. Using the role: `all_predictors()`, `all_outcomes()`, `has_role()`
 4. Using the name - use the actual name of the variable/variables of interest  
 
-Let's try adding a pre-processing step to our recipe.
+Let's try adding a preprocessing step to our recipe.
 
 We might want to potentially one hot encode some of our categorical variables so that they can be used with certain algorithms like a linear regression require numeric predictors. 
 
@@ -1863,18 +1865,18 @@ first_recipe
 ```
 #### Step 3: Example of optionally performing the preprocessing to see how it influences the data
 
-Optionally one can use the `prep()` function of the `recipes` package to update the recipe for manually performing the preprocessing to see how this infleunces the data. This step is however not required. The preprocessed training data can than be viewed by using the `juice()` function, while preprocessed testing data can be viewed using the `bake()` function.
+Optionally one can use the `prep()` function of the `recipes` package to update the recipe for manually performing the preprocessing to see how this influences the data. This step is however not required. The preprocessed training data can than be viewed by using the `juice()` function, while preprocessed testing data can be viewed using the `bake()` function.
 
-The `prep()` function estimates parameters (estimating the required quantities and statistics required by the steps for the variables) for pre-processing and updates the variables roles, as sometimes predictors may be removed, this allows the recipe to be ready to use on other data sets. 
+The `prep()` function estimates parameters (estimating the required quantities and statistics required by the steps for the variables) for preprocessing and updates the variables roles, as sometimes predictors may be removed, this allows the recipe to be ready to use on other data sets. 
 
-It **does not necessarily actually execute the pre-processing itself**, however we will specify using the `retain` argument for it to do this so that we can take a look at the pre-processed data.
+It **does not necessarily actually execute the preprocessing itself**, however we will specify using the `retain` argument for it to do this so that we can take a look at the preprocessed data.
 
 There are some important arguments to know about:
 
-1. `training` - you must supply a training data set to estimate parameters for pre-processing operations (recipe steps) - this may already be included in your recipe - as is the case for us
+1. `training` - you must supply a training data set to estimate parameters for preprocessing operations (recipe steps) - this may already be included in your recipe - as is the case for us
 2. `fresh` - if `fresh=TRUE`, - will retrain and estimate parameters for any previous steps that were already prepped if you add more steps to the recipe
-3. `verbose` - if `verbose=TRUE`, shows the progress as the steps are evaluated and the size of the pre-processed training set
-4. `retain` - if `retain=TRUE`, then the pre-processed training set will be saved within the recipe (as template). This is good if you are likely to add more steps and do not want to rerun the `prep()` on the previous steps. However this can make the recipe size large. This is necessary if you want to actually look at the pre-processed data.
+3. `verbose` - if `verbose=TRUE`, shows the progress as the steps are evaluated and the size of the preprocessed training set
+4. `retain` - if `retain=TRUE`, then the preprocessed training set will be saved within the recipe (as template). This is good if you are likely to add more steps and do not want to rerun the `prep()` on the previous steps. However this can make the recipe size large. This is necessary if you want to actually look at the preprocessed data.
 
 Let's try out the `prep()` function: 
 
@@ -1924,7 +1926,7 @@ You can see:
 
 1. the `steps` that were run  
 2. the original variable info (`var_info`)  
-3. the updated variable info after pre-processing (`term_info`)
+3. the updated variable info after preprocessing (`term_info`)
 4. the new `levels` of the variables 
 5. the original levels of the variables (`orig_lvls`)
 6. info about the training data set size and completeness (`tr_info`)
@@ -1993,7 +1995,7 @@ Great! Now back to the typical steps.
 
 #### Step 4: Example of specifying the model with `parsnip`
 
-So far we have used the packages `rsample` to split the data and `recipes` to assign variable types, and to specify and prep our pre-processing (as well as to optionally extract the pre-processed data).
+So far we have used the packages `rsample` to split the data and `recipes` to assign variable types, and to specify and prep our preprocessing (as well as to optionally extract the preprocessed data).
 
 We will now use the `parsnip` package (which is similar to the previous `caret` package - and hence why it is named after the vegetable) to specify our model.
 
@@ -2067,11 +2069,11 @@ Lin_reg_model
 
 We can  use the `parsnip` package with a newer package called `workflows` to fit our model. 
 
-The `workflows` package allows us to keep track of both our pre-processing steps and our model specification. It also allows us to implement fancier optimizations in an automated way and it can also handle post-processing operations. 
+The `workflows` package allows us to keep track of both our preprocessing steps and our model specification. It also allows us to implement fancier optimizations in an automated way and it can also handle post-processing operations. 
 
 We begin by creating a workflow using the `workflow()` function in the `workflows` package. 
 
-Next, we use `add_recipe()` (our pre-processing specifications) and we add our model with the `add_model()` function -- both functions from the `workflows` package.
+Next, we use `add_recipe()` (our preprocessing specifications) and we add our model with the `add_model()` function -- both functions from the `workflows` package.
 
 **Note**: We do not need to actually `prep()` our recipe before using workflows - this was just optional so we could take a look at the preprocessed data!
 
@@ -2100,7 +2102,7 @@ iris_reg_wflow
 ```
 
 Ah, nice. 
-Notice how it tells us about both our pre-processing steps and our model specifications.
+Notice how it tells us about both our preprocessing steps and our model specifications.
 
 Next, we "prepare the recipe" (or estimate the parameters) and fit the model to our training data all at once. 
 Printing the output, we can see the coefficients of the model.
@@ -2215,7 +2217,7 @@ FALSE 6          5.4    5.21  0.0758  0.193    0.0329  0.420 0.00187         0.4
 # head(wf_fitted_values)
 ```
 
-Nice, now we can see what the orginal value for `Sepal.Length` right next to the predicted `.fitted` value, as well as standard errors and other metrics for each value. 
+Nice, now we can see what the original value for `Sepal.Length` right next to the predicted `.fitted` value, as well as standard errors and other metrics for each value. 
 
 Now we can use the `rmse()` function of the `yardstick` package to compare the `truth`, which is the `Sepal.Length` variable, to the predicted or estimate variable which in the previous output is called `.fitted`.
 
@@ -2251,14 +2253,14 @@ wf_fitted_values %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-68-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-69-1.png" width="672" />
 
 We can see that overall our model predicted the sepal length fairly well. We can see that the model appeared to do less well at predicted very long sepal lengths.
 
 
-Typically we might modify our preprocessing steps or try a different model untill we were satisfied with the performance on our training data. Assuming we are satisified, we could then peform a final assessment of our model using the testing data. 
+Typically we might modify our preprocessing steps or try a different model until we were satisfied with the performance on our training data. Assuming we are satisfied, we could then perform a final assessment of our model using the testing data. 
 
-With the `workflows` package, we can use the splitting information for our original data `split_iris` to fit the final model on the full training set and also on the testing data using the `last_fit()` function of the `tune` package. No pre-processing steps are required.
+With the `workflows` package, we can use the splitting information for our original data `split_iris` to fit the final model on the full training set and also on the testing data using the `last_fit()` function of the `tune` package. No preprocessing steps are required.
 
 
 We can do this by using the `last_fit()` function of the `tune` package.
@@ -2303,7 +2305,7 @@ collect_metrics(overallfit)
 We can see that our RMSE is pretty similar for the testing data as well. 
 
 
-### Example of Categorical Variable Prediction: Classification with CART with cross validation and hyper-parameter tuning
+### Example of Categorical Variable Prediction: Classification with CART with cross validation and hyperparameter tuning
 
 Now we are going to show an example of using the `tidymodels` packages to perform prediction of a categorical variable.
 
@@ -2380,18 +2382,18 @@ count(testing_iris, Species)
 
 Great, indeed we have good representation of all 3 species in both the training and testing sets.
 
-This time we will also show an example of how to perform what is called cross validation. This process allows us to get a better estimate about the performance of our model using just our training data by splitting it into multiple pieces to assess the model fit over and over. This is helpful for making sure that our model will be generalizable, meaning that it will work well with a variety of new datasets. This is also helpful for optimizing what we call hyper-parameters. 
+This time we will also show an example of how to perform what is called cross validation. This process allows us to get a better estimate about the performance of our model using just our training data by splitting it into multiple pieces to assess the model fit over and over. This is helpful for making sure that our model will be generalizable, meaning that it will work well with a variety of new datasets. This is also helpful for optimizing what we call hyperparameters. 
 
-Hyper-parameters are aspects about the model that we need to specify. Often packages will choose a default value, however it is better to use the training data to see what value appears to yield the best model performance. 
+hyperparameters are aspects about the model that we need to specify. Often packages will choose a default value, however it is better to use the training data to see what value appears to yield the best model performance. 
 
-For example, the different options at each split in a decision tree is called a node. The minimum number of data points for a node to be split further when creating a decision tree model is a hyper-parameter.
+For example, the different options at each split in a decision tree is called a node. The minimum number of data points for a node to be split further when creating a decision tree model is a hyperparameter.
 
 Recall from our example of a decision tree:
 ![](https://camo.githubusercontent.com/439a80ec4e6ff697b120631837d13e1667f39c14/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f383433)
 
-If there were only 3 people who made more than 40,000 and our hyper-prameter for the minimum number of data points to continue creating new branches was 6, then this side of the tree would stop here. 
+If there were only 3 people who made more than 40,000 and our hyperparameter for the minimum number of data points to continue creating new branches was 6, then this side of the tree would stop here. 
 
-We will show how to optimize this using cross validation, this process is also called "tuning", as we are tuning or adjusting the hyper-parameter untill we see the best performance with our training data.
+We will show how to optimize this using cross validation, this process is also called "tuning", as we are tuning or adjusting the hyperparameter until we see the best performance with our training data.
  
  
 The first thing we need to do to perform this process is split our training data into cross validation samples.
@@ -2418,7 +2420,7 @@ We are going to use 4 folds for the sake of expediency and simplicity.
 
 The model will be trained on  $v$-1 subsets of the data iteratively (removing a different $v$ until all possible $v$-1 sets have been evaluated) to get a sense of the performance of the model. While one fold will be saved to act as a test set.
 
-In the case of tuning, multiple values for the hyper-parameter are tested to determine what yeilds the best model performance.
+In the case of tuning, multiple values for the hyperparameter are tested to determine what yields the best model performance.
  
 
 <img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/cross_validation.png" width="389" />
@@ -2574,7 +2576,7 @@ wf_fit_cat <- iris_cat_wflow_fit %>%
 
 
 The output is a bit different for categorical variables. 
-We can also see variable importance from the model fit, which shows which variables were most important for classifing the data values. This lists a score for each variable which shows the decrease in error when splitting by this variable relative to others. Avocado - can someone check that? 
+We can also see variable importance from the model fit, which shows which variables were most important for classifying the data values. This lists a score for each variable which shows the decrease in error when splitting by this variable relative to others. Avocado - can someone check that? 
 
 
 ```r
@@ -2589,7 +2591,7 @@ wf_fit_cat$fit$variable.importance
 We can see that `Petal.Width` was the most important for predicting `Species`.
 
 
-Recall that since we are using a categorical outcome variable, we want to use accuracy to assess model performance. Thus, we can use the  `accuracy()` funtion of the `yardstick` package instead of the `rmse()` function to assess the model. We first need to get the predicted values using the `predict()` function, as these are not in the fit output.
+Recall that since we are using a categorical outcome variable, we want to use accuracy to assess model performance. Thus, we can use the  `accuracy()` function of the `yardstick` package instead of the `rmse()` function to assess the model. We first need to get the predicted values using the `predict()` function, as these are not in the fit output.
 
 
 ```r
@@ -2638,7 +2640,7 @@ count(pred_species, .pred_class)
 ```
 We can see that one extra verisocolor iris was predicted, and one fewer virginica iris.
 
-To see exactly which rows resulted in incorrect predictions, we can bind the predicted speies to the training data like so. This can be helpful to see if there is something particular about the incorrectly predicted values that might explain why they are incorrectly predicted.
+To see exactly which rows resulted in incorrect predictions, we can bind the predicted species to the training data like so. This can be helpful to see if there is something particular about the incorrectly predicted values that might explain why they are incorrectly predicted.
 
 
 ```r
@@ -2705,7 +2707,7 @@ The accuracy appears to be 94.7 percent. Often the performance will be reduced u
 
 #### Example of tuning
 
-Nice, let's see how this changes when we now tune a hyper-parameter. We want to tune the `min_n` argument to tune for the minimum number of data points for each node. The arguments may vary for the engine that you are using. We need to specify this when we fit the model using the `tune()` function like so:
+Nice, let's see how this changes when we now tune a hyperparameter. We want to tune the `min_n` argument to tune for the minimum number of data points for each node. The arguments may vary for the engine that you are using. We need to specify this when we fit the model using the `tune()` function like so:
 
 
 ```r
@@ -2860,7 +2862,7 @@ Variable   | Details
 **associate** | Percentage of people in zcta area where the monitor whose highest formal educational attainment was completing an **associate degree** <br> -- Data from the Census 
 **bachelor** | Percentage of people in zcta area where the monitor whose highest formal educational attainment was a **bachelor's degree** <br> -- Data from the Census 
 **grad** | Percentage of people in zcta area where the monitor whose highest formal educational attainment was a **graduate degree** <br> -- Data from the Census 
-**pov** | Percentage of people in zcta area where the monitor is that lived in [**poverty**](https://aspe.hhs.gov/2008-hhs-poverty-guidelines) in 2008 - or would it have been 2007 guidelines??https://aspe.hhs.gov/2007-hhs-poverty-guidelines <br> -- Data from the Census  
+**pov** | Percentage of people in zcta area where the monitor is that lived in [**poverty**](https://aspe.hhs.gov/2008-hhs-poverty-guidelines) in 2008  <br> -- Data from the Census  
 **hs_orless** |  Percentage of people in zcta area where the monitor whose highest formal educational attainment was a **high school degree or less** (sum of nohs, somehs, and hs)  
 **urc2013** | [2013 Urban-rural classification](https://www.cdc.gov/nchs/data/series/sr_02/sr02_166.pdf){target="_blank"} of the county where the monitor is located <br> -- 6 category variable - 1 is totally urban 6 is completely rural <br>  -- Data from the National Center for Health Statistics](https://www.cdc.gov/nchs/index.htm){target="_blank"}     
 **urc2006** | [2006 Urban-rural classification](https://www.cdc.gov/nchs/data/series/sr_02/sr02_154.pdf){target="_blank"} of the county where the monitor is located <br> -- 6 category variable - 1 is totally urban 6 is completely rural <br> -- Data from the [National Center for Health Statistics](https://www.cdc.gov/nchs/index.htm){target="_blank"}     
@@ -3088,7 +3090,7 @@ skim(pm)
 ```
 
 
-Table: (\#tab:unnamed-chunk-92)Data summary
+Table: (\#tab:unnamed-chunk-93)Data summary
 
                                 
 -------------------------  -----
@@ -3220,7 +3222,7 @@ pm %>%
 
 In prediction analyses, it is also useful to evaluate if any of the variables are correlated. Why should we care about this?
 
-If we are using a linear regression to model our data then we might run into a problem called multicolinearity which can lead us to misinterpret what is really predictive of our outcome variable. This phenomenon occurs when the predictor variables actually predict one another. 
+If we are using a linear regression to model our data then we might run into a problem called multicollinearity which can lead us to misinterpret what is really predictive of our outcome variable. This phenomenon occurs when the predictor variables actually predict one another. 
 
 Another reason we should look out for correlation is that we don't want to include redundant variables. This can add unnecessary noise to our algorithm causing a reduction in prediction accuracy and it can cause our algorithm to be unnecessarily slower. Finally, it can also make it difficult to interpret what variables are actually predictive.
 
@@ -3246,7 +3248,7 @@ PM_cor <- cor(pm %>% dplyr::select_if(is.numeric))
 corrplot::corrplot(PM_cor, tl.cex = 0.5)
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-94-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-95-1.png" width="672" />
 
 We can see that the development variables (`imp`) variables are correlated with each other as we might expect. 
 We also see that the road density variables seem to be correlated with each other, and the emission variables seem to be correlated with each other. 
@@ -3391,7 +3393,7 @@ formula(simple_rec)
 ##     popdens_county + popdens_zcta + nohs + somehs + hs + somecollege + 
 ##     associate + bachelor + grad + pov + hs_orless + urc2013 + 
 ##     urc2006 + aod
-## <environment: 0x7fab17ae1d40>
+## <environment: 0x7fe5170f3300>
 ```
 
 **This [link](https://tidymodels.github.io/recipes/reference/index.html){target="_blank"} and this [link](https://cran.r-project.org/web/packages/recipes/recipes.pdf){target="_blank"} show the many options for recipe step functions.**
@@ -3566,11 +3568,11 @@ simple_rec
 ## Sparse, unbalanced variable filter on all_predictors, -, CMAQ, -, aod
 ```
 
-Nice! Now let's check our pre-processing.
+Nice! Now let's check our preprocessing.
 
-#### Running pre-processing
+#### Running preprocessing
 
-First we need to use the `prep()` function of the `recipes` package to prepare for pre-processing. However, we will specify that we also want to run and retain the pre-processing for the training data using the `retain = TRUE` argument.
+First we need to use the `prep()` function of the `recipes` package to prepare for preprocessing. However, we will specify that we also want to run and retain the preprocessing for the training data using the `retain = TRUE` argument.
 
 
 ```r
@@ -3607,7 +3609,7 @@ names(prepped_rec)
 ```
 
 
-Since we retained our pre-processed training data (i.e. `prep(retain=TRUE)`), we can take a look at it like by using the `juice()` function of the `recipes` package like this:
+Since we retained our preprocessed training data (i.e. `prep(retain=TRUE)`), we can take a look at it like by using the `juice()` function of the `recipes` package like this:
 
 
 ```r
@@ -3726,14 +3728,14 @@ We can also see that variables that we no longer have any categorical variables.
 Variables like `state` are gone and only `state_California` remains as it was the only state identity to have nonzero variance.
 We can also see that there were more monitors listed as `"Not in a city"` than any city. 
 
-##### Extract pre-processed testing data using `bake()`
+##### Extract preprocessed testing data using `bake()`
 
 According to the `tidymodels` documentation:
 
 > `bake()` takes a trained recipe and applies the operations to a data set to create a design matrix.
  For example: it applies the centering to new data sets using these means used to create the recipe
 
-Therefore, if you wanted to look at the pre-processed testing data you would use the `bake()` function of the `recipes` package.
+Therefore, if you wanted to look at the preprocessed testing data you would use the `bake()` function of the `recipes` package.
 
 
 ```r
@@ -3914,7 +3916,7 @@ pm %>%
 
 Alternatively you could create a [custom step function](https://recipes.tidymodels.org/articles/Custom_Steps.html){target="_blank"} to do this and add this to your recipe, but that is beyond the scope of this case study. 
 
-We will need to repeat all the steps (splitting the data, pre-processing, etc) as the levels of our variables have now changed. 
+We will need to repeat all the steps (splitting the data, preprocessing, etc) as the levels of our variables have now changed. 
 
 While we are doing this, we might also have this issue for `county`. 
 
@@ -3958,7 +3960,7 @@ novel_rec <-train_pm %>%
     step_nzv(all_numeric()) 
 ```
 
-Now we will check the pre-processed data again to see if we still have `NA` values.
+Now we will check the preprocessed data again to see if we still have `NA` values.
 
 
 ```r
@@ -4161,7 +4163,7 @@ lm_PM_model
 ## Computational engine: lm
 ```
 
-Now we will use the `workflows` package allows us to keep track of both our pre-processing steps and our model specification. It also allows us to implement fancier optimizations in an automated way.
+Now we will use the `workflows` package allows us to keep track of both our preprocessing steps and our model specification. It also allows us to implement fancier optimizations in an automated way.
 
 If you recall `novel_rec` is the recipe we previously created with the `recipes` package and `lm_PM_model` was created when we specified our model with the `parsnip` package.
 Here, we combine everything together into a `workflow()`. 
@@ -4194,7 +4196,7 @@ PM_wflow
 
 
 Ah, nice. 
-Notice how it tells us about both our pre-processing steps and our model specifications.
+Notice how it tells us about both our preprocessing steps and our model specifications.
 
 Next, we "prepare the recipe" (or estimate the parameters) and fit the model to our training data all at once. 
 Printing the output, we can see the coefficients of the model.
@@ -4342,7 +4344,7 @@ PM_wflow_fit %>%
   vip(num_features = 10)
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-120-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-121-1.png" width="672" />
 
 The state in which the monitor was located and the CMAQ model and the aod satellite information appear to be the most important for predicting the air pollution at a given monitor.
 
@@ -4397,7 +4399,7 @@ head(wf_fitted_values)
 ## 6 15.6    11.1    0.380  4.50  0.0332   2.08 0.00501        2.20
 ```
 
-Note that becuase we use the actual workflow here, we can (and actually need to) use the raw data instead of the pre-processed data.
+Note that because we use the actual workflow here, we can (and actually need to) use the raw data instead of the preprocessed data.
 
 
 ```r
@@ -4447,7 +4449,7 @@ wf_fitted_values %>%
   ylab("predicted outcome values")
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-124-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-125-1.png" width="672" />
 
 OK, so our range of the predicted outcome values appears to be smaller than the real values. 
 We could probably do a bit better.
@@ -4867,7 +4869,7 @@ RF_wflow_fit
 ##                     % Var explained: 60.04
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-136-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-137-1.png" width="672" />
 
 Interesting! In the previous model the CMAQ values and the state where the monitor was located were also the top two most important, however predictors about education levels of the communities where the monitor was located was among the top most important. Now we see that population density and proximity to sources of emissions and roads are among the top ten.
 
@@ -4887,7 +4889,7 @@ It looks like the random forest model had  a much lower `rmse` value of 1.72.
 
 If we tuned our random forest model based on the number of trees or the value for `mtry` (which is "The number of predictors that will be randomly sampled at each split when creating the tree models"), we might get a model with even better performance.
 
-However, our cross validated mean rmse value of 1.72 is quite good because our range of true outcome values is much larger: (3.496, 22.259).
+However, our cross validated mean `rmse` value of 1.72 is quite good because our range of true outcome values is much larger: (3.496, 22.259).
 
 
 #### Model Tuning
@@ -4896,7 +4898,7 @@ However, our cross validated mean rmse value of 1.72 is quite good because our r
 
 Now let's try some tuning.
 
-Let's take a closer look at the `mtry` and `min_n` hyperparametrs in our Random Forest model.
+Let's take a closer look at the `mtry` and `min_n` hyperparameters in our Random Forest model.
 
 We aren't exactly sure what values of `mtry` and `min_n` achieve good accuracy yet keep our model generalizable for other data.
 
@@ -5001,7 +5003,7 @@ parallel::detectCores()
 ## [1] 8
 ```
 
-The `registerDoParallel()` function will use the number for cores specified using the `cores=` arguement, or it will assign it automatically to one-half of the number of cores detected by the `parallel` package. 
+The `registerDoParallel()` function will use the number for cores specified using the `cores=` argument, or it will assign it automatically to one-half of the number of cores detected by the `parallel` package. 
 
 We need to use `set.seed()` here because the values chosen for `mtry` and `min_n` may vary if we preform this evaluation again because they are chosen semi-randomly (meaning that they are within a range of reasonable values but still random).
 
@@ -5051,7 +5053,7 @@ If you wanted more control over this process you could specify how the different
 Be default the values for the hyperparameters being tuned are chosen semi-randomly (meaning that they are within a range of reasonable values but still random)..
 
 
-Now we can use the `collect_metrics()` function again to take a look at what happened with our cross validation tests. We can see the different values chosen for `mtry` and `min_n` and the mean rmse and rsq values across the cross validation samples.
+Now we can use the `collect_metrics()` function again to take a look at what happened with our cross validation tests. We can see the different values chosen for `mtry` and `min_n` and the mean `rmse` and `rsq` values across the cross validation samples.
 
 
 ```r
@@ -5063,16 +5065,16 @@ tune_RF_results%>%
 ## # A tibble: 40 x 7
 ##     mtry min_n .metric .estimator  mean     n std_err
 ##    <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-##  1     1    27 rmse    standard   2.05     10  0.144 
-##  2     1    27 rsq     standard   0.489    10  0.0377
-##  3     4    30 rmse    standard   1.81     10  0.144 
-##  4     4    30 rsq     standard   0.592    10  0.0393
-##  5     6    32 rmse    standard   1.76     10  0.147 
-##  6     6    32 rsq     standard   0.607    10  0.0408
-##  7     7    18 rmse    standard   1.72     10  0.139 
-##  8     7    18 rsq     standard   0.618    10  0.0391
-##  9     8    23 rmse    standard   1.73     10  0.143 
-## 10     8    23 rsq     standard   0.610    10  0.0377
+##  1     1    27 rmse    standard   2.06     10  0.142 
+##  2     1    27 rsq     standard   0.483    10  0.0399
+##  3     4    30 rmse    standard   1.81     10  0.148 
+##  4     4    30 rsq     standard   0.588    10  0.0386
+##  5     6    32 rmse    standard   1.76     10  0.143 
+##  6     6    32 rsq     standard   0.604    10  0.0398
+##  7     7    18 rmse    standard   1.73     10  0.144 
+##  8     7    18 rsq     standard   0.616    10  0.0397
+##  9     8    23 rmse    standard   1.74     10  0.144 
+## 10     8    23 rsq     standard   0.607    10  0.0389
 ## # … with 30 more rows
 ```
 
@@ -5087,7 +5089,7 @@ show_best(tune_RF_results, metric = "rmse", n =1)
 ## # A tibble: 1 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1    13     7 rmse    standard    1.67    10   0.146
+## 1    17     4 rmse    standard    1.67    10   0.147
 ```
 There we have it... looks like an `mtry` of 17 and `min_n` of 4 had the best `rmse` value. You can verify this in the above output, but it is easier to just pull this row out using this function. We can see that the mean `rmse` value across the cross validation sets was 1.720. Before tuning it was 1.725  with a similar `std_err` so the performance was very slightly improved.
 
@@ -5112,7 +5114,7 @@ tuned_RF_values
 ## # A tibble: 1 x 2
 ##    mtry min_n
 ##   <int> <int>
-## 1    13     7
+## 1    17     4
 ```
 
 Now we can finalize the model/workflow that we we used for tuning with these values.
@@ -5125,7 +5127,7 @@ RF_tuned_wflow <-RF_tune_wflow %>%
 ```
 
 
-With the `workflows` package, we can use the splitting information for our original data `pm_split` to fit the final model on the full training set and also on the testing data using the `last_fit()` function of the `tune` package. No pre-processing steps are required.
+With the `workflows` package, we can use the splitting information for our original data `pm_split` to fit the final model on the full training set and also on the testing data using the `last_fit()` function of the `tune` package. No preprocessing steps are required.
 
 The results will show the performance using the testing data.
 
@@ -5151,10 +5153,10 @@ To see the performance on the test data we can use the `collect_metrics()` funct
 ##   .metric .estimator .estimate
 ##   <chr>   <chr>          <dbl>
 ## 1 rmse    standard       1.44 
-## 2 rsq     standard       0.640
+## 2 rsq     standard       0.638
 ```
 
-Awesome! We can see that our rmse of 1.44 is quite similar with our testing data cross validation sets. We achieved quite good performance, which suggests that we would could predict other locations with more sparse monitoring based on our predictors with reasonable accuracy.
+Awesome! We can see that our `rmse` of 1.44 is quite similar with our testing data cross validation sets. We achieved quite good performance, which suggests that we would could predict other locations with more sparse monitoring based on our predictors with reasonable accuracy.
 
 Now if you wanted to take a look at the predicted values for the test set (the 292 rows with predictions out of the 876 original monitor values) you can use the  `collect_predictions()` function of the `tune()` package:
 
@@ -5173,11 +5175,11 @@ head(test_predictions)
 ##   id               .pred  .row value
 ##   <chr>            <dbl> <int> <dbl>
 ## 1 train/test split  11.1     4  11.7
-## 2 train/test split  11.8    10  13.1
-## 3 train/test split  12.1    12  12.2
-## 4 train/test split  11.4    15  12.2
+## 2 train/test split  12.0    10  13.1
+## 3 train/test split  12.2    12  12.2
+## 4 train/test split  11.5    15  12.2
 ## 5 train/test split  11.4    19  11.4
-## 6 train/test split  12.1    22  12.2
+## 6 train/test split  12.0    22  12.2
 ```
 
 Nice!

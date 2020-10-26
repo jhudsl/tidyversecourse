@@ -414,7 +414,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.12.1" data-path="model.html"><a href="model.html#benefits-of-tidymodels"><i class="fa fa-check"></i><b>5.12.1</b> Benefits of <code>tidymodels</code></a></li>
 <li class="chapter" data-level="5.12.2" data-path="model.html"><a href="model.html#packages-of-the-tidymodels-ecosystem"><i class="fa fa-check"></i><b>5.12.2</b> Packages of the <code>tidymodels</code> ecosystem</a></li>
 <li class="chapter" data-level="5.12.3" data-path="model.html"><a href="model.html#example-of-continuous-variable-prediction-linear-regression"><i class="fa fa-check"></i><b>5.12.3</b> Example of Continuous Variable Prediction: Linear Regression</a></li>
-<li class="chapter" data-level="5.12.4" data-path="model.html"><a href="model.html#example-of-categorical-variable-prediction-classification-with-cart-with-cross-validation-and-hyper-parameter-tuning"><i class="fa fa-check"></i><b>5.12.4</b> Example of Categorical Variable Prediction: Classification with CART with cross validation and hyper-parameter tuning</a></li>
+<li class="chapter" data-level="5.12.4" data-path="model.html"><a href="model.html#example-of-categorical-variable-prediction-classification-with-cart-with-cross-validation-and-hyperparameter-tuning"><i class="fa fa-check"></i><b>5.12.4</b> Example of Categorical Variable Prediction: Classification with CART with cross validation and hyperparameter tuning</a></li>
 <li class="chapter" data-level="5.12.5" data-path="model.html"><a href="model.html#example-of-assessing-model-performance-with-cross-validation-using-tune"><i class="fa fa-check"></i><b>5.12.5</b> Example of assessing model performance with cross validation using <code>tune</code></a></li>
 </ul></li>
 <li class="chapter" data-level="5.13" data-path="model.html"><a href="model.html#case-studies-4"><i class="fa fa-check"></i><b>5.13</b> Case Studies</a><ul>
@@ -536,7 +536,7 @@ With this logic, most online surveys or surveys on social media has to be taken 
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">## get a glimpse of your data</span></a>
 <a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">glimpse</span>(df)</a></code></pre></div>
 <p><img src="https://camo.githubusercontent.com/141353fef57cd97b26d64e39311e23584e165c6a/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336461343162643136615f305f3536" /></p>
-<p>Also becuase the data is in tibble format, we can gain alot of information by just viewing the data itself.</p>
+<p>Also because the data is in tibble format, we can gain a lot of information by just viewing the data itself.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">df</a></code></pre></div>
 <p>Here we also get information about the dimensions of our data object and the name and class of our variables.</p>
 <p><img src="book_figures/tibble.png" width="60%" /></p>
@@ -544,8 +544,8 @@ With this logic, most online surveys or surveys on social media has to be taken 
 <h3><span class="header-section-number">5.5.1</span> Missing Values</h3>
 <p>In any analysis, missing data can cause a problem. Thus, it’s best to get an understanding of missingness in your data right from the start. Missingness refers to observations that are not included for a variable. In R, NA is the preferred way to specify missing data, so if you’re ever generating data, its best to include NA wherever you have a missing value.</p>
 <p>However, individuals who are less familiar with R code missingness in a number of different ways in their data: -999, N/A, ., or a blank space. As such, it’s best to check to see how missingness is coded in your dataset. A reminder: sometimes different variables within a single dataset will code missingness differently. This shouldn’t happen, but it does, so always use caution when looking for missingness.</p>
-<p>In this dataset, all missing values are coded as NA, and from the output of str(df) (or glimpse(df)), we see that at least a few variables have NA values. We’ll want to quantify this missingness though to see which variables have missing data and how many observations within each variable have missing data.</p>
-<p>To do this, we can write a function that will calculate missingness within each of our variables. To do this we’ll combine a few functions. In the code here is.na() returns a logical (TRUE/FALSE) depending upon whether or not the value is missing (TRUE if it is missing). sum() then calculates the number of TRUE values there are within an observation. We wrap this into a function and then use sapply() to calculate the number of missing values in each variable. The second bit of code does the exact same thing but divides those numbers by the total number of observations (using nrow(df). For each variable, this returns the proportion of missingness:</p>
+<p>In this dataset, all missing values are coded as <code>NA</code>, and from the output of <code>str(df)</code> (or <code>glimpse(df)</code>), we see that at least a few variables have NA values. We’ll want to quantify this missingness though to see which variables have missing data and how many observations within each variable have missing data.</p>
+<p>To do this, we can write a function that will calculate missingness within each of our variables. To do this we’ll combine a few functions. In the code here, <code>is.na()</code> returns a logical (<code>TRUE</code>/<code>FALSE</code>) depending upon whether or not the value is missing (<code>TRUE</code> if it is missing). The <code>sum()</code> function then calculates the number of <code>TRUE</code> values there are within an observation. We then use <code>map()</code> to calculate the number of missing values in each variable. The second bit of code does the exact same thing but divides those numbers by the total number of observations (using <code>nrow(df)</code>). For each variable, this returns the proportion of missingness:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(purrr)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">## calculate how many NAs there are in each variable</span></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3">df <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -559,14 +559,14 @@ With this logic, most online surveys or surveys on social media has to be taken 
 <a class="sourceLine" id="cb3-11" data-line-number="11"><span class="st">        </span><span class="kw">map</span>(sum)<span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-12" data-line-number="12"><span class="st">        </span><span class="kw">map</span>(<span class="op">~</span><span class="st"> </span>. <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(df))<span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-13" data-line-number="13"><span class="st">        </span><span class="kw">bind_cols</span>()</a></code></pre></div>
-<p>There are also some useful visualization methods for evaluating missingness. You could manually do this with ggplot, but there are two packages called <a href="https://github.com/njtierney/naniar">naniar</a> and visdat<a href="https://github.com/ropensci/visdat">https://github.com/ropensci/visdat</a> written by <a href="https://www.njtierney.com/about/">Nicholas Tierney</a> that are very helpful. The <code>visdat</code> package was used previously in one of our case studies.</p>
+<p>There are also some useful visualization methods for evaluating missingness. You could manually do this with <code>ggplot2</code>, but there are two packages called <a href="https://github.com/njtierney/naniar"><code>naniar</code></a> and <a href="https://github.com/ropensci/visdat"><code>visdat</code></a> written by <a href="https://www.njtierney.com/about/">Nicholas Tierney</a> that are very helpful. The <code>visdat</code> package was used previously in one of our case studies.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co">#install.packages(&quot;naniar&quot;)</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">library</span>(naniar)</a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">## visualize missingness</span></a>
 <a class="sourceLine" id="cb4-5" data-line-number="5"><span class="kw">vis_miss</span>(df)</a></code></pre></div>
 <p><img src="https://camo.githubusercontent.com/ca8c32d6ead89207c9bd0bc8dd1918d40e38f19f/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336461343162643136615f305f323332" /></p>
-<p>Here, we see the variables listed along the top with percentages summarizing how many observations are missing data for that particular variable. Each row in the visualization is a different observation. Missing data are black. Non-missing values are in grey. Focusing again on brainwt, we can see the 27 missing values visually. We can also see that sleep_cycle has the most missingness, while many variables have no missing data.</p>
+<p>Here, we see the variables listed along the top with percentages summarizing how many observations are missing data for that particular variable. Each row in the visualization is a different observation. Missing data are black. Non-missing values are in grey. Focusing again on <code>brainwt</code>, we can see the 27 missing values visually. We can also see that sleep_cycle has the most missingness, while many variables have no missing data.</p>
 </div>
 <div id="shape" class="section level3">
 <h3><span class="header-section-number">5.5.2</span> Shape</h3>
@@ -596,7 +596,7 @@ Taking a look at the sleep_total variable within our example dataset, we see tha
 <p><strong>Skewed Distribution</strong></p>
 <p>Alternatively, sometimes data follow a skewed distribution. In a skewed distribution, most of the values fall to one end of the range, leaving a tail off to the other side. When the tail is off to the left, the distribution is said to be skewed left. When off to the right, the distribution is said to be skewed right.</p>
 <p><img src="https://camo.githubusercontent.com/8eb383b932b3df2dd351a07da959843aa7538b2f/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336461343162643136615f305f333830" /></p>
-<p>To see an example from the msleep dataset, we’ll look at the variable sleep_rem. Here we see that the data are skewed right, given the shift in values away from the right, leading to a long right tail. Here, most of the values are at the lower end of the range.</p>
+<p>To see an example from the <code>msleep</code> dataset, we’ll look at the variable sleep_rem. Here we see that the data are skewed right, given the shift in values away from the right, leading to a long right tail. Here, most of the values are at the lower end of the range.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(sleep_rem)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_density</span>()</a></code></pre></div>
 <pre><code>## Warning: Removed 22 rows containing non-finite values (stat_density).</code></pre>
@@ -679,7 +679,7 @@ Taking a look at the sleep_total variable within our example dataset, we see tha
 <a class="sourceLine" id="cb19-2" data-line-number="2"><span class="kw">library</span>(skimr)</a>
 <a class="sourceLine" id="cb19-3" data-line-number="3"><span class="kw">skim</span>(df)</a></code></pre></div>
 <p><img src="https://camo.githubusercontent.com/93949f44cb7234b321ee5851c00a6c508bfe6aa4/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d632f6578706f72742f706e673f69643d3173446f6a6b5072593254355f71775432624c442d384452476355486965314e39493935653655324a696d63267061676569643d67336461343162643136615f305f343535" /></p>
-<p>Using this function we can quickly get an idea about missingness, varaibility, central tendency, and shape, and outliers all at once.</p>
+<p>Using this function we can quickly get an idea about missingness, variability, central tendency, and shape, and outliers all at once.</p>
 <p>The output from <code>skim()</code> separately summarizes categorical and continuous variables. For continuous variables you get information about the mean and median (<code>p50</code>) column. You know what the range of the variable is (<code>p0</code> is the minimum value, <code>p100</code> is the maximum value for continuous variables). You also get a measure of variability with the standard deviation (<code>sd</code>). It even quantifies the number of missing values (missing) and shows you the distribution or shape of each variable (<code>hist</code>)! Potential outliers can also be identified from the hist column and the p100 and p0 columns. This function can be incredibly useful to get a quick snapshot of what’s going on with your dataset.</p>
 <p>If we take a look closer at the <code>bodywt</code> and <code>brianwt</code> variables, we can see that there may be outliers. The maximum value of the <code>bodywt</code> variable looks very different from the <code>mean</code> value.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">dplyr<span class="op">::</span><span class="kw">filter</span>(df, bodywt <span class="op">==</span><span class="st"> </span><span class="dv">6654</span>)</a></code></pre></div>
@@ -700,7 +700,7 @@ Taking a look at the sleep_total variable within our example dataset, we see tha
 ## 2 Afri… Loxo… herbi Prob… vu                   3.3        NA          NA  20.7
 ## # … with 2 more variables: brainwt &lt;dbl&gt;, bodywt &lt;dbl&gt;</code></pre>
 <p>Looks like both data points are for elephants.</p>
-<p>Therefore, we might consider perfroming an anlysis both with and without the elephant data, to see if it influences the overall result.</p>
+<p>Therefore, we might consider performing an analysis both with and without the elephant data, to see if it influences the overall result.</p>
 </div>
 </div>
 </div>
@@ -708,7 +708,7 @@ Taking a look at the sleep_total variable within our example dataset, we see tha
 <h3><span class="header-section-number">5.5.5</span> Evaluating Relationships</h3>
 <p>Another important aspect of exploratory analysis is looking at relationships between variables.</p>
 <p>Again visualizations can be very helpful.</p>
-<p>We might want to look at the relationships between all of our continuous variables. A good way to do this is to use a visualization of <strong>correlation</strong>. As a reminder, correlation is a measure of the relationship or interdependence of two variables. In otherwords, how much do the values of one variable change with the values of another. Correlation can be either positive or negative and it ranges from -1 to 1, with 1 and -1 indicating perfect correlation (1 being positive and -1 being negative) and 0 indicating no correlation. We will describe this in greater detail when we look at associations.</p>
+<p>We might want to look at the relationships between all of our continuous variables. A good way to do this is to use a visualization of <strong>correlation</strong>. As a reminder, correlation is a measure of the relationship or interdependence of two variables. In other words, how much do the values of one variable change with the values of another. Correlation can be either positive or negative and it ranges from -1 to 1, with 1 and -1 indicating perfect correlation (1 being positive and -1 being negative) and 0 indicating no correlation. We will describe this in greater detail when we look at associations.</p>
 <p>Here are some very useful plots that can be generated using the <code>GGally</code> package and the <code>PerformanceAnalytics</code> package to examine if variables are correlated.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">library</span>(PerformanceAnalytics)</a>
 <a class="sourceLine" id="cb25-2" data-line-number="2">df <span class="op">%&gt;%</span></a>
@@ -758,8 +758,8 @@ Taking a look at the sleep_total variable within our example dataset, we see tha
 ## sample estimates:
 ##       cor 
 ## 0.4606273</code></pre>
-<p>We can see from this plot that in general <code>brainwt</code> is correlated with <code>bodywt</code>. Or in otherwords, <code>brainwt</code> tends to increase with <code>bodywt</code>.</p>
-<p>But it also looks like we have an outlier for our brainwt variable! There is a very high <code>brainwt</code> value that is greater than 1.</p>
+<p>We can see from this plot that in general <code>brainwt</code> is correlated with <code>bodywt</code>. Or in other words, <code>brainwt</code> tends to increase with <code>bodywt</code>.</p>
+<p>But it also looks like we have an outlier for our <code>brainwt</code> variable! There is a very high <code>brainwt</code> value that is greater than 1.</p>
 <p>We can also see it in our histogram of this variable:</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">hist</span>(<span class="kw">pull</span>(df, brainwt))</a></code></pre></div>
 <p><img src="05-prediction_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
@@ -802,7 +802,7 @@ Taking a look at the sleep_total variable within our example dataset, we see tha
 <h2><span class="header-section-number">5.6</span> Inference</h2>
 <p>Inferential Analysis is what analysts carry out after they’ve described and explored their data set. After understanding your dataset better, analysts often try to infer something from the data.
 This is done using <strong>statistical tests</strong>.</p>
-<p>We discussed a bit about how we can use models to perform inferance and prediction analyses. What does this mean?</p>
+<p>We discussed a bit about how we can use models to perform inference and prediction analyses. What does this mean?</p>
 <p>The goal of inferential analyses is to use a relatively <strong>small</strong> sample of data to <strong>infer</strong> or say something about the <strong>population at large</strong>. This is required because often we want to answer questions about a population. Let’s take a dummy example here where we have a population of 14 shapes. Here, in this graphic, the shapes represent individuals in the population and the colors of the shapes can be either pink or grey:</p>
 <p><img src="https://camo.githubusercontent.com/fd21e599abc23159d31d8d52fe5eb8585b492cc2/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f317778434c79335a5157436332385073454e69383371674b45536b482d34346e6330747549534d526c5276632f6578706f72742f706e673f69643d317778434c79335a5157436332385073454e69383371674b45536b482d34346e6330747549534d526c527663267061676569643d67336461656133373331315f305f35" /></p>
 <p>In this example we only have fourteen shapes in the population; however, in inferential data analysis, it’s not usually possible to sample <em>everyone</em> in the population. Consider if this population were everyone in the United States or every college student in the world. As getting information from every individual would be infeasible. Data are instead collected on a subset, or a <strong>sample</strong> of the individuals in the larger population.</p>
@@ -1143,26 +1143,26 @@ These have been nicely summarized by Jonas Kristoffer Lindelov in is blog post <
 <p>You may have noticed in the previous sections that we were asking a question about the data. We did so by testing if a particular answer to the question was true.</p>
 <p>For example:</p>
 <ol style="list-style-type: decimal">
-<li><p>In the cherry tree analsysis we asked “Can we infer the height of a tree given its girth?”<br />
-We expected that we could. Thus we had a statment that “tree height can be inferred by it’s girth or can be predicted by girth”</p></li>
+<li><p>In the cherry tree analysis we asked “Can we infer the height of a tree given its girth?”<br />
+We expected that we could. Thus we had a statement that “tree height can be inferred by it’s girth or can be predicted by girth”</p></li>
 <li><p>In the car mileage analysis we asked “Can we infer the miles the car can go per gallon of gasoline based on the car weight?”<br />
 We expected that we could. Thus we had a statement that “car mileage can be inferred by car weight”</p></li>
 </ol>
 <p>We took this further and asked “Can we infer the miles the car can go per gallon of gasoline based on the car weight and care engine type?”<br />
 We again expected that it did. Thus we had a statement that &quot; car mileage can be inferred by weight and engine type&quot;</p>
 <ol start="3" style="list-style-type: decimal">
-<li>In the soda can analysis we asked “Do soda cans really have 12 ounces of fluid”. We expected that often do. Thus we had a statement that “soda cans typically have 12 onces, the mean amount is 12”.</li>
+<li>In the soda can analysis we asked “Do soda cans really have 12 ounces of fluid”. We expected that often do. Thus we had a statement that “soda cans typically have 12 ounces, the mean amount is 12”.</li>
 </ol>
-<p>A common problem in many data science problem involves developing evidence for or against certain testable statements like these statments above. These testable statements are called <em>hypotheses</em>. Typically, the way these problems are structured is that a statement is made about the world (the hypothesis) and then the data are used (usually in the form of a summary statistic) to support or reject that statement.</p>
+<p>A common problem in many data science problem involves developing evidence for or against certain testable statements like these statements above. These testable statements are called <em>hypotheses</em>. Typically, the way these problems are structured is that a statement is made about the world (the hypothesis) and then the data are used (usually in the form of a summary statistic) to support or reject that statement.</p>
 <p>Recall that we defined a p-value as “the probability of getting the observed results (or results more extreme) by chance alone.” Often p-values are used to determine if one should accept or reject that statement.</p>
-<p>Typically a p-value of 0.05 is used as the threshold, however remeber that it is best to report more than just the p-value, but also estimates and standard errors among other statistics. Different statistical tests allow for testing different hyptotheses.</p>
+<p>Typically a p-value of 0.05 is used as the threshold, however remember that it is best to report more than just the p-value, but also estimates and standard errors among other statistics. Different statistical tests allow for testing different hypotheses.</p>
 <div id="theinfer-package" class="section level3">
 <h3><span class="header-section-number">5.11.1</span> The<code>Infer</code> Package</h3>
 <p>The <code>infer</code> package simplifies inference analyses. Users can quickly calculate a variety of statistics and perform statistical tests including those that require resampling, permutation, or simulations using data that is in <code>tidy</code> format.</p>
 <p>In fact users can even perform analyses based on specified hypotheses with the <code>hypothesize()</code> function.</p>
 <p>We will perform the same analysis about soda cans that we just did with this package to illustrate how to use it.</p>
-<p>Recall that we wanted to know if the observed ounces of soda can differs from the expected mean of 12 oz. Also recall that we had measurments for 100 soda cans (we made up this data). We had a testable statement or hypothesis that “soda cans typically have 12 onces, the mean amount is 12” and we wanted to know if this was true.</p>
-<p>This type of hypothesis is called a null hypothesis becuase it is a statement that expects no difference or change. The alternative hypothesis is the complement statement. It would be that the mean is not 12.</p>
+<p>Recall that we wanted to know if the observed ounces of soda can differs from the expected mean of 12 oz. Also recall that we had measurements for 100 soda cans (we made up this data). We had a testable statement or hypothesis that “soda cans typically have 12 ounces, the mean amount is 12” and we wanted to know if this was true.</p>
+<p>This type of hypothesis is called a null hypothesis because it is a statement that expects no difference or change. The alternative hypothesis is the complement statement. It would be that the mean is not 12.</p>
 <p>OK, so now we will use the <code>infer</code> package to test if our null hypothesis is true.</p>
 <p>First, we need to get our data into a tidy format. Thus we will use the <code>as_tibble()</code> function of the <code>tidyr</code> package.</p>
 <div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1">soda_ounces &lt;-<span class="kw">as_tibble</span>(soda_ounces)</a>
@@ -1185,13 +1185,13 @@ We again expected that it did. Thus we had a statement that &quot; car mileage c
 <p>There are two options for the <code>null</code> argument of this function:
 1) point - this option should be used when there is one variable in the hypothesis, such as “the mean of this data x”.
 2) independence - this option should be used when there are two populations, such as &quot; the means of these two groups identical&quot; or “this variable influences this other variable”.</p>
-<p>Then if the point option is used, there are several additional arguments regarding what is being tested about that one variable. One can test a particular <code>mu</code> for mean, <code>med</code> for median, <code>sigma</code> for standard deviation, or <code>p</code> for the proportion of sucessess (for a categorical variable).</p>
+<p>Then if the point option is used, there are several additional arguments regarding what is being tested about that one variable. One can test a particular <code>mu</code> for mean, <code>med</code> for median, <code>sigma</code> for standard deviation, or <code>p</code> for the proportion of successes (for a categorical variable).</p>
 <p>Our hypothesis was “the mean amount of soda ounces is 12” thus we will use the <code>point</code> option for our <code>null</code> argument and we will specify a mean with the <code>mu</code> argument as 12.</p>
-<p>The major benefit of this package, besides allowing the user to think about the statistical analysis more than the programming required, is that the user can easily implement interative methods like resampling.</p>
+<p>The major benefit of this package, besides allowing the user to think about the statistical analysis more than the programming required, is that the user can easily implement iterative methods like resampling.</p>
 <p>What do we mean by this?</p>
-<p>Resampling is a method where a random samples are drawn from the original data to create a dataset of the same size as the orginal data (but with some samples repeated) and this is done repetitively over and over. This process is called Bootstraping. This provides more information about the confidence in our estimations from our sample about the true population that we are trying to investigate, as it gives us more of a sense the range of values for statistics like mean and meadian might vary using other samples.</p>
+<p>Resampling is a method where a random samples are drawn from the original data to create a dataset of the same size as the original data (but with some samples repeated) and this is done repetitively over and over. This process is called Bootstrapping. This provides more information about the confidence in our estimations from our sample about the true population that we are trying to investigate, as it gives us more of a sense the range of values for statistics like mean and median might vary using other samples.</p>
 <p>To perform resampling, users can use the <code>generate()</code> function with the <code>type</code> argument set to <code>&quot;bootsrap&quot;</code> and use the <code>rep</code> argument to specify how many bootstrap resamples to generate.</p>
-<p>The <code>calculate()</code> function then allows for many different statstics to be calculated including:</p>
+<p>The <code>calculate()</code> function then allows for many different statistics to be calculated including:</p>
 <ol style="list-style-type: decimal">
 <li><code>mean</code><br />
 </li>
@@ -1199,7 +1199,7 @@ We again expected that it did. Thus we had a statement that &quot; car mileage c
 </li>
 <li><code>sum</code><br />
 </li>
-<li><code>sd</code> for standard devation<br />
+<li><code>sd</code> for standard deviation<br />
 </li>
 <li><code>prop</code> for proportion for categorical variables</li>
 <li><code>count</code><br />
@@ -1243,7 +1243,7 @@ We again expected that it did. Thus we had a statement that &quot; car mileage c
 ##   `2.5%` `97.5%`
 ##    &lt;dbl&gt;   &lt;dbl&gt;
 ## 1   12.0    12.0</code></pre>
-<p>We can see that our confidence interval is very similar but slightly different from the results we obtained using the <code>t.test()</code> function and the <code>lm()</code> function. This is because we used a different method to calculate the confidence interval based on the bootstrap samples. Furthemore, the results will vary everytime the code is run because the bootstrap samples are randomly created each time.</p>
+<p>We can see that our confidence interval is very similar but slightly different from the results we obtained using the <code>t.test()</code> function and the <code>lm()</code> function. This is because we used a different method to calculate the confidence interval based on the bootstrap samples. Furthermore, the results will vary every time the code is run because the bootstrap samples are randomly created each time.</p>
 <p>We can also make a visualization of the null distribution of the bootstrap samples using the <code>visualize()</code> function.</p>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">342</span>)</a>
 <a class="sourceLine" id="cb66-2" data-line-number="2"></a>
@@ -1396,8 +1396,8 @@ We again expected that it did. Thus we had a statement that &quot; car mileage c
 </div>
 <div id="the-tidymodels-ecosystem" class="section level2">
 <h2><span class="header-section-number">5.12</span> The <code>tidymodels</code> ecosystem</h2>
-<p>There are <em>incredibly</em> helpful packages available in R thanks to the work of <a href="https://twitter.com/topepos?lang=en">Max Kuhn</a>. As mentioned above, there are hundreds of different machine learning algorithms. Max’s R packages have compiled all of them into a single framework, allowing you to use <em>many</em> different machine learning models easily. Additionally, he has written a very <a href="http://appliedpredictivemodeling.com/">helpful book</a> about predictive modeling. There are also many <a href="https://topepo.github.io/">helpful links</a> about each of the packages. Max previously developed the <code>caret</code> package (short for Classification And REgression Training) which has been widely used. <a href="https://konradsemsch.netlify.com/2019/08/caret-vs-tidymodels-comparing-the-old-and-new/">Here</a> you can see some of the dicussion about the difference between <code>caret</code> and <code>tidymodels</code>.</p>
-<p>In this <a href="https://community.rstudio.com/t/caret-to-tidymodels/">rstudio community thread</a> you can see that Max stated that “The tidyverse is more about modular packages that are designed to play well with one another. The main issue with caret is that, being all in one package, it is very difficult to extend it into areas that people are interested in…The bottom line is that the tidymodels set should do what caret does and more.” We will describe some of the advantages of the <code>tidymodels</code> packages.</p>
+<p>There are <em>incredibly</em> helpful packages available in R thanks to the work of <a href="https://twitter.com/topepos?lang=en">Max Kuhn</a>. As mentioned above, there are hundreds of different machine learning algorithms. Max’s R packages have compiled all of them into a single framework, allowing you to use <em>many</em> different machine learning models easily. Additionally, he has written a very <a href="http://appliedpredictivemodeling.com/">helpful book</a> about predictive modeling. There are also many <a href="https://topepo.github.io/">helpful links</a> about each of the packages. Max previously developed the <code>caret</code> package (short for Classification And Regression Training) which has been widely used. <a href="https://konradsemsch.netlify.com/2019/08/caret-vs-tidymodels-comparing-the-old-and-new/">Here</a> you can see some of the discussion about the difference between <code>caret</code> and <code>tidymodels</code>.</p>
+<p>In this <a href="https://community.rstudio.com/t/caret-to-tidymodels/">rstudio community thread</a> you can see that Max stated that “The <code>tidyverse</code> is more about modular packages that are designed to play well with one another. The main issue with caret is that, being all in one package, it is very difficult to extend it into areas that people are interested in…The bottom line is that the tidymodels set should do what caret does and more.” We will describe some of the advantages of the <code>tidymodels</code> packages.</p>
 <div id="benefits-of-tidymodels" class="section level3">
 <h3><span class="header-section-number">5.12.1</span> Benefits of <code>tidymodels</code></h3>
 <p>The two major benefits of <code>tidymodels</code> are:</p>
@@ -1406,32 +1406,33 @@ We again expected that it did. Thus we had a statement that &quot; car mileage c
 </ol>
 <p>Different notations are required for different algorithms as the algorithms have been developed by different people. This would require the painstaking process of reformatting the data to be compatible with each algorithm if multiple algorithms were tested.</p>
 <ol start="2" style="list-style-type: decimal">
-<li>Can easily modify pre-processing, algorithm choice, and hyper-parameter tuning making optimization easy</li>
+<li>Can easily modify preprocessing, algorithm choice, and hyperparameter tuning making optimization easy</li>
 </ol>
-<p>Modifying a piece of the overall process is now easier than before because many of the steps are specified using the <code>tidymodels</code> packages in a convenient manner. Thus the entire process can be rerun after a simple change to pre-processing without much difficulty.</p>
+<p>Modifying a piece of the overall process is now easier than before because many of the steps are specified using the <code>tidymodels</code> packages in a convenient manner. Thus the entire process can be rerun after a simple change to preprocessing without much difficulty.</p>
 </div>
 <div id="packages-of-the-tidymodels-ecosystem" class="section level3">
 <h3><span class="header-section-number">5.12.2</span> Packages of the <code>tidymodels</code> ecosystem</h3>
 <p>We will focus on the following packages although there are many more in the tidymodels ecosystem:</p>
 <p><img src="book_figures/simpletidymodels.png" width="830" /></p>
 <ol style="list-style-type: decimal">
-<li>rsamples - to split the data into training and testing sets (as well as cross validation sets - more on that later!)<br />
+<li><code>rsamples</code> - to split the data into training and testing sets (as well as cross validation sets - more on that later!)<br />
 </li>
-<li>recipes - to prepare the data with preprocessing (assign variables and preprocessing steps)<br />
+<li><code>recipes</code> - to prepare the data with preprocessing (assign variables and preprocessing steps)<br />
 </li>
-<li>parsnip - to specify and fit the data to a model<br />
+<li><code>parsnip</code> - to specify and fit the data to a model<br />
 </li>
-<li>yardstick and tune - to evaluate model performance</li>
-<li>workflows - combining recipe and parsnip objects into a workflow (this makes it easier to keep track of what you have done and it makes it easier to modify specific steps)</li>
-<li>tune and dials - model optimization (more on what hyperparameters are later too!)<br />
+<li><code>yardstick</code> and <code>tune</code> - to evaluate model performance</li>
+<li><code>workflows</code> - combining recipe and parsnip objects into a workflow (this makes it easier to keep track of what you have done and it makes it easier to modify specific steps)</li>
+<li><code>tune</code> and <code>dials</code> - model optimization (more on what hyperparameters are later too!)<br />
 </li>
-<li>broom - to make the output from fitting a model easier to read</li>
+<li><code>broom</code> - to make the output from fitting a model easier to read</li>
 </ol>
 <p>Here you can see a visual of how these packages work together in the process of performing a machine learning analysis:</p>
 <p><img src="book_figures/MachineLearning_tidymodels.png" width="1252" /></p>
 <p>To illustrate how to use each of these packages, we will work through some examples.</p>
-<p>Other tidymodel packages include:
-[]<a href="https://pbs.twimg.com/media/Ef1Oac7WAAImCos.jpg" class="uri">https://pbs.twimg.com/media/Ef1Oac7WAAImCos.jpg</a></p>
+<p>Other <code>tidymodels</code> packages include:</p>
+<p><img src="book_figures/tidymodels_packages.jpg" width="600" />
+[<a href="https://pbs.twimg.com/media/Ef1Oac7WAAImCos.jpg">source</a>]</p>
 <ol style="list-style-type: decimal">
 <li><code>applicable</code> compares new data points with the training data to see how much the new data points appear to be an extrapolation of the training data<br />
 </li>
@@ -1453,11 +1454,11 @@ We again expected that it did. Thus we had a statement that &quot; car mileage c
 </li>
 <li><code>tidypredict</code> is for running predictions inside SQL databases<br />
 </li>
-<li><code>modeldb</code> is also for working within SQL datbases and it allows for <code>dplyr</code> and <code>tidyeval</code> use within a database<br />
+<li><code>modeldb</code> is also for working within SQL databases and it allows for <code>dplyr</code> and <code>tidyeval</code> use within a database<br />
 </li>
 <li><code>tidyposterior</code> compares models using resampling statistics</li>
 </ol>
-<p>Most of these packges offer advanced modeling options.</p>
+<p>Most of these packages offer advanced modeling options.</p>
 </div>
 <div id="example-of-continuous-variable-prediction-linear-regression" class="section level3">
 <h3><span class="header-section-number">5.12.3</span> Example of Continuous Variable Prediction: Linear Regression</h3>
@@ -1496,11 +1497,11 @@ We again expected that it did. Thus we had a statement that &quot; car mileage c
 ## 6           5.4         3.9          1.7         0.4  setosa
 ## 14          4.3         3.0          1.1         0.1  setosa</code></pre>
 </div>
-<div id="step-2-example-of-preparing-for-pre-processing-the-data-with-recipes" class="section level4">
-<h4><span class="header-section-number">5.12.3.2</span> Step 2: Example of preparing for pre-processing the data with <code>recipes</code></h4>
-<p>After splitting the data, the next step is to process the training and testing data so that the data are are compatible and optimized to be used with the model. This involves assigning variables to specific roles within the model and pre-processing like scaling variables and removing redundant variables. This process is also called feature engineering.</p>
-<p>To do this in tidymodels, we will create what’s called a “<strong>recipe</strong>” using the recipes package, which is a standardized format for a sequence of steps for pre-processing the data. This can be very useful because it makes testing out different pre-processing steps or different algorithms with the same pre-processing very easy and reproducible.</p>
-<p>Creating a recipe specifies <strong>how a data frame of predictors should be created</strong> - it specifies what variables to be used and the pre-processing steps, but it <strong>does not execute these steps</strong> or create the data frame of predictors.</p>
+<div id="step-2-example-of-preparing-for-preprocessing-the-data-with-recipes" class="section level4">
+<h4><span class="header-section-number">5.12.3.2</span> Step 2: Example of preparing for preprocessing the data with <code>recipes</code></h4>
+<p>After splitting the data, the next step is to process the training and testing data so that the data are are compatible and optimized to be used with the model. This involves assigning variables to specific roles within the model and preprocessing like scaling variables and removing redundant variables. This process is also called feature engineering.</p>
+<p>To do this in tidymodels, we will create what’s called a “<strong>recipe</strong>” using the recipes package, which is a standardized format for a sequence of steps for preprocessing the data. This can be very useful because it makes testing out different preprocessing steps or different algorithms with the same preprocessing very easy and reproducible.</p>
+<p>Creating a recipe specifies <strong>how a data frame of predictors should be created</strong> - it specifies what variables to be used and the preprocessing steps, but it <strong>does not execute these steps</strong> or create the data frame of predictors.</p>
 <div id="step-1-specify-variables-with-the-recipe-function" class="section level5">
 <h5><span class="header-section-number">5.12.3.2.1</span> Step 1: Specify variables with the <code>recipe()</code> function</h5>
 <p>The first thing to do to create a recipe is to specify which variables we will be using as our outcome and predictors using the recipe() function. In terms of the metaphor of baking, we can think of this as listing our ingredients. Translating this to the recipes package, we use the <code>recipe()</code> function to assign roles to all the variables.</p>
@@ -1555,7 +1556,7 @@ We again expected that it did. Thus we had a statement that &quot; car mileage c
 <p>We can use the <code>formula()</code> function of the stats package to see how we have assigned our variables in formula notation.</p>
 <div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1"><span class="kw">formula</span>(first_recipe)</a></code></pre></div>
 <pre><code>## Sepal.Length ~ Sepal.Width + Species
-## &lt;environment: 0x7fab128c50a0&gt;</code></pre>
+## &lt;environment: 0x7fe506733518&gt;</code></pre>
 <p>We can also view our recipe in more detail using the base summary() function.</p>
 <div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1"><span class="kw">summary</span>(first_recipe)</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 4
@@ -1567,9 +1568,9 @@ We again expected that it did. Thus we had a statement that &quot; car mileage c
 ## 4 Petal.Width  numeric &lt;NA&gt;      original
 ## 5 Species      nominal predictor original</code></pre>
 </div>
-<div id="step-2-specify-the-pre-processing-steps-with-step-functions" class="section level5">
-<h5><span class="header-section-number">5.12.3.2.2</span> Step 2: Specify the pre-processing steps with <code>step*()</code> functions</h5>
-<p>Next, we use the <code>step*()</code> functions from the <code>recipe</code> package to specify pre-processing steps.</p>
+<div id="step-2-specify-the-preprocessing-steps-with-step-functions" class="section level5">
+<h5><span class="header-section-number">5.12.3.2.2</span> Step 2: Specify the preprocessing steps with <code>step*()</code> functions</h5>
+<p>Next, we use the <code>step*()</code> functions from the <code>recipe</code> package to specify preprocessing steps.</p>
 <p><strong>This <a href="https://tidymodels.github.io/recipes/reference/index.html" target="_blank">link</a> and this <a href="https://cran.r-project.org/web/packages/recipes/recipes.pdf" target="_blank">link</a> show the many options for recipe step functions.</strong></p>
 <p><u>There are step functions for a variety of purposes:</u></p>
 <ol style="list-style-type: decimal">
@@ -1595,7 +1596,7 @@ We again expected that it did. Thus we had a statement that &quot; car mileage c
 <li>Using the role: <code>all_predictors()</code>, <code>all_outcomes()</code>, <code>has_role()</code></li>
 <li>Using the name - use the actual name of the variable/variables of interest</li>
 </ol>
-<p>Let’s try adding a pre-processing step to our recipe.</p>
+<p>Let’s try adding a preprocessing step to our recipe.</p>
 <p>We might want to potentially one hot encode some of our categorical variables so that they can be used with certain algorithms like a linear regression require numeric predictors.</p>
 <p>We can do this with the <code>step_dummy()</code> function and the <code>one_hot = TRUE</code> argument.
 One hot encoding means that we do not simply encode our categorical variables numerically, as our numeric assignments can be interpreted by algorithms as having a particular rank or order.
@@ -1621,15 +1622,15 @@ Instead, binary variables made of 1s and 0s are used to arbitrarily assign a num
 </div>
 <div id="step-3-example-of-optionally-performing-the-preprocessing-to-see-how-it-influences-the-data" class="section level4">
 <h4><span class="header-section-number">5.12.3.3</span> Step 3: Example of optionally performing the preprocessing to see how it influences the data</h4>
-<p>Optionally one can use the <code>prep()</code> function of the <code>recipes</code> package to update the recipe for manually performing the preprocessing to see how this infleunces the data. This step is however not required. The preprocessed training data can than be viewed by using the <code>juice()</code> function, while preprocessed testing data can be viewed using the <code>bake()</code> function.</p>
-<p>The <code>prep()</code> function estimates parameters (estimating the required quantities and statistics required by the steps for the variables) for pre-processing and updates the variables roles, as sometimes predictors may be removed, this allows the recipe to be ready to use on other data sets.</p>
-<p>It <strong>does not necessarily actually execute the pre-processing itself</strong>, however we will specify using the <code>retain</code> argument for it to do this so that we can take a look at the pre-processed data.</p>
+<p>Optionally one can use the <code>prep()</code> function of the <code>recipes</code> package to update the recipe for manually performing the preprocessing to see how this influences the data. This step is however not required. The preprocessed training data can than be viewed by using the <code>juice()</code> function, while preprocessed testing data can be viewed using the <code>bake()</code> function.</p>
+<p>The <code>prep()</code> function estimates parameters (estimating the required quantities and statistics required by the steps for the variables) for preprocessing and updates the variables roles, as sometimes predictors may be removed, this allows the recipe to be ready to use on other data sets.</p>
+<p>It <strong>does not necessarily actually execute the preprocessing itself</strong>, however we will specify using the <code>retain</code> argument for it to do this so that we can take a look at the preprocessed data.</p>
 <p>There are some important arguments to know about:</p>
 <ol style="list-style-type: decimal">
-<li><code>training</code> - you must supply a training data set to estimate parameters for pre-processing operations (recipe steps) - this may already be included in your recipe - as is the case for us</li>
+<li><code>training</code> - you must supply a training data set to estimate parameters for preprocessing operations (recipe steps) - this may already be included in your recipe - as is the case for us</li>
 <li><code>fresh</code> - if <code>fresh=TRUE</code>, - will retrain and estimate parameters for any previous steps that were already prepped if you add more steps to the recipe</li>
-<li><code>verbose</code> - if <code>verbose=TRUE</code>, shows the progress as the steps are evaluated and the size of the pre-processed training set</li>
-<li><code>retain</code> - if <code>retain=TRUE</code>, then the pre-processed training set will be saved within the recipe (as template). This is good if you are likely to add more steps and do not want to rerun the <code>prep()</code> on the previous steps. However this can make the recipe size large. This is necessary if you want to actually look at the pre-processed data.</li>
+<li><code>verbose</code> - if <code>verbose=TRUE</code>, shows the progress as the steps are evaluated and the size of the preprocessed training set</li>
+<li><code>retain</code> - if <code>retain=TRUE</code>, then the preprocessed training set will be saved within the recipe (as template). This is good if you are likely to add more steps and do not want to rerun the <code>prep()</code> on the previous steps. However this can make the recipe size large. This is necessary if you want to actually look at the preprocessed data.</li>
 </ol>
 <p>Let’s try out the <code>prep()</code> function:</p>
 <div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1">prepped_rec &lt;-<span class="st"> </span><span class="kw">prep</span>(first_recipe, <span class="dt">verbose =</span> <span class="ot">TRUE</span>, <span class="dt">retain =</span> <span class="ot">TRUE</span> )</a></code></pre></div>
@@ -1661,7 +1662,7 @@ You can see:</p>
 </li>
 <li>the original variable info (<code>var_info</code>)<br />
 </li>
-<li>the updated variable info after pre-processing (<code>term_info</code>)</li>
+<li>the updated variable info after preprocessing (<code>term_info</code>)</li>
 <li>the new <code>levels</code> of the variables</li>
 <li>the original levels of the variables (<code>orig_lvls</code>)</li>
 <li>info about the training data set size and completeness (<code>tr_info</code>)</li>
@@ -1705,7 +1706,7 @@ You can see:</p>
 </div>
 <div id="step-4-example-of-specifying-the-model-with-parsnip" class="section level4">
 <h4><span class="header-section-number">5.12.3.4</span> Step 4: Example of specifying the model with <code>parsnip</code></h4>
-<p>So far we have used the packages <code>rsample</code> to split the data and <code>recipes</code> to assign variable types, and to specify and prep our pre-processing (as well as to optionally extract the pre-processed data).</p>
+<p>So far we have used the packages <code>rsample</code> to split the data and <code>recipes</code> to assign variable types, and to specify and prep our preprocessing (as well as to optionally extract the preprocessed data).</p>
 <p>We will now use the <code>parsnip</code> package (which is similar to the previous <code>caret</code> package - and hence why it is named after the vegetable) to specify our model.</p>
 <p>There are four things we need to define about our model:</p>
 <ol style="list-style-type: decimal">
@@ -1751,9 +1752,9 @@ You can do this with the <code>set_mode()</code> function of the <code>parsnip</
 <div id="step-5-example-of-fitting-the-model" class="section level4">
 <h4><span class="header-section-number">5.12.3.5</span> Step 5: Example of fitting the model</h4>
 <p>We can use the <code>parsnip</code> package with a newer package called <code>workflows</code> to fit our model.</p>
-<p>The <code>workflows</code> package allows us to keep track of both our pre-processing steps and our model specification. It also allows us to implement fancier optimizations in an automated way and it can also handle post-processing operations.</p>
+<p>The <code>workflows</code> package allows us to keep track of both our preprocessing steps and our model specification. It also allows us to implement fancier optimizations in an automated way and it can also handle post-processing operations.</p>
 <p>We begin by creating a workflow using the <code>workflow()</code> function in the <code>workflows</code> package.</p>
-<p>Next, we use <code>add_recipe()</code> (our pre-processing specifications) and we add our model with the <code>add_model()</code> function – both functions from the <code>workflows</code> package.</p>
+<p>Next, we use <code>add_recipe()</code> (our preprocessing specifications) and we add our model with the <code>add_model()</code> function – both functions from the <code>workflows</code> package.</p>
 <p><strong>Note</strong>: We do not need to actually <code>prep()</code> our recipe before using workflows - this was just optional so we could take a look at the preprocessed data!</p>
 <div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb106-1" data-line-number="1">iris_reg_wflow &lt;-workflows<span class="op">::</span><span class="kw">workflow</span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb106-2" data-line-number="2"><span class="st">                 </span>workflows<span class="op">::</span><span class="kw">add_recipe</span>(first_recipe) <span class="op">%&gt;%</span></a>
@@ -1773,7 +1774,7 @@ You can do this with the <code>set_mode()</code> function of the <code>parsnip</
 ## 
 ## Computational engine: lm</code></pre>
 <p>Ah, nice.
-Notice how it tells us about both our pre-processing steps and our model specifications.</p>
+Notice how it tells us about both our preprocessing steps and our model specifications.</p>
 <p>Next, we “prepare the recipe” (or estimate the parameters) and fit the model to our training data all at once.
 Printing the output, we can see the coefficients of the model.</p>
 <div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" data-line-number="1">iris_reg_wflow_fit &lt;-<span class="st"> </span>parsnip<span class="op">::</span><span class="kw">fit</span>(iris_reg_wflow, <span class="dt">data =</span> training_iris)</a>
@@ -1849,7 +1850,7 @@ FALSE 6          5.4    5.21  0.0758  0.193    0.0329  0.420 0.00187         0.4
 <a class="sourceLine" id="cb117-5" data-line-number="5"><span class="co">#   select(Sepal.Length, .fitted:.std.resid)</span></a>
 <a class="sourceLine" id="cb117-6" data-line-number="6"><span class="co"># </span></a>
 <a class="sourceLine" id="cb117-7" data-line-number="7"><span class="co"># head(wf_fitted_values)</span></a></code></pre></div>
-<p>Nice, now we can see what the orginal value for <code>Sepal.Length</code> right next to the predicted <code>.fitted</code> value, as well as standard errors and other metrics for each value.</p>
+<p>Nice, now we can see what the original value for <code>Sepal.Length</code> right next to the predicted <code>.fitted</code> value, as well as standard errors and other metrics for each value.</p>
 <p>Now we can use the <code>rmse()</code> function of the <code>yardstick</code> package to compare the <code>truth</code>, which is the <code>Sepal.Length</code> variable, to the predicted or estimate variable which in the previous output is called <code>.fitted</code>.</p>
 <div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb118-1" data-line-number="1">yardstick<span class="op">::</span><span class="kw">rmse</span>(wf_fitted_values, </a>
 <a class="sourceLine" id="cb118-2" data-line-number="2">               <span class="dt">truth =</span> Sepal.Length, </a>
@@ -1866,10 +1867,10 @@ FALSE 6          5.4    5.21  0.0758  0.193    0.0329  0.420 0.00187         0.4
 <a class="sourceLine" id="cb120-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb120-5" data-line-number="5"><span class="st">  </span><span class="kw">labs</span>( <span class="dt">x =</span> <span class="st">&quot;True Sepal Length&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Predicted Sepal Length&quot;</span>)</a></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="05-prediction_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
+<p><img src="05-prediction_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
 <p>We can see that overall our model predicted the sepal length fairly well. We can see that the model appeared to do less well at predicted very long sepal lengths.</p>
-<p>Typically we might modify our preprocessing steps or try a different model untill we were satisfied with the performance on our training data. Assuming we are satisified, we could then peform a final assessment of our model using the testing data.</p>
-<p>With the <code>workflows</code> package, we can use the splitting information for our original data <code>split_iris</code> to fit the final model on the full training set and also on the testing data using the <code>last_fit()</code> function of the <code>tune</code> package. No pre-processing steps are required.</p>
+<p>Typically we might modify our preprocessing steps or try a different model until we were satisfied with the performance on our training data. Assuming we are satisfied, we could then perform a final assessment of our model using the testing data.</p>
+<p>With the <code>workflows</code> package, we can use the splitting information for our original data <code>split_iris</code> to fit the final model on the full training set and also on the testing data using the <code>last_fit()</code> function of the <code>tune</code> package. No preprocessing steps are required.</p>
 <p>We can do this by using the <code>last_fit()</code> function of the <code>tune</code> package.</p>
 <div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" data-line-number="1">overallfit &lt;-iris_reg_wflow <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb122-2" data-line-number="2"><span class="st">  </span>tune<span class="op">::</span><span class="kw">last_fit</span>(split_iris)</a></code></pre></div>
@@ -1890,8 +1891,8 @@ FALSE 1 &lt;split [100… train/test … &lt;tibble [2 ×… &lt;tibble [1 … &
 <p>We can see that our RMSE is pretty similar for the testing data as well.</p>
 </div>
 </div>
-<div id="example-of-categorical-variable-prediction-classification-with-cart-with-cross-validation-and-hyper-parameter-tuning" class="section level3">
-<h3><span class="header-section-number">5.12.4</span> Example of Categorical Variable Prediction: Classification with CART with cross validation and hyper-parameter tuning</h3>
+<div id="example-of-categorical-variable-prediction-classification-with-cart-with-cross-validation-and-hyperparameter-tuning" class="section level3">
+<h3><span class="header-section-number">5.12.4</span> Example of Categorical Variable Prediction: Classification with CART with cross validation and hyperparameter tuning</h3>
 <p>Now we are going to show an example of using the <code>tidymodels</code> packages to perform prediction of a categorical variable.</p>
 <p>Again, we will use the <code>iris</code> dataset. However, this time the will predict the identity of the follower species (which is categorical) based on the other variables.</p>
 <p>We have already split our data into testing and training sets, so we don’t necessarily need to do that again.</p>
@@ -1930,13 +1931,13 @@ FALSE 1 &lt;split [100… train/test … &lt;tibble [2 ×… &lt;tibble [1 … &
 ## 2 versicolor 15
 ## 3  virginica 20</code></pre>
 <p>Great, indeed we have good representation of all 3 species in both the training and testing sets.</p>
-<p>This time we will also show an example of how to perform what is called cross validation. This process allows us to get a better estimate about the performance of our model using just our training data by splitting it into multiple pieces to assess the model fit over and over. This is helpful for making sure that our model will be generalizable, meaning that it will work well with a variety of new datasets. This is also helpful for optimizing what we call hyper-parameters.</p>
-<p>Hyper-parameters are aspects about the model that we need to specify. Often packages will choose a default value, however it is better to use the training data to see what value appears to yield the best model performance.</p>
-<p>For example, the different options at each split in a decision tree is called a node. The minimum number of data points for a node to be split further when creating a decision tree model is a hyper-parameter.</p>
+<p>This time we will also show an example of how to perform what is called cross validation. This process allows us to get a better estimate about the performance of our model using just our training data by splitting it into multiple pieces to assess the model fit over and over. This is helpful for making sure that our model will be generalizable, meaning that it will work well with a variety of new datasets. This is also helpful for optimizing what we call hyperparameters.</p>
+<p>hyperparameters are aspects about the model that we need to specify. Often packages will choose a default value, however it is better to use the training data to see what value appears to yield the best model performance.</p>
+<p>For example, the different options at each split in a decision tree is called a node. The minimum number of data points for a node to be split further when creating a decision tree model is a hyperparameter.</p>
 <p>Recall from our example of a decision tree:
 <img src="https://camo.githubusercontent.com/439a80ec4e6ff697b120631837d13e1667f39c14/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f383433" /></p>
-<p>If there were only 3 people who made more than 40,000 and our hyper-prameter for the minimum number of data points to continue creating new branches was 6, then this side of the tree would stop here.</p>
-<p>We will show how to optimize this using cross validation, this process is also called “tuning”, as we are tuning or adjusting the hyper-parameter untill we see the best performance with our training data.</p>
+<p>If there were only 3 people who made more than 40,000 and our hyperparameter for the minimum number of data points to continue creating new branches was 6, then this side of the tree would stop here.</p>
+<p>We will show how to optimize this using cross validation, this process is also called “tuning”, as we are tuning or adjusting the hyperparameter until we see the best performance with our training data.</p>
 <p>The first thing we need to do to perform this process is split our training data into cross validation samples.</p>
 <p>Technically creating our testing and training set out of our original training data is sometimes considered a form of <a href="https://en.wikipedia.org/wiki/Cross-validation_(statistics)" target="_blank">cross validation</a>, called the holdout method.</p>
 <p>The reason we do this it so we can get a better sense of the accuracy of our model using data that we did not train it on.</p>
@@ -1949,7 +1950,7 @@ The number of <span class="math inline">\(v\)</span> subsets to use is also a bi
 <p>We are going to use 4 folds for the sake of expediency and simplicity.</p>
 <p><img src="book_figures/vfold.png" width="463" /></p>
 <p>The model will be trained on <span class="math inline">\(v\)</span>-1 subsets of the data iteratively (removing a different <span class="math inline">\(v\)</span> until all possible <span class="math inline">\(v\)</span>-1 sets have been evaluated) to get a sense of the performance of the model. While one fold will be saved to act as a test set.</p>
-<p>In the case of tuning, multiple values for the hyper-parameter are tested to determine what yeilds the best model performance.</p>
+<p>In the case of tuning, multiple values for the hyperparameter are tested to determine what yields the best model performance.</p>
 <p><img src="book_figures/cross_validation.png" width="389" /></p>
 <div id="example-of-creating-cross-validation-samples-with-rsample" class="section level4">
 <h4><span class="header-section-number">5.12.4.1</span> Example of creating cross validation samples with <code>rsample</code></h4>
@@ -2051,12 +2052,12 @@ The number of <span class="math inline">\(v\)</span> subsets to use is also a bi
 <div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" data-line-number="1">wf_fit_cat &lt;-<span class="st"> </span>iris_cat_wflow_fit <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb149-2" data-line-number="2"><span class="st">  </span><span class="kw">pull_workflow_fit</span>()</a></code></pre></div>
 <p>The output is a bit different for categorical variables.
-We can also see variable importance from the model fit, which shows which variables were most important for classifing the data values. This lists a score for each variable which shows the decrease in error when splitting by this variable relative to others. Avocado - can someone check that?</p>
+We can also see variable importance from the model fit, which shows which variables were most important for classifying the data values. This lists a score for each variable which shows the decrease in error when splitting by this variable relative to others. Avocado - can someone check that?</p>
 <div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb150-1" data-line-number="1">wf_fit_cat<span class="op">$</span>fit<span class="op">$</span>variable.importance</a></code></pre></div>
 <pre><code>##  Petal.Width Petal.Length Sepal.Length  Sepal.Width 
 ##     60.79119     55.28797     33.53538     26.81636</code></pre>
 <p>We can see that <code>Petal.Width</code> was the most important for predicting <code>Species</code>.</p>
-<p>Recall that since we are using a categorical outcome variable, we want to use accuracy to assess model performance. Thus, we can use the <code>accuracy()</code> funtion of the <code>yardstick</code> package instead of the <code>rmse()</code> function to assess the model. We first need to get the predicted values using the <code>predict()</code> function, as these are not in the fit output.</p>
+<p>Recall that since we are using a categorical outcome variable, we want to use accuracy to assess model performance. Thus, we can use the <code>accuracy()</code> function of the <code>yardstick</code> package instead of the <code>rmse()</code> function to assess the model. We first need to get the predicted values using the <code>predict()</code> function, as these are not in the fit output.</p>
 <div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" data-line-number="1">pred_species&lt;-<span class="kw">predict</span>(iris_cat_wflow_fit, <span class="dt">new_data =</span> training_iris)</a>
 <a class="sourceLine" id="cb152-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb152-3" data-line-number="3">yardstick<span class="op">::</span><span class="kw">accuracy</span>(training_iris, </a>
@@ -2080,7 +2081,7 @@ We can also see variable importance from the model fit, which shows which variab
 ## 2 versicolor     36
 ## 3 virginica      29</code></pre>
 <p>We can see that one extra verisocolor iris was predicted, and one fewer virginica iris.</p>
-<p>To see exactly which rows resulted in incorrect predictions, we can bind the predicted speies to the training data like so. This can be helpful to see if there is something particular about the incorrectly predicted values that might explain why they are incorrectly predicted.</p>
+<p>To see exactly which rows resulted in incorrect predictions, we can bind the predicted species to the training data like so. This can be helpful to see if there is something particular about the incorrectly predicted values that might explain why they are incorrectly predicted.</p>
 <div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" data-line-number="1">predicted_and_truth &lt;-<span class="kw">bind_cols</span>(training_iris, </a>
 <a class="sourceLine" id="cb158-2" data-line-number="2">        <span class="dt">predicted_species =</span> <span class="kw">pull</span>(pred_species, .pred_class))</a>
 <a class="sourceLine" id="cb158-3" data-line-number="3"></a>
@@ -2117,7 +2118,7 @@ See <a href="https://tidymodels.github.io/tune/reference/fit_resamples.html" tar
 <p>The accuracy appears to be 94.7 percent. Often the performance will be reduced using cross validation.</p>
 <div id="example-of-tuning" class="section level4">
 <h4><span class="header-section-number">5.12.5.1</span> Example of tuning</h4>
-<p>Nice, let’s see how this changes when we now tune a hyper-parameter. We want to tune the <code>min_n</code> argument to tune for the minimum number of data points for each node. The arguments may vary for the engine that you are using. We need to specify this when we fit the model using the <code>tune()</code> function like so:</p>
+<p>Nice, let’s see how this changes when we now tune a hyperparameter. We want to tune the <code>min_n</code> argument to tune for the minimum number of data points for each node. The arguments may vary for the engine that you are using. We need to specify this when we fit the model using the <code>tune()</code> function like so:</p>
 <div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">122</span>)</a>
 <a class="sourceLine" id="cb165-2" data-line-number="2"><span class="kw">library</span>(tune)</a>
 <a class="sourceLine" id="cb165-3" data-line-number="3">cat_model_tune &lt;-<span class="st"> </span>parsnip<span class="op">::</span><span class="kw">decision_tree</span>(<span class="dt">min_n =</span> <span class="kw">tune</span>()) <span class="op">%&gt;%</span></a>
@@ -2372,7 +2373,7 @@ See <a href="https://tidymodels.github.io/tune/reference/fit_resamples.html" tar
 </tr>
 <tr class="odd">
 <td><strong>pov</strong></td>
-<td>Percentage of people in zcta area where the monitor is that lived in <a href="https://aspe.hhs.gov/2008-hhs-poverty-guidelines"><strong>poverty</strong></a> in 2008 - or would it have been 2007 guidelines??<a href="https://aspe.hhs.gov/2007-hhs-poverty-guidelines" class="uri">https://aspe.hhs.gov/2007-hhs-poverty-guidelines</a> <br> – Data from the Census</td>
+<td>Percentage of people in zcta area where the monitor is that lived in <a href="https://aspe.hhs.gov/2008-hhs-poverty-guidelines"><strong>poverty</strong></a> in 2008 <br> – Data from the Census</td>
 </tr>
 <tr class="even">
 <td><strong>hs_orless</strong></td>
@@ -2555,7 +2556,7 @@ By design, it provides summary statistics about variables in the data set.</p>
 <div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb186-1" data-line-number="1"><span class="kw">library</span>(skimr)</a>
 <a class="sourceLine" id="cb186-2" data-line-number="2"><span class="kw">skim</span>(pm)</a></code></pre></div>
 <table>
-<caption><span id="tab:unnamed-chunk-92">Table 5.1: </span>Data summary</caption>
+<caption><span id="tab:unnamed-chunk-93">Table 5.1: </span>Data summary</caption>
 <tbody>
 <tr class="odd">
 <td align="left">Name</td>
@@ -3307,7 +3308,7 @@ We can see that there are 49 states represented in the data.</p>
 <div id="evaluate-correlation" class="section level4">
 <h4><span class="header-section-number">5.13.1.4</span> Evaluate correlation</h4>
 <p>In prediction analyses, it is also useful to evaluate if any of the variables are correlated. Why should we care about this?</p>
-<p>If we are using a linear regression to model our data then we might run into a problem called multicolinearity which can lead us to misinterpret what is really predictive of our outcome variable. This phenomenon occurs when the predictor variables actually predict one another.</p>
+<p>If we are using a linear regression to model our data then we might run into a problem called multicollinearity which can lead us to misinterpret what is really predictive of our outcome variable. This phenomenon occurs when the predictor variables actually predict one another.</p>
 <p>Another reason we should look out for correlation is that we don’t want to include redundant variables. This can add unnecessary noise to our algorithm causing a reduction in prediction accuracy and it can cause our algorithm to be unnecessarily slower. Finally, it can also make it difficult to interpret what variables are actually predictive.</p>
 <p>Intuitively we can expect some of our variables to be correlated.</p>
 <p>The <code>corrplot</code> package is another option to look at correlation among possible predictors, and particularly useful if we have many predictors.</p>
@@ -3317,7 +3318,7 @@ We can see that there are 49 states represented in the data.</p>
 <pre><code>## corrplot 0.84 loaded</code></pre>
 <div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" data-line-number="1">PM_cor &lt;-<span class="st"> </span><span class="kw">cor</span>(pm <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select_if</span>(is.numeric))</a>
 <a class="sourceLine" id="cb191-2" data-line-number="2">corrplot<span class="op">::</span><span class="kw">corrplot</span>(PM_cor, <span class="dt">tl.cex =</span> <span class="fl">0.5</span>)</a></code></pre></div>
-<p><img src="05-prediction_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
+<p><img src="05-prediction_files/figure-html/unnamed-chunk-95-1.png" width="672" /></p>
 <p>We can see that the development variables (<code>imp</code>) variables are correlated with each other as we might expect.
 We also see that the road density variables seem to be correlated with each other, and the emission variables seem to be correlated with each other.</p>
 <p>Also notice that none of the predictors are highly correlated with our outcome variable (<code>value</code>).</p>
@@ -3405,7 +3406,7 @@ Instead of including it as a predictor variable, we could also use the <code>upd
 ##     popdens_county + popdens_zcta + nohs + somehs + hs + somecollege + 
 ##     associate + bachelor + grad + pov + hs_orless + urc2013 + 
 ##     urc2006 + aod
-## &lt;environment: 0x7fab17ae1d40&gt;</code></pre>
+## &lt;environment: 0x7fe5170f3300&gt;</code></pre>
 <p><strong>This <a href="https://tidymodels.github.io/recipes/reference/index.html" target="_blank">link</a> and this <a href="https://cran.r-project.org/web/packages/recipes/recipes.pdf" target="_blank">link</a> show the many options for recipe step functions.</strong></p>
 <p><u>There are step functions for a variety of purposes:</u></p>
 <ol style="list-style-type: decimal">
@@ -3526,11 +3527,11 @@ If we specifically wanted to remove a predictor we could use <code>step_rm()</co
 ## Dummy variables from state, county, city, zcta
 ## Correlation filter on all_predictors, -, CMAQ, -, aod
 ## Sparse, unbalanced variable filter on all_predictors, -, CMAQ, -, aod</code></pre>
-<p>Nice! Now let’s check our pre-processing.</p>
+<p>Nice! Now let’s check our preprocessing.</p>
 </div>
-<div id="running-pre-processing" class="section level4">
-<h4><span class="header-section-number">5.13.1.7</span> Running pre-processing</h4>
-<p>First we need to use the <code>prep()</code> function of the <code>recipes</code> package to prepare for pre-processing. However, we will specify that we also want to run and retain the pre-processing for the training data using the <code>retain = TRUE</code> argument.</p>
+<div id="running-preprocessing" class="section level4">
+<h4><span class="header-section-number">5.13.1.7</span> Running preprocessing</h4>
+<p>First we need to use the <code>prep()</code> function of the <code>recipes</code> package to prepare for preprocessing. However, we will specify that we also want to run and retain the preprocessing for the training data using the <code>retain = TRUE</code> argument.</p>
 <div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb215-1" data-line-number="1">prepped_rec &lt;-<span class="st"> </span><span class="kw">prep</span>(simple_rec, <span class="dt">verbose =</span> <span class="ot">TRUE</span>, <span class="dt">retain =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## oper 1 step dummy [training] 
 ## oper 2 step corr [training]</code></pre>
@@ -3543,7 +3544,7 @@ If we specifically wanted to remove a predictor we could use <code>step_rm()</co
 <pre><code>## [1] &quot;var_info&quot;       &quot;term_info&quot;      &quot;steps&quot;          &quot;template&quot;      
 ## [5] &quot;levels&quot;         &quot;retained&quot;       &quot;tr_info&quot;        &quot;orig_lvls&quot;     
 ## [9] &quot;last_term_info&quot;</code></pre>
-<p>Since we retained our pre-processed training data (i.e. <code>prep(retain=TRUE)</code>), we can take a look at it like by using the <code>juice()</code> function of the <code>recipes</code> package like this:</p>
+<p>Since we retained our preprocessed training data (i.e. <code>prep(retain=TRUE)</code>), we can take a look at it like by using the <code>juice()</code> function of the <code>recipes</code> package like this:</p>
 <div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" data-line-number="1">juiced_train &lt;-<span class="st"> </span><span class="kw">juice</span>(prepped_rec)</a>
 <a class="sourceLine" id="cb222-2" data-line-number="2"><span class="kw">glimpse</span>(juiced_train)</a></code></pre></div>
 <pre><code>## Rows: 584
@@ -3644,14 +3645,14 @@ Thus we only have 33 predictors now.
 We can also see that variables that we no longer have any categorical variables.
 Variables like <code>state</code> are gone and only <code>state_California</code> remains as it was the only state identity to have nonzero variance.
 We can also see that there were more monitors listed as <code>&quot;Not in a city&quot;</code> than any city.</p>
-<div id="extract-pre-processed-testing-data-using-bake" class="section level5">
-<h5><span class="header-section-number">5.13.1.7.1</span> Extract pre-processed testing data using <code>bake()</code></h5>
+<div id="extract-preprocessed-testing-data-using-bake" class="section level5">
+<h5><span class="header-section-number">5.13.1.7.1</span> Extract preprocessed testing data using <code>bake()</code></h5>
 <p>According to the <code>tidymodels</code> documentation:</p>
 <blockquote>
 <p><code>bake()</code> takes a trained recipe and applies the operations to a data set to create a design matrix.
 For example: it applies the centering to new data sets using these means used to create the recipe</p>
 </blockquote>
-<p>Therefore, if you wanted to look at the pre-processed testing data you would use the <code>bake()</code> function of the <code>recipes</code> package.</p>
+<p>Therefore, if you wanted to look at the preprocessed testing data you would use the <code>bake()</code> function of the <code>recipes</code> package.</p>
 <div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" data-line-number="1">baked_test_pm &lt;-<span class="st"> </span>recipes<span class="op">::</span><span class="kw">bake</span>(prepped_rec, <span class="dt">new_data =</span> test_pm)</a></code></pre></div>
 <pre><code>## Warning: There are new levels in a factor: Maine</code></pre>
 <pre><code>## Warning: There are new levels in a factor: Morgan, Talladega, Yavapai, Yuma,
@@ -3784,7 +3785,7 @@ This function allows you to vectorize multiple <code>if_else()</code> statements
 ## #   hs &lt;dbl&gt;, somecollege &lt;dbl&gt;, associate &lt;dbl&gt;, bachelor &lt;dbl&gt;, grad &lt;dbl&gt;,
 ## #   pov &lt;dbl&gt;, hs_orless &lt;dbl&gt;, urc2013 &lt;dbl&gt;, urc2006 &lt;dbl&gt;, aod &lt;dbl&gt;</code></pre>
 <p>Alternatively you could create a <a href="https://recipes.tidymodels.org/articles/Custom_Steps.html" target="_blank">custom step function</a> to do this and add this to your recipe, but that is beyond the scope of this case study.</p>
-<p>We will need to repeat all the steps (splitting the data, pre-processing, etc) as the levels of our variables have now changed.</p>
+<p>We will need to repeat all the steps (splitting the data, preprocessing, etc) as the levels of our variables have now changed.</p>
 <p>While we are doing this, we might also have this issue for <code>county</code>.</p>
 <p>The <code>county</code> variables appears to get dropped due to either correlation or near zero variance.</p>
 <p>It is likely due to near zero variance because this is the more granular of these geographic categorical variables and likely sparse.</p>
@@ -3809,7 +3810,7 @@ This function allows you to vectorize multiple <code>if_else()</code> statements
 <a class="sourceLine" id="cb241-7" data-line-number="7"><span class="st">    </span><span class="kw">step_dummy</span>(state, county, city, zcta, <span class="dt">one_hot =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb241-8" data-line-number="8"><span class="st">    </span><span class="kw">step_corr</span>(<span class="kw">all_numeric</span>()) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb241-9" data-line-number="9"><span class="st">    </span><span class="kw">step_nzv</span>(<span class="kw">all_numeric</span>()) </a></code></pre></div>
-<p>Now we will check the pre-processed data again to see if we still have <code>NA</code> values.</p>
+<p>Now we will check the preprocessed data again to see if we still have <code>NA</code> values.</p>
 <div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" data-line-number="1">prepped_rec &lt;-<span class="st"> </span><span class="kw">prep</span>(novel_rec, <span class="dt">verbose =</span> <span class="ot">TRUE</span>, <span class="dt">retain =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## oper 1 step dummy [training] 
 ## oper 2 step corr [training]</code></pre>
@@ -3947,7 +3948,7 @@ You can do this with the <code>set_mode()</code> function of the <code>parsnip</
 <pre><code>## Linear Regression Model Specification (regression)
 ## 
 ## Computational engine: lm</code></pre>
-<p>Now we will use the <code>workflows</code> package allows us to keep track of both our pre-processing steps and our model specification. It also allows us to implement fancier optimizations in an automated way.</p>
+<p>Now we will use the <code>workflows</code> package allows us to keep track of both our preprocessing steps and our model specification. It also allows us to implement fancier optimizations in an automated way.</p>
 <p>If you recall <code>novel_rec</code> is the recipe we previously created with the <code>recipes</code> package and <code>lm_PM_model</code> was created when we specified our model with the <code>parsnip</code> package.
 Here, we combine everything together into a <code>workflow()</code>.</p>
 <div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb260-1" data-line-number="1">PM_wflow &lt;-workflows<span class="op">::</span><span class="kw">workflow</span>() <span class="op">%&gt;%</span></a>
@@ -3970,7 +3971,7 @@ Here, we combine everything together into a <code>workflow()</code>.</p>
 ## 
 ## Computational engine: lm</code></pre>
 <p>Ah, nice.
-Notice how it tells us about both our pre-processing steps and our model specifications.</p>
+Notice how it tells us about both our preprocessing steps and our model specifications.</p>
 <p>Next, we “prepare the recipe” (or estimate the parameters) and fit the model to our training data all at once.
 Printing the output, we can see the coefficients of the model.</p>
 <div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb262-1" data-line-number="1">PM_wflow_fit &lt;-<span class="st"> </span>parsnip<span class="op">::</span><span class="kw">fit</span>(PM_wflow, <span class="dt">data =</span> train_pm)</a></code></pre></div>
@@ -4074,7 +4075,7 @@ The bar plot is ordered by importance (highest to smallest).</p>
 <div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb272-1" data-line-number="1">PM_wflow_fit <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb272-2" data-line-number="2"><span class="st">  </span><span class="kw">pull_workflow_fit</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb272-3" data-line-number="3"><span class="st">  </span><span class="kw">vip</span>(<span class="dt">num_features =</span> <span class="dv">10</span>)</a></code></pre></div>
-<p><img src="05-prediction_files/figure-html/unnamed-chunk-120-1.png" width="672" /></p>
+<p><img src="05-prediction_files/figure-html/unnamed-chunk-121-1.png" width="672" /></p>
 <p>The state in which the monitor was located and the CMAQ model and the aod satellite information appear to be the most important for predicting the air pollution at a given monitor.</p>
 <div id="model-performance" class="section level4">
 <h4><span class="header-section-number">5.14.0.1</span> Model performance</h4>
@@ -4105,7 +4106,7 @@ The way we do this is to compare the similarity between the predicted estimates 
 ## 4 12.4    11.3    0.366  1.08  0.0309   2.09 0.000267       0.526 
 ## 5 10.5    10.8    0.424 -0.298 0.0413   2.09 0.0000278     -0.146 
 ## 6 15.6    11.1    0.380  4.50  0.0332   2.08 0.00501        2.20</code></pre>
-<p>Note that becuase we use the actual workflow here, we can (and actually need to) use the raw data instead of the pre-processed data.</p>
+<p>Note that because we use the actual workflow here, we can (and actually need to) use the raw data instead of the preprocessed data.</p>
 <div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" data-line-number="1">values_pred_train &lt;-<span class="st"> </span></a>
 <a class="sourceLine" id="cb277-2" data-line-number="2"><span class="st">  </span><span class="kw">predict</span>(PM_wflow_fit, train_pm) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb277-3" data-line-number="3"><span class="st">  </span><span class="kw">bind_cols</span>(train_pm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(value, fips, county, id)) </a></code></pre></div>
@@ -4136,7 +4137,7 @@ The way we do this is to compare the similarity between the predicted estimates 
 <a class="sourceLine" id="cb281-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb281-4" data-line-number="4"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;actual outcome values&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb281-5" data-line-number="5"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;predicted outcome values&quot;</span>)</a></code></pre></div>
-<p><img src="05-prediction_files/figure-html/unnamed-chunk-124-1.png" width="672" /></p>
+<p><img src="05-prediction_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
 <p>OK, so our range of the predicted outcome values appears to be smaller than the real values.
 We could probably do a bit better.</p>
 </div>
@@ -4388,7 +4389,7 @@ If you were to use the <code>ranger</code> package to implement the random fores
 ## 
 ##           Mean of squared residuals: 2.87938
 ##                     % Var explained: 60.04</code></pre>
-<p><img src="05-prediction_files/figure-html/unnamed-chunk-136-1.png" width="672" /></p>
+<p><img src="05-prediction_files/figure-html/unnamed-chunk-137-1.png" width="672" /></p>
 <p>Interesting! In the previous model the CMAQ values and the state where the monitor was located were also the top two most important, however predictors about education levels of the communities where the monitor was located was among the top most important. Now we see that population density and proximity to sources of emissions and roads are among the top ten.</p>
 <p>Now let’s take a look at model performance by fitting the data using cross validation:</p>
 <div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb325-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">456</span>)</a>
@@ -4397,12 +4398,12 @@ If you were to use the <code>ranger</code> package to implement the random fores
 <p>OK, so our first model had a mean <code>rmse</code> value of 2.17.
 It looks like the random forest model had a much lower <code>rmse</code> value of 1.72.</p>
 <p>If we tuned our random forest model based on the number of trees or the value for <code>mtry</code> (which is “The number of predictors that will be randomly sampled at each split when creating the tree models”), we might get a model with even better performance.</p>
-<p>However, our cross validated mean rmse value of 1.72 is quite good because our range of true outcome values is much larger: (3.496, 22.259).</p>
+<p>However, our cross validated mean <code>rmse</code> value of 1.72 is quite good because our range of true outcome values is much larger: (3.496, 22.259).</p>
 <div id="model-tuning" class="section level4">
 <h4><span class="header-section-number">5.15.0.1</span> Model Tuning</h4>
 <p><a href="https://en.wikipedia.org/wiki/Hyperparameter_(machine_learning)">Hyperparameters</a> are often things that we need to specify about a model. For example, the number of predictor variables (or features) that will be randomly sampled at each split when creating the tree models called <code>mtry</code> is a hyperparameter. The default number for regression analyses is the number of predictors divided by 3. Instead of arbitrarily specifying this, we can try to determine the best option for model performance by a process called tuning.</p>
 <p>Now let’s try some tuning.</p>
-<p>Let’s take a closer look at the <code>mtry</code> and <code>min_n</code> hyperparametrs in our Random Forest model.</p>
+<p>Let’s take a closer look at the <code>mtry</code> and <code>min_n</code> hyperparameters in our Random Forest model.</p>
 <p>We aren’t exactly sure what values of <code>mtry</code> and <code>min_n</code> achieve good accuracy yet keep our model generalizable for other data.</p>
 <p>This is when our cross validation methods become really handy because now we can test out different values for each of these hyperparameters to assess what values seem to work best for model performance on these resamples of our training set data.</p>
 <p>Previously we specified our model like so:</p>
@@ -4469,7 +4470,7 @@ It looks like the random forest model had a much lower <code>rmse</code> value o
 <p>You can see how many cores you have access to on your system using the <code>detectCores()</code> function in the <code>parallel</code> package.</p>
 <div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb332-1" data-line-number="1">parallel<span class="op">::</span><span class="kw">detectCores</span>()</a></code></pre></div>
 <pre><code>## [1] 8</code></pre>
-<p>The <code>registerDoParallel()</code> function will use the number for cores specified using the <code>cores=</code> arguement, or it will assign it automatically to one-half of the number of cores detected by the <code>parallel</code> package.</p>
+<p>The <code>registerDoParallel()</code> function will use the number for cores specified using the <code>cores=</code> argument, or it will assign it automatically to one-half of the number of cores detected by the <code>parallel</code> package.</p>
 <p>We need to use <code>set.seed()</code> here because the values chosen for <code>mtry</code> and <code>min_n</code> may vary if we preform this evaluation again because they are chosen semi-randomly (meaning that they are within a range of reasonable values but still random).</p>
 <p>Note: this step will take some time.</p>
 <p>Avocado need to make sure like iris classification example…</p>
@@ -4497,29 +4498,29 @@ It looks like the random forest model had a much lower <code>rmse</code> value o
 <p>See <a href="https://tidymodels.github.io/tune/articles/getting_started.html" target="_blank">the tune getting started guide</a> for more information about implementing this in <code>tidymodels</code>.</p>
 <p>If you wanted more control over this process you could specify how the different possible options for <code>mtry</code> and <code>min_n</code> in the <code>tune_grid()</code> function using the grid_*()<code>functions of the</code>dials` package to create a more specific grid.</p>
 <p>Be default the values for the hyperparameters being tuned are chosen semi-randomly (meaning that they are within a range of reasonable values but still random)..</p>
-<p>Now we can use the <code>collect_metrics()</code> function again to take a look at what happened with our cross validation tests. We can see the different values chosen for <code>mtry</code> and <code>min_n</code> and the mean rmse and rsq values across the cross validation samples.</p>
+<p>Now we can use the <code>collect_metrics()</code> function again to take a look at what happened with our cross validation tests. We can see the different values chosen for <code>mtry</code> and <code>min_n</code> and the mean <code>rmse</code> and <code>rsq</code> values across the cross validation samples.</p>
 <div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb338-1" data-line-number="1">tune_RF_results<span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb338-2" data-line-number="2"><span class="st">  </span><span class="kw">collect_metrics</span>()</a></code></pre></div>
 <pre><code>## # A tibble: 40 x 7
 ##     mtry min_n .metric .estimator  mean     n std_err
 ##    &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
-##  1     1    27 rmse    standard   2.05     10  0.144 
-##  2     1    27 rsq     standard   0.489    10  0.0377
-##  3     4    30 rmse    standard   1.81     10  0.144 
-##  4     4    30 rsq     standard   0.592    10  0.0393
-##  5     6    32 rmse    standard   1.76     10  0.147 
-##  6     6    32 rsq     standard   0.607    10  0.0408
-##  7     7    18 rmse    standard   1.72     10  0.139 
-##  8     7    18 rsq     standard   0.618    10  0.0391
-##  9     8    23 rmse    standard   1.73     10  0.143 
-## 10     8    23 rsq     standard   0.610    10  0.0377
+##  1     1    27 rmse    standard   2.06     10  0.142 
+##  2     1    27 rsq     standard   0.483    10  0.0399
+##  3     4    30 rmse    standard   1.81     10  0.148 
+##  4     4    30 rsq     standard   0.588    10  0.0386
+##  5     6    32 rmse    standard   1.76     10  0.143 
+##  6     6    32 rsq     standard   0.604    10  0.0398
+##  7     7    18 rmse    standard   1.73     10  0.144 
+##  8     7    18 rsq     standard   0.616    10  0.0397
+##  9     8    23 rmse    standard   1.74     10  0.144 
+## 10     8    23 rsq     standard   0.607    10  0.0389
 ## # … with 30 more rows</code></pre>
 <p>We can now use the <code>show_best()</code> function as it was truly intended, to see what values for <code>min_n</code> and <code>mtry</code> resulted in the best performance.</p>
 <div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb340-1" data-line-number="1"><span class="kw">show_best</span>(tune_RF_results, <span class="dt">metric =</span> <span class="st">&quot;rmse&quot;</span>, <span class="dt">n =</span><span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 1 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
-## 1    13     7 rmse    standard    1.67    10   0.146</code></pre>
+## 1    17     4 rmse    standard    1.67    10   0.147</code></pre>
 <p>There we have it… looks like an <code>mtry</code> of 17 and <code>min_n</code> of 4 had the best <code>rmse</code> value. You can verify this in the above output, but it is easier to just pull this row out using this function. We can see that the mean <code>rmse</code> value across the cross validation sets was 1.720. Before tuning it was 1.725 with a similar <code>std_err</code> so the performance was very slightly improved.</p>
 </div>
 <div id="final-model-performance-evaluation" class="section level4">
@@ -4532,11 +4533,11 @@ It looks like the random forest model had a much lower <code>rmse</code> value o
 <pre><code>## # A tibble: 1 x 2
 ##    mtry min_n
 ##   &lt;int&gt; &lt;int&gt;
-## 1    13     7</code></pre>
+## 1    17     4</code></pre>
 <p>Now we can finalize the model/workflow that we we used for tuning with these values.</p>
 <div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb344-1" data-line-number="1">RF_tuned_wflow &lt;-RF_tune_wflow <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb344-2" data-line-number="2"><span class="st">  </span>tune<span class="op">::</span><span class="kw">finalize_workflow</span>(tuned_RF_values)</a></code></pre></div>
-<p>With the <code>workflows</code> package, we can use the splitting information for our original data <code>pm_split</code> to fit the final model on the full training set and also on the testing data using the <code>last_fit()</code> function of the <code>tune</code> package. No pre-processing steps are required.</p>
+<p>With the <code>workflows</code> package, we can use the splitting information for our original data <code>pm_split</code> to fit the final model on the full training set and also on the testing data using the <code>last_fit()</code> function of the <code>tune</code> package. No preprocessing steps are required.</p>
 <p>The results will show the performance using the testing data.</p>
 <div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb345-1" data-line-number="1">overallfit &lt;-tune<span class="op">::</span><span class="kw">last_fit</span>(RF_tuned_wflow, pm_split)</a>
 <a class="sourceLine" id="cb345-2" data-line-number="2"> <span class="co"># or</span></a>
@@ -4549,8 +4550,8 @@ It looks like the random forest model had a much lower <code>rmse</code> value o
 ##   .metric .estimator .estimate
 ##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
 ## 1 rmse    standard       1.44 
-## 2 rsq     standard       0.640</code></pre>
-<p>Awesome! We can see that our rmse of 1.44 is quite similar with our testing data cross validation sets. We achieved quite good performance, which suggests that we would could predict other locations with more sparse monitoring based on our predictors with reasonable accuracy.</p>
+## 2 rsq     standard       0.638</code></pre>
+<p>Awesome! We can see that our <code>rmse</code> of 1.44 is quite similar with our testing data cross validation sets. We achieved quite good performance, which suggests that we would could predict other locations with more sparse monitoring based on our predictors with reasonable accuracy.</p>
 <p>Now if you wanted to take a look at the predicted values for the test set (the 292 rows with predictions out of the 876 original monitor values) you can use the <code>collect_predictions()</code> function of the <code>tune()</code> package:</p>
 <div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb348-1" data-line-number="1">test_predictions &lt;-<span class="kw">collect_predictions</span>(overallfit)</a></code></pre></div>
 <div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb349-1" data-line-number="1"><span class="kw">head</span>(test_predictions)</a></code></pre></div>
@@ -4558,11 +4559,11 @@ It looks like the random forest model had a much lower <code>rmse</code> value o
 ##   id               .pred  .row value
 ##   &lt;chr&gt;            &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;
 ## 1 train/test split  11.1     4  11.7
-## 2 train/test split  11.8    10  13.1
-## 3 train/test split  12.1    12  12.2
-## 4 train/test split  11.4    15  12.2
+## 2 train/test split  12.0    10  13.1
+## 3 train/test split  12.2    12  12.2
+## 4 train/test split  11.5    15  12.2
 ## 5 train/test split  11.4    19  11.4
-## 6 train/test split  12.1    22  12.2</code></pre>
+## 6 train/test split  12.0    22  12.2</code></pre>
 <p>Nice!</p>
 
 </div>
