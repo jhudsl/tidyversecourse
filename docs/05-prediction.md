@@ -1781,7 +1781,7 @@ formula(first_recipe)
 
 ```
 ## Sepal.Length ~ Sepal.Width + Species
-## <environment: 0x7fe506733518>
+## <environment: 0x7ffc6406dce8>
 ```
 
 We can also view our recipe in more detail using the base summary() function.
@@ -2661,7 +2661,7 @@ head(predicted_and_truth)
 ```
 
 
-However, we to fit the model to our cross validation folds we can use the `fit_resamples()` function of the `tune` package, by specifying our `workflow` object and the cross validation fold object we just created. 
+However, to fit the model to our cross validation folds we can use the `fit_resamples()` function of the `tune` package, by specifying our `workflow` object and the cross validation fold object we just created. 
 See [here](https://tidymodels.github.io/tune/reference/fit_resamples.html){target="_blank"} for more information.
 
 
@@ -2703,6 +2703,7 @@ collect_metrics(resample_fit)
 ## 1 accuracy multiclass 0.94      4  0.0258
 ## 2 roc_auc  hand_till  0.961     4  0.0172
 ```
+
 The accuracy appears to be 94.7 percent. Often the performance will be reduced using cross validation.
 
 #### Example of tuning
@@ -2740,11 +2741,13 @@ iris_cat_wflow_tune <-workflows::workflow() %>%
 
 We can use the `tune_grid()` function of the `tune()` package to use the workflow and fit the `vfold_iris` cross validation samples of our training data to test out a number of different values for the `min_n` argument for our model. The `grid()` argument specifies how many different values to try out.
 
+
 ```r
-reasmple_fit <-tune_grid(iris_cat_wflow_tune, resamples = vfold_iris, grid = 4)
+reasmple_fit <-tune::tune_grid(iris_cat_wflow_tune, resamples = vfold_iris, grid = 4)
 ```
 
 Again we can use the `collect_netrics()` function to get the accuracy for each of the tested `min_n` values. Or, we can use the `show_best()` function of the `tune` package to see the `min_n` values for the top performing models (those with the highest accuracy).
+
 
 ```r
 tune::collect_metrics(resample_fit)
@@ -3393,7 +3396,7 @@ formula(simple_rec)
 ##     popdens_county + popdens_zcta + nohs + somehs + hs + somecollege + 
 ##     associate + bachelor + grad + pov + hs_orless + urc2013 + 
 ##     urc2006 + aod
-## <environment: 0x7fe5170f3300>
+## <environment: 0x7ffc80429598>
 ```
 
 **This [link](https://tidymodels.github.io/recipes/reference/index.html){target="_blank"} and this [link](https://cran.r-project.org/web/packages/recipes/recipes.pdf){target="_blank"} show the many options for recipe step functions.**
@@ -4398,7 +4401,7 @@ head(wf_fitted_values)
 ## 5 10.5    10.8    0.424 -0.298 0.0413   2.09 0.0000278     -0.146 
 ## 6 15.6    11.1    0.380  4.50  0.0332   2.08 0.00501        2.20
 ```
-
+Finally, we can also use the `predict()` function.
 Note that because we use the actual workflow here, we can (and actually need to) use the raw data instead of the preprocessed data.
 
 
@@ -4434,7 +4437,6 @@ values_pred_train
 ## # … with 574 more rows
 ```
 
-avocado simplify this here and earlier??
 
 #### Visualizing model performance
 
@@ -4746,14 +4748,14 @@ The `rand_forest()` function of the `parsnip` package has three important argume
 2. `min_n` - The minimum number of data points in a node that are required for the node to be split further.
 3. `trees` - the number of trees in the ensemble
 
-We will start by trying an `mtry` value of 10 and a `min_n` value of 3.
+We will start by trying an `mtry` value of 10 and a `min_n` value of 4.
 
 Now that we have our recipe (`RF_rec`), let's specify the model with `rand_forest()` from `parsnip` with the `mode = "regression"` argument to specify our outcome variable (air pollution) is continuous. 
 
 
 ```r
 PMtree_model <- 
-  parsnip::rand_forest(mtry = 10, min_n = 3, 
+  parsnip::rand_forest(mtry = 10, min_n = 4, 
                        mode = "regression")
 PMtree_model
 ```
@@ -4763,7 +4765,7 @@ PMtree_model
 ## 
 ## Main Arguments:
 ##   mtry = 10
-##   min_n = 3
+##   min_n = 4
 ```
 
 Next, we set the engine and mode:
@@ -4790,7 +4792,7 @@ RF_PM_model
 ## 
 ## Main Arguments:
 ##   mtry = 10
-##   min_n = 3
+##   min_n = 4
 ## 
 ## Computational engine: randomForest
 ```
@@ -4825,7 +4827,7 @@ RF_wflow
 ## 
 ## Main Arguments:
 ##   mtry = 10
-##   min_n = 3
+##   min_n = 4
 ## 
 ## Computational engine: randomForest
 ```
@@ -4860,13 +4862,13 @@ RF_wflow_fit
 ## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## 
 ## Call:
-##  randomForest(x = as.data.frame(x), y = y, mtry = ~10, nodesize = ~3) 
+##  randomForest(x = as.data.frame(x), y = y, mtry = ~10, nodesize = ~4) 
 ##                Type of random forest: regression
 ##                      Number of trees: 500
 ## No. of variables tried at each split: 10
 ## 
-##           Mean of squared residuals: 2.87938
-##                     % Var explained: 60.04
+##           Mean of squared residuals: 2.894891
+##                     % Var explained: 59.83
 ```
 
 <img src="05-prediction_files/figure-html/unnamed-chunk-137-1.png" width="672" />
@@ -4883,13 +4885,13 @@ resample_RF_fit <- tune::fit_resamples(RF_wflow, vfold_pm)
 collect_metrics(resample_RF_fit)
 ```
 
-OK, so our first model had a mean `rmse` value of 2.17.
-It looks like the random forest model had  a much lower `rmse` value of 1.72.
+OK, so our first model had a mean `rmse` value of 2.13.
+It looks like the random forest model had  a much lower `rmse` value of 1.68.
 
 
 If we tuned our random forest model based on the number of trees or the value for `mtry` (which is "The number of predictors that will be randomly sampled at each split when creating the tree models"), we might get a model with even better performance.
 
-However, our cross validated mean `rmse` value of 1.72 is quite good because our range of true outcome values is much larger: (3.496, 22.259).
+However, our cross validated mean `rmse` value of 1.68 is quite good because our range of true outcome values is much larger: (3.496, 22.259).
 
 
 #### Model Tuning
@@ -4908,7 +4910,7 @@ Previously we specified our model like so:
 
 ```r
 RF_PM_model <- 
-  parsnip::rand_forest(mtry = 10, min_n = 3, 
+  parsnip::rand_forest(mtry = 10, min_n = 4, 
                        mode = "regression") %>%
   set_engine("randomForest") %>%
   set_mode("regression")
@@ -4921,7 +4923,7 @@ RF_PM_model
 ## 
 ## Main Arguments:
 ##   mtry = 10
-##   min_n = 3
+##   min_n = 4
 ## 
 ## Computational engine: randomForest
 ```
@@ -5009,8 +5011,6 @@ We need to use `set.seed()` here because the values chosen for `mtry` and `min_n
 
 Note: this step will take some time.
 
-Avocado need to make sure like iris classification example...
-
 
 
 ```r
@@ -5024,8 +5024,6 @@ tune_RF_results <- tune_grid(object = RF_tune_wflow, resamples = vfold_pm, grid 
 ```
 
 ```r
-reasmple_fit <-tune_grid(iris_cat_wflow_tune, resamples = vfold_iris, grid = 10)
-
 tune_RF_results
 ```
 
@@ -5048,9 +5046,9 @@ tune_RF_results
 
 See [the tune getting started guide ](https://tidymodels.github.io/tune/articles/getting_started.html){target="_blank"} for more information about implementing this in `tidymodels`.
 
-If you wanted more control over this process you could specify how the different possible options for `mtry` and `min_n` in the `tune_grid()` function using the grid_*()` functions of the `dials` package to create a more specific grid.
+If you wanted more control over this process you could specify the different possible options for `mtry` and `min_n` in the `tune_grid()` function using the grid_*()` functions of the `dials` package to create a more specific grid.
 
-Be default the values for the hyperparameters being tuned are chosen semi-randomly (meaning that they are within a range of reasonable values but still random)..
+Be default the values for the hyperparameters being tuned are chosen semi-randomly (meaning that they are within a range of reasonable values but still random).
 
 
 Now we can use the `collect_metrics()` function again to take a look at what happened with our cross validation tests. We can see the different values chosen for `mtry` and `min_n` and the mean `rmse` and `rsq` values across the cross validation samples.
@@ -5058,24 +5056,20 @@ Now we can use the `collect_metrics()` function again to take a look at what hap
 
 ```r
 tune_RF_results%>%
-  collect_metrics()
+  collect_metrics() %>%
+  head()
 ```
 
 ```
-## # A tibble: 40 x 7
-##     mtry min_n .metric .estimator  mean     n std_err
-##    <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-##  1     1    27 rmse    standard   2.06     10  0.142 
-##  2     1    27 rsq     standard   0.483    10  0.0399
-##  3     4    30 rmse    standard   1.81     10  0.148 
-##  4     4    30 rsq     standard   0.588    10  0.0386
-##  5     6    32 rmse    standard   1.76     10  0.143 
-##  6     6    32 rsq     standard   0.604    10  0.0398
-##  7     7    18 rmse    standard   1.73     10  0.144 
-##  8     7    18 rsq     standard   0.616    10  0.0397
-##  9     8    23 rmse    standard   1.74     10  0.144 
-## 10     8    23 rsq     standard   0.607    10  0.0389
-## # … with 30 more rows
+## # A tibble: 6 x 7
+##    mtry min_n .metric .estimator  mean     n std_err
+##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
+## 1     1    27 rmse    standard   2.06     10  0.142 
+## 2     1    27 rsq     standard   0.479    10  0.0358
+## 3     4    30 rmse    standard   1.81     10  0.143 
+## 4     4    30 rsq     standard   0.588    10  0.0386
+## 5     6    32 rmse    standard   1.77     10  0.146 
+## 6     6    32 rsq     standard   0.602    10  0.0421
 ```
 
 We can now use the `show_best()` function as it was truly intended, to see what values for `min_n` and `mtry` resulted in the best performance.
@@ -5089,9 +5083,9 @@ show_best(tune_RF_results, metric = "rmse", n =1)
 ## # A tibble: 1 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1    17     4 rmse    standard    1.67    10   0.147
+## 1    17     4 rmse    standard    1.67    10   0.142
 ```
-There we have it... looks like an `mtry` of 17 and `min_n` of 4 had the best `rmse` value. You can verify this in the above output, but it is easier to just pull this row out using this function. We can see that the mean `rmse` value across the cross validation sets was 1.720. Before tuning it was 1.725  with a similar `std_err` so the performance was very slightly improved.
+There we have it... looks like an `mtry` of 17 and `min_n` of 4 had the best `rmse` value. You can verify this in the above output, but it is easier to just pull this row out using this function. We can see that the mean `rmse` value across the cross validation sets was 1.67. Before tuning it was 1.68 with a similar `std_err` so the performance was very slightly improved.
 
 
 #### ## Final model performance evaluation
@@ -5101,7 +5095,6 @@ Now that we have decided that we have reasonable performance with our training d
 Here, we will use the random forest model that we built to predict values for the monitors in the testing data and we will use the values for `mtry` and `min_n` that we just determined based on our tuning analysis to achieve the best performance.
 
 So, first we need to specify these values in a workflow. We can use the `select_best()` function of the `tune` package to grab the values that were determined to be best for `mtry` and `min_n`.
-
 
 
 
@@ -5152,11 +5145,11 @@ To see the performance on the test data we can use the `collect_metrics()` funct
 ## # A tibble: 2 x 3
 ##   .metric .estimator .estimate
 ##   <chr>   <chr>          <dbl>
-## 1 rmse    standard       1.44 
-## 2 rsq     standard       0.638
+## 1 rmse    standard       1.43 
+## 2 rsq     standard       0.644
 ```
 
-Awesome! We can see that our `rmse` of 1.44 is quite similar with our testing data cross validation sets. We achieved quite good performance, which suggests that we would could predict other locations with more sparse monitoring based on our predictors with reasonable accuracy.
+Awesome! We can see that our `rmse` of 1.43 is quite similar with our testing data cross validation sets. We achieved quite good performance, which suggests that we would could predict other locations with more sparse monitoring based on our predictors with reasonable accuracy.
 
 Now if you wanted to take a look at the predicted values for the test set (the 292 rows with predictions out of the 876 original monitor values) you can use the  `collect_predictions()` function of the `tune()` package:
 
@@ -5175,13 +5168,31 @@ head(test_predictions)
 ##   id               .pred  .row value
 ##   <chr>            <dbl> <int> <dbl>
 ## 1 train/test split  11.1     4  11.7
-## 2 train/test split  12.0    10  13.1
+## 2 train/test split  11.9    10  13.1
 ## 3 train/test split  12.2    12  12.2
 ## 4 train/test split  11.5    15  12.2
 ## 5 train/test split  11.4    19  11.4
-## 6 train/test split  12.0    22  12.2
+## 6 train/test split  12.1    22  12.2
 ```
 
 Nice!
 
+#### Visualizing model performance
 
+Now, we can compare the predicted outcome values (or fitted values) $\hat{Y}$ to the actual outcome values $Y$ that we observed: 
+
+
+```r
+test_predictions %>% 
+  ggplot(aes(x =  value, y = .pred)) + 
+  geom_point() + 
+  xlab("actual outcome values") + 
+  ylab("predicted outcome values") +
+  geom_smooth(method = "lm")
+```
+
+```
+## `geom_smooth()` using formula 'y ~ x'
+```
+
+<img src="05-prediction_files/figure-html/unnamed-chunk-152-1.png" width="672" />

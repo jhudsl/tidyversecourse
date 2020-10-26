@@ -1556,7 +1556,7 @@ We again expected that it did. Thus we had a statement that &quot; car mileage c
 <p>We can use the <code>formula()</code> function of the stats package to see how we have assigned our variables in formula notation.</p>
 <div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1"><span class="kw">formula</span>(first_recipe)</a></code></pre></div>
 <pre><code>## Sepal.Length ~ Sepal.Width + Species
-## &lt;environment: 0x7fe506733518&gt;</code></pre>
+## &lt;environment: 0x7ffc6406dce8&gt;</code></pre>
 <p>We can also view our recipe in more detail using the base summary() function.</p>
 <div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1"><span class="kw">summary</span>(first_recipe)</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 4
@@ -2093,7 +2093,7 @@ We can also see variable importance from the model fit, which shows which variab
 ## 4          4.4         2.9          1.4         0.2  setosa            setosa
 ## 5          4.9         3.1          1.5         0.1  setosa            setosa
 ## 6          5.4         3.7          1.5         0.2  setosa            setosa</code></pre>
-<p>However, we to fit the model to our cross validation folds we can use the <code>fit_resamples()</code> function of the <code>tune</code> package, by specifying our <code>workflow</code> object and the cross validation fold object we just created.
+<p>However, to fit the model to our cross validation folds we can use the <code>fit_resamples()</code> function of the <code>tune</code> package, by specifying our <code>workflow</code> object and the cross validation fold object we just created.
 See <a href="https://tidymodels.github.io/tune/reference/fit_resamples.html" target="_blank">here</a> for more information.</p>
 <div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" data-line-number="1"><span class="kw">library</span>(tune)</a>
 <a class="sourceLine" id="cb160-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">122</span>)</a>
@@ -2136,7 +2136,7 @@ See <a href="https://tidymodels.github.io/tune/reference/fit_resamples.html" tar
 <a class="sourceLine" id="cb167-2" data-line-number="2"><span class="st">                      </span>workflows<span class="op">::</span><span class="kw">add_recipe</span>(cat_recipe) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb167-3" data-line-number="3"><span class="st">                      </span>workflows<span class="op">::</span><span class="kw">add_model</span>(cat_model_tune)</a></code></pre></div>
 <p>We can use the <code>tune_grid()</code> function of the <code>tune()</code> package to use the workflow and fit the <code>vfold_iris</code> cross validation samples of our training data to test out a number of different values for the <code>min_n</code> argument for our model. The <code>grid()</code> argument specifies how many different values to try out.</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" data-line-number="1">reasmple_fit &lt;-<span class="kw">tune_grid</span>(iris_cat_wflow_tune, <span class="dt">resamples =</span> vfold_iris, <span class="dt">grid =</span> <span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" data-line-number="1">reasmple_fit &lt;-tune<span class="op">::</span><span class="kw">tune_grid</span>(iris_cat_wflow_tune, <span class="dt">resamples =</span> vfold_iris, <span class="dt">grid =</span> <span class="dv">4</span>)</a></code></pre></div>
 <p>Again we can use the <code>collect_netrics()</code> function to get the accuracy for each of the tested <code>min_n</code> values. Or, we can use the <code>show_best()</code> function of the <code>tune</code> package to see the <code>min_n</code> values for the top performing models (those with the highest accuracy).</p>
 <div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" data-line-number="1">tune<span class="op">::</span><span class="kw">collect_metrics</span>(resample_fit)</a></code></pre></div>
 <pre><code>## # A tibble: 2 x 5
@@ -3406,7 +3406,7 @@ Instead of including it as a predictor variable, we could also use the <code>upd
 ##     popdens_county + popdens_zcta + nohs + somehs + hs + somecollege + 
 ##     associate + bachelor + grad + pov + hs_orless + urc2013 + 
 ##     urc2006 + aod
-## &lt;environment: 0x7fe5170f3300&gt;</code></pre>
+## &lt;environment: 0x7ffc80429598&gt;</code></pre>
 <p><strong>This <a href="https://tidymodels.github.io/recipes/reference/index.html" target="_blank">link</a> and this <a href="https://cran.r-project.org/web/packages/recipes/recipes.pdf" target="_blank">link</a> show the many options for recipe step functions.</strong></p>
 <p><u>There are step functions for a variety of purposes:</u></p>
 <ol style="list-style-type: decimal">
@@ -4106,7 +4106,8 @@ The way we do this is to compare the similarity between the predicted estimates 
 ## 4 12.4    11.3    0.366  1.08  0.0309   2.09 0.000267       0.526 
 ## 5 10.5    10.8    0.424 -0.298 0.0413   2.09 0.0000278     -0.146 
 ## 6 15.6    11.1    0.380  4.50  0.0332   2.08 0.00501        2.20</code></pre>
-<p>Note that because we use the actual workflow here, we can (and actually need to) use the raw data instead of the preprocessed data.</p>
+<p>Finally, we can also use the <code>predict()</code> function.
+Note that because we use the actual workflow here, we can (and actually need to) use the raw data instead of the preprocessed data.</p>
 <div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" data-line-number="1">values_pred_train &lt;-<span class="st"> </span></a>
 <a class="sourceLine" id="cb277-2" data-line-number="2"><span class="st">  </span><span class="kw">predict</span>(PM_wflow_fit, train_pm) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb277-3" data-line-number="3"><span class="st">  </span><span class="kw">bind_cols</span>(train_pm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(value, fips, county, id)) </a></code></pre></div>
@@ -4127,7 +4128,6 @@ The way we do this is to compare the similarity between the predicted estimates 
 ##  9 11.5  14.6  1073  Jefferson 1073.2003
 ## 10 10.6  12.0  1073  Jefferson 1073.5002
 ## # … with 574 more rows</code></pre>
-<p>avocado simplify this here and earlier??</p>
 </div>
 <div id="visualizing-model-performance" class="section level4">
 <h4><span class="header-section-number">5.14.0.2</span> Visualizing model performance</h4>
@@ -4306,17 +4306,17 @@ See <a href="https://tidymodels.github.io/tune/reference/fit_resamples.html" tar
 <li><code>min_n</code> - The minimum number of data points in a node that are required for the node to be split further.</li>
 <li><code>trees</code> - the number of trees in the ensemble</li>
 </ol>
-<p>We will start by trying an <code>mtry</code> value of 10 and a <code>min_n</code> value of 3.</p>
+<p>We will start by trying an <code>mtry</code> value of 10 and a <code>min_n</code> value of 4.</p>
 <p>Now that we have our recipe (<code>RF_rec</code>), let’s specify the model with <code>rand_forest()</code> from <code>parsnip</code> with the <code>mode = &quot;regression&quot;</code> argument to specify our outcome variable (air pollution) is continuous.</p>
 <div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb316-1" data-line-number="1">PMtree_model &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb316-2" data-line-number="2"><span class="st">  </span>parsnip<span class="op">::</span><span class="kw">rand_forest</span>(<span class="dt">mtry =</span> <span class="dv">10</span>, <span class="dt">min_n =</span> <span class="dv">3</span>, </a>
+<a class="sourceLine" id="cb316-2" data-line-number="2"><span class="st">  </span>parsnip<span class="op">::</span><span class="kw">rand_forest</span>(<span class="dt">mtry =</span> <span class="dv">10</span>, <span class="dt">min_n =</span> <span class="dv">4</span>, </a>
 <a class="sourceLine" id="cb316-3" data-line-number="3">                       <span class="dt">mode =</span> <span class="st">&quot;regression&quot;</span>)</a>
 <a class="sourceLine" id="cb316-4" data-line-number="4">PMtree_model</a></code></pre></div>
 <pre><code>## Random Forest Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   mtry = 10
-##   min_n = 3</code></pre>
+##   min_n = 4</code></pre>
 <p>Next, we set the engine and mode:</p>
 <p>Note that you could also use the <code>ranger</code> or <code>spark</code> packages instead of <code>randomForest</code>.
 If you were to use the <code>ranger</code> package to implement the random forest analysis you would need to specify an <code>importance</code> argument to be able to evaluate predictor importance. The options are <code>impurity</code> or <code>permutation</code>.</p>
@@ -4332,7 +4332,7 @@ If you were to use the <code>ranger</code> package to implement the random fores
 ## 
 ## Main Arguments:
 ##   mtry = 10
-##   min_n = 3
+##   min_n = 4
 ## 
 ## Computational engine: randomForest</code></pre>
 <p>Then, we put this all together into a <code>workflow</code>:</p>
@@ -4359,7 +4359,7 @@ If you were to use the <code>ranger</code> package to implement the random fores
 ## 
 ## Main Arguments:
 ##   mtry = 10
-##   min_n = 3
+##   min_n = 4
 ## 
 ## Computational engine: randomForest</code></pre>
 <p>Finally, we fit the data to the model:</p>
@@ -4382,23 +4382,23 @@ If you were to use the <code>ranger</code> package to implement the random fores
 ## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## 
 ## Call:
-##  randomForest(x = as.data.frame(x), y = y, mtry = ~10, nodesize = ~3) 
+##  randomForest(x = as.data.frame(x), y = y, mtry = ~10, nodesize = ~4) 
 ##                Type of random forest: regression
 ##                      Number of trees: 500
 ## No. of variables tried at each split: 10
 ## 
-##           Mean of squared residuals: 2.87938
-##                     % Var explained: 60.04</code></pre>
+##           Mean of squared residuals: 2.894891
+##                     % Var explained: 59.83</code></pre>
 <p><img src="05-prediction_files/figure-html/unnamed-chunk-137-1.png" width="672" /></p>
 <p>Interesting! In the previous model the CMAQ values and the state where the monitor was located were also the top two most important, however predictors about education levels of the communities where the monitor was located was among the top most important. Now we see that population density and proximity to sources of emissions and roads are among the top ten.</p>
 <p>Now let’s take a look at model performance by fitting the data using cross validation:</p>
 <div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb325-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">456</span>)</a>
 <a class="sourceLine" id="cb325-2" data-line-number="2">resample_RF_fit &lt;-<span class="st"> </span>tune<span class="op">::</span><span class="kw">fit_resamples</span>(RF_wflow, vfold_pm)</a>
 <a class="sourceLine" id="cb325-3" data-line-number="3"><span class="kw">collect_metrics</span>(resample_RF_fit)</a></code></pre></div>
-<p>OK, so our first model had a mean <code>rmse</code> value of 2.17.
-It looks like the random forest model had a much lower <code>rmse</code> value of 1.72.</p>
+<p>OK, so our first model had a mean <code>rmse</code> value of 2.13.
+It looks like the random forest model had a much lower <code>rmse</code> value of 1.68.</p>
 <p>If we tuned our random forest model based on the number of trees or the value for <code>mtry</code> (which is “The number of predictors that will be randomly sampled at each split when creating the tree models”), we might get a model with even better performance.</p>
-<p>However, our cross validated mean <code>rmse</code> value of 1.72 is quite good because our range of true outcome values is much larger: (3.496, 22.259).</p>
+<p>However, our cross validated mean <code>rmse</code> value of 1.68 is quite good because our range of true outcome values is much larger: (3.496, 22.259).</p>
 <div id="model-tuning" class="section level4">
 <h4><span class="header-section-number">5.15.0.1</span> Model Tuning</h4>
 <p><a href="https://en.wikipedia.org/wiki/Hyperparameter_(machine_learning)">Hyperparameters</a> are often things that we need to specify about a model. For example, the number of predictor variables (or features) that will be randomly sampled at each split when creating the tree models called <code>mtry</code> is a hyperparameter. The default number for regression analyses is the number of predictors divided by 3. Instead of arbitrarily specifying this, we can try to determine the best option for model performance by a process called tuning.</p>
@@ -4408,7 +4408,7 @@ It looks like the random forest model had a much lower <code>rmse</code> value o
 <p>This is when our cross validation methods become really handy because now we can test out different values for each of these hyperparameters to assess what values seem to work best for model performance on these resamples of our training set data.</p>
 <p>Previously we specified our model like so:</p>
 <div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb326-1" data-line-number="1">RF_PM_model &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb326-2" data-line-number="2"><span class="st">  </span>parsnip<span class="op">::</span><span class="kw">rand_forest</span>(<span class="dt">mtry =</span> <span class="dv">10</span>, <span class="dt">min_n =</span> <span class="dv">3</span>, </a>
+<a class="sourceLine" id="cb326-2" data-line-number="2"><span class="st">  </span>parsnip<span class="op">::</span><span class="kw">rand_forest</span>(<span class="dt">mtry =</span> <span class="dv">10</span>, <span class="dt">min_n =</span> <span class="dv">4</span>, </a>
 <a class="sourceLine" id="cb326-3" data-line-number="3">                       <span class="dt">mode =</span> <span class="st">&quot;regression&quot;</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb326-4" data-line-number="4"><span class="st">  </span><span class="kw">set_engine</span>(<span class="st">&quot;randomForest&quot;</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb326-5" data-line-number="5"><span class="st">  </span><span class="kw">set_mode</span>(<span class="st">&quot;regression&quot;</span>)</a>
@@ -4418,7 +4418,7 @@ It looks like the random forest model had a much lower <code>rmse</code> value o
 ## 
 ## Main Arguments:
 ##   mtry = 10
-##   min_n = 3
+##   min_n = 4
 ## 
 ## Computational engine: randomForest</code></pre>
 <p>Now instead of specifying a value for the <code>mtry</code> and <code>min_n</code> arguments, we can use the <code>tune()</code> function of the <code>tune</code> package like so: <code>mtry = tune()</code>. This indicates that these hyperparameters are to be tuned.</p>
@@ -4473,14 +4473,11 @@ It looks like the random forest model had a much lower <code>rmse</code> value o
 <p>The <code>registerDoParallel()</code> function will use the number for cores specified using the <code>cores=</code> argument, or it will assign it automatically to one-half of the number of cores detected by the <code>parallel</code> package.</p>
 <p>We need to use <code>set.seed()</code> here because the values chosen for <code>mtry</code> and <code>min_n</code> may vary if we preform this evaluation again because they are chosen semi-randomly (meaning that they are within a range of reasonable values but still random).</p>
 <p>Note: this step will take some time.</p>
-<p>Avocado need to make sure like iris classification example…</p>
 <div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb334-1" data-line-number="1">doParallel<span class="op">::</span><span class="kw">registerDoParallel</span>(<span class="dt">cores=</span><span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb334-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
 <a class="sourceLine" id="cb334-3" data-line-number="3">tune_RF_results &lt;-<span class="st"> </span><span class="kw">tune_grid</span>(<span class="dt">object =</span> RF_tune_wflow, <span class="dt">resamples =</span> vfold_pm, <span class="dt">grid =</span> <span class="dv">20</span>)</a></code></pre></div>
 <pre><code>## i Creating pre-processing data to finalize unknown parameter: mtry</code></pre>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb336-1" data-line-number="1">reasmple_fit &lt;-<span class="kw">tune_grid</span>(iris_cat_wflow_tune, <span class="dt">resamples =</span> vfold_iris, <span class="dt">grid =</span> <span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb336-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb336-3" data-line-number="3">tune_RF_results</a></code></pre></div>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb336-1" data-line-number="1">tune_RF_results</a></code></pre></div>
 <pre><code>## #  10-fold cross-validation 
 ## # A tibble: 10 x 4
 ##    splits           id     .metrics          .notes          
@@ -4496,32 +4493,28 @@ It looks like the random forest model had a much lower <code>rmse</code> value o
 ##  9 &lt;split [526/58]&gt; Fold09 &lt;tibble [40 × 5]&gt; &lt;tibble [0 × 1]&gt;
 ## 10 &lt;split [526/58]&gt; Fold10 &lt;tibble [40 × 5]&gt; &lt;tibble [0 × 1]&gt;</code></pre>
 <p>See <a href="https://tidymodels.github.io/tune/articles/getting_started.html" target="_blank">the tune getting started guide</a> for more information about implementing this in <code>tidymodels</code>.</p>
-<p>If you wanted more control over this process you could specify how the different possible options for <code>mtry</code> and <code>min_n</code> in the <code>tune_grid()</code> function using the grid_*()<code>functions of the</code>dials` package to create a more specific grid.</p>
-<p>Be default the values for the hyperparameters being tuned are chosen semi-randomly (meaning that they are within a range of reasonable values but still random)..</p>
+<p>If you wanted more control over this process you could specify the different possible options for <code>mtry</code> and <code>min_n</code> in the <code>tune_grid()</code> function using the grid_*()<code>functions of the</code>dials` package to create a more specific grid.</p>
+<p>Be default the values for the hyperparameters being tuned are chosen semi-randomly (meaning that they are within a range of reasonable values but still random).</p>
 <p>Now we can use the <code>collect_metrics()</code> function again to take a look at what happened with our cross validation tests. We can see the different values chosen for <code>mtry</code> and <code>min_n</code> and the mean <code>rmse</code> and <code>rsq</code> values across the cross validation samples.</p>
 <div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb338-1" data-line-number="1">tune_RF_results<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb338-2" data-line-number="2"><span class="st">  </span><span class="kw">collect_metrics</span>()</a></code></pre></div>
-<pre><code>## # A tibble: 40 x 7
-##     mtry min_n .metric .estimator  mean     n std_err
-##    &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
-##  1     1    27 rmse    standard   2.06     10  0.142 
-##  2     1    27 rsq     standard   0.483    10  0.0399
-##  3     4    30 rmse    standard   1.81     10  0.148 
-##  4     4    30 rsq     standard   0.588    10  0.0386
-##  5     6    32 rmse    standard   1.76     10  0.143 
-##  6     6    32 rsq     standard   0.604    10  0.0398
-##  7     7    18 rmse    standard   1.73     10  0.144 
-##  8     7    18 rsq     standard   0.616    10  0.0397
-##  9     8    23 rmse    standard   1.74     10  0.144 
-## 10     8    23 rsq     standard   0.607    10  0.0389
-## # … with 30 more rows</code></pre>
+<a class="sourceLine" id="cb338-2" data-line-number="2"><span class="st">  </span><span class="kw">collect_metrics</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb338-3" data-line-number="3"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
+<pre><code>## # A tibble: 6 x 7
+##    mtry min_n .metric .estimator  mean     n std_err
+##   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
+## 1     1    27 rmse    standard   2.06     10  0.142 
+## 2     1    27 rsq     standard   0.479    10  0.0358
+## 3     4    30 rmse    standard   1.81     10  0.143 
+## 4     4    30 rsq     standard   0.588    10  0.0386
+## 5     6    32 rmse    standard   1.77     10  0.146 
+## 6     6    32 rsq     standard   0.602    10  0.0421</code></pre>
 <p>We can now use the <code>show_best()</code> function as it was truly intended, to see what values for <code>min_n</code> and <code>mtry</code> resulted in the best performance.</p>
 <div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb340-1" data-line-number="1"><span class="kw">show_best</span>(tune_RF_results, <span class="dt">metric =</span> <span class="st">&quot;rmse&quot;</span>, <span class="dt">n =</span><span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 1 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
-## 1    17     4 rmse    standard    1.67    10   0.147</code></pre>
-<p>There we have it… looks like an <code>mtry</code> of 17 and <code>min_n</code> of 4 had the best <code>rmse</code> value. You can verify this in the above output, but it is easier to just pull this row out using this function. We can see that the mean <code>rmse</code> value across the cross validation sets was 1.720. Before tuning it was 1.725 with a similar <code>std_err</code> so the performance was very slightly improved.</p>
+## 1    17     4 rmse    standard    1.67    10   0.142</code></pre>
+<p>There we have it… looks like an <code>mtry</code> of 17 and <code>min_n</code> of 4 had the best <code>rmse</code> value. You can verify this in the above output, but it is easier to just pull this row out using this function. We can see that the mean <code>rmse</code> value across the cross validation sets was 1.67. Before tuning it was 1.68 with a similar <code>std_err</code> so the performance was very slightly improved.</p>
 </div>
 <div id="final-model-performance-evaluation" class="section level4">
 <h4><span class="header-section-number">5.15.0.2</span> ## Final model performance evaluation</h4>
@@ -4549,9 +4542,9 @@ It looks like the random forest model had a much lower <code>rmse</code> value o
 <pre><code>## # A tibble: 2 x 3
 ##   .metric .estimator .estimate
 ##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
-## 1 rmse    standard       1.44 
-## 2 rsq     standard       0.638</code></pre>
-<p>Awesome! We can see that our <code>rmse</code> of 1.44 is quite similar with our testing data cross validation sets. We achieved quite good performance, which suggests that we would could predict other locations with more sparse monitoring based on our predictors with reasonable accuracy.</p>
+## 1 rmse    standard       1.43 
+## 2 rsq     standard       0.644</code></pre>
+<p>Awesome! We can see that our <code>rmse</code> of 1.43 is quite similar with our testing data cross validation sets. We achieved quite good performance, which suggests that we would could predict other locations with more sparse monitoring based on our predictors with reasonable accuracy.</p>
 <p>Now if you wanted to take a look at the predicted values for the test set (the 292 rows with predictions out of the 876 original monitor values) you can use the <code>collect_predictions()</code> function of the <code>tune()</code> package:</p>
 <div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb348-1" data-line-number="1">test_predictions &lt;-<span class="kw">collect_predictions</span>(overallfit)</a></code></pre></div>
 <div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb349-1" data-line-number="1"><span class="kw">head</span>(test_predictions)</a></code></pre></div>
@@ -4559,12 +4552,24 @@ It looks like the random forest model had a much lower <code>rmse</code> value o
 ##   id               .pred  .row value
 ##   &lt;chr&gt;            &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;
 ## 1 train/test split  11.1     4  11.7
-## 2 train/test split  12.0    10  13.1
+## 2 train/test split  11.9    10  13.1
 ## 3 train/test split  12.2    12  12.2
 ## 4 train/test split  11.5    15  12.2
 ## 5 train/test split  11.4    19  11.4
-## 6 train/test split  12.0    22  12.2</code></pre>
+## 6 train/test split  12.1    22  12.2</code></pre>
 <p>Nice!</p>
+</div>
+<div id="visualizing-model-performance-1" class="section level4">
+<h4><span class="header-section-number">5.15.0.3</span> Visualizing model performance</h4>
+<p>Now, we can compare the predicted outcome values (or fitted values) <span class="math inline">\(\hat{Y}\)</span> to the actual outcome values <span class="math inline">\(Y\)</span> that we observed:</p>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb351-1" data-line-number="1">test_predictions <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb351-2" data-line-number="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span>  value, <span class="dt">y =</span> .pred)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb351-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb351-4" data-line-number="4"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;actual outcome values&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb351-5" data-line-number="5"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;predicted outcome values&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb351-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</a></code></pre></div>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="05-prediction_files/figure-html/unnamed-chunk-152-1.png" width="672" /></p>
 
 </div>
 </div>
