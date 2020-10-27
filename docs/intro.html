@@ -410,7 +410,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.11.12" data-path="model.html"><a href="model.html#regression-vs.classification"><i class="fa fa-check"></i><b>5.11.12</b> Regression vs. Classification</a></li>
 <li class="chapter" data-level="5.11.13" data-path="model.html"><a href="model.html#model-accuracy"><i class="fa fa-check"></i><b>5.11.13</b> Model Accuracy</a></li>
 </ul></li>
-<li class="chapter" data-level="5.12" data-path="model.html"><a href="model.html#the-tidymodels-ecosystem"><i class="fa fa-check"></i><b>5.12</b> The <code>tidymodels</code> ecosystem</a><ul>
+<li class="chapter" data-level="5.12" data-path="model.html"><a href="model.html#the-tidymodels-ecosystem-1"><i class="fa fa-check"></i><b>5.12</b> The <code>tidymodels</code> ecosystem</a><ul>
 <li class="chapter" data-level="5.12.1" data-path="model.html"><a href="model.html#benefits-of-tidymodels"><i class="fa fa-check"></i><b>5.12.1</b> Benefits of <code>tidymodels</code></a></li>
 <li class="chapter" data-level="5.12.2" data-path="model.html"><a href="model.html#packages-of-the-tidymodels-ecosystem"><i class="fa fa-check"></i><b>5.12.2</b> Packages of the <code>tidymodels</code> ecosystem</a></li>
 <li class="chapter" data-level="5.12.3" data-path="model.html"><a href="model.html#example-of-continuous-variable-prediction-linear-regression"><i class="fa fa-check"></i><b>5.12.3</b> Example of Continuous Variable Prediction: Linear Regression</a></li>
@@ -850,8 +850,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The cowplot package provides various features that help with creating publication-quality figures, such as a set of themes, functions to align plots and arrange them into complex compound figures, and functions that make it easy to annotate plots and or mix plots with images.</p>
 </blockquote>
 </div>
+<div id="patchwork" class="section level4">
+<h4><span class="header-section-number">1.5.3.5</span> patchwork</h4>
+<p>The <a href="https://patchwork.data-imaginist.com/"><em>patchwork</em></a> package is similar to <em>cowplot</em> and is an excellent option for combining multiple plots together.</p>
+</div>
 <div id="gganimate" class="section level4">
-<h4><span class="header-section-number">1.5.3.5</span> gganimate</h4>
+<h4><span class="header-section-number">1.5.3.6</span> gganimate</h4>
 <p>Beyond static images, there are times when we want to display changes over time or other visualizations that require animation. The <em>gganimate</em> package enables animation on top of <em>ggplot2</em> plots.</p>
 <p>According to the <a href="https://gganimate.com/"><em>gganimate</em> website</a>:</p>
 <blockquote>
@@ -862,12 +866,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="data-modeling" class="section level3">
 <h3><span class="header-section-number">1.5.4</span> Data Modeling</h3>
 <p>Once data have been read in, tidied, and explored, the last step to answering your question and before communicating your findings is data modeling. In this step, you’re carrying out an analysis to answer your question of interest. There are a number of helpful suites of R packages</p>
-<div id="tidymodels-broom-infer-and-recipes" class="section level4">
-<h4><span class="header-section-number">1.5.4.1</span> tidymodels: <strong>broom</strong>, infer, and recipes</h4>
+<div id="the-tidymodels-ecosystem" class="section level4">
+<h4><span class="header-section-number">1.5.4.1</span> The <code>tidymodels</code> ecosystem</h4>
+<p>When it comes to predictive analyses and machine learning, there is a suite of packages called <code>tidymodels</code>.</p>
+<p>The <code>tidymodels</code> ecosystem contains packages for data splitting, preprocessing, model fitting, performance assessment and more.</p>
+<p>The great advantage is that is allows for users to use predictive algorithms that were written across dozens of different R packages and makes them all usable with a standard syntax.</p>
+<div id="inferential-packages-broom-and-infer" class="section level5">
+<h5><span class="header-section-number">1.5.4.1.1</span> Inferential packages: <code>broom</code> and <code>infer</code></h5>
 <p>When carrying out inferential analyses the <a href="https://github.com/tidymodels"><em>tidymodels</em></a> suite of tidyverse-adjacent packages is essential.</p>
 <p><a href="https://broom.tidyverse.org/"><em>broom</em></a> which happens to be an official tidyverse package and part of the <em>tidymodels</em> suite takes statistical analysis objects from R (think the output of your <code>lm()</code> function) and converts them into a tidy data format. This makes obtaining the information you’re most interested in from your statistical models much simpler.</p>
 <p>Similarly, <a href="https://github.com/tidymodels/infer"><em>infer</em></a> sets out to perform statistical inference using a standard statistical grammar. Historically, the syntax varied widely from one statistical test to the next in R. <em>infer</em> sets out to standardize the syntax, regardless of the test.</p>
-<p>Finally, design matrices have been used historically for statistical modeling and visualization. <a href="https://tidymodels.github.io/recipes/"><em>recipes</em></a> provides a streamlined and more intuitive approach to design matrices in modeling.</p>
+</div>
 </div>
 <div id="tidyverts-tsibble-feasts-and-fable" class="section level4">
 <h4><span class="header-section-number">1.5.4.2</span> tidyverts: tsibble, feasts, and fable</h4>
@@ -888,14 +897,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The R package fable provides a collection of commonly used univariate and multivariate time series forecasting models including exponential smoothing via state space models and automatic ARIMA modelling. These models work within the fable framework, which provides the tools to evaluate, visualize, and combine models in a workflow consistent with the tidyverse.</p>
 </blockquote>
 </div>
-<div id="caret" class="section level4">
-<h4><span class="header-section-number">1.5.4.3</span> caret</h4>
-<p>When it comes to predictive analyses and machine learning, the most helpful R package is the <em>caret</em> package.</p>
-<p>According to the <a href="https://topepo.github.io/caret/"><em>caret</em> website</a>:</p>
-<blockquote>
-<p>The caret package (short for Classification And REgression Training) is a set of functions that attempt to streamline the process for creating predictive models. The package contains tools for: data splitting, pre-processing, feature selection, model tuning using resampling, and variable importance estimation</p>
-</blockquote>
-<p>This particularly well-documented package helps with common predictive analysis data task and takes predictive algorithms that were written across dozens of different R packages and makes them all usable with a standard syntax.</p>
+<div id="tidymodels" class="section level4">
+<h4><span class="header-section-number">1.5.4.3</span> tidymodels</h4>
 </div>
 </div>
 </div>
@@ -1054,7 +1057,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">library</span>(ProjectTemplate)</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">create.project</span>(<span class="dt">project.name =</span> <span class="st">&quot;data_analysis&quot;</span>,</a>
 <a class="sourceLine" id="cb5-3" data-line-number="3">               <span class="dt">template =</span> <span class="st">&quot;minimal&quot;</span>)</a></code></pre></div>
-<p>The <code>create.project()</code> function creates a directory called <code>data_analysis</code> was created for this project. Inside that directory are the following sub-directories (which we can view in the RStudio File browser):</p>
+<p>The <code>create.project()</code> function creates a directory called <code>data_analysis</code> for this project. Inside that directory are the following sub-directories (which we can view in the RStudio File browser):</p>
 <div class="figure">
 <img src="book_figures/projecttemplatedir.png" alt="Project Template Directory Layout" />
 <p class="caption">Project Template Directory Layout</p>

@@ -406,6 +406,10 @@ According to the [*cowplot*](https://github.com/wilkelab/cowplot) developers:
 
 > The cowplot package provides various features that help with creating publication-quality figures, such as a set of themes, functions to align plots and arrange them into complex compound figures, and functions that make it easy to annotate plots and or mix plots with images.
 
+#### patchwork
+
+The [*patchwork*](https://patchwork.data-imaginist.com/) package is similar to *cowplot* and is an excellent option for combining multiple plots together. 
+
 #### gganimate
 
 Beyond static images, there are times when we want to display changes over time or other visualizations that require animation. The *gganimate* package enables animation on top of *ggplot2* plots. 
@@ -418,15 +422,21 @@ According to the [*gganimate* website](https://gganimate.com/):
 
 Once data have been read in, tidied, and explored, the last step to answering your question and before communicating your findings is data modeling. In this step, you're carrying out an analysis to answer your question of interest. There are a number of helpful suites of R packages 
 
-#### tidymodels: **broom**, infer, and recipes
+#### The `tidymodels` ecosystem
 
+When it comes to predictive analyses and machine learning, there is a suite of packages called `tidymodels`. 
+
+The `tidymodels` ecosystem contains packages for data splitting, preprocessing, model fitting, performance assessment and more. 
+
+The great advantage is that is allows for users to use predictive algorithms that were written across dozens of different R packages and makes them all usable with a standard syntax. 
+
+
+##### Inferential packages: `broom` and `infer`
 When carrying out inferential analyses the [*tidymodels*](https://github.com/tidymodels) suite of tidyverse-adjacent packages is essential. 
 
 [*broom*](https://broom.tidyverse.org/) which happens to be an official tidyverse package and part of the *tidymodels* suite takes statistical analysis objects from R (think the output of your `lm()` function) and converts them into a tidy data format. This makes obtaining the information you're most interested in from your statistical models much simpler. 
 
 Similarly, [*infer*](https://github.com/tidymodels/infer) sets out to perform statistical inference using a standard statistical grammar. Historically, the syntax varied widely from one statistical test to the next in R. *infer* sets out to standardize the syntax, regardless of the test.
-
-Finally, design matrices have been used historically for statistical modeling and visualization. [*recipes*](https://tidymodels.github.io/recipes/) provides a streamlined and more intuitive approach to design matrices in modeling.
 
 
 #### tidyverts: tsibble, feasts, and fable
@@ -452,15 +462,9 @@ According to the [*fable* website](https://fable.tidyverts.org/):
 > The R package fable provides a collection of commonly used univariate and multivariate time series forecasting models including exponential smoothing via state space models and automatic ARIMA modelling. These models work within the fable framework, which provides the tools to evaluate, visualize, and combine models in a workflow consistent with the tidyverse.
 
 
-#### caret
+#### tidymodels
 
-When it comes to predictive analyses and machine learning, the most helpful R package is the *caret* package. 
 
-According to the [*caret* website](https://topepo.github.io/caret/):
-
-> The caret package (short for Classification And REgression Training) is a set of functions that attempt to streamline the process for creating predictive models. The package contains tools for: data splitting, pre-processing, feature selection, model tuning using resampling, and variable importance estimation
-
-This particularly well-documented package helps with common predictive analysis data task and takes predictive algorithms that were written across dozens of different R packages and makes them all usable with a standard syntax. 
 
 ## Data Science Project Organization
 
@@ -652,7 +656,7 @@ create.project(project.name = "data_analysis",
                template = "minimal")
 ```
 
-The `create.project()` function creates a directory called `data_analysis` was created for this project. Inside that directory are the following sub-directories (which we can view in the RStudio File browser):
+The `create.project()` function creates a directory called `data_analysis` for this project. Inside that directory are the following sub-directories (which we can view in the RStudio File browser):
 
 ![Project Template Directory Layout](book_figures/projecttemplatedir.png)
 
