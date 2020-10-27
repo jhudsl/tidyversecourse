@@ -641,7 +641,13 @@ This format cannot, as it is, be easily worked with easily within R; however, `j
 ```r
 #install.packages("jsonlite")
 library(jsonlite)
+```
 
+```
+## Warning: package 'jsonlite' was built under R version 4.0.2
+```
+
+```r
 ## take JSON object and covert to a data frame
 mydf <- fromJSON(json)
 
@@ -765,7 +771,13 @@ Without any more details, let's get to it! Here you'll see the code to install a
 # install.packages("httr")
 library(RSQLite)
 library(httr)
+```
 
+```
+## Warning: package 'httr' was built under R version 4.0.2
+```
+
+```r
 ## specify driver
 sqlite <- dbDriver("SQLite")
 
@@ -776,11 +788,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".zip")))
 
 ```
 ## Response [https://www.sqlitetutorial.net/wp-content/uploads/2018/03/chinook.zip]
-##   Date: 2020-10-23 00:24
+##   Date: 2020-10-27 15:57
 ##   Status: 200
 ##   Content-Type: application/zip
 ##   Size: 306 kB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpMiVlg8/file869063ed9630.zip
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpN5JNmu/file16a0f3de75301.zip
 ```
 
 ```r
@@ -1068,7 +1080,7 @@ You could imagine that while this information may be helpful to have, getting it
 
 This uses the helpful package `rvest`. It gets its name from the word "harvest." The idea here is you'll use this package to "harvest" information from websites! However, as you may imagine, this is less straightforward than pulling data that are already formatted the way you want them (as we did above), since we'll have to do some extra work to get everything in order. 
 
-### `rvest` basics
+### `rvest` Basics
 
 When `rvest` is given a webpage (URL) as input, an `rvest` function reads in the HTML code from the webpage. HTML is the language websites use to display everything you see on the website. You've seen HTML documents before, as this is one of the formats that you can Knit to from an R Markdown (.Rmd) document! Generally, all HTML documents require each webpage to have a similar structure. This structure is specified by using different **tags**. For example, a header at the top of your webpage would use a specific tag. Website links would use a different tag. These different tags help to specify how the website should appear. `rvest` takes advantage of these tags to help you extract the parts of the webpage you're most interested in. So let's see exactly how to do that all of this with an example.
 
@@ -1487,13 +1499,9 @@ library(magick)
 ```
 
 ```
-## Linking to ImageMagick 7.0.10.22
-## Enabled features: freetype, ghostscript, lcms, webp
-## Disabled features: cairo, fontconfig, fftw, pango, rsvg, x11
-```
-
-```
-## Using 16 threads
+## Linking to ImageMagick 6.9.9.39
+## Enabled features: cairo, fontconfig, freetype, lcms, pango, rsvg, webp
+## Disabled features: fftw, ghostscript, x11
 ```
 
 ```r
@@ -1507,7 +1515,7 @@ print(img1)
 ## # A tibble: 1 x 7
 ##   format width height colorspace matte filesize density
 ##   <chr>  <int>  <int> <chr>      <lgl>    <int> <chr>  
-## 1 PNG      240    278 sRGB       TRUE     38516 +85x+85
+## 1 PNG      240    278 sRGB       TRUE     38516 85x85
 ```
 
 <img src="02-get-data_files/figure-html/unnamed-chunk-48-1.png" width="120" />
@@ -1520,7 +1528,7 @@ print(img2)
 ## # A tibble: 1 x 7
 ##   format width height colorspace matte filesize density
 ##   <chr>  <int>  <int> <chr>      <lgl>    <int> <chr>  
-## 1 PNG      864    864 sRGB       TRUE     54056 +72x+72
+## 1 PNG      864    864 sRGB       TRUE     54056 72x72
 ```
 
 <img src="02-get-data_files/figure-html/unnamed-chunk-48-2.png" width="432" />
@@ -1884,7 +1892,7 @@ Recall from the introduction, that in data science workflows, we perform multipl
 We can use the `here` package described in the introduction to help us make this process easier. Recall that `here` package allows us to quickly reference the directory in which the .Rproj file is located.
 Assuming we created a project called "project", let's save our raw coverage data in a raw_data directory within a directory called data inside of our RStudio project similarly to the work flows that we have seen in the introduction. 
 
-<img src="/Users/rdpeng/books/tidyversecourse/book_figures/file_structure.png" width="60%" style="display: block; margin: auto;" />
+<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/file_structure.png" width="60%" style="display: block; margin: auto;" />
 After creating a directory called raw_data within a directory that we called data, we can now save our raw data for case study #1 using the `here` package by simply typing:
 
 ```r
@@ -1892,7 +1900,7 @@ library(here)
 ```
 
 ```
-## here() starts at /Users/rdpeng/books/tidyversecourse
+## here() starts at /Users/carriewright/Documents/GitHub/tidyversecourse
 ```
 
 ```r
@@ -2021,11 +2029,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2020-10-23 00:24
+##   Date: 2020-10-27 15:57
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpMiVlg8/file869074856499.xlsx
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpN5JNmu/file16a0f74856499.xlsx
 ```
 
 ```r
@@ -2073,11 +2081,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2020-10-23 00:24
+##   Date: 2020-10-27 15:57
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpMiVlg8/file869021980f48.xls
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpN5JNmu/file16a0f21980f48.xls
 ```
 
 ```r
@@ -2124,11 +2132,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2020-10-23 00:24
+##   Date: 2020-10-27 15:57
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpMiVlg8/file86905e37ee62.xls
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpN5JNmu/file16a0f5e37ee62.xls
 ```
 
 ```r
