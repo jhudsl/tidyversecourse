@@ -583,11 +583,6 @@ Or if we want to load this data:
 load(here::here("data", "raw_data", "intro_code_object.rda"))
 ```
 
-This is equivalent to:
-```{r, eval = FALSE}
-load(here::here("data/raw_data/intro_code_object.rda"))
-```
-
 Remember that the `::` notation indicates that we are using a function of a particular package. So the `here` package is indicated on the left of the `::` and the `here`function is indicated on the right.
 
 #### Where you should use this

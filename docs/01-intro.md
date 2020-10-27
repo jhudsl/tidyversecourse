@@ -472,7 +472,7 @@ Creating [RStudio projects](https://support.rstudio.com/hc/en-us/articles/200526
 
 New projects can be created by clicking on the RStudio Projects button in Rstudio:
 
-<img src="/Users/rdpeng/books/tidyversecourse/book_figures/rproj-fig.png" width="60%" />
+<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/rproj-fig.png" width="60%" />
 
 This will create a special file with the .Rproj extension. This file tells RStudio to identify the directory containing the .Rproj file as the main directory for that R Project. A new session of RStudio will be started when a user opens an R project from this main directory. The previous state including settings of that project will be maintained from one time to the next. The files that were open the last time the user worked on the project will automatically be opened again. Other packages like the `here` package will also recognize the .Rproj file to make analyses easier for the user. We will explain how this package works in the next section.
 
@@ -583,12 +583,6 @@ Or if we want to load this data:
 
 ```r
 load(here::here("data", "raw_data", "intro_code_object.rda"))
-```
-
-This is equivalent to:
-
-```r
-load(here::here("data/raw_data/intro_code_object.rda"))
 ```
 
 Remember that the `::` notation indicates that we are using a function of a particular package. So the `here` package is indicated on the left of the `::` and the `here`function is indicated on the right.
