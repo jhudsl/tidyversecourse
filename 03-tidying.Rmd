@@ -440,7 +440,7 @@ msleep %>%
   arrange(name, sleep_total)
 ```
 
-### Creating new columns
+### Creating New Columns
 
 You will often find when working with data that you need an additional column. For example, if you had two datasets you wanted to combine, you may want to make a new column in each dataset called `dataset`. In one dataset you may put `datasetA` in each row. In the second dataset, you could put `datasetB`. This way, once you combined the data, you would be able to keep track of which dataset each row came from originally. More often, however, you'll likely want to create a new column that calculates a new variable based on information in a column you already have. For example, in our mammal sleep dataset, `sleep_total` is in hours. What if you wanted to have that information in minutes? You could create a new column with this very information! The function `mutate()` was *made* for **all** of these new-column-creating situations. This function has a lot of capabilities. We'll cover the basics here. 
 
@@ -500,7 +500,7 @@ conservation %>%
 
 ![Output of unite()](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_408)
 
-### Cleaning up column names
+### Cleaning Column Names
 
 While maybe not quite as important as some of the other functions mentioned in this lesson, a function that will likely prove very helpful as you start analyzing lots of different datasets is `clean_names()` from the `janitor` package. This function takes the existing column names of your dataset, converts them all to lowercase letters and numbers, and separates all words using the underscore character. For example, there is a space in the column name for conservation. `clean_names()` will convert `conservation abbreviation` to `conservation_abbreviation`. These cleaned up column names are a lot easier to work with when you have large datasets.
 
@@ -516,7 +516,7 @@ conservation %>%
 
 ![clean_names() output](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_329)
 
-### Combining data across data frames
+### Combining Data across Data Frames
 
 There is often information stored in two separate data frames that you'll want in a single data frame. There are *many* different ways to join separate data frames. They are discussed in more detail in [this tutorial](http://stat545.com/bit001_dplyr-cheatsheet.html) from [Jenny Bryan](https://www.stat.ubc.ca/~jenny/). Here, we'll demonstrate how the `left_join()` function works, as this is used frequently. 
 
@@ -786,7 +786,7 @@ skim(msleep) %>%
 
 
 
-### Operations Across Columns
+### Operations across Columns
 
 Sometimes it is valuable to apply a certain operation across the columns of a data frame. For example, it be necessary to compute the mean or some other summary statistics for each column in the data frame. In some cases, these operations can be done by a combination of `pivot_longer()` along with `group_by()` and `summarize()`. However, in other cases it is more straightforward to simply compute the statistic on each column.
 
@@ -834,7 +834,7 @@ airquality %>%
 Again, the `.` is used as a stand-in for the name of the column. This expression essentially applies the `replace_na()` function to each of the columns between `Ozone` and `Temp` in the data frame.
 
 
-## Working With Factors
+## Working with Factors
 
 In R, categorical data are handled as factors. By definition, categorical data are limited in that they have a set number of possible values they can take. For example, there are 12 months in a calendar year. In a month variable, each observation is limited to taking one of these twelve values. Thus, with a limited number of possible values, month is a categorical variable. Categorical data, which will be referred to as factors for the rest of this lesson, are regularly found in data. Learning how to work with this type of variable effectively will be incredibly helpful.
 
@@ -883,7 +883,7 @@ sort(mon)
 
 Here, we specify all the possible values that the factor could take in the `levels = all_months` argument. So, even though not all twelve months are included in the some_months object, we've stated that all of the months are possible values. Further, when you sort this variable, it now sorts in the sensical way!
 
-### Manually change the labels of factor levels : `fct_relevel()`
+### Manually Changing the Labels of Factor Levels: `fct_relevel()`
 
 What if you wanted your months to start with July first? That can be accomplished using `fct_relevel()`. To use this function, you simply need to state what you'd like to relevel (`mon`) followed by the levels you want to relevel. If you want these to be placed in the beginning, the after argument should be `after = 0`. You can play around with this setting to see how changing `after` affects the levels in your output.
 
@@ -902,7 +902,7 @@ sort(mon_relevel)
 
 After re-leveling, when we sort this factor, we see that Jul is placed first, as specified by the level re-ordering.
 
-### Keep the order of the factor levels : `fct_inorder()`
+### Keeping the Order of the Factor Levels: `fct_inorder()`
 
 Now, if you're not interested in the months being in calendar year order, you can always state that you want the levels to stay in the same order as the data you started with, you simply specify `fct_inorder`.   
 
@@ -928,7 +928,7 @@ For the remainder of this lesson, we're going to return to using a dataset that'
 
 ![chickwts dataset](https://docs.google.com/presentation/d/16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU/export/png?id=16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU&pageid=g391e563ea4_0_24)
 
-### Re-ordering factor levels by frequency : `fct_infreq()`
+### Re-ordering Factor Levels by Frequency: `fct_infreq()`
 
 To re-order factor levels by frequency of the value in the dataset, you'll want to use `fct_infreq()`. Below, we see from the output from `tabyl()` that 'soybean' is the most frequent feed in the data set while 'horsebean' is the least frequent. Thus, when we order by frequency, we can expect these two feeds to be at opposite ends for our levels.
 
@@ -945,7 +945,7 @@ fct_infreq(chickwts$feed) %>% head()
 
 As expected, soybean, the most frequent level, appears as the first level and horsebean, the least frequent level, appears last. The rest of the levels are sorted by frequency. 
 
-### Reversing order levels : `fct_rev()`
+### Reversing Order Levels: `fct_rev()`
 
 If we wanted to sort the levels from least frequent to most frequent, we could just put `fct_rev()` around the code we just used to reverse the factor level order.
 
@@ -956,7 +956,7 @@ fct_rev(fct_infreq(chickwts$feed)) %>% head()
 
 ![fct_rev() reverses the factor level order](https://docs.google.com/presentation/d/16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU/export/png?id=16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU&pageid=g391e563ea4_0_20)
 
-### Re-ordering factor levels by another variable : `fct_reorder()`
+### Re-ordering Factor Levels by Another Variable: `fct_reorder()`
 
 At times you may want to reorder levels of a factor by another variable in your dataset. This is often helpful when generating plots (which we'll get to in a future lesson!). To do this you specify the variable you want to reorder, followed by the numeric variable by which you'd like the factor to be re-leveled. Here, we see that we're re-leveling feed by the weight of the chickens.  While we haven't discussed plotting yet, the best way to demonstrate how this works is by plotting the feed against the weights. We can see that the order of the factor is such that those chickens with the lowest median weight (horsebean) are to the left, while those with the highest median weight (casein) are to the right.
 
@@ -970,7 +970,7 @@ chickwts %>%
 
 ![fct_reorder allows you to re-level a factor based on a secondary numeric variable](https://docs.google.com/presentation/d/16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU/export/png?id=16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU&pageid=g391e563ea4_0_69)
 
-### Combining several levels into one: `fct_recode()`
+### Combining Several Levels into One: `fct_recode()`
 
 To demonstrate how to combine several factor levels into a single level, we'll continue to use our 'chickwts' dataset. Now, I don't know much about chicken feed, and there's a good chance you know a lot more. However, let's *assume* (even if it doesn't make good sense with regards to chicken feed) you wanted to combine all the feeds with the name "bean" in it to a single category and you wanted to combine "linseed" and "sunflower"" into the category "seed". This can be simply accomplished with `fct_recode`. In fact, below, you see we can rename all the levels to a simpler term (the values on the left side of the equals sign) by re-naming the original level names (the right side of the equals sign). This code will create a new column, called `feed_recode` (accomplished with `mutate()`). This new column will combine "horsebean" and "soybean feeds", grouping them both into the larger level "bean". It will similarly group "sunflower" and "linseed" into the larger level "seed." All other feed types will also be renamed. When we look at the summary of this new column by using `tabyl()`, we see that all of the feeds have been recoded, just as we specified! We now have four different feed types, rather than the original six.
 
@@ -993,7 +993,7 @@ chickwts %>%
 
 ![fct_recode() can be used to group multiple levels into a single level and/or to rename levels](https://docs.google.com/presentation/d/16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU/export/png?id=16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU&pageid=g391e563ea4_0_79)
 
-### Converting numeric levels to factors: `ifelse()` + `factor()`
+### Converting Numeric Levels to Factors: `ifelse()` + `factor()`
 
 Finally, when working with factors, there are times when you want to convert a numeric variable into a factor. For example, if you were talking about a dataset with BMI for a number of individuals, you may want to categorize people based on whether or not they are underweight (BMI < 18.5), of a healthy weight (BMI between 18.5 and 29.9), or obese (BMI >= 30). When you want to take a numeric variable and turn it into a categorical factor variable, you can accomplish this easily by using `ifelse()` statements. `if{}` statements and `else{}` statements were covered in an earlier lesson. Here we combine those two ideas. Within a single statement we provide R with a condition: `weight <= 200`. With this, we are stating that the condition is if a chicken's weight is less than or equal to 200 grams. Then, if that condition is true, meaning if a chicken's weight is less than or equal to 200 grams, let's assign that chicken to the category `low`. Otherwise, and this is the `else{}` part of the `ifelse()` function, assign that chicken to the category `high`. Finally, we have to let R know that weight_recode is a factor variable, so we call factor() on this new column. This way we take a numeric variable (`weight`), and turn it into a factor variable (`weight_recode`). 
 
@@ -1007,7 +1007,7 @@ chickwts %>%
 
 ![converting a numeric type variable to a factor](https://docs.google.com/presentation/d/16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU/export/png?id=16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU&pageid=g391e563ea4_0_84)
 
-## Working With Dates and Times
+## Working with Dates and Times
 
 In lessons an earlier course, you were introduced to different types of objects in R, such as characters, numeric, and logicals. Then, in earlier lessons in this course, we covered how to work with strings and factors in detail. The remaining type of variable we haven't yet covered is how to work with dates and time in R. 
 
@@ -1018,11 +1018,11 @@ As with strings and factors, there is a tidyverse package to help you work with 
 library(lubridate)
 ```
 
-### Dates and time basics
+### Dates and Times Basics
 
 When working with dates and times in R, you can consider either **dates**, **times**, or **date-times**. Date-times refer to dates plus times, specifying an exact moment in time. It's always best to work with the simplest possible object for your needs. So, if you don't need to refer to date-times specifically, it's best to work with dates. 
 
-### Creating dates and date-time objects
+### Creating Dates and Date-Time Objects
 
 To get objects into dates and date-times that can be more easily worked with in R, you'll want to get comfortable with a number of functions from the lubridate package. Below we'll discuss how to create date and date-time objects from (1) strings and (2) individual parts.
 
@@ -1085,7 +1085,7 @@ flights %>%
 ![mutate and make_datetime() create a new column -- departure -- with a date-time object](https://docs.google.com/presentation/d/1iLU-H6-GZw7EhL2syFZnjn_tC_cI6s9PmKRxcSOjg1c/export/png?id=1iLU-H6-GZw7EhL2syFZnjn_tC_cI6s9PmKRxcSOjg1c&pageid=g39252087a2_0_4)
 
 
-### Working with dates
+### Working with Dates
 
 The reason we've dedicated an entire lesson to working with dates and have shown you how to create date and date-time objects in this lesson is because you often want to plot data over time or calculate how long something has taken. Being able to accomplish these tasks is an important job for a data scientist. So, now that you know how to create date and date-time objects, we'll work through a few examples of how to work with these objects 
 
@@ -1112,7 +1112,7 @@ wday(mydate, label = TRUE)
 
 ![lubridate has specific functions to extract components from date and date-time objects](https://docs.google.com/presentation/d/1iLU-H6-GZw7EhL2syFZnjn_tC_cI6s9PmKRxcSOjg1c/export/png?id=1iLU-H6-GZw7EhL2syFZnjn_tC_cI6s9PmKRxcSOjg1c&pageid=g39252087a2_0_27)
 
-### Time spans
+### Time Spans
 
 In addition to being able to look at trends by month or year, which requires being able to extract that component from a date or date-time object, it's also important to be able to operate over dates.  If I give you a date of birth and ask you how old that person is today, you'll want to be able to calculate that. This is possible when working with date objects. By subtracting this birth date from today's date, you'll learn now many days old this person is. By specifying this object using `as.duration()`, you'll be able to extract how old this person is in years.
 
@@ -1133,7 +1133,7 @@ as.duration(age)
 
 Using addition, subtraction, multiplication, and division is possible with date objects, and accurately takes into account things like leap years and different number of days each month. This capability and the additional functions that exist within lubridate can be enormously helpful when working with dates and date-time objects.
 
-## Working With Strings
+## Working with Strings
 
 You're likely familiar with strings generally; however, to review briefly here: 
 
@@ -1163,7 +1163,7 @@ As we'll only cover a few of the functions within stringr in this lesson, it's i
 
 ![str_ image](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_12)
 
-### String basics
+### String Basics
 
 When working with strings, some of the most frequent tasks you'll need to complete are to:
 * determine the length of a string
@@ -1238,7 +1238,7 @@ str_sort(names)
 
 ![`str_sort()` output sorts strings](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g398837bd56_0_42)
 
-### Regular expressions
+### Regular Expressions
 
 Above we discuss the basics of working with strings within `stringr`. However, working with strings becomes infinitely easier with an understanding of regular expressions. Regular expressions (regexps) are used to **describe patterns within strings**. They can take a little while to get the hang of but become very helpful once you do. With regexps, instead of specifying that you want to extract the first three letters of a string (as we did above), you could more generally specify that you wanted to extract all strings that start with a specific letter or that contain a specific word somewhere in the string using regexps. We'll explore the basics of regexps here.
 
@@ -1535,7 +1535,7 @@ msleep %>%
 
 Note that we've selected the four columns used in this example with `select()` to focus on the output created using `glue()` in the `description` column. For each observation the information in description utilizes the appropriate information for that observation and the columns specified within the curly braces within the `glue()` function.
 
-## Working With Text
+## Working with Text
 
 Beyond working with single strings and string literals, sometimes the information you're analyzing is a whole body of text. This could be a speech, a novel, an article, or any other written document. In text analysis, the document(s) you've set out to analyze are referred to as a **corpus**. Linguists frequently analyze such types of data and doing so within R in a tidy data format has become simpler thanks to the [`tidytext`](https://juliasilge.github.io/tidytext/) package and the package-accompanying book [*Text Mining with R*](https://www.tidytextmining.com/).
 
@@ -1633,7 +1633,7 @@ As we're analyzing a short poem, we see that only a few sentiments show up multi
 
 Analyzing a four line poem, however, is not typically what one would do. They would instead analyze the text across chapters in a book or across multiple books. Here, we've just demonstrated the concepts behind how you would go about carrying out sentiment analysis.
 
-### Word & Document Frequency
+### Word and Document Frequency
 
 Beyond sentiment analysis, analysts of text are often interested in quantifying what a document is *about.* One could start by quantifying term frequency and looking at which terms occur most often; however, common words, such as the and and, are likely to appear most often. Those aren't unique to the work and hardly explain the text's topic. Often, these words, referred to as **stop words** are removed from analysis; however, these words are more important to some works relative to others. So, analysts tend to take a different approach: ***inverse document frequency*** (idf).  
 
@@ -1890,7 +1890,7 @@ After `.f` in `purrr` functions, you can pass additional arguments. These go *af
 map_dbl(trees, mean, na.rm = TRUE)
 ```
 
-### `map` functions
+### `map` Functions
 
 The `map` family of functions from the `purrr` package are analogous to the `apply()` family of functions from base R. If you're familiar with `lapply()`, `vapply()`, `tapply`, and `sappy()`, the thinking will similar; however, `purrr` provides a much more consistent syntax and are much easier to learn and implement consistently.
 
@@ -2006,7 +2006,7 @@ Because of this, exploratory analyses, while useful for discovering new connecti
 * "Debug" analyses
 * Communicate results
 
-### General principles of EDA
+### General Principles of EDA
 
 We can summarize the general principles of exploratory analysis as follows:
 
