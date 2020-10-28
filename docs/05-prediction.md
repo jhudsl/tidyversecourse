@@ -31,7 +31,7 @@ This module is focused on three of these steps: (1) defining the question you wa
 
 We have seen previously how to extract data from the web and from databases and we have seen how to clean it up and tidy the data. You also know how to use plots and graphs to visualize your data. You can think of this module as using those tools to start to answer questions using the tools you have already learned about.
 
-## Types of data science questions
+## Types of Data Science Questions
 
 We will look at a few different types of questions that you might want to answer from data. This flowchart gives some questions you can ask to figure out what type of question your analysis focuses on. Each type of question has different goals.
 
@@ -52,7 +52,7 @@ One primary thing we need to be aware of is that just because two variables are 
 [One way](http://www.tylervigen.com/spurious-correlations) that people illustrate this idea is to look at data where two variables show a relationship, but are clearly not related to each other. For example, in a specific time range, the number of people who drown while falling into a pool is related to the number of films that Nicholas Cage appears in. These two variables are clearly unrelated to each other, but the data seems to show a relationship. We'll discuss more later.
 
 
-## Data needs
+## Data Needs
 
 Let's assume you have the dataset that contains the variables you are looking for to evaluate the question(s) you are interested in, and it is tidy and ready to go for your analysis. It's always nice to step back to make sure the data is the right data before you spend hours and hours on your analysis. So, let's discuss some of the potential and common issues people run into with their data.
 
@@ -704,7 +704,7 @@ To answer this question, a subset of the US population was studied, and the rese
 
 
 
-## Linear modeling
+## Linear Modeling
 
 
 ### Linear Regression
@@ -879,7 +879,7 @@ trees %>%
 
 On this graph, the relationship looks approximately linear and the variance (distance from points to the line) is constant across the data. Given this, it's appropriate to use linear regression for these data.
 
-### Fitting the model
+### Fitting the Model
 
 Now that that's established, we can run the linear regression. To do so, we'll use the `lm()` function to **fit the model**. The syntax for this function is `lm(dependent_variable ~ independent_variable, data = dataset)`.
 
@@ -912,7 +912,7 @@ This generates four plots:
 
 4) **Residuals vs Leverage** - helps to identify outlier or extreme values that may disproportionately affect the model's results. Their inclusion or exclusion from the analysis may affect the results of the analysis. Note that the top three most extreme values are identified with numbers next to the points in all four plots.
 
-### Tree girth and height example
+### Tree Girth and Height Example
 
 In our example looking at the relationship between tree girth and height, we can first check **linearity** of the data by looking at the **Residuals vs Fitted** plot. Here, we do see a red line that is approximately horizontal, which is what we're looking for. Additionally, we're looking to be sure there is no clear pattern in the points on the plot - we want them to be random on this plot. Clustering of a bunch of points together or trends in this plot would indicate that the data do not have a linear relationship.
 
@@ -939,7 +939,7 @@ Finally, whether or not **outliers** (extreme observations) are driving our resu
 
 Generally speaking, standardized residuals greater than 3 or less than -3 are to be considered as outliers. Here, we do not see any values in that range (by looking at the y-axis), suggesting that there are no extreme outliers driving the results of our analysis.
 
-### Interpreting the model
+### Interpreting the Model
 
 While the relationship in our example appears to be linear, does not indicate being driven by outliers, is approximately homoscedastic and has residuals that are not perfectly Normally distributed, but fall close to the line in the QQ plot, we can discuss how to interpret the results of the model.
 
@@ -996,7 +996,7 @@ Finally, it's important to always keep in mind that the **interpretation of your
 
 For now, however, in response to our question, can we infer a tree's height from its girth, the answer is yes. We would expect, on average, a tree's height to increase 0.255 inches for every one inch increase in girth.
 
-### Correlation is not Causation
+### Correlation Is Not Causation
 
 You've likely heard someone say before that "correlation is not causation," and it's true! In fact, there are [entire websites](http://www.tylervigen.com/spurious-correlations) dedicated to this concept. Let's make sure we know exactly what that means before moving on. In the plot you see here, as the divorce rate in Maine decreases, so does per capita consumption of margarine. These two lines are clearly correlated; however, there isn't really a strong (or any) argument to say that one caused the other. Thus, just because you see two things with the same trend does not mean that one caused the other. These are simply **spurious correlations** -- things that trend together by chance. **Always** keep this in mind when you're doing inferential analysis, and be sure that you **never draw causal claims when all you have are associations**.
 
@@ -1107,7 +1107,7 @@ While we've focused on linear regression in this lesson on inference, linear reg
 
 For example, what if you didn't want to measure the linear relationship between two variables, but instead wanted to know whether or not the average observed is different from expectation?
 
-### Mean different from expectation?
+### Mean Different From Expectation?
 
 To answer a question like this, let's consider the case where you're interested in analyzing data about a single numeric variable. If you were doing descriptive statistics on this dataset, you'd likely calculate the mean for that variable. But, what if, in addition to knowing the mean, you wanted to know if the values in that variable were all within the bounds of normal variation. You could calculate that using inferential data analysis. You could use the data you have to *infer* whether or not the data are within the expected bounds.
 
@@ -1130,7 +1130,7 @@ In this code, we're specifying that we want to take a random draw of 100 differe
 
 We can see that the values are approximately, but not always exactly equal to the expected 12 ounces.
 
-### Testing mean difference from expectation in R
+### Testing Mean Difference From Expectation in R
 
 To make an inference as to whether or not we're consistently getting shorted, we're going to use this sample of 100 cans. Note that we're using this sample of cans to infer something about all cans of this soft drink, since we aren't able to measure the number of ounces in all cans of the soft drink generated.
 
@@ -1356,7 +1356,7 @@ bootstrap_means %>%
 
 <img src="05-prediction_files/figure-html/unnamed-chunk-43-1.png" width="672" />
 
-### Prediction modeling concepts
+## Prediction Modeling
 
 While the goal in inference is to learn something about the population, when we're talking about **prediction**, the focus is on the individual. The goal of predictive analysis and machine learning approaches is to **train a model using data** to make predictions about an individual.
 
@@ -1374,7 +1374,7 @@ So far we've been discussing predictive analysis. But, you may have heard people
 
 That said, there is without a doubt an entire field of individuals dedicating themselves to machine learning. This lesson will just touch on the very basics within the field.
 
-### Machine Learning
+### Machine Learning Steps
 
 In order to make predictions for the future using data you have now, there are four general steps:
 
@@ -1543,7 +1543,7 @@ Accuracy is a helpful way to assess error in categorical variables, but it can b
 
 
 
-## The `tidymodels` ecosystem
+## The `tidymodels` Ecosystem
 
 There are *incredibly* helpful packages available in R thanks to the work of [Max Kuhn](https://twitter.com/topepos?lang=en). As mentioned above, there are hundreds of different machine learning algorithms. Max's R packages have compiled all of them into a single framework, allowing you to use *many* different machine learning models easily. Additionally, he has written a very [helpful book](http://appliedpredictivemodeling.com/) about predictive modeling. There are also many [helpful links](https://topepo.github.io/) about each of the packages. Max previously developed the `caret` package (short for Classification And Regression Training) which has been widely used. [Here](https://konradsemsch.netlify.com/2019/08/caret-vs-tidymodels-comparing-the-old-and-new/) you can see some of the discussion about the difference between `caret` and `tidymodels`. 
 
@@ -1563,7 +1563,7 @@ Modifying a piece of the overall process is now easier than before because many 
 
 
 
-### Packages of the `tidymodels` ecosystem
+### Packages of `tidymodels`
 
 We will focus on the following packages although there are many more in the tidymodels ecosystem:                          
 
@@ -1606,7 +1606,7 @@ Other `tidymodels` packages include:
 
 Most of these packages offer advanced modeling options.
 
-### Example of Continuous Variable Prediction: Linear Regression 
+### Example of Continuous Variable Prediction 
 
 For this example, we'll keep it simple and use a dataset you've seen before: the `iris` dataset. This way you can focus on the syntax used in the `tidymodels` packages and the steps of predictive analysis. In this example, we'll attempt to use the data in the `iris` dataset to predict `Sepal.Length`.
 
@@ -1781,7 +1781,7 @@ formula(first_recipe)
 
 ```
 ## Sepal.Length ~ Sepal.Width + Species
-## <environment: 0x7ffc6406dce8>
+## <environment: 0x7fcf3b9b9a28>
 ```
 
 We can also view our recipe in more detail using the base summary() function.
@@ -2305,7 +2305,7 @@ collect_metrics(overallfit)
 We can see that our RMSE is pretty similar for the testing data as well. 
 
 
-### Example of Categorical Variable Prediction: Classification with CART with cross validation and hyperparameter tuning
+### Example of Categorical Variable Prediction
 
 Now we are going to show an example of using the `tidymodels` packages to perform prediction of a categorical variable.
 
@@ -2538,7 +2538,7 @@ iris_cat_wflow
 So our next step is to fit and tune the model with our training data cross validation subsets.
 
 
-###  Example of assessing model performance with cross validation using `tune`
+####  Example of assessing model performance with cross validation using `tune`
 
 First we will demonstrate how we could fit the model using our entire training dataset like we did previously and use yardstick to check the accuracy this time instead of RMSE.
 
@@ -3221,7 +3221,7 @@ pm %>%
 ## # … with 39 more rows
 ```
 
-#### Evaluate correlation
+#### Evaluate Correlation
 
 In prediction analyses, it is also useful to evaluate if any of the variables are correlated. Why should we care about this?
 
@@ -3396,7 +3396,7 @@ formula(simple_rec)
 ##     popdens_county + popdens_zcta + nohs + somehs + hs + somecollege + 
 ##     associate + bachelor + grad + pov + hs_orless + urc2013 + 
 ##     urc2006 + aod
-## <environment: 0x7ffc80429598>
+## <environment: 0x7fcf577ed828>
 ```
 
 **This [link](https://tidymodels.github.io/recipes/reference/index.html){target="_blank"} and this [link](https://cran.r-project.org/web/packages/recipes/recipes.pdf){target="_blank"} show the many options for recipe step functions.**
@@ -3573,7 +3573,7 @@ simple_rec
 
 Nice! Now let's check our preprocessing.
 
-#### Running preprocessing
+#### Running Preprocessing
 
 First we need to use the `prep()` function of the `recipes` package to prepare for preprocessing. However, we will specify that we also want to run and retain the preprocessing for the training data using the `retain = TRUE` argument.
 
@@ -4276,7 +4276,7 @@ PM_wflow_fit
 ##                   3.509e+00                    4.137e-01
 ```
 
-## Assessing the model fit
+#### Assessing the Model Fit
 
 After we fit our model, we can use the `broom` package to look at the output from the fitted model in an easy/tidy.   
 
@@ -4351,7 +4351,7 @@ PM_wflow_fit %>%
 
 The state in which the monitor was located and the CMAQ model and the aod satellite information appear to be the most important for predicting the air pollution at a given monitor.
 
-#### Model performance
+#### Model Performance
 
 
 In this next section, our goal is to assess the overall model performance. 
@@ -4438,7 +4438,7 @@ values_pred_train
 ```
 
 
-#### Visualizing model performance
+#### Visualizing Model Performance
 
 Now, we can compare the predicted outcome values (or fitted values) $\hat{Y}$ to the actual outcome values $Y$ that we observed: 
 
@@ -4457,7 +4457,7 @@ OK, so our range of the predicted outcome values appears to be smaller than the 
 We could probably do a bit better.
 
 
-### Quantifying model performance 
+#### Quantifying Model Performance 
 
 Next, let's use different distance functions $d(\cdot)$ to assess how far off our predicted outcome $\hat{Y} = f(X)$ and actual outcome $Y$ values are from each other: 
 
@@ -4499,7 +4499,7 @@ yardstick::rmse(wf_fitted_values,
 ## 1 rmse    standard        2.02
 ```
 
-### Assessing model performance on $v$-folds using `tune`
+#### Assessing Model Performance on $v$-folds Using `tune`
 
 We also intend to perform cross validation, so we will now split the training data further using the [`vfold_cv()`](https://tidymodels.github.io/rsample/reference/vfold_cv.html){target="_blank"} function of the `rsample` package can be used to parse the training data into folds for $v$-fold cross validation.
 
@@ -4708,7 +4708,7 @@ In the previous section, we demonstrated how to build a machine learning model (
 In the next few section, we will demonstrate another machine learning model. 
 
 
-## Random Forest
+#### Random Forest
 
 Now, we are going to predict our outcome variable (air pollution) using a decision tree method called [random forest](https://en.wikipedia.org/wiki/Random_forest){target="_blank"}.
 
@@ -5064,12 +5064,12 @@ tune_RF_results%>%
 ## # A tibble: 6 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1     1    27 rmse    standard   2.06     10  0.142 
-## 2     1    27 rsq     standard   0.479    10  0.0358
-## 3     4    30 rmse    standard   1.81     10  0.143 
-## 4     4    30 rsq     standard   0.588    10  0.0386
-## 5     6    32 rmse    standard   1.77     10  0.146 
-## 6     6    32 rsq     standard   0.602    10  0.0421
+## 1     1    27 rmse    standard   2.05     10  0.141 
+## 2     1    27 rsq     standard   0.484    10  0.0376
+## 3     4    30 rmse    standard   1.81     10  0.146 
+## 4     4    30 rsq     standard   0.593    10  0.0398
+## 5     6    32 rmse    standard   1.76     10  0.144 
+## 6     6    32 rsq     standard   0.602    10  0.0384
 ```
 
 We can now use the `show_best()` function as it was truly intended, to see what values for `min_n` and `mtry` resulted in the best performance.
@@ -5083,12 +5083,12 @@ show_best(tune_RF_results, metric = "rmse", n =1)
 ## # A tibble: 1 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1    17     4 rmse    standard    1.67    10   0.142
+## 1    17     4 rmse    standard    1.67    10   0.146
 ```
 There we have it... looks like an `mtry` of 17 and `min_n` of 4 had the best `rmse` value. You can verify this in the above output, but it is easier to just pull this row out using this function. We can see that the mean `rmse` value across the cross validation sets was 1.67. Before tuning it was 1.68 with a similar `std_err` so the performance was very slightly improved.
 
 
-#### ## Final model performance evaluation
+#### Final model performance evaluation
 
 Now that we have decided that we have reasonable performance with our training data, we can stop building our model and evaluate performance with our testing data. 
 
@@ -5177,7 +5177,6 @@ head(test_predictions)
 
 Nice!
 
-#### Visualizing model performance
 
 Now, we can compare the predicted outcome values (or fitted values) $\hat{Y}$ to the actual outcome values $Y$ that we observed: 
 
@@ -5196,3 +5195,5 @@ test_predictions %>%
 ```
 
 <img src="05-prediction_files/figure-html/unnamed-chunk-152-1.png" width="672" />
+
+avocado: perhaps more explanation at the end?
