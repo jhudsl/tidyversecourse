@@ -135,13 +135,13 @@ We discussed some general characteristics and basic types of plots in the last l
 
 When generating exploratory or explanatory plots, you'll want to ensure information being displayed is being done so accurately and in a away that best reflects the reality within the dataset. Here, we provide a number of tips to keep in mind when generating plots.
 
-### Choose the right type of plot
+### Choose the Right Type of Plot
 
 If your goal is to allow the viewer to compare values across groups, pie charts should largely be avoided. This is because it's easier for the human eye to differentiate between bar heights than it is between similarly-sized slices of a pie. Thinking about the best way to visualize your data before making the plot is an important step in the process of data visualization.
 
 ![Choose an appropriate plot for the data you're visualizing.](https://docs.google.com/presentation/d/1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w/export/png?id=1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w&pageid=g313fe11f0c_0_445)
 
-### Be mindful when choosing colors
+### Be Mindful When Choosing Colors
 
 Choosing colors that work for the story you're trying to convey with your visualization is important. Avoiding colors that are hard to see on a screen or when projected, such as pastels, is a good idea. Additionally, red-green color blindness is common and leads to difficulty in distinguishing reds from greens. Simply avoiding making comparisons between these two colors is a good first step when visualizing data. 
 
@@ -150,44 +150,44 @@ Choosing colors that work for the story you're trying to convey with your visual
 
 Beyond red-green color blindness, there is an entire group of experts out there in color theory.To learn more about available [color palettes in R](https://github.com/EmilHvitfeldt/r-color-palettes) or to read more from a pro named Lisa Charlotte Rost [talking about color choices in data visualization](https://lisacharlotterost.github.io/2016/04/22/Colors-for-DataVis/), feel free to read more.
 
-### Label your axes
+### Label the Axes
 
 Whether you're making an exploratory or explanatory visualization, labeled axes are a must. They help tell the story of the figure. Making sure the axes are clearly labeled is also important. Rather than labeling the graph below with "h" and "g," we chose the labels "height" and "gender," making it clear to the viewer exactly what is being plotted.
 
 ![Having descriptive labels on your axes is critical](https://docs.google.com/presentation/d/1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w/export/png?id=1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w&pageid=g313fe11f0c_0_180)
 
-### Make sure text is readable
+### Make Sure the Text is Readable
 
 Often text on plots is too small for viewers to read. By being mindful of the size of the text on your axes, in your legend, and used for your labels, your visualizations will be greatly improved.
 
 ![On the right, we see that the text is easily readable](https://docs.google.com/presentation/d/1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w/export/png?id=1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w&pageid=g313fe11f0c_0_232)
 
-### Make sure your numbers add up
+### Make Sure the Numbers Add Up
 
 When you're making a plot that should sum to 100, make sure that it in fact does. Taking a look at visualizations after you make them to ensure that they make sense is an important part of the data visualization process. 
 
 ![At left, the pieces of the pie only add up to 95%. On the right, this error has been fixed and the pieces add up to 100%](https://docs.google.com/presentation/d/1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w/export/png?id=1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w&pageid=g313fe11f0c_0_336)
 
-### Make sure the numbers and plots make sense together
+### Make Sure the Numbers and Plots Make Sense Together
 
 Another common error is having labels that don't reflect the underlying graphic. For example, here, we can see on the left that the turquoise piece is more than half the graph, and thus the label 45% must be incorrect. At right, we see that the labels match what we see in the figure.
 
 
 ![Checking to make sure the numbers and plot make sense together is important](https://docs.google.com/presentation/d/1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w/export/png?id=1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w&pageid=g313fe11f0c_0_351)
 
-### Make comparisons easy on viewers
+### Make Comparisons Easy on Viewers
 
 There are many ways in which you can make comparisons easier on the viewer. For example, avoiding unnecessary whitespace between the bars on your graph can help viewers make comparisons between the bars on the barplot.
 
 ![At left, there is extra white space between the bars of the plot that should be removed. On the right, we see an improved plot](https://docs.google.com/presentation/d/1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w/export/png?id=1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w&pageid=g313fe11f0c_0_0)
 
-### Use y-axes that start at zero
+### Use y-axes That Start at Zero
 
 Often, in an attempt to make differences between groups look larger than they are, y-axis will be started at a value other than zero. This is misleading. Y-axis for numerical information should start at zero. 
 
 ![At left, the differences between the vars appears larger than on the right; however, this is just because the y-axis starts at 200. The proper way to start this graph is to start the y-axis at 0.](https://docs.google.com/presentation/d/1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w/export/png?id=1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w&pageid=g313fe11f0c_0_299)
 
-### Keep it simple
+### Keep It Simple
 
 The goal of data visualization is to improve understanding of data. Sometimes complicated visualizations cannot be avoided; however, when possible, keep it simple. 
 
@@ -216,7 +216,7 @@ When discussing data visualization, it's always good to have an example to look 
 
 ![iPhone Sales over time](https://docs.google.com/presentation/d/1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w/export/png?id=1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w&pageid=g3a100c29e0_0_44)
 
-### What's your point?
+### What's Your Point?
 
 Whenever you have data you're trying to plot, think about what you're actually trying to show. Once you've taken a look at your data, a good title for the plot can be helpful. Your title should **tell viewers what they'll see when they look at the plot**. 
 
@@ -224,7 +224,7 @@ For the iPhone example, a reasonable headline would be **"iPhone more successful
 
 ![iPhone Sales over time with title](https://docs.google.com/presentation/d/1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w/export/png?id=1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w&pageid=g3a100c29e0_0_50)
 
-### How can you emphasize your point?
+### How to Emphasize Your Point?
 
 We talked about it in the last lesson, but an incredibly important decision is that, choosing an appropriate chart for the type of data you have is very important. In the next section of this lesson, we'll discuss what type of data are appropriate for each type of plot in R; however, for now, we'll just focus on the iPhone data example. With this example, we'll discuss that you can emphasize your point by:
 
@@ -254,7 +254,7 @@ In the iPhone example, by highlighting when Apple announced the iPhone 4 in 2010
 
 ![iPhone sales over time annotated](https://docs.google.com/presentation/d/1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w/export/png?id=1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w&pageid=g3a100c29e0_0_66)
 
-### What does your final chart show?
+### What Does Your Final Chart Show?
 
 The first step of the process told viewers what they would see in the plot. The second step showed them. The third step makes it extra clear to viewers what they should be seeing. You explain to viewers what they should be seeing in the plot. This is where you are sure to add descriptions, legends, and the source of your data. Again, these are important pieces of creating a complete explanatory plot, but are not all necessary when making exploratory plots.
 
@@ -280,7 +280,7 @@ The finalized plot is clear, the conclusion the viewer is to make is obvious, th
 
 ![Final blog post plot](https://docs.google.com/presentation/d/1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w/export/png?id=1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w&pageid=g3a100c29e0_0_92)
 
-### Making The iPhone Plot in R
+### Making the iPhone Plot in R
 
 Here, we'll introduce the code required to generate the plot used as an example in this lesson in R, but we won't walk through this code step-by-step until a later lesson. We include this now to make two points:
 
@@ -381,7 +381,7 @@ When using `ggplot2` to generate figures, you will always begin by calling the `
 
 You will map your variables using the aesthetic argument **`aes`**. We'll walk through examples below to make all of this clear. However, get comfortable with the overall look of the code now.
 
-### Example dataset: `diamonds`
+### Example Dataset: `diamonds`
 
 To build your first plot in `ggplot2` we'll make use of the fact that there are some datasets already available in R. One frequently-used data set is known as `diamonds`. This data set contains prices and other attributes of 53,940 diamonds, with each row containing information about a different diamond. If you look at the first few rows of data, you can get an idea of what data are included in this dataset. 
 
@@ -414,7 +414,7 @@ Here you see a lot of numbers and can get an idea of what data are available in 
 
 We will use this data set to better understand how to generate plots in R, using `ggplot2`.
 
-### Scatterplots: `geom_point`
+### Scatterplots: `geom_point()`
 
 In `ggplot2` we specify these by defining `x` and `y` *within* the `aes()` argument. The `x` argument defines which variable will be along the bottom of the plot. `y` refers to which variable will be along the left side of the plot. If we wanted to understand the relationship between the number of carats in a diamond and that diamond's price, we may do the following:
 
@@ -1114,7 +1114,7 @@ A few things to keep in mind when making tables is that it's best to:
 
 Now that we have a good understanding of what to consider when making tables, we can to practice making good tables in R. To do this, we'll return to the diamonds data set. As a reminder, this dataset contains prices and other information about ~54,000 different diamonds. If we want to provide viewers with a summary of these data, we may want to provide information about diamonds broken down by the quality of the diamond's cut. To get the data we're interested in, we'll use the `diamonds` dataset and the `dplyr` R package, which we discussed in a lesson in an earlier course.
 
-### Getting the data in order
+### Getting the Data in Order
 
 To start figuring out how the quality of the cut of the diamond affects the price of that diamond, we first have to first get the data in order. To do that, we'll use the `dplyr` package that you learned about in an earlier course in this series. This allows us to group the data by the quality of the cut (`cut`) before summarizing the data to determine the number of diamonds in each category (`N`), the minimum price of the diamonds in this category (`min`), the average price (`avg`), and the highest price in the category (`max`).
 
@@ -1137,7 +1137,7 @@ df <- diamonds %>%
 ## `summarise()` ungrouping output (override with `.groups` argument)
 ```
 
-### An exploratory table
+### An Exploratory Table
 
 
 ```r
@@ -1172,7 +1172,7 @@ There are also things that **need to be improved** on this table:
 * there's **no caption/title**
 * It could be more **aesthetically pleasing**
 
-### Improving the table output
+### Improving the Table Output
 
 By-default, R outputs tables in the Console using a monospaced font. However, this limits our ability to format the appearance of the table. To fix the remaining few problems with the table's format, we'll use the `kable()` function from the R package `knitr` and the additional formatting capabilities of the R packages `kableExtra`.
 
@@ -1188,13 +1188,13 @@ kable(df)
 
 
 
-|cut       |     N| min|      avg|   max|
-|:---------|-----:|---:|--------:|-----:|
-|Fair      |  1610| 337| 4358.758| 18574|
-|Good      |  4906| 327| 3928.864| 18788|
-|Very Good | 12082| 336| 3981.760| 18818|
-|Premium   | 13791| 326| 4584.258| 18823|
-|Ideal     | 21551| 326| 3457.542| 18806|
+cut              N   min        avg     max
+----------  ------  ----  ---------  ------
+Fair          1610   337   4358.758   18574
+Good          4906   327   3928.864   18788
+Very Good    12082   336   3981.760   18818
+Premium      13791   326   4584.258   18823
+Ideal        21551   326   3457.542   18806
 
 ![kable basic output](https://docs.google.com/presentation/d/1vjyG1vibsmtXrPA1hs2HS3MfjsPMjRDEmBEsVlgkIxg/export/png?id=1vjyG1vibsmtXrPA1hs2HS3MfjsPMjRDEmBEsVlgkIxg&pageid=g361cf16451_0_18) 
 
@@ -1223,8 +1223,8 @@ kable(df, digits=0, "html") %>%
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
  <thead>
 <tr>
-<th style="empty-cells: hide;border-bottom:hidden;" colspan="2"></th>
-<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">price (USD)</div></th>
+<th style="border-bottom:hidden" colspan="2"></th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">price (USD)</div></th>
 </tr>
   <tr>
    <th style="text-align:left;"> cut </th>
@@ -1275,7 +1275,7 @@ kable(df, digits=0, "html") %>%
 
 ![Viewer tab with formatted table](https://docs.google.com/presentation/d/1vjyG1vibsmtXrPA1hs2HS3MfjsPMjRDEmBEsVlgkIxg/export/png?id=1vjyG1vibsmtXrPA1hs2HS3MfjsPMjRDEmBEsVlgkIxg&pageid=g35798d27dd_0_6)
 
-### Annotating your table
+### Annotating Your Table
 
 We mentioned earlier that captions and sourcing your data are incredibly important. The `kable` package allows for a `caption` argument. Below, an informative caption has been included. Additionally, `kableExtra` has a `footnote()` function. This allows you to include the source of your data at the bottom of the table. With these final additions, you have a table that clearly displays the data and could be confidently shared with your boss. 
 
@@ -1292,8 +1292,8 @@ kable(df, digits=0, "html", caption="Table 1: Diamonds Price by Quality of Cut. 
 <caption>(\#tab:unnamed-chunk-39)Table 1: Diamonds Price by Quality of Cut. Most Diamonds are of the highest quality cut and the most expensive diamonds are of the highest quality</caption>
  <thead>
 <tr>
-<th style="empty-cells: hide;border-bottom:hidden;" colspan="2"></th>
-<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">price (USD)</div></th>
+<th style="border-bottom:hidden" colspan="2"></th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">price (USD)</div></th>
 </tr>
   <tr>
    <th style="text-align:left;"> cut </th>
@@ -1351,7 +1351,7 @@ kable(df, digits=0, "html", caption="Table 1: Diamonds Price by Quality of Cut. 
 Beyond the *many* capabilities of `ggplot2`, there are a few additional packages that build *on top of* `ggplot2`'s capabilitiles. We'll introduce a few packages here so that you can:
 
 * directly annotate points on plots (`ggrepel`)
-* arrange plots in a grid and customize theme (`cowplot`)
+* combine multiple plots (`cowplot` + `patchwork`)
 * generate animated plots (`gganimate`)
 
 These are referred to as `ggplot2` extensions There are dozens of additional [`ggplot2` extensions](http://www.ggplot2-exts.org/gallery/) available if you'd like to explore other plotting options beyond what is covered here!
@@ -1485,6 +1485,7 @@ With this plot, it is clear that there are four cars with mpg > 30. And, among t
 ### `cowplot`
 
 Beyond customization within `ggplot2` and labeling points, there are times you'll want to arrange multiple plots together in a single grid, applying a standard theme across all plots. This often occurs when you're ready to present or publish your visualizations. When you're ready to share and present your work with others, you want to be sure your visualizations are conveying the point you want to convey to your viewer in as simple a plot as possible. And, if you're presenting multiple plots, you typically want to ensure that they have a consistent theme from one plot to the next. This allows the viewer to focus on the data you're plotting, rather than changes in theme. `cowplot` is a package that assists in this process!
+
 
 #### Theme
 
@@ -1651,6 +1652,11 @@ plot_grid(title, three_plots, ncol = 1, rel_heights = c(0.1, 1))
 <img src="04-dataviz_files/figure-html/unnamed-chunk-55-1.png" width="672" />
 
 And, just like that we've got three plots, labeled, spaced out nicely in a grid, with a shared title, all thanks to the functionality within the `cowplot` package.
+
+### `patchwork`
+
+Avocado - fill this in
+
 
 ### `gganimate`
 
