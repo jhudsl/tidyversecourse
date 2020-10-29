@@ -1,11 +1,13 @@
 "googledrive"
 bookdown
 broom
+corrplot
 cowplot
 datasets
 DBI
 dbplyr
 directlabels
+doParallel
 dplyr
 gapminder
 GGally
@@ -24,8 +26,11 @@ kableExtra
 knitr
 lubridate
 magick
+magrittr
 naniar
 nycflights13
+parallel
+parsnip
 PerformanceAnalytics
 ProjectTemplate
 purrr
@@ -33,6 +38,7 @@ readr
 readxl
 recipes
 reshape2
+rpart
 rsample
 RSQLite
 rstudioapi
@@ -40,7 +46,12 @@ rvest
 skimr
 textdata
 tibble
+tidymodels
 tidytext
 tidyverse
+tune
+vip
 visdat
+workflows
+yardstick
 zoo
