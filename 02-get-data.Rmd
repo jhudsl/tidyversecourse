@@ -1122,7 +1122,7 @@ cat(image_ocr(img2))
 
 ## `googledrive`
 
-Another really helpful package is the `googledrive` package which enables users to interact with their Google Drive directly from R.
+Another really helpful package is the `googledrive` package which enables users to interact with their Google Drive directly from R. This package, unlike the `googlesheets` package, also allows for users to interact with other file types besides Google Sheets. 
 
 This requires having an established Google Drive account. You will be asked to authorize access for the package to interact with your Google Drive.
 
