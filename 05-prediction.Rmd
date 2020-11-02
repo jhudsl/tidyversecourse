@@ -1430,8 +1430,6 @@ testing_iris <-testing(split_iris)
 head(testing_iris)
 ```
 
-
-
 #### Step 2: Example of preparing for preprocessing the data with `recipes`
 
 After splitting the data, the next step is to process the training and testing data so that the data are are compatible and optimized to be used with the model. This involves assigning variables to specific roles within the model and preprocessing like scaling variables and removing redundant variables. This process is also called feature engineering.
@@ -1878,7 +1876,7 @@ First we will just use cross validation to get a better sense of the accuracy of
 We also need to create a new recipe with different variables assigned to different roles. This time we want to use `Species` as the outcome. We can use the `.` notation to indicate that we want to use the rest of the variables as predictors. Thus we will create a new `cat_recpipe` where we are using a **cat**egorical variable as the outcome.
 
 ```{r}
-cat_recipe <- iris %>%
+cat_recipe <- training_iris %>%
 recipe(Species ~ .)
 ```
 

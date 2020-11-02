@@ -1673,8 +1673,6 @@ head(testing_iris)
 ## 14          4.3         3.0          1.1         0.1  setosa
 ```
 
-
-
 #### Step 2: Example of preparing for preprocessing the data with `recipes`
 
 After splitting the data, the next step is to process the training and testing data so that the data are are compatible and optimized to be used with the model. This involves assigning variables to specific roles within the model and preprocessing like scaling variables and removing redundant variables. This process is also called feature engineering.
@@ -1781,7 +1779,7 @@ formula(first_recipe)
 
 ```
 ## Sepal.Length ~ Sepal.Width + Species
-## <environment: 0x7fcf3b9b9a28>
+## <environment: 0x7ff988092778>
 ```
 
 We can also view our recipe in more detail using the base summary() function.
@@ -2488,7 +2486,7 @@ We also need to create a new recipe with different variables assigned to differe
 
 
 ```r
-cat_recipe <- iris %>%
+cat_recipe <- training_iris %>%
 recipe(Species ~ .)
 ```
 
@@ -3396,7 +3394,7 @@ formula(simple_rec)
 ##     popdens_county + popdens_zcta + nohs + somehs + hs + somecollege + 
 ##     associate + bachelor + grad + pov + hs_orless + urc2013 + 
 ##     urc2006 + aod
-## <environment: 0x7fcf577ed828>
+## <environment: 0x7ff9a2698630>
 ```
 
 **This [link](https://tidymodels.github.io/recipes/reference/index.html){target="_blank"} and this [link](https://cran.r-project.org/web/packages/recipes/recipes.pdf){target="_blank"} show the many options for recipe step functions.**
@@ -5064,12 +5062,12 @@ tune_RF_results%>%
 ## # A tibble: 6 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1     1    27 rmse    standard   2.05     10  0.141 
-## 2     1    27 rsq     standard   0.484    10  0.0376
-## 3     4    30 rmse    standard   1.81     10  0.146 
-## 4     4    30 rsq     standard   0.593    10  0.0398
-## 5     6    32 rmse    standard   1.76     10  0.144 
-## 6     6    32 rsq     standard   0.602    10  0.0384
+## 1     1    27 rmse    standard   2.05     10  0.142 
+## 2     1    27 rsq     standard   0.489    10  0.0379
+## 3     4    30 rmse    standard   1.81     10  0.145 
+## 4     4    30 rsq     standard   0.585    10  0.0406
+## 5     6    32 rmse    standard   1.76     10  0.147 
+## 6     6    32 rsq     standard   0.606    10  0.0405
 ```
 
 We can now use the `show_best()` function as it was truly intended, to see what values for `min_n` and `mtry` resulted in the best performance.
@@ -5083,7 +5081,7 @@ show_best(tune_RF_results, metric = "rmse", n =1)
 ## # A tibble: 1 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1    17     4 rmse    standard    1.67    10   0.146
+## 1    15     9 rmse    standard    1.67    10   0.147
 ```
 There we have it... looks like an `mtry` of 17 and `min_n` of 4 had the best `rmse` value. You can verify this in the above output, but it is easier to just pull this row out using this function. We can see that the mean `rmse` value across the cross validation sets was 1.67. Before tuning it was 1.68 with a similar `std_err` so the performance was very slightly improved.
 
@@ -5107,7 +5105,7 @@ tuned_RF_values
 ## # A tibble: 1 x 2
 ##    mtry min_n
 ##   <int> <int>
-## 1    17     4
+## 1    15     9
 ```
 
 Now we can finalize the model/workflow that we we used for tuning with these values.
@@ -5145,8 +5143,8 @@ To see the performance on the test data we can use the `collect_metrics()` funct
 ## # A tibble: 2 x 3
 ##   .metric .estimator .estimate
 ##   <chr>   <chr>          <dbl>
-## 1 rmse    standard       1.43 
-## 2 rsq     standard       0.644
+## 1 rmse    standard       1.44 
+## 2 rsq     standard       0.639
 ```
 
 Awesome! We can see that our `rmse` of 1.43 is quite similar with our testing data cross validation sets. We achieved quite good performance, which suggests that we would could predict other locations with more sparse monitoring based on our predictors with reasonable accuracy.
@@ -5167,12 +5165,12 @@ head(test_predictions)
 ## # A tibble: 6 x 4
 ##   id               .pred  .row value
 ##   <chr>            <dbl> <int> <dbl>
-## 1 train/test split  11.1     4  11.7
+## 1 train/test split  11.0     4  11.7
 ## 2 train/test split  11.9    10  13.1
 ## 3 train/test split  12.2    12  12.2
-## 4 train/test split  11.5    15  12.2
-## 5 train/test split  11.4    19  11.4
-## 6 train/test split  12.1    22  12.2
+## 4 train/test split  11.6    15  12.2
+## 5 train/test split  11.5    19  11.4
+## 6 train/test split  12.0    22  12.2
 ```
 
 Nice!
