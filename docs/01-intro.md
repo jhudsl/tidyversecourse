@@ -474,7 +474,7 @@ Data science projects vary quite a lot so it can be difficult to give universal 
 
 Creating [RStudio projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) can be very helpful for organizing your code and any other files that you may want to use in one location together. 
 
-New projects can be created by clicking on the RStudio Projects button in Rstudio:
+New projects can be created by clicking on the RStudio Projects button in RStudio:
 
 <img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/rproj-fig.png" width="60%" />
 
@@ -619,7 +619,7 @@ The machine we are talking about when we say "machine readable" is a computer. T
 - Avoid punctuation: *malik's_report.md* is not a good name but *maliks_report.md* is.
 - Avoid accented characters: *01_zoë_report.md* is not a good name but *01_zoe_report.md* is.
 - Avoid case sensitivity: *AdamHooverReport.md* is not a good name but *adam-hoover-report.md* is.
-- Use delimeters: *executivereportpepsiv1.md* is not a good name but *executive_report_pepsi_v1.md* is.
+- Use delimiters: *executivereportpepsiv1.md* is not a good name but *executive_report_pepsi_v1.md* is.
 
 So to wrap up, spaces, punctuations, and periods should be avoided but underscores and dashes are recommended. You should always use lowercase since you don't have to later remember if the name of the file contained lowercase or uppercase letters. Another suggestion is the use of delimiters (hyphens or underscores) instead of combining all the words together. The use of delimiters makes it easier to look for files on your computer or in R and to extract information from the file names like the image below.
 
@@ -672,11 +672,11 @@ The `config` directory can contain configuration information for your project, s
 
 ## Data Science Workflows
 
-The phrase "data science workflow" describes the method or steps by which a data scientest might evaluate data to perform a data analysis from start to finish. In this course we will provide examples of workflows with real data. In general, workflows involve the following steps:
+The phrase "data science workflow" describes the method or steps by which a data scientist might evaluate data to perform a data analysis from start to finish. In this course we will provide examples of workflows with real data. In general, workflows involve the following steps:
 
 - Identifying a question of interest - determining if it is feasible
 - Identifying data to answer that question
-- Importing that data into a programing language such as R
+- Importing that data into a programming language such as R
 - Cleaning /wrangling / and tiding the data
 - Exploratory data analysis to get to know the data
 - Data analysis to look for associations in the data
