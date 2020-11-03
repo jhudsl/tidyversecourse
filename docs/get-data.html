@@ -454,7 +454,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="tibbles" class="section level2">
 <h2><span class="header-section-number">2.2</span> Tibbles</h2>
-<p>Before we can discuss any particular file format, let’s discuss the end goal - the <strong>tibble</strong>! If you’ve been using R for a while, you’re likely famililar with the data.frame. It’s best to think of tibbles as an updated and stylish version of the data.frame. And, tibbles are what tidyverse packages work with most seemlessly. Now, that doesn’t mean tidyverse packages <em>require</em> tibbles. In fact, they still work with data.frames, but the more you work with tidyverse and tidyverse-adjacent packages, the more you’ll see the advantages of using tibbles.</p>
+<p>Before we can discuss any particular file format, let’s discuss the end goal - the <strong>tibble</strong>! If you’ve been using R for a while, you’re likely familiar with the data.frame. It’s best to think of tibbles as an updated and stylish version of the data.frame. And, tibbles are what tidyverse packages work with most seamlessly. Now, that doesn’t mean tidyverse packages <em>require</em> tibbles. In fact, they still work with data.frames, but the more you work with tidyverse and tidyverse-adjacent packages, the more you’ll see the advantages of using tibbles.</p>
 <p>Before we go any further, tibbles <em>are</em> data frames, but they have some new bells and whistles to make your life easier.</p>
 <div id="how-tibbles-differ-from-data.frame" class="section level3">
 <h3><span class="header-section-number">2.2.1</span> How tibbles differ from data.frame</h3>
@@ -507,7 +507,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="tibble-1" class="section level4">
 <h4><span class="header-section-number">2.2.2.2</span> <code>tibble()</code></h4>
-<p>Alternatively, you can create a tibble on the fly by using <code>tibble()</code> and specifying the information you’d like stored in each column. Note that if you provide a single value, this value will be repeated across all rows of the tibble. This is referred to as “recycling inputs of lenth 1.”</p>
+<p>Alternatively, you can create a tibble on the fly by using <code>tibble()</code> and specifying the information you’d like stored in each column. Note that if you provide a single value, this value will be repeated across all rows of the tibble. This is referred to as “recycling inputs of length 1.”</p>
 <p>In the example here, we see that the column <code>c</code> will contain the value ‘1’ across all rows.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">tibble</span>(</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="dt">a =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,</a>
@@ -566,10 +566,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Spreadsheets are an incredibly common format in which data are stored. If you’ve ever worked in Microsoft Excel or Google Sheets, you’ve worked with spreadsheets. By definition, spreadsheets require that information be stored in a grid utilizing rows and columns.</p>
 <div id="excel-files" class="section level3">
 <h3><span class="header-section-number">2.3.1</span> Excel files</h3>
-<p>Microsoft Excel files, which typically have the file extention .xls or .xlsx, store information in a workbook. Each workbook is made up of one or more spreadsheet. Within these spreadsheets, information is stored in the format of values and formatting (colors, conditional formatting, font size, etc.). While this may be a format you’ve worked with before and are familiar, we note that Excel files can only be viewed in specific pieces of software (like Microsoft Excel), and thus are generally less flexible than many of the other fomrats we’ll discuss in this course. Additionally, Excel has certain defaults that make working with Excel data difficult outside of Excel. For example, Excel has a habit of aggressively changing data types. For example if you type 1/2, to mean 0.5 or one-half, Excel assumes that this is a date and converts this information to January 2nd. If you are unfamiliar with these defaults, your spreadsheet can sometimes store information other than what you or whoever entered the data into the Excel spreadsheet may have intended. Thus, it’s important to understand the quirks of how Excel handles data. Nevertheless, many people <em>do</em> save their data in Excel, so it’s important to know how to work with them in R.</p>
+<p>Microsoft Excel files, which typically have the file extension .xls or .xlsx, store information in a workbook. Each workbook is made up of one or more spreadsheet. Within these spreadsheets, information is stored in the format of values and formatting (colors, conditional formatting, font size, etc.). While this may be a format you’ve worked with before and are familiar, we note that Excel files can only be viewed in specific pieces of software (like Microsoft Excel), and thus are generally less flexible than many of the other formats we’ll discuss in this course. Additionally, Excel has certain defaults that make working with Excel data difficult outside of Excel. For example, Excel has a habit of aggressively changing data types. For example if you type 1/2, to mean 0.5 or one-half, Excel assumes that this is a date and converts this information to January 2nd. If you are unfamiliar with these defaults, your spreadsheet can sometimes store information other than what you or whoever entered the data into the Excel spreadsheet may have intended. Thus, it’s important to understand the quirks of how Excel handles data. Nevertheless, many people <em>do</em> save their data in Excel, so it’s important to know how to work with them in R.</p>
 <div id="reading-excel-files-into-r" class="section level4">
 <h4><span class="header-section-number">2.3.1.1</span> Reading Excel files into R</h4>
-<p>Reading spreadhseets from Excel into R is made possible thanks to the <code>readxl</code> package. This is not a core tidyverse package, so you’ll need to install and load the package in before use:</p>
+<p>Reading spreadsheets from Excel into R is made possible thanks to the <code>readxl</code> package. This is not a core tidyverse package, so you’ll need to install and load the package in before use:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">library</span>(readxl)</a></code></pre></div>
 <p>The function <code>read_excel()</code> is particularly helpful whenever you want read an Excel file into your R Environment. The only required argument of this function is the path to the Excel file on your computer. In the following example, <code>read_excel()</code> would look for the file “filename.xlsx” in your current working directory. If the file were located somewhere else on your computer, you would have to provide the <em>path</em> to that file.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="co"># read Excel file into R</span></a>
@@ -596,8 +596,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Note that the information stored in <code>df</code> is a tibble. This will be a common theme throughout the packages used in these courses.</p>
 <p>Further, by default, <code>read_excel()</code> converts blank cells to missing data (NA). This behavior can be changed by specifying the <code>na</code> argument within this function. There are a number of additional helpful arguments within this function. They can all be seen using <code>?read_excel</code>, but we’ll highlight a few here:</p>
 <ul>
-<li><code>sheet</code> - argument specifies the name of the sheet from the workbook you’d like to read in (string) or the integer of the sheet from teh workbook.</li>
-<li><code>col_names</code> - specifies whether the first row of the spreadsheet should be used as column names (dfault: TRUE). Additionally, if a chracter vector is passed, this will rename the columns exlicitly at time of import.</li>
+<li><code>sheet</code> - argument specifies the name of the sheet from the workbook you’d like to read in (string) or the integer of the sheet from the workbook.</li>
+<li><code>col_names</code> - specifies whether the first row of the spreadsheet should be used as column names (default: TRUE). Additionally, if a character vector is passed, this will rename the columns explicitly at time of import.</li>
 <li><code>skip</code> - specifies the number of rows to skip before reading information from the file into R. Often blank rows or information about the data are stored at the top of the spreadsheet that you want R to ignore</li>
 </ul>
 <p>For an example, we are able to change the column names directly by passing a character string to the <code>col_names</code> argument:</p>
@@ -618,7 +618,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 4.4          2.9         1.4          0.2         setosa 
 ## # … with 141 more rows</code></pre>
 <p>To take this a step further let’s discuss one of the lesser-known arguments of the <code>read_excel()</code> function: <code>.name_repair</code>. This argument allows for further fine-tuning and handling of column names.</p>
-<p>The default for this argument is <code>.name_repair = &quot;unique&quot;</code>. This checks to make sure that each column of the imported file has a unique name. If TRUE, readxl leaves them as is, as you see in the example here:</p>
+<p>The default for this argument is <code>.name_repair = &quot;unique&quot;</code>. This checks to make sure that each column of the imported file has a unique name. If TRUE, <code>readxl</code> leaves them as is, as you see in the example here:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="co"># read example file into R using .name_repair default</span></a>
 <a class="sourceLine" id="cb22-2" data-line-number="2"><span class="kw">read_excel</span>(</a>
 <a class="sourceLine" id="cb22-3" data-line-number="3">  <span class="kw">readxl_example</span>(<span class="st">&quot;deaths.xlsx&quot;</span>),</a>
@@ -648,7 +648,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1 David Bowie  musician      69 TRUE     1947-01-08 00:00:00 2016-01-10 00:00:00
 ## 2 Carrie Fish… actor         60 TRUE     1956-10-21 00:00:00 2016-12-27 00:00:00
 ## 3 Chuck Berry  musician      90 TRUE     1926-10-18 00:00:00 2017-03-18 00:00:00</code></pre>
-<p>Note that when using <code>.name_repair = &quot;universal&quot;</code>, you’ll get a readout about which column names have been changed. Here you see that column names with a space in them have been chnaged to periods for word separation.</p>
+<p>Note that when using <code>.name_repair = &quot;universal&quot;</code>, you’ll get a readout about which column names have been changed. Here you see that column names with a space in them have been changed to periods for word separation.</p>
 <p>Aside from these options, functions can be passed to <code>.name_repair</code>. For example, if you want all of your column names to be uppercase, you would use the following:</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="co"># pass function for column naming</span></a>
 <a class="sourceLine" id="cb27-2" data-line-number="2"><span class="kw">read_excel</span>(</a>
@@ -663,12 +663,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 2 Carrie Fi… actor         60 TRUE       1956-10-21 00:00:00 2016-12-27 00:00:00
 ## 3 Chuck Ber… musician      90 TRUE       1926-10-18 00:00:00 2017-03-18 00:00:00</code></pre>
 <p>Notice that the function is passed directly to the argument. It does not have quotes around it, as we want this to be interpreted as the <code>toupper()</code> function.</p>
-<p>Here we’ve really only focused on a single function (<code>read_excel()</code>) from the <code>readxl</code> package. This is because some of the best packages do a single thing and do that single thing well. The <code>readxl</code> package has a single, slick function that covers most of what you’ll need when reading in files from Excel. That is not to say that hte package doesn’t have other function (it does!), but this function will cover your needs most of the time.</p>
+<p>Here we’ve really only focused on a single function (<code>read_excel()</code>) from the <code>readxl</code> package. This is because some of the best packages do a single thing and do that single thing well. The <code>readxl</code> package has a single, slick function that covers most of what you’ll need when reading in files from Excel. That is not to say that the package doesn’t have other function (it does!), but this function will cover your needs most of the time.</p>
 </div>
 </div>
 <div id="google-sheets" class="section level3">
 <h3><span class="header-section-number">2.3.2</span> Google Sheets</h3>
-<p>Similar to Microsoft Excel, Google Sheets is another place in which spreadsheet information is stored. Google Sheets also stores informtaion in spreadsheets within workbooks. Like Excel, it allows for cell formatting and has defaults during data entry that <em>could</em> get you into trouble if you’re not familiar with the program.</p>
+<p>Similar to Microsoft Excel, Google Sheets is another place in which spreadsheet information is stored. Google Sheets also stores information in spreadsheets within workbooks. Like Excel, it allows for cell formatting and has defaults during data entry that <em>could</em> get you into trouble if you’re not familiar with the program.</p>
 <p>Unlike Excel files, however, Google Sheets live on the Internet, rather than your computer. This makes sharing and updating Google Sheets among people working on the same project much quicker. This also makes the process for reading them into R slightly different. Accordingly, it requires the use of a different, but also very helpful package, <code>googlesheets</code>!</p>
 <p>As Google Sheets are stored on the Internet and not on your computer, the <code>googlesheets</code> package does not require you to download the file to your computer before reading it into R. Instead, it reads the data into R directly from Google Sheets. Note that if the data hosted on Google Sheets changes, every time the file is read into R, the most updated version of the file will be utilized. This can be very helpful if you’re collecting data over time; however, it could lead to unexpected changes in results if you’re not aware that the data in the Google Sheet is changing.</p>
 <p>To see exactly what we mean, let’s look at a specific example. Imagine you’ve sent out a survey to your friends asking about how they spend their day. Let’s say you’re mostly interested in knowing the hours spent on work, leisure, sleep, eating, socializing, and other activities. So in your Google Sheet you add these six items as columns and one column asking for your friends names. To collect this data, you then share the link with your friends, giving them the ability to edit the Google Sheet.</p>
@@ -736,7 +736,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>range = &quot;A1:G5&quot;</code> : specifies the range of cells that we like to import is A1 to G5.</li>
 <li><code>n_max = 100</code> : specifies the maximum number of rows that we want to import is 100.</li>
 </ul>
-<p><code>gs_title()</code> is not the only way in which a sheet can be registered. Google Sheetes can also be registered by URL or key. Within the Google Sheets package, a practice Google Sheet is available for you so that you can familiarize yourself with these approaches before working with your own data.</p>
+<p><code>gs_title()</code> is not the only way in which a sheet can be registered. Google Sheets can also be registered by URL or key. Within the Google Sheets package, a practice Google Sheet is available for you so that you can familiarize yourself with these approaches before working with your own data.</p>
 <p>There is a dataset provided as an example with the <code>googlesheets package</code>. The data stored in the example dataset come from the <a href="https://www.gapminder.org/">Gapminder dataset</a>. This includes longitudinal data about a few global economic variables. We’ll use this dataset to discuss registering a Google Sheet by key or URL.</p>
 <p>To register a Google sheet in <code>googlesheets</code> by key, you must first know the key of the Google Sheet and have access to it. To work through a full example here you’ll first want to navigate to [<a href="https://docs.google.com/spreadsheets/d/1BzfL0kZUz1TsI5zxJF1WNF01IxvC67FbOJUiiGMZ_mQ/" class="uri">https://docs.google.com/spreadsheets/d/1BzfL0kZUz1TsI5zxJF1WNF01IxvC67FbOJUiiGMZ_mQ/</a>] in your web browser. This will open up the gapminder dataset in Google Sheets so that you can have a look at the data in Google Sheets.</p>
 <div class="figure">
@@ -790,7 +790,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="csvs" class="section level2">
 <h2><span class="header-section-number">2.4</span> CSVs</h2>
-<p>Like Excel Spreadsheets and Google Sheets, <strong>Comma-separated values (CSV)</strong> files allow us to store tabular data; however, it does this in a much simple format. CSVs are <strong>plain-text</strong> files, which means that all the important information in the file is represented by text (where text is numbers, letters, and symbols you can type on your keyboard). This means that there are no workbooks or metadata making it difficult to open these files. CSVs are flexible files and are thus the preferred storage method for tabular data for many data scientits.</p>
+<p>Like Excel Spreadsheets and Google Sheets, <strong>Comma-separated values (CSV)</strong> files allow us to store tabular data; however, it does this in a much simple format. CSVs are <strong>plain-text</strong> files, which means that all the important information in the file is represented by text (where text is numbers, letters, and symbols you can type on your keyboard). This means that there are no workbooks or metadata making it difficult to open these files. CSVs are flexible files and are thus the preferred storage method for tabular data for many data scientists.</p>
 <p>For example, consider a dataset that includes information about the heights and blood types of three individuals. You could make a table that has three columns (names, heights, and blood types) and three rows (one for each person) in Google Docs or Microsoft Word. However, there is a better way of storing this data in plain text without needing to put them in table format. CSVs are a perfect way to store these data. In the CSV format, the values of each column for each person in the data are separated by commas and each row (each person in our case) is separated by a new line. This means your data would be stored in the following format:</p>
 <div class="figure">
 <img src="https://docs.google.com/presentation/d/199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM/export/png?id=199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM&amp;pageid=g2bfdb07292_0_151" alt="sample CSV" />
@@ -1002,11 +1002,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb51-5" data-line-number="5">url &lt;-<span class="st"> &quot;http://www.sqlitetutorial.net/wp-content/uploads/2018/03/chinook.zip&quot;</span></a>
 <a class="sourceLine" id="cb51-6" data-line-number="6"><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.zip&quot;</span>)))</a></code></pre></div>
 <pre><code>## Response [https://www.sqlitetutorial.net/wp-content/uploads/2018/03/chinook.zip]
-##   Date: 2020-11-02 20:56
+##   Date: 2020-11-03 21:04
 ##   Status: 200
 ##   Content-Type: application/zip
 ##   Size: 306 kB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpOgUWXa/file1322011276ac8.zip</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpWKd4vV/file7b538f73c1d.zip</code></pre>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw">unzip</span>(tf)</a>
 <a class="sourceLine" id="cb53-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb53-3" data-line-number="3"><span class="co">## Connect to Database</span></a>
@@ -1143,7 +1143,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&amp;pageid=g3a5854d1ae_0_160" alt="right join will fill in NAs" />
 <p class="caption">right join will fill in NAs</p>
 </div>
-<p>Now, to run this for our tables from the database, you would have to do something <em>slightly</em> different than what you saw above. Note in the code below that we have to change teh class of the tables from the database into tibbles before doing the join. This is because SQL does not currently support right or full joins, but <code>dplyr</code> does. Thus, we first have to be sure the data are a class that <code>dplyr</code> can work with using <code>as_tibble()</code>. Other than that, the code below is similar to what you’ve seen already:</p>
+<p>Now, to run this for our tables from the database, you would have to do something <em>slightly</em> different than what you saw above. Note in the code below that we have to change the class of the tables from the database into tibbles before doing the join. This is because SQL does not currently support right or full joins, but <code>dplyr</code> does. Thus, we first have to be sure the data are a class that <code>dplyr</code> can work with using <code>as_tibble()</code>. Other than that, the code below is similar to what you’ve seen already:</p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="co">## do right join</span></a>
 <a class="sourceLine" id="cb60-2" data-line-number="2">right &lt;-<span class="st"> </span><span class="kw">right_join</span>(<span class="kw">as_tibble</span>(artists), <span class="kw">as_tibble</span>(albums), <span class="dt">by =</span> <span class="st">&quot;ArtistId&quot;</span>)</a>
 <a class="sourceLine" id="cb60-3" data-line-number="3"></a>
@@ -1208,7 +1208,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="mutating-joins-summary" class="section level4">
 <h4><span class="header-section-number">2.10.5.5</span> Mutating Joins Summary</h4>
-<p>Now that we’ve walked through a number of examples of mutating joins, cases where you’re combining information across tables, we just want to take a second to summarize the four types of joins discussed using a visual frequently used to explain the most common mutating joins where each circle represents a different table and the gray shading on the venn diagrams indicates which observations will be included after the join.</p>
+<p>Now that we’ve walked through a number of examples of mutating joins, cases where you’re combining information across tables, we just want to take a second to summarize the four types of joins discussed using a visual frequently used to explain the most common mutating joins where each circle represents a different table and the gray shading on the Venn diagrams indicates which observations will be included after the join.</p>
 <div class="figure">
 <img src="https://docs.google.com/presentation/d/1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c/export/png?id=1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c&amp;pageid=g6112cc596f_0_28" alt="mutating joins summary" />
 <p class="caption">mutating joins summary</p>
@@ -1617,7 +1617,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" data-line-number="1"><span class="kw">drive_upload</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;tidyverse.txt&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;document&quot;</span>)</a>
 <a class="sourceLine" id="cb105-2" data-line-number="2"><span class="kw">drive_upload</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;tidyverse.csv&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;spreadsheet&quot;</span>)</a>
 <a class="sourceLine" id="cb105-3" data-line-number="3"><span class="kw">drive_upload</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;tidyverse.pptx&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;presentation&quot;</span>)</a></code></pre></div>
-<p>Files can be downloaded using the <code>drive_download()</code>function. Google file types need to be converted to a conventional file type. For example one might save a googlesheet file to a CSV file. This would download a file called tidyverse.csv to your project directory. This file could then be used in an analysis.</p>
+<p>Files can be downloaded using the <code>drive_download()</code>function. Google file types need to be converted to a conventional file type. For example one might save a Google Sheet file to a CSV file. This would download a file called tidyverse.csv to your project directory. This file could then be used in an analysis.</p>
 <div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb106-1" data-line-number="1"><span class="kw">drive_download</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;csv&quot;</span>)</a>
 <a class="sourceLine" id="cb106-2" data-line-number="2">tidyverse_data &lt;-readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="kw">here</span>(<span class="st">&quot;tidyverse.csv&quot;</span>))</a></code></pre></div>
 <p>Files can be moved to trash using the <code>drive_trash()</code> function. This can be undone using the <code>drive_untrash()</code> function.
@@ -1783,7 +1783,7 @@ The trash can also be emptied using <code>drive_empty_trash()</code>.</p>
 ## $ `2016__Other Public` &lt;chr&gt; &quot;6192200&quot;, &quot;128800&quot;, &quot;55600&quot;, &quot;172500&quot;, &quot;67500&quot;,…
 ## $ `2016__Uninsured`    &lt;dbl&gt; 28051900, 420800, 96900, 833700, 225500, 3030800…
 ## $ `2016__Total`        &lt;dbl&gt; 320372000, 4834100, 710800, 6890200, 2945300, 39…</code></pre>
-<p>Looks like we have a whole bunch of numberic variables, but a few that appear like they <em>should</em> be numeric, but are actually strings. We’ll keep this in mind for when we wrangle the data!</p>
+<p>Looks like we have a whole bunch of numeric variables, but a few that appear like they <em>should</em> be numeric, but are actually strings. We’ll keep this in mind for when we wrangle the data!</p>
 </div>
 <div id="healthcare-spending-data" class="section level4">
 <h4><span class="header-section-number">2.16.1.2</span> Healthcare Spending Data</h4>
@@ -1926,11 +1926,11 @@ After creating a directory called raw_data within a directory that we called dat
 <a class="sourceLine" id="cb136-7" data-line-number="7"><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></a>
 <a class="sourceLine" id="cb136-8" data-line-number="8"><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xlsx&quot;</span>)))</a></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2020-11-02 20:56
+##   Date: 2020-11-03 21:04
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpOgUWXa/file1322074856499.xlsx</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpWKd4vV/file7b5374856499.xlsx</code></pre>
 <div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" data-line-number="1">brady &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb138-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb138-3" data-line-number="3">brady</a></code></pre></div>
@@ -1965,11 +1965,11 @@ After creating a directory called raw_data within a directory that we called dat
 <a class="sourceLine" id="cb140-4" data-line-number="4"><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></a>
 <a class="sourceLine" id="cb140-5" data-line-number="5"><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</a></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2020-11-02 20:56
+##   Date: 2020-11-03 21:04
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpOgUWXa/file1322021980f48.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpWKd4vV/file7b5321980f48.xls</code></pre>
 <div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" data-line-number="1">crime &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>, <span class="dt">skip =</span> <span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb142-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb142-3" data-line-number="3"><span class="co"># see data</span></a>
@@ -2002,11 +2002,11 @@ After creating a directory called raw_data within a directory that we called dat
 <a class="sourceLine" id="cb144-4" data-line-number="4"><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></a>
 <a class="sourceLine" id="cb144-5" data-line-number="5"><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</a></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2020-11-02 20:56
+##   Date: 2020-11-03 21:04
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpOgUWXa/file132205e37ee62.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpWKd4vV/file7b535e37ee62.xls</code></pre>
 <div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" data-line-number="1">land &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb146-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb146-3" data-line-number="3"><span class="co"># see data</span></a>
