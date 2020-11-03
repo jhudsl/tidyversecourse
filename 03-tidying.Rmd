@@ -11,7 +11,7 @@ Beyond data wrangling, it's also important to make sure the data you have are ac
 
 Data never arrive in the condition that you need them in order to do effective data analysis. Data need to be re-shaped, re-arranged, and re-formatted, so that they can be visualized or be inputted into a machine learning algorithm. This course addresses the problem of wrangling your data so that you can bring them under control and analyze them effectively. The key goal in data wrangling is transforming non-tidy data into tidy data.
 
-This course covers many of the critical details about handling tidy and non-tidy data in R such as converting from wide to long formats, manipulating tables with the dplyr package, understanding different R data types, processing text data with regular expressions, and conducting basic exploratory data analyses. Investing the time to learn these data wrangling techniques will make your analyses more efficient, more reproducible, and more understandable to your data science team.
+This course covers many of the critical details about handling tidy and non-tidy data in R such as converting from wide to long formats, manipulating tables with the `dplyr` package, understanding different R data types, processing text data with regular expressions, and conducting basic exploratory data analyses. Investing the time to learn these data wrangling techniques will make your analyses more efficient, more reproducible, and more understandable to your data science team.
 
 In this specialization we assume familiarity with the R programming language. If you are not yet familiar with R, we suggest you first complete [R Programming](https://www.coursera.org/learn/r-programming) before returning to complete this course.
 
@@ -132,7 +132,7 @@ gathered
 
 ![gather specifying which variables to include in long format](https://docs.google.com/presentation/d/1zcn01MIeABs90ZABS2Oh--HDPZCfUHP5Utdex4TvbZs/export/png?id=1zcn01MIeABs90ZABS2Oh--HDPZCfUHP5Utdex4TvbZs&pageid=g38bb68a532_0_222)
 
-Now, when you look at the top of this object, you'll see that `Month` and `Day` remain in the data frame and that variable combines information from the other columns in airquality (`Ozone`, `Solar.R`, `Wind`, `Temp`). This is still a long format dataset; however, it has used `Month` and `Day` as IDs when reshaping the data frame.
+Now, when you look at the top of this object, you'll see that `Month` and `Day` remain in the data frame and that variable combines information from the other columns in `airquality` (`Ozone`, `Solar.R`, `Wind`, `Temp`). This is still a long format dataset; however, it has used `Month` and `Day` as IDs when reshaping the data frame.
 
 ##### `pivot_wider()`
 
@@ -178,7 +178,7 @@ There is a package specifically designed for helping you wrangle your data. This
 * `summarize()` - summarize information within a dataset
 * `left_join()` - combine data across data frame
 * `tally()` - get overall sum of values of specified column(s) or the number of rows of tibble
-* `count()` - getcounts of unique values of specified column(s) (shortuct of `group_by()` and `tally()`)
+* `count()` - get counts of unique values of specified column(s) (shortcut of `group_by()` and `tally()`)
 * `add_count()` -  add values of `count()` as a new column 
 * `add_tally()` - add value(s) of `tally()` as a new column
 
@@ -943,7 +943,7 @@ fct_infreq(chickwts$feed) %>% head()
 
 ![fct_infreq orders levels based on frequency in dataset](https://docs.google.com/presentation/d/16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU/export/png?id=16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU&pageid=g391e563ea4_0_56)
 
-As expected, soybean, the most frequent level, appears as the first level and horsebean, the least frequent level, appears last. The rest of the levels are sorted by frequency. 
+As expected, `soybean`, the most frequent level, appears as the first level and `horsebean`, the least frequent level, appears last. The rest of the levels are sorted by frequency. 
 
 ### Reversing Order Levels: `fct_rev()`
 
@@ -1024,7 +1024,7 @@ When working with dates and times in R, you can consider either **dates**, **tim
 
 ### Creating Dates and Date-Time Objects
 
-To get objects into dates and date-times that can be more easily worked with in R, you'll want to get comfortable with a number of functions from the lubridate package. Below we'll discuss how to create date and date-time objects from (1) strings and (2) individual parts.
+To get objects into dates and date-times that can be more easily worked with in R, you'll want to get comfortable with a number of functions from the `lubridate` package. Below we'll discuss how to create date and date-time objects from (1) strings and (2) individual parts.
 
 #### From strings
 
@@ -1131,7 +1131,7 @@ as.duration(age)
 
 ![dates and date-times can be operated upon](https://docs.google.com/presentation/d/1iLU-H6-GZw7EhL2syFZnjn_tC_cI6s9PmKRxcSOjg1c/export/png?id=1iLU-H6-GZw7EhL2syFZnjn_tC_cI6s9PmKRxcSOjg1c&pageid=g39252087a2_0_37)
 
-Using addition, subtraction, multiplication, and division is possible with date objects, and accurately takes into account things like leap years and different number of days each month. This capability and the additional functions that exist within lubridate can be enormously helpful when working with dates and date-time objects.
+Using addition, subtraction, multiplication, and division is possible with date objects, and accurately takes into account things like leap years and different number of days each month. This capability and the additional functions that exist within `lubridate` can be enormously helpful when working with dates and date-time objects.
 
 ## Working With Strings
 
@@ -1159,7 +1159,7 @@ The best way to work through this lesson is to copy and paste every line of code
 
 #### Available functions
 
-As we'll only cover a few of the functions within stringr in this lesson, it's important to remember that if you start typing "str_" within RStudio, a list of the many options will show up.
+As we'll only cover a few of the functions within `stringr` in this lesson, it's important to remember that if you start typing "str_" within RStudio, a list of the many options will show up.
 
 ![str_ image](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_12)
 
@@ -1273,7 +1273,7 @@ str_view(names, "^M")
 
 ![`str_view()` identifies names that start with M](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_30)
 
-In this first example we see in the Viewer Panel that str_view has identified the names that start with the letter M.
+In this first example we see in the Viewer Panel that `str_view()` has identified the names that start with the letter "M".
 
 However, if you try to match strings that end with the letter "M", no match is found.
 
@@ -2200,7 +2200,7 @@ coverage
 
 Perfect! We now have the four columns we wanted, each storing a separate piece of information, *and* the year column is an integer, as you would want it to be! 
 
-Let's go one step further and add in the state-level abbreviations and region for each row. We'll utilize our `state` datasets that we read in previously to accomplish this! Because we formated the state data as a tibble, we can simply join it with our `coverage` dataset to get the state and region information.
+Let's go one step further and add in the state-level abbreviations and region for each row. We'll utilize our `state` datasets that we read in previously to accomplish this! Because we formatted the state data as a tibble, we can simply join it with our `coverage` dataset to get the state and region information.
 
 ```{r}
 coverage <- coverage %>%
