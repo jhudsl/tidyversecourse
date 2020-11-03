@@ -1330,7 +1330,57 @@ And, just like that we've got three plots, labeled, spaced out nicely in a grid,
 
 ### `patchwork`
 
-Avocado - fill this in
+The `patchwork` package is similar to the `cowplot` package in that they both are helpful for combining plots together. They each allow for different plot modifications, so it is useful to know about both packages.
+
+Instead of requiring a function like `plot_grid()` of the `cowplot` package plots can be combined using  a few strightforward symbols, such as `"+"`, `"/"`, amd `"|"`.
+
+To combine two plots together we can simply add them together with the `+` sign or using the `|` to ensure that they are equally sized:
+
+```{r}
+#install.packages(patchwork)
+library(patchwork)
+p1 + p2
+p1 | p2
+```
+
+If we want a plot above another plot we can use the "/" symbol:
+
+
+```{r}
+p1 / p2
+```
+
+To combine multiple plots in a more complicated layout, one can combine two plots on one row and have a third plot on a row below like this:
+```{r}
+(p3 + p3) / p1
+
+```
+
+You can add empty plot spacers using the `plotspacer()` function like so:
+
+```{r}
+(patchwork::plot_spacer() + p2 + plot_spacer()) / p1
+```
+
+You can modify the widths of the plots using the `widths` argument of the `plot_layout()` function. In the following example we will make the width of the plot on the left 3 times that of the plot on the right. Any numeric values will do, it is the ratio of the numbers that make the difference.
+
+Thus, both `p1 + p2 + plot_layout(widths = c(3, 1))` and `p1 + p2 + plot_layout(widths = c(60, 20))` will result in the same relative size difference between `pq` and `p2`.
+```{r}
+p1 + p2 + plot_layout(widths = c(3, 1))
+p1 + p2 + plot_layout(widths = c(60, 20))
+```
+
+The relative heights of the plots can also be modified using a `heights` argument with the same function.
+```{r}
+p1 + p2 + plot_layout(heights = c(3, 1))
+p1 + p2 + plot_layout(heights = c(60, 20))
+```
+
+You can also specify the number of columns or rows using this same function.
+
+```{r}
+p1 + p2 + p3  + p3 + plot_layout(ncol = 2)
+```
 
 
 ### `gganimate`

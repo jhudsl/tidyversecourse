@@ -1655,7 +1655,106 @@ And, just like that we've got three plots, labeled, spaced out nicely in a grid,
 
 ### `patchwork`
 
-Avocado - fill this in
+The `patchwork` package is similar to the `cowplot` package in that they both are helpful for combining plots together. They each allow for different plot modifications, so it is useful to know about both packages.
+
+Instead of requiring a function like `plot_grid()` of the `cowplot` package plots can be combined using  a few strightforward symbols, such as `"+"`, `"/"`, amd `"|"`.
+
+To combine two plots together we can simply add them together with the `+` sign or using the `|` to ensure that they are equally sized:
+
+
+```r
+#install.packages(patchwork)
+library(patchwork)
+```
+
+```
+## 
+## Attaching package: 'patchwork'
+```
+
+```
+## The following object is masked from 'package:cowplot':
+## 
+##     align_plots
+```
+
+```r
+p1 + p2
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-56-1.png" width="672" />
+
+```r
+p1 | p2
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-56-2.png" width="672" />
+
+If we want a plot above another plot we can use the "/" symbol:
+
+
+
+```r
+p1 / p2
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-57-1.png" width="672" />
+
+To combine multiple plots in a more complicated layout, one can combine two plots on one row and have a third plot on a row below like this:
+
+```r
+(p3 + p3) / p1
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-58-1.png" width="672" />
+
+You can add empty plot spacers using the `plotspacer()` function like so:
+
+
+```r
+(patchwork::plot_spacer() + p2 + plot_spacer()) / p1
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-59-1.png" width="672" />
+
+You can modify the widths of the plots using the `widths` argument of the `plot_layout()` function. In the following example we will make the width of the plot on the left 3 times that of the plot on the right. Any numeric values will do, it is the ratio of the numbers that make the difference.
+
+Thus, both `p1 + p2 + plot_layout(widths = c(3, 1))` and `p1 + p2 + plot_layout(widths = c(60, 20))` will result in the same relative size difference between `pq` and `p2`.
+
+```r
+p1 + p2 + plot_layout(widths = c(3, 1))
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-60-1.png" width="672" />
+
+```r
+p1 + p2 + plot_layout(widths = c(60, 20))
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-60-2.png" width="672" />
+
+The relative heights of the plots can also be modified using a `heights` argument with the same function.
+
+```r
+p1 + p2 + plot_layout(heights = c(3, 1))
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-61-1.png" width="672" />
+
+```r
+p1 + p2 + plot_layout(heights = c(60, 20))
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-61-2.png" width="672" />
+
+You can also specify the number of columns or rows using this same function.
+
+
+```r
+p1 + p2 + p3  + p3 + plot_layout(ncol = 2)
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-62-1.png" width="672" />
 
 
 ### `gganimate`
@@ -1690,7 +1789,7 @@ ggplot(mtcars) +
   geom_boxplot(aes(factor(cyl), mpg))
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-57-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-64-1.png" width="672" />
 
 But what if we wanted to understand the relationship between those two variables and the number of gears a car has (`gear`)?
 
@@ -1704,7 +1803,7 @@ ggplot(mtcars) +
   facet_wrap(~gear)
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-58-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-65-1.png" width="672" />
 
 Alternatively, we could animate the plot, using `gganimate` so that on a single plot we rotate between each of these three plots. 
 
@@ -1723,7 +1822,7 @@ mtcars %>%
   transition_manual(gear)
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-59-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-66-1.gif)<!-- -->
 
 Note that here, `transition_manual()` is a new grammar class that we add right on top of our `ggplot2` plot code! Within this grammar class, we specify the variable upon which we'd like the transition in the animation to occur.
 
@@ -1743,7 +1842,7 @@ anim <- ggplot(mtcars) +
 anim
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-60-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-67-1.gif)<!-- -->
 
 Note here that we've stored the output from `transition_states` in the object `anim`. We'll build on this object below.
 
@@ -1760,7 +1859,7 @@ anim <- anim +
 anim
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-61-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-68-1.gif)<!-- -->
 
 Note that we're referring to the approapriate gear within the animation frame by specifying `{closest_state}`.
 
@@ -1777,7 +1876,7 @@ anim <- anim +
 anim
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-62-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-69-1.gif)<!-- -->
 
 There are a number of easing functions, all of which are listed within the documentation, which can be viewed, as always, using the `?` help function: `?ease_aes`.
 
@@ -1796,7 +1895,7 @@ anim <- anim +
 anim
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-63-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-70-1.gif)<!-- -->
 
 The changes are subtle but you'll notice that on transition the data fades in to appear and shrinks upon exit.
 
@@ -1811,7 +1910,7 @@ ggplot(mtcars) +
   geom_point(aes(qsec, mpg))
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-64-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-71-1.png" width="672" />
 
 However, upon adding animation, we see how the data changes by gear.
 
@@ -1828,7 +1927,7 @@ scat <- ggplot(mtcars) +
 scat
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-65-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-72-1.gif)<!-- -->
 
 However, the x- and y-axes remain constant throughout the animation.
 
@@ -1844,7 +1943,7 @@ scat +
             include = FALSE)
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-66-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-73-1.gif)<!-- -->
 
 
 #### Example: gapminder
@@ -1871,7 +1970,7 @@ gap <- ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) 
 gap
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-67-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-74-1.gif)<!-- -->
 
 Note that in this example, we're now using `transition_time()` rather than `transition_states()`. This is a variant of `transition_states()` that is particularly useful when the states represent points in time, such as the years we're animating through in the plot above. The transition lenth is set to correspond to the time difference between the points in the data.
 
@@ -1888,7 +1987,7 @@ gap +
               alpha = 0.3)
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-68-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-75-1.gif)<!-- -->
 
 Here, distance specifies the temporal distance between the frames to show and alpha specifies the transparency of the trail, so that the current frame's data is always discernible.
 
@@ -1951,7 +2050,7 @@ library(visdat)
 vis_dat(hc)
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-71-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-78-1.png" width="672" />
 
 We now have a sense that a few states, for some years are missing coverage data, which also affects the ability to calculate proportion covered.
 
@@ -1962,7 +2061,7 @@ To see these values highlighted more specifically, we can use the related `vis_m
 vis_miss(hc)
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-72-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-79-1.png" width="672" />
 
 Here we see that missing values only occur 0.6% of the time, with 3.1% of the observations missing entries for `tot_coverage` and `prop_coverage`. So, all in all, there is not a lot of missing data, but we still want to be sure we understand where missingness occurs before answering our questions.
 
@@ -2015,7 +2114,7 @@ skim(hc)
 
 <table style='width: auto;'
         class='table table-condensed'>
-<caption>(\#tab:unnamed-chunk-74)Data summary</caption>
+<caption>(\#tab:unnamed-chunk-81)Data summary</caption>
  <thead>
   <tr>
    <th style="text-align:left;">   </th>
@@ -2262,7 +2361,7 @@ hc %>%
 
 <table style='width: auto;'
         class='table table-condensed'>
-<caption>(\#tab:unnamed-chunk-75)Data summary</caption>
+<caption>(\#tab:unnamed-chunk-82)Data summary</caption>
  <thead>
   <tr>
    <th style="text-align:left;">   </th>
@@ -2629,7 +2728,7 @@ hc %>%
        y = "coverage proportion")
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-76-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-83-1.png" width="672" />
 
 We see that there appears to be some relationship, with those states that spend more per capita also having higher proportions of their population having healthcare coverage.
 
@@ -2653,7 +2752,7 @@ hc %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-77-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-84-1.png" width="672" />
 
 Beyond that, we likely want to know which point represents which state, so we can add state labels:
 
@@ -2677,7 +2776,7 @@ hc %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-78-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-85-1.png" width="672" />
 
 From there, it'd likely be helpful to have information from each region:
 
@@ -2703,7 +2802,7 @@ hc %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-79-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-86-1.png" width="672" />
 
 So far, we've only been focusing on data from 2013. What about looking at data from both 2013 and 2014? We can do that using `facet_wrap()`:
 
@@ -2729,7 +2828,7 @@ hc %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-80-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-87-1.png" width="672" />
 
 We see that the overall trend holds, but there has been some movement. For example, we see at a glance that DC has a higher proportion of its population covered in 2014 relative to 2013, while MA saw a drop in coverage. UT appears to be an outlier in both years having low spending but a high proportion of individuals covered.
 
@@ -2757,7 +2856,7 @@ hc %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-81-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-88-1.png" width="672" />
 
 From these data, we see that Employer health care coverage is the most popular way in which individuals receive their health insurance across all states. We also see a flat or positive relationship for all other types of insurance, except for "Uninsured". There, as makes sense, we see that the more money spent per capita the fewer individuals the state has without insurance. 
 
@@ -2785,7 +2884,7 @@ hc %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-82-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-89-1.png" width="672" />
 
 The same general patterns hold in 2014 as we saw in 2013; however, the patterns are not exactly the same.
 
@@ -2931,7 +3030,7 @@ hc %>%
   labs(y = "spending per capita")
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-84-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-91-1.png" width="672" />
 
 Here, we get a sense of the overall trend, seeing that states in the Northeast tend to spend the most on health care, while states in the West spend the least.
 
@@ -2949,7 +3048,7 @@ hc %>%
   labs(y = "spending per capita")
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-85-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-92-1.png" width="672" />
 
 This gives us a sense of the variation in spending for states in each region. Of note, there are more outliers in the South and West, with a few states spending more on health care than even states in the Northeast, where spending tends to be higher.
 
@@ -2985,7 +3084,7 @@ hc %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-86-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-93-1.png" width="672" />
 
 With this, output the top row are the data from 2013 and the bottom from 2014. We can then visually compare the top plot to the bottom plot for each time of insurance. 
 
@@ -3040,7 +3139,7 @@ Similar to how we approached the health care case study, let's get an overall un
 vis_dat(firearms)
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-88-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-95-1.png" width="672" />
 
 We see that we have data for all 50 states (and Washington, D.C.) for most variables in our dataset; however, we're missing information for one state when it comes to gunshot information and another state when it comes to Brady scores and ownership by suicide rates. 
 
@@ -3057,7 +3156,7 @@ skim(firearms)
 
 <table style='width: auto;'
         class='table table-condensed'>
-<caption>(\#tab:unnamed-chunk-89)Data summary</caption>
+<caption>(\#tab:unnamed-chunk-96)Data summary</caption>
  <thead>
   <tr>
    <th style="text-align:left;">   </th>
@@ -3356,7 +3455,7 @@ ggplot(firearms,
   geom_text_repel(aes(label = NAME))
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-90-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-97-1.png" width="672" />
 
 Here we see that the visualization of this relationship is largely dependent upon the state's population, with large states like Texas and California sticking out. However, we do see that, for its size, Washington D.C had many more violent cries than other states, despite its small population. 
 
@@ -3374,7 +3473,7 @@ ggplot(firearms,
   theme_classic()
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-91-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-98-1.png" width="672" />
 
 Here, there appears to be some relationship with states that have higher rates of unemployment having slightly more violent crimes, but violent crimes is not adjusted by population, so this is likely not *that* helpful.
 
@@ -3396,7 +3495,7 @@ ggplot(firearms,
 ## Warning: Removed 2 rows containing missing values (geom_point).
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-92-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-99-1.png" width="672" />
 
 This suggests that states with more fatal police shootings *tend* to have more firearm suicides relative to non-firearm suicides; however, this relationship is non linear. 
 
@@ -3427,7 +3526,7 @@ ggplot(firearms, aes(x = brady_scores,
 ## Warning: Removed 2 rows containing missing values (geom_point).
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-93-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-100-1.png" width="672" />
 
 In this plot, we see that there is a relationship, but it is non-linear. Overall, the higher the legislative strength score (`brady_scores`), the lower the rate of police shootings; however, this decrease is nonlinear, as all states with a positive Brady Score have a similar police shooting rate. 
 
@@ -3454,7 +3553,7 @@ ggplot(firearms, aes(x = brady_scores,
 ## Warning: Removed 2 rows containing missing values (geom_text).
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-94-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-101-1.png" width="672" />
 
 This makes it clear that Wyoming, New Mexico, Oklahoma, Arizona, and Nevada have some of the highest rates of fatal police shootings, while  Connecticut, New York, Pennsylvania, and North Dakota are among the lowest. 
 
@@ -3482,7 +3581,7 @@ ggplot(firearms, aes(x = brady_scores,
 ## Warning: Removed 2 rows containing missing values (geom_text_repel).
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-95-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-102-1.png" width="672" />
 
 If we wanted to save this particular plot as a pdf, we could do so like this to save the plot in a directory called exporatory within a directory called figures:
 
