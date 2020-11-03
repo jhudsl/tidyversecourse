@@ -553,7 +553,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="stacked-barplot" class="section level4">
 <h4><span class="header-section-number">4.3.4.2</span> Stacked Barplot</h4>
-<p>Another common variation on barplots are stacked barplots. Stacked barplots take the information from a grouped barplot but stacks them on top of one another. This is most helpful when the bars add up to 100%, such as in a survey response where you’re measuring percent of respondants within each cateogry. Otherwise, it can be hard to compare between the groups within each bar.</p>
+<p>Another common variation on barplots are stacked barplots. Stacked barplots take the information from a grouped barplot but stacks them on top of one another. This is most helpful when the bars add up to 100%, such as in a survey response where you’re measuring percent of respondents within each category. Otherwise, it can be hard to compare between the groups within each bar.</p>
 <div class="figure">
 <img src="https://docs.google.com/presentation/d/1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo/export/png?id=1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo&amp;pageid=g62494e73ab_0_242" alt="Stacked Barplot" />
 <p class="caption">Stacked Barplot</p>
@@ -1052,7 +1052,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="https://docs.google.com/presentation/d/1WRfoVxRU_dRcbMGtsha5zSokBRoAFIirm32Wq6bZuEc/export/png?id=1WRfoVxRU_dRcbMGtsha5zSokBRoAFIirm32Wq6bZuEc&amp;pageid=g4d96e4be59_0_0" alt="diamonds boxplot with red fill" />
 <p class="caption">diamonds boxplot with red fill</p>
 </div>
-<p>Here, by speciying the color “red” in the <code>fill</code> argument, you’re able to change the plot’s appearance. In the next lesson, we’ll go deeper into the many ways in which a plot can be customized within <code>ggplot2</code>!</p>
+<p>Here, by specifying the color “red” in the <code>fill</code> argument, you’re able to change the plot’s appearance. In the next lesson, we’ll go deeper into the many ways in which a plot can be customized within <code>ggplot2</code>!</p>
 </div>
 <div id="other-plots" class="section level4">
 <h4><span class="header-section-number">4.6.6.4</span> Other plots</h4>
@@ -1070,7 +1070,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="eda-plots" class="section level3">
 <h3><span class="header-section-number">4.6.7</span> EDA Plots</h3>
-<p>As mentioned previously, an important step after you’ve read your data into R and wrangled it into a tidy format is to carry out <strong>Exploratory Data Analysis (EDA)</strong>. EDA is the process of understanding the data in your dataset fully. To undersatnd your dataset fully, you need a full understanding of the variables stored in your dataset, what information you have and what information you don’t have (missingness!). To gain this understanding, we’ve discussed using packages like <code>skimr</code> to get a quick idea of what information is stored in your dataset. However, generating plots is another critical step in this process. We encourage you to use <code>ggplot2</code> to understand the distribution of each single variable as well as the relationship between each variable in your dataset.</p>
+<p>As mentioned previously, an important step after you’ve read your data into R and wrangled it into a tidy format is to carry out <strong>Exploratory Data Analysis (EDA)</strong>. EDA is the process of understanding the data in your dataset fully. To understand your dataset fully, you need a full understanding of the variables stored in your dataset, what information you have and what information you don’t have (missingness!). To gain this understanding, we’ve discussed using packages like <code>skimr</code> to get a quick idea of what information is stored in your dataset. However, generating plots is another critical step in this process. We encourage you to use <code>ggplot2</code> to understand the distribution of each single variable as well as the relationship between each variable in your dataset.</p>
 <p>In this process, using <code>ggplot2</code> defaults is totally fine. These plots do not have to be the most effective visualizations for communication, so you don’t want to spend a ton of time making them visually perfect. Only spend as much time on these as you need to understand your data!</p>
 </div>
 </div>
@@ -1096,7 +1096,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p class="caption">diamonds broken down by clarity</p>
 </div>
 <p>As a general note, we’ve stopped including <code>data =</code> and <code>mapping =</code> here within our code. We included it so far to be explicit; however, in code you see in the world, the names of the arguments will typically be excluded and we want you to be familiar with code that appears as you see above.</p>
-<p>Ok, well that’s a start since we see the breakdown, but all the bars are the same color. What if we adjusted color within <code>aes()</code>?</p>
+<p>OK, well that’s a start since we see the breakdown, but all the bars are the same color. What if we adjusted color within <code>aes()</code>?</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="co"># color changes outline of bar</span></a>
 <a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw">ggplot</span>(diamonds) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb23-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">x =</span> clarity, <span class="dt">color =</span> clarity))</a></code></pre></div>
@@ -1801,7 +1801,7 @@ Ideal
 </div>
 <div id="ggplot2-extensions" class="section level2">
 <h2><span class="header-section-number">4.9</span> <code>ggplot2</code>: Extensions</h2>
-<p>Beyond the <em>many</em> capabilities of <code>ggplot2</code>, there are a few additional packages that build <em>on top of</em> <code>ggplot2</code>’s capabilitiles. We’ll introduce a few packages here so that you can:</p>
+<p>Beyond the <em>many</em> capabilities of <code>ggplot2</code>, there are a few additional packages that build <em>on top of</em> <code>ggplot2</code>’s capabilities. We’ll introduce a few packages here so that you can:</p>
 <ul>
 <li>directly annotate points on plots (<code>ggrepel</code>)</li>
 <li>combine multiple plots (<code>cowplot</code> + <code>patchwork</code>)</li>
@@ -1815,7 +1815,7 @@ Ideal
 <blockquote>
 <p>The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models).</p>
 </blockquote>
-<p>This dataset includes information about 32 different cars. Let’s first convert this froma data.frame to a tibble.</p>
+<p>This dataset includes information about 32 different cars. Let’s first convert this from a data.frame to a tibble.</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="co"># see first 6 rows of mtcars</span></a>
 <a class="sourceLine" id="cb50-2" data-line-number="2">mtcars &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb50-3" data-line-number="3"><span class="st">  </span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;model&quot;</span>) <span class="op">%&gt;%</span></a>
@@ -1839,7 +1839,7 @@ Ideal
 <a class="sourceLine" id="cb52-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&#39;dodgerblue&#39;</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb52-9" data-line-number="9"><span class="st">  </span><span class="kw">theme_classic</span>()</a></code></pre></div>
 <p><img src="04-dataviz_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
-<p>The only bit of code here that changed was that we changed <code>geom_text()</code> to <code>geom_text_repel()</code>. This, like <code>geom_text()</code> adds text directly to the plot. However, it also helpfullly repels overlapping labels away from one another and away from the data points on the plot.</p>
+<p>The only bit of code here that changed was that we changed <code>geom_text()</code> to <code>geom_text_repel()</code>. This, like <code>geom_text()</code> adds text directly to the plot. However, it also helpfully repels overlapping labels away from one another and away from the data points on the plot.</p>
 <div id="custom-formatting" class="section level4">
 <h4><span class="header-section-number">4.9.1.1</span> Custom Formatting</h4>
 <p>Within <code>geom_text_repel()</code>, there are a number of additional formatting options available. We’ll cover a number of the most important here, but the <a href="https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html"><code>ggrepel</code> vignettes</a> explore these further</p>
@@ -1856,9 +1856,9 @@ Ideal
 <a class="sourceLine" id="cb53-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_text_repel</span>()</a></code></pre></div>
 <p><img src="04-dataviz_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
 <p>Here, notice that we first create a new column in our dataframe called <code>merc</code>. Here, we include the model of the car, only if “Merc” is in the model of the car’s name.</p>
-<p>We then, specify that only these Mercedes cars should be labeled <em>and</em> that we only want them colored blue if they are Mercedes. This allows us to focus in on those few points we’re interested in. And, we can see that among the cars in this dataset, Mercedes tend to be of averabe weight but have varying horsepower, depending on the model of the car.</p>
+<p>We then, specify that only these Mercedes cars should be labeled <em>and</em> that we only want them colored blue if they are Mercedes. This allows us to focus in on those few points we’re interested in. And, we can see that among the cars in this dataset, Mercedes tend to be of average weight but have varying horsepower, depending on the model of the car.</p>
 <p><strong>Text Alignment</strong></p>
-<p>Other times, you want to ensure that your abels are aligned on the top or bottom edge, relative to one another. This can be controlled using the <code>hjust</code> and <code>vjust</code> arguments. The values for particular alignment are:</p>
+<p>Other times, you want to ensure that your labels are aligned on the top or bottom edge, relative to one another. This can be controlled using the <code>hjust</code> and <code>vjust</code> arguments. The values for particular alignment are:</p>
 <p><code>hjust = 0</code> | to left-align
 <code>hjust = 0.5</code> | to center
 <code>hjust = 1</code> | to right-align</p>
@@ -1893,15 +1893,15 @@ Ideal
 <p>Beyond customization within <code>ggplot2</code> and labeling points, there are times you’ll want to arrange multiple plots together in a single grid, applying a standard theme across all plots. This often occurs when you’re ready to present or publish your visualizations. When you’re ready to share and present your work with others, you want to be sure your visualizations are conveying the point you want to convey to your viewer in as simple a plot as possible. And, if you’re presenting multiple plots, you typically want to ensure that they have a consistent theme from one plot to the next. This allows the viewer to focus on the data you’re plotting, rather than changes in theme. <code>cowplot</code> is a package that assists in this process!</p>
 <div id="theme" class="section level4">
 <h4><span class="header-section-number">4.9.2.1</span> Theme</h4>
-<p>The standard theme within <code>cowplot</code>, which works for many types of plots is <code>theme_cowplot()</code>. This theme is very similar to <code>theme_classic()</code>, which removes the background color, removes gridlines, and plots only the x- and y- axis lines (rather than a box around all the data). We’ll use this theme for the examples from this package. However, note that there are a number of additional themes available from the <code>cowplot</code> package.</p>
+<p>The standard theme within <code>cowplot</code>, which works for many types of plots is <code>theme_cowplot()</code>. This theme is very similar to <code>theme_classic()</code>, which removes the background color, removes grid lines, and plots only the x- and y- axis lines (rather than a box around all the data). We’ll use this theme for the examples from this package. However, note that there are a number of additional themes available from the <code>cowplot</code> package.</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="co"># install and load package</span></a>
 <a class="sourceLine" id="cb55-2" data-line-number="2"><span class="co"># install.packages(&quot;cowplot&quot;)</span></a>
 <a class="sourceLine" id="cb55-3" data-line-number="3"><span class="kw">library</span>(cowplot)</a></code></pre></div>
-<p>We’ll continue to use the <code>mtcars</code> dataset for these examples. Here, using the <code>forcats</code> package (which is part of the core tidyverse), we’ll add two ne new columns: <code>transmission</code>, where we recode the <code>am</code> column to be “automatic” if <code>am == 0</code> and “manual” if <code>am == 1</code>, and <code>engine</code>, where we recode the <code>vs</code> column to be “v-shaped” if <code>vs == 0</code> and “straight” if <code>vs == 1</code></p>
+<p>We’ll continue to use the <code>mtcars</code> dataset for these examples. Here, using the <code>forcats</code> package (which is part of the core tidyverse), we’ll add two new columns: <code>transmission</code>, where we recode the <code>am</code> column to be “automatic” if <code>am == 0</code> and “manual” if <code>am == 1</code>, and <code>engine</code>, where we recode the <code>vs</code> column to be “v-shaped” if <code>vs == 0</code> and “straight” if <code>vs == 1</code></p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">mtcars &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb56-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">transmission =</span> <span class="kw">fct_recode</span>(<span class="kw">as.factor</span>(am), <span class="st">&quot;automatic&quot;</span> =<span class="st"> &quot;0&quot;</span>, <span class="st">&quot;manual&quot;</span> =<span class="st"> &quot;1&quot;</span>),</a>
 <a class="sourceLine" id="cb56-3" data-line-number="3">         <span class="dt">engine =</span> <span class="kw">fct_recode</span>(<span class="kw">as.factor</span>(vs), <span class="st">&quot;v-shaped&quot;</span> =<span class="st"> &quot;0&quot;</span>, <span class="st">&quot;straight&quot;</span> =<span class="st"> &quot;1&quot;</span>))</a></code></pre></div>
-<p>We’ll use these data to generate a scatterplot plotting the relationship between 1/4 mile speed (<code>qsec</code>) and gase mileage (<code>mpg</code>). We’ll color the points by this new column <code>transmission</code> and apply <code>theme_cowplot</code>. Finally, we’ll assign this to <code>p1</code>, as we’ll ultimately generate a few different plots.</p>
+<p>We’ll use these data to generate a scatterplot plotting the relationship between 1/4 mile speed (<code>qsec</code>) and gas mileage (<code>mpg</code>). We’ll color the points by this new column <code>transmission</code> and apply <code>theme_cowplot</code>. Finally, we’ll assign this to <code>p1</code>, as we’ll ultimately generate a few different plots.</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(qsec, mpg, <span class="dt">color =</span> transmission)) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb57-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb57-3" data-line-number="3"><span class="st">  </span><span class="kw">theme_cowplot</span>(<span class="dv">12</span>) <span class="op">+</span><span class="st"> </span></a>
@@ -1924,7 +1924,7 @@ Ideal
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="co"># plot side by side</span></a>
 <a class="sourceLine" id="cb59-2" data-line-number="2"><span class="kw">plot_grid</span>(p1, p2, <span class="dt">ncol =</span> <span class="dv">2</span>)</a></code></pre></div>
 <p><img src="04-dataviz_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
-<p>Here, we specify the two plots we’d like to plot on a single grid and we also optionally include how many columsn we’d like using the <code>ncol</code> parameter.</p>
+<p>Here, we specify the two plots we’d like to plot on a single grid and we also optionally include how many columns we’d like using the <code>ncol</code> parameter.</p>
 <p>To plot these one on top of the other, you could specify for <code>plot_grid()</code> to use a single column. Also note here that we’re aligning the plots vertically with <code>align = &quot;v&quot;</code>. The default here is “none”, so if you want the graphs in the grid to be aligned, be sure to specify “h” (horizontally), “v” (vertically) or “hv” (align in both directions) explicitly.</p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="co"># plot on top of one another</span></a>
 <a class="sourceLine" id="cb60-2" data-line-number="2"><span class="kw">plot_grid</span>(p1, p2, <span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">align =</span> <span class="st">&quot;v&quot;</span>)</a></code></pre></div>
@@ -1986,8 +1986,8 @@ Ideal
 <div id="patchwork-1" class="section level3">
 <h3><span class="header-section-number">4.9.3</span> <code>patchwork</code></h3>
 <p>The <code>patchwork</code> package is similar to the <code>cowplot</code> package in that they both are helpful for combining plots together. They each allow for different plot modifications, so it is useful to know about both packages.</p>
-<p>Instead of requiring a function like <code>plot_grid()</code> of the <code>cowplot</code> package plots can be combined using a few strightforward symbols, such as <code>&quot;+&quot;</code>, <code>&quot;/&quot;</code>, amd <code>&quot;|&quot;</code>.</p>
-<p>To combine two plots together we can simply add them together with the <code>+</code> sign or using the <code>|</code> to ensure that they are equally sized:</p>
+<p>Instead of requiring a function like <code>plot_grid()</code> of the <code>cowplot</code> package plots can be combined using a few operators, such as <code>&quot;+&quot;</code>, <code>&quot;/&quot;</code>, and `“|”.</p>
+<p>To combine two plots together we can simply add them together with the <code>+</code> sign or place them next to one another using the <code>|</code>:</p>
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1"><span class="co">#install.packages(patchwork)</span></a>
 <a class="sourceLine" id="cb68-2" data-line-number="2"><span class="kw">library</span>(patchwork)</a></code></pre></div>
 <pre><code>## 
@@ -2001,32 +2001,57 @@ Ideal
 <p><img src="04-dataviz_files/figure-html/unnamed-chunk-56-2.png" width="672" /></p>
 <p>If we want a plot above another plot we can use the “/” symbol:</p>
 <div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1">p1 <span class="op">/</span><span class="st"> </span>p2</a></code></pre></div>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
-<p>To combine multiple plots in a more complicated layout, one can combine two plots on one row and have a third plot on a row below like this:</p>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-57-1.png" width="672" />
+Grouping or nesting plots together using parenthesis can result in two or more plots taking up a single grid space.</p>
+<p>Thus, to combine multiple plots in a more complicated layout, one can combine two plots on one row and have a third plot on another row like this:</p>
 <div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1">(p3 <span class="op">+</span><span class="st"> </span>p3) <span class="op">/</span><span class="st"> </span>p1</a></code></pre></div>
 <p><img src="04-dataviz_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
-<p>You can add empty plot spacers using the <code>plotspacer()</code> function like so:</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1">(patchwork<span class="op">::</span><span class="kw">plot_spacer</span>() <span class="op">+</span><span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span><span class="kw">plot_spacer</span>()) <span class="op">/</span><span class="st"> </span>p1</a></code></pre></div>
+<p>Otherwise, we would have the following:</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1">p3 <span class="op">+</span><span class="st"> </span>p3 <span class="op">/</span><span class="st"> </span>p1</a></code></pre></div>
 <p><img src="04-dataviz_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
-<p>You can modify the widths of the plots using the <code>widths</code> argument of the <code>plot_layout()</code> function. In the following example we will make the width of the plot on the left 3 times that of the plot on the right. Any numeric values will do, it is the ratio of the numbers that make the difference.</p>
-<p>Thus, both <code>p1 + p2 + plot_layout(widths = c(3, 1))</code> and <code>p1 + p2 + plot_layout(widths = c(60, 20))</code> will result in the same relative size difference between <code>pq</code> and <code>p2</code>.</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1">p1 <span class="op">+</span><span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">widths =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>))</a></code></pre></div>
+<p>You can also empty plot spacers using the <code>plotspacer()</code> function like so:</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1">(<span class="kw">plot_spacer</span>() <span class="op">+</span><span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span><span class="kw">plot_spacer</span>()) <span class="op">/</span><span class="st"> </span>p1</a></code></pre></div>
 <p><img src="04-dataviz_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1">p1 <span class="op">+</span><span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">widths =</span> <span class="kw">c</span>(<span class="dv">60</span>, <span class="dv">20</span>))</a></code></pre></div>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-60-2.png" width="672" /></p>
-<p>The relative heights of the plots can also be modified using a <code>heights</code> argument with the same function.</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1">p1 <span class="op">+</span><span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">heights =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>))</a></code></pre></div>
+<p>You can modify the widths of the plots using the <code>widths</code> argument of the <code>plot_layout()</code> function. In the following example we will make the width of the plot on the left 3 times that of the plot on the right. Any numeric values will do, it is the ratio of the numbers that make the difference.</p>
+<p>Thus, both <code>p1 + p2 + plot_layout(widths = c(3, 1))</code> and <code>p1 + p2 + plot_layout(widths = c(60, 20))</code> will result in the same relative size difference between <code>p1</code> and <code>p2</code>.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1">p1 <span class="op">+</span><span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">widths =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>))</a></code></pre></div>
 <p><img src="04-dataviz_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1">p1 <span class="op">+</span><span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">heights =</span> <span class="kw">c</span>(<span class="dv">60</span>, <span class="dv">20</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1">p1 <span class="op">+</span><span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">widths =</span> <span class="kw">c</span>(<span class="dv">60</span>, <span class="dv">20</span>))</a></code></pre></div>
 <p><img src="04-dataviz_files/figure-html/unnamed-chunk-61-2.png" width="672" /></p>
-<p>You can also specify the number of columns or rows using this same function.</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" data-line-number="1">p1 <span class="op">+</span><span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span>p3  <span class="op">+</span><span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">ncol =</span> <span class="dv">2</span>)</a></code></pre></div>
+<p>The relative heights of the plots can also be modified using a <code>heights</code> argument with the same function.</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1">p1 <span class="op">+</span><span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">heights =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>))</a></code></pre></div>
 <p><img src="04-dataviz_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" data-line-number="1">p1 <span class="op">+</span><span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">heights =</span> <span class="kw">c</span>(<span class="dv">60</span>, <span class="dv">20</span>))</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-62-2.png" width="672" /></p>
+<p>You can also specify the number of columns or rows using this same function with the <code>ncol</code> or <code>nrow</code> as you would with <code>facet_wrap()</code> of the <code>ggplot2</code> package, where plots are added to <strong>complete a row</strong> before they will be added to a new row. For example, the following will result in an empty 3rd row.</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" data-line-number="1">p1 <span class="op">+</span><span class="st"> </span>p1 <span class="op">+</span><span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">3</span>)</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
+<p>However, the <code>byrow = FALSE</code> argument can disrupt this behavior:</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1">p1 <span class="op">+</span><span class="st"> </span>p1 <span class="op">+</span><span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">3</span>, <span class="dt">byrow =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
+<p>In this case the <strong>columns will be preferentially completed</strong> before placing a plot in a new column.</p>
+<p>We can also use the package to change the theme specifications of specific plots. By default the plot just prior to the <code>theme()</code> function will be the only plot changed.</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1">p1 <span class="op">+</span><span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="op">+</span><span class="st"> </span>p2</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
+<p>Using the <code>*</code>, themes can be added to all plots that are nested together.</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1">(p1 <span class="op">+</span><span class="st"> </span>p2) <span class="op">*</span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span>p2</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
+<p>The <code>&amp;</code> adds themes to all plots.</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1">(p1 <span class="op">+</span><span class="st"> </span>p2) <span class="op">+</span><span class="st"> </span>p2 <span class="op">&amp;</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_text</span>(<span class="dt">face =</span> <span class="st">&quot;bold&quot;</span>))</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
+<p>This package also allows for modification of legends. For example, legends can be gathered together to one side of the combined plots using the <code>guides = 'collect'</code> argument of the <code>plot_grid()</code> function.</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1">((p1 <span class="op">+</span><span class="st"> </span>p2) <span class="op">&amp;</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_text</span>(<span class="dt">face =</span> <span class="st">&quot;bold&quot;</span>))) <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">guides =</span> <span class="st">&quot;collect&quot;</span>)</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
+<p>Annotations for all the plots combined can also be added using the <code>plot_annotation()</code> function, which can also take <code>theme()</code> function specifications with the <code>theme</code> argument.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1">(p1 <span class="op">+</span><span class="st"> </span>p2) <span class="op">+</span><span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&quot;Plot title for all 3 plots&quot;</span>, </a>
+<a class="sourceLine" id="cb87-2" data-line-number="2">                                 <span class="dt">theme =</span> <span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>)))</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<p>See <a href="https://patchwork.data-imaginist.com/">here</a> for more information about the <code>patchwork</code> package.</p>
 </div>
 <div id="gganimate-1" class="section level3">
 <h3><span class="header-section-number">4.9.4</span> <code>gganimate</code></h3>
 <p>The final <code>ggplot2</code> extension we’ll discuss here is <a href="https://gganimate.com/"><code>gganmiate</code></a>. This extends the grammar of graphics implemented in the <code>ggplot2</code> package to work with animated plots. To get started, you’ll need to install and load the package:</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" data-line-number="1"><span class="kw">library</span>(gganimate)</a></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1"><span class="kw">library</span>(gganimate)</a></code></pre></div>
 <p>The <code>gganimate</code> package adds functionality by providing a number of these grammar classes. Across the animation being generated, the following classes are made available, with each classes’ corresponding functionality:</p>
 <p><code>transition_*()</code> | specifies how data should transition
 <code>enter_*()</code>/<code>exit_*()</code> | specifies how data should appear and disappear
@@ -2037,137 +2062,137 @@ Ideal
 <div id="example-mtcars" class="section level4">
 <h4><span class="header-section-number">4.9.4.1</span> Example: <code>mtcars</code></h4>
 <p>As noted, <code>gganimate</code> builds on top of the functionality within <code>ggplot2</code>, so the code should look pretty familiar by now.</p>
-<p>First, using the <code>mtcars</code> dataset we generate a static boxplot looking at the relationship between the nymber of cylinders a car has (<code>cyl</code>) and its gas milage (<code>mpg</code>).</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1"><span class="co"># generate static boxplot</span></a>
-<a class="sourceLine" id="cb82-2" data-line-number="2"><span class="kw">ggplot</span>(mtcars) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb82-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="kw">aes</span>(<span class="kw">factor</span>(cyl), mpg))</a></code></pre></div>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
+<p>First, using the <code>mtcars</code> dataset we generate a static boxplot looking at the relationship between the number of cylinders a car has (<code>cyl</code>) and its gas mileage (<code>mpg</code>).</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1"><span class="co"># generate static boxplot</span></a>
+<a class="sourceLine" id="cb89-2" data-line-number="2"><span class="kw">ggplot</span>(mtcars) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb89-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="kw">aes</span>(<span class="kw">factor</span>(cyl), mpg))</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
 <p>But what if we wanted to understand the relationship between those two variables and the number of gears a car has (<code>gear</code>)?</p>
 <p>One option would be to use faceting:</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1"><span class="co"># facet by gear</span></a>
-<a class="sourceLine" id="cb83-2" data-line-number="2"><span class="kw">ggplot</span>(mtcars) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb83-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="kw">aes</span>(<span class="kw">factor</span>(cyl), mpg)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb83-4" data-line-number="4"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>gear)</a></code></pre></div>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1"><span class="co"># facet by gear</span></a>
+<a class="sourceLine" id="cb90-2" data-line-number="2"><span class="kw">ggplot</span>(mtcars) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb90-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="kw">aes</span>(<span class="kw">factor</span>(cyl), mpg)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb90-4" data-line-number="4"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>gear)</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
 <p>Alternatively, we could animate the plot, using <code>gganimate</code> so that on a single plot we rotate between each of these three plots.</p>
 <div id="transitions" class="section level5">
 <h5><span class="header-section-number">4.9.4.1.1</span> Transitions</h5>
 <p>We’ll transition in this example between frames by gear:</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1"><span class="co"># animate it!</span></a>
-<a class="sourceLine" id="cb84-2" data-line-number="2">mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb84-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">gear =</span> <span class="kw">factor</span>(gear),</a>
-<a class="sourceLine" id="cb84-4" data-line-number="4">         <span class="dt">cyl =</span> <span class="kw">factor</span>(cyl)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb84-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb84-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="kw">aes</span>(cyl, mpg)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb84-7" data-line-number="7"><span class="st">  </span><span class="kw">transition_manual</span>(gear)</a></code></pre></div>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-66-1.gif" /><!-- --></p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1"><span class="co"># animate it!</span></a>
+<a class="sourceLine" id="cb91-2" data-line-number="2">mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb91-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">gear =</span> <span class="kw">factor</span>(gear),</a>
+<a class="sourceLine" id="cb91-4" data-line-number="4">         <span class="dt">cyl =</span> <span class="kw">factor</span>(cyl)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb91-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb91-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="kw">aes</span>(cyl, mpg)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb91-7" data-line-number="7"><span class="st">  </span><span class="kw">transition_manual</span>(gear)</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-73-1.gif" /><!-- --></p>
 <p>Note that here, <code>transition_manual()</code> is a new grammar class that we add right on top of our <code>ggplot2</code> plot code! Within this grammar class, we specify the variable upon which we’d like the transition in the animation to occur.</p>
 <p>This means that the number of frames in the animation will be the number of levels in the variable by which you’re transitioning. Here, there will be 3 frames, as there are three different levels of <code>gear</code> in the <code>mtcars</code> dataset.</p>
 <p><code>transition_manual()</code> is not the only option for transition. In fact, there are a number of different <code>transition_*</code> options, depending upon your animation needs. One of the most commonly used is <code>transition_states()</code>. The animation will plot the same information as the example above; however, it allows for finer tune control of the animation</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1"><span class="co"># animate it!</span></a>
-<a class="sourceLine" id="cb85-2" data-line-number="2">anim &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb85-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="kw">aes</span>(<span class="kw">factor</span>(cyl), mpg)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb85-4" data-line-number="4"><span class="st">  </span><span class="kw">transition_states</span>(gear,</a>
-<a class="sourceLine" id="cb85-5" data-line-number="5">                    <span class="dt">transition_length =</span> <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb85-6" data-line-number="6">                    <span class="dt">state_length =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb85-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb85-8" data-line-number="8">anim</a></code></pre></div>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-67-1.gif" /><!-- --></p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" data-line-number="1"><span class="co"># animate it!</span></a>
+<a class="sourceLine" id="cb92-2" data-line-number="2">anim &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb92-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="kw">aes</span>(<span class="kw">factor</span>(cyl), mpg)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb92-4" data-line-number="4"><span class="st">  </span><span class="kw">transition_states</span>(gear,</a>
+<a class="sourceLine" id="cb92-5" data-line-number="5">                    <span class="dt">transition_length =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb92-6" data-line-number="6">                    <span class="dt">state_length =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb92-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb92-8" data-line-number="8">anim</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-74-1.gif" /><!-- --></p>
 <p>Note here that we’ve stored the output from <code>transition_states</code> in the object <code>anim</code>. We’ll build on this object below.</p>
 </div>
 <div id="labeling" class="section level5">
 <h5><span class="header-section-number">4.9.4.1.2</span> Labeling</h5>
 <p>Currently, it’s hard to know which frame corresponds to which <code>gear</code>. To make this easier on the viewer, let’s label our animation:</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1"><span class="co"># animate it!</span></a>
-<a class="sourceLine" id="cb86-2" data-line-number="2">anim &lt;-<span class="st"> </span>anim <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb86-3" data-line-number="3"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&#39;Now showing gear: {closest_state}&#39;</span>)</a>
-<a class="sourceLine" id="cb86-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb86-5" data-line-number="5">anim</a></code></pre></div>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-68-1.gif" /><!-- --></p>
-<p>Note that we’re referring to the approapriate gear within the animation frame by specifying <code>{closest_state}</code>.</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1"><span class="co"># animate it!</span></a>
+<a class="sourceLine" id="cb93-2" data-line-number="2">anim &lt;-<span class="st"> </span>anim <span class="op">+</span><span class="st">  </span></a>
+<a class="sourceLine" id="cb93-3" data-line-number="3"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&#39;Now showing gear: {closest_state}&#39;</span>)</a>
+<a class="sourceLine" id="cb93-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb93-5" data-line-number="5">anim</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-75-1.gif" /><!-- --></p>
+<p>Note that we’re referring to the appropriate gear within the animation frame by specifying <code>{closest_state}</code>.</p>
 </div>
 <div id="easing" class="section level5">
 <h5><span class="header-section-number">4.9.4.1.3</span> Easing</h5>
 <p>Easing determines how the change from one value to another should occur. The default is linear, but there are other options that will control the appearance of progression in your animation. for example, ‘cubic-in-out’ allows for the start and end of the animation to have a smoother look.</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1">anim &lt;-<span class="st"> </span>anim <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb87-2" data-line-number="2"><span class="st">  </span><span class="co"># Slow start and end for a smoother look</span></a>
-<a class="sourceLine" id="cb87-3" data-line-number="3"><span class="st">  </span><span class="kw">ease_aes</span>(<span class="st">&#39;cubic-in-out&#39;</span>)</a>
-<a class="sourceLine" id="cb87-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb87-5" data-line-number="5">anim</a></code></pre></div>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-69-1.gif" /><!-- --></p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" data-line-number="1">anim &lt;-<span class="st"> </span>anim <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb94-2" data-line-number="2"><span class="st">  </span><span class="co"># Slow start and end for a smoother look</span></a>
+<a class="sourceLine" id="cb94-3" data-line-number="3"><span class="st">  </span><span class="kw">ease_aes</span>(<span class="st">&#39;cubic-in-out&#39;</span>)</a>
+<a class="sourceLine" id="cb94-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb94-5" data-line-number="5">anim</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-76-1.gif" /><!-- --></p>
 <p>There are a number of easing functions, all of which are listed within the documentation, which can be viewed, as always, using the <code>?</code> help function: <code>?ease_aes</code>.</p>
 </div>
 <div id="enter-exit" class="section level5">
 <h5><span class="header-section-number">4.9.4.1.4</span> Enter &amp; Exit</h5>
 <p>Building on top of easing, we can also control how the data appears (enters) and disappears (exits), using <code>enter_*</code> and <code>exit_*</code>:</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1">anim &lt;-<span class="st"> </span>anim <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb88-2" data-line-number="2"><span class="st">  </span><span class="co"># fade to enter</span></a>
-<a class="sourceLine" id="cb88-3" data-line-number="3"><span class="st">  </span><span class="kw">enter_fade</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb88-4" data-line-number="4"><span class="st">  </span><span class="co"># shrink on exit</span></a>
-<a class="sourceLine" id="cb88-5" data-line-number="5"><span class="st">  </span><span class="kw">exit_shrink</span>()</a>
-<a class="sourceLine" id="cb88-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb88-7" data-line-number="7">anim</a></code></pre></div>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-70-1.gif" /><!-- --></p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1">anim &lt;-<span class="st"> </span>anim <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb95-2" data-line-number="2"><span class="st">  </span><span class="co"># fade to enter</span></a>
+<a class="sourceLine" id="cb95-3" data-line-number="3"><span class="st">  </span><span class="kw">enter_fade</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb95-4" data-line-number="4"><span class="st">  </span><span class="co"># shrink on exit</span></a>
+<a class="sourceLine" id="cb95-5" data-line-number="5"><span class="st">  </span><span class="kw">exit_shrink</span>()</a>
+<a class="sourceLine" id="cb95-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb95-7" data-line-number="7">anim</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-77-1.gif" /><!-- --></p>
 <p>The changes are subtle but you’ll notice that on transition the data fades in to appear and shrinks upon exit.</p>
 </div>
 <div id="position-scales" class="section level5">
 <h5><span class="header-section-number">4.9.4.1.5</span> Position Scales</h5>
 <p>To demonstrate how changing positional scales can be adjusted, let’s take a look at a scatterplot. Here, we’re plotting the relationship between 1/4 mile speed and miles per gallon and we’ll be transitioning between gear.</p>
 <p>The static plot would be as follows</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1"><span class="kw">ggplot</span>(mtcars) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb89-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(qsec, mpg))</a></code></pre></div>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" data-line-number="1"><span class="kw">ggplot</span>(mtcars) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb96-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(qsec, mpg))</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
 <p>However, upon adding animation, we see how the data changes by gear.</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1"><span class="co"># animate it!</span></a>
-<a class="sourceLine" id="cb90-2" data-line-number="2">scat &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb90-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(qsec, mpg)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb90-4" data-line-number="4"><span class="st">  </span><span class="kw">transition_states</span>(gear,</a>
-<a class="sourceLine" id="cb90-5" data-line-number="5">                    <span class="dt">transition_length =</span> <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb90-6" data-line-number="6">                    <span class="dt">state_length =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb90-7" data-line-number="7"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&#39;Now showing gear: {closest_state}&#39;</span>)</a>
-<a class="sourceLine" id="cb90-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb90-9" data-line-number="9">scat</a></code></pre></div>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-72-1.gif" /><!-- --></p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1"><span class="co"># animate it!</span></a>
+<a class="sourceLine" id="cb97-2" data-line-number="2">scat &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb97-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(qsec, mpg)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb97-4" data-line-number="4"><span class="st">  </span><span class="kw">transition_states</span>(gear,</a>
+<a class="sourceLine" id="cb97-5" data-line-number="5">                    <span class="dt">transition_length =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb97-6" data-line-number="6">                    <span class="dt">state_length =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb97-7" data-line-number="7"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&#39;Now showing gear: {closest_state}&#39;</span>)</a>
+<a class="sourceLine" id="cb97-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb97-9" data-line-number="9">scat</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-79-1.gif" /><!-- --></p>
 <p>However, the x- and y-axes remain constant throughout the animation.</p>
 <p>If you wanted to allow these positional scales to adjust between each gear level, you could use <code>view_step</code>:</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1"><span class="co"># allow positional scaling for each level in gear</span></a>
-<a class="sourceLine" id="cb91-2" data-line-number="2">scat <span class="op">+</span></a>
-<a class="sourceLine" id="cb91-3" data-line-number="3"><span class="st">  </span><span class="kw">view_step</span>(<span class="dt">pause_length =</span> <span class="dv">2</span>, </a>
-<a class="sourceLine" id="cb91-4" data-line-number="4">            <span class="dt">step_length =</span> <span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb91-5" data-line-number="5">            <span class="dt">nsteps =</span> <span class="dv">3</span>, </a>
-<a class="sourceLine" id="cb91-6" data-line-number="6">            <span class="dt">include =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-73-1.gif" /><!-- --></p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" data-line-number="1"><span class="co"># allow positional scaling for each level in gear</span></a>
+<a class="sourceLine" id="cb98-2" data-line-number="2">scat <span class="op">+</span></a>
+<a class="sourceLine" id="cb98-3" data-line-number="3"><span class="st">  </span><span class="kw">view_step</span>(<span class="dt">pause_length =</span> <span class="dv">2</span>, </a>
+<a class="sourceLine" id="cb98-4" data-line-number="4">            <span class="dt">step_length =</span> <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb98-5" data-line-number="5">            <span class="dt">nsteps =</span> <span class="dv">3</span>, </a>
+<a class="sourceLine" id="cb98-6" data-line-number="6">            <span class="dt">include =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-80-1.gif" /><!-- --></p>
 </div>
 </div>
 <div id="example-gapminder" class="section level4">
 <h4><span class="header-section-number">4.9.4.2</span> Example: gapminder</h4>
 <p>One of the most famous examples of an animated plot uses the gapminder dataset. This dataset includes economic data for countries all over the world. The animated plot here demonstrates the relationship between GDP (per capita) and life expectancy over time, by continent. Note that the year whose data is being displayed is shown at the top left portion of the plot.</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" data-line-number="1"><span class="co"># install.packages(&quot;gapminder&quot;)</span></a>
-<a class="sourceLine" id="cb92-2" data-line-number="2"><span class="kw">library</span>(gapminder)</a>
-<a class="sourceLine" id="cb92-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb92-4" data-line-number="4">gap &lt;-<span class="st"> </span><span class="kw">ggplot</span>(gapminder, <span class="kw">aes</span>(gdpPercap, lifeExp, <span class="dt">size =</span> pop, <span class="dt">colour =</span> country)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb92-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.7</span>, <span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb92-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_colour_manual</span>(<span class="dt">values =</span> country_colors) <span class="op">+</span></a>
-<a class="sourceLine" id="cb92-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_size</span>(<span class="dt">range =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">12</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb92-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_x_log10</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb92-9" data-line-number="9"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>continent, <span class="dt">ncol =</span> <span class="dv">5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb92-10" data-line-number="10"><span class="st">  </span><span class="kw">theme_half_open</span>(<span class="dv">12</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb92-11" data-line-number="11"><span class="st">  </span><span class="kw">panel_border</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb92-12" data-line-number="12"><span class="st">  </span><span class="co"># animate it!</span></a>
-<a class="sourceLine" id="cb92-13" data-line-number="13"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&#39;Year: {frame_time}&#39;</span>, <span class="dt">x =</span> <span class="st">&#39;GDP per capita&#39;</span>, <span class="dt">y =</span> <span class="st">&#39;life expectancy&#39;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb92-14" data-line-number="14"><span class="st">  </span><span class="kw">transition_time</span>(year)</a>
-<a class="sourceLine" id="cb92-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb92-16" data-line-number="16">gap</a></code></pre></div>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-74-1.gif" /><!-- --></p>
-<p>Note that in this example, we’re now using <code>transition_time()</code> rather than <code>transition_states()</code>. This is a variant of <code>transition_states()</code> that is particularly useful when the states represent points in time, such as the years we’re animating through in the plot above. The transition lenth is set to correspond to the time difference between the points in the data.</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1"><span class="co"># install.packages(&quot;gapminder&quot;)</span></a>
+<a class="sourceLine" id="cb99-2" data-line-number="2"><span class="kw">library</span>(gapminder)</a>
+<a class="sourceLine" id="cb99-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb99-4" data-line-number="4">gap &lt;-<span class="st"> </span><span class="kw">ggplot</span>(gapminder, <span class="kw">aes</span>(gdpPercap, lifeExp, <span class="dt">size =</span> pop, <span class="dt">colour =</span> country)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb99-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.7</span>, <span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb99-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_colour_manual</span>(<span class="dt">values =</span> country_colors) <span class="op">+</span></a>
+<a class="sourceLine" id="cb99-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_size</span>(<span class="dt">range =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">12</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb99-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_x_log10</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb99-9" data-line-number="9"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>continent, <span class="dt">ncol =</span> <span class="dv">5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb99-10" data-line-number="10"><span class="st">  </span><span class="kw">theme_half_open</span>(<span class="dv">12</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb99-11" data-line-number="11"><span class="st">  </span><span class="kw">panel_border</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb99-12" data-line-number="12"><span class="st">  </span><span class="co"># animate it!</span></a>
+<a class="sourceLine" id="cb99-13" data-line-number="13"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&#39;Year: {frame_time}&#39;</span>, <span class="dt">x =</span> <span class="st">&#39;GDP per capita&#39;</span>, <span class="dt">y =</span> <span class="st">&#39;life expectancy&#39;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb99-14" data-line-number="14"><span class="st">  </span><span class="kw">transition_time</span>(year)</a>
+<a class="sourceLine" id="cb99-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb99-16" data-line-number="16">gap</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-81-1.gif" /><!-- --></p>
+<p>Note that in this example, we’re now using <code>transition_time()</code> rather than <code>transition_states()</code>. This is a variant of <code>transition_states()</code> that is particularly useful when the states represent points in time, such as the years we’re animating through in the plot above. The transition length is set to correspond to the time difference between the points in the data.</p>
 <div id="shadow" class="section level5">
 <h5><span class="header-section-number">4.9.4.2.1</span> Shadow</h5>
 <p>However, what if we didn’t want the data to completely disappear from one frame to the next and instead wanted to see the pattern emerge over time? We didn’t demonstrate this using the <code>mtcars</code> dataset because each observation in that dataset is a different car. However, here, with the gapminder dataset, where we’re looking at a trend over time, it makes more sense to include a trail</p>
 <p>To do this, we would use <code>shadow_*</code>. Here, we’ll use <code>shadow_trail()</code> to see a trail of the data from one frame to the next:</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1">gap <span class="op">+</span></a>
-<a class="sourceLine" id="cb93-2" data-line-number="2"><span class="st"> </span><span class="kw">shadow_trail</span>(<span class="dt">distance =</span> <span class="fl">0.05</span>,</a>
-<a class="sourceLine" id="cb93-3" data-line-number="3">              <span class="dt">alpha =</span> <span class="fl">0.3</span>)</a></code></pre></div>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-75-1.gif" /><!-- --></p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" data-line-number="1">gap <span class="op">+</span></a>
+<a class="sourceLine" id="cb100-2" data-line-number="2"><span class="st"> </span><span class="kw">shadow_trail</span>(<span class="dt">distance =</span> <span class="fl">0.05</span>,</a>
+<a class="sourceLine" id="cb100-3" data-line-number="3">              <span class="dt">alpha =</span> <span class="fl">0.3</span>)</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-82-1.gif" /><!-- --></p>
 <p>Here, distance specifies the temporal distance between the frames to show and alpha specifies the transparency of the trail, so that the current frame’s data is always discernible.</p>
 </div>
 </div>
@@ -2177,9 +2202,9 @@ Ideal
 <h2><span class="header-section-number">4.10</span> Case Studies</h2>
 <p>At this point, we’ve done a lot of work with our case studies. We’ve introduced the case studies, read them into R, and have wrangled the data into a usable format. Now, we get to peak at the data using visualizations to better understand each dataset’s observations and variables!</p>
 <p>Let’s start by loading our wrangled tidy data that we previously saved:</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" data-line-number="1"><span class="kw">load</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;tidy_data&quot;</span>, <span class="st">&quot;case_study_1_tidy.rda&quot;</span>))</a>
-<a class="sourceLine" id="cb94-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb94-3" data-line-number="3"><span class="kw">load</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;tidy_data&quot;</span>, <span class="st">&quot;case_study_2_tidy.rda&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" data-line-number="1"><span class="kw">load</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;tidy_data&quot;</span>, <span class="st">&quot;case_study_1_tidy.rda&quot;</span>))</a>
+<a class="sourceLine" id="cb101-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb101-3" data-line-number="3"><span class="kw">load</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;tidy_data&quot;</span>, <span class="st">&quot;case_study_2_tidy.rda&quot;</span>))</a></code></pre></div>
 <div id="case-study-1-health-expenditures-3" class="section level3">
 <h3><span class="header-section-number">4.10.1</span> Case Study #1: Health Expenditures</h3>
 <p>We’ve now got the data in order so that we can start to explore the relationships between the variables contained in the health care dataset (<code>hc</code>) to answer our questions of interest:</p>
@@ -2188,8 +2213,8 @@ Ideal
 <li>How does the spending distribution change across geographic regions in the United States?</li>
 <li>Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?</li>
 </ol>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1"><span class="co"># see health care data</span></a>
-<a class="sourceLine" id="cb95-2" data-line-number="2">hc</a></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" data-line-number="1"><span class="co"># see health care data</span></a>
+<a class="sourceLine" id="cb102-2" data-line-number="2">hc</a></code></pre></div>
 <pre><code>## # A tibble: 612 x 10
 ##    Location  year type  tot_coverage abb   region tot_spending tot_pop
 ##    &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;        &lt;int&gt; &lt;chr&gt; &lt;fct&gt;         &lt;dbl&gt;   &lt;int&gt;
@@ -2209,19 +2234,19 @@ Ideal
 <div id="exploratory-data-analysis-eda" class="section level4">
 <h4><span class="header-section-number">4.10.1.1</span> Exploratory Data Analysis (EDA)</h4>
 <p>To first get a sense of what information we do and do not have, the <code>visdat</code> package can be very helpful. This package uses <code>ggplot2</code> to visualize missingness in a data frame. For example, <code>vis_dat()</code> takes the data frame as an input and visualizes the observations on the left and the variables across the top. Solid colors indicate that a value is present. Each type of variable is represented by a different color. Grey lines indicate missing values.</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1"><span class="co"># install.packages(&quot;visdat&quot;)</span></a>
-<a class="sourceLine" id="cb97-2" data-line-number="2"><span class="kw">library</span>(visdat)</a>
-<a class="sourceLine" id="cb97-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb97-4" data-line-number="4"><span class="kw">vis_dat</span>(hc)</a></code></pre></div>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" data-line-number="1"><span class="co"># install.packages(&quot;visdat&quot;)</span></a>
+<a class="sourceLine" id="cb104-2" data-line-number="2"><span class="kw">library</span>(visdat)</a>
+<a class="sourceLine" id="cb104-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb104-4" data-line-number="4"><span class="kw">vis_dat</span>(hc)</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
 <p>We now have a sense that a few states, for some years are missing coverage data, which also affects the ability to calculate proportion covered.</p>
 <p>To see these values highlighted more specifically, we can use the related <code>vis_miss()</code> function.</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" data-line-number="1"><span class="kw">vis_miss</span>(hc)</a></code></pre></div>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" data-line-number="1"><span class="kw">vis_miss</span>(hc)</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
 <p>Here we see that missing values only occur 0.6% of the time, with 3.1% of the observations missing entries for <code>tot_coverage</code> and <code>prop_coverage</code>. So, all in all, there is not a lot of missing data, but we still want to be sure we understand where missingness occurs before answering our questions.</p>
 <p>Let’s use <code>dplyr</code> to see <em>which</em> observations have missing data:</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1">hc <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb99-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">is.na</span>(tot_coverage))</a></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb106-1" data-line-number="1">hc <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb106-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">is.na</span>(tot_coverage))</a></code></pre></div>
 <pre><code>## # A tibble: 19 x 10
 ##    Location  year type  tot_coverage abb   region tot_spending tot_pop
 ##    &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;        &lt;int&gt; &lt;chr&gt; &lt;fct&gt;         &lt;dbl&gt;   &lt;int&gt;
@@ -2247,14 +2272,14 @@ Ideal
 ## # … with 2 more variables: prop_coverage &lt;dbl&gt;, spending_capita &lt;dbl&gt;</code></pre>
 <p>Ah, so we see that the “Other” type of coverage is missing in both 2013 and 2014 for a subset of states. We’ll be focusing on the non-“Other” types of healthcare coverage, so this shouldn’t pose a problem, but is good to know!</p>
 <p>Taking this one step further, let’s skim the entire dataset to get a sense of the information stored in each variable:</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" data-line-number="1"><span class="kw">library</span>(skimr)</a>
-<a class="sourceLine" id="cb101-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb101-3" data-line-number="3"><span class="co"># get summary of the data</span></a>
-<a class="sourceLine" id="cb101-4" data-line-number="4"><span class="kw">skim</span>(hc)</a></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" data-line-number="1"><span class="kw">library</span>(skimr)</a>
+<a class="sourceLine" id="cb108-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb108-3" data-line-number="3"><span class="co"># get summary of the data</span></a>
+<a class="sourceLine" id="cb108-4" data-line-number="4"><span class="kw">skim</span>(hc)</a></code></pre></div>
 <table style='width: auto;'
         class='table table-condensed'>
 <caption>
-<span id="tab:unnamed-chunk-81">Table 4.2: </span>Data summary
+<span id="tab:unnamed-chunk-88">Table 4.2: </span>Data summary
 </caption>
 <thead>
 <tr>
@@ -2758,14 +2783,14 @@ spending_capita
 <p>We see that proportion coverage varies from 0.0054 (<code>p0</code>) to 0.61 (<code>p100</code>). So, we’ll want to know which states are at each end of the spectrum here.</p>
 <p>We also see that for <code>tot_spending</code>, the <code>mean</code> is 49004 and the median (<code>p50</code>) is slightly lower and that this variable also has a long right tail (<code>hist</code>).</p>
 <p>We also know that these data come from two different years, so we can group by <code>year</code> and again summarize the data:</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" data-line-number="1"><span class="co"># group by year</span></a>
-<a class="sourceLine" id="cb102-2" data-line-number="2">hc <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb102-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(year) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb102-4" data-line-number="4"><span class="st">  </span><span class="kw">skim</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb109-1" data-line-number="1"><span class="co"># group by year</span></a>
+<a class="sourceLine" id="cb109-2" data-line-number="2">hc <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb109-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(year) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb109-4" data-line-number="4"><span class="st">  </span><span class="kw">skim</span>()</a></code></pre></div>
 <table style='width: auto;'
         class='table table-condensed'>
 <caption>
-<span id="tab:unnamed-chunk-82">Table 4.3: </span>Data summary
+<span id="tab:unnamed-chunk-89">Table 4.3: </span>Data summary
 </caption>
 <thead>
 <tr>
@@ -3578,160 +3603,139 @@ spending_capita
 <p>We’ll have to visualize coverage and spending data across the United States.</p>
 <p>And, to understand the relationship between two continuous variables - coverage and spending - a scatterplot will be the most effective visualization.</p>
 <p>We’ll first look at a scatterplot:</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" data-line-number="1">hc <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb103-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;Employer&quot;</span>, </a>
-<a class="sourceLine" id="cb103-3" data-line-number="3">         year <span class="op">==</span><span class="st"> &quot;2013&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb103-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> spending_capita, </a>
-<a class="sourceLine" id="cb103-5" data-line-number="5">             <span class="dt">y =</span> prop_coverage)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb103-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb103-7" data-line-number="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;spending per capita&quot;</span>,</a>
-<a class="sourceLine" id="cb103-8" data-line-number="8">       <span class="dt">y =</span> <span class="st">&quot;coverage proportion&quot;</span>)</a></code></pre></div>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" data-line-number="1">hc <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb110-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;Employer&quot;</span>, </a>
+<a class="sourceLine" id="cb110-3" data-line-number="3">         year <span class="op">==</span><span class="st"> &quot;2013&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb110-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> spending_capita, </a>
+<a class="sourceLine" id="cb110-5" data-line-number="5">             <span class="dt">y =</span> prop_coverage)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb110-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb110-7" data-line-number="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;spending per capita&quot;</span>,</a>
+<a class="sourceLine" id="cb110-8" data-line-number="8">       <span class="dt">y =</span> <span class="st">&quot;coverage proportion&quot;</span>)</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
 <p>We see that there appears to be some relationship, with those states that spend more per capita also having higher proportions of their population having healthcare coverage.</p>
 <p>We can continue to improve this plot to better understand the underlying data. For example, we can add a best-fit line using <code>geom_smooth()</code> to visualize the magnitude of the linear relationship:</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" data-line-number="1"><span class="co"># generate scatterplot with fit line</span></a>
-<a class="sourceLine" id="cb104-2" data-line-number="2">hc <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb104-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;Employer&quot;</span>, </a>
-<a class="sourceLine" id="cb104-4" data-line-number="4">         year <span class="op">==</span><span class="st"> &quot;2013&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb104-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> spending_capita, </a>
-<a class="sourceLine" id="cb104-6" data-line-number="6">             <span class="dt">y =</span> prop_coverage)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb104-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb104-8" data-line-number="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;spending per capita&quot;</span>,</a>
-<a class="sourceLine" id="cb104-9" data-line-number="9">       <span class="dt">y =</span> <span class="st">&quot;coverage proportion&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb104-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" data-line-number="1"><span class="co"># generate scatterplot with fit line</span></a>
+<a class="sourceLine" id="cb111-2" data-line-number="2">hc <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb111-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;Employer&quot;</span>, </a>
+<a class="sourceLine" id="cb111-4" data-line-number="4">         year <span class="op">==</span><span class="st"> &quot;2013&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb111-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> spending_capita, </a>
+<a class="sourceLine" id="cb111-6" data-line-number="6">             <span class="dt">y =</span> prop_coverage)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb111-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb111-8" data-line-number="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;spending per capita&quot;</span>,</a>
+<a class="sourceLine" id="cb111-9" data-line-number="9">       <span class="dt">y =</span> <span class="st">&quot;coverage proportion&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb111-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-84-1.png" width="672" /></p>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
 <p>Beyond that, we likely want to know which point represents which state, so we can add state labels:</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb106-1" data-line-number="1"><span class="co"># add state abbreviation labels</span></a>
-<a class="sourceLine" id="cb106-2" data-line-number="2">hc <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb106-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;Employer&quot;</span>, </a>
-<a class="sourceLine" id="cb106-4" data-line-number="4">         year <span class="op">==</span><span class="st"> &quot;2013&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb106-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> spending_capita, </a>
-<a class="sourceLine" id="cb106-6" data-line-number="6">             <span class="dt">y =</span> prop_coverage)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb106-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb106-8" data-line-number="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;spending per capita&quot;</span>,</a>
-<a class="sourceLine" id="cb106-9" data-line-number="9">       <span class="dt">y =</span> <span class="st">&quot;coverage proportion&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb106-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb106-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>abb), </a>
-<a class="sourceLine" id="cb106-12" data-line-number="12">            <span class="dt">nudge_x =</span> <span class="dv">150</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" data-line-number="1"><span class="co"># add state abbreviation labels</span></a>
+<a class="sourceLine" id="cb113-2" data-line-number="2">hc <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb113-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;Employer&quot;</span>, </a>
+<a class="sourceLine" id="cb113-4" data-line-number="4">         year <span class="op">==</span><span class="st"> &quot;2013&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb113-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> spending_capita, </a>
+<a class="sourceLine" id="cb113-6" data-line-number="6">             <span class="dt">y =</span> prop_coverage)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb113-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb113-8" data-line-number="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;spending per capita&quot;</span>,</a>
+<a class="sourceLine" id="cb113-9" data-line-number="9">       <span class="dt">y =</span> <span class="st">&quot;coverage proportion&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb113-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb113-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>abb), </a>
+<a class="sourceLine" id="cb113-12" data-line-number="12">            <span class="dt">nudge_x =</span> <span class="dv">150</span>)</a></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
 <p>From there, it’d likely be helpful to have information from each region:</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" data-line-number="1"><span class="co"># color by region</span></a>
-<a class="sourceLine" id="cb108-2" data-line-number="2">hc <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb108-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;Employer&quot;</span>, </a>
-<a class="sourceLine" id="cb108-4" data-line-number="4">         year <span class="op">==</span><span class="st"> &quot;2013&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb108-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> spending_capita, </a>
-<a class="sourceLine" id="cb108-6" data-line-number="6">             <span class="dt">y =</span> prop_coverage,</a>
-<a class="sourceLine" id="cb108-7" data-line-number="7">             <span class="dt">color =</span> region)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb108-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb108-9" data-line-number="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;spending per capita&quot;</span>,</a>
-<a class="sourceLine" id="cb108-10" data-line-number="10">       <span class="dt">y =</span> <span class="st">&quot;coverage proportion&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb108-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb108-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>abb), </a>
-<a class="sourceLine" id="cb108-13" data-line-number="13">            <span class="dt">nudge_x =</span> <span class="dv">150</span>, </a>
-<a class="sourceLine" id="cb108-14" data-line-number="14">            <span class="dt">show.legend =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" data-line-number="1"><span class="co"># color by region</span></a>
+<a class="sourceLine" id="cb115-2" data-line-number="2">hc <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb115-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;Employer&quot;</span>, </a>
+<a class="sourceLine" id="cb115-4" data-line-number="4">         year <span class="op">==</span><span class="st"> &quot;2013&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb115-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> spending_capita, </a>
+<a class="sourceLine" id="cb115-6" data-line-number="6">             <span class="dt">y =</span> prop_coverage,</a>
+<a class="sourceLine" id="cb115-7" data-line-number="7">             <span class="dt">color =</span> region)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb115-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb115-9" data-line-number="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;spending per capita&quot;</span>,</a>
+<a class="sourceLine" id="cb115-10" data-line-number="10">       <span class="dt">y =</span> <span class="st">&quot;coverage proportion&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb115-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb115-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>abb), </a>
+<a class="sourceLine" id="cb115-13" data-line-number="13">            <span class="dt">nudge_x =</span> <span class="dv">150</span>, </a>
+<a class="sourceLine" id="cb115-14" data-line-number="14">            <span class="dt">show.legend =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
 <p>So far, we’ve only been focusing on data from 2013. What about looking at data from both 2013 and 2014? We can do that using <code>facet_wrap()</code>:</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" data-line-number="1"><span class="co"># color by region</span></a>
-<a class="sourceLine" id="cb110-2" data-line-number="2">hc <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb110-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;Employer&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb110-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> spending_capita, </a>
-<a class="sourceLine" id="cb110-5" data-line-number="5">             <span class="dt">y =</span> prop_coverage,</a>
-<a class="sourceLine" id="cb110-6" data-line-number="6">             <span class="dt">color =</span> region)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb110-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb110-8" data-line-number="8"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>year) <span class="op">+</span></a>
-<a class="sourceLine" id="cb110-9" data-line-number="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;spending per capita&quot;</span>,</a>
-<a class="sourceLine" id="cb110-10" data-line-number="10">       <span class="dt">y =</span> <span class="st">&quot;coverage proportion&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb110-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb110-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>abb), </a>
-<a class="sourceLine" id="cb110-13" data-line-number="13">            <span class="dt">nudge_x =</span> <span class="dv">150</span>, </a>
-<a class="sourceLine" id="cb110-14" data-line-number="14">            <span class="dt">show.legend =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb117-1" data-line-number="1"><span class="co"># color by region</span></a>
+<a class="sourceLine" id="cb117-2" data-line-number="2">hc <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb117-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;Employer&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb117-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> spending_capita, </a>
+<a class="sourceLine" id="cb117-5" data-line-number="5">             <span class="dt">y =</span> prop_coverage,</a>
+<a class="sourceLine" id="cb117-6" data-line-number="6">             <span class="dt">color =</span> region)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb117-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb117-8" data-line-number="8"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>year) <span class="op">+</span></a>
+<a class="sourceLine" id="cb117-9" data-line-number="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;spending per capita&quot;</span>,</a>
+<a class="sourceLine" id="cb117-10" data-line-number="10">       <span class="dt">y =</span> <span class="st">&quot;coverage proportion&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb117-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb117-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>abb), </a>
+<a class="sourceLine" id="cb117-13" data-line-number="13">            <span class="dt">nudge_x =</span> <span class="dv">150</span>, </a>
+<a class="sourceLine" id="cb117-14" data-line-number="14">            <span class="dt">show.legend =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
 <p>We see that the overall trend holds, but there has been some movement. For example, we see at a glance that DC has a higher proportion of its population covered in 2014 relative to 2013, while MA saw a drop in coverage. UT appears to be an outlier in both years having low spending but a high proportion of individuals covered.</p>
 <p>Beyond “Employer”-held healthcare coverage, let’s look at the other types of coverage data we have. Here, we’ll facet by type, rather than year, again focusing on just data from 2013.</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" data-line-number="1"><span class="co"># visualize 2013 data by type</span></a>
-<a class="sourceLine" id="cb112-2" data-line-number="2">hc <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb112-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> &quot;2013&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb112-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> spending_capita, </a>
-<a class="sourceLine" id="cb112-5" data-line-number="5">             <span class="dt">y =</span> prop_coverage,</a>
-<a class="sourceLine" id="cb112-6" data-line-number="6">             <span class="dt">color =</span> region)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb112-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb112-8" data-line-number="8"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>type) <span class="op">+</span></a>
-<a class="sourceLine" id="cb112-9" data-line-number="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;spending per capita&quot;</span>,</a>
-<a class="sourceLine" id="cb112-10" data-line-number="10">       <span class="dt">y =</span> <span class="st">&quot;coverage proportion&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb112-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb112-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>abb), </a>
-<a class="sourceLine" id="cb112-13" data-line-number="13">            <span class="dt">nudge_x =</span> <span class="dv">150</span>, </a>
-<a class="sourceLine" id="cb112-14" data-line-number="14">            <span class="dt">show.legend =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" data-line-number="1"><span class="co"># visualize 2013 data by type</span></a>
+<a class="sourceLine" id="cb119-2" data-line-number="2">hc <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb119-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> &quot;2013&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb119-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> spending_capita, </a>
+<a class="sourceLine" id="cb119-5" data-line-number="5">             <span class="dt">y =</span> prop_coverage,</a>
+<a class="sourceLine" id="cb119-6" data-line-number="6">             <span class="dt">color =</span> region)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb119-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb119-8" data-line-number="8"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>type) <span class="op">+</span></a>
+<a class="sourceLine" id="cb119-9" data-line-number="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;spending per capita&quot;</span>,</a>
+<a class="sourceLine" id="cb119-10" data-line-number="10">       <span class="dt">y =</span> <span class="st">&quot;coverage proportion&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb119-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb119-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>abb), </a>
+<a class="sourceLine" id="cb119-13" data-line-number="13">            <span class="dt">nudge_x =</span> <span class="dv">150</span>, </a>
+<a class="sourceLine" id="cb119-14" data-line-number="14">            <span class="dt">show.legend =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-95-1.png" width="672" /></p>
 <p>From these data, we see that Employer health care coverage is the most popular way in which individuals receive their health insurance across all states. We also see a flat or positive relationship for all other types of insurance, except for “Uninsured”. There, as makes sense, we see that the more money spent per capita the fewer individuals the state has without insurance.</p>
 <p>We can quickly peak at the data from 2014 to be sure the same general patterns hold:</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" data-line-number="1"><span class="co"># visualize 2014 data by type</span></a>
-<a class="sourceLine" id="cb114-2" data-line-number="2">hc <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb114-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> &quot;2014&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb114-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> spending_capita, </a>
-<a class="sourceLine" id="cb114-5" data-line-number="5">             <span class="dt">y =</span> prop_coverage,</a>
-<a class="sourceLine" id="cb114-6" data-line-number="6">             <span class="dt">color =</span> region)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb114-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb114-8" data-line-number="8"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>type) <span class="op">+</span></a>
-<a class="sourceLine" id="cb114-9" data-line-number="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;spending per capita&quot;</span>,</a>
-<a class="sourceLine" id="cb114-10" data-line-number="10">       <span class="dt">y =</span> <span class="st">&quot;coverage proportion&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb114-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb114-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>abb), </a>
-<a class="sourceLine" id="cb114-13" data-line-number="13">            <span class="dt">nudge_x =</span> <span class="dv">150</span>, </a>
-<a class="sourceLine" id="cb114-14" data-line-number="14">            <span class="dt">show.legend =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb121-1" data-line-number="1"><span class="co"># visualize 2014 data by type</span></a>
+<a class="sourceLine" id="cb121-2" data-line-number="2">hc <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb121-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> &quot;2014&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb121-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> spending_capita, </a>
+<a class="sourceLine" id="cb121-5" data-line-number="5">             <span class="dt">y =</span> prop_coverage,</a>
+<a class="sourceLine" id="cb121-6" data-line-number="6">             <span class="dt">color =</span> region)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb121-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb121-8" data-line-number="8"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>type) <span class="op">+</span></a>
+<a class="sourceLine" id="cb121-9" data-line-number="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;spending per capita&quot;</span>,</a>
+<a class="sourceLine" id="cb121-10" data-line-number="10">       <span class="dt">y =</span> <span class="st">&quot;coverage proportion&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb121-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb121-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>abb), </a>
+<a class="sourceLine" id="cb121-13" data-line-number="13">            <span class="dt">nudge_x =</span> <span class="dv">150</span>, </a>
+<a class="sourceLine" id="cb121-14" data-line-number="14">            <span class="dt">show.legend =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
 <p>The same general patterns hold in 2014 as we saw in 2013; however, the patterns are not exactly the same.</p>
 <p>With these plots we have a pretty good understanding of the relationship between spending and coverage across this country when it comes to health care.</p>
 <p>Let’s save some of these plots for later:</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb116-1" data-line-number="1"><span class="kw">pdf</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;figures&quot;</span>, <span class="st">&quot;exploratory&quot;</span>, <span class="st">&quot;2013and2014_spending_and_coverage.pdf&quot;</span>))</a>
-<a class="sourceLine" id="cb116-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb116-3" data-line-number="3">hc <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb116-4" data-line-number="4"><span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;Employer&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb116-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> spending_capita, </a>
-<a class="sourceLine" id="cb116-6" data-line-number="6">             <span class="dt">y =</span> prop_coverage,</a>
-<a class="sourceLine" id="cb116-7" data-line-number="7">             <span class="dt">color =</span> region)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb116-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb116-9" data-line-number="9"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>year) <span class="op">+</span></a>
-<a class="sourceLine" id="cb116-10" data-line-number="10"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;spending per capita&quot;</span>,</a>
-<a class="sourceLine" id="cb116-11" data-line-number="11">       <span class="dt">y =</span> <span class="st">&quot;coverage proportion&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb116-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb116-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>abb), </a>
-<a class="sourceLine" id="cb116-14" data-line-number="14">            <span class="dt">nudge_x =</span> <span class="dv">150</span>, </a>
-<a class="sourceLine" id="cb116-15" data-line-number="15">            <span class="dt">show.legend =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb123-1" data-line-number="1"><span class="kw">pdf</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;figures&quot;</span>, <span class="st">&quot;exploratory&quot;</span>, <span class="st">&quot;2013and2014_spending_and_coverage.pdf&quot;</span>))</a>
+<a class="sourceLine" id="cb123-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb123-3" data-line-number="3">hc <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb123-4" data-line-number="4"><span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;Employer&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb123-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> spending_capita, </a>
+<a class="sourceLine" id="cb123-6" data-line-number="6">             <span class="dt">y =</span> prop_coverage,</a>
+<a class="sourceLine" id="cb123-7" data-line-number="7">             <span class="dt">color =</span> region)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb123-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb123-9" data-line-number="9"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>year) <span class="op">+</span></a>
+<a class="sourceLine" id="cb123-10" data-line-number="10"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;spending per capita&quot;</span>,</a>
+<a class="sourceLine" id="cb123-11" data-line-number="11">       <span class="dt">y =</span> <span class="st">&quot;coverage proportion&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb123-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb123-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>abb), </a>
+<a class="sourceLine" id="cb123-14" data-line-number="14">            <span class="dt">nudge_x =</span> <span class="dv">150</span>, </a>
+<a class="sourceLine" id="cb123-15" data-line-number="15">            <span class="dt">show.legend =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb118-1" data-line-number="1"><span class="kw">dev.off</span>()</a></code></pre></div>
-<pre><code>## quartz_off_screen 
-##                 2</code></pre>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" data-line-number="1"><span class="kw">pdf</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;figures&quot;</span>, <span class="st">&quot;exploratory&quot;</span>, <span class="st">&quot;2013_covearge_type.pdf&quot;</span>))</a>
-<a class="sourceLine" id="cb120-2" data-line-number="2">hc <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb120-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> &quot;2013&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb120-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> spending_capita, </a>
-<a class="sourceLine" id="cb120-5" data-line-number="5">             <span class="dt">y =</span> prop_coverage,</a>
-<a class="sourceLine" id="cb120-6" data-line-number="6">             <span class="dt">color =</span> region)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb120-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb120-8" data-line-number="8"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>type) <span class="op">+</span></a>
-<a class="sourceLine" id="cb120-9" data-line-number="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;spending per capita&quot;</span>,</a>
-<a class="sourceLine" id="cb120-10" data-line-number="10">       <span class="dt">y =</span> <span class="st">&quot;coverage proportion&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb120-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb120-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>abb), </a>
-<a class="sourceLine" id="cb120-13" data-line-number="13">            <span class="dt">nudge_x =</span> <span class="dv">150</span>, </a>
-<a class="sourceLine" id="cb120-14" data-line-number="14">            <span class="dt">show.legend =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
-<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<pre><code>## Warning: Removed 9 rows containing non-finite values (stat_smooth).</code></pre>
-<pre><code>## Warning: Removed 9 rows containing missing values (geom_point).</code></pre>
-<pre><code>## Warning: Removed 9 rows containing missing values (geom_text).</code></pre>
 <div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb125-1" data-line-number="1"><span class="kw">dev.off</span>()</a></code></pre></div>
 <pre><code>## quartz_off_screen 
 ##                 2</code></pre>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb127-1" data-line-number="1"><span class="kw">pdf</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;figures&quot;</span>, <span class="st">&quot;exploratory&quot;</span>, <span class="st">&quot;2014_covearge_type.pdf&quot;</span>))</a>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb127-1" data-line-number="1"><span class="kw">pdf</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;figures&quot;</span>, <span class="st">&quot;exploratory&quot;</span>, <span class="st">&quot;2013_coverage_type.pdf&quot;</span>))</a>
 <a class="sourceLine" id="cb127-2" data-line-number="2">hc <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb127-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> &quot;2014&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb127-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> &quot;2013&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb127-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> spending_capita, </a>
 <a class="sourceLine" id="cb127-5" data-line-number="5">             <span class="dt">y =</span> prop_coverage,</a>
 <a class="sourceLine" id="cb127-6" data-line-number="6">             <span class="dt">color =</span> region)) <span class="op">+</span><span class="st"> </span></a>
@@ -3744,10 +3748,31 @@ spending_capita
 <a class="sourceLine" id="cb127-13" data-line-number="13">            <span class="dt">nudge_x =</span> <span class="dv">150</span>, </a>
 <a class="sourceLine" id="cb127-14" data-line-number="14">            <span class="dt">show.legend =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## Warning: Removed 9 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 9 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 9 rows containing missing values (geom_text).</code></pre>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb132-1" data-line-number="1"><span class="kw">dev.off</span>()</a></code></pre></div>
+<pre><code>## quartz_off_screen 
+##                 2</code></pre>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" data-line-number="1"><span class="kw">pdf</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;figures&quot;</span>, <span class="st">&quot;exploratory&quot;</span>, <span class="st">&quot;2014_coverage_type.pdf&quot;</span>))</a>
+<a class="sourceLine" id="cb134-2" data-line-number="2">hc <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb134-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> &quot;2014&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb134-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> spending_capita, </a>
+<a class="sourceLine" id="cb134-5" data-line-number="5">             <span class="dt">y =</span> prop_coverage,</a>
+<a class="sourceLine" id="cb134-6" data-line-number="6">             <span class="dt">color =</span> region)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb134-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb134-8" data-line-number="8"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>type) <span class="op">+</span></a>
+<a class="sourceLine" id="cb134-9" data-line-number="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;spending per capita&quot;</span>,</a>
+<a class="sourceLine" id="cb134-10" data-line-number="10">       <span class="dt">y =</span> <span class="st">&quot;coverage proportion&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb134-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb134-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>abb), </a>
+<a class="sourceLine" id="cb134-13" data-line-number="13">            <span class="dt">nudge_x =</span> <span class="dv">150</span>, </a>
+<a class="sourceLine" id="cb134-14" data-line-number="14">            <span class="dt">show.legend =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <pre><code>## Warning: Removed 10 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>## Warning: Removed 10 rows containing missing values (geom_point).</code></pre>
 <pre><code>## Warning: Removed 10 rows containing missing values (geom_text).</code></pre>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb132-1" data-line-number="1"><span class="kw">dev.off</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb139-1" data-line-number="1"><span class="kw">dev.off</span>()</a></code></pre></div>
 <pre><code>## quartz_off_screen 
 ##                 2</code></pre>
 </div>
@@ -3760,24 +3785,24 @@ spending_capita
 <p>We’ll want to visualize healthcare spending across regions of the US.</p>
 <p>We saw in the previous plots that there are some regional effects when it comes to spending, as the states from the different regions tended to cluster in the previous plot. But, let’s look at this explicitly now.</p>
 <p>We’re looking to visualize a continuous variable (<code>spending_capita</code>) by a categorical variable (<code>region</code>), so a boxplot is always a good place to start:</p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" data-line-number="1"><span class="co"># generate boxplot</span></a>
-<a class="sourceLine" id="cb134-2" data-line-number="2">hc <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb134-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> region, </a>
-<a class="sourceLine" id="cb134-4" data-line-number="4">             <span class="dt">y =</span> spending_capita)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb134-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb134-6" data-line-number="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;spending per capita&quot;</span>)</a></code></pre></div>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" data-line-number="1"><span class="co"># generate boxplot</span></a>
+<a class="sourceLine" id="cb141-2" data-line-number="2">hc <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb141-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> region, </a>
+<a class="sourceLine" id="cb141-4" data-line-number="4">             <span class="dt">y =</span> spending_capita)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb141-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb141-6" data-line-number="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;spending per capita&quot;</span>)</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
 <p>Here, we get a sense of the overall trend, seeing that states in the Northeast tend to spend the most on health care, while states in the West spend the least.</p>
 <p>But, sometimes, it can be helpful to see the distribution of points along with the boxplot, so we can add those onto the plot. We’ll use <code>geom_jitter()</code> rather than <code>geom_point()</code> here so that we can see all the points without overlap. Note that we also use <code>alpha = 0.2</code> to increase the transparency of the points and <code>outlier.shape = NA</code> to hide the outliers on the boxplot. This way, each observation is only plotted a single time:</p>
-<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" data-line-number="1"><span class="co"># add data points to boxplot</span></a>
-<a class="sourceLine" id="cb135-2" data-line-number="2">hc <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb135-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;Employer&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb135-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> region, </a>
-<a class="sourceLine" id="cb135-5" data-line-number="5">             <span class="dt">y =</span> spending_capita)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb135-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.shape =</span> <span class="ot">NA</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb135-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">alpha =</span> <span class="fl">0.2</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb135-8" data-line-number="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;spending per capita&quot;</span>)</a></code></pre></div>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" data-line-number="1"><span class="co"># add data points to boxplot</span></a>
+<a class="sourceLine" id="cb142-2" data-line-number="2">hc <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb142-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;Employer&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb142-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> region, </a>
+<a class="sourceLine" id="cb142-5" data-line-number="5">             <span class="dt">y =</span> spending_capita)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb142-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.shape =</span> <span class="ot">NA</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb142-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">alpha =</span> <span class="fl">0.2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb142-8" data-line-number="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;spending per capita&quot;</span>)</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-99-1.png" width="672" /></p>
 <p>This gives us a sense of the variation in spending for states in each region. Of note, there are more outliers in the South and West, with a few states spending more on health care than even states in the Northeast, where spending tends to be higher.</p>
 <p>With this we have a good sense of the regional effects of spending across the United states.</p>
 </div>
@@ -3790,18 +3815,18 @@ spending_capita
 <p>we’ll need to visualize a whole bunch of variables: coverage, spending, <code>year</code> and type of insurance. We can return to a scatterplot again, but now we’ll put all these pieces we looked at separately in Q1 together at once to answer this temporal question visually.</p>
 <p>We won’t filter the dataset but will instead use <code>facet_grid()</code>, which “forms a matrix of panels defined by row and column faceting variables”:</p>
 <p><code>facet_wrap()</code>, which we used previously, <em>typically</em> utilizes screen space better than <code>facet_grid()</code>; however, in this case, where we want 2013 and 2014 to each be in a separate row, <code>facet_grid()</code> is the better visual choice.</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb136-1" data-line-number="1"><span class="co"># color by region</span></a>
-<a class="sourceLine" id="cb136-2" data-line-number="2">hc <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb136-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> spending_capita, </a>
-<a class="sourceLine" id="cb136-4" data-line-number="4">             <span class="dt">y =</span> prop_coverage,</a>
-<a class="sourceLine" id="cb136-5" data-line-number="5">             <span class="dt">color =</span> region)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb136-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb136-7" data-line-number="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;spending per capita&quot;</span>,</a>
-<a class="sourceLine" id="cb136-8" data-line-number="8">       <span class="dt">y =</span> <span class="st">&quot;coverage proportion&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb136-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb136-10" data-line-number="10"><span class="st">  </span><span class="kw">facet_grid</span>(year<span class="op">~</span>type)</a></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" data-line-number="1"><span class="co"># color by region</span></a>
+<a class="sourceLine" id="cb143-2" data-line-number="2">hc <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb143-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> spending_capita, </a>
+<a class="sourceLine" id="cb143-4" data-line-number="4">             <span class="dt">y =</span> prop_coverage,</a>
+<a class="sourceLine" id="cb143-5" data-line-number="5">             <span class="dt">color =</span> region)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb143-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb143-7" data-line-number="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;spending per capita&quot;</span>,</a>
+<a class="sourceLine" id="cb143-8" data-line-number="8">       <span class="dt">y =</span> <span class="st">&quot;coverage proportion&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb143-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb143-10" data-line-number="10"><span class="st">  </span><span class="kw">facet_grid</span>(year<span class="op">~</span>type)</a></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-100-1.png" width="672" /></p>
 <p>With this, output the top row are the data from 2013 and the bottom from 2014. We can then visually compare the top plot to the bottom plot for each time of insurance.</p>
 <p>Visually, we can start to get a sense that a few things changed from 2013 to 2014. For example, as we saw previously, individual states changed from one year to the next, but overall patterns seem to hold pretty steady between these two years.</p>
 <p>We were able to start answering all our questions of interest with a number of quick plots using <code>ggplot2</code>.</p>
@@ -3815,8 +3840,8 @@ spending_capita
 <p>At the state-level, what is the relationship between firearm legislation strength and annual rate of fatal police shootings?</p>
 </blockquote>
 <p>In the previous course, we wrangled the data into a single, helpful data frame: <code>firearms</code>.</p>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" data-line-number="1"><span class="co"># see firearms data</span></a>
-<a class="sourceLine" id="cb138-2" data-line-number="2">firearms</a></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" data-line-number="1"><span class="co"># see firearms data</span></a>
+<a class="sourceLine" id="cb145-2" data-line-number="2">firearms</a></code></pre></div>
 <pre><code>## # A tibble: 51 x 15
 ##    NAME  white black hispanic  male total_pop violent_crime brady_scores
 ##    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;
@@ -3837,18 +3862,18 @@ spending_capita
 <div id="exploratory-data-analysis-eda-1" class="section level4">
 <h4><span class="header-section-number">4.10.2.1</span> Exploratory Data Analysis (EDA)</h4>
 <p>Similar to how we approached the health care case study, let’s get an overall understanding of the data in our dataset, starting with understanding where data are missing in our dataset:</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb140-1" data-line-number="1"><span class="co"># visualize missingness</span></a>
-<a class="sourceLine" id="cb140-2" data-line-number="2"><span class="kw">vis_dat</span>(firearms)</a></code></pre></div>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-95-1.png" width="672" /></p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" data-line-number="1"><span class="co"># visualize missingness</span></a>
+<a class="sourceLine" id="cb147-2" data-line-number="2"><span class="kw">vis_dat</span>(firearms)</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
 <p>We see that we have data for all 50 states (and Washington, D.C.) for most variables in our dataset; however, we’re missing information for one state when it comes to gunshot information and another state when it comes to Brady scores and ownership by suicide rates.</p>
 <p>Additionally, we see that most of our variables are numeric (either integers or numeric) while the state name (<code>NAME</code>) is a character, confirming what we expect for these data.</p>
 <p>We will also again use <code>skim()</code> to get a better sense of the values in our dataset:</p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" data-line-number="1"><span class="co"># summarize data</span></a>
-<a class="sourceLine" id="cb141-2" data-line-number="2"><span class="kw">skim</span>(firearms)</a></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" data-line-number="1"><span class="co"># summarize data</span></a>
+<a class="sourceLine" id="cb148-2" data-line-number="2"><span class="kw">skim</span>(firearms)</a></code></pre></div>
 <table style='width: auto;'
         class='table table-condensed'>
 <caption>
-<span id="tab:unnamed-chunk-96">Table 4.4: </span>Data summary
+<span id="tab:unnamed-chunk-103">Table 4.4: </span>Data summary
 </caption>
 <thead>
 <tr>
@@ -4523,39 +4548,39 @@ ownership
 </table>
 <p>Ultimately, we’re interested in firearm legislation and fatal police shootings, which we’ll get to, but let’s explore the relationship between other variables in our dataset first to gain a more complete understanding.</p>
 <p>For example, determining if there’s a relationship between the number of violent crimes and the total population in a state is good to know. Outliers in this relationship would be important to note as they would be states with either lower or higher crime by population. Let’s use a scatterplot to better understand this relationship:</p>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" data-line-number="1"><span class="co"># violent crimes</span></a>
-<a class="sourceLine" id="cb142-2" data-line-number="2"><span class="kw">ggplot</span>(firearms, </a>
-<a class="sourceLine" id="cb142-3" data-line-number="3">       <span class="kw">aes</span>(<span class="dt">x =</span> total_pop,</a>
-<a class="sourceLine" id="cb142-4" data-line-number="4">           <span class="dt">y =</span> violent_crime)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb142-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb142-6" data-line-number="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Total Population&quot;</span>,</a>
-<a class="sourceLine" id="cb142-7" data-line-number="7">       <span class="dt">y =</span> <span class="st">&quot;Violent Crime&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb142-8" data-line-number="8"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb142-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_text_repel</span>(<span class="kw">aes</span>(<span class="dt">label =</span> NAME))</a></code></pre></div>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" data-line-number="1"><span class="co"># violent crimes</span></a>
+<a class="sourceLine" id="cb149-2" data-line-number="2"><span class="kw">ggplot</span>(firearms, </a>
+<a class="sourceLine" id="cb149-3" data-line-number="3">       <span class="kw">aes</span>(<span class="dt">x =</span> total_pop,</a>
+<a class="sourceLine" id="cb149-4" data-line-number="4">           <span class="dt">y =</span> violent_crime)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb149-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb149-6" data-line-number="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Total Population&quot;</span>,</a>
+<a class="sourceLine" id="cb149-7" data-line-number="7">       <span class="dt">y =</span> <span class="st">&quot;Violent Crime&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb149-8" data-line-number="8"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb149-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_text_repel</span>(<span class="kw">aes</span>(<span class="dt">label =</span> NAME))</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
 <p>Here we see that the visualization of this relationship is largely dependent upon the state’s population, with large states like Texas and California sticking out. However, we do see that, for its size, Washington D.C had many more violent cries than other states, despite its small population.</p>
 <p>It would also be helpful to understand the relationship between unemployment and violent crime:</p>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" data-line-number="1"><span class="co"># violent crimes</span></a>
-<a class="sourceLine" id="cb143-2" data-line-number="2"><span class="kw">ggplot</span>(firearms, </a>
-<a class="sourceLine" id="cb143-3" data-line-number="3">       <span class="kw">aes</span>(<span class="dt">x =</span> unemployment_rate,</a>
-<a class="sourceLine" id="cb143-4" data-line-number="4">           <span class="dt">y =</span> violent_crime)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb143-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb143-6" data-line-number="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Unemployment Rate&quot;</span>,</a>
-<a class="sourceLine" id="cb143-7" data-line-number="7">       <span class="dt">y =</span> <span class="st">&quot;Violent Crime&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb143-8" data-line-number="8"><span class="st">  </span><span class="kw">theme_classic</span>()</a></code></pre></div>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb150-1" data-line-number="1"><span class="co"># violent crimes</span></a>
+<a class="sourceLine" id="cb150-2" data-line-number="2"><span class="kw">ggplot</span>(firearms, </a>
+<a class="sourceLine" id="cb150-3" data-line-number="3">       <span class="kw">aes</span>(<span class="dt">x =</span> unemployment_rate,</a>
+<a class="sourceLine" id="cb150-4" data-line-number="4">           <span class="dt">y =</span> violent_crime)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb150-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb150-6" data-line-number="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Unemployment Rate&quot;</span>,</a>
+<a class="sourceLine" id="cb150-7" data-line-number="7">       <span class="dt">y =</span> <span class="st">&quot;Violent Crime&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb150-8" data-line-number="8"><span class="st">  </span><span class="kw">theme_classic</span>()</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
 <p>Here, there appears to be some relationship with states that have higher rates of unemployment having slightly more violent crimes, but violent crimes is not adjusted by population, so this is likely not <em>that</em> helpful.</p>
 <p>What about the relationship between fatal police shootings and gun <code>ownership</code> as a percent of firearm suicides to all suicides.</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" data-line-number="1"><span class="co"># violent crimes</span></a>
-<a class="sourceLine" id="cb144-2" data-line-number="2"><span class="kw">ggplot</span>(firearms, </a>
-<a class="sourceLine" id="cb144-3" data-line-number="3">       <span class="kw">aes</span>(<span class="dt">x =</span> gunshot_rate,</a>
-<a class="sourceLine" id="cb144-4" data-line-number="4">           <span class="dt">y =</span> ownership)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb144-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb144-6" data-line-number="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Annualized Rate of Fatal </span><span class="ch">\n</span><span class="st"> Police Shootings per 1,000,000&quot;</span>,</a>
-<a class="sourceLine" id="cb144-7" data-line-number="7">       <span class="dt">y =</span> <span class="st">&quot;Gun Ownership </span><span class="ch">\n</span><span class="st"> (firearm suicides:all suicides)&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb144-8" data-line-number="8"><span class="st">  </span><span class="kw">theme_classic</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" data-line-number="1"><span class="co"># violent crimes</span></a>
+<a class="sourceLine" id="cb151-2" data-line-number="2"><span class="kw">ggplot</span>(firearms, </a>
+<a class="sourceLine" id="cb151-3" data-line-number="3">       <span class="kw">aes</span>(<span class="dt">x =</span> gunshot_rate,</a>
+<a class="sourceLine" id="cb151-4" data-line-number="4">           <span class="dt">y =</span> ownership)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb151-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb151-6" data-line-number="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Annualized Rate of Fatal </span><span class="ch">\n</span><span class="st"> Police Shootings per 1,000,000&quot;</span>,</a>
+<a class="sourceLine" id="cb151-7" data-line-number="7">       <span class="dt">y =</span> <span class="st">&quot;Gun Ownership </span><span class="ch">\n</span><span class="st"> (firearm suicides:all suicides)&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb151-8" data-line-number="8"><span class="st">  </span><span class="kw">theme_classic</span>()</a></code></pre></div>
 <pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-99-1.png" width="672" /></p>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-106-1.png" width="672" /></p>
 <p>This suggests that states with more fatal police shootings <em>tend</em> to have more firearm suicides relative to non-firearm suicides; however, this relationship is non linear.</p>
 <p>With these plots, we’re starting to get an understanding of the data and see that there are patterns and don’t appear to be wild outliers in any one variable (although, we should keep an eye on Washington, D.C. as it appeared as an outlier in a few plots). With that we’re confident we can move on to start looking into our question of interest.</p>
 </div>
@@ -4565,57 +4590,57 @@ ownership
 <p>We see that the average <code>brady_score</code> (<code>mean</code>) is 3.94, with state values ranging from -39 to 76.</p>
 <p>When it comes to the rate of police shootings (<code>gunshot_rate</code>), we see the average number (<code>mean</code>) for a state is is 1.74, with state values ranging from 0.28 to 5.12, depending on the state.</p>
 <p>To start to understand the relationship between the two, we’ll want to visualize this relationship using a scatterplot:</p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" data-line-number="1"><span class="co"># visualize legistlation and shootings</span></a>
-<a class="sourceLine" id="cb146-2" data-line-number="2"><span class="kw">ggplot</span>(firearms, <span class="kw">aes</span>(<span class="dt">x =</span> brady_scores, </a>
-<a class="sourceLine" id="cb146-3" data-line-number="3">                     <span class="dt">y =</span> gunshot_rate)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb146-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb146-5" data-line-number="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Firearm Legislative Strength Score&quot;</span>,</a>
-<a class="sourceLine" id="cb146-6" data-line-number="6">       <span class="dt">y =</span> <span class="st">&quot;Annualized Rate of Fatal </span><span class="ch">\n</span><span class="st"> Police Shootings per 1,000,000&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb146-7" data-line-number="7"><span class="st">  </span><span class="kw">theme_classic</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" data-line-number="1"><span class="co"># visualize legistlation and shootings</span></a>
+<a class="sourceLine" id="cb153-2" data-line-number="2"><span class="kw">ggplot</span>(firearms, <span class="kw">aes</span>(<span class="dt">x =</span> brady_scores, </a>
+<a class="sourceLine" id="cb153-3" data-line-number="3">                     <span class="dt">y =</span> gunshot_rate)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb153-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb153-5" data-line-number="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Firearm Legislative Strength Score&quot;</span>,</a>
+<a class="sourceLine" id="cb153-6" data-line-number="6">       <span class="dt">y =</span> <span class="st">&quot;Annualized Rate of Fatal </span><span class="ch">\n</span><span class="st"> Police Shootings per 1,000,000&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb153-7" data-line-number="7"><span class="st">  </span><span class="kw">theme_classic</span>()</a></code></pre></div>
 <pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-100-1.png" width="672" /></p>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
 <p>In this plot, we see that there is a relationship, but it is non-linear. Overall, the higher the legislative strength score (<code>brady_scores</code>), the lower the rate of police shootings; however, this decrease is nonlinear, as all states with a positive Brady Score have a similar police shooting rate.</p>
 <p>For now, we won’t explore a model, but we will label the points to better contextualize the information displayed. To see which states are at either end of the distribution, using <code>geom_text()</code> is a good option:</p>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" data-line-number="1"><span class="co"># label points with state name</span></a>
-<a class="sourceLine" id="cb148-2" data-line-number="2"><span class="kw">ggplot</span>(firearms, <span class="kw">aes</span>(<span class="dt">x =</span> brady_scores, </a>
-<a class="sourceLine" id="cb148-3" data-line-number="3">                     <span class="dt">y =</span> gunshot_rate)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb148-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb148-5" data-line-number="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Firearm Legislative Strength Score&quot;</span>,</a>
-<a class="sourceLine" id="cb148-6" data-line-number="6">       <span class="dt">y =</span> <span class="st">&quot;Annualized Rate of Fatal </span><span class="ch">\n</span><span class="st"> Police Shootings per 1,000,000&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb148-7" data-line-number="7"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb148-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> NAME), </a>
-<a class="sourceLine" id="cb148-9" data-line-number="9">            <span class="dt">nudge_x =</span> <span class="dv">7</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb155-1" data-line-number="1"><span class="co"># label points with state name</span></a>
+<a class="sourceLine" id="cb155-2" data-line-number="2"><span class="kw">ggplot</span>(firearms, <span class="kw">aes</span>(<span class="dt">x =</span> brady_scores, </a>
+<a class="sourceLine" id="cb155-3" data-line-number="3">                     <span class="dt">y =</span> gunshot_rate)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb155-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb155-5" data-line-number="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Firearm Legislative Strength Score&quot;</span>,</a>
+<a class="sourceLine" id="cb155-6" data-line-number="6">       <span class="dt">y =</span> <span class="st">&quot;Annualized Rate of Fatal </span><span class="ch">\n</span><span class="st"> Police Shootings per 1,000,000&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb155-7" data-line-number="7"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb155-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> NAME), </a>
+<a class="sourceLine" id="cb155-9" data-line-number="9">            <span class="dt">nudge_x =</span> <span class="dv">7</span>)</a></code></pre></div>
 <pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
 <pre><code>## Warning: Removed 2 rows containing missing values (geom_text).</code></pre>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
 <p>This makes it clear that Wyoming, New Mexico, Oklahoma, Arizona, and Nevada have some of the highest rates of fatal police shootings, while Connecticut, New York, Pennsylvania, and North Dakota are among the lowest.</p>
 <p>However, a number of labels overlap there, so it can be helpful to use <code>ggrepel</code> if you want to be able to match each point to its label:</p>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" data-line-number="1"><span class="kw">library</span>(ggrepel)</a>
-<a class="sourceLine" id="cb151-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb151-3" data-line-number="3"><span class="co"># repel points with state name </span></a>
-<a class="sourceLine" id="cb151-4" data-line-number="4"><span class="kw">ggplot</span>(firearms, <span class="kw">aes</span>(<span class="dt">x =</span> brady_scores, </a>
-<a class="sourceLine" id="cb151-5" data-line-number="5">                     <span class="dt">y =</span> gunshot_rate)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb151-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb151-7" data-line-number="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Firearm Legislative Strength Score&quot;</span>,</a>
-<a class="sourceLine" id="cb151-8" data-line-number="8">       <span class="dt">y =</span> <span class="st">&quot;Annualized Rate of Fatal </span><span class="ch">\n</span><span class="st"> Police Shootings per 1,000,000&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb151-9" data-line-number="9"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb151-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_text_repel</span>(<span class="kw">aes</span>(<span class="dt">label =</span> NAME))</a></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" data-line-number="1"><span class="kw">library</span>(ggrepel)</a>
+<a class="sourceLine" id="cb158-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb158-3" data-line-number="3"><span class="co"># repel points with state name </span></a>
+<a class="sourceLine" id="cb158-4" data-line-number="4"><span class="kw">ggplot</span>(firearms, <span class="kw">aes</span>(<span class="dt">x =</span> brady_scores, </a>
+<a class="sourceLine" id="cb158-5" data-line-number="5">                     <span class="dt">y =</span> gunshot_rate)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb158-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb158-7" data-line-number="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Firearm Legislative Strength Score&quot;</span>,</a>
+<a class="sourceLine" id="cb158-8" data-line-number="8">       <span class="dt">y =</span> <span class="st">&quot;Annualized Rate of Fatal </span><span class="ch">\n</span><span class="st"> Police Shootings per 1,000,000&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb158-9" data-line-number="9"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb158-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_text_repel</span>(<span class="kw">aes</span>(<span class="dt">label =</span> NAME))</a></code></pre></div>
 <pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
 <pre><code>## Warning: Removed 2 rows containing missing values (geom_text_repel).</code></pre>
-<p><img src="04-dataviz_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
-<p>If we wanted to save this particular plot as a pdf, we could do so like this to save the plot in a directory called exporatory within a directory called figures:</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" data-line-number="1"><span class="kw">pdf</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;figures&quot;</span>, <span class="st">&quot;exploratory&quot;</span>, <span class="st">&quot;Fatal_police_shootings_and_firearm_legislative_strength.pdf&quot;</span>))</a>
-<a class="sourceLine" id="cb154-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb154-3" data-line-number="3"><span class="kw">ggplot</span>(firearms, <span class="kw">aes</span>(<span class="dt">x =</span> brady_scores, </a>
-<a class="sourceLine" id="cb154-4" data-line-number="4">                     <span class="dt">y =</span> gunshot_rate)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb154-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb154-6" data-line-number="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Firearm Legislative Strength Score&quot;</span>,</a>
-<a class="sourceLine" id="cb154-7" data-line-number="7">       <span class="dt">y =</span> <span class="st">&quot;Annualized Rate of Fatal </span><span class="ch">\n</span><span class="st"> Police Shootings per 1,000,000&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb154-8" data-line-number="8"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb154-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_text_repel</span>(<span class="kw">aes</span>(<span class="dt">label =</span> NAME))</a></code></pre></div>
+<p><img src="04-dataviz_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
+<p>If we wanted to save this particular plot as a pdf, we could do so like this to save the plot in a directory called exploratory within a directory called figures:</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" data-line-number="1"><span class="kw">pdf</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;figures&quot;</span>, <span class="st">&quot;exploratory&quot;</span>, <span class="st">&quot;Fatal_police_shootings_and_firearm_legislative_strength.pdf&quot;</span>))</a>
+<a class="sourceLine" id="cb161-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb161-3" data-line-number="3"><span class="kw">ggplot</span>(firearms, <span class="kw">aes</span>(<span class="dt">x =</span> brady_scores, </a>
+<a class="sourceLine" id="cb161-4" data-line-number="4">                     <span class="dt">y =</span> gunshot_rate)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb161-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb161-6" data-line-number="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Firearm Legislative Strength Score&quot;</span>,</a>
+<a class="sourceLine" id="cb161-7" data-line-number="7">       <span class="dt">y =</span> <span class="st">&quot;Annualized Rate of Fatal </span><span class="ch">\n</span><span class="st"> Police Shootings per 1,000,000&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb161-8" data-line-number="8"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb161-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_text_repel</span>(<span class="kw">aes</span>(<span class="dt">label =</span> NAME))</a></code></pre></div>
 <pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
 <pre><code>## Warning: Removed 2 rows containing missing values (geom_text_repel).</code></pre>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" data-line-number="1"><span class="kw">dev.off</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" data-line-number="1"><span class="kw">dev.off</span>()</a></code></pre></div>
 <pre><code>## quartz_off_screen 
 ##                 2</code></pre>
 

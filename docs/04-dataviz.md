@@ -102,7 +102,7 @@ Grouped barplots, like simple barplots, demonstrate the counts for a group; howe
 
 #### Stacked Barplot
 
-Another common variation on barplots are stacked barplots. Stacked barplots take the information from a grouped barplot but stacks them on top of one another. This is most helpful when the bars add up to 100%, such as in a survey response where you're measuring percent of respondants within each cateogry. Otherwise, it can be hard to compare between the groups within each bar. 
+Another common variation on barplots are stacked barplots. Stacked barplots take the information from a grouped barplot but stacks them on top of one another. This is most helpful when the bars add up to 100%, such as in a survey response where you're measuring percent of respondents within each category. Otherwise, it can be hard to compare between the groups within each bar. 
 
 ![Stacked Barplot](https://docs.google.com/presentation/d/1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo/export/png?id=1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo&pageid=g62494e73ab_0_242)
 
@@ -665,7 +665,7 @@ ggplot(data = diamonds) +
 
 ![diamonds boxplot with red fill](https://docs.google.com/presentation/d/1WRfoVxRU_dRcbMGtsha5zSokBRoAFIirm32Wq6bZuEc/export/png?id=1WRfoVxRU_dRcbMGtsha5zSokBRoAFIirm32Wq6bZuEc&pageid=g4d96e4be59_0_0)
 
-Here, by speciying the color "red" in the `fill` argument, you're able to change the plot's appearance. In the next lesson, we'll go deeper into the many ways in which a plot can be customized within `ggplot2`!
+Here, by specifying the color "red" in the `fill` argument, you're able to change the plot's appearance. In the next lesson, we'll go deeper into the many ways in which a plot can be customized within `ggplot2`!
 
 #### Other plots
 
@@ -679,7 +679,7 @@ Or, you can select a geom from this list and click enter. After selecting a geom
 
 ### EDA Plots
 
-As mentioned previously, an important step after you've read your data into R and wrangled it into a tidy format is to carry out **Exploratory Data Analysis (EDA)**. EDA is the process of understanding the data in your dataset fully. To undersatnd your dataset fully, you need a full understanding of the variables stored in your dataset, what information you have and what information you don't have (missingness!). To gain this understanding, we've discussed using packages like `skimr` to get a quick idea of what information is stored in your dataset. However, generating plots is another critical step in this process. We encourage you to use `ggplot2` to understand the distribution of each single variable as well as the relationship between each variable in your dataset.
+As mentioned previously, an important step after you've read your data into R and wrangled it into a tidy format is to carry out **Exploratory Data Analysis (EDA)**. EDA is the process of understanding the data in your dataset fully. To understand your dataset fully, you need a full understanding of the variables stored in your dataset, what information you have and what information you don't have (missingness!). To gain this understanding, we've discussed using packages like `skimr` to get a quick idea of what information is stored in your dataset. However, generating plots is another critical step in this process. We encourage you to use `ggplot2` to understand the distribution of each single variable as well as the relationship between each variable in your dataset.
 
 In this process, using `ggplot2` defaults is totally fine. These plots do not have to be the most effective visualizations for communication, so you don't want to spend a ton  of time making them visually perfect. Only spend as much time on these as you need to understand your data!
 
@@ -712,7 +712,7 @@ ggplot(diamonds) +
 
 As a general note, we've stopped including `data =` and `mapping =` here within our code. We included it so far to be explicit; however, in code you see in the world, the names of the arguments will typically be excluded and we want you to be familiar with code that appears as you see above. 
 
-Ok, well that's a start since we see the breakdown, but all the bars are the same color. What if we adjusted color within `aes()`?
+OK, well that's a start since we see the breakdown, but all the bars are the same color. What if we adjusted color within `aes()`?
 
 
 ```r
@@ -1348,7 +1348,7 @@ kable(df, digits=0, "html", caption="Table 1: Diamonds Price by Quality of Cut. 
 
 ## `ggplot2`: Extensions
 
-Beyond the *many* capabilities of `ggplot2`, there are a few additional packages that build *on top of* `ggplot2`'s capabilitiles. We'll introduce a few packages here so that you can:
+Beyond the *many* capabilities of `ggplot2`, there are a few additional packages that build *on top of* `ggplot2`'s capabilities. We'll introduce a few packages here so that you can:
 
 * directly annotate points on plots (`ggrepel`)
 * combine multiple plots (`cowplot` + `patchwork`)
@@ -1364,7 +1364,7 @@ To demonstrate the functionality within the `ggrepel` package and demonstrate ca
 
 > The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models).
 
-This dataset includes information about 32 different cars. Let's first convert this froma data.frame to a tibble.
+This dataset includes information about 32 different cars. Let's first convert this from a data.frame to a tibble.
 
 
 ```r
@@ -1406,7 +1406,7 @@ ggplot(mtcars, aes(wt, hp, label = model)) +
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-42-1.png" width="672" />
 
-The only bit of code here that changed was that we changed `geom_text()` to `geom_text_repel()`. This, like `geom_text()` adds text directly to the plot. However, it also helpfullly repels overlapping labels away from one another and away from the data points on the plot.
+The only bit of code here that changed was that we changed `geom_text()` to `geom_text_repel()`. This, like `geom_text()` adds text directly to the plot. However, it also helpfully repels overlapping labels away from one another and away from the data points on the plot.
 
 #### Custom Formatting
 
@@ -1434,11 +1434,11 @@ ggplot(mtcars, aes(wt, hp, label = merc)) +
 
 Here, notice that we first create a new column in our dataframe called `merc`. Here, we include the model of the car, only if "Merc" is in the model of the car's name.
 
-We then, specify that only these Mercedes cars should be labeled *and* that we only want them colored blue if they are Mercedes. This allows us to focus in on those few points we're interested in. And, we can see that among the cars in this dataset, Mercedes tend to be of averabe weight but have varying horsepower, depending on the model of the car.
+We then, specify that only these Mercedes cars should be labeled *and* that we only want them colored blue if they are Mercedes. This allows us to focus in on those few points we're interested in. And, we can see that among the cars in this dataset, Mercedes tend to be of average weight but have varying horsepower, depending on the model of the car.
 
 **Text Alignment**
 
-Other times, you want to ensure that your abels are aligned on the top or bottom edge, relative to one another. This can be controlled using the `hjust` and `vjust` arguments. The values for particular alignment are:
+Other times, you want to ensure that your labels are aligned on the top or bottom edge, relative to one another. This can be controlled using the `hjust` and `vjust` arguments. The values for particular alignment are:
 
 `hjust = 0`   |  to left-align
 `hjust = 0.5` |  to center
@@ -1489,7 +1489,7 @@ Beyond customization within `ggplot2` and labeling points, there are times you'l
 
 #### Theme
 
-The standard theme within `cowplot`, which works for many types of plots is `theme_cowplot()`. This theme is very similar to `theme_classic()`, which removes the background color, removes gridlines, and plots only the x- and y- axis lines (rather than a box around all the data). We'll use this theme for the examples from this package. However, note that there are a number of additional themes available from the `cowplot` package.
+The standard theme within `cowplot`, which works for many types of plots is `theme_cowplot()`. This theme is very similar to `theme_classic()`, which removes the background color, removes grid lines, and plots only the x- and y- axis lines (rather than a box around all the data). We'll use this theme for the examples from this package. However, note that there are a number of additional themes available from the `cowplot` package.
 
 
 ```r
@@ -1498,7 +1498,7 @@ The standard theme within `cowplot`, which works for many types of plots is `the
 library(cowplot)
 ```
 
-We'll continue to use the `mtcars` dataset for these examples. Here, using the `forcats` package (which is part of the core tidyverse), we'll add two ne new columns: `transmission`, where we recode the `am` column to be "automatic" if `am == 0` and "manual" if `am == 1`, and `engine`, where we recode the `vs` column to be "v-shaped" if `vs == 0` and "straight" if `vs == 1`
+We'll continue to use the `mtcars` dataset for these examples. Here, using the `forcats` package (which is part of the core tidyverse), we'll add two new columns: `transmission`, where we recode the `am` column to be "automatic" if `am == 0` and "manual" if `am == 1`, and `engine`, where we recode the `vs` column to be "v-shaped" if `vs == 0` and "straight" if `vs == 1`
 
 
 ```r
@@ -1507,7 +1507,7 @@ mtcars <- mtcars %>%
          engine = fct_recode(as.factor(vs), "v-shaped" = "0", "straight" = "1"))
 ```
 
-We'll use these data to generate a scatterplot plotting the relationship between 1/4 mile speed (`qsec`) and gase mileage (`mpg`). We'll color the points by this new column `transmission` and apply `theme_cowplot`. Finally, we'll assign this to `p1`, as we'll ultimately generate a few different plots.
+We'll use these data to generate a scatterplot plotting the relationship between 1/4 mile speed (`qsec`) and gas mileage (`mpg`). We'll color the points by this new column `transmission` and apply `theme_cowplot`. Finally, we'll assign this to `p1`, as we'll ultimately generate a few different plots.
 
 
 ```r
@@ -1548,7 +1548,7 @@ plot_grid(p1, p2, ncol = 2)
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-49-1.png" width="672" />
 
-Here, we specify the two plots we'd like to plot on a single grid and we also optionally include how many columsn we'd like using the `ncol` parameter. 
+Here, we specify the two plots we'd like to plot on a single grid and we also optionally include how many columns we'd like using the `ncol` parameter. 
 
 To plot these one on top of the other, you could specify for `plot_grid()` to use a single column. Also note here that we're aligning the plots vertically with `align = "v"`. The default here is "none", so if you want the graphs in the grid to be aligned, be sure to specify "h" (horizontally), "v" (vertically) or "hv" (align in both directions) explicitly.
 
@@ -1657,9 +1657,9 @@ And, just like that we've got three plots, labeled, spaced out nicely in a grid,
 
 The `patchwork` package is similar to the `cowplot` package in that they both are helpful for combining plots together. They each allow for different plot modifications, so it is useful to know about both packages.
 
-Instead of requiring a function like `plot_grid()` of the `cowplot` package plots can be combined using  a few strightforward symbols, such as `"+"`, `"/"`, amd `"|"`.
+Instead of requiring a function like `plot_grid()` of the `cowplot` package plots can be combined using a few operators, such as `"+"`, `"/"`, and `"|".
 
-To combine two plots together we can simply add them together with the `+` sign or using the `|` to ensure that they are equally sized:
+To combine two plots together we can simply add them together with the `+` sign or place them next to one another using the `|`:
 
 
 ```r
@@ -1699,8 +1699,10 @@ p1 / p2
 ```
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-57-1.png" width="672" />
+Grouping or nesting plots together using parenthesis can result in two or more plots taking up a single grid space. 
 
-To combine multiple plots in a more complicated layout, one can combine two plots on one row and have a third plot on a row below like this:
+Thus, to combine multiple plots in a more complicated layout, one can combine two plots on one row and have a third plot on another row like this:
+
 
 ```r
 (p3 + p3) / p1
@@ -1708,30 +1710,39 @@ To combine multiple plots in a more complicated layout, one can combine two plot
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-58-1.png" width="672" />
 
-You can add empty plot spacers using the `plotspacer()` function like so:
+Otherwise, we would have the following:
 
 
 ```r
-(patchwork::plot_spacer() + p2 + plot_spacer()) / p1
+p3 + p3 / p1
 ```
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-59-1.png" width="672" />
 
+You can also empty plot spacers using the `plotspacer()` function like so:
+
+
+```r
+(plot_spacer() + p2 + plot_spacer()) / p1
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-60-1.png" width="672" />
+
 You can modify the widths of the plots using the `widths` argument of the `plot_layout()` function. In the following example we will make the width of the plot on the left 3 times that of the plot on the right. Any numeric values will do, it is the ratio of the numbers that make the difference.
 
-Thus, both `p1 + p2 + plot_layout(widths = c(3, 1))` and `p1 + p2 + plot_layout(widths = c(60, 20))` will result in the same relative size difference between `pq` and `p2`.
+Thus, both `p1 + p2 + plot_layout(widths = c(3, 1))` and `p1 + p2 + plot_layout(widths = c(60, 20))` will result in the same relative size difference between `p1` and `p2`.
 
 ```r
 p1 + p2 + plot_layout(widths = c(3, 1))
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-60-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-61-1.png" width="672" />
 
 ```r
 p1 + p2 + plot_layout(widths = c(60, 20))
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-60-2.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-61-2.png" width="672" />
 
 The relative heights of the plots can also be modified using a `heights` argument with the same function.
 
@@ -1739,23 +1750,84 @@ The relative heights of the plots can also be modified using a `heights` argumen
 p1 + p2 + plot_layout(heights = c(3, 1))
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-61-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-62-1.png" width="672" />
 
 ```r
 p1 + p2 + plot_layout(heights = c(60, 20))
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-61-2.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-62-2.png" width="672" />
 
-You can also specify the number of columns or rows using this same function.
+You can also specify the number of columns or rows using this same function with the `ncol` or `nrow` as you would with `facet_wrap()` of the `ggplot2` package, where plots are added to **complete a row** before they will be added to a new row. For example, the following will result in an empty 3rd row.
 
 
 ```r
-p1 + p2 + p3  + p3 + plot_layout(ncol = 2)
+p1 + p1 + p2 + p2 + p3 + p3 + plot_layout(nrow = 3, ncol = 3)
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-62-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-63-1.png" width="672" />
 
+However, the `byrow = FALSE` argument can disrupt this behavior:
+
+
+```r
+p1 + p1 + p2 + p2 + p3 + p3 + plot_layout(nrow = 3, ncol = 3, byrow = FALSE)
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-64-1.png" width="672" />
+
+In this case the **columns will be preferentially completed** before placing a plot in a new column.
+
+
+We can also use the package to change the theme specifications of specific plots. By default the plot just prior to the `theme()` function will be the only plot changed.
+
+
+```r
+p1 + p2 + theme(legend.position = "bottom") + p2
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-65-1.png" width="672" />
+
+Using the `*`, themes can be added to all plots that are nested together. 
+
+
+```r
+(p1 + p2) *theme_bw() + p2
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-66-1.png" width="672" />
+
+
+The `&` adds themes to all plots.
+
+```r
+(p1 + p2) + p2 & theme(axis.title.x = element_text(face = "bold"))
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-67-1.png" width="672" />
+
+This package also allows for modification of legends. For example, legends can be gathered together to one side of the combined plots using the `guides = 'collect'` argument of the `plot_grid()` function.
+
+
+```r
+((p1 + p2) & theme(axis.title.x = element_text(face = "bold"))) + plot_layout(guides = "collect")
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-68-1.png" width="672" />
+
+
+Annotations for all the plots combined can also be added using the `plot_annotation()` function, which can also take `theme()` function specifications with the `theme` argument.
+
+
+```r
+(p1 + p2) + p3 + plot_annotation(title = "Plot title for all 3 plots", 
+                                 theme = theme(plot.title = element_text(hjust = 0.5)))
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-69-1.png" width="672" />
+
+
+See [here](https://patchwork.data-imaginist.com/) for more information about the `patchwork` package.
 
 ### `gganimate`
 
@@ -1780,7 +1852,7 @@ We'll walk through these grammar classes using the `mtcars` dataset.
 
 As noted, `gganimate` builds on top of the functionality within `ggplot2`, so the code should look pretty familiar by now. 
 
-First, using the `mtcars` dataset we generate a static boxplot looking at the relationship between the nymber of cylinders a car has (`cyl`) and its gas milage (`mpg`).
+First, using the `mtcars` dataset we generate a static boxplot looking at the relationship between the number of cylinders a car has (`cyl`) and its gas mileage (`mpg`).
 
 
 ```r
@@ -1789,7 +1861,7 @@ ggplot(mtcars) +
   geom_boxplot(aes(factor(cyl), mpg))
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-64-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-71-1.png" width="672" />
 
 But what if we wanted to understand the relationship between those two variables and the number of gears a car has (`gear`)?
 
@@ -1803,7 +1875,7 @@ ggplot(mtcars) +
   facet_wrap(~gear)
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-65-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-72-1.png" width="672" />
 
 Alternatively, we could animate the plot, using `gganimate` so that on a single plot we rotate between each of these three plots. 
 
@@ -1822,7 +1894,7 @@ mtcars %>%
   transition_manual(gear)
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-66-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-73-1.gif)<!-- -->
 
 Note that here, `transition_manual()` is a new grammar class that we add right on top of our `ggplot2` plot code! Within this grammar class, we specify the variable upon which we'd like the transition in the animation to occur.
 
@@ -1842,7 +1914,7 @@ anim <- ggplot(mtcars) +
 anim
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-67-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-74-1.gif)<!-- -->
 
 Note here that we've stored the output from `transition_states` in the object `anim`. We'll build on this object below.
 
@@ -1859,9 +1931,9 @@ anim <- anim +
 anim
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-68-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-75-1.gif)<!-- -->
 
-Note that we're referring to the approapriate gear within the animation frame by specifying `{closest_state}`.
+Note that we're referring to the appropriate gear within the animation frame by specifying `{closest_state}`.
 
 ##### Easing
 
@@ -1876,7 +1948,7 @@ anim <- anim +
 anim
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-69-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-76-1.gif)<!-- -->
 
 There are a number of easing functions, all of which are listed within the documentation, which can be viewed, as always, using the `?` help function: `?ease_aes`.
 
@@ -1895,7 +1967,7 @@ anim <- anim +
 anim
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-70-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-77-1.gif)<!-- -->
 
 The changes are subtle but you'll notice that on transition the data fades in to appear and shrinks upon exit.
 
@@ -1910,7 +1982,7 @@ ggplot(mtcars) +
   geom_point(aes(qsec, mpg))
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-71-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-78-1.png" width="672" />
 
 However, upon adding animation, we see how the data changes by gear.
 
@@ -1927,7 +1999,7 @@ scat <- ggplot(mtcars) +
 scat
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-72-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-79-1.gif)<!-- -->
 
 However, the x- and y-axes remain constant throughout the animation.
 
@@ -1943,7 +2015,7 @@ scat +
             include = FALSE)
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-73-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-80-1.gif)<!-- -->
 
 
 #### Example: gapminder
@@ -1970,9 +2042,9 @@ gap <- ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) 
 gap
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-74-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-81-1.gif)<!-- -->
 
-Note that in this example, we're now using `transition_time()` rather than `transition_states()`. This is a variant of `transition_states()` that is particularly useful when the states represent points in time, such as the years we're animating through in the plot above. The transition lenth is set to correspond to the time difference between the points in the data.
+Note that in this example, we're now using `transition_time()` rather than `transition_states()`. This is a variant of `transition_states()` that is particularly useful when the states represent points in time, such as the years we're animating through in the plot above. The transition length is set to correspond to the time difference between the points in the data.
 
 ##### Shadow
 
@@ -1987,7 +2059,7 @@ gap +
               alpha = 0.3)
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-75-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-82-1.gif)<!-- -->
 
 Here, distance specifies the temporal distance between the frames to show and alpha specifies the transparency of the trail, so that the current frame's data is always discernible.
 
@@ -2050,7 +2122,7 @@ library(visdat)
 vis_dat(hc)
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-78-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-85-1.png" width="672" />
 
 We now have a sense that a few states, for some years are missing coverage data, which also affects the ability to calculate proportion covered.
 
@@ -2061,7 +2133,7 @@ To see these values highlighted more specifically, we can use the related `vis_m
 vis_miss(hc)
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-79-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-86-1.png" width="672" />
 
 Here we see that missing values only occur 0.6% of the time, with 3.1% of the observations missing entries for `tot_coverage` and `prop_coverage`. So, all in all, there is not a lot of missing data, but we still want to be sure we understand where missingness occurs before answering our questions.
 
@@ -2114,7 +2186,7 @@ skim(hc)
 
 <table style='width: auto;'
         class='table table-condensed'>
-<caption>(\#tab:unnamed-chunk-81)Data summary</caption>
+<caption>(\#tab:unnamed-chunk-88)Data summary</caption>
  <thead>
   <tr>
    <th style="text-align:left;">   </th>
@@ -2361,7 +2433,7 @@ hc %>%
 
 <table style='width: auto;'
         class='table table-condensed'>
-<caption>(\#tab:unnamed-chunk-82)Data summary</caption>
+<caption>(\#tab:unnamed-chunk-89)Data summary</caption>
  <thead>
   <tr>
    <th style="text-align:left;">   </th>
@@ -2728,7 +2800,7 @@ hc %>%
        y = "coverage proportion")
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-83-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-90-1.png" width="672" />
 
 We see that there appears to be some relationship, with those states that spend more per capita also having higher proportions of their population having healthcare coverage.
 
@@ -2752,7 +2824,7 @@ hc %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-84-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-91-1.png" width="672" />
 
 Beyond that, we likely want to know which point represents which state, so we can add state labels:
 
@@ -2776,7 +2848,7 @@ hc %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-85-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-92-1.png" width="672" />
 
 From there, it'd likely be helpful to have information from each region:
 
@@ -2802,7 +2874,7 @@ hc %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-86-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-93-1.png" width="672" />
 
 So far, we've only been focusing on data from 2013. What about looking at data from both 2013 and 2014? We can do that using `facet_wrap()`:
 
@@ -2828,7 +2900,7 @@ hc %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-87-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-94-1.png" width="672" />
 
 We see that the overall trend holds, but there has been some movement. For example, we see at a glance that DC has a higher proportion of its population covered in 2014 relative to 2013, while MA saw a drop in coverage. UT appears to be an outlier in both years having low spending but a high proportion of individuals covered.
 
@@ -2856,7 +2928,7 @@ hc %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-88-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-95-1.png" width="672" />
 
 From these data, we see that Employer health care coverage is the most popular way in which individuals receive their health insurance across all states. We also see a flat or positive relationship for all other types of insurance, except for "Uninsured". There, as makes sense, we see that the more money spent per capita the fewer individuals the state has without insurance. 
 
@@ -2884,7 +2956,7 @@ hc %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-89-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-96-1.png" width="672" />
 
 The same general patterns hold in 2014 as we saw in 2013; however, the patterns are not exactly the same.
 
@@ -2925,7 +2997,7 @@ dev.off()
 ```
 
 ```r
-pdf(here::here("figures", "exploratory", "2013_covearge_type.pdf"))
+pdf(here::here("figures", "exploratory", "2013_coverage_type.pdf"))
 hc %>%
   filter(year == "2013") %>% 
   ggplot(aes(x = spending_capita, 
@@ -2967,7 +3039,7 @@ dev.off()
 ```
 
 ```r
-pdf(here::here("figures", "exploratory", "2014_covearge_type.pdf"))
+pdf(here::here("figures", "exploratory", "2014_coverage_type.pdf"))
 hc %>%
   filter(year == "2014") %>% 
   ggplot(aes(x = spending_capita, 
@@ -3030,7 +3102,7 @@ hc %>%
   labs(y = "spending per capita")
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-91-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-98-1.png" width="672" />
 
 Here, we get a sense of the overall trend, seeing that states in the Northeast tend to spend the most on health care, while states in the West spend the least.
 
@@ -3048,7 +3120,7 @@ hc %>%
   labs(y = "spending per capita")
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-92-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-99-1.png" width="672" />
 
 This gives us a sense of the variation in spending for states in each region. Of note, there are more outliers in the South and West, with a few states spending more on health care than even states in the Northeast, where spending tends to be higher.
 
@@ -3084,7 +3156,7 @@ hc %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-93-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-100-1.png" width="672" />
 
 With this, output the top row are the data from 2013 and the bottom from 2014. We can then visually compare the top plot to the bottom plot for each time of insurance. 
 
@@ -3139,7 +3211,7 @@ Similar to how we approached the health care case study, let's get an overall un
 vis_dat(firearms)
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-95-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-102-1.png" width="672" />
 
 We see that we have data for all 50 states (and Washington, D.C.) for most variables in our dataset; however, we're missing information for one state when it comes to gunshot information and another state when it comes to Brady scores and ownership by suicide rates. 
 
@@ -3156,7 +3228,7 @@ skim(firearms)
 
 <table style='width: auto;'
         class='table table-condensed'>
-<caption>(\#tab:unnamed-chunk-96)Data summary</caption>
+<caption>(\#tab:unnamed-chunk-103)Data summary</caption>
  <thead>
   <tr>
    <th style="text-align:left;">   </th>
@@ -3455,7 +3527,7 @@ ggplot(firearms,
   geom_text_repel(aes(label = NAME))
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-97-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-104-1.png" width="672" />
 
 Here we see that the visualization of this relationship is largely dependent upon the state's population, with large states like Texas and California sticking out. However, we do see that, for its size, Washington D.C had many more violent cries than other states, despite its small population. 
 
@@ -3473,7 +3545,7 @@ ggplot(firearms,
   theme_classic()
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-98-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-105-1.png" width="672" />
 
 Here, there appears to be some relationship with states that have higher rates of unemployment having slightly more violent crimes, but violent crimes is not adjusted by population, so this is likely not *that* helpful.
 
@@ -3495,7 +3567,7 @@ ggplot(firearms,
 ## Warning: Removed 2 rows containing missing values (geom_point).
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-99-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-106-1.png" width="672" />
 
 This suggests that states with more fatal police shootings *tend* to have more firearm suicides relative to non-firearm suicides; however, this relationship is non linear. 
 
@@ -3526,7 +3598,7 @@ ggplot(firearms, aes(x = brady_scores,
 ## Warning: Removed 2 rows containing missing values (geom_point).
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-100-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-107-1.png" width="672" />
 
 In this plot, we see that there is a relationship, but it is non-linear. Overall, the higher the legislative strength score (`brady_scores`), the lower the rate of police shootings; however, this decrease is nonlinear, as all states with a positive Brady Score have a similar police shooting rate. 
 
@@ -3553,7 +3625,7 @@ ggplot(firearms, aes(x = brady_scores,
 ## Warning: Removed 2 rows containing missing values (geom_text).
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-101-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-108-1.png" width="672" />
 
 This makes it clear that Wyoming, New Mexico, Oklahoma, Arizona, and Nevada have some of the highest rates of fatal police shootings, while  Connecticut, New York, Pennsylvania, and North Dakota are among the lowest. 
 
@@ -3581,9 +3653,9 @@ ggplot(firearms, aes(x = brady_scores,
 ## Warning: Removed 2 rows containing missing values (geom_text_repel).
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-102-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-109-1.png" width="672" />
 
-If we wanted to save this particular plot as a pdf, we could do so like this to save the plot in a directory called exporatory within a directory called figures:
+If we wanted to save this particular plot as a pdf, we could do so like this to save the plot in a directory called exploratory within a directory called figures:
 
 
 ```r
