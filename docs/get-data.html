@@ -1002,11 +1002,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb51-5" data-line-number="5">url &lt;-<span class="st"> &quot;http://www.sqlitetutorial.net/wp-content/uploads/2018/03/chinook.zip&quot;</span></a>
 <a class="sourceLine" id="cb51-6" data-line-number="6"><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.zip&quot;</span>)))</a></code></pre></div>
 <pre><code>## Response [https://www.sqlitetutorial.net/wp-content/uploads/2018/03/chinook.zip]
-##   Date: 2020-11-03 21:04
+##   Date: 2020-11-03 23:02
 ##   Status: 200
 ##   Content-Type: application/zip
 ##   Size: 306 kB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpWKd4vV/file7b538f73c1d.zip</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmphyaQYj/file8dde75375d54.zip</code></pre>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw">unzip</span>(tf)</a>
 <a class="sourceLine" id="cb53-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb53-3" data-line-number="3"><span class="co">## Connect to Database</span></a>
@@ -1258,7 +1258,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This uses the helpful package <code>rvest</code>. It gets its name from the word “harvest.” The idea here is you’ll use this package to “harvest” information from websites! However, as you may imagine, this is less straightforward than pulling data that are already formatted the way you want them (as we did above), since we’ll have to do some extra work to get everything in order.</p>
 <div id="rvest-basics" class="section level3">
 <h3><span class="header-section-number">2.11.1</span> <code>rvest</code> Basics</h3>
-<p>When <code>rvest</code> is given a webpage (URL) as input, an <code>rvest</code> function reads in the HTML code from the webpage. HTML is the language websites use to display everything you see on the website. You’ve seen HTML documents before, as this is one of the formats that you can Knit to from an R Markdown (.Rmd) document! Generally, all HTML documents require each webpage to have a similar structure. This structure is specified by using different <strong>tags</strong>. For example, a header at the top of your webpage would use a specific tag. Website links would use a different tag. These different tags help to specify how the website should appear. <code>rvest</code> takes advantage of these tags to help you extract the parts of the webpage you’re most interested in. So let’s see exactly how to do that all of this with an example.</p>
+<p>When <code>rvest</code> is given a webpage (URL) as input, an <code>rvest</code> function reads in the HTML code from the webpage. HTML is the language websites use to display everything you see on the website. You’ve seen HTML documents before, as this is one of the formats that you can Knit to from an R Markdown (.Rmd) document! Generally, all HTML documents require each webpage to have a similar structure. This structure is specified by using different <strong>tags</strong>. For example, a header at the top of your webpage would use a specific tag. Website links would use a different tag. These different tags help to specify how the website should appear. The <code>rvest</code> package takes advantage of these tags to help you extract the parts of the webpage you’re most interested in. So let’s see exactly how to do that all of this with an example.</p>
 <div class="figure">
 <img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_179" alt="Different tags are used to specify different parts of a website" />
 <p class="caption">Different tags are used to specify different parts of a website</p>
@@ -1469,7 +1469,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_154" alt="GET() steak-survey CSV" />
 <p class="caption"><code>GET()</code> steak-survey CSV</p>
 </div>
-<p>Here, we again specify our url within <code>GET()</code> followed by use of the helpful <code>content()</code> function from <code>httr</code> to obtain the CSV from the <code>api_response</code> object. <code>df_steak</code> includes the data from the CSV directly from the GitHub API, without having to download the data first!</p>
+<p>Here, we again specify our url within <code>GET()</code> followed by use of the helpful <code>content()</code> function from <code>httr</code> to obtain the CSV from the <code>api_response</code> object. The <code>df_steak</code> includes the data from the CSV directly from the GitHub API, without having to download the data first!</p>
 </div>
 <div id="read_csv-from-a-url" class="section level3">
 <h3><span class="header-section-number">2.12.4</span> <code>read_csv()</code> from a URL</h3>
@@ -1926,11 +1926,11 @@ After creating a directory called raw_data within a directory that we called dat
 <a class="sourceLine" id="cb136-7" data-line-number="7"><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></a>
 <a class="sourceLine" id="cb136-8" data-line-number="8"><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xlsx&quot;</span>)))</a></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2020-11-03 21:04
+##   Date: 2020-11-03 23:02
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpWKd4vV/file7b5374856499.xlsx</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmphyaQYj/file8dde74856499.xlsx</code></pre>
 <div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" data-line-number="1">brady &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb138-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb138-3" data-line-number="3">brady</a></code></pre></div>
@@ -1965,11 +1965,11 @@ After creating a directory called raw_data within a directory that we called dat
 <a class="sourceLine" id="cb140-4" data-line-number="4"><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></a>
 <a class="sourceLine" id="cb140-5" data-line-number="5"><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</a></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2020-11-03 21:04
+##   Date: 2020-11-03 23:02
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpWKd4vV/file7b5321980f48.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmphyaQYj/file8dde21980f48.xls</code></pre>
 <div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" data-line-number="1">crime &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>, <span class="dt">skip =</span> <span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb142-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb142-3" data-line-number="3"><span class="co"># see data</span></a>
@@ -2002,11 +2002,11 @@ After creating a directory called raw_data within a directory that we called dat
 <a class="sourceLine" id="cb144-4" data-line-number="4"><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></a>
 <a class="sourceLine" id="cb144-5" data-line-number="5"><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</a></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2020-11-03 21:04
+##   Date: 2020-11-03 23:02
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpWKd4vV/file7b535e37ee62.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmphyaQYj/file8dde5e37ee62.xls</code></pre>
 <div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" data-line-number="1">land &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb146-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb146-3" data-line-number="3"><span class="co"># see data</span></a>
