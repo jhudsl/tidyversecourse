@@ -940,7 +940,7 @@ Any alterations to plot spacing/background, title, axis, and legend will all be 
 
 ### Legends
 
-At this point, all the text on the plot is pretty visible! However, there's one thing that's still not quite clear to viewers. In daily life, people refer to the "cut" of a diamond by terms like "round cut" or "princess cut" to describe the *shape* of the diamond. That's not what we're talking about here when we're discussing "cut". In these data, "cut" refers to the quality of the diamond, not the shape. Let's be sure that's clear as well! We can change that using an additional layer and `guides()`!
+At this point, all the text on the plot is pretty visible! However, there's one thing that's still not quite clear to viewers. In daily life, people refer to the "cut" of a diamond by terms like "round cut" or "princess cut" to describe the *shape* of the diamond. That's not what we're talking about here when we're discussing "cut". In these data, "cut" refers to the quality of the diamond, not the shape. Let's be sure that's clear as well! We can change the name of the legend by using an additional layer and the `guides()` and `guide_legend()` functions of the `ggplot2` package!
 
 
 ```r
@@ -962,7 +962,82 @@ ggplot(diamonds) +
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-29-1.png" width="672" />
 
-![`guide()` allows us to change the legend title](https://docs.google.com/presentation/d/1fAPq_QX6hzNLal4tPRLuAjuHbVYn3sXC1Y7EoK0tNJE/export/png?id=1fAPq_QX6hzNLal4tPRLuAjuHbVYn3sXC1Y7EoK0tNJE&pageid=g3c07dc9761_0_148)
+![`guides()` allows us to change the legend title](https://docs.google.com/presentation/d/1fAPq_QX6hzNLal4tPRLuAjuHbVYn3sXC1Y7EoK0tNJE/export/png?id=1fAPq_QX6hzNLal4tPRLuAjuHbVYn3sXC1Y7EoK0tNJE&pageid=g3c07dc9761_0_148)
+
+This `guides()` function, as well as the `guides_*` functions also allow us to modify legends even further. 
+
+Thisis especially useful if you have many colors in your legend and you want to control how the legend is displayed in terms of the number of columns and rows using `ncol` and `nrow` respectively.
+
+
+```r
+ggplot(diamonds) + 
+  geom_bar(aes(x = clarity, fill = cut), position = "fill") +
+  scale_fill_manual(values = c("red", "orange", "darkgreen", "dodgerblue", "purple4")) +
+  labs(title = "Clearer diamonds tend to be of higher quality cut",
+       subtitle = "The majority of IF diamonds are an \"Ideal\" cut") +
+  ylab("proportion") +
+  theme_classic() +
+  theme(title = element_text(size = 16), 
+        axis.text = element_text(size = 14),
+        axis.title = element_text(size = 16, face = "bold"),
+        legend.text = element_text(size = 14),
+        plot.subtitle = element_text(color = "gray30")) +
+  # control legend
+  guides(fill = guide_legend("Cut Quality", 
+                              ncol = 2))
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-30-1.png" width="672" />
+
+
+Or, we can modify the font of the legend title using `title.theme()`.
+
+
+```r
+ggplot(diamonds) + 
+  geom_bar(aes(x = clarity, fill = cut), position = "fill") +
+  scale_fill_manual(values = c("red", "orange", "darkgreen", "dodgerblue", "purple4")) +
+  labs(title = "Clearer diamonds tend to be of higher quality cut",
+       subtitle = "The majority of IF diamonds are an \"Ideal\" cut") +
+  ylab("proportion") +
+  theme_classic() +
+  theme(title = element_text(size = 16), 
+        axis.text = element_text(size = 14),
+        axis.title = element_text(size = 16, face = "bold"),
+        legend.text = element_text(size = 14),
+        plot.subtitle = element_text(color = "gray30")) +
+  # control legend
+  guides(fill = guide_legend("Cut Quality", 
+                             title.theme = element_text(face = "bold")))
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-31-1.png" width="672" />
+
+Alternatively, we can do this modifcation as well as other legend modifcations, like adding a rectangle around the legend, using the `theme()` function.
+
+
+```r
+ggplot(diamonds) + 
+  geom_bar(aes(x = clarity, fill = cut), position = "fill") +
+  scale_fill_manual(values = c("red", "orange", "darkgreen", "dodgerblue", "purple4")) +
+  labs(title = "Clearer diamonds tend to be of higher quality cut",
+       subtitle = "The majority of IF diamonds are an \"Ideal\" cut") +
+  ylab("proportion") +
+# changing the legend title:
+guides(fill = guide_legend("Cut Quality")) +
+  theme_classic() +
+  theme(title = element_text(size = 16), 
+        axis.text = element_text(size = 14),
+        axis.title = element_text(size = 16, face = "bold"),
+        legend.text = element_text(size = 14),
+        plot.subtitle = element_text(color = "gray30"),
+# changing the legend style:
+        legend.title = element_text(face = "bold"),
+        legend.background = element_rect(color = "black"))
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-32-1.png" width="672" />
+
 
 At this point, we have an informative title, clear colors, a well-labeled legend, and text that is large enough throughout the graph. This is certainly a graph that could be used in a presentation. We've taken it from a graph that is useful to just ourselves (exploratory) and made it into a plot that can communicate our findings well to others (explanatory)! 
 
@@ -980,11 +1055,83 @@ ggplot(diamonds) +
   scale_y_continuous(breaks = seq(0, 17000, by = 1000))
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-30-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-33-1.png" width="672" />
 
 ![Continuous cales can be altered](https://docs.google.com/presentation/d/1fAPq_QX6hzNLal4tPRLuAjuHbVYn3sXC1Y7EoK0tNJE/export/png?id=1fAPq_QX6hzNLal4tPRLuAjuHbVYn3sXC1Y7EoK0tNJE&pageid=g3c07dc9761_0_165)
 
-However, for **discrete variables** (aka factors or categorical variables), where there is a limited number of levels, you would use `scale_x_discrete` or `scale_y_discrete`:
+There is very handy argument called `trans` for the `scale_y_continuous` or the `scale_x_continuous` functions to change the scale of the axes. For example it can be very useful to show the logrithmic version of the scale if you have very high values with large differences.
+
+According to the documentation for the `trans` argument:
+> Built-in transformations include "asn", "atanh", "boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2", "logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal", "reverse", "sqrt" and "time".
+
+
+```r
+ggplot(diamonds) + 
+  geom_bar(aes(x = clarity)) +
+  # control scale for continuous variable
+  scale_y_continuous(trans = "log10") +
+    labs(y = "Count (log10 scale)",
+         x = "Clarity")
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-34-1.png" width="672" />
+
+Notice that the values are not changed, just the way they are plotted. Now the y-axis increases by a factor of 10 for each break.
+
+
+We will create a plot of the price of the diamonds to demonstrate the utility of creating a plot with a log10 scaled y-axis.
+
+
+```r
+ggplot(diamonds) + 
+  geom_boxplot(aes(y = price, x = clarity))
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-35-1.png" width="672" />
+
+```r
+ggplot(diamonds) + 
+  geom_boxplot(aes(y = price, x = clarity)) + 
+  scale_y_continuous(trans = "log10") + 
+  labs(y = "Price (log10 scale)",
+       x = "Diamond Clarity")
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-35-2.png" width="672" />
+
+In the first plot, it is difficult to tell what values the boxplots correspond to and it is difficult to compare the boxplots (particullarly for the last three clarity categories), however this is greatly improved in the second plot. 
+
+
+We can also use another argument of the `scale_y_continuous()` function to add specific labels to our plot. For example, it would be nice to add dollar signs to the y-axis. We can do so using the `labels` argument. A variety of `label_*` functions  within the `scales` package can be used to modify axis labels. See [here](https://scales.r-lib.org/reference/index.html) to take a look at the many options.
+
+
+```r
+ggplot(diamonds) + 
+  geom_boxplot(aes(y = price, x = clarity)) + 
+  scale_y_continuous(trans = "log10", 
+                    labels = scales::label_dollar()) +
+  labs(y = "Price (log10 scale)",
+       x = "Diamond Clarity")
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-36-1.png" width="672" />
+In the above plot, we might also want to order the boxplots by the median price, we can do so using the `fct_reorder` function of `forcats` package to change the order for the `clarity` levels to be based on the median of the `price` values.
+
+
+```r
+ggplot(diamonds) + 
+  geom_boxplot(aes(y = price, x = forcats::fct_reorder(clarity, price, .fun = median))) + 
+  scale_y_continuous(trans = "log10", 
+                    labels = scales::label_dollar()) +
+  labs(y = "Price (log10 scale)",
+       x = "Diamond Clarity")
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-37-1.png" width="672" />
+
+Now we can more easily determine that the `SI2` diamonds are the most expensive.
+
+Another way modify **discrete variables** (aka factors or categorical variables), where there is a limited number of levels, you would use `scale_x_discrete` or `scale_y_discrete`. In this case we will just pick a few of the clarity categories to plot and we will specify the order.
 
 
 ```r
@@ -995,18 +1142,12 @@ ggplot(diamonds) +
   scale_y_continuous(breaks = seq(0, 17000, by = 1000)) 
 ```
 
-```
-## Warning: Removed 30940 rows containing non-finite values (stat_count).
-```
-
-<img src="04-dataviz_files/figure-html/unnamed-chunk-31-1.png" width="672" />
-
 ![Discrete scales can be altered](https://docs.google.com/presentation/d/1fAPq_QX6hzNLal4tPRLuAjuHbVYn3sXC1Y7EoK0tNJE/export/png?id=1fAPq_QX6hzNLal4tPRLuAjuHbVYn3sXC1Y7EoK0tNJE&pageid=g3c07dc9761_0_170)
+
 
 ### Coordinate Adjustment
 
-There are times when you'll want to flip your axis. This can be accomplished using `coord_flip()`. Adding an additional layer to the plot we just generated switches our x- and y-axes, allowing for horizontal bar charts, rather than the default 
-vertical bar charts:
+There are times when you'll want to flip your axis. This can be accomplished using `coord_flip()`. Adding an additional layer to the plot we just generated switches our x- and y-axes, allowing for horizontal bar charts, rather than the default vertical bar charts:
 
 
 ```r
@@ -1032,7 +1173,7 @@ ggplot(diamonds) +
 ## Warning: Removed 30940 rows containing non-finite values (stat_count).
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-32-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-39-1.png" width="672" />
 
 
 ![Axes can be flipped using `coord_flip`](https://docs.google.com/presentation/d/1fAPq_QX6hzNLal4tPRLuAjuHbVYn3sXC1Y7EoK0tNJE/export/png?id=1fAPq_QX6hzNLal4tPRLuAjuHbVYn3sXC1Y7EoK0tNJE&pageid=g3c07dc9761_0_152)
@@ -1090,7 +1231,7 @@ ggplot(diamonds) +
 ## Warning: Removed 30940 rows containing non-finite values (stat_count).
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-34-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-41-1.png" width="672" />
 
 ![`annotate` helps add text to our plot](https://docs.google.com/presentation/d/1fAPq_QX6hzNLal4tPRLuAjuHbVYn3sXC1Y7EoK0tNJE/export/png?id=1fAPq_QX6hzNLal4tPRLuAjuHbVYn3sXC1Y7EoK0tNJE&pageid=g3c07dc9761_0_181)
 
@@ -1102,7 +1243,7 @@ Sometimes it is very useful to add a line to our plot to indicate an important t
 
 In each case, the functions require that a y or x intercept be specified respectively.
 
-For example, it might be useful to add a horizontal line to indicate 50% of the total counts for each of the `clarity` categories. 
+For example, it might be useful to add a horizontal line to indicate 50% of the total counts for each of the `clarity` categories. We will also use the `scale_y_continuous()` function to change the y-axis to show percentages.
 
 
 ```r
@@ -1110,10 +1251,12 @@ ggplot(diamonds) +
   # fill scales to 100%
   geom_bar(aes(x = clarity, fill = cut), position = "fill") +
   scale_fill_manual(values = c("red", "orange", "darkgreen", "dodgerblue", "purple4")) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(y = "Percent of diamonds") +
   geom_hline(yintercept = 0.5, color = "red", size = 1)
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-35-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-42-1.png" width="672" />
 Now, it is easier to tell that slightly over half of the `VVS2` diamonds have an `Ideal` cut. This would be much more difficult to see without the horizontal line. 
 
 
@@ -1125,13 +1268,15 @@ ggplot(diamonds) +
   # fill scales to 100%
   geom_bar(aes(x = clarity, fill = cut), position = "fill") +
   scale_fill_manual(values = c("red", "orange", "darkgreen", "dodgerblue", "purple4")) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(y = "Percent of diamonds") +
+  geom_hline(yintercept = 0.5, color = "red", size = 1 ) +
   geom_vline(xintercept = 5.5, color = "black", size = .5)
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-36-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-43-1.png" width="672" />
 
-This would be helpful if we wanted to especially point out differences between the last three categories of diamonds compared to the other diamonds. 
-
+This would be helpful if we wanted to especially point out differences between the last three clarity categories of diamonds compared to the other categories. 
 
 ## Tables
 
@@ -1326,7 +1471,7 @@ kable(df, digits=0, "html", caption="Table 1: Diamonds Price by Quality of Cut. 
 ```
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
-<caption>(\#tab:unnamed-chunk-41)Table 1: Diamonds Price by Quality of Cut. Most Diamonds are of the highest quality cut and the most expensive diamonds are of the highest quality</caption>
+<caption>(\#tab:unnamed-chunk-48)Table 1: Diamonds Price by Quality of Cut. Most Diamonds are of the highest quality cut and the most expensive diamonds are of the highest quality</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden" colspan="2"></th>
@@ -1387,7 +1532,7 @@ kable(df, digits=0, "html", caption="Table 1: Diamonds Price by Quality of Cut. 
 
 Beyond the *many* capabilities of `ggplot2`, there are a few additional packages that build *on top of* `ggplot2`'s capabilities. We'll introduce a few packages here so that you can:
 
-* directly annotate points on plots (`ggrepel`)
+* directly annotate points on plots (`ggrepel` and `directlabels`)
 * combine multiple plots (`cowplot` + `patchwork`)
 * generate animated plots (`gganimate`)
 
@@ -1424,7 +1569,7 @@ ggplot(mtcars, aes(wt, hp, label = model)) +
   theme_classic()
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-43-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-50-1.png" width="672" />
 
 The overall trend is clear here - the more a car weights, the more horsepower it tends to have. However, many of the labels are overlapping and impossible to read - this is where `ggrepel` plays a role:
 
@@ -1441,9 +1586,10 @@ ggplot(mtcars, aes(wt, hp, label = model)) +
   theme_classic()
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-44-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-51-1.png" width="672" />
 
 The only bit of code here that changed was that we changed `geom_text()` to `geom_text_repel()`. This, like `geom_text()` adds text directly to the plot. However, it also helpfully repels overlapping labels away from one another and away from the data points on the plot.
+
 
 #### Custom Formatting
 
@@ -1467,7 +1613,7 @@ ggplot(mtcars, aes(wt, hp, label = merc)) +
   geom_text_repel()
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-45-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-52-1.png" width="672" />
 
 Here, notice that we first create a new column in our dataframe called `merc`. Here, we include the model of the car, only if "Merc" is in the model of the car's name.
 
@@ -1513,11 +1659,62 @@ ggplot(mtcars, aes(qsec, mpg, label = model)) +
   scale_y_continuous(limits = c(NA, 36))
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-46-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-53-1.png" width="672" />
   
 Notice that we've also had to provide the plot with more room by customizing the x- and y- axes, using the final two lines of code you see above.
 
 With this plot, it is clear that there are four cars with mpg > 30. And, among these, we now know that the Toyota Corolla has the fastest quarter mile time, all thanks to direct labeling of the points!
+
+### `directlabels`
+
+The `directlabels` package also helps you to add labels directly to plots. There are functions that allow you to also add labels that generally dont overlap using less code than `ggrepel`, however there are less specification options.
+
+There are several method options for adding direct labels to scatter plots, such as: `first.points` (which will place the label on the left in a scatterplot), and `last.points` (which will place the label on the right in a scatterplot).
+
+
+```r
+#install.packages("directlabels")
+library(directlabels)
+
+ggplot(mtcars, aes(qsec, mpg, label = model)) +
+  geom_point(color = ifelse(mtcars$mpg > 30, "dodgerblue", "black")) +
+  scale_x_continuous(expand = c(0.05, 0.05)) +
+  scale_y_continuous(limits = c(NA, 36)) +
+  geom_dl(data = subset(mtcars, mpg > 30), aes(label = model), 
+          method = list(c("first.points"),
+                        cex = 1))
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-54-1.png" width="672" />
+
+```r
+ggplot(mtcars, aes(qsec, mpg, label = model)) +
+  geom_point(color = ifelse(mtcars$mpg > 30, "dodgerblue", "black")) +
+  scale_x_continuous(expand = c(0.05, 0.05)) +
+  scale_y_continuous(limits = c(NA, 36)) +
+  geom_dl(data = subset(mtcars, mpg > 30), aes(label = model), 
+          method = list(c("last.points"),
+                        cex = 1))
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-54-2.png" width="672" />
+
+This package is especially useful for labeling lines in a lineplot. There are several methods, one of which is the `angled.boxes` method. This often negates the need for a legend.
+
+
+```r
+ggplot(mtcars, aes(qsec, mpg, color = cyl, group = cyl)) + 
+  geom_line()+
+  geom_dl(aes(label = cyl), 
+          method = list(c("angled.boxes"),
+                        cex = 1)) +
+  theme(legend.position = "none") +
+  labs(title = "Differences in cars with 4, 6, or 8 cylinders")
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-55-1.png" width="672" />
+
+See [here](https://cran.r-project.org/web/packages/directlabels/directlabels.pdf) for more information about this package.
 
 ### `cowplot`
 
@@ -1555,7 +1752,7 @@ p1 <- ggplot(mtcars, aes(qsec, mpg, color = transmission)) +
 p1
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-49-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-58-1.png" width="672" />
 
 Let's make a similar plot, but color by engine type. We'll want to manually change the colors here so that we aren't using the same colors for transmission and engine. We'll store this in `p2`.
 
@@ -1569,7 +1766,7 @@ p2 <- ggplot(mtcars, aes(qsec, mpg, color = engine)) +
 p2
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-50-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-59-1.png" width="672" />
 
 Great - we've now got two plots with the same theme and similar appearance. What if we wanted to combine these into a single grid for presentation purposes?
 
@@ -1583,7 +1780,7 @@ Aligning plots is made simple within the `cowplot` package using the `align_plot
 plot_grid(p1, p2, ncol = 2)
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-51-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-60-1.png" width="672" />
 
 Here, we specify the two plots we'd like to plot on a single grid and we also optionally include how many columns we'd like using the `ncol` parameter. 
 
@@ -1595,7 +1792,7 @@ To plot these one on top of the other, you could specify for `plot_grid()` to us
 plot_grid(p1, p2, ncol = 1, align = "v")
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-52-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-61-1.png" width="672" />
 
 Note that by default, the plots will share the space equally, but it's also possible to make one larger than the other within the grid using `rel_widths` and `rel_heights`.
 
@@ -1621,7 +1818,7 @@ p3 <- ggplot(mtcars, aes(engine)) +
 p3
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-53-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-62-1.png" width="672" />
 
 Note that for this plot we've chosen a different theme, allowing for horizontal grid lines. This can be helpful when visualizing bar plots.
 
@@ -1633,7 +1830,7 @@ If we were to plot these next to one another using the defaults, the faceted plo
 plot_grid(p1, p3)
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-54-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-63-1.png" width="672" />
 
 We can use `rel_widths` to specify the relative width for the plot on the left relative to the plot on the right: 
 
@@ -1643,7 +1840,7 @@ We can use `rel_widths` to specify the relative width for the plot on the left r
 plot_grid(p1, p3, rel_widths = c(1, 1.3))
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-55-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-64-1.png" width="672" />
 
 **Adding Labels**
 
@@ -1655,7 +1852,7 @@ Within these grids, you'll often want to label these plots so that you can refer
 plot_grid(p1, p3, labels = "AUTO", rel_widths = c(1, 1.3))
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-56-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-65-1.png" width="672" />
 
 **Adding Joint Titles**
 
@@ -1686,7 +1883,7 @@ title <- ggdraw() +
 plot_grid(title, three_plots, ncol = 1, rel_heights = c(0.1, 1))
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-57-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-66-1.png" width="672" />
 
 And, just like that we've got three plots, labeled, spaced out nicely in a grid, with a shared title, all thanks to the functionality within the `cowplot` package.
 
@@ -1719,13 +1916,13 @@ library(patchwork)
 p1 + p2
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-58-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-67-1.png" width="672" />
 
 ```r
 p1 | p2
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-58-2.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-67-2.png" width="672" />
 
 If we want a plot above another plot we can use the "/" symbol:
 
@@ -1735,26 +1932,26 @@ If we want a plot above another plot we can use the "/" symbol:
 p1 / p2
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-59-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-68-1.png" width="672" />
 Grouping or nesting plots together using parenthesis can result in two or more plots taking up a single grid space. 
 
 Thus, to combine multiple plots in a more complicated layout, one can combine two plots on one row and have a third plot on another row like this:
 
 
 ```r
-(p3 + p3) / p1
+(p3 + p2) / p1
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-60-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-69-1.png" width="672" />
 
 Otherwise, we would have the following:
 
 
 ```r
-p3 + p3 / p1
+p3 + p2 / p1
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-61-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-70-1.png" width="672" />
 
 You can also empty plot spacers using the `plotspacer()` function like so:
 
@@ -1763,55 +1960,64 @@ You can also empty plot spacers using the `plotspacer()` function like so:
 (plot_spacer() + p2 + plot_spacer()) / p1
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-62-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-71-1.png" width="672" />
 
 You can modify the widths of the plots using the `widths` argument of the `plot_layout()` function. In the following example we will make the width of the plot on the left 3 times that of the plot on the right. Any numeric values will do, it is the ratio of the numbers that make the difference.
 
-Thus, both `p1 + p2 + plot_layout(widths = c(3, 1))` and `p1 + p2 + plot_layout(widths = c(60, 20))` will result in the same relative size difference between `p1` and `p2`.
+Thus, both `p1 + p2 + plot_layout(widths = c(2, 1))` and `p1 + p2 + plot_layout(widths = c(60, 30))` will result in the same relative size difference between `p1` and `p2`.
 
 ```r
-p1 + p2 + plot_layout(widths = c(3, 1))
+p1 + p2 + plot_layout(widths = c(2, 1))
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-63-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-72-1.png" width="672" />
 
 ```r
-p1 + p2 + plot_layout(widths = c(60, 20))
+p1 + p2 + plot_layout(widths = c(60, 30))
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-63-2.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-72-2.png" width="672" />
 
 The relative heights of the plots can also be modified using a `heights` argument with the same function.
 
 ```r
-p1 + p2 + plot_layout(heights = c(3, 1))
+p1 + p2 + plot_layout(heights = c(2, 1))
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-64-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-73-1.png" width="672" />
 
 ```r
-p1 + p2 + plot_layout(heights = c(60, 20))
+p1 + p2 + plot_layout(heights = c(60, 30))
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-64-2.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-73-2.png" width="672" />
 
-You can also specify the number of columns or rows using this same function with the `ncol` or `nrow` as you would with `facet_wrap()` of the `ggplot2` package, where plots are added to **complete a row** before they will be added to a new row. For example, the following will result in an empty 3rd row.
-
-
-```r
-p1 + p1 + p2 + p2 + p3 + p3 + plot_layout(nrow = 3, ncol = 3)
-```
-
-<img src="04-dataviz_files/figure-html/unnamed-chunk-65-1.png" width="672" />
-
-However, the `byrow = FALSE` argument can disrupt this behavior:
+This package also allows for modification of legends. For example, legends can be gathered together to one side of the combined plots using the `guides = 'collect'` argument of the `plot_grid()` function.
 
 
 ```r
-p1 + p1 + p2 + p2 + p3 + p3 + plot_layout(nrow = 3, ncol = 3, byrow = FALSE)
+p1 + p2 + plot_layout(guides = "collect")
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-66-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-74-1.png" width="672" />
+
+You can also specify the number of columns or rows using this same function with the `ncol` or `nrow` as you would with `facet_wrap()` of the `ggplot2` package, where plots are added to **complete a row** before they will be added to a new row. For example, the following will result in an empty 2nd row.
+
+
+```r
+p1 + p2 + plot_layout(nrow = 2, ncol = 2, guides = "collect")
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-75-1.png" width="672" />
+
+However, the `byrow = FALSE` argument can disrupt this behavior and result in an empty 2nd column:
+
+
+```r
+p1 +p2 + plot_layout(nrow = 2, ncol = 2, byrow = FALSE, guides = "collect")
+```
+
+<img src="04-dataviz_files/figure-html/unnamed-chunk-76-1.png" width="672" />
 
 In this case the **columns will be preferentially completed** before placing a plot in a new column.
 
@@ -1823,7 +2029,7 @@ We can also use the package to change the theme specifications of specific plots
 p1 + p2 + theme(legend.position = "bottom") + p2
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-67-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-77-1.png" width="672" />
 
 Using the `*`, themes can be added to all plots that are nested together. 
 
@@ -1832,7 +2038,7 @@ Using the `*`, themes can be added to all plots that are nested together.
 (p1 + p2) *theme_bw() + p2
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-68-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-78-1.png" width="672" />
 
 
 The `&` adds themes to all plots.
@@ -1841,27 +2047,21 @@ The `&` adds themes to all plots.
 (p1 + p2) + p2 & theme(axis.title.x = element_text(face = "bold"))
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-69-1.png" width="672" />
-
-This package also allows for modification of legends. For example, legends can be gathered together to one side of the combined plots using the `guides = 'collect'` argument of the `plot_grid()` function.
+<img src="04-dataviz_files/figure-html/unnamed-chunk-79-1.png" width="672" />
 
 
-```r
-((p1 + p2) & theme(axis.title.x = element_text(face = "bold"))) + plot_layout(guides = "collect")
-```
-
-<img src="04-dataviz_files/figure-html/unnamed-chunk-70-1.png" width="672" />
 
 
 Annotations for all the plots combined can also be added using the `plot_annotation()` function, which can also take `theme()` function specifications with the `theme` argument.
 
 
 ```r
-(p1 + p2) + p3 + plot_annotation(title = "Plot title for all 3 plots", 
-                                 theme = theme(plot.title = element_text(hjust = 0.5)))
+(p1 + p2) + p3 + theme(axis.text.x = element_text(angle = 90)) +
+  plot_annotation(title = "Plot title for all 3 plots", 
+                  theme = theme(plot.title = element_text(hjust = 0.5)))
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-71-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-80-1.png" width="672" />
 
 
 See [here](https://patchwork.data-imaginist.com/) for more information about the `patchwork` package.
@@ -1898,7 +2098,7 @@ ggplot(mtcars) +
   geom_boxplot(aes(factor(cyl), mpg))
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-73-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-82-1.png" width="672" />
 
 But what if we wanted to understand the relationship between those two variables and the number of gears a car has (`gear`)?
 
@@ -1912,7 +2112,7 @@ ggplot(mtcars) +
   facet_wrap(~gear)
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-74-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-83-1.png" width="672" />
 
 Alternatively, we could animate the plot, using `gganimate` so that on a single plot we rotate between each of these three plots. 
 
@@ -1931,7 +2131,7 @@ mtcars %>%
   transition_manual(gear)
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-75-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-84-1.gif)<!-- -->
 
 Note that here, `transition_manual()` is a new grammar class that we add right on top of our `ggplot2` plot code! Within this grammar class, we specify the variable upon which we'd like the transition in the animation to occur.
 
@@ -1951,7 +2151,7 @@ anim <- ggplot(mtcars) +
 anim
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-76-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-85-1.gif)<!-- -->
 
 Note here that we've stored the output from `transition_states` in the object `anim`. We'll build on this object below.
 
@@ -1968,7 +2168,7 @@ anim <- anim +
 anim
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-77-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-86-1.gif)<!-- -->
 
 Note that we're referring to the appropriate gear within the animation frame by specifying `{closest_state}`.
 
@@ -1985,7 +2185,7 @@ anim <- anim +
 anim
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-78-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-87-1.gif)<!-- -->
 
 There are a number of easing functions, all of which are listed within the documentation, which can be viewed, as always, using the `?` help function: `?ease_aes`.
 
@@ -2004,7 +2204,7 @@ anim <- anim +
 anim
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-79-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-88-1.gif)<!-- -->
 
 The changes are subtle but you'll notice that on transition the data fades in to appear and shrinks upon exit.
 
@@ -2019,7 +2219,7 @@ ggplot(mtcars) +
   geom_point(aes(qsec, mpg))
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-80-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-89-1.png" width="672" />
 
 However, upon adding animation, we see how the data changes by gear.
 
@@ -2036,7 +2236,7 @@ scat <- ggplot(mtcars) +
 scat
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-81-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-90-1.gif)<!-- -->
 
 However, the x- and y-axes remain constant throughout the animation.
 
@@ -2052,7 +2252,7 @@ scat +
             include = FALSE)
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-82-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-91-1.gif)<!-- -->
 
 
 #### Example: gapminder
@@ -2079,7 +2279,7 @@ gap <- ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) 
 gap
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-83-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-92-1.gif)<!-- -->
 
 Note that in this example, we're now using `transition_time()` rather than `transition_states()`. This is a variant of `transition_states()` that is particularly useful when the states represent points in time, such as the years we're animating through in the plot above. The transition length is set to correspond to the time difference between the points in the data.
 
@@ -2096,7 +2296,7 @@ gap +
               alpha = 0.3)
 ```
 
-![](04-dataviz_files/figure-html/unnamed-chunk-84-1.gif)<!-- -->
+![](04-dataviz_files/figure-html/unnamed-chunk-93-1.gif)<!-- -->
 
 Here, distance specifies the temporal distance between the frames to show and alpha specifies the transparency of the trail, so that the current frame's data is always discernible.
 
@@ -2159,7 +2359,7 @@ library(visdat)
 vis_dat(hc)
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-87-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-96-1.png" width="672" />
 
 We now have a sense that a few states, for some years are missing coverage data, which also affects the ability to calculate proportion covered.
 
@@ -2170,7 +2370,7 @@ To see these values highlighted more specifically, we can use the related `vis_m
 vis_miss(hc)
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-88-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-97-1.png" width="672" />
 
 Here we see that missing values only occur 0.6% of the time, with 3.1% of the observations missing entries for `tot_coverage` and `prop_coverage`. So, all in all, there is not a lot of missing data, but we still want to be sure we understand where missingness occurs before answering our questions.
 
@@ -2223,7 +2423,7 @@ skim(hc)
 
 <table style='width: auto;'
         class='table table-condensed'>
-<caption>(\#tab:unnamed-chunk-90)Data summary</caption>
+<caption>(\#tab:unnamed-chunk-99)Data summary</caption>
  <thead>
   <tr>
    <th style="text-align:left;">   </th>
@@ -2470,7 +2670,7 @@ hc %>%
 
 <table style='width: auto;'
         class='table table-condensed'>
-<caption>(\#tab:unnamed-chunk-91)Data summary</caption>
+<caption>(\#tab:unnamed-chunk-100)Data summary</caption>
  <thead>
   <tr>
    <th style="text-align:left;">   </th>
@@ -2837,7 +3037,7 @@ hc %>%
        y = "coverage proportion")
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-92-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-101-1.png" width="672" />
 
 We see that there appears to be some relationship, with those states that spend more per capita also having higher proportions of their population having healthcare coverage.
 
@@ -2861,7 +3061,7 @@ hc %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-93-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-102-1.png" width="672" />
 
 Beyond that, we likely want to know which point represents which state, so we can add state labels:
 
@@ -2885,7 +3085,7 @@ hc %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-94-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-103-1.png" width="672" />
 
 From there, it'd likely be helpful to have information from each region:
 
@@ -2911,7 +3111,7 @@ hc %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-95-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-104-1.png" width="672" />
 
 So far, we've only been focusing on data from 2013. What about looking at data from both 2013 and 2014? We can do that using `facet_wrap()`:
 
@@ -2937,7 +3137,7 @@ hc %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-96-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-105-1.png" width="672" />
 
 We see that the overall trend holds, but there has been some movement. For example, we see at a glance that DC has a higher proportion of its population covered in 2014 relative to 2013, while MA saw a drop in coverage. UT appears to be an outlier in both years having low spending but a high proportion of individuals covered.
 
@@ -2965,7 +3165,7 @@ hc %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-97-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-106-1.png" width="672" />
 
 From these data, we see that Employer health care coverage is the most popular way in which individuals receive their health insurance across all states. We also see a flat or positive relationship for all other types of insurance, except for "Uninsured". There, as makes sense, we see that the more money spent per capita the fewer individuals the state has without insurance. 
 
@@ -2993,7 +3193,7 @@ hc %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-98-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-107-1.png" width="672" />
 
 The same general patterns hold in 2014 as we saw in 2013; however, the patterns are not exactly the same.
 
@@ -3139,7 +3339,7 @@ hc %>%
   labs(y = "spending per capita")
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-100-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-109-1.png" width="672" />
 
 Here, we get a sense of the overall trend, seeing that states in the Northeast tend to spend the most on health care, while states in the West spend the least.
 
@@ -3157,7 +3357,7 @@ hc %>%
   labs(y = "spending per capita")
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-101-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-110-1.png" width="672" />
 
 This gives us a sense of the variation in spending for states in each region. Of note, there are more outliers in the South and West, with a few states spending more on health care than even states in the Northeast, where spending tends to be higher.
 
@@ -3193,7 +3393,7 @@ hc %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-102-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-111-1.png" width="672" />
 
 With this, output the top row are the data from 2013 and the bottom from 2014. We can then visually compare the top plot to the bottom plot for each time of insurance. 
 
@@ -3248,7 +3448,7 @@ Similar to how we approached the health care case study, let's get an overall un
 vis_dat(firearms)
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-104-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-113-1.png" width="672" />
 
 We see that we have data for all 50 states (and Washington, D.C.) for most variables in our dataset; however, we're missing information for one state when it comes to gunshot information and another state when it comes to Brady scores and ownership by suicide rates. 
 
@@ -3265,7 +3465,7 @@ skim(firearms)
 
 <table style='width: auto;'
         class='table table-condensed'>
-<caption>(\#tab:unnamed-chunk-105)Data summary</caption>
+<caption>(\#tab:unnamed-chunk-114)Data summary</caption>
  <thead>
   <tr>
    <th style="text-align:left;">   </th>
@@ -3564,7 +3764,7 @@ ggplot(firearms,
   geom_text_repel(aes(label = NAME))
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-106-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-115-1.png" width="672" />
 
 Here we see that the visualization of this relationship is largely dependent upon the state's population, with large states like Texas and California sticking out. However, we do see that, for its size, Washington D.C had many more violent cries than other states, despite its small population. 
 
@@ -3582,7 +3782,7 @@ ggplot(firearms,
   theme_classic()
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-107-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-116-1.png" width="672" />
 
 Here, there appears to be some relationship with states that have higher rates of unemployment having slightly more violent crimes, but violent crimes is not adjusted by population, so this is likely not *that* helpful.
 
@@ -3604,7 +3804,7 @@ ggplot(firearms,
 ## Warning: Removed 2 rows containing missing values (geom_point).
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-108-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-117-1.png" width="672" />
 
 This suggests that states with more fatal police shootings *tend* to have more firearm suicides relative to non-firearm suicides; however, this relationship is non linear. 
 
@@ -3635,7 +3835,7 @@ ggplot(firearms, aes(x = brady_scores,
 ## Warning: Removed 2 rows containing missing values (geom_point).
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-109-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-118-1.png" width="672" />
 
 In this plot, we see that there is a relationship, but it is non-linear. Overall, the higher the legislative strength score (`brady_scores`), the lower the rate of police shootings; however, this decrease is nonlinear, as all states with a positive Brady Score have a similar police shooting rate. 
 
@@ -3662,7 +3862,7 @@ ggplot(firearms, aes(x = brady_scores,
 ## Warning: Removed 2 rows containing missing values (geom_text).
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-110-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-119-1.png" width="672" />
 
 This makes it clear that Wyoming, New Mexico, Oklahoma, Arizona, and Nevada have some of the highest rates of fatal police shootings, while  Connecticut, New York, Pennsylvania, and North Dakota are among the lowest. 
 
@@ -3690,7 +3890,7 @@ ggplot(firearms, aes(x = brady_scores,
 ## Warning: Removed 2 rows containing missing values (geom_text_repel).
 ```
 
-<img src="04-dataviz_files/figure-html/unnamed-chunk-111-1.png" width="672" />
+<img src="04-dataviz_files/figure-html/unnamed-chunk-120-1.png" width="672" />
 
 If we wanted to save this particular plot as a pdf, we could do so like this to save the plot in a directory called exploratory within a directory called figures:
 
