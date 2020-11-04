@@ -1949,7 +1949,7 @@ We can also see which species were correctly predicted using `count` function.
 count(training_iris,Species)
 count(pred_species, .pred_class)
 ```
-We can see that one extra verisocolor iris was predicted, and one fewer virginica iris.
+We can see that one extra versicolor iris was predicted, and one fewer virginica iris.
 
 To see exactly which rows resulted in incorrect predictions, we can bind the predicted species to the training data like so. This can be helpful to see if there is something particular about the incorrectly predicted values that might explain why they are incorrectly predicted.
 
@@ -2032,7 +2032,7 @@ Now we will demonstrate a more involved example with a case study.
 
 A variety of different sources contribute different types of pollutants to what we call air pollution. 
 
-1) **Gaseous** - Carbon Monoxide (CO), Ozone (O~3~), Nitrogen Oxides(NO, NO~2~), Sulpher Dioxide (SO~2~)
+1) **Gaseous** - Carbon Monoxide (CO), Ozone (O~3~), Nitrogen Oxides(NO, NO~2~), Sulfur Dioxide (SO~2~)
 2) **Particulate** - small liquids and solids suspended in the air (includes lead- can include certain types of dust)
 3) **Dust** - small solids (larger than particulates) that can be suspended in the air for some time but eventually settle
 4) **Biological** - pollen, bacteria, viruses, mold spores

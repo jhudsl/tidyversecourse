@@ -1779,7 +1779,7 @@ formula(first_recipe)
 
 ```
 ## Sepal.Length ~ Sepal.Width + Species
-## <environment: 0x7ff988092778>
+## <environment: 0x7ffe1e713d48>
 ```
 
 We can also view our recipe in more detail using the base summary() function.
@@ -2636,7 +2636,7 @@ count(pred_species, .pred_class)
 ## 2 versicolor     36
 ## 3 virginica      29
 ```
-We can see that one extra verisocolor iris was predicted, and one fewer virginica iris.
+We can see that one extra versicolor iris was predicted, and one fewer virginica iris.
 
 To see exactly which rows resulted in incorrect predictions, we can bind the predicted species to the training data like so. This can be helpful to see if there is something particular about the incorrectly predicted values that might explain why they are incorrectly predicted.
 
@@ -2779,7 +2779,7 @@ Now we will demonstrate a more involved example with a case study.
 
 A variety of different sources contribute different types of pollutants to what we call air pollution. 
 
-1) **Gaseous** - Carbon Monoxide (CO), Ozone (O~3~), Nitrogen Oxides(NO, NO~2~), Sulpher Dioxide (SO~2~)
+1) **Gaseous** - Carbon Monoxide (CO), Ozone (O~3~), Nitrogen Oxides(NO, NO~2~), Sulfur Dioxide (SO~2~)
 2) **Particulate** - small liquids and solids suspended in the air (includes lead- can include certain types of dust)
 3) **Dust** - small solids (larger than particulates) that can be suspended in the air for some time but eventually settle
 4) **Biological** - pollen, bacteria, viruses, mold spores
@@ -3394,7 +3394,7 @@ formula(simple_rec)
 ##     popdens_county + popdens_zcta + nohs + somehs + hs + somecollege + 
 ##     associate + bachelor + grad + pov + hs_orless + urc2013 + 
 ##     urc2006 + aod
-## <environment: 0x7ff9a2698630>
+## <environment: 0x7ffe3b45fa30>
 ```
 
 **This [link](https://tidymodels.github.io/recipes/reference/index.html){target="_blank"} and this [link](https://cran.r-project.org/web/packages/recipes/recipes.pdf){target="_blank"} show the many options for recipe step functions.**
@@ -5062,12 +5062,12 @@ tune_RF_results%>%
 ## # A tibble: 6 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1     1    27 rmse    standard   2.05     10  0.142 
-## 2     1    27 rsq     standard   0.489    10  0.0379
-## 3     4    30 rmse    standard   1.81     10  0.145 
-## 4     4    30 rsq     standard   0.585    10  0.0406
-## 5     6    32 rmse    standard   1.76     10  0.147 
-## 6     6    32 rsq     standard   0.606    10  0.0405
+## 1     1    27 rmse    standard   2.05     10  0.140 
+## 2     1    27 rsq     standard   0.484    10  0.0377
+## 3     4    30 rmse    standard   1.82     10  0.146 
+## 4     4    30 rsq     standard   0.586    10  0.0385
+## 5     6    32 rmse    standard   1.77     10  0.145 
+## 6     6    32 rsq     standard   0.600    10  0.0402
 ```
 
 We can now use the `show_best()` function as it was truly intended, to see what values for `min_n` and `mtry` resulted in the best performance.
@@ -5081,7 +5081,7 @@ show_best(tune_RF_results, metric = "rmse", n =1)
 ## # A tibble: 1 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1    15     9 rmse    standard    1.67    10   0.147
+## 1    17     4 rmse    standard    1.67    10   0.142
 ```
 There we have it... looks like an `mtry` of 17 and `min_n` of 4 had the best `rmse` value. You can verify this in the above output, but it is easier to just pull this row out using this function. We can see that the mean `rmse` value across the cross validation sets was 1.67. Before tuning it was 1.68 with a similar `std_err` so the performance was very slightly improved.
 
@@ -5105,7 +5105,7 @@ tuned_RF_values
 ## # A tibble: 1 x 2
 ##    mtry min_n
 ##   <int> <int>
-## 1    15     9
+## 1    17     4
 ```
 
 Now we can finalize the model/workflow that we we used for tuning with these values.
@@ -5143,8 +5143,8 @@ To see the performance on the test data we can use the `collect_metrics()` funct
 ## # A tibble: 2 x 3
 ##   .metric .estimator .estimate
 ##   <chr>   <chr>          <dbl>
-## 1 rmse    standard       1.44 
-## 2 rsq     standard       0.639
+## 1 rmse    standard       1.43 
+## 2 rsq     standard       0.644
 ```
 
 Awesome! We can see that our `rmse` of 1.43 is quite similar with our testing data cross validation sets. We achieved quite good performance, which suggests that we would could predict other locations with more sparse monitoring based on our predictors with reasonable accuracy.
@@ -5165,12 +5165,12 @@ head(test_predictions)
 ## # A tibble: 6 x 4
 ##   id               .pred  .row value
 ##   <chr>            <dbl> <int> <dbl>
-## 1 train/test split  11.0     4  11.7
+## 1 train/test split  11.1     4  11.7
 ## 2 train/test split  11.9    10  13.1
 ## 3 train/test split  12.2    12  12.2
-## 4 train/test split  11.6    15  12.2
-## 5 train/test split  11.5    19  11.4
-## 6 train/test split  12.0    22  12.2
+## 4 train/test split  11.5    15  12.2
+## 5 train/test split  11.4    19  11.4
+## 6 train/test split  12.1    22  12.2
 ```
 
 Nice!
