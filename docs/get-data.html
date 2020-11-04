@@ -492,7 +492,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Note in the above example and as mentioned earlier, that tibbles, by default, only print the first ten rows to screen. If you were to print <code>trees</code> to screen, all 31 rows would be displayed. When working with large data.frames, this default behavior can be incredibly frustrating. tibbles remove this frustration with its default settings for tibble printing.</p>
 <p>Additionally, you’ll note that the type of the variable is printed for each variable in the tibble. This helpful feature is another added bonus of tibbles relative to data.frame.</p>
 <p>If you <em>do</em> want to see more rows from the tibble, there are a few options! First, the <code>View()</code> function in RStudio is incredibly helpful. The input to this function is the data.frame or tibble you’d like to see. Specifically, <code>View(trees)</code> would provide you, the viewer, with a scrollable view (in a new tab) of the complete dataset.</p>
-<p>A second option is the fact that <code>print()</code> enables you to specify how many rows and columns you’d like to display. Here, we again display the <code>trees</code> data.frame as a tibble but specify that we’d only like to see 5 rows. <code>width = Inf</code> specifies that we’d like to see all the possible columns. Here, there are only 3, but for larger datasets, this can be helpful to specify.</p>
+<p>A second option is the fact that <code>print()</code> enables you to specify how many rows and columns you’d like to display. Here, we again display the <code>trees</code> data.frame as a tibble but specify that we’d only like to see 5 rows. The <code>width = Inf</code> argument specifies that we’d like to see all the possible columns. Here, there are only 3, but for larger datasets, this can be helpful to specify.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">as_tibble</span>(trees) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw">print</span>(<span class="dt">n =</span> <span class="dv">5</span>, <span class="dt">width =</span> <span class="ot">Inf</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 31 x 3
@@ -982,7 +982,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="connecting-to-databases-rsqlite" class="section level3">
 <h3><span class="header-section-number">2.10.3</span> Connecting to Databases: <code>RSQLite</code></h3>
-<p>To better understand databases and how to work with relational data, let’s just start working with data from a database! The data we’ll be using are from a database frequently used to practice working with relational data: <code>chinook.db</code>. The database includes 11 tables with data that represents a digital media store. The data includes information generally related to related to media, artists, artists’ work, and those who purchase artists’ work (customers). More information about the details of how the tables are related to one another can be found <a href="http://www.sqlitetutorial.net/sqlite-sample-database/">here</a>. For our purposes though, we’re only going to only describe two of the tables we’ll be using in our example in this lesson. We’re going to be looking at data in the <code>artists</code> and <code>albums</code> tables. <code>artists</code> and <code>albums</code> are related by the column <code>ArtistId</code>.</p>
+<p>To better understand databases and how to work with relational data, let’s just start working with data from a database! The data we’ll be using are from a database frequently used to practice working with relational data: <code>chinook.db</code>. The database includes 11 tables with data that represents a digital media store. The data includes information generally related to related to media, artists, artists’ work, and those who purchase artists’ work (customers). More information about the details of how the tables are related to one another can be found <a href="http://www.sqlitetutorial.net/sqlite-sample-database/">here</a>. For our purposes though, we’re only going to only describe two of the tables we’ll be using in our example in this lesson. We’re going to be looking at data in the <code>artists</code> and <code>albums</code> tables, which both have the column <code>ArtistId</code>.</p>
 <div class="figure">
 <img src="https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&amp;pageid=g3a5854d1ae_0_60" alt="relationship between two tables in the chinook database" />
 <p class="caption">relationship between two tables in the chinook database</p>
@@ -1002,11 +1002,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb51-5" data-line-number="5">url &lt;-<span class="st"> &quot;http://www.sqlitetutorial.net/wp-content/uploads/2018/03/chinook.zip&quot;</span></a>
 <a class="sourceLine" id="cb51-6" data-line-number="6"><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.zip&quot;</span>)))</a></code></pre></div>
 <pre><code>## Response [https://www.sqlitetutorial.net/wp-content/uploads/2018/03/chinook.zip]
-##   Date: 2020-11-03 23:02
+##   Date: 2020-11-04 14:53
 ##   Status: 200
 ##   Content-Type: application/zip
 ##   Size: 306 kB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmphyaQYj/file8dde75375d54.zip</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpROCawC/filebc553c754a8b.zip</code></pre>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw">unzip</span>(tf)</a>
 <a class="sourceLine" id="cb53-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb53-3" data-line-number="3"><span class="co">## Connect to Database</span></a>
@@ -1027,7 +1027,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="working-with-relational-data-dplyr-dbplyr" class="section level3">
 <h3><span class="header-section-number">2.10.4</span> Working with Relational Data: <code>dplyr</code> &amp; <code>dbplyr</code></h3>
-<p>To access these tables within R, we’ll have to install the packages <code>dbplyr</code>, which enables us to access the parts of the database we’re going to be working with. <code>dbplyr</code> allows you to use the same functions you learned when working with <code>dplyr</code>; however, it allows you to use these functions with a <em>database</em>. While <code>dbplyr</code> has to be loaded to work with databases, you likely won’t notice that you’re using it beyond that. Otherwise, you’ll just work with the files as if you were working with <code>dplyr</code> functions!</p>
+<p>To access these tables within R, we’ll have to install the packages <code>dbplyr</code>, which enables us to access the parts of the database we’re going to be working with. The <code>dbplyr</code> package allows you to use the same functions you learned when working with <code>dplyr</code>; however, it allows you to use these functions with a <em>database</em>. While <code>dbplyr</code> has to be loaded to work with databases, you likely won’t notice that you’re using it beyond that. Otherwise, you’ll just work with the files as if you were working with <code>dplyr</code> functions!</p>
 <p>After installing and loading <code>dbplyr</code>, we’ll be able to use the helpful <code>tbl()</code> function to extract the two tables we’re interested in working with!</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="co">## install and load packages</span></a>
 <a class="sourceLine" id="cb55-2" data-line-number="2"><span class="co"># install.packages(&quot;dbplyr&quot;)</span></a>
@@ -1926,11 +1926,11 @@ After creating a directory called raw_data within a directory that we called dat
 <a class="sourceLine" id="cb136-7" data-line-number="7"><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></a>
 <a class="sourceLine" id="cb136-8" data-line-number="8"><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xlsx&quot;</span>)))</a></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2020-11-03 23:02
+##   Date: 2020-11-04 14:53
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmphyaQYj/file8dde74856499.xlsx</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpROCawC/filebc5574856499.xlsx</code></pre>
 <div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" data-line-number="1">brady &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb138-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb138-3" data-line-number="3">brady</a></code></pre></div>
@@ -1965,11 +1965,11 @@ After creating a directory called raw_data within a directory that we called dat
 <a class="sourceLine" id="cb140-4" data-line-number="4"><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></a>
 <a class="sourceLine" id="cb140-5" data-line-number="5"><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</a></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2020-11-03 23:02
+##   Date: 2020-11-04 14:53
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmphyaQYj/file8dde21980f48.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpROCawC/filebc5521980f48.xls</code></pre>
 <div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" data-line-number="1">crime &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>, <span class="dt">skip =</span> <span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb142-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb142-3" data-line-number="3"><span class="co"># see data</span></a>
@@ -2002,11 +2002,11 @@ After creating a directory called raw_data within a directory that we called dat
 <a class="sourceLine" id="cb144-4" data-line-number="4"><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></a>
 <a class="sourceLine" id="cb144-5" data-line-number="5"><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</a></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2020-11-03 23:02
+##   Date: 2020-11-04 14:53
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmphyaQYj/file8dde5e37ee62.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpROCawC/filebc555e37ee62.xls</code></pre>
 <div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" data-line-number="1">land &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb146-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb146-3" data-line-number="3"><span class="co"># see data</span></a>
