@@ -1541,7 +1541,8 @@ first_recipe
 ```
 #### Step 3: Example of optionally performing the preprocessing to see how it influences the data
 
-Optionally one can use the `prep()` function of the `recipes` package to update the recipe for manually performing the preprocessing to see how this influences the data. This step is however not required. The preprocessed training data can than be viewed by using the `juice()` function, while preprocessed testing data can be viewed using the `bake()` function.
+avocado update for recipes update...
+Optionally one can use the `prep()` function of the `recipes` package to update the recipe for manually performing the preprocessing to see how this influences the data. This step is however not required when using the `workflows` package. The preprocessed training data can than be viewed by using the `bake()` function with the `new_data = NULL` argument, while preprocessed testing data can be viewed using the `bake()` function and specifying that the testing data is the `new_data`.
 
 The `prep()` function estimates parameters (estimating the required quantities and statistics required by the steps for the variables) for preprocessing and updates the variables roles, as sometimes predictors may be removed, this allows the recipe to be ready to use on other data sets. 
 
@@ -1579,12 +1580,14 @@ prepped_rec$var_info
 
 ```
 
-Now we can use `juice` to see the preprocessed training data.
+Now we can use `bake` to see the preprocessed training data. *Note that this used to require the `juice()` function.
 
+Since we are using our training data we need to specify that we don't have new_data with `new_data = NULL`.
 ```{r}
-juiced_train <- juice(prepped_rec)
-glimpse(juiced_train)
+preproc_train <-recipes::bake(prepped_rec, new_data = NULL)
+glimpse(preproc_train)
 ```
+
 
 We can see that the `Species` variable has been replaced by 3 variables representing the 3 different species numerically with zeros and ones.
 
@@ -1700,11 +1703,11 @@ head(wf_fit$fit$fitted.values)
 predict(iris_reg_wflow_fit, new_data = training_iris)
 ```
 
-To get more information about the prediction for each sample, we can use the `augment()` function of the `broom` package. This requires using the preprocessed training data from `juice()`, as well as the predicted values from either of the two previous methods.
+To get more information about the prediction for each sample, we can use the `augment()` function of the `broom` package. This requires using the preprocessed training data from `bake()` (or with previous versions `juice()`), as well as the predicted values from either of the two previous methods.
 
 ```{r, comment=FALSE}
 wf_fitted_values <- 
-  broom::augment(wf_fit$fit, data = juiced_train) %>% 
+  broom::augment(wf_fit$fit, data = preproc_train) %>% 
   select(Sepal.Length, .fitted:.std.resid)
 
 head(wf_fitted_values)
@@ -1712,7 +1715,7 @@ head(wf_fitted_values)
 # other option:
 # wf_fitted_values <- 
 #   broom::augment(predict(iris_reg_wflow_fit, new_data = training_iris), 
-#                  data = juiced_train) %>% 
+#                  data = preproc_train) %>% 
 #   select(Sepal.Length, .fitted:.std.resid)
 # 
 # head(wf_fitted_values)
@@ -2415,12 +2418,14 @@ names(prepped_rec)
 ```
 
 
-Since we retained our preprocessed training data (i.e. `prep(retain=TRUE)`), we can take a look at it like by using the `juice()` function of the `recipes` package like this:
+Since we retained our preprocessed training data (i.e. `prep(retain=TRUE)`), we can take a look at it like by using the `bake()` function of the `recipes` package like this (this previusly used the `juice()` function):
 
 ```{r}
-juiced_train <- juice(prepped_rec)
-glimpse(juiced_train)
+preproc_train <- bake(prepped_rec, new_data = NULL)
+glimpse(preproc_train)
 ```
+
+Notice that this requires the `new_data = NULL` argument when we are using the training data.
 
 For easy comparison sake - here is our original data:
 
@@ -2522,8 +2527,8 @@ Now we will check the preprocessed data again to see if we still have `NA` value
 
 ```{r}
 prepped_rec <- prep(novel_rec, verbose = TRUE, retain = TRUE)
-juiced_train <- juice(prepped_rec)
-glimpse(juiced_train)
+preproc_train <- bake(prepped_rec, new_data = NULL)
+glimpse(preproc_train)
 baked_test_pm <- recipes::bake(prepped_rec, new_data = test_pm)
 glimpse(baked_test_pm)
 ```
@@ -2660,7 +2665,7 @@ Alternatively, we can get the fitted values using the `augment()` function of th
 
 ```{r}
 wf_fitted_values <- 
-  broom::augment(wf_fit$fit, data = juiced_train) %>% 
+  broom::augment(wf_fit$fit, data = preproc_train) %>% 
   select(value, .fitted:.std.resid)
 
 head(wf_fitted_values)

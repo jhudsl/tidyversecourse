@@ -1712,6 +1712,10 @@ library(recipes)
 ```
 
 ```
+## Warning: package 'recipes' was built under R version 4.0.2
+```
+
+```
 ## 
 ## Attaching package: 'recipes'
 ```
@@ -1779,7 +1783,7 @@ formula(first_recipe)
 
 ```
 ## Sepal.Length ~ Sepal.Width + Species
-## <environment: 0x7ffe1e713d48>
+## <environment: 0x7fe561d13888>
 ```
 
 We can also view our recipe in more detail using the base summary() function.
@@ -1863,7 +1867,8 @@ first_recipe
 ```
 #### Step 3: Example of optionally performing the preprocessing to see how it influences the data
 
-Optionally one can use the `prep()` function of the `recipes` package to update the recipe for manually performing the preprocessing to see how this influences the data. This step is however not required. The preprocessed training data can than be viewed by using the `juice()` function, while preprocessed testing data can be viewed using the `bake()` function.
+avocado update for recipes update...
+Optionally one can use the `prep()` function of the `recipes` package to update the recipe for manually performing the preprocessing to see how this influences the data. This step is however not required when using the `workflows` package. The preprocessed training data can than be viewed by using the `bake()` function with the `new_data = NULL` argument, while preprocessed testing data can be viewed using the `bake()` function and specifying that the testing data is the `new_data`.
 
 The `prep()` function estimates parameters (estimating the required quantities and statistics required by the steps for the variables) for preprocessing and updates the variables roles, as sometimes predictors may be removed, this allows the recipe to be ready to use on other data sets. 
 
@@ -1947,12 +1952,13 @@ prepped_rec$var_info
 ## 5 Species      nominal predictor original
 ```
 
-Now we can use `juice` to see the preprocessed training data.
+Now we can use `bake` to see the preprocessed training data. *Note that this used to require the `juice()` function.
 
+Since we are using our training data we need to specify that we don't have new_data with `new_data = NULL`.
 
 ```r
-juiced_train <- juice(prepped_rec)
-glimpse(juiced_train)
+preproc_train <-recipes::bake(prepped_rec, new_data = NULL)
+glimpse(preproc_train)
 ```
 
 ```
@@ -1966,6 +1972,7 @@ glimpse(juiced_train)
 ## $ Species_versicolor <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
 ## $ Species_virginica  <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
 ```
+
 
 We can see that the `Species` variable has been replaced by 3 variables representing the 3 different species numerically with zeros and ones.
 
@@ -2182,12 +2189,12 @@ FALSE 10  5.69
 FALSE # … with 90 more rows
 ```
 
-To get more information about the prediction for each sample, we can use the `augment()` function of the `broom` package. This requires using the preprocessed training data from `juice()`, as well as the predicted values from either of the two previous methods.
+To get more information about the prediction for each sample, we can use the `augment()` function of the `broom` package. This requires using the preprocessed training data from `bake()` (or with previous versions `juice()`), as well as the predicted values from either of the two previous methods.
 
 
 ```r
 wf_fitted_values <- 
-  broom::augment(wf_fit$fit, data = juiced_train) %>% 
+  broom::augment(wf_fit$fit, data = preproc_train) %>% 
   select(Sepal.Length, .fitted:.std.resid)
 
 head(wf_fitted_values)
@@ -2209,7 +2216,7 @@ FALSE 6          5.4    5.21  0.0758  0.193    0.0329  0.420 0.00187         0.4
 # other option:
 # wf_fitted_values <- 
 #   broom::augment(predict(iris_reg_wflow_fit, new_data = training_iris), 
-#                  data = juiced_train) %>% 
+#                  data = preproc_train) %>% 
 #   select(Sepal.Length, .fitted:.std.resid)
 # 
 # head(wf_fitted_values)
@@ -3394,7 +3401,7 @@ formula(simple_rec)
 ##     popdens_county + popdens_zcta + nohs + somehs + hs + somecollege + 
 ##     associate + bachelor + grad + pov + hs_orless + urc2013 + 
 ##     urc2006 + aod
-## <environment: 0x7ffe3b45fa30>
+## <environment: 0x7fe561be5888>
 ```
 
 **This [link](https://tidymodels.github.io/recipes/reference/index.html){target="_blank"} and this [link](https://cran.r-project.org/web/packages/recipes/recipes.pdf){target="_blank"} show the many options for recipe step functions.**
@@ -3501,7 +3508,7 @@ simple_rec %>%
 ## 
 ## Operations:
 ## 
-## Correlation filter on all_predictors, -, CMAQ, -, aod
+## Correlation filter on all_predictors(), -CMAQ, -aod
 ```
 
 
@@ -3527,7 +3534,7 @@ simple_rec %>%
 ## 
 ## Operations:
 ## 
-## Sparse, unbalanced variable filter on all_predictors, -, CMAQ, -, aod
+## Sparse, unbalanced variable filter on all_predictors(), -CMAQ, -aod
 ```
 
 Let's put all this together now. 
@@ -3565,8 +3572,8 @@ simple_rec
 ## Operations:
 ## 
 ## Dummy variables from state, county, city, zcta
-## Correlation filter on all_predictors, -, CMAQ, -, aod
-## Sparse, unbalanced variable filter on all_predictors, -, CMAQ, -, aod
+## Correlation filter on all_predictors(), -CMAQ, -aod
+## Sparse, unbalanced variable filter on all_predictors(), -CMAQ, -aod
 ```
 
 Nice! Now let's check our preprocessing.
@@ -3610,12 +3617,12 @@ names(prepped_rec)
 ```
 
 
-Since we retained our preprocessed training data (i.e. `prep(retain=TRUE)`), we can take a look at it like by using the `juice()` function of the `recipes` package like this:
+Since we retained our preprocessed training data (i.e. `prep(retain=TRUE)`), we can take a look at it like by using the `bake()` function of the `recipes` package like this (this previusly used the `juice()` function):
 
 
 ```r
-juiced_train <- juice(prepped_rec)
-glimpse(juiced_train)
+preproc_train <- bake(prepped_rec, new_data = NULL)
+glimpse(preproc_train)
 ```
 
 ```
@@ -3658,6 +3665,8 @@ glimpse(juiced_train)
 ## $ state_California            <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
 ## $ city_Not.in.a.city          <dbl> 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0,…
 ```
+
+Notice that this requires the `new_data = NULL` argument when we are using the training data.
 
 For easy comparison sake - here is our original data:
 
@@ -3988,8 +3997,8 @@ prepped_rec <- prep(novel_rec, verbose = TRUE, retain = TRUE)
 ```
 
 ```r
-juiced_train <- juice(prepped_rec)
-glimpse(juiced_train)
+preproc_train <- bake(prepped_rec, new_data = NULL)
+glimpse(preproc_train)
 ```
 
 ```
@@ -4382,7 +4391,7 @@ Alternatively, we can get the fitted values using the `augment()` function of th
 
 ```r
 wf_fitted_values <- 
-  broom::augment(wf_fit$fit, data = juiced_train) %>% 
+  broom::augment(wf_fit$fit, data = preproc_train) %>% 
   select(value, .fitted:.std.resid)
 
 head(wf_fitted_values)
@@ -5062,12 +5071,12 @@ tune_RF_results%>%
 ## # A tibble: 6 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1     1    27 rmse    standard   2.05     10  0.140 
-## 2     1    27 rsq     standard   0.484    10  0.0377
+## 1     1    27 rmse    standard   2.06     10  0.145 
+## 2     1    27 rsq     standard   0.478    10  0.0392
 ## 3     4    30 rmse    standard   1.82     10  0.146 
-## 4     4    30 rsq     standard   0.586    10  0.0385
-## 5     6    32 rmse    standard   1.77     10  0.145 
-## 6     6    32 rsq     standard   0.600    10  0.0402
+## 4     4    30 rsq     standard   0.587    10  0.0386
+## 5     6    32 rmse    standard   1.77     10  0.146 
+## 6     6    32 rsq     standard   0.598    10  0.0389
 ```
 
 We can now use the `show_best()` function as it was truly intended, to see what values for `min_n` and `mtry` resulted in the best performance.
@@ -5081,7 +5090,7 @@ show_best(tune_RF_results, metric = "rmse", n =1)
 ## # A tibble: 1 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1    17     4 rmse    standard    1.67    10   0.142
+## 1    17     4 rmse    standard    1.67    10   0.146
 ```
 There we have it... looks like an `mtry` of 17 and `min_n` of 4 had the best `rmse` value. You can verify this in the above output, but it is easier to just pull this row out using this function. We can see that the mean `rmse` value across the cross validation sets was 1.67. Before tuning it was 1.68 with a similar `std_err` so the performance was very slightly improved.
 
