@@ -641,13 +641,7 @@ This format cannot, as it is, be easily worked with easily within R; however, `j
 ```r
 #install.packages("jsonlite")
 library(jsonlite)
-```
 
-```
-## Warning: package 'jsonlite' was built under R version 4.0.2
-```
-
-```r
 ## take JSON object and covert to a data frame
 mydf <- fromJSON(json)
 
@@ -756,52 +750,31 @@ While we won't be discussing how to write SQL commands in-depth here, we *will* 
 
 ### Connecting to Databases: `RSQLite`
 
-To better understand databases and how to work with relational data, let's just start working with data from a database! The data we'll be using are from a database frequently used to practice working with relational data: `chinook.db`. The database includes 11 tables with data that represents a digital media store. The data includes information generally related to related to media, artists, artists' work, and those who purchase artists' work (customers). More information about the details of how the tables are related to one another can be found [here](http://www.sqlitetutorial.net/sqlite-sample-database/). For our purposes though, we're only going to only describe two of the tables we'll be using in our example in this lesson. We're going to be looking at data in the `artists` and `albums` tables, which both have the column `ArtistId`.
+To better understand databases and how to work with relational data, let's just start working with data from a database! The data we'll be using are from a database with relational data: `company.db`. The database includes 11 tables with data that represents a digital media store. The data includes information generally related to related to media, artists, artists' work, and those who purchase artists' work (customers). You can download the database file here:
+
+* [company.db.zip](company.db.zip)
+
+You will need to unzip the file before using it. The original version of this database can be downloaded [here](http://www.sqlitetutorial.net/). For our purposes though, we're only going to only describe two of the tables we'll be using in our example in this lesson. We're going to be looking at data in the `artists` and `albums` tables, which both have the column `ArtistId`.
 
 
-![relationship between two tables in the chinook database](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_60)
+![relationship between two tables in the company database](databasefigure.png)
 
-Without any more details, let's get to it! Here you'll see the code to install and load the `RSQLite` package. You'll then download the `chinook` sample database, connect to the database, and first obtain a list the tables in the database:
+Without any more details, let's get to it! Here you'll see the code to install and load the `RSQLite` package. You'll then load the `company.db` sample database, connect to the database, and first obtain a list the tables in the database. Before you begin, make sure that the file `company.db` is in your current working directory (you can check by calling the `ls()` function).
 
 
 ```r
 ## install and load packages
 ## this may take a minute or two
 # install.packages("RSQLite")
-# install.packages("httr")
 library(RSQLite)
-library(httr)
-```
 
-```
-## Warning: package 'httr' was built under R version 4.0.2
-```
-
-```r
-## specify driver
+## Specify driver
 sqlite <- dbDriver("SQLite")
 
-## download data
-url <- "http://www.sqlitetutorial.net/wp-content/uploads/2018/03/chinook.zip"
-GET(url, write_disk(tf <- tempfile(fileext = ".zip")))
-```
-
-```
-## Response [https://www.sqlitetutorial.net/wp-content/uploads/2018/03/chinook.zip]
-##   Date: 2020-11-04 14:53
-##   Status: 200
-##   Content-Type: application/zip
-##   Size: 306 kB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpROCawC/filebc553c754a8b.zip
-```
-
-```r
-unzip(tf)
-
 ## Connect to Database
-db <- dbConnect(sqlite, 'chinook.db')
+db <- dbConnect(sqlite, "company.db")
 
-## list tables in database
+## List tables in database
 dbListTables(db)
 ```
 
@@ -847,7 +820,7 @@ However, when combining tables, there are a number of different ways in which th
 * Right Join - keep all observations in `y`
 * Full Join - keep *any* observations in `x` *or* `y`
 
-Let's break down exactly what we mean by this using just a small toy example from the `artists` and `albums` tables from the `chinook` database. Here you see three rows from the `artists` table and four rows from the `albums` table
+Let's break down exactly what we mean by this using just a small toy example from the `artists` and `albums` tables from the `company` database. Here you see three rows from the `artists` table and four rows from the `albums` table
 
 ![small parts of the `albums` and `artist` tables](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_88)
 
@@ -893,8 +866,6 @@ as_tibble(inner)
 ## # … with 337 more rows
 ```
 
-![`inner_join()` output](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_231)
-
 #### Left Join
 
 For a left join, all rows in the first table specified will be included in the output. Any row in the second table that is *not* in the first table will not be included. 
@@ -935,7 +906,6 @@ as_tibble(left)
 ## # … with 408 more rows
 ```
 
-![`left_join()` output](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_237)
 
 #### Right Join
 
@@ -977,7 +947,6 @@ as_tibble(right)
 ## # … with 337 more rows
 ```
 
-![`right_join()` output](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_245)
 
 While the output may look similar to the output from `left_join()`, you'll note that there are a different number of rows due to how the join was done. The fact that 347 rows are present with the right join and 418 were present after the left join suggests that there are artists in the artists table without albums in the albums table.
 
@@ -1019,8 +988,6 @@ as_tibble(full)
 ## # … with 408 more rows
 ```
 
-![`full_join()` output](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_250)
-
 #### Mutating Joins Summary
 
 Now that we've walked through a number of examples of mutating joins, cases where you're combining information across tables, we just want to take a second to summarize the four types of joins discussed using a visual frequently used to explain the most common mutating joins where each circle represents a different table and the gray shading on the Venn diagrams indicates which observations will be included after the join.
@@ -1053,12 +1020,13 @@ Note that in the case of filtering joins, the number of variables in the table *
 
 As mentioned briefly above, most often when working with databases, you won't be downloading the entire database. Instead, you'll connect to a server somewhere else where the data live and query the data (search for the parts you need) from R. 
 
-For example, in this lesson we downloaded the entire `chinook` database, but only ended up using `artists` and `albums`. In the future, instead of downloading *all* the data, you'll just connect to the database and work with the parts you need.
+For example, in this lesson we downloaded the entire `company` database, but only ended up using `artists` and `albums`. In the future, instead of downloading *all* the data, you'll just connect to the database and work with the parts you need.
 
 This will require connecting to the database with `host`, `user`, and `password`. This information will be provided by the database's owners, but the syntax for entering this information into R to connect to the database would look something like what you see here:
 
 
 ```r
+## This code is an example only
 con <- DBI::dbConnect(RMySQL::MySQL(), 
   host = "database.host.com",
   user = "janeeverydaydoe",
@@ -1499,9 +1467,13 @@ library(magick)
 ```
 
 ```
-## Linking to ImageMagick 6.9.9.39
-## Enabled features: cairo, fontconfig, freetype, lcms, pango, rsvg, webp
-## Disabled features: fftw, ghostscript, x11
+## Linking to ImageMagick 7.0.10.34
+## Enabled features: freetype, ghostscript, lcms, webp
+## Disabled features: cairo, fontconfig, fftw, pango, rsvg, x11
+```
+
+```
+## Using 16 threads
 ```
 
 ```r
@@ -1515,7 +1487,7 @@ print(img1)
 ## # A tibble: 1 x 7
 ##   format width height colorspace matte filesize density
 ##   <chr>  <int>  <int> <chr>      <lgl>    <int> <chr>  
-## 1 PNG      240    278 sRGB       TRUE     38516 85x85
+## 1 PNG      240    278 sRGB       TRUE     38516 +85x+85
 ```
 
 <img src="02-get-data_files/figure-html/unnamed-chunk-48-1.png" width="120" />
@@ -1528,7 +1500,7 @@ print(img2)
 ## # A tibble: 1 x 7
 ##   format width height colorspace matte filesize density
 ##   <chr>  <int>  <int> <chr>      <lgl>    <int> <chr>  
-## 1 PNG      864    864 sRGB       TRUE     54056 72x72
+## 1 PNG      864    864 sRGB       TRUE     54056 +72x+72
 ```
 
 <img src="02-get-data_files/figure-html/unnamed-chunk-48-2.png" width="432" />
@@ -1892,7 +1864,7 @@ Recall from the introduction, that in data science workflows, we perform multipl
 We can use the `here` package described in the introduction to help us make this process easier. Recall that `here` package allows us to quickly reference the directory in which the .Rproj file is located.
 Assuming we created a project called "project", let's save our raw coverage data in a raw_data directory within a directory called data inside of our RStudio project similarly to the work flows that we have seen in the introduction. 
 
-<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/file_structure.png" width="60%" style="display: block; margin: auto;" />
+<img src="/Users/rdpeng/books/tidyversecourse/book_figures/file_structure.png" width="60%" style="display: block; margin: auto;" />
 After creating a directory called raw_data within a directory that we called data, we can now save our raw data for case study #1 using the `here` package by simply typing:
 
 ```r
@@ -1900,7 +1872,7 @@ library(here)
 ```
 
 ```
-## here() starts at /Users/carriewright/Documents/GitHub/tidyversecourse
+## here() starts at /Users/rdpeng/books/tidyversecourse
 ```
 
 ```r
@@ -2029,11 +2001,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2020-11-04 14:53
+##   Date: 2020-11-06 15:50
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpROCawC/filebc5574856499.xlsx
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpeyaM6O/file134574856499.xlsx
 ```
 
 ```r
@@ -2081,11 +2053,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2020-11-04 14:53
+##   Date: 2020-11-06 15:50
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpROCawC/filebc5521980f48.xls
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpeyaM6O/file134521980f48.xls
 ```
 
 ```r
@@ -2132,11 +2104,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2020-11-04 14:53
+##   Date: 2020-11-06 15:50
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpROCawC/filebc555e37ee62.xls
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpeyaM6O/file13455e37ee62.xls
 ```
 
 ```r
