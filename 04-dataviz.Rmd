@@ -620,7 +620,10 @@ Since we're already familiar with it, we'll continue to use the `diamonds` datas
 
 To get started, we'll learn how to control color across plots in `ggplot2`. Previously, we discussed using color within `aes()` on a scatterplot to automatically color points by the clarity of the diamond when looking at the relationship between price and carat.
 
-![color within `aes()` to color points](https://docs.google.com/presentation/d/1fAPq_QX6hzNLal4tPRLuAjuHbVYn3sXC1Y7EoK0tNJE/export/png?id=1fAPq_QX6hzNLal4tPRLuAjuHbVYn3sXC1Y7EoK0tNJE&pageid=g3c07dc9761_0_0) 
+```{r}
+ggplot(diamonds) + 
+  geom_point(mapping = aes(x = carat, y = price, color = clarity))
+```
 
 However, what if we wanted to carry this concept over to a bar plot and look at how many diamonds we have of each clarity group?
 
