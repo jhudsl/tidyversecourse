@@ -7,4 +7,3 @@ _bookdown_files
 .DS_Store
 applieddatascience.rds
 .httr-oauth*
-chinook.db
