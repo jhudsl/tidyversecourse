@@ -9,6 +9,7 @@ dbplyr
 directlabels
 doParallel
 dplyr
+forcats
 gapminder
 GGally
 gganimate
@@ -44,6 +45,7 @@ rsample
 RSQLite
 rstudioapi
 rvest
+scales
 skimr
 textdata
 tibble
