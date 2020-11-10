@@ -2050,8 +2050,27 @@ Now, rather than just summarizing the data points within a single variable, we c
 
 If we are interested in looking at the distribution of male and female athletes over time, we can use frequency tables. Let us first create a frequency table of the share of women in each Olympic event. Tables are good for looking at factor or character variables.
 
-![Wrangling data to find the share of female athletes over time]()
 
+```{r, echo = FALSE, comment= FALSE, message=FALSE}
+df_ath<-read_csv(file = here::here("data", "raw_data", "athlete_events.csv"))
+share <- df_ath %>%
+  group_by(Year, Sex) %>%
+  summarise(n =n()) %>%
+  mutate(freq = n / sum(n)) %>%
+  filter(Sex == "F")
+```
+
+```{r, eval = FALSE}
+share <- df %>%
+  group_by(Year, Sex) %>%
+  summarise(n =n()) %>%
+  mutate(freq = n / sum(n)) %>%
+  filter(Sex == "F")
+```
+
+```{r}
+share
+```
 Now, if we want to plot this trend, we can use `geom_line()` from `ggplot`. It's interesting that the share of women among all athletes that was once at a very low level in the early 1900s has gone up to almost 50% in modern times.
 
 ![Plot of the share of female athletes over time](https://docs.google.com/presentation/d/1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0/export/png?id=1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0&pageid=g3a82126a9f_0_79)
