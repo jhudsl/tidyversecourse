@@ -1282,6 +1282,7 @@ save(coverage, spending, file = here::here("data", "raw_data", "case_study_1.rda
 #the coverage object and the spending object will get saved as case_study_1.rda within the raw_data directory which is a subdirectory of data 
 #the here package identifies where the project directory is located based on the .Rproj, and thus the path to this directory is not needed
 ```
+
 ### Case Study #2: Firearms
 
 We've got a whole bunch of datasets that we'll need to read in for this case study. They are from a number of different sources and are stored in different file formats. This means we'll need to use various functions to read the data in *and* keep this in mind we we start wrangling the data.

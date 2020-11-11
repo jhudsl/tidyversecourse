@@ -2118,7 +2118,7 @@ In this lesson, our goal is to make you aware that data from the Internet (and A
 
 ## Case Studies
 
-So far, we've introduced the case studies and read them into R.
+So far, we've introduced the case studies and read the raw data into R.
 
 Let's load the raw data that we previously saved using the `here` package. 
 

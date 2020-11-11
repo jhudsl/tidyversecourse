@@ -476,7 +476,7 @@ Creating [RStudio projects](https://support.rstudio.com/hc/en-us/articles/200526
 
 New projects can be created by clicking on the RStudio Projects button in RStudio:
 
-<img src="/Users/rdpeng/books/tidyversecourse/book_figures/rproj-fig.png" width="60%" />
+<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/rproj-fig.png" width="60%" />
 
 This will create a special file with the .Rproj extension. This file tells RStudio to identify the directory containing the .Rproj file as the main directory for that R Project. A new session of RStudio will be started when a user opens an R project from this main directory. The previous state including settings of that project will be maintained from one time to the next. The files that were open the last time the user worked on the project will automatically be opened again. Other packages like the `here` package will also recognize the .Rproj file to make analyses easier for the user. We will explain how this package works in the next section.
 
@@ -707,10 +707,6 @@ The two datasets used in this case study come from the [Henry J Kaiser Family Fo
 
 * [Health Insurance Coverage of the Total Population](https://www.kff.org/other/state-indicator/total-population/) - Includes years 2013-2016
 * [Health Care Expenditures by State of Residence (in millions)](https://www.kff.org/other/state-indicator/health-care-expenditures-by-state-of-residence-in-millions/) - Includes years 1991-2014
-
-
-We have downloaded, re-named and saved these files in the 
-[following zip file]().
 
        
 ### Case Study #2: Firearms
