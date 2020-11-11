@@ -705,10 +705,6 @@ The two datasets used in this case study come from the [Henry J Kaiser Family Fo
 * [Health Insurance Coverage of the Total Population](https://www.kff.org/other/state-indicator/total-population/) - Includes years 2013-2016
 * [Health Care Expenditures by State of Residence (in millions)](https://www.kff.org/other/state-indicator/health-care-expenditures-by-state-of-residence-in-millions/) - Includes years 1991-2014
 
-
-We have downloaded, re-named and saved these files in the 
-[following zip file]().
-
        
 ### Case Study #2: Firearms
 
