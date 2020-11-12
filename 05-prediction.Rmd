@@ -2251,6 +2251,7 @@ Now that we have a sense of what our data are, we can get started with building 
 #### Splitting the Data
 
 ```{r}
+library(tidymodels)
 set.seed(1234)
 pm_split <- rsample::initial_split(data = pm, prop = 2/3)
 pm_split
@@ -2819,7 +2820,7 @@ These other packages have different advantages and disadvantages- for example `r
 See [here](https://parsnip.tidymodels.org/reference/rand_forest.html) for more documentation about implementing these engine options with tidymodels. Note that there are also [other](https://www.linkedin.com/pulse/different-random-forest-packages-r-madhur-modi/) R packages for implementing random forest algorithms, but these three packages (`ranger`, `spark`, and `randomForest`) are currently compatible with `tidymodels`.
 
 ```{r}
-
+library(randomForest)
 RF_PM_model <- 
   PMtree_model %>%
   set_engine("randomForest") %>%
@@ -2933,6 +2934,7 @@ We can use the `doParallel` package to allow us to fit all these models to our c
 You can see how many cores you have access to on your system using the `detectCores()` function in the `parallel` package. 
 
 ```{r}
+library(parallel)
 parallel::detectCores()
 ```
 

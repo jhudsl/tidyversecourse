@@ -1783,7 +1783,7 @@ formula(first_recipe)
 
 ```
 ## Sepal.Length ~ Sepal.Width + Species
-## <environment: 0x7fbd726c5f98>
+## <environment: 0x7f8a6bec6888>
 ```
 
 We can also view our recipe in more detail using the base summary() function.
@@ -3402,7 +3402,7 @@ formula(simple_rec)
 ##     popdens_county + popdens_zcta + nohs + somehs + hs + somecollege + 
 ##     associate + bachelor + grad + pov + hs_orless + urc2013 + 
 ##     urc2006 + aod
-## <environment: 0x7fbd72ae6548>
+## <environment: 0x7f8a6c862bd8>
 ```
 
 **This [link](https://tidymodels.github.io/recipes/reference/index.html){target="_blank"} and this [link](https://cran.r-project.org/web/packages/recipes/recipes.pdf){target="_blank"} show the many options for recipe step functions.**
@@ -5102,12 +5102,12 @@ tune_RF_results%>%
 ## # A tibble: 6 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1     1    27 rmse    standard   2.06     10  0.142 
-## 2     1    27 rsq     standard   0.479    10  0.0385
-## 3     4    30 rmse    standard   1.82     10  0.144 
-## 4     4    30 rsq     standard   0.585    10  0.0400
-## 5     6    32 rmse    standard   1.77     10  0.143 
-## 6     6    32 rsq     standard   0.597    10  0.0396
+## 1     1    27 rmse    standard   2.06     10  0.141 
+## 2     1    27 rsq     standard   0.482    10  0.0383
+## 3     4    30 rmse    standard   1.81     10  0.145 
+## 4     4    30 rsq     standard   0.588    10  0.0399
+## 5     6    32 rmse    standard   1.77     10  0.147 
+## 6     6    32 rsq     standard   0.600    10  0.0397
 ```
 
 We can now use the `show_best()` function as it was truly intended, to see what values for `min_n` and `mtry` resulted in the best performance.
@@ -5121,7 +5121,7 @@ show_best(tune_RF_results, metric = "rmse", n =1)
 ## # A tibble: 1 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1    13     7 rmse    standard    1.67    10   0.144
+## 1    17     4 rmse    standard    1.67    10   0.143
 ```
 There we have it... looks like an `mtry` of 17 and `min_n` of 4 had the best `rmse` value. You can verify this in the above output, but it is easier to just pull this row out using this function. We can see that the mean `rmse` value across the cross validation sets was 1.67. Before tuning it was 1.68 with a similar `std_err` so the performance was very slightly improved.
 
@@ -5145,7 +5145,7 @@ tuned_RF_values
 ## # A tibble: 1 x 2
 ##    mtry min_n
 ##   <int> <int>
-## 1    13     7
+## 1    17     4
 ```
 
 Now we can finalize the model/workflow that we we used for tuning with these values.
@@ -5184,7 +5184,7 @@ To see the performance on the test data we can use the `collect_metrics()` funct
 ##   .metric .estimator .estimate
 ##   <chr>   <chr>          <dbl>
 ## 1 rmse    standard       1.43 
-## 2 rsq     standard       0.646
+## 2 rsq     standard       0.644
 ```
 
 Awesome! We can see that our `rmse` of 1.43 is quite similar with our testing data cross validation sets. We achieved quite good performance, which suggests that we would could predict other locations with more sparse monitoring based on our predictors with reasonable accuracy.
@@ -5205,12 +5205,12 @@ head(test_predictions)
 ## # A tibble: 6 x 4
 ##   id               .pred  .row value
 ##   <chr>            <dbl> <int> <dbl>
-## 1 train/test split  11.2     4  11.7
-## 2 train/test split  11.8    10  13.1
+## 1 train/test split  11.1     4  11.7
+## 2 train/test split  11.9    10  13.1
 ## 3 train/test split  12.2    12  12.2
-## 4 train/test split  11.4    15  12.2
+## 4 train/test split  11.5    15  12.2
 ## 5 train/test split  11.4    19  11.4
-## 6 train/test split  11.9    22  12.2
+## 6 train/test split  12.1    22  12.2
 ```
 
 Nice!
