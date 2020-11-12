@@ -1304,6 +1304,7 @@ We again expected that it did. Thus we had a statement that &quot; car mileage c
 <h3><span class="header-section-number">5.12.7</span> Validate</h3>
 <p>Finally, an independent dataset – one that is not from the same experiment or source as the data used to train and test your model are used to see whether or not your predictive model makes accurate predictions in a completely new dataset. Predictive models that can be generalized to and make accurate predictions in new datasets are the best predictive models.</p>
 <p><img src="book_figures/data_splitting3.png" width="480" /></p>
+<p>Ultimately, we want to create a model that will perform well with any new data that we try to use. In other words we want the model to be generalizable so we can use it again to make predictions with new data. We don’t want the model to only work well with the data that we used to train the model (this is called <a href="https://en.wikipedia.org/wiki/Overfitting">overfitting</a>). Using a validation set helps us to assess how well our model might work with new data in the future. This is part of what we call <a href="https://en.wikipedia.org/wiki/Cross-validation_(statistics)">out-of-sample testing</a>, as we evaluate the performance of the model on independent data that was not a part of the sampleused to train the model.</p>
 </div>
 <div id="variable-selection" class="section level3">
 <h3><span class="header-section-number">5.12.8</span> Variable Selection</h3>
@@ -1555,7 +1556,7 @@ We again expected that it did. Thus we had a statement that &quot; car mileage c
 <p>We can use the <code>formula()</code> function of the stats package to see how we have assigned our variables in formula notation.</p>
 <div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1"><span class="kw">formula</span>(first_recipe)</a></code></pre></div>
 <pre><code>## Sepal.Length ~ Sepal.Width + Species
-## &lt;environment: 0x7f8a6bec6888&gt;</code></pre>
+## &lt;environment: 0x7fb8c7c88200&gt;</code></pre>
 <p>We can also view our recipe in more detail using the base summary() function.</p>
 <div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1"><span class="kw">summary</span>(first_recipe)</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 4
@@ -1932,8 +1933,10 @@ FALSE 1 &lt;split [100… train/test … &lt;tibble [2 ×… &lt;tibble [1 … &
 ## 2 versicolor 15
 ## 3  virginica 20</code></pre>
 <p>Great, indeed we have good representation of all 3 species in both the training and testing sets.</p>
-<p>This time we will also show an example of how to perform what is called cross validation. This process allows us to get a better estimate about the performance of our model using just our training data by splitting it into multiple pieces to assess the model fit over and over. This is helpful for making sure that our model will be generalizable, meaning that it will work well with a variety of new datasets. This is also helpful for optimizing what we call hyperparameters.</p>
-<p>hyperparameters are aspects about the model that we need to specify. Often packages will choose a default value, however it is better to use the training data to see what value appears to yield the best model performance.</p>
+<p>This time we will also show an example of how to perform what is called cross validation. This process allows us to get a better estimate about the performance of our model using just our training data by splitting it into multiple pieces to assess the model fit over and over. This is helpful for making sure that our model will be generalizable, meaning that it will work well with a variety of new datasets. Recall that using an independent validation set is part of what we call <a href="https://en.wikipedia.org/wiki/Cross-validation_(statistics)">out-of-sample testing</a> to get a sense of how our model might perform with new datasets. Cross validation helps us to get a sense of this using our training data, so that we can build a better more generalizable model.</p>
+<p>By creating subsets of the data, we can test the model performance on each subset which is also a type of out-of-sample testing, as we are not using the entire training dataset, but subsets of the data which may have different properties than that of the full training dataset or each other. For example certain subsets may happen to have unusual values for a particular predictor that are muted by the larger training dataset. With each round of cross validation we perform training and testing on subsets of the training data. This gives us estimates of the out-of-sample performance, where the <a href="https://en.wikipedia.org/wiki/Generalization_error">out-of-sample error or generalization error</a> indicates how often predictions are incorrect in the small testing subsets.</p>
+<p>Cross validation is also helpful for optimizing what we call hyperparameters.</p>
+<p>Hyperparameters are aspects about the model that we need to specify. Often packages will choose a default value, however it is better to use the training data to see what value appears to yield the best model performance.</p>
 <p>For example, the different options at each split in a decision tree is called a node. The minimum number of data points for a node to be split further when creating a decision tree model is a hyperparameter.</p>
 <p>Recall from our example of a decision tree:
 <img src="https://camo.githubusercontent.com/439a80ec4e6ff697b120631837d13e1667f39c14/68747470733a2f2f646f63732e676f6f676c652e636f6d2f70726573656e746174696f6e2f642f3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b413130686978512f6578706f72742f706e673f69643d3147463357586d7174625038486132786e4f456539555a5a364d6e5351774e4c5f2d42654b41313068697851267061676569643d67336462363136333662645f305f383433" /></p>
@@ -1950,7 +1953,7 @@ FALSE 1 &lt;split [100… train/test … &lt;tibble [2 ×… &lt;tibble [1 … &
 The number of <span class="math inline">\(v\)</span> subsets to use is also a bit arbitrary, although generally speaking using 10 folds is good practice, but this depends on the variability and size of your dataset.</p>
 <p>We are going to use 4 folds for the sake of expediency and simplicity.</p>
 <p><img src="book_figures/vfold.png" width="463" /></p>
-<p>The model will be trained on <span class="math inline">\(v\)</span>-1 subsets of the data iteratively (removing a different <span class="math inline">\(v\)</span> until all possible <span class="math inline">\(v\)</span>-1 sets have been evaluated) to get a sense of the performance of the model. While one fold will be saved to act as a test set.</p>
+<p>The model will be trained on <span class="math inline">\(v\)</span>-1 subsets of the data iteratively (removing a different <span class="math inline">\(v\)</span> until all possible <span class="math inline">\(v\)</span>-1 sets have been evaluated), while one fold will be saved to act as a test set. This will give us a sense of the out-of-sample (meaning not the entire training sample) performance of the model.</p>
 <p>In the case of tuning, multiple values for the hyperparameter are tested to determine what yields the best model performance.</p>
 <p><img src="book_figures/cross_validation.png" width="389" /></p>
 <div id="example-of-creating-cross-validation-samples-with-rsample" class="section level4">
@@ -1991,7 +1994,7 @@ The number of <span class="math inline">\(v\)</span> subsets to use is also a bi
 ## &lt;Analysis/Assess/Total&gt;
 ## &lt;75/25/100&gt;</code></pre>
 <p>Now we can see that we have created 4 folds of the data and we can see how many values were set aside for testing (called assessing for cross validation sets) and training (called analysis for cross validation sets) within each fold.</p>
-<p>First we will just use cross validation to get a better sense of the accuracy of our model using just the training data. Then we will show how to modify this to perform tuning.</p>
+<p>First we will just use cross validation to get a better sense of the out-of-sample performance of our model using just the training data. Then we will show how to modify this to perform tuning.</p>
 </div>
 <div id="example-of-creating-another-recipe-model-and-workflow" class="section level4">
 <h4><span class="header-section-number">5.13.4.2</span> Example of creating another recipe, model and workflow</h4>
@@ -3408,7 +3411,7 @@ Instead of including it as a predictor variable, we could also use the <code>upd
 ##     popdens_county + popdens_zcta + nohs + somehs + hs + somecollege + 
 ##     associate + bachelor + grad + pov + hs_orless + urc2013 + 
 ##     urc2006 + aod
-## &lt;environment: 0x7f8a6c862bd8&gt;</code></pre>
+## &lt;environment: 0x7fb8e3a479c0&gt;</code></pre>
 <p><strong>This <a href="https://tidymodels.github.io/recipes/reference/index.html" target="_blank">link</a> and this <a href="https://cran.r-project.org/web/packages/recipes/recipes.pdf" target="_blank">link</a> show the many options for recipe step functions.</strong></p>
 <p><u>There are step functions for a variety of purposes:</u></p>
 <ol style="list-style-type: decimal">
@@ -3546,7 +3549,7 @@ If we specifically wanted to remove a predictor we could use <code>step_rm()</co
 <pre><code>## [1] &quot;var_info&quot;       &quot;term_info&quot;      &quot;steps&quot;          &quot;template&quot;      
 ## [5] &quot;levels&quot;         &quot;retained&quot;       &quot;tr_info&quot;        &quot;orig_lvls&quot;     
 ## [9] &quot;last_term_info&quot;</code></pre>
-<p>Since we retained our preprocessed training data (i.e. <code>prep(retain=TRUE)</code>), we can take a look at it like by using the <code>bake()</code> function of the <code>recipes</code> package like this (this previusly used the <code>juice()</code> function):</p>
+<p>Since we retained our preprocessed training data (i.e. <code>prep(retain=TRUE)</code>), we can take a look at it like by using the <code>bake()</code> function of the <code>recipes</code> package like this (this previously used the <code>juice()</code> function):</p>
 <div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" data-line-number="1">preproc_train &lt;-<span class="st"> </span><span class="kw">bake</span>(prepped_rec, <span class="dt">new_data =</span> <span class="ot">NULL</span>)</a>
 <a class="sourceLine" id="cb223-2" data-line-number="2"><span class="kw">glimpse</span>(preproc_train)</a></code></pre></div>
 <pre><code>## Rows: 584
@@ -4516,18 +4519,18 @@ It looks like the random forest model had a much lower <code>rmse</code> value o
 <pre><code>## # A tibble: 6 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
-## 1     1    27 rmse    standard   2.06     10  0.141 
-## 2     1    27 rsq     standard   0.482    10  0.0383
-## 3     4    30 rmse    standard   1.81     10  0.145 
-## 4     4    30 rsq     standard   0.588    10  0.0399
-## 5     6    32 rmse    standard   1.77     10  0.147 
-## 6     6    32 rsq     standard   0.600    10  0.0397</code></pre>
+## 1     1    27 rmse    standard   2.05     10  0.145 
+## 2     1    27 rsq     standard   0.487    10  0.0385
+## 3     4    30 rmse    standard   1.80     10  0.145 
+## 4     4    30 rsq     standard   0.594    10  0.0389
+## 5     6    32 rmse    standard   1.76     10  0.146 
+## 6     6    32 rsq     standard   0.607    10  0.0393</code></pre>
 <p>We can now use the <code>show_best()</code> function as it was truly intended, to see what values for <code>min_n</code> and <code>mtry</code> resulted in the best performance.</p>
 <div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb347-1" data-line-number="1"><span class="kw">show_best</span>(tune_RF_results, <span class="dt">metric =</span> <span class="st">&quot;rmse&quot;</span>, <span class="dt">n =</span><span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 1 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
-## 1    17     4 rmse    standard    1.67    10   0.143</code></pre>
+## 1    17     4 rmse    standard    1.67    10   0.147</code></pre>
 <p>There we have it… looks like an <code>mtry</code> of 17 and <code>min_n</code> of 4 had the best <code>rmse</code> value. You can verify this in the above output, but it is easier to just pull this row out using this function. We can see that the mean <code>rmse</code> value across the cross validation sets was 1.67. Before tuning it was 1.68 with a similar <code>std_err</code> so the performance was very slightly improved.</p>
 </div>
 <div id="final-model-performance-evaluation" class="section level4">

@@ -1417,6 +1417,8 @@ Finally, an independent dataset -- one that is not from the same experiment or s
 
 <img src="book_figures/data_splitting3.png" width="480" />
 
+Ultimately, we want to create a model that will perform well with any new data that we try to use. In other words we want the model to be generalizable so we can use it again to make predictions with new data. We don't want the model to only work well with the data that we used to train the model (this is called [overfitting](https://en.wikipedia.org/wiki/Overfitting)). Using a validation set helps us to assess how well our model might work with new data in the future. This is part of what we call [out-of-sample testing](https://en.wikipedia.org/wiki/Cross-validation_(statistics)), as we evaluate the performance of the model on independent data that was not a part of the sampleused to train the model. 
+
 ### Variable Selection
 
 For predictive analysis to be worth anything, you have to be able to predict an outcome accurately with the data you have on hand.
@@ -1783,7 +1785,7 @@ formula(first_recipe)
 
 ```
 ## Sepal.Length ~ Sepal.Width + Species
-## <environment: 0x7f8a6bec6888>
+## <environment: 0x7fb8c7c88200>
 ```
 
 We can also view our recipe in more detail using the base summary() function.
@@ -2387,9 +2389,13 @@ count(testing_iris, Species)
 
 Great, indeed we have good representation of all 3 species in both the training and testing sets.
 
-This time we will also show an example of how to perform what is called cross validation. This process allows us to get a better estimate about the performance of our model using just our training data by splitting it into multiple pieces to assess the model fit over and over. This is helpful for making sure that our model will be generalizable, meaning that it will work well with a variety of new datasets. This is also helpful for optimizing what we call hyperparameters. 
+This time we will also show an example of how to perform what is called cross validation. This process allows us to get a better estimate about the performance of our model using just our training data by splitting it into multiple pieces to assess the model fit over and over. This is helpful for making sure that our model will be generalizable, meaning that it will work well with a variety of new datasets. Recall that using an independent validation set is part of what we call [out-of-sample testing](https://en.wikipedia.org/wiki/Cross-validation_(statistics)) to get a sense of how our model might perform with new datasets. Cross validation helps us to get a sense of this using our training data, so that we can build a better more generalizable model. 
 
-hyperparameters are aspects about the model that we need to specify. Often packages will choose a default value, however it is better to use the training data to see what value appears to yield the best model performance. 
+By creating subsets of the data, we can test the model performance on each subset which is also a type of out-of-sample testing, as we are not using the entire training dataset, but subsets of the data which may have different properties than that of the full training dataset or each other. For example certain subsets may happen to have unusual values for a particular predictor that are muted by the larger training dataset. With each round of cross validation we perform training and testing on subsets of the training data. This gives us estimates of the out-of-sample performance, where the [out-of-sample error or generalization error](https://en.wikipedia.org/wiki/Generalization_error) indicates how often predictions are incorrect in the small testing subsets.
+
+Cross validation is also helpful for optimizing what we call hyperparameters. 
+
+Hyperparameters are aspects about the model that we need to specify. Often packages will choose a default value, however it is better to use the training data to see what value appears to yield the best model performance. 
 
 For example, the different options at each split in a decision tree is called a node. The minimum number of data points for a node to be split further when creating a decision tree model is a hyperparameter.
 
@@ -2423,7 +2429,7 @@ We are going to use 4 folds for the sake of expediency and simplicity.
 
 <img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/vfold.png" width="463" />
 
-The model will be trained on  $v$-1 subsets of the data iteratively (removing a different $v$ until all possible $v$-1 sets have been evaluated) to get a sense of the performance of the model. While one fold will be saved to act as a test set.
+The model will be trained on  $v$-1 subsets of the data iteratively (removing a different $v$ until all possible $v$-1 sets have been evaluated), while one fold will be saved to act as a test set. This will give us a sense of the out-of-sample (meaning not the entire training sample) performance of the model.
 
 In the case of tuning, multiple values for the hyperparameter are tested to determine what yields the best model performance.
  
@@ -2485,7 +2491,7 @@ pull(vfold_iris, splits)
 
 Now we can see that we have created 4 folds of the data and we can see how many values were set aside for testing (called assessing for cross validation sets) and training (called analysis for cross validation sets) within each fold.
 
-First we will just use cross validation to get a better sense of the accuracy of our model using just the training data. Then we will show how to modify this to perform tuning.
+First we will just use cross validation to get a better sense of the out-of-sample performance of our model using just the training data. Then we will show how to modify this to perform tuning.
 
 #### Example of creating another recipe, model and workflow
 
@@ -3402,7 +3408,7 @@ formula(simple_rec)
 ##     popdens_county + popdens_zcta + nohs + somehs + hs + somecollege + 
 ##     associate + bachelor + grad + pov + hs_orless + urc2013 + 
 ##     urc2006 + aod
-## <environment: 0x7f8a6c862bd8>
+## <environment: 0x7fb8e3a479c0>
 ```
 
 **This [link](https://tidymodels.github.io/recipes/reference/index.html){target="_blank"} and this [link](https://cran.r-project.org/web/packages/recipes/recipes.pdf){target="_blank"} show the many options for recipe step functions.**
@@ -3618,7 +3624,7 @@ names(prepped_rec)
 ```
 
 
-Since we retained our preprocessed training data (i.e. `prep(retain=TRUE)`), we can take a look at it like by using the `bake()` function of the `recipes` package like this (this previusly used the `juice()` function):
+Since we retained our preprocessed training data (i.e. `prep(retain=TRUE)`), we can take a look at it like by using the `bake()` function of the `recipes` package like this (this previously used the `juice()` function):
 
 
 ```r
@@ -5102,12 +5108,12 @@ tune_RF_results%>%
 ## # A tibble: 6 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1     1    27 rmse    standard   2.06     10  0.141 
-## 2     1    27 rsq     standard   0.482    10  0.0383
-## 3     4    30 rmse    standard   1.81     10  0.145 
-## 4     4    30 rsq     standard   0.588    10  0.0399
-## 5     6    32 rmse    standard   1.77     10  0.147 
-## 6     6    32 rsq     standard   0.600    10  0.0397
+## 1     1    27 rmse    standard   2.05     10  0.145 
+## 2     1    27 rsq     standard   0.487    10  0.0385
+## 3     4    30 rmse    standard   1.80     10  0.145 
+## 4     4    30 rsq     standard   0.594    10  0.0389
+## 5     6    32 rmse    standard   1.76     10  0.146 
+## 6     6    32 rsq     standard   0.607    10  0.0393
 ```
 
 We can now use the `show_best()` function as it was truly intended, to see what values for `min_n` and `mtry` resulted in the best performance.
@@ -5121,7 +5127,7 @@ show_best(tune_RF_results, metric = "rmse", n =1)
 ## # A tibble: 1 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1    17     4 rmse    standard    1.67    10   0.143
+## 1    17     4 rmse    standard    1.67    10   0.147
 ```
 There we have it... looks like an `mtry` of 17 and `min_n` of 4 had the best `rmse` value. You can verify this in the above output, but it is easier to just pull this row out using this function. We can see that the mean `rmse` value across the cross validation sets was 1.67. Before tuning it was 1.68 with a similar `std_err` so the performance was very slightly improved.
 
