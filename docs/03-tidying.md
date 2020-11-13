@@ -1381,41 +1381,40 @@ skim(msleep)
 
 Table: (\#tab:unnamed-chunk-46)Data summary
 
-                                  
--------------------------  -------
-Name                       msleep 
-Number of rows             83     
-Number of columns          11     
-_______________________           
-Column type frequency:            
-character                  5      
-numeric                    6      
-________________________          
-Group variables            None   
--------------------------  -------
+|                         |       |
+|:------------------------|:------|
+|Name                     |msleep |
+|Number of rows           |83     |
+|Number of columns        |11     |
+|_______________________  |       |
+|Column type frequency:   |       |
+|character                |5      |
+|numeric                  |6      |
+|________________________ |       |
+|Group variables          |None   |
 
 
 **Variable type: character**
 
-skim_variable    n_missing   complete_rate   min   max   empty   n_unique   whitespace
---------------  ----------  --------------  ----  ----  ------  ---------  -----------
-name                     0            1.00     3    30       0         83            0
-genus                    0            1.00     3    13       0         77            0
-vore                     7            0.92     4     7       0          4            0
-order                    0            1.00     6    15       0         19            0
-conservation            29            0.65     2    12       0          6            0
+|skim_variable | n_missing| complete_rate| min| max| empty| n_unique| whitespace|
+|:-------------|---------:|-------------:|---:|---:|-----:|--------:|----------:|
+|name          |         0|          1.00|   3|  30|     0|       83|          0|
+|genus         |         0|          1.00|   3|  13|     0|       77|          0|
+|vore          |         7|          0.92|   4|   7|     0|        4|          0|
+|order         |         0|          1.00|   6|  15|     0|       19|          0|
+|conservation  |        29|          0.65|   2|  12|     0|        6|          0|
 
 
 **Variable type: numeric**
 
-skim_variable    n_missing   complete_rate     mean       sd     p0     p25     p50     p75      p100  hist  
---------------  ----------  --------------  -------  -------  -----  ------  ------  ------  --------  ------
-sleep_total              0            1.00    10.43     4.45   1.90    7.85   10.10   13.75     19.90  ▅▅▇▆▂ 
-sleep_rem               22            0.73     1.88     1.30   0.10    0.90    1.50    2.40      6.60  ▇▆▂▁▁ 
-sleep_cycle             51            0.39     0.44     0.36   0.12    0.18    0.33    0.58      1.50  ▇▂▁▁▁ 
-awake                    0            1.00    13.57     4.45   4.10   10.25   13.90   16.15     22.10  ▂▅▇▃▅ 
-brainwt                 27            0.67     0.28     0.98   0.00    0.00    0.01    0.13      5.71  ▇▁▁▁▁ 
-bodywt                   0            1.00   166.14   786.84   0.00    0.17    1.67   41.75   6654.00  ▇▁▁▁▁ 
+|skim_variable | n_missing| complete_rate|   mean|     sd|   p0|   p25|   p50|   p75|    p100|hist  |
+|:-------------|---------:|-------------:|------:|------:|----:|-----:|-----:|-----:|-------:|:-----|
+|sleep_total   |         0|          1.00|  10.43|   4.45| 1.90|  7.85| 10.10| 13.75|   19.90|▅▅▇▆▂ |
+|sleep_rem     |        22|          0.73|   1.88|   1.30| 0.10|  0.90|  1.50|  2.40|    6.60|▇▆▂▁▁ |
+|sleep_cycle   |        51|          0.39|   0.44|   0.36| 0.12|  0.18|  0.33|  0.58|    1.50|▇▂▁▁▁ |
+|awake         |         0|          1.00|  13.57|   4.45| 4.10| 10.25| 13.90| 16.15|   22.10|▂▅▇▃▅ |
+|brainwt       |        27|          0.67|   0.28|   0.98| 0.00|  0.00|  0.01|  0.13|    5.71|▇▁▁▁▁ |
+|bodywt        |         0|          1.00| 166.14| 786.84| 0.00|  0.17|  1.67| 41.75| 6654.00|▇▁▁▁▁ |
 
 ![summarize entire dataset using skim() from skimr](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_313)
 
@@ -1430,33 +1429,32 @@ skim(msleep, genus, vore, sleep_total)
 
 Table: (\#tab:unnamed-chunk-47)Data summary
 
-                                  
--------------------------  -------
-Name                       msleep 
-Number of rows             83     
-Number of columns          11     
-_______________________           
-Column type frequency:            
-character                  2      
-numeric                    1      
-________________________          
-Group variables            None   
--------------------------  -------
+|                         |       |
+|:------------------------|:------|
+|Name                     |msleep |
+|Number of rows           |83     |
+|Number of columns        |11     |
+|_______________________  |       |
+|Column type frequency:   |       |
+|character                |2      |
+|numeric                  |1      |
+|________________________ |       |
+|Group variables          |None   |
 
 
 **Variable type: character**
 
-skim_variable    n_missing   complete_rate   min   max   empty   n_unique   whitespace
---------------  ----------  --------------  ----  ----  ------  ---------  -----------
-genus                    0            1.00     3    13       0         77            0
-vore                     7            0.92     4     7       0          4            0
+|skim_variable | n_missing| complete_rate| min| max| empty| n_unique| whitespace|
+|:-------------|---------:|-------------:|---:|---:|-----:|--------:|----------:|
+|genus         |         0|          1.00|   3|  13|     0|       77|          0|
+|vore          |         7|          0.92|   4|   7|     0|        4|          0|
 
 
 **Variable type: numeric**
 
-skim_variable    n_missing   complete_rate    mean     sd    p0    p25    p50     p75   p100  hist  
---------------  ----------  --------------  ------  -----  ----  -----  -----  ------  -----  ------
-sleep_total              0               1   10.43   4.45   1.9   7.85   10.1   13.75   19.9  ▅▅▇▆▂ 
+|skim_variable | n_missing| complete_rate|  mean|   sd|  p0|  p25|  p50|   p75| p100|hist  |
+|:-------------|---------:|-------------:|-----:|----:|---:|----:|----:|-----:|----:|:-----|
+|sleep_total   |         0|             1| 10.43| 4.45| 1.9| 7.85| 10.1| 13.75| 19.9|▅▅▇▆▂ |
 
 It is also possible to group data (using `dplyr`'s `group_by()` before summarizing. Notice in the summary output that each variable specified (`genus` and `sleep_total`) are now broken down within each of the `vore` categories.
 
@@ -1470,40 +1468,39 @@ msleep %>%
 
 Table: (\#tab:unnamed-chunk-48)Data summary
 
-                                      
--------------------------  -----------
-Name                       Piped data 
-Number of rows             83         
-Number of columns          11         
-_______________________               
-Column type frequency:                
-character                  1          
-numeric                    1          
-________________________              
-Group variables            vore       
--------------------------  -----------
+|                         |           |
+|:------------------------|:----------|
+|Name                     |Piped data |
+|Number of rows           |83         |
+|Number of columns        |11         |
+|_______________________  |           |
+|Column type frequency:   |           |
+|character                |1          |
+|numeric                  |1          |
+|________________________ |           |
+|Group variables          |vore       |
 
 
 **Variable type: character**
 
-skim_variable   vore       n_missing   complete_rate   min   max   empty   n_unique   whitespace
---------------  --------  ----------  --------------  ----  ----  ------  ---------  -----------
-genus           carni              0               1     5    13       0         16            0
-genus           herbi              0               1     3    12       0         29            0
-genus           insecti            0               1     6    12       0          5            0
-genus           omni               0               1     3    13       0         20            0
-genus           NA                 0               1     6    11       0          7            0
+|skim_variable |vore    | n_missing| complete_rate| min| max| empty| n_unique| whitespace|
+|:-------------|:-------|---------:|-------------:|---:|---:|-----:|--------:|----------:|
+|genus         |carni   |         0|             1|   5|  13|     0|       16|          0|
+|genus         |herbi   |         0|             1|   3|  12|     0|       29|          0|
+|genus         |insecti |         0|             1|   6|  12|     0|        5|          0|
+|genus         |omni    |         0|             1|   3|  13|     0|       20|          0|
+|genus         |NA      |         0|             1|   6|  11|     0|        7|          0|
 
 
 **Variable type: numeric**
 
-skim_variable   vore       n_missing   complete_rate    mean     sd    p0    p25    p50     p75   p100  hist  
---------------  --------  ----------  --------------  ------  -----  ----  -----  -----  ------  -----  ------
-sleep_total     carni              0               1   10.38   4.67   2.7   6.25   10.4   13.00   19.4  ▅▃▇▃▂ 
-sleep_total     herbi              0               1    9.51   4.88   1.9   4.30   10.3   14.22   16.6  ▇▃▂▅▇ 
-sleep_total     insecti            0               1   14.94   5.92   8.4   8.60   18.1   19.70   19.9  ▅▁▁▁▇ 
-sleep_total     omni               0               1   10.93   2.95   8.0   9.10    9.9   10.93   18.0  ▇▃▁▂▂ 
-sleep_total     NA                 0               1   10.19   3.00   5.4   8.65   10.6   12.15   13.7  ▇▁▃▇▇ 
+|skim_variable |vore    | n_missing| complete_rate|  mean|   sd|  p0|  p25|  p50|   p75| p100|hist  |
+|:-------------|:-------|---------:|-------------:|-----:|----:|---:|----:|----:|-----:|----:|:-----|
+|sleep_total   |carni   |         0|             1| 10.38| 4.67| 2.7| 6.25| 10.4| 13.00| 19.4|▅▃▇▃▂ |
+|sleep_total   |herbi   |         0|             1|  9.51| 4.88| 1.9| 4.30| 10.3| 14.22| 16.6|▇▃▂▅▇ |
+|sleep_total   |insecti |         0|             1| 14.94| 5.92| 8.4| 8.60| 18.1| 19.70| 19.9|▅▁▁▁▇ |
+|sleep_total   |omni    |         0|             1| 10.93| 2.95| 8.0| 9.10|  9.9| 10.93| 18.0|▇▃▁▂▂ |
+|sleep_total   |NA      |         0|             1| 10.19| 3.00| 5.4| 8.65| 10.6| 12.15| 13.7|▇▁▃▇▇ |
 
 
 #### `summary()`
@@ -1518,18 +1515,17 @@ skim(msleep) %>%
 
 Table: (\#tab:unnamed-chunk-49)Data summary
 
-                                  
--------------------------  -------
-Name                       msleep 
-Number of rows             83     
-Number of columns          11     
-_______________________           
-Column type frequency:            
-character                  5      
-numeric                    6      
-________________________          
-Group variables            None   
--------------------------  -------
+|                         |       |
+|:------------------------|:------|
+|Name                     |msleep |
+|Number of rows           |83     |
+|Number of columns        |11     |
+|_______________________  |       |
+|Column type frequency:   |       |
+|character                |5      |
+|numeric                  |6      |
+|________________________ |       |
+|Group variables          |None   |
 
 
 
@@ -2082,11 +2078,18 @@ mydate <- ymd("1988-09-29")
 
 ## subtract birthday from todays date
 age <- today() - mydate
+```
+
+```
+## Warning in with_tz(Sys.time(), tzone): Unrecognized time zone ''
+```
+
+```r
 age
 ```
 
 ```
-## Time difference of 11731 days
+## Time difference of 11733 days
 ```
 
 ```r
@@ -2095,7 +2098,7 @@ as.duration(age)
 ```
 
 ```
-## [1] "1013558400s (~32.12 years)"
+## [1] "1013731200s (~32.12 years)"
 ```
 
 
@@ -2273,8 +2276,8 @@ names <- c("Keisha", "Mohammed", "Jane", "Mathieu")
 str_view(names, "^M")
 ```
 
-<!--html_preserve--><div id="htmlwidget-5a623e15875b6077ef8d" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5a623e15875b6077ef8d">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li><span class='match'>M<\/span>ohammed<\/li>\n  <li>Jane<\/li>\n  <li><span class='match'>M<\/span>athieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-49a246f341f193b2b375" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-49a246f341f193b2b375">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li><span class='match'>M<\/span>ohammed<\/li>\n  <li>Jane<\/li>\n  <li><span class='match'>M<\/span>athieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 
 ![`str_view()` identifies names that start with M](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_30)
@@ -2289,8 +2292,8 @@ However, if you try to match strings that end with the letter "M", no match is f
 str_view(names, "M$")
 ```
 
-<!--html_preserve--><div id="htmlwidget-1db692efc6e8df812ac0" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1db692efc6e8df812ac0">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-8ec1fdf3554ec4728b4b" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8ec1fdf3554ec4728b4b">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 
 ![`str_view()` does not identify any names that end with M](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_26)
@@ -2303,8 +2306,8 @@ To identify names by that end with the letter "a", you would use the following.
 str_view(names, "a$")
 ```
 
-<!--html_preserve--><div id="htmlwidget-02f7ec1f75a89193d28d" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-02f7ec1f75a89193d28d">{"x":{"html":"<ul>\n  <li>Keish<span class='match'>a<\/span><\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-3079deee816d6f24114d" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3079deee816d6f24114d">{"x":{"html":"<ul>\n  <li>Keish<span class='match'>a<\/span><\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![`str_view()` identifies names that end with a](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_34)
 
@@ -2428,8 +2431,8 @@ To search for a set of characters, you place these characters within brackets. B
 str_view_all(names, "[aeiou]")
 ```
 
-<!--html_preserve--><div id="htmlwidget-6adfe7e18eb245865a06" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6adfe7e18eb245865a06">{"x":{"html":"<ul>\n  <li>K<span class='match'>e<\/span><span class='match'>i<\/span>sh<span class='match'>a<\/span><\/li>\n  <li>M<span class='match'>o<\/span>h<span class='match'>a<\/span>mm<span class='match'>e<\/span>d<\/li>\n  <li>J<span class='match'>a<\/span>n<span class='match'>e<\/span><\/li>\n  <li>M<span class='match'>a<\/span>th<span class='match'>i<\/span><span class='match'>e<\/span><span class='match'>u<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-f8fd10cc51e16af6a3fe" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f8fd10cc51e16af6a3fe">{"x":{"html":"<ul>\n  <li>K<span class='match'>e<\/span><span class='match'>i<\/span>sh<span class='match'>a<\/span><\/li>\n  <li>M<span class='match'>o<\/span>h<span class='match'>a<\/span>mm<span class='match'>e<\/span>d<\/li>\n  <li>J<span class='match'>a<\/span>n<span class='match'>e<\/span><\/li>\n  <li>M<span class='match'>a<\/span>th<span class='match'>i<\/span><span class='match'>e<\/span><span class='match'>u<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![brackets specify which characters to search for](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_69)
 
@@ -2444,8 +2447,8 @@ By adding a caret (`^`) before the vowels within the brackets, this regular expr
 str_view_all(names, "[^aeiou]")
 ```
 
-<!--html_preserve--><div id="htmlwidget-31f5c997427ba74c0c11" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-31f5c997427ba74c0c11">{"x":{"html":"<ul>\n  <li><span class='match'>K<\/span>ei<span class='match'>s<\/span><span class='match'>h<\/span>a<\/li>\n  <li><span class='match'>M<\/span>o<span class='match'>h<\/span>a<span class='match'>m<\/span><span class='match'>m<\/span>e<span class='match'>d<\/span><\/li>\n  <li><span class='match'>J<\/span>a<span class='match'>n<\/span>e<\/li>\n  <li><span class='match'>M<\/span>a<span class='match'>t<\/span><span class='match'>h<\/span>ieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-31ccdbc6f28c1e76f84f" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-31ccdbc6f28c1e76f84f">{"x":{"html":"<ul>\n  <li><span class='match'>K<\/span>ei<span class='match'>s<\/span><span class='match'>h<\/span>a<\/li>\n  <li><span class='match'>M<\/span>o<span class='match'>h<\/span>a<span class='match'>m<\/span><span class='match'>m<\/span>e<span class='match'>d<\/span><\/li>\n  <li><span class='match'>J<\/span>a<span class='match'>n<\/span>e<\/li>\n  <li><span class='match'>M<\/span>a<span class='match'>t<\/span><span class='match'>h<\/span>ieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![brackets with a caret first specify which characters NOT to search for](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_78)
 
@@ -2461,8 +2464,8 @@ addresses <- c("1234 Main Street", "1600 Pennsylvania Ave", "Brick Building")
 str_view_all(addresses, "\\d")
 ```
 
-<!--html_preserve--><div id="htmlwidget-70d8caef3c121025551b" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-70d8caef3c121025551b">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span> Main Street<\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span> Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-d8522093007af70d5dc2" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d8522093007af70d5dc2">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span> Main Street<\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span> Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![`\d` searches for digits](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_140)
 
@@ -2476,8 +2479,8 @@ Identifying whitespace in R identifies any spaces, tabs or newlines. Note that a
 str_view_all(addresses, "\\s")
 ```
 
-<!--html_preserve--><div id="htmlwidget-3df019b1395a0ddd625a" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3df019b1395a0ddd625a">{"x":{"html":"<ul>\n  <li>1234<span class='match'> <\/span>Main<span class='match'> <\/span>Street<\/li>\n  <li>1600<span class='match'> <\/span>Pennsylvania<span class='match'> <\/span>Ave<\/li>\n  <li>Brick<span class='match'> <\/span>Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-5ef57c0a9b81cb11bb14" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5ef57c0a9b81cb11bb14">{"x":{"html":"<ul>\n  <li>1234<span class='match'> <\/span>Main<span class='match'> <\/span>Street<\/li>\n  <li>1600<span class='match'> <\/span>Pennsylvania<span class='match'> <\/span>Ave<\/li>\n  <li>Brick<span class='match'> <\/span>Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![`\s` searches for whitespace](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_153)
 
@@ -2491,8 +2494,8 @@ To identify any character except for a newline you'll use `"."`. Notice in our a
 str_view_all(addresses, ".")
 ```
 
-<!--html_preserve--><div id="htmlwidget-cc1e1826ce2e9ff6e263" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cc1e1826ce2e9ff6e263">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span><span class='match'> <\/span><span class='match'>M<\/span><span class='match'>a<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'> <\/span><span class='match'>S<\/span><span class='match'>t<\/span><span class='match'>r<\/span><span class='match'>e<\/span><span class='match'>e<\/span><span class='match'>t<\/span><\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>e<\/span><span class='match'>n<\/span><span class='match'>n<\/span><span class='match'>s<\/span><span class='match'>y<\/span><span class='match'>l<\/span><span class='match'>v<\/span><span class='match'>a<\/span><span class='match'>n<\/span><span class='match'>i<\/span><span class='match'>a<\/span><span class='match'> <\/span><span class='match'>A<\/span><span class='match'>v<\/span><span class='match'>e<\/span><\/li>\n  <li><span class='match'>B<\/span><span class='match'>r<\/span><span class='match'>i<\/span><span class='match'>c<\/span><span class='match'>k<\/span><span class='match'> <\/span><span class='match'>B<\/span><span class='match'>u<\/span><span class='match'>i<\/span><span class='match'>l<\/span><span class='match'>d<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'>g<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-1ebdfd251e9d49ffe580" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1ebdfd251e9d49ffe580">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span><span class='match'> <\/span><span class='match'>M<\/span><span class='match'>a<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'> <\/span><span class='match'>S<\/span><span class='match'>t<\/span><span class='match'>r<\/span><span class='match'>e<\/span><span class='match'>e<\/span><span class='match'>t<\/span><\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>e<\/span><span class='match'>n<\/span><span class='match'>n<\/span><span class='match'>s<\/span><span class='match'>y<\/span><span class='match'>l<\/span><span class='match'>v<\/span><span class='match'>a<\/span><span class='match'>n<\/span><span class='match'>i<\/span><span class='match'>a<\/span><span class='match'> <\/span><span class='match'>A<\/span><span class='match'>v<\/span><span class='match'>e<\/span><\/li>\n  <li><span class='match'>B<\/span><span class='match'>r<\/span><span class='match'>i<\/span><span class='match'>c<\/span><span class='match'>k<\/span><span class='match'> <\/span><span class='match'>B<\/span><span class='match'>u<\/span><span class='match'>i<\/span><span class='match'>l<\/span><span class='match'>d<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'>g<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![. searches for any character](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_164)
 
@@ -2518,8 +2521,8 @@ Using the definitions above, we can see that the following code will identify pa
 str_view_all(addresses, "n+")
 ```
 
-<!--html_preserve--><div id="htmlwidget-b013abab81b7c2948ee3" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b013abab81b7c2948ee3">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-a7eda96e35e11ac25517" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a7eda96e35e11ac25517">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![+ specifies to match the pattern one or more times](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_177)
 
@@ -2531,8 +2534,8 @@ While the difference is slight in the output here, we're identifying portions of
 str_view_all(addresses, "n{1}")
 ```
 
-<!--html_preserve--><div id="htmlwidget-7f5f07c7fd6b0953fd7c" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7f5f07c7fd6b0953fd7c">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>n<\/span><span class='match'>n<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-e62fc2ca1c7ed172056a" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e62fc2ca1c7ed172056a">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>n<\/span><span class='match'>n<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![{#} looks to match the pattern exactly the number of times within the curly braces](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_183)
 
@@ -2544,8 +2547,8 @@ If you only wanted to match strings where n showed up twice in a row, you could 
 str_view_all(addresses, "n{2}")
 ```
 
-<!--html_preserve--><div id="htmlwidget-335b3867b2e5b2f93bbb" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-335b3867b2e5b2f93bbb">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-061929895a62f22d84b6" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-061929895a62f22d84b6">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![{2} specifies that the pattern must be found exactly twice](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_188)
 
@@ -2557,8 +2560,8 @@ This could similarly be achieved by specifying to search for the pattern 'nn' on
 str_view_all(addresses, "nn+")
 ```
 
-<!--html_preserve--><div id="htmlwidget-3fd8a9cc00458fbadbb0" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3fd8a9cc00458fbadbb0">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-eb4d2bc4d64b15656b91" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-eb4d2bc4d64b15656b91">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![nn+ searches for double n one or more times in a string](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_193)
 
@@ -2570,16 +2573,16 @@ You can also specify a range of the number of times to search for a pattern with
 str_view_all(addresses, "n{2,3}")
 ```
 
-<!--html_preserve--><div id="htmlwidget-07c8c85510476f2d28f2" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-07c8c85510476f2d28f2">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-c64bb27fb2364cb46e39" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c64bb27fb2364cb46e39">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ```r
 ## identify any time n shows up three or four times 
 str_view_all(addresses, "n{3,4}")
 ```
 
-<!--html_preserve--><div id="htmlwidget-063bb794450ada7a258c" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-063bb794450ada7a258c">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-b1b33f9a9380980f3ed2" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b1b33f9a9380980f3ed2">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![{n,m} looks to pattern match between n and m times](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_65)
 
@@ -3576,7 +3579,7 @@ library(here)
 ```
 
 ```
-## here() starts at /Users/carriewright/Documents/GitHub/tidyversecourse
+## here() starts at /Users/rdpeng/books/tidyversecourse
 ```
 
 ```r
@@ -3735,12 +3738,42 @@ coverage <- coverage %>%
 ```
 
 ```
-## Warning in fn(col, ...): NAs introduced by coercion
+## Warning: Problem with `mutate()` input `..1`.
+## ℹ NAs introduced by coercion
+## ℹ Input `..1` is `across(starts_with("20"), as.integer)`.
+```
 
+```
 ## Warning in fn(col, ...): NAs introduced by coercion
+```
 
+```
+## Warning: Problem with `mutate()` input `..1`.
+## ℹ NAs introduced by coercion
+## ℹ Input `..1` is `across(starts_with("20"), as.integer)`.
+```
+
+```
 ## Warning in fn(col, ...): NAs introduced by coercion
+```
 
+```
+## Warning: Problem with `mutate()` input `..1`.
+## ℹ NAs introduced by coercion
+## ℹ Input `..1` is `across(starts_with("20"), as.integer)`.
+```
+
+```
+## Warning in fn(col, ...): NAs introduced by coercion
+```
+
+```
+## Warning: Problem with `mutate()` input `..1`.
+## ℹ NAs introduced by coercion
+## ℹ Input `..1` is `across(starts_with("20"), as.integer)`.
+```
+
+```
 ## Warning in fn(col, ...): NAs introduced by coercion
 ```
 
