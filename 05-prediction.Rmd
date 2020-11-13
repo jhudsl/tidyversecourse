@@ -1200,7 +1200,7 @@ Finally, an independent dataset -- one that is not from the same experiment or s
 knitr::include_graphics("book_figures/data_splitting3.png")
 ```
 
-Ultimately, we want to create a model that will perform well with any new data that we try to use. In other words we want the model to be generalizable so we can use it again to make predictions with new data. We don't want the model to only work well with the data that we used to train the model (this is called [overfitting](https://en.wikipedia.org/wiki/Overfitting)). Using a validation set helps us to assess how well our model might work with new data in the future. This is part of what we call [out-of-sample testing](https://en.wikipedia.org/wiki/Cross-validation_(statistics)), as we evaluate the performance of the model on independent data that was not a part of the sampleused to train the model. 
+Ultimately, we want to create a model that will perform well with any new data that we try to use. In other words we want the model to be generalizable so we can use it again to make predictions with new data. We don't want the model to only work well with the data that we used to train the model (this is called [overfitting](https://en.wikipedia.org/wiki/Overfitting)). Using a validation set helps us to assess how well our model might work with new data in the future. This is part of what we call [out-of-sample testing](https://en.wikipedia.org/wiki/Cross-validation_(statistics)), as we evaluate the performance of the model on independent data that was not a part of the sample used to train the model. 
 
 ### Variable Selection
 
@@ -1749,7 +1749,7 @@ wf_fitted_values %>%
   labs( x = "True Sepal Length", y = "Predicted Sepal Length")
 ```
 
-We can see that overall our model predicted the sepal length fairly well, as the predicted values are fairly close to the true values. We can also see that the predicitions were similar to the truth for the full range of true sepal length values. 
+We can see that overall our model predicted the sepal length fairly well, as the predicted values are fairly close to the true values. We can also see that the predictions were similar to the truth for the full range of true sepal length values. 
 
 
 Typically we might modify our preprocessing steps or try a different model until we were satisfied with the performance on our training data. Assuming we are satisfied, we could then perform a final assessment of our model using the testing data. 
@@ -3053,4 +3053,26 @@ test_predictions %>%
   ylab("predicted outcome values") +
   geom_smooth(method = "lm")
 ```
+
+Great!
+
+## Summary of `tidymodels` 
+
+In summary, these are the minimal steps to perform a prediction analysis using `tidymodels`:
+
+```{r, echo = FALSE, fig.align="centered"}
+knitr::include_graphics(here::here("book_figures", "tidymodelsBasics.png"))
+```
+
+
+
+If you wish to perform preprocessing, cross validation, or tuning, these are the steps required:
+
+```{r, echo = FALSE, fig.align="centered"}
+
+knitr::include_graphics(here::here("book_figures", "full_tidymodels_overview.png"))
+
+```
+
+
 
