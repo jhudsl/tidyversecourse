@@ -1543,7 +1543,6 @@ first_recipe
 ```
 #### Step 3: Example of optionally performing the preprocessing to see how it influences the data
 
-avocado update for recipes update...
 Optionally one can use the `prep()` function of the `recipes` package to update the recipe for manually performing the preprocessing to see how this influences the data. This step is however not required when using the `workflows` package. The preprocessed training data can than be viewed by using the `bake()` function with the `new_data = NULL` argument, while preprocessed testing data can be viewed using the `bake()` function and specifying that the testing data is the `new_data`.
 
 The `prep()` function estimates parameters (estimating the required quantities and statistics required by the steps for the variables) for preprocessing and updates the variables roles, as sometimes predictors may be removed, this allows the recipe to be ready to use on other data sets. 
@@ -1736,7 +1735,7 @@ yardstick::rmse(wf_fitted_values,
 
 ```
 
-We can see that our RMSE was r `yardstick::rmse(wf_fitted_values, truth = Sepal.Length, estimate = .fitted) %>% pull(.estimate)`. This is fairly low, so our model did pretty well.
+We can see that our RMSE was `r yardstick::rmse(wf_fitted_values, truth = Sepal.Length, estimate = .fitted) %>% pull(.estimate)`. This is fairly low, so our model did pretty well.
 
 
 We can also make a plot to visualize how well we predicted `Sepal.Length`.
@@ -1750,7 +1749,7 @@ wf_fitted_values %>%
   labs( x = "True Sepal Length", y = "Predicted Sepal Length")
 ```
 
-We can see that overall our model predicted the sepal length fairly well. We can see that the model appeared to do less well at predicted very long sepal lengths.
+We can see that overall our model predicted the sepal length fairly well, as the predicted values are fairly close to the true values. We can also see that the predicitions were similar to the truth for the full range of true sepal length values. 
 
 
 Typically we might modify our preprocessing steps or try a different model until we were satisfied with the performance on our training data. Assuming we are satisfied, we could then perform a final assessment of our model using the testing data. 
@@ -1805,7 +1804,7 @@ Great, indeed we have good representation of all 3 species in both the training 
 
 This time we will also show an example of how to perform what is called cross validation. This process allows us to get a better estimate about the performance of our model using just our training data by splitting it into multiple pieces to assess the model fit over and over. This is helpful for making sure that our model will be generalizable, meaning that it will work well with a variety of new datasets. Recall that using an independent validation set is part of what we call [out-of-sample testing](https://en.wikipedia.org/wiki/Cross-validation_(statistics)) to get a sense of how our model might perform with new datasets. Cross validation helps us to get a sense of this using our training data, so that we can build a better more generalizable model. 
 
-By creating subsets of the data, we can test the model performance on each subset which is also a type of out-of-sample testing, as we are not using the entire training dataset, but subsets of the data which may have different properties than that of the full training dataset or each other. For example certain subsets may happen to have unusual values for a particular predictor that are muted by the larger training dataset. With each round of cross validation we perform training and testing on subsets of the training data. This gives us estimates of the out-of-sample performance, where the [out-of-sample error or generalization error](https://en.wikipedia.org/wiki/Generalization_error) indicates how often predictions are incorrect in the small testing subsets.
+By creating subsets of the data, we can test the model performance on each subset which is also a type of out-of-sample testing, as we are not using the entire training dataset, but subsets of the data which may have different properties than that of the full training dataset or each other. For example certain subsets may happen to have unusual values for a particular predictor that are muted by the larger training dataset. With each round of cross validation we perform training and testing on subsets of the training data. This gives us estimates of the out-of-sample performance, where the [out-of-sample error or generalization error](https://en.wikipedia.org/wiki/Generalization_error) indicates how often predictions are incorrect in the smaller testing subsets of the training data.
 
 Cross validation is also helpful for optimizing what we call hyperparameters. 
 
@@ -1829,7 +1828,7 @@ The reason we do this it so we can get a better sense of the accuracy of our mod
 
 However, we can do a better job of optimizing our model for accuracy if we also perform another type of [cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)){target="_blank"} on just the newly defined training set that we just created. 
 
-There are many [cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)){target="_blank"} methods and most can be easily implemented using the `rsample` package. 
+There are many [cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)){target="_blank"} methods and most can be easily implemented using the `rsample` package. See [here](https://cran.r-project.org/web/packages/rsample/rsample.pdf) for options.
 
 Here, we will use a very popular method called either [v-fold or k-fold cross validation](https://machinelearningmastery.com/k-fold-cross-validation/){target="_blank"}. 
 
@@ -1878,7 +1877,15 @@ pull(vfold_iris, splits)
 
 Now we can see that we have created 4 folds of the data and we can see how many values were set aside for testing (called assessing for cross validation sets) and training (called analysis for cross validation sets) within each fold.
 
-First we will just use cross validation to get a better sense of the out-of-sample performance of our model using just the training data. Then we will show how to modify this to perform tuning.
+First we will just use cross validation to get a better sense of the **out-of-sample** performance of our model using just the training data. Then we will show how to modify this to perform tuning.
+
+If we want to take a look at the cross validation splits we can do so like this:
+
+```{r}
+first_fold <-vfold_iris$splits[[1]]
+head(as.data.frame(first_fold, data = "analysis")) # training set of this fold
+head(as.data.frame(first_fold, data = "assessment")) # test set of this fold
+```
 
 #### Example of creating another recipe, model and workflow
 
@@ -1929,7 +1936,7 @@ wf_fit_cat <- iris_cat_wflow_fit %>%
 
 
 The output is a bit different for categorical variables. 
-We can also see variable importance from the model fit, which shows which variables were most important for classifying the data values. This lists a score for each variable which shows the decrease in error when splitting by this variable relative to others. Avocado - can someone check that? 
+We can also see variable importance from the model fit, which shows which variables were most important for classifying the data values. This lists a score for each variable which shows the decrease in error when splitting by this variable relative to others.
 
 ```{r}
 wf_fit_cat$fit$variable.importance
@@ -1948,14 +1955,13 @@ yardstick::accuracy(training_iris,
                truth = Species, estimate = pred_species$.pred_class)
 ```
 
-
 It looks like 97% of the time our model correctly predicted the right species.
 
 
 We can also see which species were correctly predicted using `count` function.
 
 ```{r}
-count(training_iris,Species)
+count(training_iris, Species)
 count(pred_species, .pred_class)
 ```
 We can see that one extra versicolor iris was predicted, and one fewer virginica iris.
@@ -2807,12 +2813,11 @@ The `rand_forest()` function of the `parsnip` package has three important argume
 
 We will start by trying an `mtry` value of 10 and a `min_n` value of 4.
 
-Now that we have our recipe (`RF_rec`), let's specify the model with `rand_forest()` from `parsnip` with the `mode = "regression"` argument to specify our outcome variable (air pollution) is continuous. 
+Now that we have our recipe (`RF_rec`), let's specify the model with `rand_forest()` from `parsnip`.
 
 ```{r}
 PMtree_model <- 
-  parsnip::rand_forest(mtry = 10, min_n = 4, 
-                       mode = "regression")
+  parsnip::rand_forest(mtry = 10, min_n = 4)
 PMtree_model
 ```
 
@@ -2896,8 +2901,7 @@ This is when our cross validation methods become really handy because now we can
 Previously we specified our model like so:
 ```{r}
 RF_PM_model <- 
-  parsnip::rand_forest(mtry = 10, min_n = 4, 
-                       mode = "regression") %>%
+  parsnip::rand_forest(mtry = 10, min_n = 4) %>%
   set_engine("randomForest") %>%
   set_mode("regression")
 
@@ -2908,8 +2912,7 @@ Now instead of specifying a value for the `mtry` and `min_n` arguments, we can u
 
 ```{r}
 
-tune_RF_model <- rand_forest(mtry = tune(), min_n = tune(),
-                             mode = "regression") %>%
+tune_RF_model <- rand_forest(mtry = tune(), min_n = tune()) %>%
   set_engine("randomForest") %>%
   set_mode("regression")
     
@@ -3051,4 +3054,3 @@ test_predictions %>%
   geom_smooth(method = "lm")
 ```
 
-avocado: perhaps more explanation at the end?
