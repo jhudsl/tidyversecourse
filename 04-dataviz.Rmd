@@ -202,57 +202,32 @@ Similarly, the intention of your graphic should never be to mislead and confuse.
 
 ## Plot Generation Process
 
-Having discussed some general guidelines, there are a number of questions you should ask yourself before making a plot. These have been nicely laid out in a [blog post](https://blog.datawrapper.de/better-charts/) from the wonderful team at [Chartable](https://blog.datawrapper.de/), [Datawrapper's](https://www.datawrapper.de/) blog. We will summarize them here and include a number of the images from their post. The post argues that there are three main questions you should ask any time you create a visual display of your data. We will discuss these three questions below and then step through the process of creating data displays in R.
+Having discussed some general guidelines, there are a number of questions you should ask yourself before making a plot. These have been nicely laid out in a [blog post](https://blog.datawrapper.de/better-charts/) from the wonderful team at [Chartable](https://blog.datawrapper.de/), [Datawrapper's](https://www.datawrapper.de/) blog and we will summarize them here. The post argues that there are three main questions you should ask any time you create a visual display of your data. We will discuss these three questions below
 
-![Three Questions for Creating a Chart](https://docs.google.com/presentation/d/1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w/export/png?id=1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w&pageid=g3a100c29e0_0_39)
-
-1. What's your point?
-2. How can you emphasize your point in your chart?
-3. What does your final chart show exactly?
-
-### The Data We Want to Plot
-
-When discussing data visualization, it's always good to have an example to look at. For the example here, we'll use the same example [Lisa Charlotte Rost](https://twitter.com/lisacrost) used in her blog post. If you were interested in analyzing data that looked to assess the success of the iPhone, you would want to look at data to see how sales of iPhones have changed over time. You might, for example, start with a super basic plot like this:
-
-![iPhone Sales over time](https://docs.google.com/presentation/d/1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w/export/png?id=1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w&pageid=g3a100c29e0_0_44)
-
-### What's Your Point?
+### What's your point?
 
 Whenever you have data you're trying to plot, think about what you're actually trying to show. Once you've taken a look at your data, a good title for the plot can be helpful. Your title should **tell viewers what they'll see when they look at the plot**. 
 
-For the iPhone example, a reasonable headline would be **"iPhone more successful than all other Apple products." This tells us what others would expect to conclude from looking at the data in the figure. 
-
-![iPhone Sales over time with title](https://docs.google.com/presentation/d/1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w/export/png?id=1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w&pageid=g3a100c29e0_0_50)
-
-### How to Emphasize Your Point?
+### How can you emphasize your point in your chart?
 
 We talked about it in the last lesson, but an incredibly important decision is that, choosing an appropriate chart for the type of data you have is very important. In the next section of this lesson, we'll discuss what type of data are appropriate for each type of plot in R; however, for now, we'll just focus on the iPhone data example. With this example, we'll discuss that you can emphasize your point by:
 
-* adding data
-* highlighting data with color
-* annotating your plot
+* Adding data
+* Highlighting data with color
+* Annotating your plot
 
 #### Adding data
 
-With our example data set, our title suggests that the iPhone has been Apple's most successful product. To make that claim, it would be really helpful for the plot to compare iPhone sales with other Apple products, say, the iPad or the iPod. By adding data about other Apple products over time, we can visualize just how successful the iPhone has been.
-
-![iPhone Sales over time vs other Apple Products](https://docs.google.com/presentation/d/1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w/export/png?id=1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w&pageid=g3a100c29e0_0_56)
+In any plot that makes a specific claim, it usually important to show additional data as a reference for comparison. For example, if you were making a plot of that suggests that the iPhone has been Apple's most successful product, it would be helpful for the plot to compare iPhone sales with other Apple products, say, the iPad or the iPod. By adding data about other Apple products over time, we can visualize just how successful the iPhone has been compared to other products.
 
 #### Highlighting data with color
 
 Colors help direct viewers' eyes to the most important parts of the figure. Colors tell your readers where to focus their attention. Grays help to tell viewers where to focus less of their attention, while other colors help to highlight the point your trying to make.
 
-For example, in the iPhone example, we can de-emphasize the iPod and iPad data using gray lines, while really highlighting the huge amount of growth of the iPhone, by making its line red.
-
-![iPhone Sales, in red, over time vs other Apple Products, in gray](https://docs.google.com/presentation/d/1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w/export/png?id=1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w&pageid=g3a100c29e0_0_61)
-
 #### Annotate your plot
 
 By highlighting parts of your plot with arrows or text on your plot, you can further draw viewers' attention to certain part of the plot. These are often details that are unnecessary in exploratory plots, where the goal is just to better understand the data, but are very helpful in explanatory plots, when you're trying to draw conclusions from the plot. 
 
-In the iPhone example, by highlighting when Apple announced the iPhone 4 in 2010 and adding text to explain that this was the first time that more iPhones were sold than iPods, viewers get a better understanding of the data.
-
-![iPhone sales over time annotated](https://docs.google.com/presentation/d/1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w/export/png?id=1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w&pageid=g3a100c29e0_0_66)
 
 ### What Does Your Final Chart Show?
 
@@ -260,95 +235,13 @@ The first step of the process told viewers what they would see in the plot. The 
 
 #### Write precise descriptions 
 
-Whether it's a figure legend at the bottom of your plot, a subtitle explaining what data are plotted, or clear axes labels, text describing clearly what's going on in your plot is important. Here, the author of these plots decided to include a subtitle, "Worldwide sales of selected Apple products in million, by fiscal quarter, 2000 to 2014." She could have similarly included this information on the y-axis "Worldwide sales of Apple products (in millions)." While there are different approaches, including this information is critical.
-
-![iPhone sales over time annotated with description](https://docs.google.com/presentation/d/1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w/export/png?id=1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w&pageid=g3a100c29e0_0_72)
-
-#### Add legends 
-
-When making a plot, be sure that viewers are able to easily determine what each line or point on a plot represents. Here, by adding text to label which line is iPhone, which is iPad, and which is iPod, viewers are quickly able to understand the plot
-
-![iPhone sales over time annotated with description and text labels](https://docs.google.com/presentation/d/1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w/export/png?id=1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w&pageid=g3a100c29e0_0_78)
+Whether it's a figure legend at the bottom of your plot, a subtitle explaining what data are plotted, or clear axes labels, text describing clearly what's going on in your plot is important. Be sure that viewers are able to easily determine what each line or point on a plot represents. 
 
 #### Add a source
 
 When finalizing an explanatory plot, be sure to source your data. It's always best for readers to know where you obtained your data and what data are being used to create your plot. Transparency is important.
 
-![iPhone sales over time with source information](https://docs.google.com/presentation/d/1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w/export/png?id=1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w&pageid=g3a100c29e0_0_86)
 
-The finalized plot is clear, the conclusion the viewer is to make is obvious, the data are well-labeled, and the plot is annotated.
-
-![Final blog post plot](https://docs.google.com/presentation/d/1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w/export/png?id=1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w&pageid=g3a100c29e0_0_92)
-
-### Making the iPhone Plot in R
-
-Here, we'll introduce the code required to generate the plot used as an example in this lesson in R, but we won't walk through this code step-by-step until a later lesson. We include this now to make two points:
-
-1. Once you have access to the data, you **can** manipulate plots to look the way you want.
-2. It often takes a lot of somewhat complicated code to reproduce someone else's beautiful plot.
-
-As to the second point above, while the code here is rather complicated, you'll see that the code required to make basic plots in R is quite simple. Once you master the basics, you'll be able to start generating more and more complex plots, building on the basic building blocs that we'll go over in the next lesson!
-
-```{r eval = FALSE}
-library(ggplot2)
-library(reshape2)
-library(zoo)
-library(directlabels)
-
-## after downloading data from https://blog.datawrapper.de/better-charts/
-## read data into R
-df <- read.csv("data-orzoM.csv", stringsAsFactors=FALSE)
-
-## get quarter year variable into a form R knows how to work with
-df$Year <- grep("Q",unlist(strsplit(as.character(df$Quarter),"\\s")), value=TRUE, invert=TRUE)
-df$Q <- grep("Q",unlist(strsplit(as.character(df$Quarter),"\\s")), value=TRUE, invert=FALSE)
-df$yrq <- paste(df$Year,df$Q, sep=" ")
-df$yrq <- as.yearqtr(df$yrq)
-
-## reshape data into long, tidy format
-df2 <- melt(df, id=c("Quarter","yrq","Year", "Q"))
-df2$value <- as.numeric(df2$value)
-
-## plot data as in blog post
-p <- ggplot(data = df2, aes(x = yrq, 
-                            y = value, 
-                            group = variable, 
-                            color = variable)) +
-  geom_line(size = 1.5) +
-  scale_x_yearqtr(limits = c(2004, 2015),
-                  format = "%Y", breaks = c(2004:2015), 
-                  expand = c(0.1, 0.01)) + 
-  scale_colour_manual(values = c("red3", "grey", "grey")) + 
-  scale_y_continuous(breaks = c(0, 10, 20, 30, 40, 50, 60, 70, 80)) + 
-  theme_bw() +
-  theme(panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        axis.title.x = element_blank(),
-        axis.title.y = element_blank(),
-        axis.text = element_text(size = 15),
-        plot.margin = unit(c(1,1,1,1), "lines"),
-        legend.position ="none",
-        plot.title = element_text(size = 22),
-        plot.subtitle = element_text(size = 15),
-        panel.border = element_blank()
-  ) +
-  geom_dl(aes(label = variable), 
-          method = list(c("last.points"),
-                        aes(colour = "black"), 
-                        cex = 1.3)
-  ) +
-  ggtitle("iPhone more successful than all other Apple products", 
-          subtitle="Worldwide sales of selected Apple products in million, by fiscal quarter, 2000 to 2014") +
-  annotate("rect", xmin = 2010, xmax = 2011, ymin = 0, ymax = Inf, fill = "grey", alpha = 0.2) +
-  annotate("text", x = 2010.5, y = 40, label = "After Apple announced \n the iPhone 4 in 2010, \n more iPhones were sold \n than iPods for the first time.", hjust = 1, size=6)
-
-## save plot as PNG  
-ggsave("iPhone_sales.png",p, width=12 , units=c("in"))
-```
-
-![Reproduced blog post plot](https://docs.google.com/presentation/d/1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w/export/png?id=1j6GOwIwvDwwmec6PaQlQGyYORn3a0j4EiZHoUbQN5_w&pageid=g3a100c29e0_0_102)
-
-While the plots are not identical, they are very similar and tell the same story. Making good plots in R is an important skill and can be learned using the `ggplot2` package in R. Learning the ins and outs of plot generation in `ggplot2` plot will be our primary focus in the rest of this course.
 
 ## `ggplot2`: Basics
 
