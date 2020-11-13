@@ -1785,7 +1785,7 @@ formula(first_recipe)
 
 ```
 ## Sepal.Length ~ Sepal.Width + Species
-## <environment: 0x7fb8c7c88200>
+## <environment: 0x7f88cb2c7d50>
 ```
 
 We can also view our recipe in more detail using the base summary() function.
@@ -1869,7 +1869,6 @@ first_recipe
 ```
 #### Step 3: Example of optionally performing the preprocessing to see how it influences the data
 
-avocado update for recipes update...
 Optionally one can use the `prep()` function of the `recipes` package to update the recipe for manually performing the preprocessing to see how this influences the data. This step is however not required when using the `workflows` package. The preprocessed training data can than be viewed by using the `bake()` function with the `new_data = NULL` argument, while preprocessed testing data can be viewed using the `bake()` function and specifying that the testing data is the `new_data`.
 
 The `prep()` function estimates parameters (estimating the required quantities and statistics required by the steps for the variables) for preprocessing and updates the variables roles, as sometimes predictors may be removed, this allows the recipe to be ready to use on other data sets. 
@@ -2242,7 +2241,7 @@ yardstick::rmse(wf_fitted_values,
 ## 1 rmse    standard       0.410
 ```
 
-We can see that our RMSE was r `yardstick::rmse(wf_fitted_values, truth = Sepal.Length, estimate = .fitted) %>% pull(.estimate)`. This is fairly low, so our model did pretty well.
+We can see that our RMSE was 0.409558. This is fairly low, so our model did pretty well.
 
 
 We can also make a plot to visualize how well we predicted `Sepal.Length`.
@@ -2262,7 +2261,7 @@ wf_fitted_values %>%
 
 <img src="05-prediction_files/figure-html/unnamed-chunk-69-1.png" width="672" />
 
-We can see that overall our model predicted the sepal length fairly well. We can see that the model appeared to do less well at predicted very long sepal lengths.
+We can see that overall our model predicted the sepal length fairly well, as the predicted values are fairly close to the true values. We can also see that the predicitions were similar to the truth for the full range of true sepal length values. 
 
 
 Typically we might modify our preprocessing steps or try a different model until we were satisfied with the performance on our training data. Assuming we are satisfied, we could then perform a final assessment of our model using the testing data. 
@@ -2391,7 +2390,7 @@ Great, indeed we have good representation of all 3 species in both the training 
 
 This time we will also show an example of how to perform what is called cross validation. This process allows us to get a better estimate about the performance of our model using just our training data by splitting it into multiple pieces to assess the model fit over and over. This is helpful for making sure that our model will be generalizable, meaning that it will work well with a variety of new datasets. Recall that using an independent validation set is part of what we call [out-of-sample testing](https://en.wikipedia.org/wiki/Cross-validation_(statistics)) to get a sense of how our model might perform with new datasets. Cross validation helps us to get a sense of this using our training data, so that we can build a better more generalizable model. 
 
-By creating subsets of the data, we can test the model performance on each subset which is also a type of out-of-sample testing, as we are not using the entire training dataset, but subsets of the data which may have different properties than that of the full training dataset or each other. For example certain subsets may happen to have unusual values for a particular predictor that are muted by the larger training dataset. With each round of cross validation we perform training and testing on subsets of the training data. This gives us estimates of the out-of-sample performance, where the [out-of-sample error or generalization error](https://en.wikipedia.org/wiki/Generalization_error) indicates how often predictions are incorrect in the small testing subsets.
+By creating subsets of the data, we can test the model performance on each subset which is also a type of out-of-sample testing, as we are not using the entire training dataset, but subsets of the data which may have different properties than that of the full training dataset or each other. For example certain subsets may happen to have unusual values for a particular predictor that are muted by the larger training dataset. With each round of cross validation we perform training and testing on subsets of the training data. This gives us estimates of the out-of-sample performance, where the [out-of-sample error or generalization error](https://en.wikipedia.org/wiki/Generalization_error) indicates how often predictions are incorrect in the smaller testing subsets of the training data.
 
 Cross validation is also helpful for optimizing what we call hyperparameters. 
 
@@ -2415,7 +2414,7 @@ The reason we do this it so we can get a better sense of the accuracy of our mod
 
 However, we can do a better job of optimizing our model for accuracy if we also perform another type of [cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)){target="_blank"} on just the newly defined training set that we just created. 
 
-There are many [cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)){target="_blank"} methods and most can be easily implemented using the `rsample` package. 
+There are many [cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)){target="_blank"} methods and most can be easily implemented using the `rsample` package. See [here](https://cran.r-project.org/web/packages/rsample/rsample.pdf) for options.
 
 Here, we will use a very popular method called either [v-fold or k-fold cross validation](https://machinelearningmastery.com/k-fold-cross-validation/){target="_blank"}. 
 
@@ -2491,7 +2490,39 @@ pull(vfold_iris, splits)
 
 Now we can see that we have created 4 folds of the data and we can see how many values were set aside for testing (called assessing for cross validation sets) and training (called analysis for cross validation sets) within each fold.
 
-First we will just use cross validation to get a better sense of the out-of-sample performance of our model using just the training data. Then we will show how to modify this to perform tuning.
+First we will just use cross validation to get a better sense of the **out-of-sample** performance of our model using just the training data. Then we will show how to modify this to perform tuning.
+
+If we want to take a look at the cross validation splits we can do so like this:
+
+
+```r
+first_fold <-vfold_iris$splits[[1]]
+head(as.data.frame(first_fold, data = "analysis")) # training set of this fold
+```
+
+```
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1           5.1         3.5          1.4         0.2  setosa
+## 7           4.6         3.4          1.4         0.3  setosa
+## 8           5.0         3.4          1.5         0.2  setosa
+## 11          5.4         3.7          1.5         0.2  setosa
+## 12          4.8         3.4          1.6         0.2  setosa
+## 13          4.8         3.0          1.4         0.1  setosa
+```
+
+```r
+head(as.data.frame(first_fold, data = "assessment")) # test set of this fold
+```
+
+```
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 9           4.4         2.9          1.4         0.2  setosa
+## 10          4.9         3.1          1.5         0.1  setosa
+## 23          4.6         3.6          1.0         0.2  setosa
+## 25          4.8         3.4          1.9         0.2  setosa
+## 34          5.5         4.2          1.4         0.2  setosa
+## 37          5.5         3.5          1.3         0.2  setosa
+```
 
 #### Example of creating another recipe, model and workflow
 
@@ -2587,7 +2618,7 @@ wf_fit_cat <- iris_cat_wflow_fit %>%
 
 
 The output is a bit different for categorical variables. 
-We can also see variable importance from the model fit, which shows which variables were most important for classifying the data values. This lists a score for each variable which shows the decrease in error when splitting by this variable relative to others. Avocado - can someone check that? 
+We can also see variable importance from the model fit, which shows which variables were most important for classifying the data values. This lists a score for each variable which shows the decrease in error when splitting by this variable relative to others.
 
 
 ```r
@@ -2619,7 +2650,6 @@ yardstick::accuracy(training_iris,
 ## 1 accuracy multiclass      0.97
 ```
 
-
 It looks like 97% of the time our model correctly predicted the right species.
 
 
@@ -2627,7 +2657,7 @@ We can also see which species were correctly predicted using `count` function.
 
 
 ```r
-count(training_iris,Species)
+count(training_iris, Species)
 ```
 
 ```
@@ -3104,7 +3134,7 @@ skim(pm)
 ```
 
 
-Table: (\#tab:unnamed-chunk-93)Data summary
+Table: (\#tab:unnamed-chunk-94)Data summary
 
                                 
 -------------------------  -----
@@ -3262,7 +3292,7 @@ PM_cor <- cor(pm %>% dplyr::select_if(is.numeric))
 corrplot::corrplot(PM_cor, tl.cex = 0.5)
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-95-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-96-1.png" width="672" />
 
 We can see that the development variables (`imp`) variables are correlated with each other as we might expect. 
 We also see that the road density variables seem to be correlated with each other, and the emission variables seem to be correlated with each other. 
@@ -3408,7 +3438,7 @@ formula(simple_rec)
 ##     popdens_county + popdens_zcta + nohs + somehs + hs + somecollege + 
 ##     associate + bachelor + grad + pov + hs_orless + urc2013 + 
 ##     urc2006 + aod
-## <environment: 0x7fb8e3a479c0>
+## <environment: 0x7f88d70caeb0>
 ```
 
 **This [link](https://tidymodels.github.io/recipes/reference/index.html){target="_blank"} and this [link](https://cran.r-project.org/web/packages/recipes/recipes.pdf){target="_blank"} show the many options for recipe step functions.**
@@ -4361,7 +4391,7 @@ PM_wflow_fit %>%
   vip(num_features = 10)
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-121-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-122-1.png" width="672" />
 
 The state in which the monitor was located and the CMAQ model and the aod satellite information appear to be the most important for predicting the air pollution at a given monitor.
 
@@ -4465,7 +4495,7 @@ wf_fitted_values %>%
   ylab("predicted outcome values")
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-125-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-126-1.png" width="672" />
 
 OK, so our range of the predicted outcome values appears to be smaller than the real values. 
 We could probably do a bit better.
@@ -4914,7 +4944,7 @@ RF_wflow_fit
 ##                     % Var explained: 59.83
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-137-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-138-1.png" width="672" />
 
 Interesting! In the previous model the CMAQ values and the state where the monitor was located were also the top two most important, however predictors about education levels of the communities where the monitor was located was among the top most important. Now we see that population density and proximity to sources of emissions and roads are among the top ten.
 
@@ -5108,12 +5138,12 @@ tune_RF_results%>%
 ## # A tibble: 6 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1     1    27 rmse    standard   2.05     10  0.145 
-## 2     1    27 rsq     standard   0.487    10  0.0385
-## 3     4    30 rmse    standard   1.80     10  0.145 
-## 4     4    30 rsq     standard   0.594    10  0.0389
-## 5     6    32 rmse    standard   1.76     10  0.146 
-## 6     6    32 rsq     standard   0.607    10  0.0393
+## 1     1    27 rmse    standard   2.05     10  0.144 
+## 2     1    27 rsq     standard   0.485    10  0.0373
+## 3     4    30 rmse    standard   1.81     10  0.144 
+## 4     4    30 rsq     standard   0.589    10  0.0387
+## 5     6    32 rmse    standard   1.76     10  0.148 
+## 6     6    32 rsq     standard   0.602    10  0.0405
 ```
 
 We can now use the `show_best()` function as it was truly intended, to see what values for `min_n` and `mtry` resulted in the best performance.
@@ -5127,7 +5157,7 @@ show_best(tune_RF_results, metric = "rmse", n =1)
 ## # A tibble: 1 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1    17     4 rmse    standard    1.67    10   0.147
+## 1    17     4 rmse    standard    1.68    10   0.146
 ```
 There we have it... looks like an `mtry` of 17 and `min_n` of 4 had the best `rmse` value. You can verify this in the above output, but it is easier to just pull this row out using this function. We can see that the mean `rmse` value across the cross validation sets was 1.67. Before tuning it was 1.68 with a similar `std_err` so the performance was very slightly improved.
 
@@ -5238,6 +5268,5 @@ test_predictions %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-152-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-153-1.png" width="672" />
 
-avocado: perhaps more explanation at the end?
