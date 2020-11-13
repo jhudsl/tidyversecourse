@@ -150,7 +150,7 @@ df
 
 Here we also get information about the dimensions of our data object and the name and class of our variables.
 
-<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/tibble.png" width="60%" />
+<img src="/Users/rdpeng/books/tidyversecourse/book_figures/tibble.png" width="60%" />
 
 ### Missing Values
 
@@ -616,7 +616,7 @@ cor.test(pull(df %>% filter(bodywt<2000 & bodywt >1 & brainwt<1),bodywt),
 ## 	Pearson's product-moment correlation
 ## 
 ## data:  pull(df %>% filter(bodywt < 2000 & bodywt > 1 & brainwt < 1), bodywt) and pull(df %>% filter(bodywt < 2000 & bodywt > 1 & brainwt < 1), brainwt)
-## t = 6.6127, df = 27, p-value = 4.283e-07
+## t = 6.6127, df = 27, p-value = 0.0000004283
 ## alternative hypothesis: true correlation is not equal to 0
 ## 95 percent confidence interval:
 ##  0.5897381 0.8949042
@@ -1324,15 +1324,21 @@ CI <-soda_ounces %>%
   generate(rep = 1000, type = "bootstrap") %>%
   calculate(stat = "mean") %>% 
   get_confidence_interval()
+```
 
+```
+## Using `level = 0.95` to compute confidence interval.
+```
+
+```r
 CI
 ```
 
 ```
 ## # A tibble: 1 x 2
-##   `2.5%` `97.5%`
-##    <dbl>   <dbl>
-## 1   12.0    12.0
+##   lower_ci upper_ci
+##      <dbl>    <dbl>
+## 1     12.0     12.0
 ```
 
 We can see that our confidence interval is very similar but slightly different from the results we obtained using the `t.test()` function and the `lm()` function. This is because we used a different method to calculate the confidence interval based on the bootstrap samples. Furthermore, the results will vary every time the code is run because the bootstrap samples are randomly created each time.
@@ -1569,7 +1575,7 @@ Modifying a piece of the overall process is now easier than before because many 
 
 We will focus on the following packages although there are many more in the tidymodels ecosystem:                          
 
-<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/simpletidymodels.png" width="830" />
+<img src="/Users/rdpeng/books/tidyversecourse/book_figures/simpletidymodels.png" width="830" />
 
 1) `rsamples` - to split the data into training and testing sets (as well as cross validation sets - more on that later!)  
 2) `recipes` -  to prepare the data with preprocessing (assign variables and preprocessing steps)  
@@ -1583,14 +1589,14 @@ We will focus on the following packages although there are many more in the tidy
 
 Here you can see a visual of how these packages work together in the process of performing a machine learning analysis:
 
-<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/MachineLearning_tidymodels.png" width="1252" />
+<img src="/Users/rdpeng/books/tidyversecourse/book_figures/MachineLearning_tidymodels.png" width="1252" />
 
 To illustrate how to use each of these packages, we will work through some examples.
 
 
 Other `tidymodels` packages include:
 
-<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/tidymodels_packages.jpg" width="600" />
+<img src="/Users/rdpeng/books/tidyversecourse/book_figures/tidymodels_packages.jpg" width="600" />
 [[source](https://pbs.twimg.com/media/Ef1Oac7WAAImCos.jpg)]
 
 1) `applicable` compares new data points with the training data to see how much the new data points appear to be an extrapolation of the training data  
@@ -1714,10 +1720,6 @@ library(recipes)
 ```
 
 ```
-## Warning: package 'recipes' was built under R version 4.0.2
-```
-
-```
 ## 
 ## Attaching package: 'recipes'
 ```
@@ -1785,7 +1787,7 @@ formula(first_recipe)
 
 ```
 ## Sepal.Length ~ Sepal.Width + Species
-## <environment: 0x7f88cb2c7d50>
+## <environment: 0x7fa52d644638>
 ```
 
 We can also view our recipe in more detail using the base summary() function.
@@ -2092,16 +2094,16 @@ iris_reg_wflow
 ```
 
 ```
-## ══ Workflow ═════════════════════════════════════════════════════════════════════════════════════════════════════════════
+## ══ Workflow ════════════════════════════════════════════════════════════════════
 ## Preprocessor: Recipe
 ## Model: linear_reg()
 ## 
-## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Preprocessor ────────────────────────────────────────────────────────────────
 ## 1 Recipe Step
 ## 
 ## ● step_dummy()
 ## 
-## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Model ───────────────────────────────────────────────────────────────────────
 ## Linear Regression Model Specification (regression)
 ## 
 ## Computational engine: lm
@@ -2120,19 +2122,19 @@ iris_reg_wflow_fit
 ```
 
 ```
-## ══ Workflow [trained] ═══════════════════════════════════════════════════════════════════════════════════════════════════
+## ══ Workflow [trained] ══════════════════════════════════════════════════════════
 ## Preprocessor: Recipe
 ## Model: linear_reg()
 ## 
-## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Preprocessor ────────────────────────────────────────────────────────────────
 ## 1 Recipe Step
 ## 
 ## ● step_dummy()
 ## 
-## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Model ───────────────────────────────────────────────────────────────────────
 ## 
 ## Call:
-## stats::lm(formula = formula, data = data)
+## stats::lm(formula = ..y ~ ., data = data)
 ## 
 ## Coefficients:
 ##        (Intercept)         Sepal.Width      Species_setosa  Species_versicolor  
@@ -2202,15 +2204,15 @@ head(wf_fitted_values)
 ```
 
 ```
-FALSE # A tibble: 6 x 8
-FALSE   Sepal.Length .fitted .se.fit    .resid   .hat .sigma       .cooksd .std.resid
-FALSE          <dbl>   <dbl>   <dbl>     <dbl>  <dbl>  <dbl>         <dbl>      <dbl>
-FALSE 1          5.1    5.07  0.0707  0.0308   0.0286  0.420 0.0000413       0.0748  
-FALSE 2          4.6    5.00  0.0712 -0.400    0.0290  0.418 0.00706        -0.972   
-FALSE 3          5      5.00  0.0712 -0.000194 0.0290  0.420 0.00000000166  -0.000471
-FALSE 4          4.4    4.66  0.0995 -0.255    0.0567  0.419 0.00595        -0.629   
-FALSE 5          4.9    4.79  0.0841  0.107    0.0405  0.420 0.000717        0.261   
-FALSE 6          5.4    5.21  0.0758  0.193    0.0329  0.420 0.00187         0.469
+FALSE # A tibble: 6 x 3
+FALSE   Sepal.Length .fitted .std.resid
+FALSE          <dbl>   <dbl>      <dbl>
+FALSE 1          5.1    5.07   0.0748  
+FALSE 2          4.6    5.00  -0.972   
+FALSE 3          5      5.00  -0.000471
+FALSE 4          4.4    4.66  -0.629   
+FALSE 5          4.9    4.79   0.261   
+FALSE 6          5.4    5.21   0.469
 ```
 
 ```r
@@ -2286,6 +2288,12 @@ overallfit
 ```
 
 ```
+FALSE Warning: This tuning result has notes. Example notes on model fitting include:
+FALSE model (predictions): prediction from a rank-deficient fit may be misleading
+```
+
+```
+FALSE # Resampling results
 FALSE # Monte Carlo cross-validation (0.67/0.33) with 1 resamples  
 FALSE # A tibble: 1 x 6
 FALSE   splits       id           .metrics      .notes       .predictions    .workflow
@@ -2426,14 +2434,14 @@ The number of $v$ subsets to use is also a bit arbitrary, although generally spe
 We are going to use 4 folds for the sake of expediency and simplicity. 
 
 
-<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/vfold.png" width="463" />
+<img src="/Users/rdpeng/books/tidyversecourse/book_figures/vfold.png" width="463" />
 
 The model will be trained on  $v$-1 subsets of the data iteratively (removing a different $v$ until all possible $v$-1 sets have been evaluated), while one fold will be saved to act as a test set. This will give us a sense of the out-of-sample (meaning not the entire training sample) performance of the model.
 
 In the case of tuning, multiple values for the hyperparameter are tested to determine what yields the best model performance.
  
 
-<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/cross_validation.png" width="389" />
+<img src="/Users/rdpeng/books/tidyversecourse/book_figures/cross_validation.png" width="389" />
 
 
 #### Example of creating cross validation samples with `rsample`
@@ -2564,14 +2572,14 @@ iris_cat_wflow
 ```
 
 ```
-## ══ Workflow ═════════════════════════════════════════════════════════════════════════════════════════════════════════════
+## ══ Workflow ════════════════════════════════════════════════════════════════════
 ## Preprocessor: Recipe
 ## Model: decision_tree()
 ## 
-## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Preprocessor ────────────────────────────────────────────────────────────────
 ## 0 Recipe Steps
 ## 
-## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Model ───────────────────────────────────────────────────────────────────────
 ## Decision Tree Model Specification (classification)
 ## 
 ## Computational engine: rpart
@@ -2591,14 +2599,14 @@ iris_cat_wflow_fit
 ```
 
 ```
-## ══ Workflow [trained] ═══════════════════════════════════════════════════════════════════════════════════════════════════
+## ══ Workflow [trained] ══════════════════════════════════════════════════════════
 ## Preprocessor: Recipe
 ## Model: decision_tree()
 ## 
-## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Preprocessor ────────────────────────────────────────────────────────────────
 ## 0 Recipe Steps
 ## 
-## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Model ───────────────────────────────────────────────────────────────────────
 ## n= 100 
 ## 
 ## node), split, n, loss, yval, (yprob)
@@ -2723,7 +2731,8 @@ resample_fit
 ```
 
 ```
-## #  4-fold cross-validation 
+## # Resampling results
+## # 4-fold cross-validation 
 ## # A tibble: 4 x 4
 ##   splits          id    .metrics         .notes          
 ##   <list>          <chr> <list>           <list>          
@@ -2932,7 +2941,7 @@ library(here)
 ```
 
 ```
-## here() starts at /Users/carriewright/Documents/GitHub/tidyversecourse
+## here() starts at /Users/rdpeng/books/tidyversecourse
 ```
 
 ```r
@@ -2940,17 +2949,15 @@ pm <- readr::read_csv(here("data","tidy_data","pm25_data.csv"))
 ```
 
 ```
-## Parsed with column specification:
+## 
+## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
 ##   .default = col_double(),
 ##   state = col_character(),
 ##   county = col_character(),
 ##   city = col_character()
 ## )
-```
-
-```
-## See spec(...) for full column specifications.
+## ℹ Use `spec()` for the full column specifications.
 ```
 
 #### Data Exploration and Wrangling
@@ -3136,87 +3143,86 @@ skim(pm)
 
 Table: (\#tab:unnamed-chunk-94)Data summary
 
-                                
--------------------------  -----
-Name                       pm   
-Number of rows             876  
-Number of columns          50   
-_______________________         
-Column type frequency:          
-character                  3    
-factor                     3    
-numeric                    44   
-________________________        
-Group variables            None 
--------------------------  -----
+|                         |     |
+|:------------------------|:----|
+|Name                     |pm   |
+|Number of rows           |876  |
+|Number of columns        |50   |
+|_______________________  |     |
+|Column type frequency:   |     |
+|character                |3    |
+|factor                   |3    |
+|numeric                  |44   |
+|________________________ |     |
+|Group variables          |None |
 
 
 **Variable type: character**
 
-skim_variable    n_missing   complete_rate   min   max   empty   n_unique   whitespace
---------------  ----------  --------------  ----  ----  ------  ---------  -----------
-state                    0               1     4    20       0         49            0
-county                   0               1     3    20       0        471            0
-city                     0               1     4    48       0        607            0
+|skim_variable | n_missing| complete_rate| min| max| empty| n_unique| whitespace|
+|:-------------|---------:|-------------:|---:|---:|-----:|--------:|----------:|
+|state         |         0|             1|   4|  20|     0|       49|          0|
+|county        |         0|             1|   3|  20|     0|      471|          0|
+|city          |         0|             1|   4|  48|     0|      607|          0|
 
 
 **Variable type: factor**
 
-skim_variable    n_missing   complete_rate  ordered    n_unique  top_counts                       
---------------  ----------  --------------  --------  ---------  ---------------------------------
-id                       0               1  FALSE           876  100: 1, 102: 1, 103: 1, 104: 1   
-fips                     0               1  FALSE           569  170: 12, 603: 10, 261: 9, 107: 8 
-zcta                     0               1  FALSE           842  475: 3, 110: 2, 160: 2, 290: 2   
+|skim_variable | n_missing| complete_rate|ordered | n_unique|top_counts                       |
+|:-------------|---------:|-------------:|:-------|--------:|:--------------------------------|
+|id            |         0|             1|FALSE   |      876|100: 1, 102: 1, 103: 1, 104: 1   |
+|fips          |         0|             1|FALSE   |      569|170: 12, 603: 10, 261: 9, 107: 8 |
+|zcta          |         0|             1|FALSE   |      842|475: 3, 110: 2, 160: 2, 290: 2   |
 
 
 **Variable type: numeric**
 
-skim_variable                  n_missing   complete_rate            mean             sd            p0             p25             p50             p75            p100  hist  
-----------------------------  ----------  --------------  --------------  -------------  ------------  --------------  --------------  --------------  --------------  ------
-value                                  0               1           10.81   2.580000e+00          3.02            9.27           11.15           12.37    2.316000e+01  ▂▆▇▁▁ 
-lat                                    0               1           38.48   4.620000e+00         25.47           35.03           39.30           41.66    4.840000e+01  ▁▃▅▇▂ 
-lon                                    0               1          -91.74   1.496000e+01       -124.18          -99.16          -87.47          -80.69   -6.804000e+01  ▃▂▃▇▃ 
-CMAQ                                   0               1            8.41   2.970000e+00          1.63            6.53            8.62           10.24    2.313000e+01  ▃▇▃▁▁ 
-zcta_area                              0               1    183173481.91   5.425989e+08      15459.00     14204601.75     37653560.50    160041508.25    8.164821e+09  ▇▁▁▁▁ 
-zcta_pop                               0               1        24227.58   1.777216e+04          0.00         9797.00        22014.00        35004.75    9.539700e+04  ▇▇▃▁▁ 
-imp_a500                               0               1           24.72   1.934000e+01          0.00            3.70           25.12           40.22    6.961000e+01  ▇▅▆▃▂ 
-imp_a1000                              0               1           24.26   1.802000e+01          0.00            5.32           24.53           38.59    6.750000e+01  ▇▅▆▃▁ 
-imp_a5000                              0               1           19.93   1.472000e+01          0.05            6.79           19.07           30.11    7.460000e+01  ▇▆▃▁▁ 
-imp_a10000                             0               1           15.82   1.381000e+01          0.09            4.54           12.36           24.17    7.209000e+01  ▇▃▂▁▁ 
-imp_a15000                             0               1           13.43   1.312000e+01          0.11            3.24            9.67           20.55    7.110000e+01  ▇▃▁▁▁ 
-county_area                            0               1   3768701992.12   6.212830e+09   33703512.00   1116536297.50   1690826566.50   2878192209.00    5.194723e+10  ▇▁▁▁▁ 
-county_pop                             0               1       687298.44   1.293489e+06        783.00       100948.00       280730.50       743159.00    9.818605e+06  ▇▁▁▁▁ 
-log_dist_to_prisec                     0               1            6.19   1.410000e+00         -1.46            5.43            6.36            7.15    1.045000e+01  ▁▁▃▇▁ 
-log_pri_length_5000                    0               1            9.82   1.080000e+00          8.52            8.52           10.05           10.73    1.205000e+01  ▇▂▆▅▂ 
-log_pri_length_10000                   0               1           10.92   1.130000e+00          9.21            9.80           11.17           11.83    1.302000e+01  ▇▂▇▇▃ 
-log_pri_length_15000                   0               1           11.50   1.150000e+00          9.62           10.87           11.72           12.40    1.359000e+01  ▆▂▇▇▃ 
-log_pri_length_25000                   0               1           12.24   1.100000e+00         10.13           11.69           12.46           13.05    1.436000e+01  ▅▃▇▇▃ 
-log_prisec_length_500                  0               1            6.99   9.500000e-01          6.21            6.21            6.21            7.82    9.400000e+00  ▇▁▂▂▁ 
-log_prisec_length_1000                 0               1            8.56   7.900000e-01          7.60            7.60            8.66            9.20    1.047000e+01  ▇▅▆▃▁ 
-log_prisec_length_5000                 0               1           11.28   7.800000e-01          8.52           10.91           11.42           11.83    1.278000e+01  ▁▁▃▇▃ 
-log_prisec_length_10000                0               1           12.41   7.300000e-01          9.21           11.99           12.53           12.94    1.385000e+01  ▁▁▃▇▅ 
-log_prisec_length_15000                0               1           13.03   7.200000e-01          9.62           12.59           13.13           13.57    1.441000e+01  ▁▁▃▇▅ 
-log_prisec_length_25000                0               1           13.82   7.000000e-01         10.13           13.38           13.92           14.35    1.523000e+01  ▁▁▃▇▆ 
-log_nei_2008_pm25_sum_10000            0               1            3.97   2.350000e+00          0.00            2.15            4.29            5.69    9.120000e+00  ▆▅▇▆▂ 
-log_nei_2008_pm25_sum_15000            0               1            4.72   2.250000e+00          0.00            3.47            5.00            6.35    9.420000e+00  ▃▃▇▇▂ 
-log_nei_2008_pm25_sum_25000            0               1            5.67   2.110000e+00          0.00            4.66            5.91            7.28    9.650000e+00  ▂▂▇▇▃ 
-log_nei_2008_pm10_sum_10000            0               1            4.35   2.320000e+00          0.00            2.69            4.62            6.07    9.340000e+00  ▅▅▇▇▂ 
-log_nei_2008_pm10_sum_15000            0               1            5.10   2.180000e+00          0.00            3.87            5.39            6.72    9.710000e+00  ▂▃▇▇▂ 
-log_nei_2008_pm10_sum_25000            0               1            6.07   2.010000e+00          0.00            5.10            6.37            7.52    9.880000e+00  ▁▂▆▇▃ 
-popdens_county                         0               1          551.76   1.711510e+03          0.26           40.77          156.67          510.81    2.682191e+04  ▇▁▁▁▁ 
-popdens_zcta                           0               1         1279.66   2.757490e+03          0.00          101.15          610.35         1382.52    3.041884e+04  ▇▁▁▁▁ 
-nohs                                   0               1            6.99   7.210000e+00          0.00            2.70            5.10            8.80    1.000000e+02  ▇▁▁▁▁ 
-somehs                                 0               1           10.17   6.200000e+00          0.00            5.90            9.40           13.90    7.220000e+01  ▇▂▁▁▁ 
-hs                                     0               1           30.32   1.140000e+01          0.00           23.80           30.75           36.10    1.000000e+02  ▂▇▂▁▁ 
-somecollege                            0               1           21.58   8.600000e+00          0.00           17.50           21.30           24.70    1.000000e+02  ▆▇▁▁▁ 
-associate                              0               1            7.13   4.010000e+00          0.00            4.90            7.10            8.80    7.140000e+01  ▇▁▁▁▁ 
-bachelor                               0               1           14.90   9.710000e+00          0.00            8.80           12.95           19.22    1.000000e+02  ▇▂▁▁▁ 
-grad                                   0               1            8.91   8.650000e+00          0.00            3.90            6.70           11.00    1.000000e+02  ▇▁▁▁▁ 
-pov                                    0               1           14.95   1.133000e+01          0.00            6.50           12.10           21.22    6.590000e+01  ▇▅▂▁▁ 
-hs_orless                              0               1           47.48   1.675000e+01          0.00           37.92           48.65           59.10    1.000000e+02  ▁▃▇▃▁ 
-urc2013                                0               1            2.92   1.520000e+00          1.00            2.00            3.00            4.00    6.000000e+00  ▇▅▃▂▁ 
-urc2006                                0               1            2.97   1.520000e+00          1.00            2.00            3.00            4.00    6.000000e+00  ▇▅▃▂▁ 
-aod                                    0               1           43.70   1.956000e+01          5.00           31.66           40.17           49.67    1.430000e+02  ▃▇▁▁▁ 
+|skim_variable               | n_missing| complete_rate|          mean|            sd|          p0|           p25|           p50|           p75|           p100|hist  |
+|:---------------------------|---------:|-------------:|-------------:|-------------:|-----------:|-------------:|-------------:|-------------:|--------------:|:-----|
+|value                       |         0|             1|         10.81|          2.58|        3.02|          9.27|         11.15|         12.37|          23.16|▂▆▇▁▁ |
+|lat                         |         0|             1|         38.48|          4.62|       25.47|         35.03|         39.30|         41.66|          48.40|▁▃▅▇▂ |
+|lon                         |         0|             1|        -91.74|         14.96|     -124.18|        -99.16|        -87.47|        -80.69|         -68.04|▃▂▃▇▃ |
+|CMAQ                        |         0|             1|          8.41|          2.97|        1.63|          6.53|          8.62|         10.24|          23.13|▃▇▃▁▁ |
+|zcta_area                   |         0|             1|  183173481.91|  542598878.48|    15459.00|   14204601.75|   37653560.50|  160041508.25|  8164820625.00|▇▁▁▁▁ |
+|zcta_pop                    |         0|             1|      24227.58|      17772.16|        0.00|       9797.00|      22014.00|      35004.75|       95397.00|▇▇▃▁▁ |
+|imp_a500                    |         0|             1|         24.72|         19.34|        0.00|          3.70|         25.12|         40.22|          69.61|▇▅▆▃▂ |
+|imp_a1000                   |         0|             1|         24.26|         18.02|        0.00|          5.32|         24.53|         38.59|          67.50|▇▅▆▃▁ |
+|imp_a5000                   |         0|             1|         19.93|         14.72|        0.05|          6.79|         19.07|         30.11|          74.60|▇▆▃▁▁ |
+|imp_a10000                  |         0|             1|         15.82|         13.81|        0.09|          4.54|         12.36|         24.17|          72.09|▇▃▂▁▁ |
+|imp_a15000                  |         0|             1|         13.43|         13.12|        0.11|          3.24|          9.67|         20.55|          71.10|▇▃▁▁▁ |
+|county_area                 |         0|             1| 3768701992.12| 6212829553.56| 33703512.00| 1116536297.50| 1690826566.50| 2878192209.00| 51947229509.00|▇▁▁▁▁ |
+|county_pop                  |         0|             1|     687298.44|    1293488.74|      783.00|     100948.00|     280730.50|     743159.00|     9818605.00|▇▁▁▁▁ |
+|log_dist_to_prisec          |         0|             1|          6.19|          1.41|       -1.46|          5.43|          6.36|          7.15|          10.45|▁▁▃▇▁ |
+|log_pri_length_5000         |         0|             1|          9.82|          1.08|        8.52|          8.52|         10.05|         10.73|          12.05|▇▂▆▅▂ |
+|log_pri_length_10000        |         0|             1|         10.92|          1.13|        9.21|          9.80|         11.17|         11.83|          13.02|▇▂▇▇▃ |
+|log_pri_length_15000        |         0|             1|         11.50|          1.15|        9.62|         10.87|         11.72|         12.40|          13.59|▆▂▇▇▃ |
+|log_pri_length_25000        |         0|             1|         12.24|          1.10|       10.13|         11.69|         12.46|         13.05|          14.36|▅▃▇▇▃ |
+|log_prisec_length_500       |         0|             1|          6.99|          0.95|        6.21|          6.21|          6.21|          7.82|           9.40|▇▁▂▂▁ |
+|log_prisec_length_1000      |         0|             1|          8.56|          0.79|        7.60|          7.60|          8.66|          9.20|          10.47|▇▅▆▃▁ |
+|log_prisec_length_5000      |         0|             1|         11.28|          0.78|        8.52|         10.91|         11.42|         11.83|          12.78|▁▁▃▇▃ |
+|log_prisec_length_10000     |         0|             1|         12.41|          0.73|        9.21|         11.99|         12.53|         12.94|          13.85|▁▁▃▇▅ |
+|log_prisec_length_15000     |         0|             1|         13.03|          0.72|        9.62|         12.59|         13.13|         13.57|          14.41|▁▁▃▇▅ |
+|log_prisec_length_25000     |         0|             1|         13.82|          0.70|       10.13|         13.38|         13.92|         14.35|          15.23|▁▁▃▇▆ |
+|log_nei_2008_pm25_sum_10000 |         0|             1|          3.97|          2.35|        0.00|          2.15|          4.29|          5.69|           9.12|▆▅▇▆▂ |
+|log_nei_2008_pm25_sum_15000 |         0|             1|          4.72|          2.25|        0.00|          3.47|          5.00|          6.35|           9.42|▃▃▇▇▂ |
+|log_nei_2008_pm25_sum_25000 |         0|             1|          5.67|          2.11|        0.00|          4.66|          5.91|          7.28|           9.65|▂▂▇▇▃ |
+|log_nei_2008_pm10_sum_10000 |         0|             1|          4.35|          2.32|        0.00|          2.69|          4.62|          6.07|           9.34|▅▅▇▇▂ |
+|log_nei_2008_pm10_sum_15000 |         0|             1|          5.10|          2.18|        0.00|          3.87|          5.39|          6.72|           9.71|▂▃▇▇▂ |
+|log_nei_2008_pm10_sum_25000 |         0|             1|          6.07|          2.01|        0.00|          5.10|          6.37|          7.52|           9.88|▁▂▆▇▃ |
+|popdens_county              |         0|             1|        551.76|       1711.51|        0.26|         40.77|        156.67|        510.81|       26821.91|▇▁▁▁▁ |
+|popdens_zcta                |         0|             1|       1279.66|       2757.49|        0.00|        101.15|        610.35|       1382.52|       30418.84|▇▁▁▁▁ |
+|nohs                        |         0|             1|          6.99|          7.21|        0.00|          2.70|          5.10|          8.80|         100.00|▇▁▁▁▁ |
+|somehs                      |         0|             1|         10.17|          6.20|        0.00|          5.90|          9.40|         13.90|          72.20|▇▂▁▁▁ |
+|hs                          |         0|             1|         30.32|         11.40|        0.00|         23.80|         30.75|         36.10|         100.00|▂▇▂▁▁ |
+|somecollege                 |         0|             1|         21.58|          8.60|        0.00|         17.50|         21.30|         24.70|         100.00|▆▇▁▁▁ |
+|associate                   |         0|             1|          7.13|          4.01|        0.00|          4.90|          7.10|          8.80|          71.40|▇▁▁▁▁ |
+|bachelor                    |         0|             1|         14.90|          9.71|        0.00|          8.80|         12.95|         19.22|         100.00|▇▂▁▁▁ |
+|grad                        |         0|             1|          8.91|          8.65|        0.00|          3.90|          6.70|         11.00|         100.00|▇▁▁▁▁ |
+|pov                         |         0|             1|         14.95|         11.33|        0.00|          6.50|         12.10|         21.22|          65.90|▇▅▂▁▁ |
+|hs_orless                   |         0|             1|         47.48|         16.75|        0.00|         37.92|         48.65|         59.10|         100.00|▁▃▇▃▁ |
+|urc2013                     |         0|             1|          2.92|          1.52|        1.00|          2.00|          3.00|          4.00|           6.00|▇▅▃▂▁ |
+|urc2006                     |         0|             1|          2.97|          1.52|        1.00|          2.00|          3.00|          4.00|           6.00|▇▅▃▂▁ |
+|aod                         |         0|             1|         43.70|         19.56|        5.00|         31.66|         40.17|         49.67|         143.00|▃▇▁▁▁ |
 
 Notice how there is a column called `n_missing` about the number of values that are missing. 
 
@@ -3311,15 +3317,16 @@ library(tidymodels)
 ```
 
 ```
-## ── Attaching packages ─────────────────────────────────────────────────────────────────────────────── tidymodels 0.1.0 ──
+## ── Attaching packages ────────────────────────────────────── tidymodels 0.1.1 ──
 ```
 
 ```
-## ✓ dials     0.0.7     ✓ yardstick 0.0.6
+## ✓ dials     0.0.9     ✓ yardstick 0.0.7
+## ✓ modeldata 0.1.0
 ```
 
 ```
-## ── Conflicts ────────────────────────────────────────────────────────────────────────────────── tidymodels_conflicts() ──
+## ── Conflicts ───────────────────────────────────────── tidymodels_conflicts() ──
 ## x scales::discard()     masks purrr::discard()
 ## x magrittr::extract()   masks tidyr::extract()
 ## x dplyr::filter()       masks stats::filter()
@@ -3438,7 +3445,7 @@ formula(simple_rec)
 ##     popdens_county + popdens_zcta + nohs + somehs + hs + somecollege + 
 ##     associate + bachelor + grad + pov + hs_orless + urc2013 + 
 ##     urc2006 + aod
-## <environment: 0x7f88d70caeb0>
+## <environment: 0x7fa4ebc8e8a8>
 ```
 
 **This [link](https://tidymodels.github.io/recipes/reference/index.html){target="_blank"} and this [link](https://cran.r-project.org/web/packages/recipes/recipes.pdf){target="_blank"} show the many options for recipe step functions.**
@@ -4224,18 +4231,18 @@ PM_wflow
 ```
 
 ```
-## ══ Workflow ═════════════════════════════════════════════════════════════════════════════════════════════════════════════
+## ══ Workflow ════════════════════════════════════════════════════════════════════
 ## Preprocessor: Recipe
 ## Model: linear_reg()
 ## 
-## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Preprocessor ────────────────────────────────────────────────────────────────
 ## 3 Recipe Steps
 ## 
 ## ● step_dummy()
 ## ● step_corr()
 ## ● step_nzv()
 ## 
-## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Model ───────────────────────────────────────────────────────────────────────
 ## Linear Regression Model Specification (regression)
 ## 
 ## Computational engine: lm
@@ -4267,21 +4274,21 @@ PM_wflow_fit
 ```
 
 ```
-## ══ Workflow [trained] ═══════════════════════════════════════════════════════════════════════════════════════════════════
+## ══ Workflow [trained] ══════════════════════════════════════════════════════════
 ## Preprocessor: Recipe
 ## Model: linear_reg()
 ## 
-## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Preprocessor ────────────────────────────────────────────────────────────────
 ## 3 Recipe Steps
 ## 
 ## ● step_dummy()
 ## ● step_corr()
 ## ● step_nzv()
 ## 
-## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Model ───────────────────────────────────────────────────────────────────────
 ## 
 ## Call:
-## stats::lm(formula = formula, data = data)
+## stats::lm(formula = ..y ~ ., data = data)
 ## 
 ## Coefficients:
 ##                 (Intercept)                          lat  
@@ -4339,7 +4346,7 @@ wflowoutput <- PM_wflow_fit %>%
 ```
 
 ```
-## # A tibble: 33 x 5
+## # A tibble: 34 x 5
 ##    term         estimate std.error statistic  p.value
 ##    <chr>           <dbl>     <dbl>     <dbl>    <dbl>
 ##  1 (Intercept)  2.22e+ 2  1.20e+ 2     1.85  6.51e- 2
@@ -4352,7 +4359,7 @@ wflowoutput <- PM_wflow_fit %>%
 ##  8 imp_a15000  -1.25e- 3  1.19e- 2    -0.105 9.16e- 1
 ##  9 county_area -2.24e-11  1.63e-11    -1.38  1.69e- 1
 ## 10 county_pop  -2.05e- 7  9.31e- 8    -2.20  2.79e- 2
-## # … with 23 more rows
+## # … with 24 more rows
 ```
 
 We have fit our model on our training data, which means we have created a model to predict values of air pollution based on the predictors that we have included. Yay!
@@ -4435,15 +4442,15 @@ head(wf_fitted_values)
 ```
 
 ```
-## # A tibble: 6 x 8
-##   value .fitted .se.fit .resid   .hat .sigma    .cooksd .std.resid
-##   <dbl>   <dbl>   <dbl>  <dbl>  <dbl>  <dbl>      <dbl>      <dbl>
-## 1  9.60    9.48   0.375  0.118 0.0323   2.09 0.00000333     0.0573
-## 2 10.8    10.4    0.383  0.382 0.0338   2.09 0.0000368      0.186 
-## 3 11.2    11.8    0.404 -0.574 0.0376   2.09 0.0000933     -0.281 
-## 4 12.4    11.3    0.366  1.08  0.0309   2.09 0.000267       0.526 
-## 5 10.5    10.8    0.424 -0.298 0.0413   2.09 0.0000278     -0.146 
-## 6 15.6    11.1    0.380  4.50  0.0332   2.08 0.00501        2.20
+## # A tibble: 6 x 3
+##   value .fitted .std.resid
+##   <dbl>   <dbl>      <dbl>
+## 1  9.60    9.48     0.0573
+## 2 10.8    10.4      0.186 
+## 3 11.2    11.8     -0.281 
+## 4 12.4    11.3      0.526 
+## 5 10.5    10.8     -0.146 
+## 6 15.6    11.1      2.20
 ```
 Finally, we can also use the `predict()` function.
 Note that because we use the actual workflow here, we can (and actually need to) use the raw data instead of the preprocessed data.
@@ -4720,7 +4727,15 @@ resample_fit
 ```
 
 ```
-## #  10-fold cross-validation 
+## Warning: This tuning result has notes. Example notes on model fitting include:
+## model (predictions): There are new levels in a factor: Baldwin, Apache, Contra Costa, Sacramento, Santa Cruz, Lee, Iberville, Plymouth, Dakota, Stearns, Hudson, Alamance, Muskogee, Berks, Virginia Beach City, Kanawha, Fremont, prediction from a rank-deficient fit may be misleading
+## recipe: the standard deviation is zero, The correlation matrix has missing values. 327 columns were excluded from the filter.
+## model (predictions): There are new levels in a factor: Etowah, Coconino, Mohave, Butte, Fresno, San Benito, Shasta, Solano, Tulare, Richmond, La Salle, Winnebago, Carter, Tangipahoa, Cecil, Santa Fe, Chautauqua, Onondaga, Billings, Deschutes, Umatilla, Cambria, York, Lexington, Ellis, Tarrant, Rutland, Berkeley, Outagamie, prediction from a rank-deficient fit may be misleading
+```
+
+```
+## # Resampling results
+## # 10-fold cross-validation 
 ## # A tibble: 10 x 4
 ##    splits           id     .metrics         .notes          
 ##    <list>           <chr>  <list>           <list>          
@@ -4794,18 +4809,17 @@ The `rand_forest()` function of the `parsnip` package has three important argume
 
 We will start by trying an `mtry` value of 10 and a `min_n` value of 4.
 
-Now that we have our recipe (`RF_rec`), let's specify the model with `rand_forest()` from `parsnip` with the `mode = "regression"` argument to specify our outcome variable (air pollution) is continuous. 
+Now that we have our recipe (`RF_rec`), let's specify the model with `rand_forest()` from `parsnip`.
 
 
 ```r
 PMtree_model <- 
-  parsnip::rand_forest(mtry = 10, min_n = 4, 
-                       mode = "regression")
+  parsnip::rand_forest(mtry = 10, min_n = 4)
 PMtree_model
 ```
 
 ```
-## Random Forest Model Specification (regression)
+## Random Forest Model Specification (unknown)
 ## 
 ## Main Arguments:
 ##   mtry = 10
@@ -4881,11 +4895,11 @@ RF_wflow
 ```
 
 ```
-## ══ Workflow ═════════════════════════════════════════════════════════════════════════════════════════════════════════════
+## ══ Workflow ════════════════════════════════════════════════════════════════════
 ## Preprocessor: Recipe
 ## Model: rand_forest()
 ## 
-## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Preprocessor ────────────────────────────────────────────────────────────────
 ## 6 Recipe Steps
 ## 
 ## ● step_novel()
@@ -4895,7 +4909,7 @@ RF_wflow
 ## ● step_corr()
 ## ● step_nzv()
 ## 
-## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Model ───────────────────────────────────────────────────────────────────────
 ## Random Forest Model Specification (regression)
 ## 
 ## Main Arguments:
@@ -4918,11 +4932,11 @@ RF_wflow_fit
 ```
 
 ```
-## ══ Workflow [trained] ═══════════════════════════════════════════════════════════════════════════════════════════════════
+## ══ Workflow [trained] ══════════════════════════════════════════════════════════
 ## Preprocessor: Recipe
 ## Model: rand_forest()
 ## 
-## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Preprocessor ────────────────────────────────────────────────────────────────
 ## 6 Recipe Steps
 ## 
 ## ● step_novel()
@@ -4932,16 +4946,16 @@ RF_wflow_fit
 ## ● step_corr()
 ## ● step_nzv()
 ## 
-## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Model ───────────────────────────────────────────────────────────────────────
 ## 
 ## Call:
-##  randomForest(x = as.data.frame(x), y = y, mtry = ~10, nodesize = ~4) 
+##  randomForest(x = maybe_data_frame(x), y = y, mtry = min_cols(~10,      x), nodesize = min_rows(~4, x)) 
 ##                Type of random forest: regression
 ##                      Number of trees: 500
 ## No. of variables tried at each split: 10
 ## 
-##           Mean of squared residuals: 2.894891
-##                     % Var explained: 59.83
+##           Mean of squared residuals: 2.857103
+##                     % Var explained: 60.35
 ```
 
 <img src="05-prediction_files/figure-html/unnamed-chunk-138-1.png" width="672" />
@@ -4983,8 +4997,7 @@ Previously we specified our model like so:
 
 ```r
 RF_PM_model <- 
-  parsnip::rand_forest(mtry = 10, min_n = 4, 
-                       mode = "regression") %>%
+  parsnip::rand_forest(mtry = 10, min_n = 4) %>%
   set_engine("randomForest") %>%
   set_mode("regression")
 
@@ -5005,8 +5018,7 @@ Now instead of specifying a value for the `mtry` and `min_n` arguments, we can u
 
 
 ```r
-tune_RF_model <- rand_forest(mtry = tune(), min_n = tune(),
-                             mode = "regression") %>%
+tune_RF_model <- rand_forest(mtry = tune(), min_n = tune()) %>%
   set_engine("randomForest") %>%
   set_mode("regression")
     
@@ -5035,11 +5047,11 @@ RF_tune_wflow
 ```
 
 ```
-## ══ Workflow ═════════════════════════════════════════════════════════════════════════════════════════════════════════════
+## ══ Workflow ════════════════════════════════════════════════════════════════════
 ## Preprocessor: Recipe
 ## Model: rand_forest()
 ## 
-## ── Preprocessor ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Preprocessor ────────────────────────────────────────────────────────────────
 ## 6 Recipe Steps
 ## 
 ## ● step_novel()
@@ -5049,7 +5061,7 @@ RF_tune_wflow
 ## ● step_corr()
 ## ● step_nzv()
 ## 
-## ── Model ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Model ───────────────────────────────────────────────────────────────────────
 ## Random Forest Model Specification (regression)
 ## 
 ## Main Arguments:
@@ -5076,7 +5088,7 @@ parallel::detectCores()
 ```
 
 ```
-## [1] 8
+## [1] 16
 ```
 
 The `registerDoParallel()` function will use the number for cores specified using the `cores=` argument, or it will assign it automatically to one-half of the number of cores detected by the `parallel` package. 
@@ -5102,20 +5114,26 @@ tune_RF_results
 ```
 
 ```
-## #  10-fold cross-validation 
+## Warning: This tuning result has notes. Example notes on model fitting include:
+## model 15/20: 34 columns were requested but there were 33 predictors in the data. 33 will be used.
+```
+
+```
+## # Tuning results
+## # 10-fold cross-validation 
 ## # A tibble: 10 x 4
 ##    splits           id     .metrics          .notes          
 ##    <list>           <chr>  <list>            <list>          
-##  1 <split [525/59]> Fold01 <tibble [40 × 5]> <tibble [0 × 1]>
-##  2 <split [525/59]> Fold02 <tibble [40 × 5]> <tibble [0 × 1]>
-##  3 <split [525/59]> Fold03 <tibble [40 × 5]> <tibble [0 × 1]>
-##  4 <split [525/59]> Fold04 <tibble [40 × 5]> <tibble [0 × 1]>
-##  5 <split [526/58]> Fold05 <tibble [40 × 5]> <tibble [0 × 1]>
-##  6 <split [526/58]> Fold06 <tibble [40 × 5]> <tibble [1 × 1]>
-##  7 <split [526/58]> Fold07 <tibble [40 × 5]> <tibble [0 × 1]>
-##  8 <split [526/58]> Fold08 <tibble [40 × 5]> <tibble [0 × 1]>
-##  9 <split [526/58]> Fold09 <tibble [40 × 5]> <tibble [0 × 1]>
-## 10 <split [526/58]> Fold10 <tibble [40 × 5]> <tibble [0 × 1]>
+##  1 <split [525/59]> Fold01 <tibble [40 × 6]> <tibble [0 × 1]>
+##  2 <split [525/59]> Fold02 <tibble [40 × 6]> <tibble [0 × 1]>
+##  3 <split [525/59]> Fold03 <tibble [40 × 6]> <tibble [0 × 1]>
+##  4 <split [525/59]> Fold04 <tibble [40 × 6]> <tibble [0 × 1]>
+##  5 <split [526/58]> Fold05 <tibble [40 × 6]> <tibble [0 × 1]>
+##  6 <split [526/58]> Fold06 <tibble [40 × 6]> <tibble [1 × 1]>
+##  7 <split [526/58]> Fold07 <tibble [40 × 6]> <tibble [0 × 1]>
+##  8 <split [526/58]> Fold08 <tibble [40 × 6]> <tibble [0 × 1]>
+##  9 <split [526/58]> Fold09 <tibble [40 × 6]> <tibble [0 × 1]>
+## 10 <split [526/58]> Fold10 <tibble [40 × 6]> <tibble [0 × 1]>
 ```
 
 See [the tune getting started guide ](https://tidymodels.github.io/tune/articles/getting_started.html){target="_blank"} for more information about implementing this in `tidymodels`.
@@ -5135,15 +5153,15 @@ tune_RF_results%>%
 ```
 
 ```
-## # A tibble: 6 x 7
-##    mtry min_n .metric .estimator  mean     n std_err
-##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1     1    27 rmse    standard   2.05     10  0.144 
-## 2     1    27 rsq     standard   0.485    10  0.0373
-## 3     4    30 rmse    standard   1.81     10  0.144 
-## 4     4    30 rsq     standard   0.589    10  0.0387
-## 5     6    32 rmse    standard   1.76     10  0.148 
-## 6     6    32 rsq     standard   0.602    10  0.0405
+## # A tibble: 6 x 8
+##    mtry min_n .metric .estimator  mean     n std_err .config
+##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl> <chr>  
+## 1    12    33 rmse    standard   1.73     10  0.146  Model01
+## 2    12    33 rsq     standard   0.602    10  0.0381 Model01
+## 3    26    35 rmse    standard   1.75     10  0.150  Model02
+## 4    26    35 rsq     standard   0.579    10  0.0381 Model02
+## 5    21    40 rmse    standard   1.74     10  0.149  Model03
+## 6    21    40 rsq     standard   0.587    10  0.0382 Model03
 ```
 
 We can now use the `show_best()` function as it was truly intended, to see what values for `min_n` and `mtry` resulted in the best performance.
@@ -5154,10 +5172,10 @@ show_best(tune_RF_results, metric = "rmse", n =1)
 ```
 
 ```
-## # A tibble: 1 x 7
-##    mtry min_n .metric .estimator  mean     n std_err
-##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1    17     4 rmse    standard    1.68    10   0.146
+## # A tibble: 1 x 8
+##    mtry min_n .metric .estimator  mean     n std_err .config
+##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl> <chr>  
+## 1    13     7 rmse    standard    1.68    10   0.142 Model09
 ```
 There we have it... looks like an `mtry` of 17 and `min_n` of 4 had the best `rmse` value. You can verify this in the above output, but it is easier to just pull this row out using this function. We can see that the mean `rmse` value across the cross validation sets was 1.67. Before tuning it was 1.68 with a similar `std_err` so the performance was very slightly improved.
 
@@ -5178,10 +5196,10 @@ tuned_RF_values
 ```
 
 ```
-## # A tibble: 1 x 2
-##    mtry min_n
-##   <int> <int>
-## 1    17     4
+## # A tibble: 1 x 3
+##    mtry min_n .config
+##   <int> <int> <chr>  
+## 1    13     7 Model09
 ```
 
 Now we can finalize the model/workflow that we we used for tuning with these values.
@@ -5219,8 +5237,8 @@ To see the performance on the test data we can use the `collect_metrics()` funct
 ## # A tibble: 2 x 3
 ##   .metric .estimator .estimate
 ##   <chr>   <chr>          <dbl>
-## 1 rmse    standard       1.43 
-## 2 rsq     standard       0.644
+## 1 rmse    standard       1.42 
+## 2 rsq     standard       0.649
 ```
 
 Awesome! We can see that our `rmse` of 1.43 is quite similar with our testing data cross validation sets. We achieved quite good performance, which suggests that we would could predict other locations with more sparse monitoring based on our predictors with reasonable accuracy.
@@ -5243,10 +5261,10 @@ head(test_predictions)
 ##   <chr>            <dbl> <int> <dbl>
 ## 1 train/test split  11.1     4  11.7
 ## 2 train/test split  11.9    10  13.1
-## 3 train/test split  12.2    12  12.2
-## 4 train/test split  11.5    15  12.2
+## 3 train/test split  12.1    12  12.2
+## 4 train/test split  11.6    15  12.2
 ## 5 train/test split  11.4    19  11.4
-## 6 train/test split  12.1    22  12.2
+## 6 train/test split  12.0    22  12.2
 ```
 
 Nice!
