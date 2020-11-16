@@ -1485,13 +1485,7 @@ first_recipe
 ```
 
 
-We can use the `formula()` function of the stats package to see how we have assigned our variables in formula notation.
-
-```{r}
-formula(first_recipe)
-```
-
-We can also view our recipe in more detail using the base summary() function.
+We can view our recipe using the base summary() function.
 
 ```{r}
 summary(first_recipe)
@@ -1580,6 +1574,7 @@ We can see these using the `$` notation:
 prepped_rec$var_info
 
 ```
+
 
 Now we can use `bake` to see the preprocessed training data. *Note that this used to require the `juice()` function.
 
@@ -2319,11 +2314,6 @@ simple_rec
 ```
 
 
-If we want to take a look at our formula from our recipe, we can do use the `formula()` function of the `stats` package.
-
-```{r}
-formula(simple_rec)
-```
 
 **This [link](https://tidymodels.github.io/recipes/reference/index.html){target="_blank"} and this [link](https://cran.r-project.org/web/packages/recipes/recipes.pdf){target="_blank"} show the many options for recipe step functions.**
 
@@ -2701,6 +2691,7 @@ values_pred_train
 Now, we can compare the predicted outcome values (or fitted values) $\hat{Y}$ to the actual outcome values $Y$ that we observed: 
 
 ```{r}
+library(ggplot2)
 wf_fitted_values %>% 
   ggplot(aes(x =  value, y = .fitted)) + 
   geom_point() + 
