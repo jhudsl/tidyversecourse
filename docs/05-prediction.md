@@ -1776,19 +1776,7 @@ first_recipe
 ```
 
 
-We can use the `formula()` function of the stats package to see how we have assigned our variables in formula notation.
-
-
-```r
-formula(first_recipe)
-```
-
-```
-## Sepal.Length ~ Sepal.Width + Species
-## <environment: 0x7fe0a1dabbd0>
-```
-
-We can also view our recipe in more detail using the base summary() function.
+We can view our recipe using the base summary() function.
 
 
 ```r
@@ -1952,6 +1940,7 @@ prepped_rec$var_info
 ## 4 Petal.Width  numeric <NA>      original
 ## 5 Species      nominal predictor original
 ```
+
 
 Now we can use `bake` to see the preprocessed training data. *Note that this used to require the `juice()` function.
 
@@ -2259,7 +2248,7 @@ wf_fitted_values %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-69-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-68-1.png" width="672" />
 
 We can see that overall our model predicted the sepal length fairly well, as the predicted values are fairly close to the true values. We can also see that the predictions were similar to the truth for the full range of true sepal length values. 
 
@@ -3134,7 +3123,7 @@ skim(pm)
 ```
 
 
-Table: (\#tab:unnamed-chunk-94)Data summary
+Table: (\#tab:unnamed-chunk-93)Data summary
 
                                 
 -------------------------  -----
@@ -3292,7 +3281,7 @@ PM_cor <- cor(pm %>% dplyr::select_if(is.numeric))
 corrplot::corrplot(PM_cor, tl.cex = 0.5)
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-96-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-95-1.png" width="672" />
 
 We can see that the development variables (`imp`) variables are correlated with each other as we might expect. 
 We also see that the road density variables seem to be correlated with each other, and the emission variables seem to be correlated with each other. 
@@ -3418,28 +3407,6 @@ simple_rec
 ```
 
 
-If we want to take a look at our formula from our recipe, we can do use the `formula()` function of the `stats` package.
-
-
-```r
-formula(simple_rec)
-```
-
-```
-## value ~ fips + lat + lon + state + county + city + CMAQ + zcta + 
-##     zcta_area + zcta_pop + imp_a500 + imp_a1000 + imp_a5000 + 
-##     imp_a10000 + imp_a15000 + county_area + county_pop + log_dist_to_prisec + 
-##     log_pri_length_5000 + log_pri_length_10000 + log_pri_length_15000 + 
-##     log_pri_length_25000 + log_prisec_length_500 + log_prisec_length_1000 + 
-##     log_prisec_length_5000 + log_prisec_length_10000 + log_prisec_length_15000 + 
-##     log_prisec_length_25000 + log_nei_2008_pm25_sum_10000 + log_nei_2008_pm25_sum_15000 + 
-##     log_nei_2008_pm25_sum_25000 + log_nei_2008_pm10_sum_10000 + 
-##     log_nei_2008_pm10_sum_15000 + log_nei_2008_pm10_sum_25000 + 
-##     popdens_county + popdens_zcta + nohs + somehs + hs + somecollege + 
-##     associate + bachelor + grad + pov + hs_orless + urc2013 + 
-##     urc2006 + aod
-## <environment: 0x7fe0a2a63af0>
-```
 
 **This [link](https://tidymodels.github.io/recipes/reference/index.html){target="_blank"} and this [link](https://cran.r-project.org/web/packages/recipes/recipes.pdf){target="_blank"} show the many options for recipe step functions.**
 
@@ -4391,7 +4358,7 @@ PM_wflow_fit %>%
   vip(num_features = 10)
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-122-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-120-1.png" width="672" />
 
 The state in which the monitor was located and the CMAQ model and the aod satellite information appear to be the most important for predicting the air pollution at a given monitor.
 
@@ -4488,6 +4455,7 @@ Now, we can compare the predicted outcome values (or fitted values) $\hat{Y}$ to
 
 
 ```r
+library(ggplot2)
 wf_fitted_values %>% 
   ggplot(aes(x =  value, y = .fitted)) + 
   geom_point() + 
@@ -4495,7 +4463,7 @@ wf_fitted_values %>%
   ylab("predicted outcome values")
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-126-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-124-1.png" width="672" />
 
 OK, so our range of the predicted outcome values appears to be smaller than the real values. 
 We could probably do a bit better.
@@ -4943,7 +4911,7 @@ RF_wflow_fit
 ##                     % Var explained: 59.83
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-138-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-136-1.png" width="672" />
 
 Interesting! In the previous model the CMAQ values and the state where the monitor was located were also the top two most important, however predictors about education levels of the communities where the monitor was located was among the top most important. Now we see that population density and proximity to sources of emissions and roads are among the top ten.
 
@@ -5135,12 +5103,12 @@ tune_RF_results%>%
 ## # A tibble: 6 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1     1    27 rmse    standard   2.05     10  0.144 
-## 2     1    27 rsq     standard   0.486    10  0.0379
-## 3     4    30 rmse    standard   1.81     10  0.146 
-## 4     4    30 rsq     standard   0.592    10  0.0404
-## 5     6    32 rmse    standard   1.77     10  0.147 
-## 6     6    32 rsq     standard   0.602    10  0.0392
+## 1     1    27 rmse    standard   2.05     10  0.142 
+## 2     1    27 rsq     standard   0.487    10  0.0351
+## 3     4    30 rmse    standard   1.81     10  0.141 
+## 4     4    30 rsq     standard   0.590    10  0.0407
+## 5     6    32 rmse    standard   1.76     10  0.143 
+## 6     6    32 rsq     standard   0.602    10  0.0385
 ```
 
 We can now use the `show_best()` function as it was truly intended, to see what values for `min_n` and `mtry` resulted in the best performance.
@@ -5154,7 +5122,7 @@ show_best(tune_RF_results, metric = "rmse", n =1)
 ## # A tibble: 1 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1    13     7 rmse    standard    1.68    10   0.145
+## 1    17     4 rmse    standard    1.68    10   0.144
 ```
 There we have it... looks like an `mtry` of 17 and `min_n` of 4 had the best `rmse` value. You can verify this in the above output, but it is easier to just pull this row out using this function. We can see that the mean `rmse` value across the cross validation sets was 1.67. Before tuning it was 1.68 with a similar `std_err` so the performance was very slightly improved.
 
@@ -5178,7 +5146,7 @@ tuned_RF_values
 ## # A tibble: 1 x 2
 ##    mtry min_n
 ##   <int> <int>
-## 1    13     7
+## 1    17     4
 ```
 
 Now we can finalize the model/workflow that we we used for tuning with these values.
@@ -5217,7 +5185,7 @@ To see the performance on the test data we can use the `collect_metrics()` funct
 ##   .metric .estimator .estimate
 ##   <chr>   <chr>          <dbl>
 ## 1 rmse    standard       1.43 
-## 2 rsq     standard       0.646
+## 2 rsq     standard       0.644
 ```
 
 Awesome! We can see that our `rmse` of 1.43 is quite similar with our testing data cross validation sets. We achieved quite good performance, which suggests that we would could predict other locations with more sparse monitoring based on our predictors with reasonable accuracy.
@@ -5238,12 +5206,12 @@ head(test_predictions)
 ## # A tibble: 6 x 4
 ##   id               .pred  .row value
 ##   <chr>            <dbl> <int> <dbl>
-## 1 train/test split  11.2     4  11.7
-## 2 train/test split  11.8    10  13.1
+## 1 train/test split  11.1     4  11.7
+## 2 train/test split  11.9    10  13.1
 ## 3 train/test split  12.2    12  12.2
-## 4 train/test split  11.4    15  12.2
+## 4 train/test split  11.5    15  12.2
 ## 5 train/test split  11.4    19  11.4
-## 6 train/test split  11.9    22  12.2
+## 6 train/test split  12.1    22  12.2
 ```
 
 Nice!
@@ -5265,7 +5233,7 @@ test_predictions %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-153-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-151-1.png" width="672" />
 
 Great!
 
