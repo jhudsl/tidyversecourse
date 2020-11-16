@@ -280,6 +280,7 @@ To get an idea of what variables are included in this data frame, you can use `g
 
 ```{r eval = FALSE}
 ## take a look at the data
+library(ggplot2)
 glimpse(msleep)
 ```
 
