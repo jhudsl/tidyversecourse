@@ -1381,40 +1381,41 @@ skim(msleep)
 
 Table: (\#tab:unnamed-chunk-46)Data summary
 
-|                         |       |
-|:------------------------|:------|
-|Name                     |msleep |
-|Number of rows           |83     |
-|Number of columns        |11     |
-|_______________________  |       |
-|Column type frequency:   |       |
-|character                |5      |
-|numeric                  |6      |
-|________________________ |       |
-|Group variables          |None   |
+                                  
+-------------------------  -------
+Name                       msleep 
+Number of rows             83     
+Number of columns          11     
+_______________________           
+Column type frequency:            
+character                  5      
+numeric                    6      
+________________________          
+Group variables            None   
+-------------------------  -------
 
 
 **Variable type: character**
 
-|skim_variable | n_missing| complete_rate| min| max| empty| n_unique| whitespace|
-|:-------------|---------:|-------------:|---:|---:|-----:|--------:|----------:|
-|name          |         0|          1.00|   3|  30|     0|       83|          0|
-|genus         |         0|          1.00|   3|  13|     0|       77|          0|
-|vore          |         7|          0.92|   4|   7|     0|        4|          0|
-|order         |         0|          1.00|   6|  15|     0|       19|          0|
-|conservation  |        29|          0.65|   2|  12|     0|        6|          0|
+skim_variable    n_missing   complete_rate   min   max   empty   n_unique   whitespace
+--------------  ----------  --------------  ----  ----  ------  ---------  -----------
+name                     0            1.00     3    30       0         83            0
+genus                    0            1.00     3    13       0         77            0
+vore                     7            0.92     4     7       0          4            0
+order                    0            1.00     6    15       0         19            0
+conservation            29            0.65     2    12       0          6            0
 
 
 **Variable type: numeric**
 
-|skim_variable | n_missing| complete_rate|   mean|     sd|   p0|   p25|   p50|   p75|    p100|hist  |
-|:-------------|---------:|-------------:|------:|------:|----:|-----:|-----:|-----:|-------:|:-----|
-|sleep_total   |         0|          1.00|  10.43|   4.45| 1.90|  7.85| 10.10| 13.75|   19.90|▅▅▇▆▂ |
-|sleep_rem     |        22|          0.73|   1.88|   1.30| 0.10|  0.90|  1.50|  2.40|    6.60|▇▆▂▁▁ |
-|sleep_cycle   |        51|          0.39|   0.44|   0.36| 0.12|  0.18|  0.33|  0.58|    1.50|▇▂▁▁▁ |
-|awake         |         0|          1.00|  13.57|   4.45| 4.10| 10.25| 13.90| 16.15|   22.10|▂▅▇▃▅ |
-|brainwt       |        27|          0.67|   0.28|   0.98| 0.00|  0.00|  0.01|  0.13|    5.71|▇▁▁▁▁ |
-|bodywt        |         0|          1.00| 166.14| 786.84| 0.00|  0.17|  1.67| 41.75| 6654.00|▇▁▁▁▁ |
+skim_variable    n_missing   complete_rate     mean       sd     p0     p25     p50     p75      p100  hist  
+--------------  ----------  --------------  -------  -------  -----  ------  ------  ------  --------  ------
+sleep_total              0            1.00    10.43     4.45   1.90    7.85   10.10   13.75     19.90  ▅▅▇▆▂ 
+sleep_rem               22            0.73     1.88     1.30   0.10    0.90    1.50    2.40      6.60  ▇▆▂▁▁ 
+sleep_cycle             51            0.39     0.44     0.36   0.12    0.18    0.33    0.58      1.50  ▇▂▁▁▁ 
+awake                    0            1.00    13.57     4.45   4.10   10.25   13.90   16.15     22.10  ▂▅▇▃▅ 
+brainwt                 27            0.67     0.28     0.98   0.00    0.00    0.01    0.13      5.71  ▇▁▁▁▁ 
+bodywt                   0            1.00   166.14   786.84   0.00    0.17    1.67   41.75   6654.00  ▇▁▁▁▁ 
 
 ![summarize entire dataset using skim() from skimr](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_313)
 
@@ -1429,32 +1430,33 @@ skim(msleep, genus, vore, sleep_total)
 
 Table: (\#tab:unnamed-chunk-47)Data summary
 
-|                         |       |
-|:------------------------|:------|
-|Name                     |msleep |
-|Number of rows           |83     |
-|Number of columns        |11     |
-|_______________________  |       |
-|Column type frequency:   |       |
-|character                |2      |
-|numeric                  |1      |
-|________________________ |       |
-|Group variables          |None   |
+                                  
+-------------------------  -------
+Name                       msleep 
+Number of rows             83     
+Number of columns          11     
+_______________________           
+Column type frequency:            
+character                  2      
+numeric                    1      
+________________________          
+Group variables            None   
+-------------------------  -------
 
 
 **Variable type: character**
 
-|skim_variable | n_missing| complete_rate| min| max| empty| n_unique| whitespace|
-|:-------------|---------:|-------------:|---:|---:|-----:|--------:|----------:|
-|genus         |         0|          1.00|   3|  13|     0|       77|          0|
-|vore          |         7|          0.92|   4|   7|     0|        4|          0|
+skim_variable    n_missing   complete_rate   min   max   empty   n_unique   whitespace
+--------------  ----------  --------------  ----  ----  ------  ---------  -----------
+genus                    0            1.00     3    13       0         77            0
+vore                     7            0.92     4     7       0          4            0
 
 
 **Variable type: numeric**
 
-|skim_variable | n_missing| complete_rate|  mean|   sd|  p0|  p25|  p50|   p75| p100|hist  |
-|:-------------|---------:|-------------:|-----:|----:|---:|----:|----:|-----:|----:|:-----|
-|sleep_total   |         0|             1| 10.43| 4.45| 1.9| 7.85| 10.1| 13.75| 19.9|▅▅▇▆▂ |
+skim_variable    n_missing   complete_rate    mean     sd    p0    p25    p50     p75   p100  hist  
+--------------  ----------  --------------  ------  -----  ----  -----  -----  ------  -----  ------
+sleep_total              0               1   10.43   4.45   1.9   7.85   10.1   13.75   19.9  ▅▅▇▆▂ 
 
 It is also possible to group data (using `dplyr`'s `group_by()` before summarizing. Notice in the summary output that each variable specified (`genus` and `sleep_total`) are now broken down within each of the `vore` categories.
 
@@ -1468,39 +1470,40 @@ msleep %>%
 
 Table: (\#tab:unnamed-chunk-48)Data summary
 
-|                         |           |
-|:------------------------|:----------|
-|Name                     |Piped data |
-|Number of rows           |83         |
-|Number of columns        |11         |
-|_______________________  |           |
-|Column type frequency:   |           |
-|character                |1          |
-|numeric                  |1          |
-|________________________ |           |
-|Group variables          |vore       |
+                                      
+-------------------------  -----------
+Name                       Piped data 
+Number of rows             83         
+Number of columns          11         
+_______________________               
+Column type frequency:                
+character                  1          
+numeric                    1          
+________________________              
+Group variables            vore       
+-------------------------  -----------
 
 
 **Variable type: character**
 
-|skim_variable |vore    | n_missing| complete_rate| min| max| empty| n_unique| whitespace|
-|:-------------|:-------|---------:|-------------:|---:|---:|-----:|--------:|----------:|
-|genus         |carni   |         0|             1|   5|  13|     0|       16|          0|
-|genus         |herbi   |         0|             1|   3|  12|     0|       29|          0|
-|genus         |insecti |         0|             1|   6|  12|     0|        5|          0|
-|genus         |omni    |         0|             1|   3|  13|     0|       20|          0|
-|genus         |NA      |         0|             1|   6|  11|     0|        7|          0|
+skim_variable   vore       n_missing   complete_rate   min   max   empty   n_unique   whitespace
+--------------  --------  ----------  --------------  ----  ----  ------  ---------  -----------
+genus           carni              0               1     5    13       0         16            0
+genus           herbi              0               1     3    12       0         29            0
+genus           insecti            0               1     6    12       0          5            0
+genus           omni               0               1     3    13       0         20            0
+genus           NA                 0               1     6    11       0          7            0
 
 
 **Variable type: numeric**
 
-|skim_variable |vore    | n_missing| complete_rate|  mean|   sd|  p0|  p25|  p50|   p75| p100|hist  |
-|:-------------|:-------|---------:|-------------:|-----:|----:|---:|----:|----:|-----:|----:|:-----|
-|sleep_total   |carni   |         0|             1| 10.38| 4.67| 2.7| 6.25| 10.4| 13.00| 19.4|▅▃▇▃▂ |
-|sleep_total   |herbi   |         0|             1|  9.51| 4.88| 1.9| 4.30| 10.3| 14.22| 16.6|▇▃▂▅▇ |
-|sleep_total   |insecti |         0|             1| 14.94| 5.92| 8.4| 8.60| 18.1| 19.70| 19.9|▅▁▁▁▇ |
-|sleep_total   |omni    |         0|             1| 10.93| 2.95| 8.0| 9.10|  9.9| 10.93| 18.0|▇▃▁▂▂ |
-|sleep_total   |NA      |         0|             1| 10.19| 3.00| 5.4| 8.65| 10.6| 12.15| 13.7|▇▁▃▇▇ |
+skim_variable   vore       n_missing   complete_rate    mean     sd    p0    p25    p50     p75   p100  hist  
+--------------  --------  ----------  --------------  ------  -----  ----  -----  -----  ------  -----  ------
+sleep_total     carni              0               1   10.38   4.67   2.7   6.25   10.4   13.00   19.4  ▅▃▇▃▂ 
+sleep_total     herbi              0               1    9.51   4.88   1.9   4.30   10.3   14.22   16.6  ▇▃▂▅▇ 
+sleep_total     insecti            0               1   14.94   5.92   8.4   8.60   18.1   19.70   19.9  ▅▁▁▁▇ 
+sleep_total     omni               0               1   10.93   2.95   8.0   9.10    9.9   10.93   18.0  ▇▃▁▂▂ 
+sleep_total     NA                 0               1   10.19   3.00   5.4   8.65   10.6   12.15   13.7  ▇▁▃▇▇ 
 
 
 #### `summary()`
@@ -1515,17 +1518,18 @@ skim(msleep) %>%
 
 Table: (\#tab:unnamed-chunk-49)Data summary
 
-|                         |       |
-|:------------------------|:------|
-|Name                     |msleep |
-|Number of rows           |83     |
-|Number of columns        |11     |
-|_______________________  |       |
-|Column type frequency:   |       |
-|character                |5      |
-|numeric                  |6      |
-|________________________ |       |
-|Group variables          |None   |
+                                  
+-------------------------  -------
+Name                       msleep 
+Number of rows             83     
+Number of columns          11     
+_______________________           
+Column type frequency:            
+character                  5      
+numeric                    6      
+________________________          
+Group variables            None   
+-------------------------  -------
 
 
 
@@ -2078,18 +2082,11 @@ mydate <- ymd("1988-09-29")
 
 ## subtract birthday from todays date
 age <- today() - mydate
-```
-
-```
-## Warning in with_tz(Sys.time(), tzone): Unrecognized time zone ''
-```
-
-```r
 age
 ```
 
 ```
-## Time difference of 11733 days
+## Time difference of 11736 days
 ```
 
 ```r
@@ -2098,7 +2095,7 @@ as.duration(age)
 ```
 
 ```
-## [1] "1013731200s (~32.12 years)"
+## [1] "1013990400s (~32.13 years)"
 ```
 
 
@@ -2276,8 +2273,8 @@ names <- c("Keisha", "Mohammed", "Jane", "Mathieu")
 str_view(names, "^M")
 ```
 
-<!--html_preserve--><div id="htmlwidget-98cf97a5f8b9733dc06b" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-98cf97a5f8b9733dc06b">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li><span class='match'>M<\/span>ohammed<\/li>\n  <li>Jane<\/li>\n  <li><span class='match'>M<\/span>athieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-a4a0fe04079e982e4d5d" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a4a0fe04079e982e4d5d">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li><span class='match'>M<\/span>ohammed<\/li>\n  <li>Jane<\/li>\n  <li><span class='match'>M<\/span>athieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 
 ![`str_view()` identifies names that start with M](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_30)
@@ -2292,8 +2289,8 @@ However, if you try to match strings that end with the letter "M", no match is f
 str_view(names, "M$")
 ```
 
-<!--html_preserve--><div id="htmlwidget-b171fe37f3f55a5f7870" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b171fe37f3f55a5f7870">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-a1bb805fdd8beeafb3d7" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a1bb805fdd8beeafb3d7">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 
 ![`str_view()` does not identify any names that end with M](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_26)
@@ -2306,8 +2303,8 @@ To identify names by that end with the letter "a", you would use the following.
 str_view(names, "a$")
 ```
 
-<!--html_preserve--><div id="htmlwidget-17cc8219cd14c5294704" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-17cc8219cd14c5294704">{"x":{"html":"<ul>\n  <li>Keish<span class='match'>a<\/span><\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-cbff148734e6a597488f" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cbff148734e6a597488f">{"x":{"html":"<ul>\n  <li>Keish<span class='match'>a<\/span><\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![`str_view()` identifies names that end with a](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_34)
 
@@ -2431,8 +2428,8 @@ To search for a set of characters, you place these characters within brackets. B
 str_view_all(names, "[aeiou]")
 ```
 
-<!--html_preserve--><div id="htmlwidget-c4c0b3cc7090f38034f4" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c4c0b3cc7090f38034f4">{"x":{"html":"<ul>\n  <li>K<span class='match'>e<\/span><span class='match'>i<\/span>sh<span class='match'>a<\/span><\/li>\n  <li>M<span class='match'>o<\/span>h<span class='match'>a<\/span>mm<span class='match'>e<\/span>d<\/li>\n  <li>J<span class='match'>a<\/span>n<span class='match'>e<\/span><\/li>\n  <li>M<span class='match'>a<\/span>th<span class='match'>i<\/span><span class='match'>e<\/span><span class='match'>u<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-036d2a5bd27396a5b952" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-036d2a5bd27396a5b952">{"x":{"html":"<ul>\n  <li>K<span class='match'>e<\/span><span class='match'>i<\/span>sh<span class='match'>a<\/span><\/li>\n  <li>M<span class='match'>o<\/span>h<span class='match'>a<\/span>mm<span class='match'>e<\/span>d<\/li>\n  <li>J<span class='match'>a<\/span>n<span class='match'>e<\/span><\/li>\n  <li>M<span class='match'>a<\/span>th<span class='match'>i<\/span><span class='match'>e<\/span><span class='match'>u<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![brackets specify which characters to search for](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_69)
 
@@ -2447,8 +2444,8 @@ By adding a caret (`^`) before the vowels within the brackets, this regular expr
 str_view_all(names, "[^aeiou]")
 ```
 
-<!--html_preserve--><div id="htmlwidget-6aa65dfc601dddbb6954" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6aa65dfc601dddbb6954">{"x":{"html":"<ul>\n  <li><span class='match'>K<\/span>ei<span class='match'>s<\/span><span class='match'>h<\/span>a<\/li>\n  <li><span class='match'>M<\/span>o<span class='match'>h<\/span>a<span class='match'>m<\/span><span class='match'>m<\/span>e<span class='match'>d<\/span><\/li>\n  <li><span class='match'>J<\/span>a<span class='match'>n<\/span>e<\/li>\n  <li><span class='match'>M<\/span>a<span class='match'>t<\/span><span class='match'>h<\/span>ieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-01b32f644b5ba228d7eb" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-01b32f644b5ba228d7eb">{"x":{"html":"<ul>\n  <li><span class='match'>K<\/span>ei<span class='match'>s<\/span><span class='match'>h<\/span>a<\/li>\n  <li><span class='match'>M<\/span>o<span class='match'>h<\/span>a<span class='match'>m<\/span><span class='match'>m<\/span>e<span class='match'>d<\/span><\/li>\n  <li><span class='match'>J<\/span>a<span class='match'>n<\/span>e<\/li>\n  <li><span class='match'>M<\/span>a<span class='match'>t<\/span><span class='match'>h<\/span>ieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![brackets with a caret first specify which characters NOT to search for](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_78)
 
@@ -2464,8 +2461,8 @@ addresses <- c("1234 Main Street", "1600 Pennsylvania Ave", "Brick Building")
 str_view_all(addresses, "\\d")
 ```
 
-<!--html_preserve--><div id="htmlwidget-beb7f5b7dbbc0b3b9292" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-beb7f5b7dbbc0b3b9292">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span> Main Street<\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span> Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-2613e26f5a4d10853846" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2613e26f5a4d10853846">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span> Main Street<\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span> Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![`\d` searches for digits](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_140)
 
@@ -2479,8 +2476,8 @@ Identifying whitespace in R identifies any spaces, tabs or newlines. Note that a
 str_view_all(addresses, "\\s")
 ```
 
-<!--html_preserve--><div id="htmlwidget-eecaa214ad94092804b2" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-eecaa214ad94092804b2">{"x":{"html":"<ul>\n  <li>1234<span class='match'> <\/span>Main<span class='match'> <\/span>Street<\/li>\n  <li>1600<span class='match'> <\/span>Pennsylvania<span class='match'> <\/span>Ave<\/li>\n  <li>Brick<span class='match'> <\/span>Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-5531879a50b69b193227" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5531879a50b69b193227">{"x":{"html":"<ul>\n  <li>1234<span class='match'> <\/span>Main<span class='match'> <\/span>Street<\/li>\n  <li>1600<span class='match'> <\/span>Pennsylvania<span class='match'> <\/span>Ave<\/li>\n  <li>Brick<span class='match'> <\/span>Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![`\s` searches for whitespace](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_153)
 
@@ -2494,8 +2491,8 @@ To identify any character except for a newline you'll use `"."`. Notice in our a
 str_view_all(addresses, ".")
 ```
 
-<!--html_preserve--><div id="htmlwidget-4e41a46589e2085d81c5" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4e41a46589e2085d81c5">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span><span class='match'> <\/span><span class='match'>M<\/span><span class='match'>a<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'> <\/span><span class='match'>S<\/span><span class='match'>t<\/span><span class='match'>r<\/span><span class='match'>e<\/span><span class='match'>e<\/span><span class='match'>t<\/span><\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>e<\/span><span class='match'>n<\/span><span class='match'>n<\/span><span class='match'>s<\/span><span class='match'>y<\/span><span class='match'>l<\/span><span class='match'>v<\/span><span class='match'>a<\/span><span class='match'>n<\/span><span class='match'>i<\/span><span class='match'>a<\/span><span class='match'> <\/span><span class='match'>A<\/span><span class='match'>v<\/span><span class='match'>e<\/span><\/li>\n  <li><span class='match'>B<\/span><span class='match'>r<\/span><span class='match'>i<\/span><span class='match'>c<\/span><span class='match'>k<\/span><span class='match'> <\/span><span class='match'>B<\/span><span class='match'>u<\/span><span class='match'>i<\/span><span class='match'>l<\/span><span class='match'>d<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'>g<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-00c6ecb689d3efdc54d9" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-00c6ecb689d3efdc54d9">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span><span class='match'> <\/span><span class='match'>M<\/span><span class='match'>a<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'> <\/span><span class='match'>S<\/span><span class='match'>t<\/span><span class='match'>r<\/span><span class='match'>e<\/span><span class='match'>e<\/span><span class='match'>t<\/span><\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>e<\/span><span class='match'>n<\/span><span class='match'>n<\/span><span class='match'>s<\/span><span class='match'>y<\/span><span class='match'>l<\/span><span class='match'>v<\/span><span class='match'>a<\/span><span class='match'>n<\/span><span class='match'>i<\/span><span class='match'>a<\/span><span class='match'> <\/span><span class='match'>A<\/span><span class='match'>v<\/span><span class='match'>e<\/span><\/li>\n  <li><span class='match'>B<\/span><span class='match'>r<\/span><span class='match'>i<\/span><span class='match'>c<\/span><span class='match'>k<\/span><span class='match'> <\/span><span class='match'>B<\/span><span class='match'>u<\/span><span class='match'>i<\/span><span class='match'>l<\/span><span class='match'>d<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'>g<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![. searches for any character](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_164)
 
@@ -2521,8 +2518,8 @@ Using the definitions above, we can see that the following code will identify pa
 str_view_all(addresses, "n+")
 ```
 
-<!--html_preserve--><div id="htmlwidget-c118dda04591e7b1cce5" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c118dda04591e7b1cce5">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-37aedfe1eb6f2bfb75b3" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-37aedfe1eb6f2bfb75b3">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![+ specifies to match the pattern one or more times](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_177)
 
@@ -2534,8 +2531,8 @@ While the difference is slight in the output here, we're identifying portions of
 str_view_all(addresses, "n{1}")
 ```
 
-<!--html_preserve--><div id="htmlwidget-e571e7bc102c0b58e528" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e571e7bc102c0b58e528">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>n<\/span><span class='match'>n<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-734f2de46f6ff7d8b449" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-734f2de46f6ff7d8b449">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>n<\/span><span class='match'>n<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![{#} looks to match the pattern exactly the number of times within the curly braces](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_183)
 
@@ -2547,8 +2544,8 @@ If you only wanted to match strings where n showed up twice in a row, you could 
 str_view_all(addresses, "n{2}")
 ```
 
-<!--html_preserve--><div id="htmlwidget-d4913f118c95ea5022c3" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d4913f118c95ea5022c3">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-bf9b6951306f22a89ab1" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bf9b6951306f22a89ab1">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![{2} specifies that the pattern must be found exactly twice](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_188)
 
@@ -2560,8 +2557,8 @@ This could similarly be achieved by specifying to search for the pattern 'nn' on
 str_view_all(addresses, "nn+")
 ```
 
-<!--html_preserve--><div id="htmlwidget-b50b1fba5fa16a818a0f" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b50b1fba5fa16a818a0f">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-0f38c7f9d05792d69855" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0f38c7f9d05792d69855">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![nn+ searches for double n one or more times in a string](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_193)
 
@@ -2573,16 +2570,16 @@ You can also specify a range of the number of times to search for a pattern with
 str_view_all(addresses, "n{2,3}")
 ```
 
-<!--html_preserve--><div id="htmlwidget-489ce81c3a3e285a1475" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-489ce81c3a3e285a1475">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-e024820fd584abc2fcf5" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e024820fd584abc2fcf5">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ```r
 ## identify any time n shows up three or four times 
 str_view_all(addresses, "n{3,4}")
 ```
 
-<!--html_preserve--><div id="htmlwidget-9c5cb09cd03cc61da7e1" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9c5cb09cd03cc61da7e1">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-670bac3d4ba2f9529cdb" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-670bac3d4ba2f9529cdb">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![{n,m} looks to pattern match between n and m times](https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&pageid=g38bb68a539_0_65)
 
@@ -3288,6 +3285,21 @@ As you saw in the median example above, `map` functions carry out an operation r
 
 These all take vector and a function as an input. The function is applied to the vector and a new vector (of the same length & with the same names) is returned of the type specified in the map function call. 
 
+There are also the variations `map_df`, `map_dfr` and `map_dfc`, which will create a dataframe (the tidyverse version called a tibble) from the output by either combining the data by rows with `map_df()` and `map_dfr()` or by column with `map_dfc()`.
+
+
+```r
+# use map_dfr to calculate mean and create a dataframe
+map_dfr(trees, mean, na.rm = TRUE)
+```
+
+```
+## # A tibble: 1 x 3
+##   Girth Height Volume
+##   <dbl>  <dbl>  <dbl>
+## 1  13.2     76   30.2
+```
+
 ### Multiple Vectors
 
 So far, we've only looked at iterating over a single vector at a time; however in analysis, you'll often find that you need to iterate over more than one vector at a time. The `purrr` package has two functions that simplify this process for you: `map2` and `pmap`.
@@ -3579,7 +3591,7 @@ library(here)
 ```
 
 ```
-## here() starts at /Users/rdpeng/books/tidyversecourse
+## here() starts at /Users/carriewright/Documents/GitHub/tidyversecourse
 ```
 
 ```r
@@ -3738,42 +3750,12 @@ coverage <- coverage %>%
 ```
 
 ```
-## Warning: Problem with `mutate()` input `..1`.
-## ℹ NAs introduced by coercion
-## ℹ Input `..1` is `across(starts_with("20"), as.integer)`.
-```
-
-```
 ## Warning in fn(col, ...): NAs introduced by coercion
-```
 
-```
-## Warning: Problem with `mutate()` input `..1`.
-## ℹ NAs introduced by coercion
-## ℹ Input `..1` is `across(starts_with("20"), as.integer)`.
-```
-
-```
 ## Warning in fn(col, ...): NAs introduced by coercion
-```
 
-```
-## Warning: Problem with `mutate()` input `..1`.
-## ℹ NAs introduced by coercion
-## ℹ Input `..1` is `across(starts_with("20"), as.integer)`.
-```
-
-```
 ## Warning in fn(col, ...): NAs introduced by coercion
-```
 
-```
-## Warning: Problem with `mutate()` input `..1`.
-## ℹ NAs introduced by coercion
-## ℹ Input `..1` is `across(starts_with("20"), as.integer)`.
-```
-
-```
 ## Warning in fn(col, ...): NAs introduced by coercion
 ```
 
@@ -4332,20 +4314,148 @@ age_stats
 ## #   Virginia` <dbl>, Wisconsin <dbl>, Wyoming <dbl>
 ```
 
-Now that we’ve made the data easier to work with, we need to find a way to get the median. One method is to take the cumulative sum of each column and then divide all the rows by the last row in each respective column, calculating a percentile/quantile for each age. To do this, we first remove the AGE column, as we don't want to calculate the median for this column. We then apply the `cumsum()` function and an anonymous function using `purrr`'s `map_df` function. But, of course, we do still want the AGE information in there, so we add that column back in using `mutate()` and then reorder the columns so that AGE is at the front again using `select()`:
+Now that we’ve made the data easier to work with, we need to find a way to get the median. One method is to take the cumulative sum of each column and then divide all the rows by the last row in each respective column, calculating a percentile/quantile for each age. To do this, we first remove the AGE column, as we don't want to calculate the median for this column. We then apply the `cumsum()` function and an anonymous function using `purrr`'s `map_dfc` function. This is a special variation of the `map()` function that returns a dataframe instead of a list by combining the data by column. But, of course, we do still want the AGE information in there, so we add that column back in using `mutate()` and then reorder the columns so that AGE is at the front again using `select()`.
 
+
+First let's see what would happen if we used `map()` instead of `map_dfc()`:
+
+```r
+ age_stats %>%
+  select(-AGE) %>%
+  map(cumsum) %>%
+  map(function(x) x/x[nrow(age_stats)]) %>%
+  glimpse
+```
+
+```
+## List of 51
+##  $ Alabama             : num [1:86] 0.0122 0.0243 0.0362 0.0484 0.0606 ...
+##  $ Alaska              : num [1:86] 0.0152 0.0303 0.0452 0.0598 0.0746 ...
+##  $ Arizona             : num [1:86] 0.0127 0.0255 0.0382 0.051 0.0639 ...
+##  $ Arkansas            : num [1:86] 0.0129 0.0257 0.0384 0.0513 0.0642 ...
+##  $ California          : num [1:86] 0.0128 0.0256 0.0384 0.0512 0.0643 ...
+##  $ Colorado            : num [1:86] 0.0122 0.0244 0.0366 0.0489 0.0615 ...
+##  $ Connecticut         : num [1:86] 0.0101 0.0203 0.0306 0.0411 0.0519 ...
+##  $ Delaware            : num [1:86] 0.0116 0.0233 0.0348 0.0466 0.0587 ...
+##  $ District of Columbia: num [1:86] 0.0146 0.0276 0.0407 0.0533 0.0657 ...
+##  $ Florida             : num [1:86] 0.011 0.0219 0.0328 0.0437 0.0547 ...
+##  $ Georgia             : num [1:86] 0.0128 0.0256 0.0384 0.0514 0.0647 ...
+##  $ Hawaii              : num [1:86] 0.0128 0.0258 0.039 0.0519 0.065 ...
+##  $ Idaho               : num [1:86] 0.0139 0.0274 0.0413 0.0549 0.069 ...
+##  $ Illinois            : num [1:86] 0.0123 0.0245 0.0366 0.0488 0.0611 ...
+##  $ Indiana             : num [1:86] 0.0126 0.0253 0.038 0.0507 0.0635 ...
+##  $ Iowa                : num [1:86] 0.0127 0.0254 0.038 0.0506 0.063 ...
+##  $ Kansas              : num [1:86] 0.0133 0.0268 0.0404 0.054 0.0677 ...
+##  $ Kentucky            : num [1:86] 0.0126 0.0251 0.0376 0.05 0.0624 ...
+##  $ Louisiana           : num [1:86] 0.0137 0.0272 0.0405 0.0536 0.0667 ...
+##  $ Maine               : num [1:86] 0.00949 0.01906 0.02881 0.0386 0.04839 ...
+##  $ Maryland            : num [1:86] 0.0123 0.0245 0.0367 0.049 0.0614 ...
+##  $ Massachusetts       : num [1:86] 0.0106 0.0213 0.0319 0.0427 0.0536 ...
+##  $ Michigan            : num [1:86] 0.0114 0.023 0.0345 0.046 0.0577 ...
+##  $ Minnesota           : num [1:86] 0.0127 0.0256 0.0383 0.0511 0.0639 ...
+##  $ Mississippi         : num [1:86] 0.0128 0.0255 0.0382 0.0512 0.0641 ...
+##  $ Missouri            : num [1:86] 0.0123 0.0248 0.0371 0.0494 0.0618 ...
+##  $ Montana             : num [1:86] 0.0123 0.0244 0.0364 0.0484 0.0604 ...
+##  $ Nebraska            : num [1:86] 0.0141 0.0281 0.042 0.0557 0.0696 ...
+##  $ Nevada              : num [1:86] 0.0125 0.0248 0.0374 0.0498 0.0626 ...
+##  $ New Hampshire       : num [1:86] 0.00932 0.01866 0.02852 0.03814 0.04831 ...
+##  $ New Jersey          : num [1:86] 0.0115 0.0232 0.0349 0.0468 0.0589 ...
+##  $ New Mexico          : num [1:86] 0.0124 0.025 0.0376 0.0504 0.0634 ...
+##  $ New York            : num [1:86] 0.0122 0.0241 0.036 0.0478 0.0598 ...
+##  $ North Carolina      : num [1:86] 0.012 0.024 0.0359 0.0479 0.06 ...
+##  $ North Dakota        : num [1:86] 0.015 0.0296 0.0438 0.0576 0.0709 ...
+##  $ Ohio                : num [1:86] 0.012 0.024 0.036 0.048 0.0601 ...
+##  $ Oklahoma            : num [1:86] 0.0136 0.0272 0.0409 0.0546 0.0683 ...
+##  $ Oregon              : num [1:86] 0.0114 0.0229 0.0344 0.046 0.0577 ...
+##  $ Pennsylvania        : num [1:86] 0.0111 0.0222 0.0333 0.0445 0.0558 ...
+##  $ Rhode Island        : num [1:86] 0.0103 0.0205 0.0309 0.0413 0.0518 ...
+##  $ South Carolina      : num [1:86] 0.0118 0.0236 0.0354 0.0474 0.0594 ...
+##  $ South Dakota        : num [1:86] 0.0144 0.029 0.0433 0.0575 0.0714 ...
+##  $ Tennessee           : num [1:86] 0.0123 0.0245 0.0367 0.049 0.0612 ...
+##  $ Texas               : num [1:86] 0.0146 0.0292 0.0435 0.0578 0.0724 ...
+##  $ Utah                : num [1:86] 0.0171 0.034 0.051 0.0676 0.0846 ...
+##  $ Vermont             : num [1:86] 0.0096 0.0195 0.0292 0.039 0.0489 ...
+##  $ Virginia            : num [1:86] 0.0123 0.0245 0.0367 0.0489 0.0612 ...
+##  $ Washington          : num [1:86] 0.0124 0.0248 0.0373 0.0497 0.0623 ...
+##  $ West Virginia       : num [1:86] 0.0108 0.0219 0.0331 0.0443 0.0554 ...
+##  $ Wisconsin           : num [1:86] 0.0116 0.0232 0.0349 0.0467 0.0586 ...
+##  $ Wyoming             : num [1:86] 0.0132 0.0262 0.0392 0.0523 0.0655 ...
+```
+We can see that we create a list of vectors for each state.
+
+Now let's use `map_dfc()`:
 
 ```r
 # calculate median age for each state
 age_stats <- age_stats %>%
   select(-AGE) %>%
-  map_df(cumsum) %>%
-  map_df(function(x) x/x[nrow(age_stats)]) %>%
+  map_dfc(cumsum) %>%
+  map_dfc(function(x) x/x[nrow(age_stats)]) %>%
   mutate(AGE = age_stats$AGE) %>%
   select(AGE, everything())
+
+glimpse(age_stats)
 ```
 
-Great, we have a tidy dataset storing important census information for both ethnicity and age. Now onto the other datasets!
+```
+## Rows: 86
+## Columns: 52
+## $ AGE                    <dbl> 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, …
+## $ Alabama                <dbl> 0.01217929, 0.02428807, 0.03623586, 0.04835742…
+## $ Alaska                 <dbl> 0.01524840, 0.03030168, 0.04521944, 0.05979438…
+## $ Arizona                <dbl> 0.01273885, 0.02549314, 0.03824081, 0.05101803…
+## $ Arkansas               <dbl> 0.01292266, 0.02569476, 0.03836806, 0.05126652…
+## $ California             <dbl> 0.01283122, 0.02561725, 0.03841722, 0.05118957…
+## $ Colorado               <dbl> 0.01217217, 0.02440058, 0.03655841, 0.04888552…
+## $ Connecticut            <dbl> 0.01013228, 0.02030490, 0.03056879, 0.04107142…
+## $ Delaware               <dbl> 0.01163322, 0.02326537, 0.03477678, 0.04661654…
+## $ `District of Columbia` <dbl> 0.01457035, 0.02759032, 0.04071434, 0.05331661…
+## $ Florida                <dbl> 0.01095628, 0.02192577, 0.03277035, 0.04371311…
+## $ Georgia                <dbl> 0.01284902, 0.02562823, 0.03837038, 0.05144559…
+## $ Hawaii                 <dbl> 0.01275029, 0.02580557, 0.03896040, 0.05191402…
+## $ Idaho                  <dbl> 0.01390752, 0.02744397, 0.04125812, 0.05494312…
+## $ Illinois               <dbl> 0.01233645, 0.02447549, 0.03656625, 0.04878623…
+## $ Indiana                <dbl> 0.01264485, 0.02525899, 0.03798841, 0.05071888…
+## $ Iowa                   <dbl> 0.01267030, 0.02538518, 0.03802630, 0.05063696…
+## $ Kansas                 <dbl> 0.01334268, 0.02681406, 0.04039729, 0.05398568…
+## $ Kentucky               <dbl> 0.01257763, 0.02509149, 0.03759246, 0.05002287…
+## $ Louisiana              <dbl> 0.01366990, 0.02722998, 0.04047237, 0.05358525…
+## $ Maine                  <dbl> 0.00949098, 0.01906255, 0.02881486, 0.03860408…
+## $ Maryland               <dbl> 0.01233418, 0.02449538, 0.03670807, 0.04897542…
+## $ Massachusetts          <dbl> 0.01064012, 0.02127391, 0.03194332, 0.04267411…
+## $ Michigan               <dbl> 0.01142560, 0.02298902, 0.03448267, 0.04603339…
+## $ Minnesota              <dbl> 0.01271147, 0.02555680, 0.03831076, 0.05107128…
+## $ Mississippi            <dbl> 0.01277126, 0.02554419, 0.03822836, 0.05115873…
+## $ Missouri               <dbl> 0.01232034, 0.02475678, 0.03708173, 0.04938873…
+## $ Montana                <dbl> 0.01225303, 0.02440298, 0.03639442, 0.04838391…
+## $ Nebraska               <dbl> 0.01411096, 0.02814111, 0.04197798, 0.05572191…
+## $ Nevada                 <dbl> 0.01250131, 0.02483232, 0.03739746, 0.04979506…
+## $ `New Hampshire`        <dbl> 0.009324624, 0.018656767, 0.028516676, 0.03813…
+## $ `New Jersey`           <dbl> 0.01153672, 0.02318527, 0.03489888, 0.04677209…
+## $ `New Mexico`           <dbl> 0.01241485, 0.02496946, 0.03762395, 0.05035577…
+## $ `New York`             <dbl> 0.01217189, 0.02407385, 0.03599014, 0.04784986…
+## $ `North Carolina`       <dbl> 0.01200077, 0.02400872, 0.03589836, 0.04789096…
+## $ `North Dakota`         <dbl> 0.01498293, 0.02957241, 0.04375387, 0.05755379…
+## $ Ohio                   <dbl> 0.01195482, 0.02398530, 0.03604946, 0.04804797…
+## $ Oklahoma               <dbl> 0.01360302, 0.02720220, 0.04094481, 0.05455859…
+## $ Oregon                 <dbl> 0.01137846, 0.02290605, 0.03443489, 0.04598165…
+## $ Pennsylvania           <dbl> 0.01105806, 0.02218984, 0.03332365, 0.04452838…
+## $ `Rhode Island`         <dbl> 0.01029817, 0.02052152, 0.03085757, 0.04130916…
+## $ `South Carolina`       <dbl> 0.01182747, 0.02361386, 0.03537920, 0.04736508…
+## $ `South Dakota`         <dbl> 0.01441743, 0.02898356, 0.04325579, 0.05748470…
+## $ Tennessee              <dbl> 0.01234189, 0.02454161, 0.03672630, 0.04900204…
+## $ Texas                  <dbl> 0.01460720, 0.02916560, 0.04354217, 0.05781300…
+## $ Utah                   <dbl> 0.01705642, 0.03397314, 0.05104564, 0.06758513…
+## $ Vermont                <dbl> 0.009603574, 0.019524225, 0.029198261, 0.03901…
+## $ Virginia               <dbl> 0.01229627, 0.02446226, 0.03665131, 0.04888352…
+## $ Washington             <dbl> 0.01241119, 0.02476856, 0.03725623, 0.04972054…
+## $ `West Virginia`        <dbl> 0.01083507, 0.02189516, 0.03312702, 0.04427952…
+## $ Wisconsin              <dbl> 0.01158854, 0.02323645, 0.03492551, 0.04674149…
+## $ Wyoming                <dbl> 0.01320760, 0.02620022, 0.03920990, 0.05229295…
+```
+
+
+Great, we have a tidy dataframe with a column for each state storing important census information for both ethnicity and age. Now onto the other datasets!
 
 #### Violent Crime
 

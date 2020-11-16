@@ -1904,6 +1904,13 @@ As you saw in the median example above, `map` functions carry out an operation r
 
 These all take vector and a function as an input. The function is applied to the vector and a new vector (of the same length & with the same names) is returned of the type specified in the map function call. 
 
+There are also the variations `map_df`, `map_dfr` and `map_dfc`, which will create a dataframe (the tidyverse version called a tibble) from the output by either combining the data by rows with `map_df()` and `map_dfr()` or by column with `map_dfc()`.
+
+```{r}
+# use map_dfr to calculate mean and create a dataframe
+map_dfr(trees, mean, na.rm = TRUE)
+```
+
 ### Multiple Vectors
 
 So far, we've only looked at iterating over a single vector at a time; however in analysis, you'll often find that you need to iterate over more than one vector at a time. The `purrr` package has two functions that simplify this process for you: `map2` and `pmap`.
@@ -2438,19 +2445,34 @@ age_stats <- age_stats %>%
 age_stats
 ```
 
-Now that we’ve made the data easier to work with, we need to find a way to get the median. One method is to take the cumulative sum of each column and then divide all the rows by the last row in each respective column, calculating a percentile/quantile for each age. To do this, we first remove the AGE column, as we don't want to calculate the median for this column. We then apply the `cumsum()` function and an anonymous function using `purrr`'s `map_df` function. But, of course, we do still want the AGE information in there, so we add that column back in using `mutate()` and then reorder the columns so that AGE is at the front again using `select()`:
+Now that we’ve made the data easier to work with, we need to find a way to get the median. One method is to take the cumulative sum of each column and then divide all the rows by the last row in each respective column, calculating a percentile/quantile for each age. To do this, we first remove the AGE column, as we don't want to calculate the median for this column. We then apply the `cumsum()` function and an anonymous function using `purrr`'s `map_dfc` function. This is a special variation of the `map()` function that returns a dataframe instead of a list by combining the data by column. But, of course, we do still want the AGE information in there, so we add that column back in using `mutate()` and then reorder the columns so that AGE is at the front again using `select()`.
 
+
+First let's see what would happen if we used `map()` instead of `map_dfc()`:
+```{r}
+ age_stats %>%
+  select(-AGE) %>%
+  map(cumsum) %>%
+  map(function(x) x/x[nrow(age_stats)]) %>%
+  glimpse
+```
+We can see that we create a list of vectors for each state.
+
+Now let's use `map_dfc()`:
 ```{r}
 # calculate median age for each state
 age_stats <- age_stats %>%
   select(-AGE) %>%
-  map_df(cumsum) %>%
-  map_df(function(x) x/x[nrow(age_stats)]) %>%
+  map_dfc(cumsum) %>%
+  map_dfc(function(x) x/x[nrow(age_stats)]) %>%
   mutate(AGE = age_stats$AGE) %>%
   select(AGE, everything())
+
+glimpse(age_stats)
 ```
 
-Great, we have a tidy dataset storing important census information for both ethnicity and age. Now onto the other datasets!
+
+Great, we have a tidy dataframe with a column for each state storing important census information for both ethnicity and age. Now onto the other datasets!
 
 #### Violent Crime
 
