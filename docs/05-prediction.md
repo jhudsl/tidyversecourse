@@ -2704,7 +2704,7 @@ resample_fit <- tune::fit_resamples(iris_cat_wflow, vfold_iris)
 
 We can now take a look at various performance metrics based on the fit of our cross validation "resamples". 
 
-To do this we will use the `collect_metrics` function of the `tune` package. This will show us the mean of the accuracy estimate of the 4 different cross validation folds.
+To do this we will use the `collect_metrics` function of the `tune` package. This will show us the mean of the accuracy estimate of the different cross validation folds.
 
 
 ```r
@@ -2821,18 +2821,18 @@ Air pollution particulates are generally described by their **size**.
 
 There are 3 major categories:
 
-1) **Large Coarse** Particulate Mater - has diameter of >10 micrometers (10 µm) 
+1) **Large Coarse** Particulate Matter - has diameter of >10 micrometers (10 µm) 
 
-2) **Coarse** Particulate Mater (called **PM~10-2.5~**) - has diameter of between 2.5 µm and 10 µm
+2) **Coarse** Particulate Matter (called **PM~10-2.5~**) - has diameter of between 2.5 µm and 10 µm
 
-3) **Fine** Particulate Mater (called **PM~2.5~**) - has diameter of < 2.5 µm 
+3) **Fine** Particulate Matter (called **PM~2.5~**) - has diameter of < 2.5 µm 
 
-**PM~10~** includes any particulate mater <10 µm (both coarse and fine particulate mater)
+**PM~10~** includes any particulate matter <10 µm (both coarse and fine particulate matter)
 
 
-Of these different sizes, fine particulate mater air pollution is the most associated with health risk.
+Of these different sizes, fine particulate matter air pollution is the most associated with health risk.
 
-In this case study, we will use fine particulate mater air pollution monitor data from **[gravimetric monitors](https://publiclab.org/wiki/filter-pm){target="_blank"}** (see picture below) operated by the US [Enivornmental Protection Agency (EPA)](https://www.epa.gov/){target="_blank"}.
+In this case study, we will use fine particulate matter air pollution monitor data from **[gravimetric monitors](https://publiclab.org/wiki/filter-pm){target="_blank"}** ] operated by the US [Enivornmental Protection Agency (EPA)](https://www.epa.gov/){target="_blank"}.
 
 Roughly 90% of these monitors are located within cities. Hence, there is limited data about air pollution levels of more rural areas. 
 
@@ -2845,7 +2845,7 @@ We will use data like population density, road density, among other features, to
 
 There are 48 predictors with values for 876 monitors (observations). 
 
-The data comes from the US [Enivornmental Protection Agency (EPA)](https://www.epa.gov/){target="_blank"}, the [National Aeronautics and Space Administration (NASA)](https://www.nasa.gov/){target="_blank"}, the US [Census](https://www.census.gov/about/what/census-at-a-glance.html){target="_blank"}, and the [National Center for Health Statistics (NCHS)](https://www.cdc.gov/nchs/about/index.htm){target="_blank"}.
+The data comes from the US [Environmental Protection Agency (EPA)](https://www.epa.gov/){target="_blank"}, the [National Aeronautics and Space Administration (NASA)](https://www.nasa.gov/){target="_blank"}, the US [Census](https://www.census.gov/about/what/census-at-a-glance.html){target="_blank"}, and the [National Center for Health Statistics (NCHS)](https://www.cdc.gov/nchs/about/index.htm){target="_blank"}.
 
 <details><summary> Click here to see a table about the set of features </summary>
 
@@ -2897,7 +2897,7 @@ Variable   | Details
 **grad** | Percentage of people in zcta area where the monitor whose highest formal educational attainment was a **graduate degree** <br> -- Data from the Census 
 **pov** | Percentage of people in zcta area where the monitor is that lived in [**poverty**](https://aspe.hhs.gov/2008-hhs-poverty-guidelines) in 2008  <br> -- Data from the Census  
 **hs_orless** |  Percentage of people in zcta area where the monitor whose highest formal educational attainment was a **high school degree or less** (sum of nohs, somehs, and hs)  
-**urc2013** | [2013 Urban-rural classification](https://www.cdc.gov/nchs/data/series/sr_02/sr02_166.pdf){target="_blank"} of the county where the monitor is located <br> -- 6 category variable - 1 is totally urban 6 is completely rural <br>  -- Data from the National Center for Health Statistics](https://www.cdc.gov/nchs/index.htm){target="_blank"}     
+**urc2013** | [2013 Urban-rural classification](https://www.cdc.gov/nchs/data/series/sr_02/sr02_166.pdf){target="_blank"} of the county where the monitor is located <br> -- 6 category variable - 1 is totally urban 6 is completely rural <br>  -- Data from the [National Center for Health Statistics](https://www.cdc.gov/nchs/index.htm){target="_blank"}     
 **urc2006** | [2006 Urban-rural classification](https://www.cdc.gov/nchs/data/series/sr_02/sr02_154.pdf){target="_blank"} of the county where the monitor is located <br> -- 6 category variable - 1 is totally urban 6 is completely rural <br> -- Data from the [National Center for Health Statistics](https://www.cdc.gov/nchs/index.htm){target="_blank"}     
 **aod** | Aerosol Optical Depth measurement from a NASA satellite <br> -- based on the diffraction of a laser <br> -- used as a proxy of particulate pollution <br> -- unit-less - higher value indicates more pollution <br> -- Data from NASA  
 
@@ -4680,7 +4680,7 @@ resample_fit <- tune::fit_resamples(PM_wflow, vfold_pm)
 
 We can now take a look at various performance metrics based on the fit of our cross validation "resamples". 
 
-To do this we will use the `collect_metrics` function of the `tune` package. This will show us the mean of the accuracy estimate of the 4 different cross validation folds.
+To do this we will use the `collect_metrics` function of the `tune` package. This will show us the mean of the accuracy estimate of the different cross validation folds.
 
 
 ```r
@@ -5103,12 +5103,12 @@ tune_RF_results%>%
 ## # A tibble: 6 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1     1    27 rmse    standard   2.05     10  0.142 
-## 2     1    27 rsq     standard   0.487    10  0.0351
-## 3     4    30 rmse    standard   1.81     10  0.141 
-## 4     4    30 rsq     standard   0.590    10  0.0407
-## 5     6    32 rmse    standard   1.76     10  0.143 
-## 6     6    32 rsq     standard   0.602    10  0.0385
+## 1     1    27 rmse    standard   2.05     10  0.138 
+## 2     1    27 rsq     standard   0.485    10  0.0394
+## 3     4    30 rmse    standard   1.81     10  0.144 
+## 4     4    30 rsq     standard   0.589    10  0.0382
+## 5     6    32 rmse    standard   1.76     10  0.147 
+## 6     6    32 rsq     standard   0.602    10  0.0401
 ```
 
 We can now use the `show_best()` function as it was truly intended, to see what values for `min_n` and `mtry` resulted in the best performance.
@@ -5122,7 +5122,7 @@ show_best(tune_RF_results, metric = "rmse", n =1)
 ## # A tibble: 1 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1    17     4 rmse    standard    1.68    10   0.144
+## 1    17     4 rmse    standard    1.67    10   0.144
 ```
 There we have it... looks like an `mtry` of 17 and `min_n` of 4 had the best `rmse` value. You can verify this in the above output, but it is easier to just pull this row out using this function. We can see that the mean `rmse` value across the cross validation sets was 1.67. Before tuning it was 1.68 with a similar `std_err` so the performance was very slightly improved.
 
