@@ -2114,7 +2114,7 @@ See <a href="https://tidymodels.github.io/tune/reference/fit_resamples.html" tar
 <a class="sourceLine" id="cb163-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">122</span>)</a>
 <a class="sourceLine" id="cb163-3" data-line-number="3">resample_fit &lt;-<span class="st"> </span>tune<span class="op">::</span><span class="kw">fit_resamples</span>(iris_cat_wflow, vfold_iris)</a></code></pre></div>
 <p>We can now take a look at various performance metrics based on the fit of our cross validation “resamples”.</p>
-<p>To do this we will use the <code>collect_metrics</code> function of the <code>tune</code> package. This will show us the mean of the accuracy estimate of the 4 different cross validation folds.</p>
+<p>To do this we will use the <code>collect_metrics</code> function of the <code>tune</code> package. This will show us the mean of the accuracy estimate of the different cross validation folds.</p>
 <div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" data-line-number="1">resample_fit</a></code></pre></div>
 <pre><code>## #  4-fold cross-validation 
 ## # A tibble: 4 x 4
@@ -2183,20 +2183,20 @@ See <a href="https://tidymodels.github.io/tune/reference/fit_resamples.html" tar
 <p>Air pollution particulates are generally described by their <strong>size</strong>.</p>
 <p>There are 3 major categories:</p>
 <ol style="list-style-type: decimal">
-<li><p><strong>Large Coarse</strong> Particulate Mater - has diameter of &gt;10 micrometers (10 µm)</p></li>
-<li><p><strong>Coarse</strong> Particulate Mater (called <strong>PM<sub>10-2.5</sub></strong>) - has diameter of between 2.5 µm and 10 µm</p></li>
-<li><p><strong>Fine</strong> Particulate Mater (called <strong>PM<sub>2.5</sub></strong>) - has diameter of &lt; 2.5 µm</p></li>
+<li><p><strong>Large Coarse</strong> Particulate Matter - has diameter of &gt;10 micrometers (10 µm)</p></li>
+<li><p><strong>Coarse</strong> Particulate Matter (called <strong>PM<sub>10-2.5</sub></strong>) - has diameter of between 2.5 µm and 10 µm</p></li>
+<li><p><strong>Fine</strong> Particulate Matter (called <strong>PM<sub>2.5</sub></strong>) - has diameter of &lt; 2.5 µm</p></li>
 </ol>
-<p><strong>PM<sub>10</sub></strong> includes any particulate mater &lt;10 µm (both coarse and fine particulate mater)</p>
-<p>Of these different sizes, fine particulate mater air pollution is the most associated with health risk.</p>
-<p>In this case study, we will use fine particulate mater air pollution monitor data from <strong><a href="https://publiclab.org/wiki/filter-pm" target="_blank">gravimetric monitors</a></strong> (see picture below) operated by the US <a href="https://www.epa.gov/" target="_blank">Enivornmental Protection Agency (EPA)</a>.</p>
+<p><strong>PM<sub>10</sub></strong> includes any particulate matter &lt;10 µm (both coarse and fine particulate matter)</p>
+<p>Of these different sizes, fine particulate matter air pollution is the most associated with health risk.</p>
+<p>In this case study, we will use fine particulate matter air pollution monitor data from <strong><a href="https://publiclab.org/wiki/filter-pm" target="_blank">gravimetric monitors</a></strong> ] operated by the US <a href="https://www.epa.gov/" target="_blank">Enivornmental Protection Agency (EPA)</a>.</p>
 <p>Roughly 90% of these monitors are located within cities. Hence, there is limited data about air pollution levels of more rural areas.</p>
 <p>To get a better sense of the pollution exposures for the individuals living in these areas, methods like machine learning can be useful to estimate air pollution levels in <strong>areas with little to no monitoring</strong>.</p>
 <p>We will use data like population density, road density, among other features, to build a model to predict the known monitored fine particulate air pollution levels. Such a model can then be used to estimate levels of pollution in places with poor monitoring.</p>
 <div id="the-data" class="section level4">
 <h4><span class="header-section-number">5.14.1.1</span> The Data</h4>
 <p>There are 48 predictors with values for 876 monitors (observations).</p>
-<p>The data comes from the US <a href="https://www.epa.gov/" target="_blank">Enivornmental Protection Agency (EPA)</a>, the <a href="https://www.nasa.gov/" target="_blank">National Aeronautics and Space Administration (NASA)</a>, the US <a href="https://www.census.gov/about/what/census-at-a-glance.html" target="_blank">Census</a>, and the <a href="https://www.cdc.gov/nchs/about/index.htm" target="_blank">National Center for Health Statistics (NCHS)</a>.</p>
+<p>The data comes from the US <a href="https://www.epa.gov/" target="_blank">Environmental Protection Agency (EPA)</a>, the <a href="https://www.nasa.gov/" target="_blank">National Aeronautics and Space Administration (NASA)</a>, the US <a href="https://www.census.gov/about/what/census-at-a-glance.html" target="_blank">Census</a>, and the <a href="https://www.cdc.gov/nchs/about/index.htm" target="_blank">National Center for Health Statistics (NCHS)</a>.</p>
 <details>
 <p><summary> Click here to see a table about the set of features </summary></p>
 <table>
@@ -2397,7 +2397,7 @@ See <a href="https://tidymodels.github.io/tune/reference/fit_resamples.html" tar
 </tr>
 <tr class="odd">
 <td><strong>urc2013</strong></td>
-<td><a href="https://www.cdc.gov/nchs/data/series/sr_02/sr02_166.pdf" target="_blank">2013 Urban-rural classification</a> of the county where the monitor is located <br> – 6 category variable - 1 is totally urban 6 is completely rural <br> – Data from the National Center for Health Statistics](<a href="https://www.cdc.gov/nchs/index.htm" class="uri">https://www.cdc.gov/nchs/index.htm</a>){target=&quot;_blank&quot;}</td>
+<td><a href="https://www.cdc.gov/nchs/data/series/sr_02/sr02_166.pdf" target="_blank">2013 Urban-rural classification</a> of the county where the monitor is located <br> – 6 category variable - 1 is totally urban 6 is completely rural <br> – Data from the <a href="https://www.cdc.gov/nchs/index.htm" target="_blank">National Center for Health Statistics</a></td>
 </tr>
 <tr class="even">
 <td><strong>urc2006</strong></td>
@@ -4254,7 +4254,7 @@ See <a href="https://tidymodels.github.io/tune/reference/fit_resamples.html" tar
 <pre><code>## ! Fold10: recipe: the standard deviation is zero, The correlation matrix has missi...</code></pre>
 <pre><code>## ! Fold10: model (predictions): There are new levels in a factor: Colbert, Walker, ...</code></pre>
 <p>We can now take a look at various performance metrics based on the fit of our cross validation “resamples”.</p>
-<p>To do this we will use the <code>collect_metrics</code> function of the <code>tune</code> package. This will show us the mean of the accuracy estimate of the 4 different cross validation folds.</p>
+<p>To do this we will use the <code>collect_metrics</code> function of the <code>tune</code> package. This will show us the mean of the accuracy estimate of the different cross validation folds.</p>
 <div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb312-1" data-line-number="1">resample_fit</a></code></pre></div>
 <pre><code>## #  10-fold cross-validation 
 ## # A tibble: 10 x 4
@@ -4514,18 +4514,18 @@ It looks like the random forest model had a much lower <code>rmse</code> value o
 <pre><code>## # A tibble: 6 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
-## 1     1    27 rmse    standard   2.05     10  0.142 
-## 2     1    27 rsq     standard   0.487    10  0.0351
-## 3     4    30 rmse    standard   1.81     10  0.141 
-## 4     4    30 rsq     standard   0.590    10  0.0407
-## 5     6    32 rmse    standard   1.76     10  0.143 
-## 6     6    32 rsq     standard   0.602    10  0.0385</code></pre>
+## 1     1    27 rmse    standard   2.05     10  0.138 
+## 2     1    27 rsq     standard   0.485    10  0.0394
+## 3     4    30 rmse    standard   1.81     10  0.144 
+## 4     4    30 rsq     standard   0.589    10  0.0382
+## 5     6    32 rmse    standard   1.76     10  0.147 
+## 6     6    32 rsq     standard   0.602    10  0.0401</code></pre>
 <p>We can now use the <code>show_best()</code> function as it was truly intended, to see what values for <code>min_n</code> and <code>mtry</code> resulted in the best performance.</p>
 <div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb347-1" data-line-number="1"><span class="kw">show_best</span>(tune_RF_results, <span class="dt">metric =</span> <span class="st">&quot;rmse&quot;</span>, <span class="dt">n =</span><span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 1 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
-## 1    17     4 rmse    standard    1.68    10   0.144</code></pre>
+## 1    17     4 rmse    standard    1.67    10   0.144</code></pre>
 <p>There we have it… looks like an <code>mtry</code> of 17 and <code>min_n</code> of 4 had the best <code>rmse</code> value. You can verify this in the above output, but it is easier to just pull this row out using this function. We can see that the mean <code>rmse</code> value across the cross validation sets was 1.67. Before tuning it was 1.68 with a similar <code>std_err</code> so the performance was very slightly improved.</p>
 </div>
 <div id="final-model-performance-evaluation" class="section level4">
