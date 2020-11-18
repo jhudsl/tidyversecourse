@@ -532,6 +532,19 @@ library(here)
 
 `here` is a package specifically designed to help you deal with file organization when you're coding. This package allows you to define in which folder all your relative paths should begin within a project. The path of this folder will be displayed after typing `library(here)` or `here()`. 
 
+#### The utility of the `here` package
+
+You may be asking, "Why do I need the `here` package?", and you may be thinking, "I can just write the paths myself or use the `setwd()` function".
+
+
+[Jenny Bryan](https://github.com/jennybc), has several [reasons](https://www.tidyverse.org/blog/2017/12/workflow-vs-script/). We highly recommend checking them out.
+
+In our own words:
+
+1) It makes your project work more easily on someone else's machine - there is no need to change the working directory path with the `setwd()` function. Everything will be relative to the .Rproj containing directory.
+2) It allows for your project to work more easily for you on your own machine - say your working directory was set to "/Users/somebody/2019_data_projects/that_big_project" and you decide you want to copy your scripts to be in  "/Users/somebody/2020_data_projects/that_big_project_again" to update a project for the next year with new data. You would need to update all of your scripts each time you set your working directory or load or save files. In some cases that will happen many times in a single project!
+3) It saves time. Sometimes our directory structures are complicated and we can easily make a typo. The `here` package makes writing paths easier!
+
 
 #### Setting your project directory
 
