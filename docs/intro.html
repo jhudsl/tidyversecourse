@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 1 Introduction to the Tidyverse | Tidyverse Skills for Data Science</title>
   <meta name="description" content="This book demonstrates how to use the Tidyverse collection of packages for doing data science." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 1 Introduction to the Tidyverse | Tidyverse Skills for Data Science" />
   <meta property="og:type" content="book" />
@@ -33,7 +33,6 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="get-data.html"/>
-<script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,37 +50,32 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
 <link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
 <script src="libs/str_view-binding-1.4.0/str_view.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -90,9 +84,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -142,33 +136,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prerequisites</a></li>
-<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction to the Tidyverse</a>
-<ul>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction to the Tidyverse</a><ul>
 <li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#about-this-course"><i class="fa fa-check"></i><b>1.1</b> About This Course</a></li>
-<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#tidy-data"><i class="fa fa-check"></i><b>1.2</b> Tidy Data</a>
-<ul>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#tidy-data"><i class="fa fa-check"></i><b>1.2</b> Tidy Data</a><ul>
 <li class="chapter" data-level="1.2.1" data-path="intro.html"><a href="intro.html#data-terminology"><i class="fa fa-check"></i><b>1.2.1</b> Data Terminology</a></li>
 <li class="chapter" data-level="1.2.2" data-path="intro.html"><a href="intro.html#principles-of-tidy-data"><i class="fa fa-check"></i><b>1.2.2</b> Principles of Tidy Data</a></li>
 <li class="chapter" data-level="1.2.3" data-path="intro.html"><a href="intro.html#tidy-data-are-rectangular"><i class="fa fa-check"></i><b>1.2.3</b> Tidy Data Are Rectangular</a></li>
 <li class="chapter" data-level="1.2.4" data-path="intro.html"><a href="intro.html#tidy-data-benefits"><i class="fa fa-check"></i><b>1.2.4</b> Tidy Data Benefits</a></li>
 <li class="chapter" data-level="1.2.5" data-path="intro.html"><a href="intro.html#rules-for-storing-tidy-data"><i class="fa fa-check"></i><b>1.2.5</b> Rules for Storing Tidy Data</a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#from-non-tidy-tidy"><i class="fa fa-check"></i><b>1.3</b> From Non-Tidy –&gt; Tidy</a>
-<ul>
-<li class="chapter" data-level="1.3.1" data-path="intro.html"><a href="intro.html#common-problems-with-messy-data-sets"><i class="fa fa-check"></i><b>1.3.1</b> Common problems with messy data sets</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#from-non-tidy-tidy"><i class="fa fa-check"></i><b>1.3</b> From Non-Tidy –&gt; Tidy</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="intro.html"><a href="intro.html#common-problems-with-messy-datasets"><i class="fa fa-check"></i><b>1.3.1</b> Common problems with messy datasets</a></li>
 <li class="chapter" data-level="1.3.2" data-path="intro.html"><a href="intro.html#examples-of-untidy-data"><i class="fa fa-check"></i><b>1.3.2</b> Examples of untidy data</a></li>
 <li class="chapter" data-level="1.3.3" data-path="intro.html"><a href="intro.html#tidying-untidy-data"><i class="fa fa-check"></i><b>1.3.3</b> Tidying untidy data</a></li>
 </ul></li>
 <li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#the-data-science-life-cycle"><i class="fa fa-check"></i><b>1.4</b> The Data Science Life Cycle</a></li>
-<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#the-tidyverse-ecosystem"><i class="fa fa-check"></i><b>1.5</b> The Tidyverse Ecosystem</a>
-<ul>
+<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#the-tidyverse-ecosystem"><i class="fa fa-check"></i><b>1.5</b> The Tidyverse Ecosystem</a><ul>
 <li class="chapter" data-level="1.5.1" data-path="intro.html"><a href="intro.html#reading-data-into-r"><i class="fa fa-check"></i><b>1.5.1</b> Reading Data into R</a></li>
 <li class="chapter" data-level="1.5.2" data-path="intro.html"><a href="intro.html#data-tidying"><i class="fa fa-check"></i><b>1.5.2</b> Data Tidying</a></li>
 <li class="chapter" data-level="1.5.3" data-path="intro.html"><a href="intro.html#data-visualization"><i class="fa fa-check"></i><b>1.5.3</b> Data Visualization</a></li>
 <li class="chapter" data-level="1.5.4" data-path="intro.html"><a href="intro.html#data-modeling"><i class="fa fa-check"></i><b>1.5.4</b> Data Modeling</a></li>
 </ul></li>
-<li class="chapter" data-level="1.6" data-path="intro.html"><a href="intro.html#data-science-project-organization"><i class="fa fa-check"></i><b>1.6</b> Data Science Project Organization</a>
-<ul>
+<li class="chapter" data-level="1.6" data-path="intro.html"><a href="intro.html#data-science-project-organization"><i class="fa fa-check"></i><b>1.6</b> Data Science Project Organization</a><ul>
 <li class="chapter" data-level="1.6.1" data-path="intro.html"><a href="intro.html#rstudio-projects"><i class="fa fa-check"></i><b>1.6.1</b> RStudio Projects</a></li>
 <li class="chapter" data-level="1.6.2" data-path="intro.html"><a href="intro.html#file-paths"><i class="fa fa-check"></i><b>1.6.2</b> File Paths</a></li>
 <li class="chapter" data-level="1.6.3" data-path="intro.html"><a href="intro.html#the-here-package"><i class="fa fa-check"></i><b>1.6.3</b> The <code>here</code> package</a></li>
@@ -176,44 +165,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.6.5" data-path="intro.html"><a href="intro.html#project-template-everything-in-its-place"><i class="fa fa-check"></i><b>1.6.5</b> Project Template: Everything In Its Place</a></li>
 </ul></li>
 <li class="chapter" data-level="1.7" data-path="intro.html"><a href="intro.html#data-science-workflows"><i class="fa fa-check"></i><b>1.7</b> Data Science Workflows</a></li>
-<li class="chapter" data-level="1.8" data-path="intro.html"><a href="intro.html#case-studies"><i class="fa fa-check"></i><b>1.8</b> Case Studies</a>
-<ul>
+<li class="chapter" data-level="1.8" data-path="intro.html"><a href="intro.html#case-studies"><i class="fa fa-check"></i><b>1.8</b> Case Studies</a><ul>
 <li class="chapter" data-level="1.8.1" data-path="intro.html"><a href="intro.html#case-study-1-health-expenditures"><i class="fa fa-check"></i><b>1.8.1</b> Case Study #1: Health Expenditures</a></li>
 <li class="chapter" data-level="1.8.2" data-path="intro.html"><a href="intro.html#case-study-2-firearms"><i class="fa fa-check"></i><b>1.8.2</b> Case Study #2: Firearms</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="get-data.html"><a href="get-data.html"><i class="fa fa-check"></i><b>2</b> Importing Data in the Tidyverse</a>
-<ul>
+<li class="chapter" data-level="2" data-path="get-data.html"><a href="get-data.html"><i class="fa fa-check"></i><b>2</b> Importing Data in the Tidyverse</a><ul>
 <li class="chapter" data-level="2.1" data-path="get-data.html"><a href="get-data.html#about-this-course-1"><i class="fa fa-check"></i><b>2.1</b> About This Course</a></li>
-<li class="chapter" data-level="2.2" data-path="get-data.html"><a href="get-data.html#tibbles"><i class="fa fa-check"></i><b>2.2</b> Tibbles</a>
-<ul>
+<li class="chapter" data-level="2.2" data-path="get-data.html"><a href="get-data.html#tibbles"><i class="fa fa-check"></i><b>2.2</b> Tibbles</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="get-data.html"><a href="get-data.html#how-tibbles-differ-from-data.frame"><i class="fa fa-check"></i><b>2.2.1</b> How tibbles differ from data.frame</a></li>
 <li class="chapter" data-level="2.2.2" data-path="get-data.html"><a href="get-data.html#creating-a-tibble"><i class="fa fa-check"></i><b>2.2.2</b> Creating a tibble</a></li>
 <li class="chapter" data-level="2.2.3" data-path="get-data.html"><a href="get-data.html#subsetting"><i class="fa fa-check"></i><b>2.2.3</b> Subsetting</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="get-data.html"><a href="get-data.html#spreadsheets"><i class="fa fa-check"></i><b>2.3</b> Spreadsheets</a>
-<ul>
+<li class="chapter" data-level="2.3" data-path="get-data.html"><a href="get-data.html#spreadsheets"><i class="fa fa-check"></i><b>2.3</b> Spreadsheets</a><ul>
 <li class="chapter" data-level="2.3.1" data-path="get-data.html"><a href="get-data.html#excel-files"><i class="fa fa-check"></i><b>2.3.1</b> Excel files</a></li>
 <li class="chapter" data-level="2.3.2" data-path="get-data.html"><a href="get-data.html#google-sheets"><i class="fa fa-check"></i><b>2.3.2</b> Google Sheets</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="get-data.html"><a href="get-data.html#csvs"><i class="fa fa-check"></i><b>2.4</b> CSVs</a>
-<ul>
+<li class="chapter" data-level="2.4" data-path="get-data.html"><a href="get-data.html#csvs"><i class="fa fa-check"></i><b>2.4</b> CSVs</a><ul>
 <li class="chapter" data-level="2.4.1" data-path="get-data.html"><a href="get-data.html#downloading-csv-files"><i class="fa fa-check"></i><b>2.4.1</b> Downloading CSV files</a></li>
 <li class="chapter" data-level="2.4.2" data-path="get-data.html"><a href="get-data.html#reading-csvs-into-r"><i class="fa fa-check"></i><b>2.4.2</b> Reading CSVs into R</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="get-data.html"><a href="get-data.html#tsvs"><i class="fa fa-check"></i><b>2.5</b> TSVs</a>
-<ul>
+<li class="chapter" data-level="2.5" data-path="get-data.html"><a href="get-data.html#tsvs"><i class="fa fa-check"></i><b>2.5</b> TSVs</a><ul>
 <li class="chapter" data-level="2.5.1" data-path="get-data.html"><a href="get-data.html#reading-tsvs-into-r"><i class="fa fa-check"></i><b>2.5.1</b> Reading TSVs into R</a></li>
 </ul></li>
-<li class="chapter" data-level="2.6" data-path="get-data.html"><a href="get-data.html#delimited-files"><i class="fa fa-check"></i><b>2.6</b> Delimited Files</a>
-<ul>
+<li class="chapter" data-level="2.6" data-path="get-data.html"><a href="get-data.html#delimited-files"><i class="fa fa-check"></i><b>2.6</b> Delimited Files</a><ul>
 <li class="chapter" data-level="2.6.1" data-path="get-data.html"><a href="get-data.html#reading-delimited-files-into-r"><i class="fa fa-check"></i><b>2.6.1</b> Reading Delimited Files into R</a></li>
 </ul></li>
 <li class="chapter" data-level="2.7" data-path="get-data.html"><a href="get-data.html#exporting-data-from-r"><i class="fa fa-check"></i><b>2.7</b> Exporting Data from R</a></li>
 <li class="chapter" data-level="2.8" data-path="get-data.html"><a href="get-data.html#json"><i class="fa fa-check"></i><b>2.8</b> JSON</a></li>
 <li class="chapter" data-level="2.9" data-path="get-data.html"><a href="get-data.html#xml"><i class="fa fa-check"></i><b>2.9</b> XML</a></li>
-<li class="chapter" data-level="2.10" data-path="get-data.html"><a href="get-data.html#databases"><i class="fa fa-check"></i><b>2.10</b> Databases</a>
-<ul>
+<li class="chapter" data-level="2.10" data-path="get-data.html"><a href="get-data.html#databases"><i class="fa fa-check"></i><b>2.10</b> Databases</a><ul>
 <li class="chapter" data-level="2.10.1" data-path="get-data.html"><a href="get-data.html#relational-data"><i class="fa fa-check"></i><b>2.10.1</b> Relational Data</a></li>
 <li class="chapter" data-level="2.10.2" data-path="get-data.html"><a href="get-data.html#relational-databases-sql"><i class="fa fa-check"></i><b>2.10.2</b> Relational Databases: <code>SQL</code></a></li>
 <li class="chapter" data-level="2.10.3" data-path="get-data.html"><a href="get-data.html#connecting-to-databases-rsqlite"><i class="fa fa-check"></i><b>2.10.3</b> Connecting to Databases: <code>RSQLite</code></a></li>
@@ -222,45 +203,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.10.6" data-path="get-data.html"><a href="get-data.html#filtering-joins"><i class="fa fa-check"></i><b>2.10.6</b> Filtering Joins</a></li>
 <li class="chapter" data-level="2.10.7" data-path="get-data.html"><a href="get-data.html#how-to-connect-to-a-database-online"><i class="fa fa-check"></i><b>2.10.7</b> How to Connect to a Database Online</a></li>
 </ul></li>
-<li class="chapter" data-level="2.11" data-path="get-data.html"><a href="get-data.html#web-scraping"><i class="fa fa-check"></i><b>2.11</b> Web Scraping</a>
-<ul>
+<li class="chapter" data-level="2.11" data-path="get-data.html"><a href="get-data.html#web-scraping"><i class="fa fa-check"></i><b>2.11</b> Web Scraping</a><ul>
 <li class="chapter" data-level="2.11.1" data-path="get-data.html"><a href="get-data.html#rvest-basics"><i class="fa fa-check"></i><b>2.11.1</b> <code>rvest</code> Basics</a></li>
 <li class="chapter" data-level="2.11.2" data-path="get-data.html"><a href="get-data.html#selectorgadget"><i class="fa fa-check"></i><b>2.11.2</b> SelectorGadget</a></li>
 <li class="chapter" data-level="2.11.3" data-path="get-data.html"><a href="get-data.html#web-scraping-example"><i class="fa fa-check"></i><b>2.11.3</b> Web Scraping Example</a></li>
 <li class="chapter" data-level="2.11.4" data-path="get-data.html"><a href="get-data.html#a-final-note-selectorgadget"><i class="fa fa-check"></i><b>2.11.4</b> A final note: SelectorGadget</a></li>
 </ul></li>
-<li class="chapter" data-level="2.12" data-path="get-data.html"><a href="get-data.html#apis"><i class="fa fa-check"></i><b>2.12</b> APIs</a>
-<ul>
+<li class="chapter" data-level="2.12" data-path="get-data.html"><a href="get-data.html#apis"><i class="fa fa-check"></i><b>2.12</b> APIs</a><ul>
 <li class="chapter" data-level="2.12.1" data-path="get-data.html"><a href="get-data.html#getting-data-httr"><i class="fa fa-check"></i><b>2.12.1</b> Getting Data: <code>httr</code></a></li>
 <li class="chapter" data-level="2.12.2" data-path="get-data.html"><a href="get-data.html#example-1-githubs-api"><i class="fa fa-check"></i><b>2.12.2</b> Example 1: GitHub’s API</a></li>
 <li class="chapter" data-level="2.12.3" data-path="get-data.html"><a href="get-data.html#example-2-obtaining-a-csv"><i class="fa fa-check"></i><b>2.12.3</b> Example 2: Obtaining a CSV</a></li>
 <li class="chapter" data-level="2.12.4" data-path="get-data.html"><a href="get-data.html#read_csv-from-a-url"><i class="fa fa-check"></i><b>2.12.4</b> <code>read_csv()</code> from a URL</a></li>
 <li class="chapter" data-level="2.12.5" data-path="get-data.html"><a href="get-data.html#api-keys"><i class="fa fa-check"></i><b>2.12.5</b> API keys</a></li>
 </ul></li>
-<li class="chapter" data-level="2.13" data-path="get-data.html"><a href="get-data.html#foreign-formats"><i class="fa fa-check"></i><b>2.13</b> Foreign Formats</a>
-<ul>
+<li class="chapter" data-level="2.13" data-path="get-data.html"><a href="get-data.html#foreign-formats"><i class="fa fa-check"></i><b>2.13</b> Foreign Formats</a><ul>
 <li class="chapter" data-level="2.13.1" data-path="get-data.html"><a href="get-data.html#haven-1"><i class="fa fa-check"></i><b>2.13.1</b> <code>haven</code></a></li>
 </ul></li>
 <li class="chapter" data-level="2.14" data-path="get-data.html"><a href="get-data.html#images"><i class="fa fa-check"></i><b>2.14</b> Images</a></li>
 <li class="chapter" data-level="2.15" data-path="get-data.html"><a href="get-data.html#googledrive-1"><i class="fa fa-check"></i><b>2.15</b> <code>googledrive</code></a></li>
-<li class="chapter" data-level="2.16" data-path="get-data.html"><a href="get-data.html#case-studies-1"><i class="fa fa-check"></i><b>2.16</b> Case Studies</a>
-<ul>
+<li class="chapter" data-level="2.16" data-path="get-data.html"><a href="get-data.html#case-studies-1"><i class="fa fa-check"></i><b>2.16</b> Case Studies</a><ul>
 <li class="chapter" data-level="2.16.1" data-path="get-data.html"><a href="get-data.html#case-study-1-health-expenditures-1"><i class="fa fa-check"></i><b>2.16.1</b> Case Study #1: Health Expenditures</a></li>
 <li class="chapter" data-level="2.16.2" data-path="get-data.html"><a href="get-data.html#case-study-2-firearms-1"><i class="fa fa-check"></i><b>2.16.2</b> Case Study #2: Firearms</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="wrangle-data.html"><a href="wrangle-data.html"><i class="fa fa-check"></i><b>3</b> Wrangling Data in the Tidyverse</a>
-<ul>
+<li class="chapter" data-level="3" data-path="wrangle-data.html"><a href="wrangle-data.html"><i class="fa fa-check"></i><b>3</b> Wrangling Data in the Tidyverse</a><ul>
 <li class="chapter" data-level="3.1" data-path="wrangle-data.html"><a href="wrangle-data.html#about-this-course-2"><i class="fa fa-check"></i><b>3.1</b> About This Course</a></li>
 <li class="chapter" data-level="3.2" data-path="wrangle-data.html"><a href="wrangle-data.html#tidy-data-review"><i class="fa fa-check"></i><b>3.2</b> Tidy Data Review</a></li>
-<li class="chapter" data-level="3.3" data-path="wrangle-data.html"><a href="wrangle-data.html#reshaping-data"><i class="fa fa-check"></i><b>3.3</b> Reshaping Data</a>
-<ul>
+<li class="chapter" data-level="3.3" data-path="wrangle-data.html"><a href="wrangle-data.html#reshaping-data"><i class="fa fa-check"></i><b>3.3</b> Reshaping Data</a><ul>
 <li class="chapter" data-level="3.3.1" data-path="wrangle-data.html"><a href="wrangle-data.html#wide-data"><i class="fa fa-check"></i><b>3.3.1</b> Wide Data</a></li>
 <li class="chapter" data-level="3.3.2" data-path="wrangle-data.html"><a href="wrangle-data.html#long-data"><i class="fa fa-check"></i><b>3.3.2</b> Long Data</a></li>
 <li class="chapter" data-level="3.3.3" data-path="wrangle-data.html"><a href="wrangle-data.html#reshaping-the-data"><i class="fa fa-check"></i><b>3.3.3</b> Reshaping the Data</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="wrangle-data.html"><a href="wrangle-data.html#data-wrangling"><i class="fa fa-check"></i><b>3.4</b> Data Wrangling</a>
-<ul>
+<li class="chapter" data-level="3.4" data-path="wrangle-data.html"><a href="wrangle-data.html#data-wrangling"><i class="fa fa-check"></i><b>3.4</b> Data Wrangling</a><ul>
 <li class="chapter" data-level="3.4.1" data-path="wrangle-data.html"><a href="wrangle-data.html#r-packages"><i class="fa fa-check"></i><b>3.4.1</b> R Packages</a></li>
 <li class="chapter" data-level="3.4.2" data-path="wrangle-data.html"><a href="wrangle-data.html#the-pipe-operator"><i class="fa fa-check"></i><b>3.4.2</b> The Pipe Operator</a></li>
 <li class="chapter" data-level="3.4.3" data-path="wrangle-data.html"><a href="wrangle-data.html#filtering-data"><i class="fa fa-check"></i><b>3.4.3</b> Filtering Data</a></li>
@@ -274,8 +248,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4.11" data-path="wrangle-data.html"><a href="wrangle-data.html#summarizing-data"><i class="fa fa-check"></i><b>3.4.11</b> Summarizing Data</a></li>
 <li class="chapter" data-level="3.4.12" data-path="wrangle-data.html"><a href="wrangle-data.html#operations-across-columns"><i class="fa fa-check"></i><b>3.4.12</b> Operations Across Columns</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="wrangle-data.html"><a href="wrangle-data.html#working-with-factors"><i class="fa fa-check"></i><b>3.5</b> Working With Factors</a>
-<ul>
+<li class="chapter" data-level="3.5" data-path="wrangle-data.html"><a href="wrangle-data.html#working-with-factors"><i class="fa fa-check"></i><b>3.5</b> Working With Factors</a><ul>
 <li class="chapter" data-level="3.5.1" data-path="wrangle-data.html"><a href="wrangle-data.html#factor-review"><i class="fa fa-check"></i><b>3.5.1</b> Factor Review</a></li>
 <li class="chapter" data-level="3.5.2" data-path="wrangle-data.html"><a href="wrangle-data.html#manually-changing-the-labels-of-factor-levels-fct_relevel"><i class="fa fa-check"></i><b>3.5.2</b> Manually Changing the Labels of Factor Levels: <code>fct_relevel()</code></a></li>
 <li class="chapter" data-level="3.5.3" data-path="wrangle-data.html"><a href="wrangle-data.html#keeping-the-order-of-the-factor-levels-fct_inorder"><i class="fa fa-check"></i><b>3.5.3</b> Keeping the Order of the Factor Levels: <code>fct_inorder()</code></a></li>
@@ -286,54 +259,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.5.8" data-path="wrangle-data.html"><a href="wrangle-data.html#combining-several-levels-into-one-fct_recode"><i class="fa fa-check"></i><b>3.5.8</b> Combining Several Levels into One: <code>fct_recode()</code></a></li>
 <li class="chapter" data-level="3.5.9" data-path="wrangle-data.html"><a href="wrangle-data.html#converting-numeric-levels-to-factors-ifelse-factor"><i class="fa fa-check"></i><b>3.5.9</b> Converting Numeric Levels to Factors: <code>ifelse()</code> + <code>factor()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="3.6" data-path="wrangle-data.html"><a href="wrangle-data.html#working-with-dates-and-times"><i class="fa fa-check"></i><b>3.6</b> Working With Dates and Times</a>
-<ul>
+<li class="chapter" data-level="3.6" data-path="wrangle-data.html"><a href="wrangle-data.html#working-with-dates-and-times"><i class="fa fa-check"></i><b>3.6</b> Working With Dates and Times</a><ul>
 <li class="chapter" data-level="3.6.1" data-path="wrangle-data.html"><a href="wrangle-data.html#dates-and-times-basics"><i class="fa fa-check"></i><b>3.6.1</b> Dates and Times Basics</a></li>
 <li class="chapter" data-level="3.6.2" data-path="wrangle-data.html"><a href="wrangle-data.html#creating-dates-and-date-time-objects"><i class="fa fa-check"></i><b>3.6.2</b> Creating Dates and Date-Time Objects</a></li>
 <li class="chapter" data-level="3.6.3" data-path="wrangle-data.html"><a href="wrangle-data.html#working-with-dates"><i class="fa fa-check"></i><b>3.6.3</b> Working with Dates</a></li>
 <li class="chapter" data-level="3.6.4" data-path="wrangle-data.html"><a href="wrangle-data.html#time-spans"><i class="fa fa-check"></i><b>3.6.4</b> Time Spans</a></li>
 </ul></li>
-<li class="chapter" data-level="3.7" data-path="wrangle-data.html"><a href="wrangle-data.html#working-with-strings"><i class="fa fa-check"></i><b>3.7</b> Working With Strings</a>
-<ul>
+<li class="chapter" data-level="3.7" data-path="wrangle-data.html"><a href="wrangle-data.html#working-with-strings"><i class="fa fa-check"></i><b>3.7</b> Working With Strings</a><ul>
 <li class="chapter" data-level="3.7.1" data-path="wrangle-data.html"><a href="wrangle-data.html#stringr-1"><i class="fa fa-check"></i><b>3.7.1</b> <code>stringr</code></a></li>
 <li class="chapter" data-level="3.7.2" data-path="wrangle-data.html"><a href="wrangle-data.html#string-basics"><i class="fa fa-check"></i><b>3.7.2</b> String Basics</a></li>
 <li class="chapter" data-level="3.7.3" data-path="wrangle-data.html"><a href="wrangle-data.html#regular-expressions"><i class="fa fa-check"></i><b>3.7.3</b> Regular Expressions</a></li>
 <li class="chapter" data-level="3.7.4" data-path="wrangle-data.html"><a href="wrangle-data.html#glue-1"><i class="fa fa-check"></i><b>3.7.4</b> <code>glue</code></a></li>
 </ul></li>
-<li class="chapter" data-level="3.8" data-path="wrangle-data.html"><a href="wrangle-data.html#working-with-text"><i class="fa fa-check"></i><b>3.8</b> Working With Text</a>
-<ul>
+<li class="chapter" data-level="3.8" data-path="wrangle-data.html"><a href="wrangle-data.html#working-with-text"><i class="fa fa-check"></i><b>3.8</b> Working With Text</a><ul>
 <li class="chapter" data-level="3.8.1" data-path="wrangle-data.html"><a href="wrangle-data.html#tidy-text-format"><i class="fa fa-check"></i><b>3.8.1</b> Tidy Text Format</a></li>
 <li class="chapter" data-level="3.8.2" data-path="wrangle-data.html"><a href="wrangle-data.html#sentiment-analysis"><i class="fa fa-check"></i><b>3.8.2</b> Sentiment Analysis</a></li>
 <li class="chapter" data-level="3.8.3" data-path="wrangle-data.html"><a href="wrangle-data.html#word-and-document-frequency"><i class="fa fa-check"></i><b>3.8.3</b> Word and Document Frequency</a></li>
 </ul></li>
-<li class="chapter" data-level="3.9" data-path="wrangle-data.html"><a href="wrangle-data.html#functional-programming"><i class="fa fa-check"></i><b>3.9</b> Functional Programming</a>
-<ul>
-<li class="chapter" data-level="3.9.1" data-path="wrangle-data.html"><a href="wrangle-data.html#for-loops-vs.-functionals"><i class="fa fa-check"></i><b>3.9.1</b> For Loops vs. Functionals</a></li>
+<li class="chapter" data-level="3.9" data-path="wrangle-data.html"><a href="wrangle-data.html#functional-programming"><i class="fa fa-check"></i><b>3.9</b> Functional Programming</a><ul>
+<li class="chapter" data-level="3.9.1" data-path="wrangle-data.html"><a href="wrangle-data.html#for-loops-vs.functionals"><i class="fa fa-check"></i><b>3.9.1</b> For Loops vs. Functionals</a></li>
 <li class="chapter" data-level="3.9.2" data-path="wrangle-data.html"><a href="wrangle-data.html#map-functions"><i class="fa fa-check"></i><b>3.9.2</b> <code>map</code> Functions</a></li>
 <li class="chapter" data-level="3.9.3" data-path="wrangle-data.html"><a href="wrangle-data.html#multiple-vectors"><i class="fa fa-check"></i><b>3.9.3</b> Multiple Vectors</a></li>
 <li class="chapter" data-level="3.9.4" data-path="wrangle-data.html"><a href="wrangle-data.html#anonymous-functions"><i class="fa fa-check"></i><b>3.9.4</b> Anonymous Functions</a></li>
 </ul></li>
-<li class="chapter" data-level="3.10" data-path="wrangle-data.html"><a href="wrangle-data.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>3.10</b> Exploratory Data Analysis</a>
-<ul>
+<li class="chapter" data-level="3.10" data-path="wrangle-data.html"><a href="wrangle-data.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>3.10</b> Exploratory Data Analysis</a><ul>
 <li class="chapter" data-level="3.10.1" data-path="wrangle-data.html"><a href="wrangle-data.html#general-principles-of-eda"><i class="fa fa-check"></i><b>3.10.1</b> General Principles of EDA</a></li>
 <li class="chapter" data-level="3.10.2" data-path="wrangle-data.html"><a href="wrangle-data.html#analyzing-json-in-r"><i class="fa fa-check"></i><b>3.10.2</b> Analyzing JSON in R</a></li>
 <li class="chapter" data-level="3.10.3" data-path="wrangle-data.html"><a href="wrangle-data.html#analyzing-xml-in-r"><i class="fa fa-check"></i><b>3.10.3</b> Analyzing XML in R</a></li>
 </ul></li>
-<li class="chapter" data-level="3.11" data-path="wrangle-data.html"><a href="wrangle-data.html#case-studies-2"><i class="fa fa-check"></i><b>3.11</b> Case Studies</a>
-<ul>
+<li class="chapter" data-level="3.11" data-path="wrangle-data.html"><a href="wrangle-data.html#case-studies-2"><i class="fa fa-check"></i><b>3.11</b> Case Studies</a><ul>
 <li class="chapter" data-level="3.11.1" data-path="wrangle-data.html"><a href="wrangle-data.html#case-study-1-health-expenditures-2"><i class="fa fa-check"></i><b>3.11.1</b> Case Study #1: Health Expenditures</a></li>
 <li class="chapter" data-level="3.11.2" data-path="wrangle-data.html"><a href="wrangle-data.html#case-study-2-firearms-2"><i class="fa fa-check"></i><b>3.11.2</b> Case Study #2: Firearms</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="dataviz.html"><a href="dataviz.html"><i class="fa fa-check"></i><b>4</b> Visualizing Data in the Tidyverse</a>
-<ul>
+<li class="chapter" data-level="4" data-path="dataviz.html"><a href="dataviz.html"><i class="fa fa-check"></i><b>4</b> Visualizing Data in the Tidyverse</a><ul>
 <li class="chapter" data-level="4.1" data-path="dataviz.html"><a href="dataviz.html#about-this-course-3"><i class="fa fa-check"></i><b>4.1</b> About This Course</a></li>
-<li class="chapter" data-level="4.2" data-path="dataviz.html"><a href="dataviz.html#data-visualization-background"><i class="fa fa-check"></i><b>4.2</b> Data Visualization Background</a>
-<ul>
+<li class="chapter" data-level="4.2" data-path="dataviz.html"><a href="dataviz.html#data-visualization-background"><i class="fa fa-check"></i><b>4.2</b> Data Visualization Background</a><ul>
 <li class="chapter" data-level="4.2.1" data-path="dataviz.html"><a href="dataviz.html#general-features-of-plots"><i class="fa fa-check"></i><b>4.2.1</b> General Features of Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="dataviz.html"><a href="dataviz.html#plot-types"><i class="fa fa-check"></i><b>4.3</b> Plot Types</a>
-<ul>
+<li class="chapter" data-level="4.3" data-path="dataviz.html"><a href="dataviz.html#plot-types"><i class="fa fa-check"></i><b>4.3</b> Plot Types</a><ul>
 <li class="chapter" data-level="4.3.1" data-path="dataviz.html"><a href="dataviz.html#histogram"><i class="fa fa-check"></i><b>4.3.1</b> Histogram</a></li>
 <li class="chapter" data-level="4.3.2" data-path="dataviz.html"><a href="dataviz.html#densityplot"><i class="fa fa-check"></i><b>4.3.2</b> Densityplot</a></li>
 <li class="chapter" data-level="4.3.3" data-path="dataviz.html"><a href="dataviz.html#scatterplot"><i class="fa fa-check"></i><b>4.3.3</b> Scatterplot</a></li>
@@ -341,8 +305,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.5" data-path="dataviz.html"><a href="dataviz.html#boxplot"><i class="fa fa-check"></i><b>4.3.5</b> Boxplot</a></li>
 <li class="chapter" data-level="4.3.6" data-path="dataviz.html"><a href="dataviz.html#line-plots"><i class="fa fa-check"></i><b>4.3.6</b> Line Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="dataviz.html"><a href="dataviz.html#making-good-plots"><i class="fa fa-check"></i><b>4.4</b> Making Good Plots</a>
-<ul>
+<li class="chapter" data-level="4.4" data-path="dataviz.html"><a href="dataviz.html#making-good-plots"><i class="fa fa-check"></i><b>4.4</b> Making Good Plots</a><ul>
 <li class="chapter" data-level="4.4.1" data-path="dataviz.html"><a href="dataviz.html#choose-the-right-type-of-plot"><i class="fa fa-check"></i><b>4.4.1</b> Choose the Right Type of Plot</a></li>
 <li class="chapter" data-level="4.4.2" data-path="dataviz.html"><a href="dataviz.html#be-mindful-when-choosing-colors"><i class="fa fa-check"></i><b>4.4.2</b> Be Mindful When Choosing Colors</a></li>
 <li class="chapter" data-level="4.4.3" data-path="dataviz.html"><a href="dataviz.html#label-the-axes"><i class="fa fa-check"></i><b>4.4.3</b> Label the Axes</a></li>
@@ -353,14 +316,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4.8" data-path="dataviz.html"><a href="dataviz.html#use-y-axes-that-start-at-zero"><i class="fa fa-check"></i><b>4.4.8</b> Use y-axes That Start at Zero</a></li>
 <li class="chapter" data-level="4.4.9" data-path="dataviz.html"><a href="dataviz.html#keep-it-simple"><i class="fa fa-check"></i><b>4.4.9</b> Keep It Simple</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="dataviz.html"><a href="dataviz.html#plot-generation-process"><i class="fa fa-check"></i><b>4.5</b> Plot Generation Process</a>
-<ul>
+<li class="chapter" data-level="4.5" data-path="dataviz.html"><a href="dataviz.html#plot-generation-process"><i class="fa fa-check"></i><b>4.5</b> Plot Generation Process</a><ul>
 <li class="chapter" data-level="4.5.1" data-path="dataviz.html"><a href="dataviz.html#whats-your-point"><i class="fa fa-check"></i><b>4.5.1</b> What’s your point?</a></li>
 <li class="chapter" data-level="4.5.2" data-path="dataviz.html"><a href="dataviz.html#how-can-you-emphasize-your-point-in-your-chart"><i class="fa fa-check"></i><b>4.5.2</b> How can you emphasize your point in your chart?</a></li>
 <li class="chapter" data-level="4.5.3" data-path="dataviz.html"><a href="dataviz.html#what-does-your-final-chart-show"><i class="fa fa-check"></i><b>4.5.3</b> What Does Your Final Chart Show?</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="dataviz.html"><a href="dataviz.html#ggplot2-basics"><i class="fa fa-check"></i><b>4.6</b> <code>ggplot2</code>: Basics</a>
-<ul>
+<li class="chapter" data-level="4.6" data-path="dataviz.html"><a href="dataviz.html#ggplot2-basics"><i class="fa fa-check"></i><b>4.6</b> <code>ggplot2</code>: Basics</a><ul>
 <li class="chapter" data-level="4.6.1" data-path="dataviz.html"><a href="dataviz.html#ggplot2-background"><i class="fa fa-check"></i><b>4.6.1</b> <code>ggplot2</code> Background</a></li>
 <li class="chapter" data-level="4.6.2" data-path="dataviz.html"><a href="dataviz.html#example-dataset-diamonds"><i class="fa fa-check"></i><b>4.6.2</b> Example Dataset: <code>diamonds</code></a></li>
 <li class="chapter" data-level="4.6.3" data-path="dataviz.html"><a href="dataviz.html#scatterplots-geom_point"><i class="fa fa-check"></i><b>4.6.3</b> Scatterplots: <code>geom_point()</code></a></li>
@@ -369,8 +330,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.6.6" data-path="dataviz.html"><a href="dataviz.html#geoms"><i class="fa fa-check"></i><b>4.6.6</b> Geoms</a></li>
 <li class="chapter" data-level="4.6.7" data-path="dataviz.html"><a href="dataviz.html#eda-plots"><i class="fa fa-check"></i><b>4.6.7</b> EDA Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="4.7" data-path="dataviz.html"><a href="dataviz.html#ggplot2-customization"><i class="fa fa-check"></i><b>4.7</b> <code>ggplot2</code>: Customization</a>
-<ul>
+<li class="chapter" data-level="4.7" data-path="dataviz.html"><a href="dataviz.html#ggplot2-customization"><i class="fa fa-check"></i><b>4.7</b> <code>ggplot2</code>: Customization</a><ul>
 <li class="chapter" data-level="4.7.1" data-path="dataviz.html"><a href="dataviz.html#colors"><i class="fa fa-check"></i><b>4.7.1</b> Colors</a></li>
 <li class="chapter" data-level="4.7.2" data-path="dataviz.html"><a href="dataviz.html#labels"><i class="fa fa-check"></i><b>4.7.2</b> Labels</a></li>
 <li class="chapter" data-level="4.7.3" data-path="dataviz.html"><a href="dataviz.html#themes"><i class="fa fa-check"></i><b>4.7.3</b> Themes</a></li>
@@ -381,49 +341,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.7.8" data-path="dataviz.html"><a href="dataviz.html#annotation"><i class="fa fa-check"></i><b>4.7.8</b> Annotation</a></li>
 <li class="chapter" data-level="4.7.9" data-path="dataviz.html"><a href="dataviz.html#vertical-and-horizontal-lines"><i class="fa fa-check"></i><b>4.7.9</b> Vertical and Horizontal Lines</a></li>
 </ul></li>
-<li class="chapter" data-level="4.8" data-path="dataviz.html"><a href="dataviz.html#tables"><i class="fa fa-check"></i><b>4.8</b> Tables</a>
-<ul>
+<li class="chapter" data-level="4.8" data-path="dataviz.html"><a href="dataviz.html#tables"><i class="fa fa-check"></i><b>4.8</b> Tables</a><ul>
 <li class="chapter" data-level="4.8.1" data-path="dataviz.html"><a href="dataviz.html#tables-in-r"><i class="fa fa-check"></i><b>4.8.1</b> Tables in R</a></li>
 <li class="chapter" data-level="4.8.2" data-path="dataviz.html"><a href="dataviz.html#getting-the-data-in-order"><i class="fa fa-check"></i><b>4.8.2</b> Getting the Data in Order</a></li>
 <li class="chapter" data-level="4.8.3" data-path="dataviz.html"><a href="dataviz.html#an-exploratory-table"><i class="fa fa-check"></i><b>4.8.3</b> An Exploratory Table</a></li>
 <li class="chapter" data-level="4.8.4" data-path="dataviz.html"><a href="dataviz.html#improving-the-table-output"><i class="fa fa-check"></i><b>4.8.4</b> Improving the Table Output</a></li>
 <li class="chapter" data-level="4.8.5" data-path="dataviz.html"><a href="dataviz.html#annotating-your-table"><i class="fa fa-check"></i><b>4.8.5</b> Annotating Your Table</a></li>
 </ul></li>
-<li class="chapter" data-level="4.9" data-path="dataviz.html"><a href="dataviz.html#ggplot2-extensions"><i class="fa fa-check"></i><b>4.9</b> <code>ggplot2</code>: Extensions</a>
-<ul>
+<li class="chapter" data-level="4.9" data-path="dataviz.html"><a href="dataviz.html#ggplot2-extensions"><i class="fa fa-check"></i><b>4.9</b> <code>ggplot2</code>: Extensions</a><ul>
 <li class="chapter" data-level="4.9.1" data-path="dataviz.html"><a href="dataviz.html#ggrepel-1"><i class="fa fa-check"></i><b>4.9.1</b> <code>ggrepel</code></a></li>
 <li class="chapter" data-level="4.9.2" data-path="dataviz.html"><a href="dataviz.html#directlabels"><i class="fa fa-check"></i><b>4.9.2</b> <code>directlabels</code></a></li>
 <li class="chapter" data-level="4.9.3" data-path="dataviz.html"><a href="dataviz.html#cowplot-1"><i class="fa fa-check"></i><b>4.9.3</b> <code>cowplot</code></a></li>
 <li class="chapter" data-level="4.9.4" data-path="dataviz.html"><a href="dataviz.html#patchwork-1"><i class="fa fa-check"></i><b>4.9.4</b> <code>patchwork</code></a></li>
 <li class="chapter" data-level="4.9.5" data-path="dataviz.html"><a href="dataviz.html#gganimate-1"><i class="fa fa-check"></i><b>4.9.5</b> <code>gganimate</code></a></li>
 </ul></li>
-<li class="chapter" data-level="4.10" data-path="dataviz.html"><a href="dataviz.html#case-studies-3"><i class="fa fa-check"></i><b>4.10</b> Case Studies</a>
-<ul>
+<li class="chapter" data-level="4.10" data-path="dataviz.html"><a href="dataviz.html#case-studies-3"><i class="fa fa-check"></i><b>4.10</b> Case Studies</a><ul>
 <li class="chapter" data-level="4.10.1" data-path="dataviz.html"><a href="dataviz.html#case-study-1-health-expenditures-3"><i class="fa fa-check"></i><b>4.10.1</b> Case Study #1: Health Expenditures</a></li>
 <li class="chapter" data-level="4.10.2" data-path="dataviz.html"><a href="dataviz.html#case-study-2-firearms-3"><i class="fa fa-check"></i><b>4.10.2</b> Case Study #2: Firearms</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="model.html"><a href="model.html"><i class="fa fa-check"></i><b>5</b> Modeling Data in the Tidyverse</a>
-<ul>
+<li class="chapter" data-level="5" data-path="model.html"><a href="model.html"><i class="fa fa-check"></i><b>5</b> Modeling Data in the Tidyverse</a><ul>
 <li class="chapter" data-level="5.1" data-path="model.html"><a href="model.html#about-this-course-4"><i class="fa fa-check"></i><b>5.1</b> About This Course</a></li>
 <li class="chapter" data-level="5.2" data-path="model.html"><a href="model.html#the-purpose-of-data-science"><i class="fa fa-check"></i><b>5.2</b> The Purpose of Data Science</a></li>
 <li class="chapter" data-level="5.3" data-path="model.html"><a href="model.html#types-of-data-science-questions"><i class="fa fa-check"></i><b>5.3</b> Types of Data Science Questions</a></li>
 <li class="chapter" data-level="5.4" data-path="model.html"><a href="model.html#data-needs"><i class="fa fa-check"></i><b>5.4</b> Data Needs</a></li>
-<li class="chapter" data-level="5.5" data-path="model.html"><a href="model.html#descriptive-and-exploratory-analysis"><i class="fa fa-check"></i><b>5.5</b> Descriptive and Exploratory Analysis</a>
-<ul>
+<li class="chapter" data-level="5.5" data-path="model.html"><a href="model.html#descriptive-and-exploratory-analysis"><i class="fa fa-check"></i><b>5.5</b> Descriptive and Exploratory Analysis</a><ul>
 <li class="chapter" data-level="5.5.1" data-path="model.html"><a href="model.html#missing-values"><i class="fa fa-check"></i><b>5.5.1</b> Missing Values</a></li>
 <li class="chapter" data-level="5.5.2" data-path="model.html"><a href="model.html#shape"><i class="fa fa-check"></i><b>5.5.2</b> Shape</a></li>
 <li class="chapter" data-level="5.5.3" data-path="model.html"><a href="model.html#identifying-outliers"><i class="fa fa-check"></i><b>5.5.3</b> Identifying Outliers</a></li>
 <li class="chapter" data-level="5.5.4" data-path="model.html"><a href="model.html#evaluating-variables"><i class="fa fa-check"></i><b>5.5.4</b> Evaluating Variables</a></li>
 <li class="chapter" data-level="5.5.5" data-path="model.html"><a href="model.html#evaluating-relationships"><i class="fa fa-check"></i><b>5.5.5</b> Evaluating Relationships</a></li>
 </ul></li>
-<li class="chapter" data-level="5.6" data-path="model.html"><a href="model.html#inference"><i class="fa fa-check"></i><b>5.6</b> Inference</a>
-<ul>
+<li class="chapter" data-level="5.6" data-path="model.html"><a href="model.html#inference"><i class="fa fa-check"></i><b>5.6</b> Inference</a><ul>
 <li class="chapter" data-level="5.6.1" data-path="model.html"><a href="model.html#uncertainty"><i class="fa fa-check"></i><b>5.6.1</b> Uncertainty</a></li>
 <li class="chapter" data-level="5.6.2" data-path="model.html"><a href="model.html#random-sampling"><i class="fa fa-check"></i><b>5.6.2</b> Random Sampling</a></li>
 </ul></li>
-<li class="chapter" data-level="5.7" data-path="model.html"><a href="model.html#linear-modeling"><i class="fa fa-check"></i><b>5.7</b> Linear Modeling</a>
-<ul>
+<li class="chapter" data-level="5.7" data-path="model.html"><a href="model.html#linear-modeling"><i class="fa fa-check"></i><b>5.7</b> Linear Modeling</a><ul>
 <li class="chapter" data-level="5.7.1" data-path="model.html"><a href="model.html#linear-regression"><i class="fa fa-check"></i><b>5.7.1</b> Linear Regression</a></li>
 <li class="chapter" data-level="5.7.2" data-path="model.html"><a href="model.html#assumptions"><i class="fa fa-check"></i><b>5.7.2</b> Assumptions</a></li>
 <li class="chapter" data-level="5.7.3" data-path="model.html"><a href="model.html#association"><i class="fa fa-check"></i><b>5.7.3</b> Association</a></li>
@@ -438,18 +391,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.7.12" data-path="model.html"><a href="model.html#confounding"><i class="fa fa-check"></i><b>5.7.12</b> Confounding</a></li>
 </ul></li>
 <li class="chapter" data-level="5.8" data-path="model.html"><a href="model.html#multiple-linear-regression"><i class="fa fa-check"></i><b>5.8</b> Multiple Linear Regression</a></li>
-<li class="chapter" data-level="5.9" data-path="model.html"><a href="model.html#beyond-linear-regression"><i class="fa fa-check"></i><b>5.9</b> Beyond Linear Regression</a>
-<ul>
+<li class="chapter" data-level="5.9" data-path="model.html"><a href="model.html#beyond-linear-regression"><i class="fa fa-check"></i><b>5.9</b> Beyond Linear Regression</a><ul>
 <li class="chapter" data-level="5.9.1" data-path="model.html"><a href="model.html#mean-different-from-expectation"><i class="fa fa-check"></i><b>5.9.1</b> Mean Different From Expectation?</a></li>
 <li class="chapter" data-level="5.9.2" data-path="model.html"><a href="model.html#testing-mean-difference-from-expectation-in-r"><i class="fa fa-check"></i><b>5.9.2</b> Testing Mean Difference From Expectation in R</a></li>
 </ul></li>
 <li class="chapter" data-level="5.10" data-path="model.html"><a href="model.html#more-statistical-tests"><i class="fa fa-check"></i><b>5.10</b> More Statistical Tests</a></li>
-<li class="chapter" data-level="5.11" data-path="model.html"><a href="model.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.11</b> Hypothesis Testing</a>
-<ul>
+<li class="chapter" data-level="5.11" data-path="model.html"><a href="model.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.11</b> Hypothesis Testing</a><ul>
 <li class="chapter" data-level="5.11.1" data-path="model.html"><a href="model.html#theinfer-package"><i class="fa fa-check"></i><b>5.11.1</b> The<code>Infer</code> Package</a></li>
 </ul></li>
-<li class="chapter" data-level="5.12" data-path="model.html"><a href="model.html#prediction-modeling"><i class="fa fa-check"></i><b>5.12</b> Prediction Modeling</a>
-<ul>
+<li class="chapter" data-level="5.12" data-path="model.html"><a href="model.html#prediction-modeling"><i class="fa fa-check"></i><b>5.12</b> Prediction Modeling</a><ul>
 <li class="chapter" data-level="5.12.1" data-path="model.html"><a href="model.html#what-is-machine-learning"><i class="fa fa-check"></i><b>5.12.1</b> What is Machine Learning?</a></li>
 <li class="chapter" data-level="5.12.2" data-path="model.html"><a href="model.html#machine-learning-steps"><i class="fa fa-check"></i><b>5.12.2</b> Machine Learning Steps</a></li>
 <li class="chapter" data-level="5.12.3" data-path="model.html"><a href="model.html#data-splitting"><i class="fa fa-check"></i><b>5.12.3</b> Data Splitting</a></li>
@@ -459,20 +409,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.12.7" data-path="model.html"><a href="model.html#validate"><i class="fa fa-check"></i><b>5.12.7</b> Validate</a></li>
 <li class="chapter" data-level="5.12.8" data-path="model.html"><a href="model.html#variable-selection"><i class="fa fa-check"></i><b>5.12.8</b> Variable Selection</a></li>
 <li class="chapter" data-level="5.12.9" data-path="model.html"><a href="model.html#model-selection"><i class="fa fa-check"></i><b>5.12.9</b> Model Selection</a></li>
-<li class="chapter" data-level="5.12.10" data-path="model.html"><a href="model.html#regression-vs.-classification"><i class="fa fa-check"></i><b>5.12.10</b> Regression vs. Classification</a></li>
+<li class="chapter" data-level="5.12.10" data-path="model.html"><a href="model.html#regression-vs.classification"><i class="fa fa-check"></i><b>5.12.10</b> Regression vs. Classification</a></li>
 <li class="chapter" data-level="5.12.11" data-path="model.html"><a href="model.html#model-accuracy"><i class="fa fa-check"></i><b>5.12.11</b> Model Accuracy</a></li>
 </ul></li>
-<li class="chapter" data-level="5.13" data-path="model.html"><a href="model.html#the-tidymodels-ecosystem-1"><i class="fa fa-check"></i><b>5.13</b> The <code>tidymodels</code> Ecosystem</a>
-<ul>
+<li class="chapter" data-level="5.13" data-path="model.html"><a href="model.html#the-tidymodels-ecosystem-1"><i class="fa fa-check"></i><b>5.13</b> The <code>tidymodels</code> Ecosystem</a><ul>
 <li class="chapter" data-level="5.13.1" data-path="model.html"><a href="model.html#benefits-of-tidymodels"><i class="fa fa-check"></i><b>5.13.1</b> Benefits of <code>tidymodels</code></a></li>
 <li class="chapter" data-level="5.13.2" data-path="model.html"><a href="model.html#packages-of-tidymodels"><i class="fa fa-check"></i><b>5.13.2</b> Packages of <code>tidymodels</code></a></li>
 <li class="chapter" data-level="5.13.3" data-path="model.html"><a href="model.html#example-of-continuous-variable-prediction"><i class="fa fa-check"></i><b>5.13.3</b> Example of Continuous Variable Prediction</a></li>
 <li class="chapter" data-level="5.13.4" data-path="model.html"><a href="model.html#example-of-categorical-variable-prediction"><i class="fa fa-check"></i><b>5.13.4</b> Example of Categorical Variable Prediction</a></li>
 </ul></li>
-<li class="chapter" data-level="5.14" data-path="model.html"><a href="model.html#case-studies-4"><i class="fa fa-check"></i><b>5.14</b> Case Studies</a>
-<ul>
+<li class="chapter" data-level="5.14" data-path="model.html"><a href="model.html#case-studies-4"><i class="fa fa-check"></i><b>5.14</b> Case Studies</a><ul>
 <li class="chapter" data-level="5.14.1" data-path="model.html"><a href="model.html#case-study-1-predicting-annual-air-pollution"><i class="fa fa-check"></i><b>5.14.1</b> Case Study #1: Predicting Annual Air Pollution</a></li>
 </ul></li>
+<li class="chapter" data-level="5.15" data-path="model.html"><a href="model.html#summary-of-tidymodels"><i class="fa fa-check"></i><b>5.15</b> Summary of <code>tidymodels</code></a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
 <li class="divider"></li>
@@ -495,22 +444,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="intro" class="section level1" number="1">
+<div id="intro" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> Introduction to the Tidyverse</h1>
 <p>The <strong>data science life cycle</strong> begins with a question that can be answered with data and ends with an answer to that question. However, there are a lot of steps that happen after a question has been generated and before arriving at an answer. After generating their specific question, data scientists have to determine what data will be useful, import the data, tidy the data into a format that is easy to work with, explore the data, generate insightful visualizations, carry out the analysis, and communicate their findings. Throughout this process, it is often said that <a href="https://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html">50-80% of a data scientist’s time is spent wrangling data</a>. It can be hard work to read the data in and get data into the format you need to ultimately answer the question. As a result, conceptual frameworks and software packages to make these steps easier have been developed.</p>
 <p>Within the R community, R packages that have been developed for this very purpose are often referred to as the Tidyverse. According to their website, the <a href="https://www.tidyverse.org/">tidyverse</a> is “an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.” There are currently about a dozen packages that make up the official tidyverse; however, there are dozens of tidyverse-adjacent packages that follow this philosophy, grammar, and data structures and work well with the official tidyverse packages. It is this whole set of packages that we have set out to teach in this specialization.</p>
 <p>In this course, we set out to introduce the conceptual framework behind tidy data and introduce the tidyverse and tidyverse-adjacent packages that we’ll be teaching throughout this specialization. Mastery of these fundamental concepts and familiarity with what can be accomplished using the tidyverse will be critical throughout the more technical courses ahead. So, be sure you are familiar with the vocabulary provided and have a clear understanding of the tidy data principles introduced here before moving forward.</p>
 <p>In this specialization we assume familiarity with the R programming language. If you are not yet familiar with R, we suggest you first complete <a href="https://www.coursera.org/learn/r-programming">R Programming</a> before returning to complete this specialization. However, if you have some familiarity with R and want to learn how to work more efficiently with data, then you’ve come to the right place!</p>
-<div id="about-this-course" class="section level2" number="1.1">
+<div id="about-this-course" class="section level2">
 <h2><span class="header-section-number">1.1</span> About This Course</h2>
-<p>This course introduces a powerful set of data science tools known as the Tidyverse. The Tidyverse has revolutionized the way in which data scientists do almost every aspect of their job. We will cover the simple idea of “tidy data” and how this idea serves to organize data for analysis and modeling. We will also cover how non-tidy can be transformed to tidy data, the data science project life cycle, and the ecosystem of Tidyverse R packages that can be used to execute a data science project.</p>
+<p>This course introduces a powerful set of data science tools known as the Tidyverse. The Tidyverse has revolutionized the way in which data scientists do almost every aspect of their job. We will cover the simple idea of “tidy data” and how this idea serves to organize data for analysis and modeling. We will also cover how non-tidy data can be transformed to tidy data, the data science project life cycle, and the ecosystem of Tidyverse R packages that can be used to execute a data science project.</p>
 <p>If you are new to data science, the Tidyverse ecosystem of R packages is an excellent way to learn the different aspects of the data science pipeline, from importing the data, tidying the data into a format that is easy to work with, exploring and visualizing the data, and fitting machine learning models. If you are already experienced in data science, the Tidyverse provides a power system for streamlining your workflow in a coherent manner that can easily connect with other data science tools.</p>
 <p>In this course it is important that you be familiar with the R programming language. If you are not yet familiar with R, we suggest you first complete <a href="https://www.coursera.org/learn/r-programming">R Programming</a> before returning to complete this course.</p>
 </div>
-<div id="tidy-data" class="section level2" number="1.2">
+<div id="tidy-data" class="section level2">
 <h2><span class="header-section-number">1.2</span> Tidy Data</h2>
 <p>Before we can discuss all the ways in which R makes it easy to work with tidy data, we have to first be sure we know what tidy data are. Tidy datasets, by design, are easier to manipulate, model, and visualize because the tidy data principles that we’ll discuss in this course impose a general framework and a consistent set of rules on data. In fact, a well-known quote from Hadley Wickham is that “tidy datasets are all alike but every messy dataset is messy in its own way.” Utilizing a consistent tidy data format allows for tools to be built that work well within this framework, ultimately simplifying the data wrangling, visualization and analysis processes. By starting with data that are already in a tidy format <em>or</em> by spending the time at the beginning of a project to get data into a tidy format, the remaining steps of your data science project will be easier.</p>
-<div id="data-terminology" class="section level3" number="1.2.1">
+<div id="data-terminology" class="section level3">
 <h3><span class="header-section-number">1.2.1</span> Data Terminology</h3>
 <p>Before we move on, let’s discuss what is meant by <strong>dataset</strong>, <strong>observations</strong>, <strong>variables</strong>, and <strong>types</strong>, all of which are used to explain the principles of tidy data.</p>
 <p><strong>Dataset</strong></p>
@@ -518,23 +467,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Variables</strong></p>
 <p><em>Variables</em> in a dataset are the different categories of data that will be collected. They are the different pieces of information that can be collected or measured on each observation. Here, we see there are 7 different variables: ID, LastName, FirstName, Sex, City, State, and Occupation. The names for variables are put in the first row of the spreadsheet.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g2bfdb07292_0_151" alt="" />
+<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g2bfdb07292_0_151" alt="Variables" />
 <p class="caption">Variables</p>
 </div>
 <p><strong>Observations</strong></p>
 <p>The measurements taken from a person for each variable are called <em>observations.</em> Observations in a tidy dataset are stored in a single row, with each observation being put in the appropriate column for each variable.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326b47e392_0_12" alt="" />
+<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326b47e392_0_12" alt="Observations" />
 <p class="caption">Observations</p>
 </div>
 <p><strong>Types</strong></p>
 <p>Often, data are collected for the same individuals from multiple sources. For example, when you go to the doctor’s office, you fill out a survey about yourself. That would count as one type of data. The measurements a doctor collects at your visit, however, would be a different type of data.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_0_3" alt="" />
+<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_0_3" alt="Types" />
 <p class="caption">Types</p>
 </div>
 </div>
-<div id="principles-of-tidy-data" class="section level3" number="1.2.2">
+<div id="principles-of-tidy-data" class="section level3">
 <h3><span class="header-section-number">1.2.2</span> Principles of Tidy Data</h3>
 <p>In Hadley Wickham’s 2014 paper titled <a href="https://www.jstatsoft.org/article/view/v059i10">“Tidy Data”</a>, he explains:</p>
 <blockquote>
@@ -545,51 +494,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Each variable you measure should be in one column.</li>
 </ol>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_0_44" alt="" />
+<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_0_44" alt="Principle #1 of Tidy Data" />
 <p class="caption">Principle #1 of Tidy Data</p>
 </div>
 <ol start="2" style="list-style-type: decimal">
 <li>Each different observation of that variable should be in a different row.</li>
 </ol>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_0_36" alt="" />
+<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_0_36" alt="Principle #2 of Tidy Data" />
 <p class="caption">Principle #2 of Tidy Data</p>
 </div>
 <ol start="3" style="list-style-type: decimal">
 <li>There should be one table for each “type” of data.</li>
 </ol>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_0_57" alt="" />
+<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_0_57" alt="Principle #3 of Tidy Data" />
 <p class="caption">Principle #3 of Tidy Data</p>
 </div>
 <ol start="4" style="list-style-type: decimal">
 <li>If you have multiple tables, they should include a column in each spreadsheet (with the same column label!) that allows them to be joined or merged.</li>
 </ol>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_0_40" alt="" />
+<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_0_40" alt="Principle #4 of Tidy Data" />
 <p class="caption">Principle #4 of Tidy Data</p>
 </div>
 </div>
-<div id="tidy-data-are-rectangular" class="section level3" number="1.2.3">
+<div id="tidy-data-are-rectangular" class="section level3">
 <h3><span class="header-section-number">1.2.3</span> Tidy Data Are Rectangular</h3>
 <p>When it comes to thinking about tidy data, remember that tidy data are rectangular data. The data should be a rectangle with each variable in a separate column and each entry in a different row. All cells should contain some text, so that the spreadsheet looks like a rectangle with something in every cell.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_1_6" alt="" />
+<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_1_6" alt="Tidy Data = rectangular data" />
 <p class="caption">Tidy Data = rectangular data</p>
 </div>
 <p>So, if you’re working with a dataset and attempting to tidy it, if you don’t have a rectangle at the end of the process, you likely have more work to do before it’s truly in a tidy data format.</p>
 </div>
-<div id="tidy-data-benefits" class="section level3" number="1.2.4">
+<div id="tidy-data-benefits" class="section level3">
 <h3><span class="header-section-number">1.2.4</span> Tidy Data Benefits</h3>
 <p>There are a number of benefits to working within a tidy data framework:</p>
 <ol style="list-style-type: decimal">
-<li>Tidy data have a <em>consistent data structure</em> - this eliminates the <em>many</em> different ways in which data can be stored. By imposing a uniform data structure, the cognitive load imposed on the analyst is minimized for each new project.</li>
-<li>Tidy data <em>foster tool development</em> - software that all work within the tidy data framework can all work well with one another, even when developed by different individuals, ultimately increasing the variety and scope of tools available, without requiring analysts to learn an entirely new mental model with each new tool</li>
-<li>Tidy data require only a <em>small set of tools to be learned</em> - When using a consistent data format, only a small set of tools is required and these tools can be reused from one project to the next</li>
+<li>Tidy data have a <em>consistent data structure</em> - This eliminates the <em>many</em> different ways in which data can be stored. By imposing a uniform data structure, the cognitive load imposed on the analyst is minimized for each new project.</li>
+<li>Tidy data <em>foster tool development</em> - Software that all work within the tidy data framework can all work well with one another, even when developed by different individuals, ultimately increasing the variety and scope of tools available, without requiring analysts to learn an entirely new mental model with each new tool.</li>
+<li>Tidy data require only a <em>small set of tools to be learned</em> - When using a consistent data format, only a small set of tools is required and these tools can be reused from one project to the next.</li>
 <li>Tidy data allow for <em>datasets to be combined</em> - Data are often stored in multiple tables or in different locations. By getting each table into a tidy format, combining across tables or sources becomes trivial.</li>
 </ol>
 </div>
-<div id="rules-for-storing-tidy-data" class="section level3" number="1.2.5">
+<div id="rules-for-storing-tidy-data" class="section level3">
 <h3><span class="header-section-number">1.2.5</span> Rules for Storing Tidy Data</h3>
 <p>In addition to the four tidy data principles, there are a number of rules to follow when entering data to be stored, or when re-organizing untidy data that you have already been given for a project into a tidy format. They are rules that will help make data analysis and visualization easier down the road. They were formalized in a paper called <a href="https://peerj.com/preprints/3183/">“Data organization in spreadsheets”</a>, written by two prominent data scientists, <a href="http://kbroman.org/">Karl Broman</a> and <a href="http://karawoo.com/">Kara Woo</a>. In this paper, in addition to ensuring that the data are tidy, they suggest following these guidelines when entering data into spreadsheets:</p>
 <ol style="list-style-type: decimal">
@@ -602,77 +551,77 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Save the data as plain text files</li>
 </ol>
 <p>We’ll go through each of these to make sure we’re all clear on what a great tidy spreadsheet looks like.</p>
-<div id="be-consistent" class="section level4" number="1.2.5.1">
+<div id="be-consistent" class="section level4">
 <h4><span class="header-section-number">1.2.5.1</span> Be consistent</h4>
 <p>Being consistent in data entry and throughout an analysis is key. It minimizes confusion and makes analysis simpler. For example, here we see sex is coded as “female” or “male.” Those are the only two ways in which sex was entered into the data. This is an example of consistent data entry. You want to avoid sometimes coding a female’s sex as “female” and then entering it as “F” in other cases. Simply, you want to pick a way to code sex and stick to it.</p>
 <p>With regard to entering a person’s sex, we were talking about how to code observations for a specific variable; however, consistency also matters when you’re choosing how to name a variable. If you use the variable name “ID” in one spreadsheet, use the same variable name (“ID”) in the next spreadsheet. Do not change it to “id” (capitalization matters!) or “identifier” or anything else in the next spreadsheet. Be consistent!</p>
-<p>Consistency matters across every step of the analysis. Name your files in a consistent format. Always code dates in a consistent format (discussed further below). Avoid extra spaces in cells. If you’re careful about and consistent in data entry, it will be incredibly helpful when you get to analysis.</p>
+<p>Consistency matters across every step of the analysis. Name your files in a consistent format. Always code dates in a consistent format (discussed further below). Avoid extra spaces in cells. Being careful and consistent in data entry will be incredibly helpful when you get to the point of analyzing your data.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_0_81" alt="" />
+<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_0_81" alt="Be Consistent!" />
 <p class="caption">Be Consistent!</p>
 </div>
 </div>
-<div id="choose-good-names-for-things" class="section level4" number="1.2.5.2">
+<div id="choose-good-names-for-things" class="section level4">
 <h4><span class="header-section-number">1.2.5.2</span> Choose good names for things</h4>
 <p>Choosing good variable names is important. Generally, avoid spaces in variable names and file names. You’ll see why this is important as we learn more about programming, but for now, know that “Doctor Visit 1” is not a good file name. “doctor_visit_v1” is much better. Stick to using underscores instead of spaces or any other symbol when possible. The same thing goes for variable names. “FirstName” is a good variable name while “First Name” with a space in the middle of it is not.</p>
 <p>Additionally, make sure that file and variable names are as short as possible while still being meaningful. “F1” is short, but it doesn’t really tell you anything about what is in that file. “doctor_visit_v1” is a more meaningful file name. We know now that this spreadsheet contains information about a doctor’s visit. ‘v1’ specifies version 1 allowing for updates to this file later which would create a new file “doctor_visit_v2.”</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_0_86" alt="" />
+<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_0_86" alt="Choose good names" />
 <p class="caption">Choose good names</p>
 </div>
 </div>
-<div id="write-dates-as-yyyy-mm-dd" class="section level4" number="1.2.5.3">
+<div id="write-dates-as-yyyy-mm-dd" class="section level4">
 <h4><span class="header-section-number">1.2.5.3</span> Write dates as YYYY-MM-DD</h4>
-<p>When entering dates, there is a global ‘ISO 8601’ standard. Dates should be encoded YYYY-MM-DD. For example if you want to specify that a measurement was taken on February 27th, 2018, you would type 2018-02-27. YYYY refers to the year, 2018. MM refers to the month of February, 02. And DD refers to the day of the month, 27. This standard is used for dates for two main reason. First, it avoids confusion when sharing data across different countries, where date conventions can differ. By all using ISO 8601 standard conventions, there is less room for error in interpretation of dates. Secondly, spreadsheet software often mishandles dates and assumes that non-date information are actually dates and vice versa. By encoding dates as YYYY-MM-DD, this confusion is minimized.</p>
+<p>When entering dates, there is a global <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> standard. Dates should be encoded YYYY-MM-DD. For example if you want to specify that a measurement was taken on February 27th, 2018, you would type 2018-02-27. YYYY refers to the year, 2018. MM refers to the month of February, 02. And DD refers to the day of the month, 27. This standard is used for dates for two main reason. First, it avoids confusion when sharing data across different countries, where date conventions can differ. By all using ISO 8601 standard conventions, there is less room for error in interpretation of dates. Secondly, spreadsheet software often mishandles dates and assumes that non-date information are actually dates and vice versa. By encoding dates as YYYY-MM-DD, this confusion is minimized.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_0_91" alt="" />
+<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_0_91" alt="YYYY-MM-DD" />
 <p class="caption">YYYY-MM-DD</p>
 </div>
 </div>
-<div id="no-empty-cells" class="section level4" number="1.2.5.4">
+<div id="no-empty-cells" class="section level4">
 <h4><span class="header-section-number">1.2.5.4</span> No empty cells</h4>
-<p>Simply, fill in every cell. If the data is unknown for that cell, put ‘NA.’ Without information in each cell, the analyst is often left guessing. In the spreadsheets below, on the left, is the analyst to assume that the empty cells should use the date from the cell above? Or are we to assume that the date for that measurement is unknown? Fill in the date if it is known or type ‘NA’ if it is not. That will clear up the need for any guessing on behalf of the analyst. On the spreadsheet to the right, the first two rows have a lot of empty cells. This is problematic for the analysis. This spreadsheet does not follow the rules for tidy data. There is not a single variable per column with a single entry per row. These data would have to be reformatted before they could be used in analysis.</p>
+<p>Simply, fill in every cell. If the data is unknown for that cell, put <code>NA</code>. Without information in each cell, the analyst is often left guessing. In the spreadsheets below, on the left, is the analyst to assume that the empty cells should use the date from the cell above? Or are we to assume that the date for that measurement is unknown? Fill in the date if it is known or type ‘NA’ if it is not. That will clear up the need for any guessing on behalf of the analyst. On the spreadsheet to the right, the first two rows have a lot of empty cells. This is problematic for the analysis. This spreadsheet does not follow the rules for tidy data. There is not a single variable per column with a single entry per row. These data would have to be reformatted before they could be used in analysis.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_0_96" alt="" />
+<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_0_96" alt="No empty cells" />
 <p class="caption">No empty cells</p>
 </div>
 </div>
-<div id="put-just-one-thing-in-a-cell" class="section level4" number="1.2.5.5">
+<div id="put-just-one-thing-in-a-cell" class="section level4">
 <h4><span class="header-section-number">1.2.5.5</span> Put just one thing in a cell</h4>
 <p>Sometimes people are tempted to include a number and a unit in a single cell. For weight, someone may <em>want</em> to put ‘165 lbs’ in that cell. Avoid this temptation! Keep numbers and units separate. In this case, put one piece of information in the cell (the person’s weight) and either put the unit in a separate column, or better yet, make the variable name weight_lbs. That clears everything up for the analyst and avoids a number and a unit from both being put in a single cell. As analysts, we prefer weight information to be in number form if we want to make calculations or figures. This is facilitated by the first column called “Weight_lbs” because it will be read into R as a numeric object. The second column called “Weight”, however, will be read into R as a character object because of the “lbs”, which makes our desired tasks more difficult.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_0_101" alt="" />
+<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_0_101" alt="One thing per cell" />
 <p class="caption">One thing per cell</p>
 </div>
 </div>
-<div id="dont-use-font-color-or-highlighting-as-data" class="section level4" number="1.2.5.6">
+<div id="dont-use-font-color-or-highlighting-as-data" class="section level4">
 <h4><span class="header-section-number">1.2.5.6</span> Don’t use font color or highlighting as data</h4>
 <p>Avoid the temptation to highlight particular cells with a color to specify something about the data. Instead, add another column to convey that information. In the example below, 1.1 looks like an incorrect value for an individual’s glucose measure. Instead of highlighting the value in red, create a new variable. Here, on the right, this column has been named ‘outlier.’ Including ‘TRUE’ for this individual suggests that this individual may be an outlier to the data analyst. Doing it in this way ensures that this information will not be lost. Using font color or highlighting however can easily be lost in data processing, as you will see in future lessons.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_0_106" alt="" />
+<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_0_106" alt="No highlighting or font color" />
 <p class="caption">No highlighting or font color</p>
 </div>
 </div>
-<div id="save-the-data-as-plain-text-files" class="section level4" number="1.2.5.7">
+<div id="save-the-data-as-plain-text-files" class="section level4">
 <h4><span class="header-section-number">1.2.5.7</span> Save the data as plain text files</h4>
 <p>The following lessons will go into detail about which file formats are ideal for saving data, such as text files (.txt) and comma-delimited files (.csv). These file formats can easily be opened and will never require special software, ensuring that they will be usable no matter what computer or analyst is looking at the data.</p>
 </div>
-<div id="summary" class="section level4" number="1.2.5.8">
+<div id="summary" class="section level4">
 <h4><span class="header-section-number">1.2.5.8</span> Summary</h4>
 <p>The data entry guidelines discussed in and a few additional rules have been summarized below and are <a href="https://doi.org/10.7287/peerj.preprints.3139v5">available online for reference</a>.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_0_134" alt="" />
+<img src="https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&amp;pageid=g326e316938_0_134" alt="Naming Guidelines" />
 <p class="caption">Naming Guidelines</p>
 </div>
 </div>
 </div>
 </div>
-<div id="from-non-tidy-tidy" class="section level2" number="1.3">
+<div id="from-non-tidy-tidy" class="section level2">
 <h2><span class="header-section-number">1.3</span> From Non-Tidy –&gt; Tidy</h2>
-<p>The reason it’s important to discuss what tidy data are an what they look like is because out in the world, most data are untidy. If you are not the one entering the data but are instead handed the data from someone else to do a project, more often than not, those data will be untidy. Untidy data are often referred to simply as messy data. In order to work with these data easily, you’ll have to get them into a tidy data format. This means you’ll have to fully understand what messy data and how to get them into a tidy data format.</p>
-<p>The following common problems seen in messy data sets again come from <a href="http://vita.had.co.nz/papers/tidy-data.pdf">Hadley Wickham’s paper on tidy data</a>. After briefly reviewing what each common problem is, we will then take a look at a few messy data sets. We’ll finally touch on the concepts of tidying untidy data, but we won’t actually do any practice <em>yet</em>. That’s coming soon!</p>
-<div id="common-problems-with-messy-data-sets" class="section level3" number="1.3.1">
-<h3><span class="header-section-number">1.3.1</span> Common problems with messy data sets</h3>
+<p>The reason it’s important to discuss what tidy data are an what they look like is because out in the world, most data are untidy. If you are not the one entering the data but are instead handed the data from someone else to do a project, more often than not, those data will be untidy. Untidy data are often referred to simply as messy data. In order to work with these data easily, you’ll have to get them into a tidy data format. This means you’ll have to fully recognize untidy data and understand how to get data into a tidy format.</p>
+<p>The following common problems seen in messy datasets again come from <a href="http://vita.had.co.nz/papers/tidy-data.pdf">Hadley Wickham’s paper on tidy data</a>. After briefly reviewing what each common problem is, we will then take a look at a few messy datasets. We’ll finally touch on the concepts of tidying untidy data, but we won’t actually do any practice <em>yet</em>. That’s coming soon!</p>
+<div id="common-problems-with-messy-datasets" class="section level3">
+<h3><span class="header-section-number">1.3.1</span> Common problems with messy datasets</h3>
 <ol style="list-style-type: decimal">
 <li>Column headers are values but should be variable names.</li>
 <li>A single column has multiple variables.</li>
@@ -681,330 +630,327 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>A single observation is stored across multiple spreadsheets.</li>
 </ol>
 </div>
-<div id="examples-of-untidy-data" class="section level3" number="1.3.2">
+<div id="examples-of-untidy-data" class="section level3">
 <h3><span class="header-section-number">1.3.2</span> Examples of untidy data</h3>
 <p>To see some of these messy datasets, let’s explore three different sources of messy data.</p>
-<div id="examples-from-data-organization-in-spreadsheets" class="section level4" number="1.3.2.1">
+<div id="examples-from-data-organization-in-spreadsheets" class="section level4">
 <h4><span class="header-section-number">1.3.2.1</span> Examples from <a href="https://peerj.com/preprints/3183/">Data Organization in Spreadsheets</a></h4>
 <p>In each of these examples, we see the principles of tidy data being broken. Each variable is not a unique column. There are empty cells all over the place. The data are not rectangular. Data formatted in these messy ways are likely to cause problems during analysis.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs/export/png?id=1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs&amp;pageid=g2bfdb07292_0_151" alt="" />
+<img src="https://docs.google.com/presentation/d/1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs/export/png?id=1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs&amp;pageid=g2bfdb07292_0_151" alt="Examples from Data Organization in Spreadsheets" />
 <p class="caption">Examples from Data Organization in Spreadsheets</p>
 </div>
 <p>For a specific example, <a href="https://milesmcbain.github.io/">Miles McBain</a>, a data scientist from Brisbane, Australia set out to analyze Australian survey data on Same Sex marriage. Before he could do the analysis, however, he had a lot of tidying to do. He annotated all the ways in which the data were untidy, including the use of commas in numerical data entry, blank cells, junk at the top of the spreadsheet, and merged cells. All of these would have stopped him from being able to analyze the data had he not taken the time to first tidy the data. Luckily, he wrote a <a href="https://medium.com/@miles.mcbain/tidying-the-australian-same-sex-marriage-postal-survey-data-with-r-5d35cea07962">Medium piece</a> including all the steps he took to tidy the data.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs/export/png?id=1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs&amp;pageid=g326b2fc90a_0_6" alt="" />
+<img src="https://docs.google.com/presentation/d/1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs/export/png?id=1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs&amp;pageid=g326b2fc90a_0_6" alt="Miles McBain’s’ tidying of Australian Same Sex Marriage Postal Survey Data" />
 <p class="caption">Miles McBain’s’ tidying of Australian Same Sex Marriage Postal Survey Data</p>
 </div>
-<p>Inspired by Miles’ work, Sharla Gelfand decided to tackle a messy data set from Toronto’s open data. She similarly outlined all the ways in which the data were messy including, names and address across multiple cells in the spreadsheet, merged column headings, and lots of blank cells. She has also included the details of how she cleaned these data <a href="https://sharlagelfand.netlify.com/posts/tidying-toronto-open-data/">in a blog post</a>. While the details of the code may not make sense yet, it will shortly as you get more comfortable with the programming language, R.</p>
+<p>Inspired by Miles’ work, Sharla Gelfand decided to tackle a messy dataset from Toronto’s open data. She similarly outlined all the ways in which the data were messy including: names and addresses across multiple cells in the spreadsheet, merged column headings, and lots of blank cells. She has also included the details of how she cleaned these data <a href="https://sharlagelfand.netlify.com/posts/tidying-toronto-open-data/">in a blog post</a>. While the details of the code may not make sense yet, it will shortly as you get more comfortable with the programming language, R.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs/export/png?id=1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs&amp;pageid=g326b2fc90a_0_1" alt="" />
+<img src="https://docs.google.com/presentation/d/1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs/export/png?id=1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs&amp;pageid=g326b2fc90a_0_1" alt="Sharla Gelfand’s tidying of Toronto’s open data" />
 <p class="caption">Sharla Gelfand’s tidying of Toronto’s open data</p>
 </div>
 </div>
 </div>
-<div id="tidying-untidy-data" class="section level3" number="1.3.3">
+<div id="tidying-untidy-data" class="section level3">
 <h3><span class="header-section-number">1.3.3</span> Tidying untidy data</h3>
-<p>There are a number of actions you can take on a dataset to tidy the data depending on the problem. These include: filtering, transforming, modifying variables, aggregating the data, and sorting the order of the observations. There are functions to accomplish each of these actions in R. While we’ll get to the details of the code in a few lessons, it’s important at this point to be able to identify untidy data and to determine what needs to be done in order to get those data into a tidy format. Specifically, we will focus in here on a single messy data set. This is dataset D from the ‘Data Organization in Spreadsheets’ example of messy data provided above. We note the blank cells and that the data are not rectangular.</p>
+<p>There are a number of actions you can take on a dataset to tidy the data depending on the problem. These include: filtering, transforming, modifying variables, aggregating the data, and sorting the order of the observations. There are functions to accomplish each of these actions in R. While we’ll get to the details of the code in a few lessons, it’s important at this point to be able to identify untidy data and to determine what needs to be done in order to get those data into a tidy format. Specifically, we will focus on a single messy dataset. This is dataset D from the ‘Data Organization in Spreadsheets’ example of messy data provided above. We note that there are blank cells and that the data are not rectangular.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs/export/png?id=1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs&amp;pageid=g326b2fc90a_0_22" alt="" />
-<p class="caption">Messy data set</p>
+<img src="https://docs.google.com/presentation/d/1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs/export/png?id=1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs&amp;pageid=g326b2fc90a_0_22" alt="Messy dataset" />
+<p class="caption">Messy dataset</p>
 </div>
-<p>To address this, these data can be split into two different spreadsheets, one for each type of data. Spreadsheet A included information about each sample. Spreadsheet B includes measurements for each sample over time. Note that both spreadsheets have an ‘id’ column so that the data can be merged if necessary during analysis. The ‘note’ column does have some missing data. Filling in these blank cells with ‘NA’ would fully tidy these data. We note that sometimes a single spreadsheet becomes two spreadsheets during the tidying process. This is OK as long as there is a consistent variable name that links the two spreadsheets!</p>
+<p>To address this, these data can be split into two different spreadsheets, one for each type of data. Spreadsheet A includes information about each sample. Spreadsheet B includes measurements for each sample over time. Note that both spreadsheets have an ‘id’ column so that the data can be merged if necessary during analysis. The ‘note’ column does have some missing data. Filling in these blank cells with ‘NA’ would fully tidy these data. We note that sometimes a single spreadsheet becomes two spreadsheets during the tidying process. This is OK as long as there is a consistent variable name that links the two spreadsheets!</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs/export/png?id=1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs&amp;pageid=g326b2fc90a_0_16" alt="" />
-<p class="caption">Tidy version of the messy data set</p>
+<img src="https://docs.google.com/presentation/d/1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs/export/png?id=1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs&amp;pageid=g326b2fc90a_0_16" alt="Tidy version of the messy dataset" />
+<p class="caption">Tidy version of the messy dataset</p>
 </div>
 </div>
 </div>
-<div id="the-data-science-life-cycle" class="section level2" number="1.4">
+<div id="the-data-science-life-cycle" class="section level2">
 <h2><span class="header-section-number">1.4</span> The Data Science Life Cycle</h2>
 <p>Now that we have an understanding of what tidy data are, it’s important to put them in context of the data science life cycle. We mentioned this briefly earlier, but the data science life cycle starts with a question and then uses data to answer that question. The focus of this specialization is mastering all the steps in between formulating a question and finding an answer. There have been a number of charts that have been designed to capture what these in-between steps are.</p>
 <p>The most famous is likely this version from <a href="https://r4ds.had.co.nz">R for Data Science</a>. This version highlights import and tidying as important steps in the pipeline. It also captures the fact that visualization, data transformation, and modeling are often an iterative process before one can arrive at an answer to their question of interest.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1jEJTVbvn52sjZX7uGE38LUcj4ocs1P8DQZhYcTzs_W0/export/png?id=1jEJTVbvn52sjZX7uGE38LUcj4ocs1P8DQZhYcTzs_W0&amp;pageid=g5fbdfde92a_0_8" alt="" />
+<img src="https://docs.google.com/presentation/d/1jEJTVbvn52sjZX7uGE38LUcj4ocs1P8DQZhYcTzs_W0/export/png?id=1jEJTVbvn52sjZX7uGE38LUcj4ocs1P8DQZhYcTzs_W0&amp;pageid=g5fbdfde92a_0_8" alt="The Data Science Life Cycle" />
 <p class="caption">The Data Science Life Cycle</p>
 </div>
-<p>Others have set out to design charts to explain all the steps in between asking an answering question. They are all similar but have different aspects of the process they highlight and/or on which they focus. These have been summarized in <a href="https://doi.org/10.1080/10691898.2019.1623136">A First Course on Data Science</a></p>
+<p>Others have set out to design charts to explain all the steps in between asking and answering question. They are all similar but have different aspects of the process they highlight and/or on which they focus. These have been summarized in <a href="https://doi.org/10.1080/10691898.2019.1623136">A First Course on Data Science</a>.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1jEJTVbvn52sjZX7uGE38LUcj4ocs1P8DQZhYcTzs_W0/export/png?id=1jEJTVbvn52sjZX7uGE38LUcj4ocs1P8DQZhYcTzs_W0&amp;pageid=g5fbdfde92a_0_1" alt="" />
+<img src="https://docs.google.com/presentation/d/1jEJTVbvn52sjZX7uGE38LUcj4ocs1P8DQZhYcTzs_W0/export/png?id=1jEJTVbvn52sjZX7uGE38LUcj4ocs1P8DQZhYcTzs_W0&amp;pageid=g5fbdfde92a_0_1" alt="Other Data Science Life Cycles" />
 <p class="caption">Other Data Science Life Cycles</p>
 </div>
 <p>Regardless of which life cycle chart you like best, when it comes down to answering a data science question, <strong>importing</strong>, <strong>tidying</strong>, <strong>visualizing</strong>, and <strong>analyzing</strong> the data are important parts of the process. It’s these four parts of the pipeline that we’ll cover throughout this specialization.</p>
 </div>
-<div id="the-tidyverse-ecosystem" class="section level2" number="1.5">
+<div id="the-tidyverse-ecosystem" class="section level2">
 <h2><span class="header-section-number">1.5</span> The Tidyverse Ecosystem</h2>
 <p>With a solid understanding of tidy data and how tidy data fit into the data science life cycle, we’ll take a bit of time to introduce you to the tidyverse and tidyverse-adjacent packages that we’ll be teaching and using throughout this specialization. Taken together, these packages make up what we’re referring to as the <strong>tidyverse ecosystem</strong>. The purpose for the rest of this course is not for you to understand <em>how</em> to use each of these packages (that’s coming soon!), but rather to help you familiarize yourself with which packages fit into which part of the data science life cycle.</p>
 <p>Note that the official tidyverse packages below are <strong>bold</strong>. All other packages are tidyverse-adjacent, meaning they follow the same conventions as the official tidyverse packages and work well within the tidy framework and structure of data analysis.</p>
-<div id="reading-data-into-r" class="section level3" number="1.5.1">
+<div id="reading-data-into-r" class="section level3">
 <h3><span class="header-section-number">1.5.1</span> Reading Data into R</h3>
 <p>After identifying a question that can be answered using data, there are <em>many</em> different ways in which the data you’ll want to use may be stored. Sometimes information is stored within an Excel spreadsheet. Other times, the data are in a table on a website that needs to be scraped. Or, in a CSV file. Each of these types of data files has their own structure, but R can work with all of them. To do so, however, requires becoming familiar with a few different packages. Here, we’ll discuss these packages briefly. In later courses in the specialization we’ll get into the details of what characterizes each file type and how to use each packages to read data into R.</p>
-<div id="tibble" class="section level4" number="1.5.1.1">
-<h4><span class="header-section-number">1.5.1.1</span> <strong>tibble</strong></h4>
-<p>While not technically a package that helps read data into R, <em>tibble</em> is a package that re-imagines the familiar R data.frame. It is a way to store information in columns and rows, but does so in a way that addresses problems earlier in the pipeline.</p>
-<p>From the <a href="https://tibble.tidyverse.org/"><em>tibble</em> website</a>:</p>
+<div id="tibble" class="section level4">
+<h4><span class="header-section-number">1.5.1.1</span> <strong><code>tibble</code></strong></h4>
+<p>While not technically a package that helps read data into R, <code>tibble</code> is a package that re-imagines the familiar R data.frame. It is a way to store information in columns and rows, but does so in a way that addresses problems earlier in the pipeline.</p>
+<p>From the <a href="https://tibble.tidyverse.org/"><code>tibble</code> website</a>:</p>
 <blockquote>
 <p>A tibble, or tbl_df, is a modern reimagining of the data.frame, keeping what time has proven to be effective, and throwing out what is not. Tibbles are data.frames that are lazy and surly: they do less (i.e. they don’t change variable names or types, and don’t do partial matching) and complain more (e.g. when a variable does not exist). This forces you to confront problems earlier, typically leading to cleaner, more expressive code. Tibbles also have an enhanced print() method which makes them easier to use with large datasets containing complex objects.</p>
 </blockquote>
 <p>In fact, when working with data using the tidyverse, you’ll get very comfortable working with tibbles.</p>
 </div>
-<div id="readr" class="section level4" number="1.5.1.2">
-<h4><span class="header-section-number">1.5.1.2</span> <strong>readr</strong></h4>
-<p><em>readr</em> is a package that users of the tidyverse use all the time. It helps read rectangular data into R. If you find yourself working with CSV files frequently, then you’ll find yourself using readr all regularly.</p>
-<p>According to the <a href="https://readr.tidyverse.org/"><em>readr</em> website</a>:</p>
+<div id="readr" class="section level4">
+<h4><span class="header-section-number">1.5.1.2</span> <strong><code>readr</code></strong></h4>
+<p><code>readr</code> is a package that users of the tidyverse use all the time. It helps read rectangular data into R. If you find yourself working with CSV files frequently, then you’ll find yourself using readr regularly.</p>
+<p>According to the <a href="https://readr.tidyverse.org/"><code>readr</code> website</a>:</p>
 <blockquote>
-<p>The goal of <em>readr</em> is to provide a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes. If you are new to readr, the best place to start is the data import chapter in R for data science.</p>
+<p>The goal of <code>readr</code> is to provide a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes. If you are new to readr, the best place to start is the data import chapter in R for data science.</p>
 </blockquote>
 </div>
-<div id="googlesheets" class="section level4" number="1.5.1.3">
+<div id="googlesheets" class="section level4">
 <h4><span class="header-section-number">1.5.1.3</span> googlesheets</h4>
-<p><a href="https://github.com/jennybc/googlesheets"><em>googlesheets</em></a> is a brilliant package that allows users to “access and manage Google spreadsheets from R.” As more and more data is saved in the cloud (rather than on local computers), packages like googlesheets become invaluable. If you store data on Google Sheets or work with people who do, this package will be a lifesaver.</p>
+<p><a href="https://github.com/jennybc/googlesheets"><code>googlesheets</code></a> is a brilliant package that allows users to “access and manage Google spreadsheets from R.” As more and more data is saved in the cloud (rather than on local computers), packages like googlesheets become invaluable. If you store data on Google Sheets or work with people who do, this package will be a lifesaver.</p>
 </div>
-<div id="readxl" class="section level4" number="1.5.1.4">
-<h4><span class="header-section-number">1.5.1.4</span> <strong>readxl</strong></h4>
-<p>A third package for working with tabular data is <em>readxl</em>, which is specifically designed to move data from Excel into R. If many of your data files have the .xls or .xlsx extension, familiarizing yourself with this package will be helpful.</p>
-<p>From the <a href="https://readxl.tidyverse.org/"><em>readxl</em> website</a>:</p>
+<div id="readxl" class="section level4">
+<h4><span class="header-section-number">1.5.1.4</span> <strong><code>readxl</code></strong></h4>
+<p>Another package for working with tabular data is <code>readxl</code>, which is specifically designed to move data from Excel into R. If many of your data files have the .xls or .xlsx extension, familiarizing yourself with this package will be helpful.</p>
+<p>From the <a href="https://readxl.tidyverse.org/"><code>readxl</code> website</a>:</p>
 <blockquote>
-<p>The readxl package makes it easy to get data out of Excel and into R. Compared to many of the existing packages (e.g. <em>gdata</em>, <em>xlsx</em>, <em>xlsReadWrite</em>) readxl has no external dependencies, so it’s easy to install and use on all operating systems. It is designed to work with tabular data.</p>
+<p>The readxl package makes it easy to get data out of Excel and into R. Compared to many of the existing packages (e.g. <code>gdata</code>, <code>xlsx</code>, <code>xlsReadWrite</code>) <code>readxl</code> has no external dependencies, so it’s easy to install and use on all operating systems. It is designed to work with tabular data.</p>
 </blockquote>
 </div>
-<div id="googledrive" class="section level4" number="1.5.1.5">
-<h4><span class="header-section-number">1.5.1.5</span> <strong>googledrive</strong></h4>
-<p>Similar to googlesheets, but for interacting with file on Google Drive from R (rather than just Google Sheets), the <a href="https://googledrive.tidyverse.org/"><em>googledrive</em></a> package is an important package for working with data in R.</p>
+<div id="googledrive" class="section level4">
+<h4><span class="header-section-number">1.5.1.5</span> <strong><code>googledrive</code></strong></h4>
+<p>Similar to <code>googlesheets</code>, but for interacting with file on Google Drive from R (rather than just Google Sheets), the <a href="https://googledrive.tidyverse.org/"><code>googledrive</code></a> package is an important package for working with data in R.</p>
 </div>
-<div id="haven" class="section level4" number="1.5.1.6">
-<h4><span class="header-section-number">1.5.1.6</span> <strong>haven</strong></h4>
-<p>If you are a statistician (or work with statisticians), you’ve likely heard of the statistical packages SPSS, Stata, and SAS. Each of these has data formats for working with data that are compatibly only with their platform. However, there is an R package that allows you to use read stored in these formats into R. For this, you’ll need <a href="https://haven.tidyverse.org/"><em>haven</em></a>.</p>
+<div id="haven" class="section level4">
+<h4><span class="header-section-number">1.5.1.6</span> <strong><code>haven</code></strong></h4>
+<p>If you are a statistician (or work with statisticians), you’ve likely heard of the statistical packages SPSS, Stata, and SAS. Each of these has data formats for working with data that are compatible only with their platform. However, there is an R package that allows you to use read stored in these formats into R. For this, you’ll need <a href="https://haven.tidyverse.org/"><code>haven</code></a>.</p>
 </div>
-<div id="jsonlite-xml2" class="section level4" number="1.5.1.7">
-<h4><span class="header-section-number">1.5.1.7</span> jsonlite &amp; xml2</h4>
-<p>Data stored on and retrieved from the Internet are often stored in one of the two most common semi-structured data formats: JSON or XML. We’ll discuss the details of these when we discuss how to use <a href="https://github.com/jeroen/jsonlite#jsonlite"><em>jsonlite</em></a> and <a href="https://github.com/r-lib/xml2"><em>xml2</em></a>, which allow data in the JSON and XML formats, respectively, to be read into R. <em>jsonlite</em> helps extensively when working with Application Programming Interfaces (APIs) and <em>xml2</em> is incredibly helpful when working with HTML.</p>
+<div id="jsonlite-xml2" class="section level4">
+<h4><span class="header-section-number">1.5.1.7</span> <strong><code>jsonlite</code> &amp; <code>xml2</code></strong></h4>
+<p>Data stored on and retrieved from the Internet are often stored in one of the two most common semi-structured data formats: JSON or XML. We’ll discuss the details of these when we discuss how to use <a href="https://github.com/jeroen/jsonlite#jsonlite"><code>jsonlite</code></a> and <a href="https://github.com/r-lib/xml2"><code>xml2</code></a>, which allow data in the JSON and XML formats, respectively, to be read into R. <code>jsonlite</code> helps extensively when working with Application Programming Interfaces (APIs) and <code>xml2</code> is incredibly helpful when working with HTML.</p>
 </div>
-<div id="rvest" class="section level4" number="1.5.1.8">
-<h4><span class="header-section-number">1.5.1.8</span> rvest</h4>
-<p>If you are hoping to scrape data from a website, <a href="https://github.com/tidyverse/rvest"><em>rvest</em></a> is a package with which you’ll want to become familiar. It allows you to scrape information directly from web pages on the Internet.</p>
+<div id="rvest" class="section level4">
+<h4><span class="header-section-number">1.5.1.8</span> <strong><code>rvest</code></strong></h4>
+<p>If you are hoping to scrape data from a website, <a href="https://github.com/tidyverse/rvest"><code>rvest</code></a> is a package with which you’ll want to become familiar. It allows you to scrape information directly from web pages on the Internet.</p>
 </div>
-<div id="httr" class="section level4" number="1.5.1.9">
-<h4><span class="header-section-number">1.5.1.9</span> httr</h4>
-<p>Companies that share data with users often do so using Application Programming Interfaces or APIs. We’ve mentioned that these data are often stored in the JSON format, requiring packages like jsonlite to work with the data. However, to retrieve the data in the first place, you’ll use <a href="https://github.com/r-lib/httr"><em>httr</em></a>. This package helps you interact with modern web APIs.</p>
+<div id="httr" class="section level4">
+<h4><span class="header-section-number">1.5.1.9</span> <strong><code>httr</code></strong></h4>
+<p>Companies that share data with users often do so using Application Programming Interfaces or APIs. We’ve mentioned that these data are often stored in the JSON format, requiring packages like jsonlite to work with the data. However, to retrieve the data in the first place, you’ll use <a href="https://github.com/r-lib/httr"><code>httr</code></a>. This package helps you interact with modern web APIs.</p>
 </div>
 </div>
-<div id="data-tidying" class="section level3" number="1.5.2">
+<div id="data-tidying" class="section level3">
 <h3><span class="header-section-number">1.5.2</span> Data Tidying</h3>
 <p>There are <em>loads</em> of ways in which data and information are stored on computers and the Internet. We’ve reviewed that there are a number of packages that you’ll have to use depending on the type of data you need to get into R. However, once the data are in R, the next goal is to tidy the data. This process is often referred to as data wrangling or data tidying. Regardless of what you call it, there are a number of packages that will help you take the untidy data you just read into R and convert it into the flexible and usable tidy data format.</p>
-<div id="dplyr" class="section level4" number="1.5.2.1">
-<h4><span class="header-section-number">1.5.2.1</span> <strong>dplyr</strong></h4>
-<p>The most critical package for wrangling data is <em>dplyr</em>. Its release completely transformed the way many R users write R code and work with data, greatly simplifying the process.</p>
-<p>According to the <a href="https://dplyr.tidyverse.org/"><em>dplyr</em> website</a></p>
+<div id="dplyr" class="section level4">
+<h4><span class="header-section-number">1.5.2.1</span> <strong><code>dplyr</code></strong></h4>
+<p>The most critical package for wrangling data is <code>dplyr</code>. Its release completely transformed the way many R users write R code and work with data, greatly simplifying the process.</p>
+<p>According to the <a href="https://dplyr.tidyverse.org/"><code>dplyr</code> website</a></p>
 <blockquote>
 <p>dplyr is a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges.</p>
 </blockquote>
-<p><em>dplyr</em> is built around five primary verbs (mutate, select, filter, summarize, and arrange) that help make the data wrangling process simpler. This specialization will cover these verbs among other functionality within the dplyr package.</p>
+<p><code>dplyr</code> is built around five primary verbs (mutate, select, filter, summarize, and arrange) that help make the data wrangling process simpler. This specialization will cover these verbs among other functionality within the <code>dplyr</code> package.</p>
 </div>
-<div id="tidyr" class="section level4" number="1.5.2.2">
-<h4><span class="header-section-number">1.5.2.2</span> <strong>tidyr</strong></h4>
-<p>Like <em>dplyr</em>, <em>tidyr</em> is a package with the primary goal of helping users take their untidy data and make it tidy.</p>
-<p>According to the <a href="https://tidyr.tidyverse.org/"><em>tidyr</em> website</a>:</p>
+<div id="tidyr" class="section level4">
+<h4><span class="header-section-number">1.5.2.2</span> <strong><code>tidyr</code></strong></h4>
+<p>Like <code>dplyr</code>, <code>tidyr</code> is a package with the primary goal of helping users take their untidy data and make it tidy.</p>
+<p>According to the <a href="https://tidyr.tidyverse.org/"><code>tidyr</code> website</a>:</p>
 <blockquote>
-<p>The goal of tidyr is to help you create tidy data. Tidy data is data where: each variable is in a column, each observation is a row, and each value is a cell. Tidy data describes a standard way of storing data that is used wherever possible throughout the tidyverse. If you ensure that your data is tidy, you’ll spend less time fighting with the tools and more time working on your analysis.</p>
+<p>The goal of <code>tidyr</code> is to help you create tidy data. Tidy data is data where: each variable is in a column, each observation is a row, and each value is a cell. Tidy data describes a standard way of storing data that is used wherever possible throughout the <code>tidyverse</code>. If you ensure that your data is tidy, you’ll spend less time fighting with the tools and more time working on your analysis.</p>
 </blockquote>
 </div>
-<div id="janitor" class="section level4" number="1.5.2.3">
-<h4><span class="header-section-number">1.5.2.3</span> janitor</h4>
-<p>In addition to <em>dplyr</em> and <em>tidyr</em>, a common tidyverse-adjacent package used to clean dirty data and make users life easier while doing so is <em>janitor</em>.</p>
-<p>According to the <a href="https://github.com/sfirke/janitor"><em>janitor</em> website</a>:</p>
+<div id="janitor" class="section level4">
+<h4><span class="header-section-number">1.5.2.3</span> <strong><code>janitor</code></strong></h4>
+<p>In addition to <code>dplyr</code> and <code>tidyr</code>, a common <code>tidyverse</code>-adjacent package used to clean dirty data and make users life easier while doing so is <code>janitor</code>.</p>
+<p>According to the <a href="https://github.com/sfirke/janitor"><code>janitor</code> website</a>:</p>
 <blockquote>
 <p>janitor has simple functions for examining and cleaning dirty data. It was built with beginning and intermediate R users in mind and is optimized for user-friendliness. Advanced R users can already do everything covered here, but with janitor they can do it faster and save their thinking for the fun stuff.</p>
 </blockquote>
 </div>
-<div id="forcats" class="section level4" number="1.5.2.4">
-<h4><span class="header-section-number">1.5.2.4</span> <strong>forcats</strong></h4>
-<p>R is known for its ability to work with categorical data (called factors); however, they have historically been more of a necessary evil than a joy to work with. Due to the frustratingly hard nature of working with factors in R, the <em>forcats</em> package developers set out to make working with categorical data simpler.</p>
-<p>According to the <a href="https://forcats.tidyverse.org/"><em>forcats</em> website</a></p>
+<div id="forcats" class="section level4">
+<h4><span class="header-section-number">1.5.2.4</span> <strong><code>forcats</code></strong></h4>
+<p>R is known for its ability to work with categorical data (called factors); however, they have historically been more of a necessary evil than a joy to work with. Due to the frustratingly hard nature of working with factors in R, the <code>forcats</code> package developers set out to make working with categorical data simpler.</p>
+<p>According to the <a href="https://forcats.tidyverse.org/"><code>forcats</code> website</a></p>
 <blockquote>
 <p>The goal of the forcats package is to provide a suite of tools that solve common problems with factors, including changing the order of levels or the values.</p>
 </blockquote>
 </div>
-<div id="stringr" class="section level4" number="1.5.2.5">
-<h4><span class="header-section-number">1.5.2.5</span> <strong>stringr</strong></h4>
-<p>Similar to <em>forcats</em>, but for strings, the <em>stringr</em> package makes common tasks simple and streamlined. Working with this package becomes easier with some knowledge of regular expressions, which we’ll cover in this specialization.</p>
-<p>According to the <a href="https://stringr.tidyverse.org/"><em>string</em> website</a></p>
+<div id="stringr" class="section level4">
+<h4><span class="header-section-number">1.5.2.5</span> <strong><code>stringr</code></strong></h4>
+<p>Similar to <code>forcats</code>, but for strings, the <code>stringr</code> package makes common tasks simple and streamlined. Working with this package becomes easier with some knowledge of regular expressions, which we’ll cover in this specialization.</p>
+<p>According to the <a href="https://stringr.tidyverse.org/"><code>string</code> website</a></p>
 <blockquote>
 <p>Strings are not glamorous, high-profile components of R, but they do play a big role in many data cleaning and preparation tasks. The stringr package provide a cohesive set of functions designed to make working with strings as easy as possible.</p>
 </blockquote>
 </div>
-<div id="lubridate" class="section level4" number="1.5.2.6">
-<h4><span class="header-section-number">1.5.2.6</span> <strong>lubridate</strong></h4>
-<p>The final common package dedicated to working with a specific type of variable is <em>lubridate</em>, which makes working with dates and times simpler. Working with dates and times has historically been difficult due to the nature of our calendar, with its varying number of days per month and days per year, and due to time zones, which can make working with times infuriating. The <em>lubridate</em> developers aimed to make working with these types of data simpler.</p>
-<p>According to the <a href="https://lubridate.tidyverse.org/"><em>lubridate</em> website</a></p>
+<div id="lubridate" class="section level4">
+<h4><span class="header-section-number">1.5.2.6</span> <strong><code>lubridate</code></strong></h4>
+<p>The final common package dedicated to working with a specific type of variable is <code>lubridate</code>, which makes working with dates and times simpler. Working with dates and times has historically been difficult due to the nature of our calendar, with its varying number of days per month and days per year, and due to time zones, which can make working with times infuriating. The <code>lubridate</code> developers aimed to make working with these types of data simpler.</p>
+<p>According to the <a href="https://lubridate.tidyverse.org/"><code>lubridate</code> website</a></p>
 <blockquote>
-<p>Date-time data can be frustrating to work with in R. R commands for date-times are generally unintuitive and change depending on the type of date-time object being used. Moreover, the methods we use with date-times must be robust to time zones, leap days, daylight savings times, and other time related quirks, and R lacks these capabilities in some situations. Lubridate makes it easier to do the things R does with date-times and possible to do the things R does not.</p>
+<p>Date-time data can be frustrating to work with in R. R commands for date-times are generally unintuitive and change depending on the type of date-time object being used. Moreover, the methods we use with date-times must be robust to time zones, leap days, daylight savings times, and other time related quirks, and R lacks these capabilities in some situations. <code>Lubridate</code> makes it easier to do the things R does with date-times and possible to do the things R does not.</p>
 </blockquote>
 </div>
-<div id="glue" class="section level4" number="1.5.2.7">
-<h4><span class="header-section-number">1.5.2.7</span> <strong>glue</strong></h4>
-<p>Related to <em>lubridate</em>, <em>stringr</em> and <em>forcats</em> is <a href="https://glue.tidyverse.org/"><em>glue</em></a>, which makes working with interpreted string literals simpler. We’ll discuss this package in detail in this specialization.</p>
+<div id="glue" class="section level4">
+<h4><span class="header-section-number">1.5.2.7</span> <strong><code>glue</code></strong></h4>
+<p>The <a href="https://glue.tidyverse.org/"><code>glue</code></a> package makes working with interpreted string literals simpler. We’ll discuss this package in detail in this specialization.</p>
 </div>
-<div id="skimr" class="section level4" number="1.5.2.8">
-<h4><span class="header-section-number">1.5.2.8</span> skimr</h4>
+<div id="skimr" class="section level4">
+<h4><span class="header-section-number">1.5.2.8</span> <strong><code>skimr</code></strong></h4>
 <p>After you’ve got your data into a tidy format and all of your variable types have been cleaned, the next step is often summarizing your data. If you’ve used the <code>summary()</code> function in R before, you’re going to love <code>skimr</code>, which summarizes entire data frames for you in a tidy manner.</p>
 <p>According to the <a href="https://github.com/ropensci/skimr"><em>skimr</em></a> package:</p>
 <blockquote>
-<p>skimr provides a frictionless approach to summary statistics which conforms to the principle of least surprise, displaying summary statistics the user can skim quickly to understand their data.</p>
+<p><code>skimr</code> provides a frictionless approach to summary statistics which conforms to the principle of least surprise, displaying summary statistics the user can skim quickly to understand their data.</p>
 </blockquote>
 </div>
-<div id="tidytext" class="section level4" number="1.5.2.9">
-<h4><span class="header-section-number">1.5.2.9</span> tidytext</h4>
-<p>While working with factors, numbers, and small strings is common in R, longer texts have historically been analyzed using approaches outside of R. However, once <em>tidytext</em> was developed, R had a tidy approach to analyzing text data, such as novels, news stories, and speeches.</p>
-<p>According to the <a href="https://github.com/juliasilge/tidytext"><em>tidytext</em> website</a></p>
+<div id="tidytext" class="section level4">
+<h4><span class="header-section-number">1.5.2.9</span> <strong><code>tidytext</code></strong></h4>
+<p>While working with factors, numbers, and small strings is common in R, longer texts have historically been analyzed using approaches outside of R. However, once <code>tidytext</code> was developed, R had a tidy approach to analyzing text data, such as novels, news stories, and speeches.</p>
+<p>According to the <a href="https://github.com/juliasilge/tidytext"><code>tidytext</code> website</a>:</p>
 <blockquote>
 <p>In this package, we provide functions and supporting data sets to allow conversion of text to and from tidy formats, and to switch seamlessly between tidy tools and existing text mining packages.</p>
 </blockquote>
 </div>
-<div id="purrr" class="section level4" number="1.5.2.10">
-<h4><span class="header-section-number">1.5.2.10</span> <strong>purrr</strong></h4>
-<p>The final package we’ll discuss here for data tidying is <em>purrr</em>, a package for working with functions and vectors in a tidy format. If you find yourself writing for loops to iterate through data frames, then purrr will save you a ton of time!</p>
-<p>According to the <a href="https://purrr.tidyverse.org/"><em>purrr</em> website</a></p>
+<div id="purrr" class="section level4">
+<h4><span class="header-section-number">1.5.2.10</span> <strong><code>purrr</code></strong></h4>
+<p>The final package we’ll discuss here for data tidying is <code>purrr</code>, a package for working with functions and vectors in a tidy format. If you find yourself writing for loops to iterate through data frames, then purrr will save you a ton of time!</p>
+<p>According to the <a href="https://purrr.tidyverse.org/"><code>purrr</code> website</a>:</p>
 <blockquote>
-<p>purrr enhances R’s functional programming (FP) toolkit by providing a complete and consistent set of tools for working with functions and vectors. If you’ve never heard of FP before, the best place to start is the family of map() functions which allow you to replace many for loops with code that is both more succinct and easier to read.</p>
+<p><code>purrr</code> enhances R’s functional programming (FP) toolkit by providing a complete and consistent set of tools for working with functions and vectors. If you’ve never heard of FP before, the best place to start is the family of <code>map()</code> functions which allow you to replace many for loops with code that is both more succinct and easier to read.</p>
 </blockquote>
 </div>
 </div>
-<div id="data-visualization" class="section level3" number="1.5.3">
+<div id="data-visualization" class="section level3">
 <h3><span class="header-section-number">1.5.3</span> Data Visualization</h3>
-<p>Data Visualization is a critical piece of any data science project. Once you have your data in a tidy format, you’ll first explore your data, often generating a number of basic plots to get a better understanding of your dataset. Then, once you’ve carried out your analysis, creating a few detailed and well-designed visualizations to communicate your findings is necessary. Fortunately, there are a number of helpful packages any time you need to create a visualization.</p>
-<div id="ggplot2" class="section level4" number="1.5.3.1">
-<h4><span class="header-section-number">1.5.3.1</span> <strong>ggplot2</strong></h4>
-<p>The most critical package when it comes to plot generation in data visualization is <em>ggplot2</em>, a package that allows you to quickly create plots and meticulously customize them depending on your needs.</p>
-<p>According to the <a href="https://ggplot2.tidyverse.org/"><em>ggplot2</em> website</a>:</p>
+<p>Data Visualization is a critical piece of any data science project. Once you have your data in a tidy format, you’ll first explore your data, often generating a number of basic plots to get a better understanding of your dataset. Then, once you’ve carried out your analysis, creating a few detailed and well-designed visualizations to communicate your findings is necessary. Fortunately, there are a number of helpful packages to create visualizations.</p>
+<div id="ggplot2" class="section level4">
+<h4><span class="header-section-number">1.5.3.1</span> <strong><code>ggplot2</code></strong></h4>
+<p>The most critical package when it comes to plot generation in data visualization is <code>ggplot2</code>, a package that allows you to quickly create plots and meticulously customize them depending on your needs.</p>
+<p>According to the <a href="https://ggplot2.tidyverse.org/"><code>ggplot2</code> website</a>:</p>
 <blockquote>
-<p>ggplot2 is a system for declaratively creating graphics, based on <a href="http://amzn.to/2ef1eWp">The Grammar of Graphics</a>. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.</p>
+<p><code>ggplot2</code> is a system for declaratively creating graphics, based on <a href="http://amzn.to/2ef1eWp">The Grammar of Graphics</a>. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.</p>
 </blockquote>
-<p>This package will be covered in a great amount of detail in this specialization, largely due to the fact that you’ll find yourself using it all the time. Having a strong foundation of how to use <em>ggplot2</em> is incredibly important for any data science project.</p>
+<p>This package will be covered in a great amount of detail in this specialization, largely due to the fact that you’ll find yourself using it all the time. Having a strong foundation of how to use <code>ggplot2</code> is incredibly important for any data science project.</p>
 </div>
-<div id="kableextra" class="section level4" number="1.5.3.2">
-<h4><span class="header-section-number">1.5.3.2</span> kableExtra</h4>
-<p>While the ability to make beautiful and informative plots is essential, tables can be incredibly effective vehicles for the conveyance of information. Customizing plots can be done using the <em>kableExtra</em> package, which is built on top of the <code>knitr()</code> function from the <code>kable</code> package, which generates basic tables. <a href="https://github.com/haozhu233/kableExtra"><em>kableExtra</em></a> allows complex and detailed tables to be built using a <em>ggplot2</em>-inspired syntax.</p>
+<div id="kableextra" class="section level4">
+<h4><span class="header-section-number">1.5.3.2</span> <strong><code>kableExtra</code></strong></h4>
+<p>While the ability to make beautiful and informative plots is essential, tables can be incredibly effective vehicles for the conveyance of information. Customizing plots can be done using the <code>kableExtra</code> package, which is built on top of the <code>knitr()</code> function from the <code>kable</code> package, which generates basic tables. <a href="https://github.com/haozhu233/kableExtra"><code>kableExtra</code></a> allows complex and detailed tables to be built using a <code>ggplot2</code>-inspired syntax.</p>
 </div>
-<div id="ggrepel" class="section level4" number="1.5.3.3">
-<h4><span class="header-section-number">1.5.3.3</span> ggrepel</h4>
-<p>Due to the popularity of <em>ggplot2</em>, there are a number of tidyverse-adjacent packages built on top of and within the <em>ggplot2</em> framework. <a href="https://github.com/slowkow/ggrepel">ggrepel</a> is one of them that “provides geoms for ggplot2 to repel overlapping text labels.”</p>
+<div id="ggrepel" class="section level4">
+<h4><span class="header-section-number">1.5.3.3</span> <strong><code>ggrepel</code></strong></h4>
+<p>Due to the popularity of <code>ggplot2</code>, there are a number of <code>tidyverse</code>-adjacent packages built on top of and within the <code>ggplot2</code> framework. <a href="https://github.com/slowkow/ggrepel"><code>ggrepel</code></a> is one of theses packages that “provides geoms for <code>ggplot2</code> to repel overlapping text labels.”</p>
 </div>
-<div id="cowplot" class="section level4" number="1.5.3.4">
-<h4><span class="header-section-number">1.5.3.4</span> cowplot</h4>
-<p>Cowplot is another tidyverse-adjacent package that helps when you want to polish and put finishing touches on your plots.</p>
-<p>According to the <a href="https://github.com/wilkelab/cowplot"><em>cowplot</em></a> developers:</p>
+<div id="cowplot" class="section level4">
+<h4><span class="header-section-number">1.5.3.4</span> <strong><code>cowplot</code></strong></h4>
+<p><strong><code>cowplot</code></strong> is another <code>tidyverse</code>-adjacent package that helps you to polish and put finishing touches on your plots.</p>
+<p>According to the <a href="https://github.com/wilkelab/cowplot"><code>cowplot</code></a> developers:</p>
 <blockquote>
-<p>The cowplot package provides various features that help with creating publication-quality figures, such as a set of themes, functions to align plots and arrange them into complex compound figures, and functions that make it easy to annotate plots and or mix plots with images.</p>
-</blockquote>
-</div>
-<div id="patchwork" class="section level4" number="1.5.3.5">
-<h4><span class="header-section-number">1.5.3.5</span> patchwork</h4>
-<p>The <a href="https://patchwork.data-imaginist.com/"><em>patchwork</em></a> package is similar to <em>cowplot</em> and is an excellent option for combining multiple plots together.</p>
-</div>
-<div id="gganimate" class="section level4" number="1.5.3.6">
-<h4><span class="header-section-number">1.5.3.6</span> gganimate</h4>
-<p>Beyond static images, there are times when we want to display changes over time or other visualizations that require animation. The <em>gganimate</em> package enables animation on top of <em>ggplot2</em> plots.</p>
-<p>According to the <a href="https://gganimate.com/"><em>gganimate</em> website</a>:</p>
-<blockquote>
-<p>gganimate extends the grammar of graphics as implemented by ggplot2 to include the description of animation. It does this by providing a range of new grammar classes that can be added to the plot object in order to customize how it should change with time.</p>
+<p>The <code>cowplot</code> package provides various features that help with creating publication-quality figures, such as a set of themes, functions to align plots and arrange them into complex compound figures, and functions that make it easy to annotate plots and or mix plots with images.</p>
 </blockquote>
 </div>
+<div id="patchwork" class="section level4">
+<h4><span class="header-section-number">1.5.3.5</span> <strong><code>patchwork</code></strong></h4>
+<p>The <a href="https://patchwork.data-imaginist.com/"><code>patchwork</code></a> package is similar to <code>cowplot</code> and is an excellent option for combining multiple plots together.</p>
 </div>
-<div id="data-modeling" class="section level3" number="1.5.4">
+<div id="gganimate" class="section level4">
+<h4><span class="header-section-number">1.5.3.6</span> <strong><code>gganimate</code></strong></h4>
+<p>Beyond static images, there are times when we want to display changes over time or other visualizations that require animation. The <code>gganimate</code> package enables animation on top of <code>ggplot2</code> plots.</p>
+<p>According to the <a href="https://gganimate.com/"><code>gganimate</code> website</a>:</p>
+<blockquote>
+<p><code>gganimate</code> extends the grammar of graphics as implemented by <code>ggplot2</code> to include the description of animation. It does this by providing a range of new grammar classes that can be added to the plot object in order to customize how it should change with time.</p>
+</blockquote>
+</div>
+</div>
+<div id="data-modeling" class="section level3">
 <h3><span class="header-section-number">1.5.4</span> Data Modeling</h3>
-<p>Once data have been read in, tidied, and explored, the last step to answering your question and before communicating your findings is data modeling. In this step, you’re carrying out an analysis to answer your question of interest. There are a number of helpful suites of R packages</p>
-<div id="the-tidymodels-ecosystem" class="section level4" number="1.5.4.1">
+<p>Once data have been read in, tidied, and explored, the last step to answering your question and before communicating your findings is data modeling. In this step, you’re carrying out an analysis to answer your question of interest. There are a number of helpful suites of R packages.</p>
+<div id="the-tidymodels-ecosystem" class="section level4">
 <h4><span class="header-section-number">1.5.4.1</span> The <code>tidymodels</code> ecosystem</h4>
 <p>When it comes to predictive analyses and machine learning, there is a suite of packages called <code>tidymodels</code>.</p>
 <p>The <code>tidymodels</code> ecosystem contains packages for data splitting, preprocessing, model fitting, performance assessment and more.</p>
 <p>The great advantage is that is allows for users to use predictive algorithms that were written across dozens of different R packages and makes them all usable with a standard syntax.</p>
-<div id="inferential-packages-broom-and-infer" class="section level5" number="1.5.4.1.1">
-<h5><span class="header-section-number">1.5.4.1.1</span> Inferential packages: <code>broom</code> and <code>infer</code></h5>
-<p>When carrying out inferential analyses the <a href="https://github.com/tidymodels"><em>tidymodels</em></a> suite of tidyverse-adjacent packages is essential.</p>
-<p><a href="https://broom.tidyverse.org/"><em>broom</em></a> which happens to be an official tidyverse package and part of the <em>tidymodels</em> suite takes statistical analysis objects from R (think the output of your <code>lm()</code> function) and converts them into a tidy data format. This makes obtaining the information you’re most interested in from your statistical models much simpler.</p>
-<p>Similarly, <a href="https://github.com/tidymodels/infer"><em>infer</em></a> sets out to perform statistical inference using a standard statistical grammar. Historically, the syntax varied widely from one statistical test to the next in R. <em>infer</em> sets out to standardize the syntax, regardless of the test.</p>
 </div>
+<div id="inferential-packages-broom-and-infer" class="section level4">
+<h4><span class="header-section-number">1.5.4.2</span> Inferential packages: <code>broom</code> and <code>infer</code></h4>
+<p>When carrying out inferential analyses the <a href="https://github.com/tidymodels"><code>tidymodels</code></a> suite of tidyverse-adjacent packages is essential.</p>
+<p><a href="https://broom.tidyverse.org/"><code>broom</code></a> which happens to be an official <code>tidyverse</code> package and part of the <code>tidymodels</code> suite takes statistical analysis objects from R (think the output of your <code>lm()</code> function) and converts them into a tidy data format. This makes obtaining the information you’re most interested in from your statistical models much simpler.</p>
+<p>Similarly, <a href="https://github.com/tidymodels/infer"><code>infer</code></a> sets out to perform statistical inference using a standard statistical grammar. Historically, the syntax varied widely from one statistical test to the next in R. The <code>infer</code> package sets out to standardize the syntax, regardless of the test.</p>
 </div>
-<div id="tidyverts-tsibble-feasts-and-fable" class="section level4" number="1.5.4.2">
-<h4><span class="header-section-number">1.5.4.2</span> tidyverts: tsibble, feasts, and fable</h4>
-<p>While many datasets are like a snapshot in time - survey data collected once or contact information from a business - time series data are unique. Time series datasets represent changes over time and require computational approaches that are unique to this fact. A suite of tidyverse-adjacent packages called <a href="https://github.com/tidyverts"><em>tidyverts</em></a> have been developed to enable and simplify tidy time series analyses in R. Among these are <em>tsibble</em>, <em>feasts</em>, and <em>fable</em>.</p>
-<p><em>tsibble</em> is the time-series version of a tibble in that is provides the data.frame-like structure most useful for carrying out tidy time series analyses.</p>
-<p>According to the <a href="https://tsibble.tidyverts.org/"><em>tsibble</em> website</a>:</p>
+<div id="tidyverts-tsibble-feasts-and-fable" class="section level4">
+<h4><span class="header-section-number">1.5.4.3</span> tidyverts: tsibble, feasts, and fable</h4>
+<p>While many datasets are like a snapshot in time - survey data collected once or contact information from a business - time series data are unique. Time series datasets represent changes over time and require computational approaches that are unique to this fact. A suite of tidyverse-adjacent packages called <a href="https://github.com/tidyverts"><code>tidyverts</code></a> have been developed to enable and simplify tidy time series analyses in R. Among these are <code>tsibble</code>, <code>feasts</code>, and <code>fable</code>.</p>
+<p>A <code>tsibble</code> is the time-series version of a tibble in that is provides the data.frame-like structure most useful for carrying out tidy time series analyses.</p>
+<p>According to the <a href="https://tsibble.tidyverts.org/"><code>tsibble</code> website</a>:</p>
 <blockquote>
-<p>The <em>tsibble</em> package provides a data infrastructure for tidy temporal data with wrangling tools. Adhering to the tidy data principles, tsibble is an explicit data- and model-oriented object. In tsibble:</p>
+<p>The <em>tsibble</em> package provides a data infrastructure for tidy temporal data with wrangling tools. Adhering to the tidy data principles, tsibble is an explicit data- and model-oriented object.</p>
 </blockquote>
-<p><em>feasts</em> is most helpful when it comes to the modeling step in time series analyses.</p>
-<p>According to the <a href="https://feasts.tidyverts.org"><em>feasts</em> website</a>:</p>
+<p>The <code>feasts</code> package is most helpful when it comes to the modeling step in time series analyses.</p>
+<p>According to the <a href="https://feasts.tidyverts.org"><code>feasts</code> website</a>:</p>
 <blockquote>
 <p>Feasts provides a collection of tools for the analysis of time series data. The package name is an acronym comprising of its key features: Feature Extraction And Statistics for Time Series.</p>
 </blockquote>
-<p><em>fable</em> is most helpful when it comes to the modeling step in forecasting analyses.</p>
-<p>According to the <a href="https://fable.tidyverts.org/"><em>fable</em> website</a>:</p>
+<p>The <code>fable</code> package is most helpful when it comes to the modeling step in forecasting analyses.</p>
+<p>According to the <a href="https://fable.tidyverts.org/"><code>fable</code> website</a>:</p>
 <blockquote>
 <p>The R package fable provides a collection of commonly used univariate and multivariate time series forecasting models including exponential smoothing via state space models and automatic ARIMA modelling. These models work within the fable framework, which provides the tools to evaluate, visualize, and combine models in a workflow consistent with the tidyverse.</p>
 </blockquote>
 </div>
-<div id="tidymodels" class="section level4" number="1.5.4.3">
-<h4><span class="header-section-number">1.5.4.3</span> tidymodels</h4>
 </div>
 </div>
-</div>
-<div id="data-science-project-organization" class="section level2" number="1.6">
+<div id="data-science-project-organization" class="section level2">
 <h2><span class="header-section-number">1.6</span> Data Science Project Organization</h2>
 <p>Data science projects vary quite a lot so it can be difficult to give universal rules for how they should be organized. However, there are a few ways to organize projects that are commonly useful. In particular, almost all projects have to deal with files of various sorts—data files, code files, output files, etc. This section talks about how files work and how projects can be organized and customized.</p>
-<div id="rstudio-projects" class="section level3" number="1.6.1">
+<div id="rstudio-projects" class="section level3">
 <h3><span class="header-section-number">1.6.1</span> RStudio Projects</h3>
 <p>Creating <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">RStudio projects</a> can be very helpful for organizing your code and any other files that you may want to use in one location together.</p>
 <p>New projects can be created by clicking on the RStudio Projects button in RStudio:</p>
 <p><img src="book_figures/rproj-fig.png" width="60%" /></p>
 <p>This will create a special file with the .Rproj extension. This file tells RStudio to identify the directory containing the .Rproj file as the main directory for that R Project. A new session of RStudio will be started when a user opens an R project from this main directory. The previous state including settings of that project will be maintained from one time to the next. The files that were open the last time the user worked on the project will automatically be opened again. Other packages like the <code>here</code> package will also recognize the .Rproj file to make analyses easier for the user. We will explain how this package works in the next section.</p>
 </div>
-<div id="file-paths" class="section level3" number="1.6.2">
+<div id="file-paths" class="section level3">
 <h3><span class="header-section-number">1.6.2</span> File Paths</h3>
 <p>Since we’re assuming R knowledge in this course, you’re likely familiar with file paths. However, this information will be critical at a number of points throughout this course, so we wanted to quickly review relative and absolute file paths briefly before moving on.</p>
 <p>In future courses, whenever you write code and run commands within R to work with data, or whenever you use Git commands to document updates to your files, you will be working <em>in a particular location</em>. To know your location within a file system is to know exactly what folder you are in right now. The folder that you are in right now is called the <strong>working directory</strong>. Your current working directory in the Terminal may be different from your current working directory in R and may yet even be different from the folder shown in the Files pane of RStudio. The focus of this lesson is on the Terminal, so we will not discuss working directories within R until the next lesson.</p>
 <p>Knowing your working directory is important because if you want to tell Terminal to perform some actions on files in other folders, you will need to be able to tell the Terminal where that folder is. That is, you will need to be able to specify a <strong>path</strong> to that folder. A path is a string that specifies a sequence of folders to traverse in order to end up at a final destination. The end of a path string may be a file name if you are creating a path to a file. If you are creating a path to a folder, the path string will end with the destination folder. In a path, folder names are separated by forward slashes <code>/</code>. For example, let’s say that your current working directory in the Terminal is the <code>raw_code</code> directory, and you wish to navigate to the <code>exploratory</code> subfolder within the <code>figures</code> folder to see the graphics you’ve created.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY/export/png?id=18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY&amp;pageid=g3a9f4bba8b_0_20" alt="" />
+<img src="https://docs.google.com/presentation/d/18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY/export/png?id=18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY&amp;pageid=g3a9f4bba8b_0_20" alt="Definitions: working directory and path" />
 <p class="caption">Definitions: working directory and path</p>
 </div>
 <p>There are two types of paths that can lead to that location: <strong>relative</strong> and <strong>absolute</strong>.</p>
-<div id="relative-paths" class="section level4" number="1.6.2.1">
+<div id="relative-paths" class="section level4">
 <h4><span class="header-section-number">1.6.2.1</span> Relative Paths</h4>
 <p>The first is called a <strong>relative path</strong> which gives a path to the destination folder based on where you are right now (in <code>raw_code</code>). ]</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY/export/png?id=18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY&amp;pageid=g39e98c7b77_0_52" alt="" />
+<img src="https://docs.google.com/presentation/d/18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY/export/png?id=18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY&amp;pageid=g39e98c7b77_0_52" alt="Relative path" />
 <p class="caption">Relative path</p>
 </div>
 </div>
-<div id="absolute-paths" class="section level4" number="1.6.2.2">
+<div id="absolute-paths" class="section level4">
 <h4><span class="header-section-number">1.6.2.2</span> Absolute Paths</h4>
 <p>Alternatively, you can specify an <strong>absolute path</strong>. An absolute path starts at the <strong>root directory</strong> of a file system. The root directory does not have a name like other folders do. It is specified with a single forward slash <code>/</code> and is special in that it cannot be contained within other folders. In the current file system, the root directory contains a folder called <code>cloud</code>, which contains a folder called <code>project</code>.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY/export/png?id=18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY&amp;pageid=g39e98c7b77_0_89" alt="" />
+<img src="https://docs.google.com/presentation/d/18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY/export/png?id=18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY&amp;pageid=g39e98c7b77_0_89" alt="Absolute path" />
 <p class="caption">Absolute path</p>
 </div>
 </div>
-<div id="path-summary" class="section level4" number="1.6.2.3">
+<div id="path-summary" class="section level4">
 <h4><span class="header-section-number">1.6.2.3</span> Path Summary</h4>
 <p><strong>Analogy</strong>: The root directory is analogous to a town square, a universal starting location. The desired destination location might be the baker. An absolute path specifies how to reach the bakery starting from this universal starting location of the town square. However, if we are in the library right now, a relative path would specify how to reach the bakery from our current location in the library. This could be pretty different than the path from the town square.</p>
 <p>Imagine that your friend plans to go from the town square, then to the library, and finally to the bakery. In this analogy, the town square represents the root directory, a universal starting location. If your friend is currently at the library and asks you for directions, you would likely tell them how to go from the library (where they are) to the bakery (where they want to go). This represents a <strong>relative path</strong> – taking you from where you are currently to where you want to be. Alternatively, you could give them directions from the Town square, to the library, and then to the bakery. This represents an <strong>absolute path</strong>, directions that will always work in this town, no matter where you are currently, but that contain extra information given where your friend is currently.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ/export/png?id=18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ&amp;pageid=g3aa9ae33ea_0_151" alt="" />
+<img src="https://docs.google.com/presentation/d/18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ/export/png?id=18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ&amp;pageid=g3aa9ae33ea_0_151" alt="Directions and paths analogy" />
 <p class="caption">Directions and paths analogy</p>
 </div>
 <p>To summarize once more, <strong>relative paths</strong> give a path to the destination folder based on where you are right now (your current working directory) while <strong>absolute paths</strong> give a path to the destination folder based on the root directory of a file system.</p>
 </div>
 </div>
-<div id="the-here-package" class="section level3" number="1.6.3">
+<div id="the-here-package" class="section level3">
 <h3><span class="header-section-number">1.6.3</span> The <code>here</code> package</h3>
 <p>With most things in R, there’s a package to help minimize the pain of working with and setting file paths within an R Project - the <a href="https://github.com/r-lib/here"><code>here</code></a> package.</p>
 <p>As a reminder, to get started using the <code>here</code> package (or any R package!), it first has to be installed (using the <code>install.packages()</code> function) and then loaded in (using the <code>library()</code> function). Note that the package name in the <code>install.packages()</code> function has to be in quotes but for <code>library()</code> it doesn’t have to. The code to copy and paste into your R console is below:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="intro.html#cb1-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;here&quot;</span>)</span>
-<span id="cb1-2"><a href="intro.html#cb1-2"></a><span class="kw">library</span>(here)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;here&quot;</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(here)</a></code></pre></div>
 <p><code>here</code> is a package specifically designed to help you deal with file organization when you’re coding. This package allows you to define in which folder all your relative paths should begin within a project. The path of this folder will be displayed after typing <code>library(here)</code> or <code>here()</code>.</p>
-<div id="setting-your-project-directory" class="section level4" number="1.6.3.1">
+<div id="setting-your-project-directory" class="section level4">
 <h4><span class="header-section-number">1.6.3.1</span> Setting your project directory</h4>
 <p>After installing and loading the <code>here</code> package, to set your project directory using <code>here()</code>, you’ll simply type the command <code>here()</code>. You’ll notice that the output of <code>here()</code> and <code>getwd()</code> in this case is the same; however, what they’re doing behind the scenes is different.</p>
 <ul>
@@ -1013,46 +959,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>The <code>here()</code> function is what you want to use to set your project directory so that you can use it for future relative paths in your code. While in this case it <em>also</em> happened to be in the same directory you were in, it doesn’t have to be this way. The here() function looks to see if you have a .Rproj file in your project. It then sets your base directory to whichever directory that file is located.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ/export/png?id=18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ&amp;pageid=g3aa9ae33ea_0_427" alt="" />
+<img src="https://docs.google.com/presentation/d/18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ/export/png?id=18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ&amp;pageid=g3aa9ae33ea_0_427" alt="here() sets your project directory for future reference using here()" />
 <p class="caption">here() sets your project directory for future reference using here()</p>
 </div>
 <p>So, if we were to change our current directory and re-type <code>here()</code> in the Console, you’ll note that the output from here() does not change because it’s still looking for the directory where .Rproj is.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ/export/png?id=18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ&amp;pageid=g3aa9ae33ea_0_494" alt="" />
+<img src="https://docs.google.com/presentation/d/18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ/export/png?id=18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ&amp;pageid=g3aa9ae33ea_0_494" alt="here() does not care what your current working directory is" />
 <p class="caption">here() does not care what your current working directory is</p>
 </div>
 <p>Note: In cases where there is no .Rproj file, <code>here()</code> will look for files other than a .Rproj file. You can read about those cases in the fine print <a href="https://github.com/jennybc/here_here#the-fine-print">here</a>. But for most of your purposes, <code>here()</code> will behave as we just discussed.</p>
 </div>
-<div id="get-files-paths-using-here" class="section level4" number="1.6.3.2">
+<div id="get-files-paths-using-here" class="section level4">
 <h4><span class="header-section-number">1.6.3.2</span> Get files paths using <code>here()</code></h4>
 <p>After setting your project folder using <code>here()</code>, R will then know what folder to use to define any and all other paths within this project.</p>
 <p>For example, if you wanted to include a path to a file named “intro_code.R” in your <code>raw_code</code> directory, you would simply specify that in your code like this:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="intro.html#cb2-1"></a><span class="kw">here</span>(<span class="st">&quot;code&quot;</span>, <span class="st">&quot;raw_code&quot;</span>, <span class="st">&quot;intro_code.R&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">here</span>(<span class="st">&quot;code&quot;</span>, <span class="st">&quot;raw_code&quot;</span>, <span class="st">&quot;intro_code.R&quot;</span>)</a></code></pre></div>
 <p>This code says start from where I’ve already defined the project starts (<code>here()</code>), then look in the folders <code>code</code> and then <code>raw_code</code>, for the file “intro_code.R.”</p>
 <p>The syntax is simplified when using <code>here()</code>. Each subdirectory or file in the path is in quotes and simply separated by commas within the <code>here()</code> function, and voila you have the relative path you’re looking for relative to <code>here()</code>.</p>
 <p>The output from this code includes the correct file path to this file, just as you wanted!</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ/export/png?id=18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ&amp;pageid=g3aa9ae33ea_0_0" alt="" />
+<img src="https://docs.google.com/presentation/d/18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ/export/png?id=18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ&amp;pageid=g3aa9ae33ea_0_0" alt="using here to get a file path" />
 <p class="caption">using here to get a file path</p>
 </div>
 </div>
-<div id="save-and-load-files-using-here" class="section level4" number="1.6.3.3">
+<div id="save-and-load-files-using-here" class="section level4">
 <h4><span class="header-section-number">1.6.3.3</span> Save and load files using <code>here()</code></h4>
 <p>Using the <code>here</code> package, files within the project can be saved or loaded by simply typing <code>here</code> (to replace the path to the project directory) and typing any subdirectories like in this example, where we want to save data to the raw_data directory within the data directory of the project:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="intro.html#cb3-1"></a><span class="kw">save</span>(introcode_data_object, <span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;intro_code_object.rda&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">save</span>(introcode_data_object, <span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;intro_code_object.rda&quot;</span>))</a></code></pre></div>
 <p>Or if we want to load this data:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro.html#cb4-1"></a><span class="kw">load</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;intro_code_object.rda&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">load</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;intro_code_object.rda&quot;</span>))</a></code></pre></div>
 <p>Remember that the <code>::</code> notation indicates that we are using a function of a particular package. So the <code>here</code> package is indicated on the left of the <code>::</code> and the <code>here</code>function is indicated on the right.</p>
 </div>
-<div id="where-you-should-use-this" class="section level4" number="1.6.3.4">
+<div id="where-you-should-use-this" class="section level4">
 <h4><span class="header-section-number">1.6.3.4</span> Where you should use this</h4>
 <p>You should use <code>here()</code> to set the base project directory for each data science project you do. And, you should use relative paths using <code>here()</code> throughout your code any time you want to refer to a different directory or sub-directory within your project using the syntax we just discussed.</p>
 </div>
 </div>
-<div id="file-naming" class="section level3" number="1.6.4">
+<div id="file-naming" class="section level3">
 <h3><span class="header-section-number">1.6.4</span> File Naming</h3>
 <p>Having discussed the overall file structure and the <code>here</code> package, it’s now important to spend a bit of time talking about file naming. It may not be the most <em>interesting</em> topic on its surface, but naming files well can save future you a lot of time and make collaboration with others a lot easier on everyone involved. By having descriptive and consistent file names, you’ll save yourself a lot of headaches.</p>
-<div id="good-file-names" class="section level4" number="1.6.4.1">
+<div id="good-file-names" class="section level4">
 <h4><span class="header-section-number">1.6.4.1</span> Good File Names</h4>
 <p>One of the most frustrating things when looking at someone’s data science project is to see a set of files that are completely scattered with names that don’t make any sense. It also makes it harder to search for files if they don’t have a consistent naming scheme.</p>
 <p>One of the best organized file naming systems is due to <a href="http://www2.stat.duke.edu/~rcs46/lectures_2015/01-markdown-git/slides/naming-slides/naming-slides.pdf">Jenny Bryan</a> who gives three key principles of file naming for data science projects. Files should be:</p>
@@ -1063,7 +1009,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>If your files have these three characteristics, then it will be easy for you to search for them (machine readable), easy for you to understand what is in the files (human readable), and easy for you to glance at a whole folder and understand the organization (be nicely ordered). We’ll now discuss some concrete rules that will help you achieve these goals.</p>
 </div>
-<div id="machine-readable-files" class="section level4" number="1.6.4.2">
+<div id="machine-readable-files" class="section level4">
 <h4><span class="header-section-number">1.6.4.2</span> Machine readable files</h4>
 <p>The machine we are talking about when we say “machine readable” is a computer. To make a file machine readable means to make it easy for you to use the machine to search for it. Let’s see which one of the following examples are good example of machine readable files and which are not.</p>
 <ul>
@@ -1075,39 +1021,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>So to wrap up, spaces, punctuations, and periods should be avoided but underscores and dashes are recommended. You should always use lowercase since you don’t have to later remember if the name of the file contained lowercase or uppercase letters. Another suggestion is the use of delimiters (hyphens or underscores) instead of combining all the words together. The use of delimiters makes it easier to look for files on your computer or in R and to extract information from the file names like the image below.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4/export/png?id=1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4&amp;pageid=g397b53245b_0_19" alt="" />
+<img src="https://docs.google.com/presentation/d/1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4/export/png?id=1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4&amp;pageid=g397b53245b_0_19" alt="Extracting information from properly named files" />
 <p class="caption">Extracting information from properly named files</p>
 </div>
 </div>
-<div id="human-readable-files" class="section level4" number="1.6.4.3">
+<div id="human-readable-files" class="section level4">
 <h4><span class="header-section-number">1.6.4.3</span> Human readable files</h4>
 <p>What does it mean for a file to be human readable? A file name is human readable if the name tells you something informative about the content of the file. For instance, the name <code>analysis.R</code> does not tell you what is in the file especially if you do multiple analyses at the same time. Is this analysis about the project you did for your client X or your client Y? Is it preliminary analysis or your final analysis? A better name maybe would be <code>2017-exploratory_analysis_crime.R</code>. The ordering of the information is mostly up to you but make sure the ordering makes sense. For better browsing of your files, it is better to use the dates and numbers in the beginning of the file name.</p>
 </div>
-<div id="be-nicely-ordered" class="section level4" number="1.6.4.4">
+<div id="be-nicely-ordered" class="section level4">
 <h4><span class="header-section-number">1.6.4.4</span> Be nicely ordered</h4>
 <p>By using dates, you can sort your files based on chronological order. Dates are preferred to be in the ISO8601 format. In the United States we mainly use the mm-dd-yyyy format. If we use this format for naming files, files will be first sorted based on month, then day, then year. However for browsing purposes it is better to sort files based on year, then month, and then day and, therefore, the yyyy-mm-dd format, also known as the ISO8601 format, is better. Therefore, <code>2017-05-21-analysis-cust001.R</code> is preferred to <code>05-21-2017-analysis-cust001.R</code>.</p>
 <p>If dates are not relevant for your file naming, put something numeric first. For instance if you’re dealing with multiple reports, you can add a reportxxx to the beginning of the file name so you can easily sort files by the report number.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4/export/png?id=1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4&amp;pageid=g397b53245b_0_40" alt="" />
+<img src="https://docs.google.com/presentation/d/1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4/export/png?id=1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4&amp;pageid=g397b53245b_0_40" alt="Using numbers for ordering files" />
 <p class="caption">Using numbers for ordering files</p>
 </div>
 <p>In addition to making sure your files can be nicely ordered, always left-pad numbers with zeros. That is first set a max number of digits for your numbers determined by how many files you will potentially have. So if you may not have more than 1000 files you can choose three digits. If not more than a hundred you can choose two digits and so on. Once you know the number of digits, left-pad numbers with zeros to satisfy the number of digits you determined in the first step. In other words, if you’re using three digits, instead of writing 1 write 001 and instead of writing 17 write 017.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4/export/png?id=1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4&amp;pageid=g397b53245b_0_45" alt="" />
+<img src="https://docs.google.com/presentation/d/1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4/export/png?id=1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4&amp;pageid=g397b53245b_0_45" alt="Left padding numbers with zeros" />
 <p class="caption">Left padding numbers with zeros</p>
 </div>
 </div>
 </div>
-<div id="project-template-everything-in-its-place" class="section level3" number="1.6.5">
+<div id="project-template-everything-in-its-place" class="section level3">
 <h3><span class="header-section-number">1.6.5</span> Project Template: Everything In Its Place</h3>
 <p>When organizing a data science project all of your files need to be placed somewhere on your computer. While there is no universal layout for how to do this, most projects have some aspects in common. The <code>ProjectTemplate</code> package codifies some of these defaults into a usable file hierarchy so that you can immediately start placing files in the right place.</p>
 <p>Here, we load the <code>ProjectTemplate</code> package and create a new project called <code>data_analysis</code> under the current working directory using the <code>minimal</code> template.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="intro.html#cb5-1"></a><span class="kw">library</span>(ProjectTemplate)</span>
-<span id="cb5-2"><a href="intro.html#cb5-2"></a><span class="kw">create.project</span>(<span class="dt">project.name =</span> <span class="st">&quot;data_analysis&quot;</span>,</span>
-<span id="cb5-3"><a href="intro.html#cb5-3"></a>               <span class="dt">template =</span> <span class="st">&quot;minimal&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">library</span>(ProjectTemplate)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">create.project</span>(<span class="dt">project.name =</span> <span class="st">&quot;data_analysis&quot;</span>,</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">               <span class="dt">template =</span> <span class="st">&quot;minimal&quot;</span>)</a></code></pre></div>
 <p>The <code>create.project()</code> function creates a directory called <code>data_analysis</code> for this project. Inside that directory are the following sub-directories (which we can view in the RStudio File browser):</p>
 <div class="figure">
-<img src="book_figures/projecttemplatedir.png" alt="" />
+<img src="book_figures/projecttemplatedir.png" alt="Project Template Directory Layout" />
 <p class="caption">Project Template Directory Layout</p>
 </div>
 <p>Inside each directory is a README file that contains a brief description of what kinds of files should go in this directory. If you do not need all of these directories, it is okay to leave them empty for now.</p>
@@ -1116,7 +1062,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The <code>config</code> directory can contain configuration information for your project, such as any packages that need to be loaded for your code to work. We will not go into the details of this directory for now, but suffice it to say that there are many ways to customize your project. Lastly, the <code>load.project()</code> function can be used to “setup” your project each time you open it. For example, if you always need to execute some code or load some packages, calling <code>load.project()</code> with the right <code>config</code> settings will allow you to automate this process.</p>
 </div>
 </div>
-<div id="data-science-workflows" class="section level2" number="1.7">
+<div id="data-science-workflows" class="section level2">
 <h2><span class="header-section-number">1.7</span> Data Science Workflows</h2>
 <p>The phrase “data science workflow” describes the method or steps by which a data scientist might evaluate data to perform a data analysis from start to finish. In this course we will provide examples of workflows with real data. In general, workflows involve the following steps:</p>
 <ul>
@@ -1131,10 +1077,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>We will demonstrate potential ways of organizing a workflow using real data from the <a href="https://opencasestudies.github.io/">Open Case Studies</a> project.</p>
 </div>
-<div id="case-studies" class="section level2" number="1.8">
+<div id="case-studies" class="section level2">
 <h2><span class="header-section-number">1.8</span> Case Studies</h2>
 <p>Throughout this specialization, we’re going to make use of a number of case studies from <a href="https://opencasestudies.github.io/">Open Case Studies</a> to demonstrate the concepts introduced in the course. We’ll make use of the same case studies throughout the specialization, so that you only have to learn the context - which we’ll introduce here - once. This continuity will allow you to focus on the concepts and skills being taught while working with interesting data. These case studies aim to address a public-health question and all of them use real data.</p>
-<div id="case-study-1-health-expenditures" class="section level3" number="1.8.1">
+<div id="case-study-1-health-expenditures" class="section level3">
 <h3><span class="header-section-number">1.8.1</span> Case Study #1: Health Expenditures</h3>
 <p>Health policy in the States is complicated, and several forms of healthcare
 coverage existed in the United States of America, including both federal government-led healthcare policy, and private insurance company. Before making any inference about the relationship between health condition and health policy, it is important for us to have a general idea about healthcare economics in the States. Thus, we are interested in getting sense of the health expenditure, including healthcare coverage and healthcare spending, across States. More specifically, the questions are:</p>
@@ -1143,7 +1089,7 @@ coverage existed in the United States of America, including both federal governm
 <li><p>How does the spending distribution change across geographic regions in the United States?</p></li>
 <li><p>Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?</p></li>
 </ol>
-<div id="data-healthcare" class="section level4" number="1.8.1.1">
+<div id="data-healthcare" class="section level4">
 <h4><span class="header-section-number">1.8.1.1</span> Data: Healthcare</h4>
 <p>The two datasets used in this case study come from the <a href="https://www.kff.org/">Henry J Kaiser Family Foundation (KFF)</a> and include:</p>
 <ul>
@@ -1152,16 +1098,16 @@ coverage existed in the United States of America, including both federal governm
 </ul>
 </div>
 </div>
-<div id="case-study-2-firearms" class="section level3" number="1.8.2">
+<div id="case-study-2-firearms" class="section level3">
 <h3><span class="header-section-number">1.8.2</span> Case Study #2: Firearms</h3>
 <p>In the United States, firearm laws differ by state. Additionally, <a href="https://www.nature.com/articles/d41586-019-02601-9">police</a> <a href="https://www.washingtonpost.com/graphics/2019/national/police-shootings-2019/">shootings</a> <a href="https://www.latimes.com/science/story/2019-08-15/police-shootings-are-a-leading-cause-of-death-for-black-men">are</a> <a href="https://www.npr.org/tags/522920705/police-shootings">frequently</a> <a href="https://www.huffpost.com/news/police-shooting">in</a> <a href="https://www.nytimes.com/2019/08/14/us/philadelphia-shooting-temple-university.html">the</a> <a href="https://www.washingtonpost.com/graphics/2019/national/police-shootings-2019/">news</a>. Understanding the relationship between firearm laws and police shootings is of public health interest.</p>
 <p>A recent study set out <a href="https://ajph.aphapublications.org/doi/suppl/10.2105/AJPH.2017.303770">“to examine whether stricter firearm legislation is associated with rates of fatal police shootings”</a>. We’ll use the state-level data from this study<br />
 Firearm Legislation and Fatal Police Shootings in the US in this case study.</p>
-<div id="question" class="section level4" number="1.8.2.1">
+<div id="question" class="section level4">
 <h4><span class="header-section-number">1.8.2.1</span> Question</h4>
 <p>The main question from this case study is: At the state-level, what is the relationship between firearm legislation strength and annual rate of fatal police shootings?</p>
 </div>
-<div id="data" class="section level4" number="1.8.2.2">
+<div id="data" class="section level4">
 <h4><span class="header-section-number">1.8.2.2</span> Data</h4>
 <p>To accomplish this in this case study, we’ll use data from a <em>number</em> of different sources:</p>
 <ul>
