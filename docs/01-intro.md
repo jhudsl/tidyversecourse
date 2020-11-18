@@ -481,7 +481,7 @@ This will create a special file with the .Rproj extension. This file tells RStud
 
 ### File Paths
 
-Since we're assuming R knowledge in this course, you're likely familiar with file paths. However, this information will be critical at a number of points throughout this course, so we wanted to quickly review relative and absolute file paths briefly before moving on.
+Since we're assuming R knowledge in this course, you're likely familiar with file paths. However, this information will be critical at a number of points throughout this course, so we want to quickly review relative and absolute file paths briefly before moving on.
 
 In future courses, whenever you write code and run commands within R to work with data, or whenever you use Git commands to document updates to your files, you will be working *in a particular location*. To know your location within a file system is to know exactly what folder you are in right now. The folder that you are in right now is called the **working directory**. Your current working directory in the Terminal may be different from your current working directory in R and may yet even be different from the folder shown in the Files pane of RStudio. The focus of this lesson is on the Terminal, so we will not discuss working directories within R until the next lesson.
 
@@ -543,7 +543,7 @@ After installing and loading the `here` package, to set your project directory u
 The `here()` function is what you want to use to set your project directory so that you can use it for future relative paths in your code. While in this case it *also* happened to be in the same directory you were in, it doesn't have to be this way. The here() function looks to see if you have a .Rproj file in your project. It then sets your base directory to whichever directory that file is located. 
 
 
-![here() sets your project directory for future reference using here()](https://docs.google.com/presentation/d/18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ/export/png?id=18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ&pageid=g3aa9ae33ea_0_427)
+![here sets your project directory for future reference using here()](https://docs.google.com/presentation/d/18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ/export/png?id=18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ&pageid=g3aa9ae33ea_0_427)
 
 So, if we were to change our current directory and re-type `here()` in the Console, you'll note that the output from here() does not change because it's still looking for the directory where .Rproj is. 
 
@@ -557,7 +557,7 @@ Note: In cases where there is no .Rproj file, `here()` will look for files other
 
 After setting your project folder using `here()`, R will then know what folder to use to define any and all other paths within this project.
 
-For example, if you wanted to include a path to a file named "intro_code.R" in your `raw_code` directory, you would simply specify that in your code like this:
+For example, if you wanted to include a path to a file named "intro_code.R" in your `raw_code` directory (which is in your code directory), you would simply specify that in your code like this:
 
 
 ```r
@@ -586,7 +586,7 @@ Or if we want to load this data:
 load(here::here("data", "raw_data", "intro_code_object.rda"))
 ```
 
-Remember that the `::` notation indicates that we are using a function of a particular package. So the `here` package is indicated on the left of the `::` and the `here`function is indicated on the right.
+Remember that the `::` notation indicates that we are using a function of a particular package. So the `here` package is indicated on the left of the `::` and the `here()` function is indicated on the right.
 
 #### Where you should use this
 
@@ -674,7 +674,7 @@ The phrase "data science workflow" describes the method or steps by which a data
 - Identifying a question of interest - determining if it is feasible
 - Identifying data to answer that question
 - Importing that data into a programming language such as R
-- Cleaning /wrangling / and tiding the data
+- Cleaning / wrangling / and tiding the data
 - Exploratory data analysis to get to know the data
 - Data analysis to look for associations in the data
 - Generation of data visualizations to demonstrate findings
@@ -684,12 +684,12 @@ We will demonstrate potential ways of organizing a workflow using real data from
 
 ## Case Studies
 
-Throughout this specialization, we're going to make use of a number of case studies from [Open Case Studies](https://opencasestudies.github.io/) to demonstrate the concepts introduced in the course. We'll make use of the same case studies throughout the specialization, so that you only have to learn the context - which we'll introduce here - once. This continuity will allow you to focus on the concepts and skills being taught while working with interesting data. These case studies aim to address a public-health question and all of them use real data. 
+Throughout this specialization, we're going to make use of a number of case studies from [Open Case Studies](https://opencasestudies.github.io/) to demonstrate the concepts introduced in the course. We will generally make use of the same case studies throughout the specialization, providing continuity to allow you focus on the concepts and skills being taught (rather than the context) while working with interesting data. These case studies aim to address a public-health question and all of them use real data. 
 
 ### Case Study #1: Health Expenditures
 
-Health policy in the States is complicated, and several forms of healthcare 
-coverage existed in the United States of America, including both federal government-led healthcare policy, and private insurance company. Before making any inference about the relationship between health condition and health policy, it is important for us to have a general idea about healthcare economics in the States. Thus, we are interested in getting sense of the health expenditure, including healthcare coverage and healthcare spending, across States. More specifically, the questions are:  
+Health policy in the United States of America is complicated, and several forms of healthcare 
+coverage exist, including that of federal government-led healthcare programs and that of private insurance companies. We are interested in getting sense of the health expenditure, including healthcare coverage and healthcare spending, across the United States. More specifically, the questions are:  
 
 1. Is there a relationship between healthcare coverage and healthcare spending in the United States?   
 
@@ -710,8 +710,7 @@ The two datasets used in this case study come from the [Henry J Kaiser Family Fo
 
 In the United States, firearm laws differ by state. Additionally, [police](https://www.nature.com/articles/d41586-019-02601-9) [shootings](https://www.washingtonpost.com/graphics/2019/national/police-shootings-2019/) [are](https://www.latimes.com/science/story/2019-08-15/police-shootings-are-a-leading-cause-of-death-for-black-men) [frequently](https://www.npr.org/tags/522920705/police-shootings) [in](https://www.huffpost.com/news/police-shooting) [the](https://www.nytimes.com/2019/08/14/us/philadelphia-shooting-temple-university.html) [news](https://www.washingtonpost.com/graphics/2019/national/police-shootings-2019/). Understanding the relationship between firearm laws and police shootings is of public health interest.
 
-A recent study set out ["to examine whether stricter firearm legislation is associated with rates of fatal police shootings"](https://ajph.aphapublications.org/doi/suppl/10.2105/AJPH.2017.303770). We'll use the state-level data from this study  
-Firearm Legislation and Fatal Police Shootings in the US in this case study.
+A recent study set out ["to examine whether stricter firearm legislation is associated with rates of fatal police shootings"](https://ajph.aphapublications.org/doi/suppl/10.2105/AJPH.2017.303770). We'll use the state-level data from this study about firearm legislation and fatal police shootings in this case study.
 
 #### Question 
 
@@ -728,7 +727,6 @@ To accomplish this in this case study, we'll use data from a *number* of differe
 * [Unemployment rate data](https://htmlpreview.github.io/?https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/ocs-police-shootings-firearm-legislation.html#LND).
 * [US Census 2010 Land Area](https://htmlpreview.github.io/?https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/ocs-police-shootings-firearm-legislation.html#LND).
 * Education data for 2010 via the [US Census education table editor](https://factfinder.census.gov/faces/tableservices/jsf/pages/productview.xhtml?src=bkmk).
-* “Household firearm ownership rates, represented as the percentage of firearm suicides to all suicides.” Downloaded from the [CDC’s Web-Based Injury Statistics Query and Reporting System](https://www.cdc.gov/injury/wisqars/fatal.html).
-
+* Household firearm ownership rates - by using the percentage of firearm suicides to all suicides as a proxy (as this was used in the above [referenced study](https://ajph.aphapublications.org/doi/suppl/10.2105/AJPH.2017.303770)) that we are trying to replicate. This data is downloaded from the [CDC’s Web-Based Injury Statistics Query and Reporting System](https://www.cdc.gov/injury/wisqars/fatal.html).
 
 
