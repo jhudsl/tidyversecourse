@@ -950,19 +950,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;here&quot;</span>)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(here)</a></code></pre></div>
 <p><code>here</code> is a package specifically designed to help you deal with file organization when you’re coding. This package allows you to define in which folder all your relative paths should begin within a project. The path of this folder will be displayed after typing <code>library(here)</code> or <code>here()</code>.</p>
-<div id="the-utility-of-the-here-package" class="section level4">
-<h4><span class="header-section-number">1.6.3.1</span> The utility of the <code>here</code> package</h4>
-<p>You may be asking, “Why do I need the <code>here</code> package?”, and you may be thinking, “I can just write the paths myself or use the <code>setwd()</code> function”.</p>
-<p><a href="https://github.com/jennybc">Jenny Bryan</a>, has several <a href="https://www.tidyverse.org/blog/2017/12/workflow-vs-script/">reasons</a>. We highly recommend checking them out.</p>
-<p>In our own words:</p>
-<ol style="list-style-type: decimal">
-<li>It makes your project work more easily on someone else’s machine - there is no need to change the working directory path with the <code>setwd()</code> function. Everything will be relative to the .Rproj containing directory.</li>
-<li>It allows for your project to work more easily for you on your own machine - say your working directory was set to “/Users/somebody/2019_data_projects/that_big_project” and you decide you want to copy your scripts to be in “/Users/somebody/2020_data_projects/that_big_project_again” to update a project for the next year with new data. You would need to update all of your scripts each time you set your working directory or load or save files. In some cases that will happen many times in a single project!</li>
-<li>It saves time. Sometimes our directory structures are complicated and we can easily make a typo. The <code>here</code> package makes writing paths easier!</li>
-</ol>
-</div>
 <div id="setting-your-project-directory" class="section level4">
-<h4><span class="header-section-number">1.6.3.2</span> Setting your project directory</h4>
+<h4><span class="header-section-number">1.6.3.1</span> Setting your project directory</h4>
 <p>After installing and loading the <code>here</code> package, to set your project directory using <code>here()</code>, you’ll simply type the command <code>here()</code>. You’ll notice that the output of <code>here()</code> and <code>getwd()</code> in this case is the same; however, what they’re doing behind the scenes is different.</p>
 <ul>
 <li><code>getwd()</code> - shows the directory you are in currently</li>
@@ -981,7 +970,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Note: In cases where there is no .Rproj file, <code>here()</code> will look for files other than a .Rproj file. You can read about those cases in the fine print <a href="https://github.com/jennybc/here_here#the-fine-print">here</a>. But for most of your purposes, <code>here()</code> will behave as we just discussed.</p>
 </div>
 <div id="get-files-paths-using-here" class="section level4">
-<h4><span class="header-section-number">1.6.3.3</span> Get files paths using <code>here()</code></h4>
+<h4><span class="header-section-number">1.6.3.2</span> Get files paths using <code>here()</code></h4>
 <p>After setting your project folder using <code>here()</code>, R will then know what folder to use to define any and all other paths within this project.</p>
 <p>For example, if you wanted to include a path to a file named “intro_code.R” in your <code>raw_code</code> directory (which is in your code directory), you would simply specify that in your code like this:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">here</span>(<span class="st">&quot;code&quot;</span>, <span class="st">&quot;raw_code&quot;</span>, <span class="st">&quot;intro_code.R&quot;</span>)</a></code></pre></div>
@@ -994,7 +983,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <div id="save-and-load-files-using-here" class="section level4">
-<h4><span class="header-section-number">1.6.3.4</span> Save and load files using <code>here()</code></h4>
+<h4><span class="header-section-number">1.6.3.3</span> Save and load files using <code>here()</code></h4>
 <p>Using the <code>here</code> package, files within the project can be saved or loaded by simply typing <code>here</code> (to replace the path to the project directory) and typing any subdirectories like in this example, where we want to save data to the raw_data directory within the data directory of the project:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">save</span>(introcode_data_object, <span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;intro_code_object.rda&quot;</span>))</a></code></pre></div>
 <p>Or if we want to load this data:</p>
@@ -1002,8 +991,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Remember that the <code>::</code> notation indicates that we are using a function of a particular package. So the <code>here</code> package is indicated on the left of the <code>::</code> and the <code>here()</code> function is indicated on the right.</p>
 </div>
 <div id="where-you-should-use-this" class="section level4">
-<h4><span class="header-section-number">1.6.3.5</span> Where you should use this</h4>
+<h4><span class="header-section-number">1.6.3.4</span> Where you should use this</h4>
 <p>You should use <code>here()</code> to set the base project directory for each data science project you do. And, you should use relative paths using <code>here()</code> throughout your code any time you want to refer to a different directory or sub-directory within your project using the syntax we just discussed.</p>
+</div>
+<div id="the-utility-of-the-here-package" class="section level4">
+<h4><span class="header-section-number">1.6.3.5</span> The utility of the <code>here</code> package</h4>
+<p>You may be asking, “Why do I need the <code>here</code> package?”, and you may be thinking, “I can just write the paths myself or use the <code>setwd()</code> function”.</p>
+<p><a href="https://github.com/jennybc">Jenny Bryan</a>, has several <a href="https://www.tidyverse.org/blog/2017/12/workflow-vs-script/">reasons</a>. We highly recommend checking them out.</p>
+<p>In our own words:</p>
+<ol style="list-style-type: decimal">
+<li>It makes your project work more easily on someone else’s machine - there is no need to change the working directory path with the <code>setwd()</code> function. Everything will be relative to the .Rproj containing directory.</li>
+<li>It allows for your project to work more easily for you on your own machine - say your working directory was set to “/Users/somebody/2019_data_projects/that_big_project” and you decide you want to copy your scripts to be in “/Users/somebody/2020_data_projects/that_big_project_again” to update a project for the next year with new data. You would need to update all of your scripts each time you set your working directory or load or save files. In some cases that will happen many times in a single project!</li>
+<li>It saves time. Sometimes our directory structures are complicated and we can easily make a typo. The <code>here</code> package makes writing paths easier!</li>
+</ol>
 </div>
 </div>
 <div id="file-naming" class="section level3">
