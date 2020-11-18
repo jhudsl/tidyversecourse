@@ -14,7 +14,7 @@ In this specialization we assume familiarity with the R programming language. If
 
 ## About This Course
 
-This course introduces a powerful set of data science tools known as the Tidyverse. The Tidyverse has revolutionized the way in which data scientists do almost every aspect of their job. We will cover the simple idea of "tidy data" and how this idea serves to organize data for analysis and modeling. We will also cover how non-tidy can be transformed to tidy data, the data science project life cycle, and the ecosystem of Tidyverse R packages that can be used to execute a data science project. 
+This course introduces a powerful set of data science tools known as the Tidyverse. The Tidyverse has revolutionized the way in which data scientists do almost every aspect of their job. We will cover the simple idea of "tidy data" and how this idea serves to organize data for analysis and modeling. We will also cover how non-tidy data can be transformed to tidy data, the data science project life cycle, and the ecosystem of Tidyverse R packages that can be used to execute a data science project. 
 
 If you are new to data science, the Tidyverse ecosystem of R packages is an excellent way to learn the different aspects of the data science pipeline, from importing the data, tidying the data into a format that is easy to work with, exploring and visualizing the data, and fitting machine learning models. If you are already experienced in data science, the Tidyverse provides a power system for streamlining your workflow in a coherent manner that can easily connect with other data science tools. 
 
@@ -87,9 +87,9 @@ So, if you're working with a dataset and attempting to tidy it, if you don't hav
 
 There are a number of benefits to working within a tidy data framework: 
 
-1. Tidy data have a *consistent data structure* - this eliminates the *many* different ways in which data can be stored. By imposing a uniform data structure, the cognitive load imposed on the analyst is minimized for each new project.
-2. Tidy data *foster tool development* - software that all work within the tidy data framework can all work well with one another, even when developed by different individuals, ultimately increasing the variety and scope of tools available, without requiring analysts to learn an entirely new mental model with each new tool
-3. Tidy data require only a *small set of tools to be learned* - When using a consistent data format, only a small set of tools is required and these tools can be reused from one project to the next
+1. Tidy data have a *consistent data structure* - This eliminates the *many* different ways in which data can be stored. By imposing a uniform data structure, the cognitive load imposed on the analyst is minimized for each new project.
+2. Tidy data *foster tool development* - Software that all work within the tidy data framework can all work well with one another, even when developed by different individuals, ultimately increasing the variety and scope of tools available, without requiring analysts to learn an entirely new mental model with each new tool.
+3. Tidy data require only a *small set of tools to be learned* - When using a consistent data format, only a small set of tools is required and these tools can be reused from one project to the next.
 4. Tidy data allow for *datasets to be combined* - Data are often stored in multiple tables or in different locations. By getting each table into a tidy format, combining across tables or sources becomes trivial.
 
 ### Rules for Storing Tidy Data
@@ -112,7 +112,7 @@ Being consistent in data entry and throughout an analysis is key. It minimizes c
 
 With regard to entering a person's sex, we were talking about how to code observations for a specific variable; however, consistency also matters when you're choosing how to name a variable. If you use the variable name "ID" in one spreadsheet, use the same variable name ("ID") in the next spreadsheet. Do not change it to "id" (capitalization matters!) or "identifier" or anything else in the next spreadsheet. Be consistent!
 
-Consistency matters across every step of the analysis. Name your files in a consistent format. Always code dates in a consistent format (discussed further below). Avoid extra spaces in cells. If you're careful about and consistent in data entry, it will be incredibly helpful when you get to analysis.
+Consistency matters across every step of the analysis. Name your files in a consistent format. Always code dates in a consistent format (discussed further below). Avoid extra spaces in cells. Being careful and consistent in data entry will be incredibly helpful when you get to the point of analyzing your data.
 
 
 ![Be Consistent!](https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&pageid=g326e316938_0_81)
@@ -128,14 +128,14 @@ Additionally, make sure that file and variable names are as short as possible wh
 
 #### Write dates as YYYY-MM-DD
 
-When entering dates, there is a global 'ISO 8601' standard. Dates should be encoded YYYY-MM-DD. For example if you want to specify that a measurement was taken on February 27th, 2018, you would type 2018-02-27. YYYY refers to the year, 2018. MM refers to the month of February, 02. And DD refers to the day of the month, 27. This standard is used for dates for two main reason. First, it avoids confusion when sharing data across different countries, where date conventions can differ. By all using ISO 8601 standard conventions, there is less room for error in interpretation of dates. Secondly, spreadsheet software often mishandles dates and assumes that non-date information are actually dates and vice versa. By encoding dates as YYYY-MM-DD, this confusion is minimized. 
+When entering dates, there is a global [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) standard. Dates should be encoded YYYY-MM-DD. For example if you want to specify that a measurement was taken on February 27th, 2018, you would type 2018-02-27. YYYY refers to the year, 2018. MM refers to the month of February, 02. And DD refers to the day of the month, 27. This standard is used for dates for two main reason. First, it avoids confusion when sharing data across different countries, where date conventions can differ. By all using ISO 8601 standard conventions, there is less room for error in interpretation of dates. Secondly, spreadsheet software often mishandles dates and assumes that non-date information are actually dates and vice versa. By encoding dates as YYYY-MM-DD, this confusion is minimized. 
 
 
 ![YYYY-MM-DD](https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&pageid=g326e316938_0_91)
 
 #### No empty cells
 
-Simply, fill in every cell. If the data is unknown for that cell, put 'NA.' Without information in each cell, the analyst is often left guessing. In the spreadsheets below, on the left, is the analyst to assume that the empty cells should use the date from the cell above? Or are we to assume that the date for that measurement is unknown? Fill in the date if it is known or type 'NA' if it is not. That will clear up the need for any guessing on behalf of the analyst. On the spreadsheet to the right, the first two rows have a lot of empty cells. This is problematic for the analysis. This spreadsheet does not follow the rules for tidy data. There is not a single variable per column with a single entry per row. These data would have to be reformatted before they could be used in analysis.
+Simply, fill in every cell. If the data is unknown for that cell, put `NA`. Without information in each cell, the analyst is often left guessing. In the spreadsheets below, on the left, is the analyst to assume that the empty cells should use the date from the cell above? Or are we to assume that the date for that measurement is unknown? Fill in the date if it is known or type 'NA' if it is not. That will clear up the need for any guessing on behalf of the analyst. On the spreadsheet to the right, the first two rows have a lot of empty cells. This is problematic for the analysis. This spreadsheet does not follow the rules for tidy data. There is not a single variable per column with a single entry per row. These data would have to be reformatted before they could be used in analysis.
 
 
 ![No empty cells](https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&pageid=g326e316938_0_96)
@@ -167,11 +167,11 @@ The data entry guidelines discussed in and a few additional rules have been summ
 
 ## From Non-Tidy --> Tidy
 
-The reason it's important to discuss what tidy data are an what they look like is because out in the world, most data are untidy. If you are not the one entering the data but are instead handed the data from someone else to do a project, more often than not, those data will be untidy. Untidy data are often referred to simply as messy data. In order to work with these data easily, you'll have to get them into a tidy data format. This means you'll have to fully understand what messy data and how to get them into a tidy data format.
+The reason it's important to discuss what tidy data are an what they look like is because out in the world, most data are untidy. If you are not the one entering the data but are instead handed the data from someone else to do a project, more often than not, those data will be untidy. Untidy data are often referred to simply as messy data. In order to work with these data easily, you'll have to get them into a tidy data format. This means you’ll have to fully recognize untidy data and understand how to get data into a tidy format.
 
-The following common problems seen in messy data sets again come from [Hadley Wickham's paper on tidy data](http://vita.had.co.nz/papers/tidy-data.pdf). After briefly reviewing what each common problem is, we will then take a look at a few messy data sets. We'll finally touch on the concepts of tidying untidy data, but we won't actually do any practice *yet*. That's coming soon! 
+The following common problems seen in messy datasets again come from [Hadley Wickham's paper on tidy data](http://vita.had.co.nz/papers/tidy-data.pdf). After briefly reviewing what each common problem is, we will then take a look at a few messy datasets. We'll finally touch on the concepts of tidying untidy data, but we won't actually do any practice *yet*. That's coming soon! 
 
-### Common problems with messy data sets
+### Common problems with messy datasets
 
 1. Column headers are values but should be variable names.
 2. A single column has multiple variables.
@@ -193,19 +193,19 @@ For a specific example, [Miles McBain](https://milesmcbain.github.io/), a data s
 
 ![Miles McBain's' tidying of Australian Same Sex Marriage Postal Survey Data](https://docs.google.com/presentation/d/1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs/export/png?id=1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs&pageid=g326b2fc90a_0_6)
 
-Inspired by Miles' work, Sharla Gelfand decided to tackle a messy data set from Toronto's open data. She similarly outlined all the ways in which the data were messy including, names and address across multiple cells in the spreadsheet, merged column headings, and lots of blank cells. She has also included the details of how she cleaned these data [in a blog post](https://sharlagelfand.netlify.com/posts/tidying-toronto-open-data/). While the details of the code may not make sense yet, it will shortly as you get more comfortable with the programming language, R.
+Inspired by Miles' work, Sharla Gelfand decided to tackle a messy dataset from Toronto's open data. She similarly outlined all the ways in which the data were messy including: names and addresses across multiple cells in the spreadsheet, merged column headings, and lots of blank cells. She has also included the details of how she cleaned these data [in a blog post](https://sharlagelfand.netlify.com/posts/tidying-toronto-open-data/). While the details of the code may not make sense yet, it will shortly as you get more comfortable with the programming language, R.
 
 ![Sharla Gelfand's tidying of Toronto's open data](https://docs.google.com/presentation/d/1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs/export/png?id=1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs&pageid=g326b2fc90a_0_1)
 
 ### Tidying untidy data
 
-There are a number of actions you can take on a dataset to tidy the data depending on the problem. These include: filtering, transforming, modifying variables, aggregating the data, and sorting the order of the observations. There are functions to accomplish each of these actions in R. While we'll get to the details of the code in a few lessons, it's important at this point to be able to identify untidy data and to determine what needs to be done in order to get those data into a tidy format. Specifically, we will focus in here on a single messy data set. This is dataset D from the 'Data Organization in Spreadsheets' example of messy data provided above. We note the blank cells and that the data are not rectangular.
+There are a number of actions you can take on a dataset to tidy the data depending on the problem. These include: filtering, transforming, modifying variables, aggregating the data, and sorting the order of the observations. There are functions to accomplish each of these actions in R. While we'll get to the details of the code in a few lessons, it's important at this point to be able to identify untidy data and to determine what needs to be done in order to get those data into a tidy format. Specifically, we will focus on a single messy dataset. This is dataset D from the 'Data Organization in Spreadsheets' example of messy data provided above. We note that there are blank cells and that the data are not rectangular.
 
-![Messy data set](https://docs.google.com/presentation/d/1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs/export/png?id=1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs&pageid=g326b2fc90a_0_22)
+![Messy dataset](https://docs.google.com/presentation/d/1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs/export/png?id=1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs&pageid=g326b2fc90a_0_22)
 
-To address this, these data can be split into two different spreadsheets, one for each type of data. Spreadsheet A included information about each sample. Spreadsheet B includes measurements for each sample over time. Note that both spreadsheets have an 'id' column so that the data can be merged if necessary during analysis. The 'note' column does have some missing data. Filling in these blank cells with 'NA' would fully tidy these data. We note that sometimes a single spreadsheet becomes two spreadsheets during the tidying process. This is OK as long as there is a consistent variable name that links the two spreadsheets!
+To address this, these data can be split into two different spreadsheets, one for each type of data. Spreadsheet A includes information about each sample. Spreadsheet B includes measurements for each sample over time. Note that both spreadsheets have an 'id' column so that the data can be merged if necessary during analysis. The 'note' column does have some missing data. Filling in these blank cells with 'NA' would fully tidy these data. We note that sometimes a single spreadsheet becomes two spreadsheets during the tidying process. This is OK as long as there is a consistent variable name that links the two spreadsheets!
 
-![Tidy version of the messy data set](https://docs.google.com/presentation/d/1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs/export/png?id=1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs&pageid=g326b2fc90a_0_16)
+![Tidy version of the messy dataset](https://docs.google.com/presentation/d/1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs/export/png?id=1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs&pageid=g326b2fc90a_0_16)
 
 ## The Data Science Life Cycle
 
@@ -215,7 +215,7 @@ The most famous is likely this version from [R for Data Science](https://r4ds.ha
 
 ![The Data Science Life Cycle](https://docs.google.com/presentation/d/1jEJTVbvn52sjZX7uGE38LUcj4ocs1P8DQZhYcTzs_W0/export/png?id=1jEJTVbvn52sjZX7uGE38LUcj4ocs1P8DQZhYcTzs_W0&pageid=g5fbdfde92a_0_8)
 
-Others have set out to design charts to explain all the steps in between asking an answering question. They are all similar but have different aspects of the process they highlight and/or on which they focus. These have been summarized in [A First Course on Data Science](https://doi.org/10.1080/10691898.2019.1623136)
+Others have set out to design charts to explain all the steps in between asking and answering question. They are all similar but have different aspects of the process they highlight and/or on which they focus. These have been summarized in [A First Course on Data Science](https://doi.org/10.1080/10691898.2019.1623136).
 
 ![Other Data Science Life Cycles](https://docs.google.com/presentation/d/1jEJTVbvn52sjZX7uGE38LUcj4ocs1P8DQZhYcTzs_W0/export/png?id=1jEJTVbvn52sjZX7uGE38LUcj4ocs1P8DQZhYcTzs_W0&pageid=g5fbdfde92a_0_1)
 
@@ -231,196 +231,196 @@ Note that the official tidyverse packages below are **bold**. All other packages
 
 After identifying a question that can be answered using data, there are *many* different ways in which the data you'll want to use may be stored. Sometimes information is stored within an Excel spreadsheet. Other times, the data are in a table on a website that needs to be scraped. Or, in a CSV file. Each of these types of data files has their own structure, but R can work with all of them. To do so, however, requires becoming familiar with a few different packages. Here, we'll discuss these packages briefly. In later courses in the specialization we'll get into the details of what characterizes each file type and how to use each packages to read data into R.
 
-#### **tibble**
+#### **`tibble`**
 
-While not technically a package that helps read data into R, *tibble* is a package that re-imagines the familiar R data.frame. It is a way to store information in columns and rows, but does so in a way that addresses problems earlier in the pipeline. 
+While not technically a package that helps read data into R, `tibble` is a package that re-imagines the familiar R data.frame. It is a way to store information in columns and rows, but does so in a way that addresses problems earlier in the pipeline. 
 
-From the [*tibble* website](https://tibble.tidyverse.org/):
+From the [`tibble` website](https://tibble.tidyverse.org/):
 
 > A tibble, or tbl_df, is a modern reimagining of the data.frame, keeping what time has proven to be effective, and throwing out what is not. Tibbles are data.frames that are lazy and surly: they do less (i.e. they don’t change variable names or types, and don’t do partial matching) and complain more (e.g. when a variable does not exist). This forces you to confront problems earlier, typically leading to cleaner, more expressive code. Tibbles also have an enhanced print() method which makes them easier to use with large datasets containing complex objects.
 
 In fact, when working with data using the tidyverse, you'll get very comfortable working with tibbles.
 
-#### **readr**
+#### **`readr`**
 
-*readr* is a package that users of the tidyverse use all the time. It helps read rectangular data into R. If you find yourself working with CSV files frequently, then you'll find yourself using readr all regularly.
+`readr` is a package that users of the tidyverse use all the time. It helps read rectangular data into R. If you find yourself working with CSV files frequently, then you'll find yourself using readr regularly.
 
-According to the [*readr* website](https://readr.tidyverse.org/): 
+According to the [`readr` website](https://readr.tidyverse.org/): 
 
-> The goal of *readr* is to provide a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes. If you are new to readr, the best place to start is the data import chapter in R for data science.
+> The goal of `readr` is to provide a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes. If you are new to readr, the best place to start is the data import chapter in R for data science.
 
 
 #### googlesheets
 
-[*googlesheets*](https://github.com/jennybc/googlesheets) is a brilliant package that allows users to "access and manage Google spreadsheets from R." As more and more data is saved in the cloud (rather than on local computers), packages like googlesheets become invaluable. If you store data on Google Sheets or work with people who do, this package will be a lifesaver.
+[`googlesheets`](https://github.com/jennybc/googlesheets) is a brilliant package that allows users to "access and manage Google spreadsheets from R." As more and more data is saved in the cloud (rather than on local computers), packages like googlesheets become invaluable. If you store data on Google Sheets or work with people who do, this package will be a lifesaver.
 
-#### **readxl**
+#### **`readxl`**
 
-A third package for working with tabular data is *readxl*, which is specifically designed to move data from Excel into R. If many of your data files have the .xls or .xlsx extension, familiarizing yourself with this package will be helpful.
+Another package for working with tabular data is `readxl`, which is specifically designed to move data from Excel into R. If many of your data files have the .xls or .xlsx extension, familiarizing yourself with this package will be helpful.
 
-From the [*readxl* website](https://readxl.tidyverse.org/):
+From the [`readxl` website](https://readxl.tidyverse.org/):
 
-> The readxl package makes it easy to get data out of Excel and into R. Compared to many of the existing packages (e.g. *gdata*, *xlsx*, *xlsReadWrite*) readxl has no external dependencies, so it’s easy to install and use on all operating systems. It is designed to work with tabular data.
-
-
-#### **googledrive**
-
-Similar to googlesheets, but for interacting with file on Google Drive from R (rather than just Google Sheets), the [*googledrive*](https://googledrive.tidyverse.org/) package is an important package for working with data in R.
+> The readxl package makes it easy to get data out of Excel and into R. Compared to many of the existing packages (e.g. `gdata`, `xlsx`, `xlsReadWrite`) `readxl` has no external dependencies, so it’s easy to install and use on all operating systems. It is designed to work with tabular data.
 
 
-#### **haven**
+#### **`googledrive`**
 
-If you are a statistician (or work with statisticians), you've likely heard of the statistical packages SPSS, Stata, and SAS. Each of these has data formats for working with data that are compatibly only with their platform. However, there is an R package that allows you to use read stored in these formats into R. For this, you'll need [*haven*](https://haven.tidyverse.org/).
-
-
-#### jsonlite & xml2
-
-Data stored on and retrieved from the Internet are often stored in one of the two most common semi-structured data formats: JSON or XML. We'll discuss the details of these when we discuss how to use [*jsonlite*](https://github.com/jeroen/jsonlite#jsonlite) and [*xml2*](https://github.com/r-lib/xml2), which allow data in the JSON and XML formats, respectively, to be read into R. *jsonlite* helps extensively when working with Application Programming Interfaces (APIs) and *xml2* is incredibly helpful when working with HTML.
+Similar to `googlesheets`, but for interacting with file on Google Drive from R (rather than just Google Sheets), the [`googledrive`](https://googledrive.tidyverse.org/) package is an important package for working with data in R.
 
 
-#### rvest
+#### **`haven`**
 
-If you are hoping to scrape data from a website, [*rvest*](https://github.com/tidyverse/rvest) is a package with which you'll want to become familiar. It allows you to scrape information directly from web pages on the Internet.
+If you are a statistician (or work with statisticians), you've likely heard of the statistical packages SPSS, Stata, and SAS. Each of these has data formats for working with data that are compatible only with their platform. However, there is an R package that allows you to use read stored in these formats into R. For this, you'll need [`haven`](https://haven.tidyverse.org/).
 
 
-#### httr
+#### **`jsonlite` & `xml2`**
 
-Companies that share data with users often do so using Application Programming Interfaces or APIs. We've mentioned that these data are often stored in the JSON format, requiring packages like jsonlite to work with the data. However, to retrieve the data in the first place, you'll use [*httr*](https://github.com/r-lib/httr). This package helps you interact with modern web APIs.
+Data stored on and retrieved from the Internet are often stored in one of the two most common semi-structured data formats: JSON or XML. We'll discuss the details of these when we discuss how to use [`jsonlite`](https://github.com/jeroen/jsonlite#jsonlite) and [`xml2`](https://github.com/r-lib/xml2), which allow data in the JSON and XML formats, respectively, to be read into R. `jsonlite` helps extensively when working with Application Programming Interfaces (APIs) and `xml2` is incredibly helpful when working with HTML.
+
+
+#### **`rvest`**
+
+If you are hoping to scrape data from a website, [`rvest`](https://github.com/tidyverse/rvest) is a package with which you'll want to become familiar. It allows you to scrape information directly from web pages on the Internet.
+
+
+#### **`httr`**
+
+Companies that share data with users often do so using Application Programming Interfaces or APIs. We've mentioned that these data are often stored in the JSON format, requiring packages like jsonlite to work with the data. However, to retrieve the data in the first place, you'll use [`httr`](https://github.com/r-lib/httr). This package helps you interact with modern web APIs.
 
 
 ### Data Tidying
 
 There are *loads* of ways in which data and information are stored on computers and the Internet. We've reviewed that there are a number of packages that you'll have to use depending on the type of data you need to get into R. However, once the data are in R, the next goal is to tidy the data. This process is often referred to as data wrangling or data tidying. Regardless of what you call it, there are a number of packages that will help you take the untidy data you just read into R and convert it into the flexible and usable tidy data format.
 
-#### **dplyr**
+#### **`dplyr`**
 
-The most critical package for wrangling data is *dplyr*. Its release completely transformed the way many R users write R code and work with data, greatly simplifying the process.
+The most critical package for wrangling data is `dplyr`. Its release completely transformed the way many R users write R code and work with data, greatly simplifying the process.
 
-According to the [*dplyr* website](https://dplyr.tidyverse.org/)
+According to the [`dplyr` website](https://dplyr.tidyverse.org/)
 
 > dplyr is a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges. 
 
-*dplyr* is built around five primary verbs (mutate, select, filter, summarize, and arrange) that help make the data wrangling process simpler. This specialization will cover these verbs among other functionality within the dplyr package.
+`dplyr` is built around five primary verbs (mutate, select, filter, summarize, and arrange) that help make the data wrangling process simpler. This specialization will cover these verbs among other functionality within the `dplyr` package.
 
-#### **tidyr**
+#### **`tidyr`**
 
-Like *dplyr*, *tidyr* is a package with the primary goal of helping users take their untidy data and make it tidy. 
+Like `dplyr`, `tidyr` is a package with the primary goal of helping users take their untidy data and make it tidy. 
 
-According to the [*tidyr* website](https://tidyr.tidyverse.org/):
+According to the [`tidyr` website](https://tidyr.tidyverse.org/):
 
-> The goal of tidyr is to help you create tidy data. Tidy data is data where: each variable is in a column, each observation is a row, and each value is a cell. Tidy data describes a standard way of storing data that is used wherever possible throughout the tidyverse. If you ensure that your data is tidy, you’ll spend less time fighting with the tools and more time working on your analysis.
+> The goal of `tidyr` is to help you create tidy data. Tidy data is data where: each variable is in a column, each observation is a row, and each value is a cell. Tidy data describes a standard way of storing data that is used wherever possible throughout the `tidyverse`. If you ensure that your data is tidy, you’ll spend less time fighting with the tools and more time working on your analysis.
 
-#### janitor
+#### **`janitor`**
 
-In addition to *dplyr* and *tidyr*, a common tidyverse-adjacent package used to clean dirty data and make users life easier while doing so is *janitor*.
+In addition to `dplyr` and `tidyr`, a common `tidyverse`-adjacent package used to clean dirty data and make users life easier while doing so is `janitor`.
 
-According to the [*janitor* website](https://github.com/sfirke/janitor):
+According to the [`janitor` website](https://github.com/sfirke/janitor):
 
 > janitor has simple functions for examining and cleaning dirty data. It was built with beginning and intermediate R users in mind and is optimized for user-friendliness. Advanced R users can already do everything covered here, but with janitor they can do it faster and save their thinking for the fun stuff.
 
 
-#### **forcats**
+#### **`forcats`**
 
-R is known for its ability to work with categorical data (called factors); however, they have historically been more of a necessary evil than a joy to work with. Due to the frustratingly hard nature of working with factors in R, the *forcats* package developers set out to make working with categorical data simpler.
+R is known for its ability to work with categorical data (called factors); however, they have historically been more of a necessary evil than a joy to work with. Due to the frustratingly hard nature of working with factors in R, the `forcats` package developers set out to make working with categorical data simpler.
 
-According to the [*forcats* website](https://forcats.tidyverse.org/)
+According to the [`forcats` website](https://forcats.tidyverse.org/)
 
 > The goal of the forcats package is to provide a suite of tools that solve common problems with factors, including changing the order of levels or the values.
 
 
-#### **stringr**
+#### **`stringr`**
 
-Similar to *forcats*, but for strings, the *stringr* package makes common tasks simple and streamlined. Working with this package becomes easier with some knowledge of regular expressions, which we'll cover in this specialization.
+Similar to `forcats`, but for strings, the `stringr` package makes common tasks simple and streamlined. Working with this package becomes easier with some knowledge of regular expressions, which we'll cover in this specialization.
 
-According to the [*string* website](https://stringr.tidyverse.org/)
+According to the [`string` website](https://stringr.tidyverse.org/)
 
 > Strings are not glamorous, high-profile components of R, but they do play a big role in many data cleaning and preparation tasks. The stringr package provide a cohesive set of functions designed to make working with strings as easy as possible.
 
 
-#### **lubridate**
+#### **`lubridate`**
 
-The final common package dedicated to working with a specific type of variable is *lubridate*, which makes working with dates and times simpler. Working with dates and times has historically been difficult due to the nature of our calendar, with its varying number of days per month and days per year, and due to time zones, which can make working with times infuriating. The *lubridate* developers aimed to make working with these types of data simpler.
+The final common package dedicated to working with a specific type of variable is `lubridate`, which makes working with dates and times simpler. Working with dates and times has historically been difficult due to the nature of our calendar, with its varying number of days per month and days per year, and due to time zones, which can make working with times infuriating. The `lubridate` developers aimed to make working with these types of data simpler.
 
-According to the [*lubridate* website](https://lubridate.tidyverse.org/)
+According to the [`lubridate` website](https://lubridate.tidyverse.org/)
 
-> Date-time data can be frustrating to work with in R. R commands for date-times are generally unintuitive and change depending on the type of date-time object being used. Moreover, the methods we use with date-times must be robust to time zones, leap days, daylight savings times, and other time related quirks, and R lacks these capabilities in some situations. Lubridate makes it easier to do the things R does with date-times and possible to do the things R does not.
+> Date-time data can be frustrating to work with in R. R commands for date-times are generally unintuitive and change depending on the type of date-time object being used. Moreover, the methods we use with date-times must be robust to time zones, leap days, daylight savings times, and other time related quirks, and R lacks these capabilities in some situations. `Lubridate` makes it easier to do the things R does with date-times and possible to do the things R does not.
 
-#### **glue**
+#### **`glue`**
 
-Related to *lubridate*, *stringr* and *forcats* is [*glue*](https://glue.tidyverse.org/), which makes working with interpreted string literals simpler. We'll discuss this package in detail in this specialization.
+The [`glue`](https://glue.tidyverse.org/) package makes working with interpreted string literals simpler. We'll discuss this package in detail in this specialization.
 
-#### skimr
+#### **`skimr`**
 
 After you've got your data into a tidy format and all of your variable types have been cleaned, the next step is often summarizing your data. If you've used the `summary()` function in R before, you're going to love `skimr`, which summarizes entire data frames for you in a tidy manner. 
 
 According to the [*skimr*](https://github.com/ropensci/skimr) package:
 
-> skimr provides a frictionless approach to summary statistics which conforms to the principle of least surprise, displaying summary statistics the user can skim quickly to understand their data.
+> `skimr` provides a frictionless approach to summary statistics which conforms to the principle of least surprise, displaying summary statistics the user can skim quickly to understand their data.
 
-#### tidytext
+#### **`tidytext`**
 
-While working with factors, numbers, and small strings is common in R, longer texts have historically been analyzed using approaches outside of R. However, once *tidytext* was developed, R had a tidy approach to analyzing text data, such as novels, news stories, and speeches.
+While working with factors, numbers, and small strings is common in R, longer texts have historically been analyzed using approaches outside of R. However, once `tidytext` was developed, R had a tidy approach to analyzing text data, such as novels, news stories, and speeches.
 
-According to the [*tidytext* website](https://github.com/juliasilge/tidytext)
+According to the [`tidytext` website](https://github.com/juliasilge/tidytext):
 
 
 > In this package, we provide functions and supporting data sets to allow conversion of text to and from tidy formats, and to switch seamlessly between tidy tools and existing text mining packages. 
 
 
-#### **purrr**
+#### **`purrr`**
 
-The final package we'll discuss here for data tidying is *purrr*, a package for working with functions and vectors in a tidy format. If you find yourself writing for loops to iterate through data frames, then purrr will save you a ton of time!
+The final package we'll discuss here for data tidying is `purrr`, a package for working with functions and vectors in a tidy format. If you find yourself writing for loops to iterate through data frames, then purrr will save you a ton of time!
 
-According to the [*purrr* website](https://purrr.tidyverse.org/)
+According to the [`purrr` website](https://purrr.tidyverse.org/):
 
-> purrr enhances R’s functional programming (FP) toolkit by providing a complete and consistent set of tools for working with functions and vectors. If you’ve never heard of FP before, the best place to start is the family of map() functions which allow you to replace many for loops with code that is both more succinct and easier to read.
+> `purrr` enhances R’s functional programming (FP) toolkit by providing a complete and consistent set of tools for working with functions and vectors. If you’ve never heard of FP before, the best place to start is the family of `map()` functions which allow you to replace many for loops with code that is both more succinct and easier to read.
 
 
 ### Data Visualization 
 
-Data Visualization is a critical piece of any data science project. Once you have your data in a tidy format, you'll first explore your data, often generating a number of basic plots to get a better understanding of your dataset. Then, once you've carried out your analysis, creating a few detailed and well-designed visualizations to communicate your findings is necessary. Fortunately, there are a number of helpful packages any time you need to create a visualization.
+Data Visualization is a critical piece of any data science project. Once you have your data in a tidy format, you'll first explore your data, often generating a number of basic plots to get a better understanding of your dataset. Then, once you've carried out your analysis, creating a few detailed and well-designed visualizations to communicate your findings is necessary. Fortunately, there are a number of helpful packages to create visualizations.
 
-#### **ggplot2**
+#### **`ggplot2`**
 
-The most critical package when it comes to plot generation in data visualization is *ggplot2*, a package that allows you to quickly create plots and meticulously customize them depending on your needs.   
+The most critical package when it comes to plot generation in data visualization is `ggplot2`, a package that allows you to quickly create plots and meticulously customize them depending on your needs.   
 
-According to the [*ggplot2* website](https://ggplot2.tidyverse.org/):
+According to the [`ggplot2` website](https://ggplot2.tidyverse.org/):
 
-> ggplot2 is a system for declaratively creating graphics, based on [The Grammar of Graphics](http://amzn.to/2ef1eWp). You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.
+> `ggplot2` is a system for declaratively creating graphics, based on [The Grammar of Graphics](http://amzn.to/2ef1eWp). You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.
 
-This package will be covered in a great amount of detail in this specialization, largely due to the fact that you'll find yourself using it all the time. Having a strong foundation of how to use *ggplot2* is incredibly important for any data science project.
+This package will be covered in a great amount of detail in this specialization, largely due to the fact that you'll find yourself using it all the time. Having a strong foundation of how to use `ggplot2` is incredibly important for any data science project.
 
-#### kableExtra
+#### **`kableExtra`**
 
-While the ability to make beautiful and informative plots is essential, tables can be incredibly effective vehicles for the conveyance of information. Customizing plots can be done using the *kableExtra* package, which is built on top of the `knitr()` function from the `kable` package, which generates basic tables. [*kableExtra*](https://github.com/haozhu233/kableExtra) allows complex and detailed tables to be built using a *ggplot2*-inspired syntax.
+While the ability to make beautiful and informative plots is essential, tables can be incredibly effective vehicles for the conveyance of information. Customizing plots can be done using the `kableExtra` package, which is built on top of the `knitr()` function from the `kable` package, which generates basic tables. [`kableExtra`](https://github.com/haozhu233/kableExtra) allows complex and detailed tables to be built using a `ggplot2`-inspired syntax.
 
-#### ggrepel
+#### **`ggrepel`**
 
-Due to the popularity of *ggplot2*, there are a number of tidyverse-adjacent packages built on top of and within the *ggplot2* framework. [ggrepel](https://github.com/slowkow/ggrepel) is one of them that "provides geoms for ggplot2 to repel overlapping text labels."
+Due to the popularity of `ggplot2`, there are a number of `tidyverse`-adjacent packages built on top of and within the `ggplot2` framework. [`ggrepel`](https://github.com/slowkow/ggrepel) is one of theses packages that "provides geoms for `ggplot2` to repel overlapping text labels."
 
-#### cowplot
+#### **`cowplot`**
 
-Cowplot is another tidyverse-adjacent package that helps when you want to polish and put finishing touches on your plots. 
+**`cowplot`** is another `tidyverse`-adjacent package that helps you to polish and put finishing touches on your plots. 
 
-According to the [*cowplot*](https://github.com/wilkelab/cowplot) developers:
+According to the [`cowplot`](https://github.com/wilkelab/cowplot) developers:
 
-> The cowplot package provides various features that help with creating publication-quality figures, such as a set of themes, functions to align plots and arrange them into complex compound figures, and functions that make it easy to annotate plots and or mix plots with images.
+> The `cowplot` package provides various features that help with creating publication-quality figures, such as a set of themes, functions to align plots and arrange them into complex compound figures, and functions that make it easy to annotate plots and or mix plots with images.
 
-#### patchwork
+#### **`patchwork`**
 
-The [*patchwork*](https://patchwork.data-imaginist.com/) package is similar to *cowplot* and is an excellent option for combining multiple plots together. 
+The [`patchwork`](https://patchwork.data-imaginist.com/) package is similar to `cowplot` and is an excellent option for combining multiple plots together. 
 
-#### gganimate
+#### **`gganimate`**
 
-Beyond static images, there are times when we want to display changes over time or other visualizations that require animation. The *gganimate* package enables animation on top of *ggplot2* plots. 
+Beyond static images, there are times when we want to display changes over time or other visualizations that require animation. The `gganimate` package enables animation on top of `ggplot2` plots. 
 
-According to the [*gganimate* website](https://gganimate.com/):
+According to the [`gganimate` website](https://gganimate.com/):
 
-> gganimate extends the grammar of graphics as implemented by ggplot2 to include the description of animation. It does this by providing a range of new grammar classes that can be added to the plot object in order to customize how it should change with time.
+> `gganimate` extends the grammar of graphics as implemented by `ggplot2` to include the description of animation. It does this by providing a range of new grammar classes that can be added to the plot object in order to customize how it should change with time.
 
 ### Data Modeling 
 
-Once data have been read in, tidied, and explored, the last step to answering your question and before communicating your findings is data modeling. In this step, you're carrying out an analysis to answer your question of interest. There are a number of helpful suites of R packages 
+Once data have been read in, tidied, and explored, the last step to answering your question and before communicating your findings is data modeling. In this step, you're carrying out an analysis to answer your question of interest. There are a number of helpful suites of R packages. 
 
 #### The `tidymodels` ecosystem
 
@@ -431,38 +431,35 @@ The `tidymodels` ecosystem contains packages for data splitting, preprocessing, 
 The great advantage is that is allows for users to use predictive algorithms that were written across dozens of different R packages and makes them all usable with a standard syntax. 
 
 
-##### Inferential packages: `broom` and `infer`
-When carrying out inferential analyses the [*tidymodels*](https://github.com/tidymodels) suite of tidyverse-adjacent packages is essential. 
+#### Inferential packages: `broom` and `infer`
+When carrying out inferential analyses the [`tidymodels`](https://github.com/tidymodels) suite of tidyverse-adjacent packages is essential. 
 
-[*broom*](https://broom.tidyverse.org/) which happens to be an official tidyverse package and part of the *tidymodels* suite takes statistical analysis objects from R (think the output of your `lm()` function) and converts them into a tidy data format. This makes obtaining the information you're most interested in from your statistical models much simpler. 
+[`broom`](https://broom.tidyverse.org/) which happens to be an official `tidyverse` package and part of the `tidymodels` suite takes statistical analysis objects from R (think the output of your `lm()` function) and converts them into a tidy data format. This makes obtaining the information you're most interested in from your statistical models much simpler. 
 
-Similarly, [*infer*](https://github.com/tidymodels/infer) sets out to perform statistical inference using a standard statistical grammar. Historically, the syntax varied widely from one statistical test to the next in R. *infer* sets out to standardize the syntax, regardless of the test.
+Similarly, [`infer`](https://github.com/tidymodels/infer) sets out to perform statistical inference using a standard statistical grammar. Historically, the syntax varied widely from one statistical test to the next in R. The `infer` package sets out to standardize the syntax, regardless of the test.
 
 
 #### tidyverts: tsibble, feasts, and fable
 
-While many datasets are like a snapshot in time - survey data collected once or contact information from a business - time series data are unique. Time series datasets represent changes over time and require computational approaches that are unique to this fact. A suite of tidyverse-adjacent packages called [*tidyverts*](https://github.com/tidyverts) have been developed to enable and simplify tidy time series analyses in R. Among these are *tsibble*, *feasts*, and *fable*.
+While many datasets are like a snapshot in time - survey data collected once or contact information from a business - time series data are unique. Time series datasets represent changes over time and require computational approaches that are unique to this fact. A suite of tidyverse-adjacent packages called [`tidyverts`](https://github.com/tidyverts) have been developed to enable and simplify tidy time series analyses in R. Among these are `tsibble`, `feasts`, and `fable`.
 
-*tsibble* is the time-series version of a tibble in that is provides the data.frame-like structure most useful for carrying out tidy time series analyses.
+A `tsibble` is the time-series version of a tibble in that is provides the data.frame-like structure most useful for carrying out tidy time series analyses.
 
-According to the [*tsibble* website](https://tsibble.tidyverts.org/):
+According to the [`tsibble` website](https://tsibble.tidyverts.org/):
 
-> The *tsibble* package provides a data infrastructure for tidy temporal data with wrangling tools. Adhering to the tidy data principles, tsibble is an explicit data- and model-oriented object. In tsibble:
+> The *tsibble* package provides a data infrastructure for tidy temporal data with wrangling tools. Adhering to the tidy data principles, tsibble is an explicit data- and model-oriented object.
 
-*feasts* is most helpful when it comes to the modeling step in time series analyses.  
+The `feasts` package is most helpful when it comes to the modeling step in time series analyses.  
 
-According to the [*feasts* website](https://feasts.tidyverts.org):
+According to the [`feasts` website](https://feasts.tidyverts.org):
 
 > Feasts provides a collection of tools for the analysis of time series data. The package name is an acronym comprising of its key features: Feature Extraction And Statistics for Time Series.
 
-*fable* is most helpful when it comes to the modeling step in forecasting analyses.  
+The `fable` package is most helpful when it comes to the modeling step in forecasting analyses.  
 
-According to the [*fable* website](https://fable.tidyverts.org/):
+According to the [`fable` website](https://fable.tidyverts.org/):
 
 > The R package fable provides a collection of commonly used univariate and multivariate time series forecasting models including exponential smoothing via state space models and automatic ARIMA modelling. These models work within the fable framework, which provides the tools to evaluate, visualize, and combine models in a workflow consistent with the tidyverse.
-
-
-#### tidymodels
 
 
 
@@ -476,7 +473,7 @@ Creating [RStudio projects](https://support.rstudio.com/hc/en-us/articles/200526
 
 New projects can be created by clicking on the RStudio Projects button in RStudio:
 
-<img src="/Users/rdpeng/books/tidyversecourse/book_figures/rproj-fig.png" width="60%" />
+<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/rproj-fig.png" width="60%" />
 
 This will create a special file with the .Rproj extension. This file tells RStudio to identify the directory containing the .Rproj file as the main directory for that R Project. A new session of RStudio will be started when a user opens an R project from this main directory. The previous state including settings of that project will be maintained from one time to the next. The files that were open the last time the user worked on the project will automatically be opened again. Other packages like the `here` package will also recognize the .Rproj file to make analyses easier for the user. We will explain how this package works in the next section.
 

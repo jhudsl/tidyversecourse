@@ -3336,7 +3336,7 @@ pm_split
 We can see the number of monitors in our training, testing, and original data by typing in the name of our split object. The result will look like this:
 <training data sample number, testing data sample number, original sample number> 
 
-Importantly the `initial_split` function only determines what rows of our `pm` data frame should be assigned for training or testing, it does not actually split the data. 
+Importantly the `initial_split()` function only determines what rows of our `pm` data frame should be assigned for training or testing, it does not actually split the data. 
 
 To extract the testing and training data we can use the `training()` and `testing()` functions also of the `rsample` package.
 
@@ -3738,7 +3738,7 @@ glimpse(pm)
 Notice how we only have 36 variables now instead of 50! 
 Two of these are our ID variables (`fips` and the actual monitor ID (`id`)) and one is our outcome (`value`). 
 Thus we only have 33 predictors now. 
-We can also see that variables that we no longer have any categorical variables. 
+We can also see that we no longer have any categorical variables. 
 Variables like `state` are gone and only `state_California` remains as it was the only state identity to have nonzero variance.
 We can also see that there were more monitors listed as `"Not in a city"` than any city. 
 
@@ -3747,7 +3747,7 @@ We can also see that there were more monitors listed as `"Not in a city"` than a
 According to the `tidymodels` documentation:
 
 > `bake()` takes a trained recipe and applies the operations to a data set to create a design matrix.
- For example: it applies the centering to new data sets using these means used to create the recipe
+ For example: it applies the centering to new data sets using these means used to create the recipe.
 
 Therefore, if you wanted to look at the preprocessed testing data you would use the `bake()` function of the `recipes` package.
 
@@ -4116,7 +4116,7 @@ glimpse(baked_test_pm)
 ## $ city_Not.in.a.city          <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
 ```
 
-Great now we no longer have `NA` values!
+Great, now we no longer have `NA` values!
 
 #### Specifying the Model
 
@@ -4177,10 +4177,10 @@ lm_PM_model
 ## Computational engine: lm
 ```
 
-Now we will use the `workflows` package allows us to keep track of both our preprocessing steps and our model specification. It also allows us to implement fancier optimizations in an automated way.
+Now we will use the `workflows` package to keep track of both our preprocessing steps and our model specification. It also allows us to implement fancier optimizations in an automated way.
 
 If you recall `novel_rec` is the recipe we previously created with the `recipes` package and `lm_PM_model` was created when we specified our model with the `parsnip` package.
-Here, we combine everything together into a `workflow()`. 
+Here, we combine everything together into a workflow. 
 
 
 ```r
@@ -4289,7 +4289,7 @@ PM_wflow_fit
 
 #### Assessing the Model Fit
 
-After we fit our model, we can use the `broom` package to look at the output from the fitted model in an easy/tidy.   
+After we fit our model, we can use the `broom` package to look at the output from the fitted model in an easy/tidy way.   
 
 The `tidy()` function returns a tidy data frame with coefficients from the model (one row per coefficient).
 
@@ -4327,7 +4327,7 @@ We have fit our model on our training data, which means we have created a model 
 One last thing before we leave this section. 
 We often are interested in getting a sense of which variables are the most important in our model. 
 We can explore the variable importance using the `vip()` function of the `vip` package. 
-This function create a bar plot of variable importance scores for each predictor variable (or feature) in a model. 
+This function creates a bar plot of variable importance scores for each predictor variable (or feature) in a model. 
 The bar plot is ordered by importance (highest to smallest). 
 
 
@@ -4513,7 +4513,7 @@ yardstick::rmse(wf_fitted_values,
 
 #### Assessing Model Performance on $v$-folds Using `tune`
 
-We also intend to perform cross validation, so we will now split the training data further using the [`vfold_cv()`](https://tidymodels.github.io/rsample/reference/vfold_cv.html){target="_blank"} function of the `rsample` package can be used to parse the training data into folds for $v$-fold cross validation.
+We also intend to perform cross validation, so we will now split the training data further using the [`vfold_cv()`](https://tidymodels.github.io/rsample/reference/vfold_cv.html){target="_blank"} function of the `rsample` package.
 
 Again, because these are created at random, we need to use the base `set.seed()` function in order to obtain the same results each time we knit this document.  We will create 10 folds.
 
@@ -4680,7 +4680,7 @@ resample_fit <- tune::fit_resamples(PM_wflow, vfold_pm)
 
 We can now take a look at various performance metrics based on the fit of our cross validation "resamples". 
 
-To do this we will use the `collect_metrics` function of the `tune` package. This will show us the mean of the accuracy estimate of the different cross validation folds.
+To do this we will use the `collect_metrics()` function of the `tune` package. This will show us the mean of the accuracy estimate of the different cross validation folds.
 
 
 ```r
@@ -4730,9 +4730,9 @@ The mean of the predictions from each of the trees is used in the final output.
 
 In our case, we are going to use the random forest method of the the `randomForest` package. 
 
-This package is currently not compatible with categorical variables that have more than 53 levels. See [here](https://cran.r-project.org/web/packages/randomForest/NEWS) for the documentation about when this was updated from 25 levels. Thus we will to remove the `zcta`  and `county` variables.
+This package is currently not compatible with categorical variables that have more than 53 levels. See [here](https://cran.r-project.org/web/packages/randomForest/NEWS) for the documentation about when this was updated from 25 levels. Thus we will remove the `zcta`  and `county` variables.
 
-Note that the `step_novel()` function is necessary here for `state` to get all cross validation folds to work, because there will be different levels included in each fold test and training sets, thus there are new levels for some of the test sets which will result in an error.  
+Note that the `step_novel()` function is necessary here for the `state` variable to get all cross validation folds to work, because there will be different levels included in each fold test and training sets. Thus there are new levels for some of the test sets which would otherwise result in an error.
 
 According to the [documentation](https://www.rdocumentation.org/packages/recipes/versions/0.1.13/topics/step_novel) for the `recipes` package:
 
@@ -4911,6 +4911,15 @@ RF_wflow_fit
 ##                     % Var explained: 59.83
 ```
 
+Now, we will look at variable importance:
+
+
+```r
+RF_wflow_fit %>% 
+  pull_workflow_fit() %>% 
+  vip(num_features = 10)
+```
+
 <img src="05-prediction_files/figure-html/unnamed-chunk-136-1.png" width="672" />
 
 Interesting! In the previous model the CMAQ values and the state where the monitor was located were also the top two most important, however predictors about education levels of the communities where the monitor was located was among the top most important. Now we see that population density and proximity to sources of emissions and roads are among the top ten.
@@ -5085,7 +5094,7 @@ tune_RF_results
 
 See [the tune getting started guide ](https://tidymodels.github.io/tune/articles/getting_started.html){target="_blank"} for more information about implementing this in `tidymodels`.
 
-If you wanted more control over this process you could specify the different possible options for `mtry` and `min_n` in the `tune_grid()` function using the grid_*()` functions of the `dials` package to create a more specific grid.
+If you wanted more control over this process you could specify the different possible options for `mtry` and `min_n` in the `tune_grid()` function using the `grid_*()` functions of the `dials` package to create a more specific grid.
 
 Be default the values for the hyperparameters being tuned are chosen semi-randomly (meaning that they are within a range of reasonable values but still random).
 
@@ -5103,12 +5112,12 @@ tune_RF_results%>%
 ## # A tibble: 6 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1     1    27 rmse    standard   2.05     10  0.138 
-## 2     1    27 rsq     standard   0.485    10  0.0394
-## 3     4    30 rmse    standard   1.81     10  0.144 
-## 4     4    30 rsq     standard   0.589    10  0.0382
-## 5     6    32 rmse    standard   1.76     10  0.147 
-## 6     6    32 rsq     standard   0.602    10  0.0401
+## 1     1    27 rmse    standard   2.07     10  0.142 
+## 2     1    27 rsq     standard   0.473    10  0.0357
+## 3     4    30 rmse    standard   1.81     10  0.143 
+## 4     4    30 rsq     standard   0.591    10  0.0394
+## 5     6    32 rmse    standard   1.77     10  0.145 
+## 6     6    32 rsq     standard   0.601    10  0.0387
 ```
 
 We can now use the `show_best()` function as it was truly intended, to see what values for `min_n` and `mtry` resulted in the best performance.
@@ -5122,9 +5131,9 @@ show_best(tune_RF_results, metric = "rmse", n =1)
 ## # A tibble: 1 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1    17     4 rmse    standard    1.67    10   0.144
+## 1    13     7 rmse    standard    1.67    10   0.145
 ```
-There we have it... looks like an `mtry` of 17 and `min_n` of 4 had the best `rmse` value. You can verify this in the above output, but it is easier to just pull this row out using this function. We can see that the mean `rmse` value across the cross validation sets was 1.67. Before tuning it was 1.68 with a similar `std_err` so the performance was very slightly improved.
+There we have it... looks like an `mtry` of 17 and `min_n` of 4 had the best `rmse` value. You can verify this in the above output, but it is easier to just pull this row out using this function. We can see that the mean `rmse` value across the cross validation sets was 1.68. Before tuning it was 1.68 with a similar `std_err` so the performance was in this particular case wasn't really improved, but that will not always be the case.
 
 
 #### Final model performance evaluation
@@ -5146,7 +5155,7 @@ tuned_RF_values
 ## # A tibble: 1 x 2
 ##    mtry min_n
 ##   <int> <int>
-## 1    17     4
+## 1    13     7
 ```
 
 Now we can finalize the model/workflow that we we used for tuning with these values.
@@ -5172,7 +5181,7 @@ overallfit <-RF_wflow %>%
   tune::last_fit(pm_split)
 ```
 
-The `overallfit` output has a lot of really useful information about how the model, the data test and training split, and the predictions for the testing data.
+The `overallfit` output has a lot of really useful information about the model, the data test and training split, and the predictions for the testing data.
 
 To see the performance on the test data we can use the `collect_metrics()` function like we did before.
 
@@ -5185,7 +5194,7 @@ To see the performance on the test data we can use the `collect_metrics()` funct
 ##   .metric .estimator .estimate
 ##   <chr>   <chr>          <dbl>
 ## 1 rmse    standard       1.43 
-## 2 rsq     standard       0.644
+## 2 rsq     standard       0.646
 ```
 
 Awesome! We can see that our `rmse` of 1.43 is quite similar with our testing data cross validation sets. We achieved quite good performance, which suggests that we would could predict other locations with more sparse monitoring based on our predictors with reasonable accuracy.
@@ -5206,12 +5215,12 @@ head(test_predictions)
 ## # A tibble: 6 x 4
 ##   id               .pred  .row value
 ##   <chr>            <dbl> <int> <dbl>
-## 1 train/test split  11.1     4  11.7
-## 2 train/test split  11.9    10  13.1
+## 1 train/test split  11.2     4  11.7
+## 2 train/test split  11.8    10  13.1
 ## 3 train/test split  12.2    12  12.2
-## 4 train/test split  11.5    15  12.2
+## 4 train/test split  11.4    15  12.2
 ## 5 train/test split  11.4    19  11.4
-## 6 train/test split  12.1    22  12.2
+## 6 train/test split  11.9    22  12.2
 ```
 
 Nice!
