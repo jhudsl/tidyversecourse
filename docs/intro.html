@@ -908,7 +908,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="file-paths" class="section level3">
 <h3><span class="header-section-number">1.6.2</span> File Paths</h3>
-<p>Since we’re assuming R knowledge in this course, you’re likely familiar with file paths. However, this information will be critical at a number of points throughout this course, so we wanted to quickly review relative and absolute file paths briefly before moving on.</p>
+<p>Since we’re assuming R knowledge in this course, you’re likely familiar with file paths. However, this information will be critical at a number of points throughout this course, so we want to quickly review relative and absolute file paths briefly before moving on.</p>
 <p>In future courses, whenever you write code and run commands within R to work with data, or whenever you use Git commands to document updates to your files, you will be working <em>in a particular location</em>. To know your location within a file system is to know exactly what folder you are in right now. The folder that you are in right now is called the <strong>working directory</strong>. Your current working directory in the Terminal may be different from your current working directory in R and may yet even be different from the folder shown in the Files pane of RStudio. The focus of this lesson is on the Terminal, so we will not discuss working directories within R until the next lesson.</p>
 <p>Knowing your working directory is important because if you want to tell Terminal to perform some actions on files in other folders, you will need to be able to tell the Terminal where that folder is. That is, you will need to be able to specify a <strong>path</strong> to that folder. A path is a string that specifies a sequence of folders to traverse in order to end up at a final destination. The end of a path string may be a file name if you are creating a path to a file. If you are creating a path to a folder, the path string will end with the destination folder. In a path, folder names are separated by forward slashes <code>/</code>. For example, let’s say that your current working directory in the Terminal is the <code>raw_code</code> directory, and you wish to navigate to the <code>exploratory</code> subfolder within the <code>figures</code> folder to see the graphics you’ve created.</p>
 <div class="figure">
@@ -959,8 +959,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>The <code>here()</code> function is what you want to use to set your project directory so that you can use it for future relative paths in your code. While in this case it <em>also</em> happened to be in the same directory you were in, it doesn’t have to be this way. The here() function looks to see if you have a .Rproj file in your project. It then sets your base directory to whichever directory that file is located.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ/export/png?id=18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ&amp;pageid=g3aa9ae33ea_0_427" alt="here() sets your project directory for future reference using here()" />
-<p class="caption">here() sets your project directory for future reference using here()</p>
+<img src="https://docs.google.com/presentation/d/18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ/export/png?id=18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ&amp;pageid=g3aa9ae33ea_0_427" alt="here sets your project directory for future reference using here()" />
+<p class="caption">here sets your project directory for future reference using here()</p>
 </div>
 <p>So, if we were to change our current directory and re-type <code>here()</code> in the Console, you’ll note that the output from here() does not change because it’s still looking for the directory where .Rproj is.</p>
 <div class="figure">
@@ -972,7 +972,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="get-files-paths-using-here" class="section level4">
 <h4><span class="header-section-number">1.6.3.2</span> Get files paths using <code>here()</code></h4>
 <p>After setting your project folder using <code>here()</code>, R will then know what folder to use to define any and all other paths within this project.</p>
-<p>For example, if you wanted to include a path to a file named “intro_code.R” in your <code>raw_code</code> directory, you would simply specify that in your code like this:</p>
+<p>For example, if you wanted to include a path to a file named “intro_code.R” in your <code>raw_code</code> directory (which is in your code directory), you would simply specify that in your code like this:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">here</span>(<span class="st">&quot;code&quot;</span>, <span class="st">&quot;raw_code&quot;</span>, <span class="st">&quot;intro_code.R&quot;</span>)</a></code></pre></div>
 <p>This code says start from where I’ve already defined the project starts (<code>here()</code>), then look in the folders <code>code</code> and then <code>raw_code</code>, for the file “intro_code.R.”</p>
 <p>The syntax is simplified when using <code>here()</code>. Each subdirectory or file in the path is in quotes and simply separated by commas within the <code>here()</code> function, and voila you have the relative path you’re looking for relative to <code>here()</code>.</p>
@@ -988,7 +988,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">save</span>(introcode_data_object, <span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;intro_code_object.rda&quot;</span>))</a></code></pre></div>
 <p>Or if we want to load this data:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">load</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;intro_code_object.rda&quot;</span>))</a></code></pre></div>
-<p>Remember that the <code>::</code> notation indicates that we are using a function of a particular package. So the <code>here</code> package is indicated on the left of the <code>::</code> and the <code>here</code>function is indicated on the right.</p>
+<p>Remember that the <code>::</code> notation indicates that we are using a function of a particular package. So the <code>here</code> package is indicated on the left of the <code>::</code> and the <code>here()</code> function is indicated on the right.</p>
 </div>
 <div id="where-you-should-use-this" class="section level4">
 <h4><span class="header-section-number">1.6.3.4</span> Where you should use this</h4>
@@ -1069,7 +1069,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Identifying a question of interest - determining if it is feasible</li>
 <li>Identifying data to answer that question</li>
 <li>Importing that data into a programming language such as R</li>
-<li>Cleaning /wrangling / and tiding the data</li>
+<li>Cleaning / wrangling / and tiding the data</li>
 <li>Exploratory data analysis to get to know the data</li>
 <li>Data analysis to look for associations in the data</li>
 <li>Generation of data visualizations to demonstrate findings</li>
@@ -1079,11 +1079,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="case-studies" class="section level2">
 <h2><span class="header-section-number">1.8</span> Case Studies</h2>
-<p>Throughout this specialization, we’re going to make use of a number of case studies from <a href="https://opencasestudies.github.io/">Open Case Studies</a> to demonstrate the concepts introduced in the course. We’ll make use of the same case studies throughout the specialization, so that you only have to learn the context - which we’ll introduce here - once. This continuity will allow you to focus on the concepts and skills being taught while working with interesting data. These case studies aim to address a public-health question and all of them use real data.</p>
+<p>Throughout this specialization, we’re going to make use of a number of case studies from <a href="https://opencasestudies.github.io/">Open Case Studies</a> to demonstrate the concepts introduced in the course. We will generally make use of the same case studies throughout the specialization, providing continuity to allow you focus on the concepts and skills being taught (rather than the context) while working with interesting data. These case studies aim to address a public-health question and all of them use real data.</p>
 <div id="case-study-1-health-expenditures" class="section level3">
 <h3><span class="header-section-number">1.8.1</span> Case Study #1: Health Expenditures</h3>
-<p>Health policy in the States is complicated, and several forms of healthcare
-coverage existed in the United States of America, including both federal government-led healthcare policy, and private insurance company. Before making any inference about the relationship between health condition and health policy, it is important for us to have a general idea about healthcare economics in the States. Thus, we are interested in getting sense of the health expenditure, including healthcare coverage and healthcare spending, across States. More specifically, the questions are:</p>
+<p>Health policy in the United States of America is complicated, and several forms of healthcare
+coverage exist, including that of federal government-led healthcare programs and that of private insurance companies. We are interested in getting sense of the health expenditure, including healthcare coverage and healthcare spending, across the United States. More specifically, the questions are:</p>
 <ol style="list-style-type: decimal">
 <li><p>Is there a relationship between healthcare coverage and healthcare spending in the United States?</p></li>
 <li><p>How does the spending distribution change across geographic regions in the United States?</p></li>
@@ -1101,8 +1101,7 @@ coverage existed in the United States of America, including both federal governm
 <div id="case-study-2-firearms" class="section level3">
 <h3><span class="header-section-number">1.8.2</span> Case Study #2: Firearms</h3>
 <p>In the United States, firearm laws differ by state. Additionally, <a href="https://www.nature.com/articles/d41586-019-02601-9">police</a> <a href="https://www.washingtonpost.com/graphics/2019/national/police-shootings-2019/">shootings</a> <a href="https://www.latimes.com/science/story/2019-08-15/police-shootings-are-a-leading-cause-of-death-for-black-men">are</a> <a href="https://www.npr.org/tags/522920705/police-shootings">frequently</a> <a href="https://www.huffpost.com/news/police-shooting">in</a> <a href="https://www.nytimes.com/2019/08/14/us/philadelphia-shooting-temple-university.html">the</a> <a href="https://www.washingtonpost.com/graphics/2019/national/police-shootings-2019/">news</a>. Understanding the relationship between firearm laws and police shootings is of public health interest.</p>
-<p>A recent study set out <a href="https://ajph.aphapublications.org/doi/suppl/10.2105/AJPH.2017.303770">“to examine whether stricter firearm legislation is associated with rates of fatal police shootings”</a>. We’ll use the state-level data from this study<br />
-Firearm Legislation and Fatal Police Shootings in the US in this case study.</p>
+<p>A recent study set out <a href="https://ajph.aphapublications.org/doi/suppl/10.2105/AJPH.2017.303770">“to examine whether stricter firearm legislation is associated with rates of fatal police shootings”</a>. We’ll use the state-level data from this study about firearm legislation and fatal police shootings in this case study.</p>
 <div id="question" class="section level4">
 <h4><span class="header-section-number">1.8.2.1</span> Question</h4>
 <p>The main question from this case study is: At the state-level, what is the relationship between firearm legislation strength and annual rate of fatal police shootings?</p>
@@ -1118,7 +1117,7 @@ Firearm Legislation and Fatal Police Shootings in the US in this case study.</p>
 <li><a href="https://htmlpreview.github.io/?https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/ocs-police-shootings-firearm-legislation.html#LND">Unemployment rate data</a>.</li>
 <li><a href="https://htmlpreview.github.io/?https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/ocs-police-shootings-firearm-legislation.html#LND">US Census 2010 Land Area</a>.</li>
 <li>Education data for 2010 via the <a href="https://factfinder.census.gov/faces/tableservices/jsf/pages/productview.xhtml?src=bkmk">US Census education table editor</a>.</li>
-<li>“Household firearm ownership rates, represented as the percentage of firearm suicides to all suicides.” Downloaded from the <a href="https://www.cdc.gov/injury/wisqars/fatal.html">CDC’s Web-Based Injury Statistics Query and Reporting System</a>.</li>
+<li>Household firearm ownership rates - by using the percentage of firearm suicides to all suicides as a proxy (as this was used in the above <a href="https://ajph.aphapublications.org/doi/suppl/10.2105/AJPH.2017.303770">referenced study</a>) that we are trying to replicate. This data is downloaded from the <a href="https://www.cdc.gov/injury/wisqars/fatal.html">CDC’s Web-Based Injury Statistics Query and Reporting System</a>.</li>
 </ul>
 
 </div>
