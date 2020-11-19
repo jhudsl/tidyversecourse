@@ -4,9 +4,9 @@ Data are stored in all sorts of different file formats and structures. In this c
 
 ## About This Course
 
-Getting data into your statistical analysis system can be one of the most challenging parts of any data science project. Data must be imported and harmonized into a coherent format before any insights can be obtained. You will learn how to get data into R from commonly used formats and harmonizing different kinds of datasets from different sources. If you work in an organization where different departments collect data using different systems and different storage formats, then this course will provide essential tools for bringing those datasets together and making sense of the wealth of information in your organization.
+Getting data into your statistical analysis system can be one of the most challenging parts of any data science project. Data must be imported and harmonized into a coherent format before any insights can be obtained. You will learn how to get data into R from commonly used formats and how to harmonize different kinds of datasets from different sources. If you work in an organization where different departments collect data using different systems and different storage formats, then this course will provide essential tools for bringing those datasets together and making sense of the wealth of information in your organization.
 
-This course introduces the Tidyverse tools for importing data into R so that it can be prepared for analysis, visualization, and modeling. Common data formats are introduced, including delimited files, spreadsheets and relational databases, and techniques for obtaining data from the web are demonstrated, such as web scraping and web APIs. 
+This course introduces the Tidyverse tools for importing data into R so that it can be prepared for analysis, visualization, and modeling. Common data formats are introduced, including delimited files, spreadsheets, and relational databases. We will also introduce techniques for obtaining data from the web, such as web scraping and getting data from web APIs. 
 
 In this specialization we assume familiarity with the R programming language. If you are not yet familiar with R, we suggest you first complete [R Programming](https://www.coursera.org/learn/r-programming) before returning to complete this course.
 
@@ -23,7 +23,7 @@ Before we go any further, tibbles *are* data frames, but they have some new bell
 There are a number of differences between tibbles and data.frames. To see a full vignette about tibbles and how they differ from data.frame, you'll want to execute `vignette("tibble")` and read through that vignette. However, we'll summarize some of the most important points here:
 
 * **Input type remains unchanged** - data.frame is notorious for treating strings as factors; this will not happen with tibbles
-* **Variable names remain unchanged** - In base R, data.frame will remove spaces from names, converting them to periods or add "x" before numeric column names. Tibbles will not change variable (column) names on you
+* **Variable names remain unchanged** - In base R, creating data.frames will remove spaces from names, converting them to periods or add “x” before numeric column names. Creating tibbles will not change variable (column) names.
 * **There are no `row.names()` for a tibble** - Tidy data requires that variables be stored in a consistent way, removing the need for row names.
 * **Tibbles print first ten rows and columns that fit on one screen** - Printing a tibble to screen will never print the entire huge data frame out. By default, it just shows what fits to your screen.
 
@@ -40,7 +40,7 @@ library(tidyverse)
 
 Since many packages use the historical data.frame from base R, you'll often find yourself in the situation that you have a data.frame and want to convert that data.frame to a tibble. To do so, the `as_tibble()` function is exactly what you're looking for.
 
-For example, the `trees` dataset is a data.frame that's available in base R. This dataset stores the diameter, height and volume for Black Cherry Trees. To convert this data.frame to a tibble you would use the following:
+For example, the `trees` dataset is a data.frame that's available in base R. This dataset stores the diameter, height, and volume for Black Cherry Trees. To convert this data.frame to a tibble you would use the following:
 
 
 ```r
@@ -64,7 +64,7 @@ as_tibble(trees)
 ## # … with 21 more rows
 ```
 
-Note in the above example and as mentioned earlier, that tibbles, by default, only print the first ten rows to screen. If you were to print `trees` to screen, all 31 rows would be displayed. When working with large data.frames, this default behavior can be incredibly frustrating. tibbles remove this frustration with its default settings for tibble printing.
+Note in the above example and as mentioned earlier, that tibbles, by default, only print the first ten rows to screen. If you were to print `trees` to screen, all 31 rows would be displayed. When working with large data.frames, this default behavior can be incredibly frustrating. Using tibbles removes this frustration because of the default settings for tibble printing.
 
 Additionally, you'll note that the type of the variable is printed for each variable in the tibble. This helpful feature is another added bonus of tibbles relative to data.frame.
 
@@ -89,6 +89,64 @@ as_tibble(trees) %>%
 ## 5  10.7     81   18.8
 ## # … with 26 more rows
 ```
+
+Other options for viewing your tibbles are the `slice_*` functions of the `dplyr` package. 
+
+The `slice_sample()` function of the `dplyr` package will allow you to see a sample of random rows in random order. The number of rows to show is specified by the `n` argument. This can be useful if you don't want to print the entire tibble, but you want to get a greater sense of the values. This is a good option for data analysis reports, where printing the entire tibble would not be appropriate if the tibble is quite large.
+
+
+```r
+slice_sample(trees, n = 10)
+```
+
+```
+##    Girth Height Volume
+## 1   14.0     78   34.5
+## 2   14.2     80   31.7
+## 3   17.3     81   55.4
+## 4   11.7     69   21.3
+## 5   16.3     77   42.6
+## 6   13.8     64   24.9
+## 7   16.0     72   38.3
+## 8   11.3     79   24.2
+## 9   11.2     75   19.9
+## 10  17.5     82   55.7
+```
+
+You can also use `slice_head()` or `slice_tail()` to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.
+
+This will show the first 5 rows.
+
+
+```r
+slice_head(trees, n = 5)
+```
+
+```
+##   Girth Height Volume
+## 1   8.3     70   10.3
+## 2   8.6     65   10.3
+## 3   8.8     63   10.2
+## 4  10.5     72   16.4
+## 5  10.7     81   18.8
+```
+
+This will show the last 5 rows.
+
+
+```r
+slice_tail(trees, n = 5)
+```
+
+```
+##   Girth Height Volume
+## 1  17.5     82   55.7
+## 2  17.9     80   58.3
+## 3  18.0     80   51.5
+## 4  18.0     80   51.0
+## 5  20.6     87   77.0
+```
+
 
 #### `tibble()`
 
@@ -239,9 +297,9 @@ Further, by default, `read_excel()` converts blank cells to missing data (NA). T
 
 * `sheet` - argument specifies the name of the sheet from the workbook you'd like to read in (string) or the integer of the sheet from the workbook.
 * `col_names` - specifies whether the first row of the spreadsheet should be used as column names (default: TRUE). Additionally, if a character vector is passed, this will rename the columns explicitly at time of import.
-* `skip` - specifies the number of rows to skip before reading information from the file into R. Often blank rows or information about the data are stored at the top of the spreadsheet that you want R to ignore
+* `skip` - specifies the number of rows to skip before reading information from the file into R. Often blank rows or information about the data are stored at the top of the spreadsheet that you want R to ignore.
 
-For an example, we are able to change the column names directly by passing a character string to the `col_names` argument:
+For example, we are able to change the column names directly by passing a character string to the `col_names` argument:
 
 
 ```r
@@ -289,7 +347,7 @@ read_excel(
 ## 3 Chuck Ber… musician      90 TRUE       1926-10-18 00:00:00 2017-03-18 00:00:00
 ```
 
-Another option for this argument is `.name_repair = "universal"`. This ensures that column names don’t contain any forbidden characters or reserved words. It's often a good idea to use this option if you plan to use these data in other packages downstream. This ensures that all the column names will work, regardless of the R package being used.
+Another option for this argument is `.name_repair = "universal"`. This ensures that column names don’t contain any forbidden characters or reserved words. It's often a good idea to use this option if you plan to use these data with other packages downstream. This ensures that all the column names will work, regardless of the R package being used.
 
 
 ```r
@@ -343,7 +401,7 @@ read_excel(
 
 Notice that the function is passed directly to the argument. It does not have quotes around it, as we want this to be interpreted as the `toupper()` function.
 
-Here we've really only focused on a single function (`read_excel()`) from the `readxl` package. This is because some of the best packages do a single thing and do that single thing well. The `readxl` package has a single, slick function that covers most of what you'll need when reading in files from Excel. That is not to say that the package doesn't have other function (it does!), but this function will cover your needs most of the time.
+Here we've really only focused on a single function (`read_excel()`) from the `readxl` package. This is because some of the best packages do a single thing and do that single thing well. The `readxl` package has a single, slick function that covers most of what you'll need when reading in files from Excel. That is not to say that the package doesn't have other useful functions (it does!), but this function will cover your needs most of the time.
 
 ### Google Sheets
 
@@ -373,7 +431,7 @@ The `googlesheets` package allows R users to take advantage of the Google Sheets
 
 Using this package is is the best and easiest way to analyze and edit Google Sheets data in R. In addition to the ability of pulling data, you can also edit a Google Sheet or create new sheets. 
 
-The `googlesheets` package is tidyverse-adjacent, so it requires its own installation and for you to load it into R before it can be used
+The `googlesheets` package is tidyverse-adjacent, so it requires its own installation.  It also requires that you load it into R before it can be used.
 
 ##### Getting Started with `googlesheets`
 
@@ -384,9 +442,9 @@ The `googlesheets` package is tidyverse-adjacent, so it requires its own install
 library(googlesheets)
 ```
 
-Now, let's get to importing your survey data into R. Every time you start a new session, you need to authenticate the use of `googlesheets` package with your Google account. This is a great features as it ensures that you *want* to allow access to your Google Sheets and allows the Google Sheets API to make sure that you *should* have access to the files you're going to try to access.
+Now, let's get to importing your survey data into R. Every time you start a new session, you need to authenticate the use of the `googlesheets` package with your Google account. This is a great feature as it ensures that you *want* to allow access to your Google Sheets and allows the Google Sheets API to make sure that you *should* have access to the files you're going to try to access.
 
-The command `gs_auth(new_user = TRUE)` will open a new page in your browser that asks you which Google account's Google Sheets you'd like to give access to. Click on the appropriate Google user to provide `googlesheets` access to the Google Sheets API.
+The command `gs_auth(new_user = TRUE)` will open a new page in your browser that asks you which Google account you'd like to have access to. Click on the appropriate Google user to provide `googlesheets` access to the Google Sheets API.
 
 ![Authenticate](https://docs.google.com/presentation/d/1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA/export/png?id=1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA&pageid=g3d555bce3d_0_4)
 
@@ -430,14 +488,14 @@ There are additional (optional) arguments to `gs_read()`, some are similar to th
 * `skip = 1` : will skip the first row of the Google Sheet
 * `ws = 1` : specifies that you want `googlesheets` to read in the first worksheet in your Google Sheet
 * `col_names = FALSE` : specifies that the first row is not column names
-* `range = "A1:G5"` : specifies the range of cells that we like to import is A1 to G5. 
-* `n_max = 100` : specifies the maximum number of rows that we want to import is 100.
+* `range = "A1:G5"` : specifies the range of cells that we like to import is A1 to G5
+* `n_max = 100` : specifies the maximum number of rows that we want to import is 100
 
-`gs_title()` is not the only way in which a sheet can be registered. Google Sheets can also be registered by URL or key. Within the Google Sheets package, a practice Google Sheet is available for you so that you can familiarize yourself with these approaches before working with your own data.
+The `gs_title()` function is not the only way in which a sheet can be registered. Google Sheets can also be registered by URL or key. Within the Google Sheets package, a practice Google Sheet is available for you so that you can familiarize yourself with these approaches before working with your own data.
 
 There is a dataset provided as an example with the `googlesheets package`. The data stored in the example dataset come from the [Gapminder dataset](https://www.gapminder.org/). This includes longitudinal data about a few global economic variables. We'll use this dataset to discuss registering a Google Sheet by key or URL.
 
-To register a Google sheet in `googlesheets` by key, you must first know the key of the Google Sheet and have access to it. To work through a full example here you'll first want to navigate to [https://docs.google.com/spreadsheets/d/1BzfL0kZUz1TsI5zxJF1WNF01IxvC67FbOJUiiGMZ_mQ/] in your web browser. This will open up the gapminder dataset in Google Sheets so that you can have a look at the data in Google Sheets.
+To register a Google Sheet in `googlesheets` by key, you must first know the key of the Google Sheet and have access to it. To work through a full example here you'll first want to navigate to [https://docs.google.com/spreadsheets/d/1BzfL0kZUz1TsI5zxJF1WNF01IxvC67FbOJUiiGMZ_mQ/] in your web browser. This will open up the gapminder dataset in Google Sheets so that you can have a look at the data in Google Sheets.
 
 ![Gapminder Dataset in Google Sheets](https://docs.google.com/presentation/d/1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c/export/png?id=1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c&pageid=g5fbdfde92a_0_8)
 
@@ -467,7 +525,7 @@ Regardless of how you register the sheet, you'll get an output to inform you tha
 
 In addition to reading in data from Google Sheets directly using the `googlesheets` package, you can also modify your Google Sheet directly through R. For example, returning to our friends' survey data example, you can edit a cell or add a row to your sheet. 
 
-Let's say you'd like to add your own respond to the survey. For this you can use the command `gs_add_row()`. Note that the `input` argument specifies what you would like to add in the new row. If everything goes well, you will get a message saying *Row successfully appended*. 
+Let's say you'd like to add your own response to the survey. For this you can use the command `gs_add_row()`. Note that the `input` argument specifies what you would like to add in the new row. If everything goes well, you will get a message saying *Row successfully appended*. 
 
 
 ```r
@@ -501,22 +559,22 @@ For example, consider a dataset that includes information about the heights and 
 
 ![sample CSV](https://docs.google.com/presentation/d/199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM/export/png?id=199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM&pageid=g2bfdb07292_0_151)
 
-Notice that CSV files have a .csv extension at the end. You can see this above at the top of the file. One of the advantages of CSV files is their *simplicity*. Because of this, they are one of the most common file formats used to store tabular data. Additionally, because they are plain text, they are compatible with *many* different types of software.  CSVs can be read by most programs. Specifically, for our purposes, these files can be easily read into R (or Google Sheets, or Excel), where they can be better understood by the human eye. Here you see the same CSV opened in Google Slides, where it's more easily interpretable by the human eye:
+Notice that CSV files have a .csv extension at the end. You can see this above at the top of the file. One of the advantages of CSV files is their *simplicity*. Because of this, they are one of the most common file formats used to store tabular data. Additionally, because they are plain text, they are compatible with *many* different types of software.  CSVs can be read by most programs. Specifically, for our purposes, these files can be easily read into R (or Google Sheets, or Excel), where they can be better understood by the human eye. Here you see the same CSV opened in Google Sheets, where it's more easily interpretable by the human eye:
 
-![CSV opened in Google Slides](https://docs.google.com/presentation/d/199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM/export/png?id=199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM&pageid=g3a4d18d722_0_92)
+![CSV opened in Google Sheets](https://docs.google.com/presentation/d/199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM/export/png?id=199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM&pageid=g3a4d18d722_0_92)
 
-As with any file type, CSVs do have their limitations. Specifically, CSV files are best used for data that have a consistent number of variables across observations. For example, in our example, there are three variables for each observation: "name", "height", and "blood_type". If, however, you had eye color and weight for the second observation, but not for the other rows, you'd have a different number of variables for the second observation than the other two. This type of data is not best suited for CSVs. However, whenever you have information the same number of variables across all observations, CSVs are a good bet!
+As with any file type, CSVs do have their limitations. Specifically, CSV files are best used for data that have a consistent number of variables across observations. In our example, there are three variables for each observation: "name", "height", and "blood_type". If, however, you had eye color and weight for the second observation, but not for the other rows, you'd have a different number of variables for the second observation than the other two. This type of data is not best suited for CSVs (although NA values could be used to make the data rectangular). Whenever you have information with the same number of variables across all observations, CSVs are a good bet!
 
 ### Downloading CSV files
 
-If you entered the same values used above into Google Slides first and wanted to download this file as a CSV to read into R, you would enter the values in Google slides, and then click on "File" and then "Download" as and choose "Comma-separated values (.csv, current sheet)". The dataset that you created will be downloaded as a CSV file on your computer. Make sure you know the location of your file (if on a Chromebook, this will be in your "Downloads" folder).
+If you entered the same values used above into Google Sheets first and wanted to download this file as a CSV to read into R, you would enter the values in Google Sheets and then click on "File" and then "Download as" and choose "Comma-separated values (.csv, current sheet)". The dataset that you created will be downloaded as a CSV file on your computer. Make sure you know the location of your file (if on a Chromebook, this will be in your "Downloads" folder).
 
 ![Download as CSV file](https://docs.google.com/presentation/d/199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM/export/png?id=199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM&pageid=g399e5a917a_0_56)
 
 
 ### Reading CSVs into R
 
-Now that you have a CSV file, let's discuss how to get it into R! The best way to accomplish this is using the function `read_csv()` from the `readr` package. (Note, if you haven't installed the `readr` package, you'll have to do that first.) Inside the parenthesis of the function, write the name of the file in quotes, including the file extension (.csv). Make sure you type the exact file name. Save the imported data in a data frame called `df_csv`. Your data will now be imported into R environment. If you use the command `head(df_csv)` you will see the first several rows of your imported data frame: 
+Now that you have a CSV file, let's discuss how to get it into R! The best way to accomplish this is using the function `read_csv()` from the `readr` package. (Note, if you haven't installed the `readr` package, you'll have to do that first.) Inside the parentheses of the function, write the name of the file in quotes, including the file extension (.csv). Make sure you type the exact file name. Save the imported data in a data frame called `df_csv`. Your data will now be imported into R environment. If you use the command `head(df_csv)` you will see the first several rows of your imported data frame: 
  
 
 ```r
@@ -536,8 +594,8 @@ head(df_csv)
 Above, you see the simplest way to import a CSV file. However, as with many functions, there are other arguments that you can set to specify how to import your specific CSV file, a few of which are listed below. However, as usual, to see all the arguments for this function, use `?read_csv` within R.
 
 - `col_names = FALSE` to specify that the first row does NOT contain column names. 
-- `skip = 2` will skip the first 2 rows. You can set the number to any number you want. Helpful if there is additional information in the first few rows of your data frame that are not actually part of the table.
-- `n_max = 100` will only read in the first 100 rows. You can set the number to any number you want. Helpful if you're not sure how big a file is and just want to see part of it
+- `skip = 2` will skip the first 2 rows. You can set the number to any number you want. This is helpful if there is additional information in the first few rows of your data frame that are not actually part of the table.
+- `n_max = 100` will only read in the first 100 rows. You can set the number to any number you want. This is helpful if you're not sure how big a file is and just want to see part of it.
 
 By default, `read_csv()` converts blank cells to missing data (NA).
 
@@ -581,7 +639,7 @@ head(df_txt)
 
 This function allows you to specify how the file you're reading is in delimited. This means, rather than R knowing by default whether or not the data are comma- or tab- separated, you'll have to specify it within the argument `delim` in the function.
 
-`read_delim()` is a more generic version of `read_csv()`. What this means is that you *could* use `read_delim()` to read in a CSV file. You would just need to specify that the file was comma-delimited if you were to use that function.
+The `read_delim()` function is a more generic version of `read_csv()`. What this means is that you *could* use `read_delim()` to read in a CSV file. You would just need to specify that the file was comma-delimited if you were to use that function.
 
 ## Exporting Data from R
 
@@ -589,14 +647,14 @@ The last topic of this lesson is about how to export data from R. So far we lear
 
 As discussed above, CSV format is a good candidate because of its simplicity and compatibility. Let's say you have a data frame in the R environment that you would like to export as a CSV. To do so, you could use `write_csv()` from the `readr` package. 
 
-Since both methods are fairly similar, let's look at the one from `readr` package. Since we've already created a data frame named `df_csv`, we can export it to a CSV file using the following code. After typing this command, a new CSV file called `my_csv_file.csv` will appear in the Files section.
+Since we've already created a data frame named `df_csv`, we can export it to a CSV file using the following code. After typing this command, a new CSV file called `my_csv_file.csv` will appear in the Files section.
 
 
 ```r
 write_csv(df_csv, path = "my_csv_file.csv")
 ```
 
-You could similar save your data as a TSV file using the function `write_tsv()` function.
+You could similarly save your data as a TSV file using the function `write_tsv()` function.
 
 We'll finally note that there are default R functions `write.csv()` and `write.table()` that accomplish similar goals. You may see these in others' code; however, we recommend sticking to the intuitive and quick `readr` functions discussed in this lesson.
 
@@ -607,13 +665,12 @@ All of the file formats we've discussed so far (tibbles, CSVs, Excel Spreadsheet
 
 Alternatively, JSON (JavaScript Object Notation) data are *nested* and *hierarchical*. JSON  is a very commonly-used text-based way to send information between a browser and a server. It is easy for humans to read and to write. JSON data adhere to certain rules in how they are structured. For simplicity, JSON format requires objects to be comprised of **key-value pairs**. For example, in the case of: `{"Name": "Isabela"}`, "Name" would be a key, "Isabela" would be a value, and together they would be a key-value pair. Let's take a look at how JSON data looks in R.This means that key-pairs can be organized into different levels (hierarchical) with some levels of information being stored *within* other levels (nested).
 
+Using a snippet of JSON data here, we see a portion of JSON data from Yelp looking at the `attributes` of a restaurant. Within `attributes`, there are four nested categories: `Take-out`, `Wi-Fi`, `Drive-Thru`, and `Good For`. In the hierarchy, attributes is at the top, while these four categories are within attributes. Within one of these attributes `Good For`, we see another level within the hierarchy. In this third level we see a number of other categories nested within `Good For`. This should give you a slightly better idea of how JSON data are structured.
+
 ![JSON data are hierarchical and nested](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g3d555e2b2e_0_13)
 
-Using a snippet of JSON data here, we see a portion of JSON data from Yelp explaining a restaurant. We're looking at the `attributes` of this restaurant. Within `attributes`, there are four nested categories: `Take-out`, `Wi-Fi`, `Drive-Thru`, and `Good For`. In the hierarchy, attributes is at the top, while these four categories are within attributes. Within one of these attributes `Good For`, we see another level within the hierarchy. In this third level we see a number of other categories nested within `Good For`. This should give you a slightly better idea of how JSON data are structured.
+To get a sense of what JSON data look like in R, take a peak at this minimal example:
 
-To get a sense of what JSON data look like, take a peak at this minimal example:
-
-Here, rather than reading
 
 
 ```r
@@ -633,9 +690,9 @@ json
 ## [1] "[\n  {\"Name\" : \"Woody\", \"Age\" : 40, \"Occupation\" : \"Sherriff\"}, \n  {\"Name\" : \"Buzz Lightyear\", \"Age\" : 34, \"Occupation\" : \"Space Ranger\"},\n  {\"Name\" : \"Andy\", \"Occupation\" : \"Toy Owner\"}\n]"
 ```
 
-Here, we've stored information about Toy Story characters, their age, and their occupation in an object called `json`
+Here, we've stored information about Toy Story characters, their age, and their occupation in an object called `json`.
 
-This format cannot, as it is, be easily worked with easily within R; however, `jsonlite` is just what to work with whenever you have data in JSON format. When using the defaults of the function `fromJSON()`, `jsonlite` will take the data from JSON array format and helpfully return a data frame. 
+In this format, we cannot easily work with the data with within R; however, the `jsonlite` package can help us. Using the defaults of the function `fromJSON()`, `jsonlite` will take the data from JSON array format and helpfully return a data frame. 
 
 
 ```r
@@ -1478,7 +1535,11 @@ library(magick)
 ```
 
 ```
-## Linking to ImageMagick 6.9.9.39
+## Warning: package 'magick' was built under R version 4.0.2
+```
+
+```
+## Linking to ImageMagick 6.9.11.32
 ## Enabled features: cairo, fontconfig, freetype, lcms, pango, rsvg, webp
 ## Disabled features: fftw, ghostscript, x11
 ```
@@ -1497,7 +1558,7 @@ print(img1)
 ## 1 PNG      240    278 sRGB       TRUE     38516 85x85
 ```
 
-<img src="02-get-data_files/figure-html/unnamed-chunk-48-1.png" width="120" />
+<img src="02-get-data_files/figure-html/unnamed-chunk-51-1.png" width="120" />
 
 ```r
 print(img2)
@@ -1510,7 +1571,7 @@ print(img2)
 ## 1 PNG      864    864 sRGB       TRUE     54056 72x72
 ```
 
-<img src="02-get-data_files/figure-html/unnamed-chunk-48-2.png" width="432" />
+<img src="02-get-data_files/figure-html/unnamed-chunk-51-2.png" width="432" />
 
 ```r
 #concatenate and print text
@@ -2009,11 +2070,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2020-11-16 15:39
+##   Date: 2020-11-19 18:55
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpeGZeoQ/file15a8a74856499.xlsx
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//Rtmpsao2VI/file86a174856499.xlsx
 ```
 
 ```r
@@ -2061,11 +2122,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2020-11-16 15:39
+##   Date: 2020-11-19 18:55
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpeGZeoQ/file15a8a21980f48.xls
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//Rtmpsao2VI/file86a121980f48.xls
 ```
 
 ```r
@@ -2112,11 +2173,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2020-11-16 15:39
+##   Date: 2020-11-19 18:55
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpeGZeoQ/file15a8a5e37ee62.xls
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//Rtmpsao2VI/file86a15e37ee62.xls
 ```
 
 ```r
