@@ -509,16 +509,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The <code>slice_sample()</code> function of the <code>dplyr</code> package will allow you to see a sample of random rows in random order. The number of rows to show is specified by the <code>n</code> argument. This can be useful if you don’t want to print the entire tibble, but you want to get a greater sense of the values. This is a good option for data analysis reports, where printing the entire tibble would not be appropriate if the tibble is quite large.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">slice_sample</span>(trees, <span class="dt">n =</span> <span class="dv">10</span>)</a></code></pre></div>
 <pre><code>##    Girth Height Volume
-## 1   20.6     87   77.0
-## 2   14.2     80   31.7
-## 3   10.5     72   16.4
-## 4   11.7     69   21.3
-## 5   11.3     79   24.2
-## 6   12.9     74   22.2
-## 7   16.0     72   38.3
-## 8   11.0     66   15.6
-## 9   13.7     71   25.7
-## 10  14.0     78   34.5</code></pre>
+## 1    8.6     65   10.3
+## 2   16.0     72   38.3
+## 3   18.0     80   51.0
+## 4   12.0     75   19.1
+## 5   11.0     66   15.6
+## 6   13.3     86   27.4
+## 7   17.3     81   55.4
+## 8   11.2     75   19.9
+## 9   16.3     77   42.6
+## 10  11.4     76   21.4</code></pre>
 <p>You can also use <code>slice_head()</code> or <code>slice_tail()</code> to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.</p>
 <p>This will show the first 5 rows.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">slice_head</span>(trees, <span class="dt">n =</span> <span class="dv">5</span>)</a></code></pre></div>
@@ -1823,8 +1823,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   Health Spending` &lt;dbl&gt;, `2013__Total Health Spending` &lt;dbl&gt;, `2014__Total
 ## #   Health Spending` &lt;dbl&gt;</code></pre>
 <p>Recall from the introduction, that in data science workflows, we perform multiple steps in evaluating data. To keep this process tidy and reproducible, it is often helpful to save our data in a raw state and in processed states to allow for easy comparison. So let’s save our case study 1 data to use in later sections of the course.</p>
-<p>We can use the <code>here</code> package described in the introduction to help us make this process easier. Recall that <code>here</code> package allows us to quickly reference the directory in which the .Rproj file is located.
-Assuming we created a project called “project”, let’s save our raw coverage data in a raw_data directory within a directory called data inside of our RStudio project similarly to the work flows that we have seen in the introduction.</p>
+<p>We can use the <code>here</code> package described in the introduction to help us make this process easier. Recall that the <code>here</code> package allows us to quickly reference the directory in which the .Rproj file is located.</p>
+<p>Assuming we created a project called “project”, let’s save our raw coverage data in a directory called raw_data within a directory called data inside of our RStudio project similarly to the workflows that we have seen in the introduction.</p>
 <p><img src="book_figures/file_structure.png" width="60%" style="display: block; margin: auto;" />
 After creating a directory called raw_data within a directory that we called data, we can now save our raw data for case study #1 using the <code>here</code> package by simply typing:</p>
 <div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb131-1" data-line-number="1"><span class="kw">library</span>(here)</a></code></pre></div>
@@ -1836,11 +1836,11 @@ After creating a directory called raw_data within a directory that we called dat
 </div>
 <div id="case-study-2-firearms-1" class="section level3">
 <h3><span class="header-section-number">2.16.2</span> Case Study #2: Firearms</h3>
-<p>We’ve got a whole bunch of datasets that we’ll need to read in for this case study. They are from a number of different sources and are stored in different file formats. This means we’ll need to use various functions to read the data in <em>and</em> keep this in mind we we start wrangling the data.</p>
+<p>We’ve got a whole bunch of datasets that we’ll need to read in for this case study. They are from a number of different sources and are stored in different file formats. This means we’ll need to use various functions to read the data into R.</p>
 <p>As a reminder, we’re interested in the following question: At the state-level, what is the relationship between firearm legislation strength and annual rate of fatal police shootings?</p>
 <div id="census-data" class="section level4">
 <h4><span class="header-section-number">2.16.2.1</span> Census Data</h4>
-<p>Population characteristics at the state level for 2017 are available:</p>
+<p>Population characteristics at the state level for 2017 are available <a href="https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/sc-est2017-alldata6.csv">here</a>. Let’s read it into R.</p>
 <div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" data-line-number="1"><span class="co"># read in the census data</span></a>
 <a class="sourceLine" id="cb134-2" data-line-number="2">census &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/sc-est2017-alldata6.csv&#39;</span>,</a>
 <a class="sourceLine" id="cb134-3" data-line-number="3">                   <span class="dt">n_max =</span> <span class="dv">236900</span>)</a>
@@ -1865,7 +1865,7 @@ After creating a directory called raw_data within a directory that we called dat
 </div>
 <div id="counted-data" class="section level4">
 <h4><span class="header-section-number">2.16.2.2</span> Counted Data</h4>
-<p>The Counted project started to count persons killed by police in the US due to the fact “the US government has no comprehensive record of the number of people killed by law enforcement. These data can be read in from the CSV stored on GitHub, for 2015:</p>
+<p><a href="https://docubase.mit.edu/project/the-counted/">The Counted</a> project started to count persons killed by police in the US due to the fact that as stated by Jon Swaine “the US government has no comprehensive record of the number of people killed by law enforcement”. These data can be read in from the CSV stored on <a href="https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/the-counted-2015.csv">GitHub</a>, for 2015:</p>
 <div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb136-1" data-line-number="1"><span class="co"># read in the counted data</span></a>
 <a class="sourceLine" id="cb136-2" data-line-number="2">counted15 &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/the-counted-2015.csv&quot;</span>)</a></code></pre></div>
 </div>
@@ -1923,11 +1923,11 @@ After creating a directory called raw_data within a directory that we called dat
 <a class="sourceLine" id="cb141-7" data-line-number="7"><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></a>
 <a class="sourceLine" id="cb141-8" data-line-number="8"><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xlsx&quot;</span>)))</a></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2020-11-20 17:15
+##   Date: 2020-11-20 21:15
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpH2aWAj/file707774856499.xlsx</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpntpNuL/file11b1a74856499.xlsx</code></pre>
 <div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" data-line-number="1">brady &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb143-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb143-3" data-line-number="3">brady</a></code></pre></div>
@@ -1962,11 +1962,11 @@ After creating a directory called raw_data within a directory that we called dat
 <a class="sourceLine" id="cb145-4" data-line-number="4"><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></a>
 <a class="sourceLine" id="cb145-5" data-line-number="5"><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</a></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2020-11-20 17:15
+##   Date: 2020-11-20 21:15
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpH2aWAj/file707721980f48.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpntpNuL/file11b1a21980f48.xls</code></pre>
 <div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" data-line-number="1">crime &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>, <span class="dt">skip =</span> <span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb147-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb147-3" data-line-number="3"><span class="co"># see data</span></a>
@@ -1988,22 +1988,22 @@ After creating a directory called raw_data within a directory that we called dat
 ## #   `Rape\n(revised\ndefinition)2` &lt;dbl&gt;, `Rape\n(legacy\ndefinition)3` &lt;dbl&gt;,
 ## #   Robbery &lt;dbl&gt;, `Aggravated \nassault` &lt;dbl&gt;, `Property \ncrime` &lt;dbl&gt;,
 ## #   Burglary &lt;dbl&gt;, `Larceny-\ntheft` &lt;dbl&gt;, `Motor \nvehicle \ntheft` &lt;dbl&gt;</code></pre>
-<p>Note, however, there are slight differences in the code used here, relative to the Brady data. We have to use <code>skip = 3</code> to skip the first three lines of this file. <em>And</em>, this file has the extension <code>.xls</code> rather than <code>.xlsx</code>, which we specify within the <code>fileext</code> argument.</p>
+<p>Note, however, there are slight differences in the code used here, relative to the Brady data. We have to use <code>skip = 3</code> to skip the first three lines of this file. <em>Also</em>, this file has the extension <code>.xls</code> rather than <code>.xlsx</code>, which we specify within the <code>fileext</code> argument.</p>
 </div>
 <div id="land-area-data" class="section level4">
 <h4><span class="header-section-number">2.16.2.6</span> Land Area Data</h4>
-<p>US Census 2010 Land Area data are also stored in an excel spreadsheet&quot;</p>
+<p>US Census 2010 land area data are also stored in an excel spreadsheet. So again we will use a similar method.</p>
 <div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" data-line-number="1"><span class="co"># specify URL to file</span></a>
 <a class="sourceLine" id="cb149-2" data-line-number="2">url =<span class="st"> &quot;https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/data/LND01.xls?raw=true&quot;</span></a>
 <a class="sourceLine" id="cb149-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb149-4" data-line-number="4"><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></a>
 <a class="sourceLine" id="cb149-5" data-line-number="5"><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</a></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2020-11-20 17:15
+##   Date: 2020-11-20 21:15
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpH2aWAj/file70775e37ee62.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpntpNuL/file11b1a5e37ee62.xls</code></pre>
 <div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" data-line-number="1">land &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb151-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb151-3" data-line-number="3"><span class="co"># see data</span></a>
@@ -2032,7 +2032,7 @@ After creating a directory called raw_data within a directory that we called dat
 </div>
 <div id="unemployment-data" class="section level4">
 <h4><span class="header-section-number">2.16.2.7</span> Unemployment Data</h4>
-<p>This data is available online from the BLS, but there is no easy download of the table. It is also difficult to simply copy and paste; it doesn’t hold it’s table format. Thus we will want to use web scraping to most easily and accurately obtain this information using the <code>rvest</code> package.</p>
+<p>This data is available online from the <a href="https://www.bls.gov/">Bureau of Labor Statistics (BLS)</a>, but there is no easy download of the table. It is also difficult to simply copy and paste; it doesn’t hold it’s table format. Thus we will want to use web scraping to most easily and accurately obtain this information using the <code>rvest</code> package.</p>
 <p>As a reminder, to view the HTML of a webpage, right-click and select “View page source.”</p>
 <div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" data-line-number="1"><span class="kw">library</span>(rvest)</a>
 <a class="sourceLine" id="cb153-2" data-line-number="2"></a>
@@ -2062,7 +2062,7 @@ After creating a directory called raw_data within a directory that we called dat
 ##  9 &quot;Vermont&quot;       &quot;3.6&quot;      &quot;5&quot;  
 ## 10 &quot;Minnesota&quot;     &quot;3.7&quot;      &quot;8&quot;  
 ## # … with 44 more rows</code></pre>
-<p>Then we get the values from each column of the data table. html_nodes acts as a CSS selector. The “table” class returns two tables from the webpage and we specify that we want the second table. From <code>out</code> we select the first in the list and store this as a tibble.</p>
+<p>Then we get the values from each column of the data table. The <code>html_nodes()</code> function acts as a CSS selector. The “table” class returns two tables from the webpage and we specify that we want the second table. From the object <code>out</code> we select the first in the list and store this as a tibble.</p>
 <p>Now that we have gathered all the raw data we will need for our second case study, let’s save it using the <code>here</code> package:</p>
 <div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb155-1" data-line-number="1"><span class="kw">library</span>(here)</a>
 <a class="sourceLine" id="cb155-2" data-line-number="2"><span class="kw">save</span>(census, counted15, suicide_all, suicide_firearm, brady, crime, land, unemployment , <span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;case_study_2.rda&quot;</span>))</a>
