@@ -509,16 +509,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The <code>slice_sample()</code> function of the <code>dplyr</code> package will allow you to see a sample of random rows in random order. The number of rows to show is specified by the <code>n</code> argument. This can be useful if you don’t want to print the entire tibble, but you want to get a greater sense of the values. This is a good option for data analysis reports, where printing the entire tibble would not be appropriate if the tibble is quite large.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">slice_sample</span>(trees, <span class="dt">n =</span> <span class="dv">10</span>)</a></code></pre></div>
 <pre><code>##    Girth Height Volume
-## 1   17.5     82   55.7
-## 2   17.9     80   58.3
-## 3   12.9     74   22.2
-## 4   13.3     86   27.4
-## 5   17.3     81   55.4
-## 6   10.8     83   19.7
-## 7   11.7     69   21.3
-## 8   18.0     80   51.5
-## 9    8.8     63   10.2
-## 10   8.6     65   10.3</code></pre>
+## 1   20.6     87   77.0
+## 2   14.2     80   31.7
+## 3   10.5     72   16.4
+## 4   11.7     69   21.3
+## 5   11.3     79   24.2
+## 6   12.9     74   22.2
+## 7   16.0     72   38.3
+## 8   11.0     66   15.6
+## 9   13.7     71   25.7
+## 10  14.0     78   34.5</code></pre>
 <p>You can also use <code>slice_head()</code> or <code>slice_tail()</code> to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.</p>
 <p>This will show the first 5 rows.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">slice_head</span>(trees, <span class="dt">n =</span> <span class="dv">5</span>)</a></code></pre></div>
@@ -1255,12 +1255,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">2.11</span> Web Scraping</h2>
 <p>We’ve mentioned previously that there is a lot of data on the Internet, which probably comes at no surprise given the vast amount of information on the Internet. Sometimes these data are in a nice CSV format that we can quickly pull from the Internet. Sometimes, the data are spread across a web page, and it’s our job to “scrape” that information from the webpage and get it into a usable format. Knowing first that this is possible within R and second, having some idea of where to start is an important start to beginning to get data from the Internet.</p>
 <p>We’ll walk through three R packages in this lesson to help get you started in getting data from the Internet. Let’s transition a little bit to talking about how to pull pieces of data from a website, when the data aren’t (yet!) in the format that we want them.</p>
-<p>In the first lesson of this course, we talked about the example of wanting to start a company but not knowing exactly what people you’ll need. So, you go to the websites of a bunch of companies similar to the company you start and pull off all the names and titles of the people working there. You then compare the titles across companies and voila, you’ve got a better idea of who you’ll need at your new company.</p>
+<p>Say you wanted to start a company but did not know exactly what people you would need. We could go to the websites of a bunch of companies similar to the company you hope to start and pull off all the names and titles of the people working there. You then compare the titles across companies and voila, you’ve got a better idea of who you’ll need at your new company.</p>
 <p>You could imagine that while this information may be helpful to have, getting it manually would be a pain. Navigating to each site individually, finding the information, copying and pasting each name. That sounds awful! Thankfully, there’s a way to scrape the web from R directly!</p>
-<p>This uses the helpful package <code>rvest</code>. It gets its name from the word “harvest.” The idea here is you’ll use this package to “harvest” information from websites! However, as you may imagine, this is less straightforward than pulling data that are already formatted the way you want them (as we did above), since we’ll have to do some extra work to get everything in order.</p>
+<p>A very helpful package <code>rvest</code> can help us do this. It gets its name from the word “harvest.” The idea here is you’ll use this package to “harvest” information from websites! However, as you may imagine, this is less straightforward than pulling data that are already formatted the way you want them (as we did previously), since we’ll have to do some extra work to get everything in order.</p>
 <div id="rvest-basics" class="section level3">
 <h3><span class="header-section-number">2.11.1</span> <code>rvest</code> Basics</h3>
-<p>When <code>rvest</code> is given a webpage (URL) as input, an <code>rvest</code> function reads in the HTML code from the webpage. HTML is the language websites use to display everything you see on the website. You’ve seen HTML documents before, as this is one of the formats that you can Knit to from an R Markdown (.Rmd) document! Generally, all HTML documents require each webpage to have a similar structure. This structure is specified by using different <strong>tags</strong>. For example, a header at the top of your webpage would use a specific tag. Website links would use a different tag. These different tags help to specify how the website should appear. The <code>rvest</code> package takes advantage of these tags to help you extract the parts of the webpage you’re most interested in. So let’s see exactly how to do that all of this with an example.</p>
+<p>When <code>rvest</code> is given a webpage (URL) as input, an <code>rvest</code> function reads in the HTML code from the webpage. HTML is the language websites use to display everything you see on the website. Generally, all HTML documents require each webpage to have a similar structure. This structure is specified by using different <strong>tags</strong>. For example, a header at the top of your webpage would use a specific tag. Website links would use a different tag. These different tags help to specify how the website should appear. The <code>rvest</code> package takes advantage of these tags to help you extract the parts of the webpage you’re most interested in. So let’s see exactly how to do that all of this with an example.</p>
 <div class="figure">
 <img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_179" alt="Different tags are used to specify different parts of a website" />
 <p class="caption">Different tags are used to specify different parts of a website</p>
@@ -1317,7 +1317,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">2.11.3.2</span> Using <code>rvest</code></h4>
 <p>Now we’re ready to use <code>rvest</code>’s functions. First, we’ll use <code>read_html()</code> (which actually comes from the <code>xml2</code> package) to read in the HTML from our webpage of interest.</p>
 <p>We’ll then use <code>html_nodes()</code> to specify which parts of the webpage we want to extract. Within this function we specify “strong”, as that’s what SelectorGadget told us to specify to “harvest” the information we’re interested in.</p>
-<p>Finally <code>html_text()</code> extracts the text from the tag we’ve specified, giving us that list of courses we wanted to see!</p>
+<p>Finally <code>html_text()</code> extracts the text from the tag we’ve specified, giving us that list of packages we wanted to see!</p>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1"><span class="co">## load package</span></a>
 <a class="sourceLine" id="cb67-2" data-line-number="2"><span class="co"># install.packages(&quot;rvest&quot;)</span></a>
 <a class="sourceLine" id="cb67-3" data-line-number="3"><span class="kw">library</span>(rvest) <span class="co"># this loads the xml2 package too!</span></a></code></pre></div>
@@ -1331,22 +1331,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ##     guess_encoding</code></pre>
 <div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1"><span class="co">## provide URL</span></a>
-<a class="sourceLine" id="cb72-2" data-line-number="2">courses &lt;-<span class="st"> </span><span class="kw">read_html</span>(<span class="st">&quot;http://jhudatascience.org/stable_website/webscrape.html&quot;</span>) <span class="co"># the function is from xml2</span></a>
+<a class="sourceLine" id="cb72-2" data-line-number="2">packages &lt;-<span class="st"> </span><span class="kw">read_html</span>(<span class="st">&quot;http://jhudatascience.org/stable_website/webscrape.html&quot;</span>) <span class="co"># the function is from xml2</span></a>
 <a class="sourceLine" id="cb72-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb72-4" data-line-number="4"><span class="co">## Get Courses</span></a>
-<a class="sourceLine" id="cb72-5" data-line-number="5">courses <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb72-4" data-line-number="4"><span class="co">## Get Packages</span></a>
+<a class="sourceLine" id="cb72-5" data-line-number="5">packages <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb72-6" data-line-number="6"><span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&quot;strong&quot;</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb72-7" data-line-number="7"><span class="st">  </span><span class="kw">html_text</span>() </a></code></pre></div>
 <pre><code>## [1] &quot;rvest&quot;        &quot;httr&quot;         &quot;dbplyr&quot;       &quot;jsonlite&quot;     &quot;googlesheets&quot;</code></pre>
-<div class="figure">
-<img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_188" alt="rvest code" />
-<p class="caption"><code>rvest</code> code</p>
-</div>
 <p>With just a few lines of code we have the information we were looking for!</p>
-<div class="figure">
-<img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_36" alt="List of packages" />
-<p class="caption">List of packages</p>
-</div>
 </div>
 </div>
 <div id="a-final-note-selectorgadget" class="section level3">
@@ -1356,18 +1348,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="apis" class="section level2">
 <h2><span class="header-section-number">2.12</span> APIs</h2>
-<p><strong>Application Programming Interfaces (APIs)</strong> are, in the most general sense, software that allow to different web-based applications to communicate with one another over the Internet. Modern APIs conform to a number of standards. This means that many different applications are using the same approach, so a single package in R is able to take advantage of this and communicate with many different applications, as long as the application’s API adheres to this generally agreed upon set of “rules”.</p>
+<p><strong>Application Programming Interfaces (APIs)</strong> are, in the most general sense, software that allow different web-based applications to communicate with one another over the Internet. Modern APIs conform to a number of standards. This means that many different applications are using the same approach, so a single package in R is able to take advantage of this and communicate with many different applications, as long as the application’s API adheres to this generally agreed upon set of “rules”.</p>
 <p>The R package that we’ll be using to acquire data and take advantage of this is called <code>httr</code>. This package name suggests that this is an “R” package for “HTTP”. So, we know what R is, but what about HTTP?</p>
-<p>You’ve probably seeing HTTP before at the start of web addresses, (ie <a href="http://www.gmail.com" class="uri">http://www.gmail.com</a>), so you may have some intuition that HTTP has something to do with the Internet, which is absolutely correct! HTTP stands for Hypertext Transfer Protocol. In the broadest sense, HTTP transactions allow for messages to be sent between two points on the Internet. You, on your computer can request something from a web page, and the protocol (HTTP) allows you to connect with that webpage’s server, do something, and then return you whatever it is you asked for.</p>
+<p>You’ve probably seen HTTP before at the start of web addresses, (ie <a href="http://www.gmail.com" class="uri">http://www.gmail.com</a>), so you may have some intuition that HTTP has something to do with the Internet, which is absolutely correct! HTTP stands for Hypertext Transfer Protocol. In the broadest sense, HTTP transactions allow for messages to be sent between two points on the Internet. You, on your computer can request something from a web page, and the protocol (HTTP) allows you to connect with that webpage’s server, do something, and then return you whatever it is you asked for.</p>
 <p>Working with a web API is similar to accessing a website in many ways. When you type a URL (ie www.google.com) into your browser, information is sent from your computer to your browser. Your browser then interprets what you’re asking for and displays the website you’ve requested. Web APIs work similarly. You <strong>request</strong> some information from the API and the API sends back a <strong>response</strong>.</p>
-<p>The <code>httr</code> package will hep you carry out these types of requests within R. Let’s stop talking about it, and see an actual example!</p>
+<p>The <code>httr</code> package will help you carry out these types of requests within R. Let’s stop talking about it, and see an actual example!</p>
 <div class="figure">
 <img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_69" alt="HTTP access via httr" />
 <p class="caption">HTTP access via <code>httr</code></p>
 </div>
 <div id="getting-data-httr" class="section level3">
 <h3><span class="header-section-number">2.12.1</span> Getting Data: <code>httr</code></h3>
-<p>HTTP is based on a number of important verbs : <code>GET()</code>, <code>HEAD()</code>, <code>PATCH()</code>, <code>PUT()</code>, <code>DELETE()</code> and <code>POST()</code>. For the purposes of retrieving data from the Internet, you may be able to guess which verb will be the most important for our purposes! <code>GET()</code> will allow us to <em>fetch</em> a resource that already exists. We’ll specify a URL to tell <code>GET()</code> where to go look for what we want. While we’ll only highlight <code>GET()</code> in this lesson, for full understanding of the many other HTTP verbs and capabilities of <code>httr</code>, refer to the additional resources provided at the end of this lesson.</p>
+<p>HTTP is based on a number of important verbs : <code>GET()</code>, <code>HEAD()</code>, <code>PATCH()</code>, <code>PUT()</code>, <code>DELETE()</code>, and <code>POST()</code>. For the purposes of retrieving data from the Internet, you may be able to guess which verb will be the most important for our purposes! <code>GET()</code> will allow us to <em>fetch</em> a resource that already exists. We’ll specify a URL to tell <code>GET()</code> where to go look for what we want. While we’ll only highlight <code>GET()</code> in this lesson, for full understanding of the many other HTTP verbs and capabilities of <code>httr</code>, refer to the additional resources provided at the end of this lesson.</p>
 <p><code>GET()</code> will access the API, provide the API with the necessary information to request the data we want, and retrieve some output.</p>
 <div class="figure">
 <img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_90" alt="API requests are made to an API endpoint to get an API response" />
@@ -1376,7 +1368,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="example-1-githubs-api" class="section level3">
 <h3><span class="header-section-number">2.12.2</span> Example 1: GitHub’s API</h3>
-<p>The example is based on a wonderful <a href="https://www.tylerclavelle.com/code/2017/randapis/">blogpost</a> from <a href="https://www.tylerclavelle.com/about/">Tyler Clavelle</a>. In this example, we’ll use will take advantage of GitHub’s API, because it’s accessible to anyone. Other APIs, while often freely-accessible, require credentials, called an <strong>API key</strong>. We’ll talk about those later, but let’s just get started using <a href="https://developer.github.com/v3/">GitHub’s API</a> now!</p>
+<p>The example is based on a wonderful <a href="https://www.tylerclavelle.com/code/2017/randapis/">blogpost</a> from <a href="https://www.tylerclavelle.com/about/">Tyler Clavelle</a>. In this example, we’ll use will take advantage of GitHub’s API, because it’s accessible to anyone. Other APIs, while often freely-accessible, require credentials, called an <strong>API key</strong>. We’ll talk about those later, but let’s just get started using <a href="https://docs.github.com/en/free-pro-team@latest/rest">GitHub’s API</a> now!</p>
 <div id="api-endpoint" class="section level4">
 <h4><span class="header-section-number">2.12.2.1</span> API Endpoint</h4>
 <p>The URL you’re requesting information from is known as the <strong>API endpoint</strong>. The documentation from GitHub’s API explains what information can be obtained from their API endpoint: <a href="https://api.github.com">https://api.github.com</a>. That’s the base endpoint, but if you wanted to access a particular individual’s GitHub repositories, you would want to modify this base endpoint to: <code>https://api.github.com/users/username/repos</code>, where you would replace <code>username</code> with <em>your</em> GitHub username.</p>
@@ -1452,7 +1444,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_132" alt="output from API request" />
 <p class="caption">output from API request</p>
 </div>
-<p>Here, we’ve pulled out the name and URL of each repository in Jane Doe’s account; however, there is <em>a lot</em> more information in the <code>repo_content</code> object. To see how to extract more information, check out the rest of Tyler’s wonderful post <a href="https://tclavelle.github.io/blog/r_and_apis/">here</a>.</p>
+<p>Here, we’ve pulled out the name and URL of each repository in Jane Doe’s account; however, there is <em>a lot</em> more information in the <code>repo_content</code> object. To see how to extract more information, check out the rest of Tyler’s wonderful post <a href="https://www.tylerclavelle.com/code/2017/randapis/">here</a>.</p>
 </div>
 </div>
 <div id="example-2-obtaining-a-csv" class="section level3">
@@ -1478,13 +1470,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">2.12.4</span> <code>read_csv()</code> from a URL</h3>
 <p>Before going any further, we’ll note that these data are in the CSV format and that the <code>read_csv()</code> function can read CSVs directly from a URL:</p>
 <div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1"><span class="co">#use readr to read in CSV from a URL</span></a>
-<a class="sourceLine" id="cb86-2" data-line-number="2">df &lt;-<span class="st"> </span><span class="kw">read_csv</span>( <span class="st">&quot;https://raw.githubusercontent.com/fivethirtyeight/data/master/steak-survey/steak-risk-survey.csv&quot;</span>)</a></code></pre></div>
-<p>While this is a simpler approach than the previous example, you’ll want to use this approach when reading CSVs from URL. However, you won’t always have data in the CSV format, so we wanted to be sure to demonstrate how to use <code>httr</code> when obtaining information from URLs using HTTP methods.</p>
+<a class="sourceLine" id="cb86-2" data-line-number="2">df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/fivethirtyeight/data/master/steak-survey/steak-risk-survey.csv&quot;</span>)</a></code></pre></div>
+<p>As this is a simpler approach than the previous example, you’ll want to use this approach when reading CSVs from URL. However, you won’t always have data in the CSV format, so we wanted to be sure to demonstrate how to use <code>httr</code> when obtaining information from URLs using HTTP methods.</p>
 </div>
 <div id="api-keys" class="section level3">
 <h3><span class="header-section-number">2.12.5</span> API keys</h3>
 <p>Not all API’s are as “open” as GitHub’s. For example, if you ran the code for the first example above exactly as it was written (and didn’t change the GitHub username), you would have gotten information about the repos in janeeverydaydoe’s GitHub account. Because it is a fully-open API, you’re able to retrieve information about not only your GitHub account, but also other users’ public GitHub activity. This makes good sense because sharing code among public repositories is an important part of GitHub.</p>
-<p>Alternatively, while Google also has an API (or rather, <em>many</em> API’s), they aren’t quite as open. This makes good sense. There is no reason I should have access to the files on someone else’s Google Drive account. Controlling whose files one can access through Google’s API is an important privacy feature.</p>
+<p>Alternatively, while Google also has an API (or rather, <em>many</em> API’s), they aren’t quite as open. This makes good sense. There is no reason why one should have access to the files on someone else’s Google Drive account. Controlling whose files one can access through Google’s API is an important privacy feature.</p>
 <p>In these cases, what is known as a key is required to gain access to the API. <strong>API keys</strong> are obtained from the website’s API site (ie, for Google’s APIs, you would start <a href="https://developers.google.com/apis-explorer/#p/">here</a>. Once acquired, these keys should <strong>never be shared on the Internet</strong>. There is a reason they’re required, after all. So, be sure to <strong>never push a key to GitHub or share it publicly</strong>. (If you do ever accidentally share a key on the Internet, return to the API and disable the key immediately.)</p>
 <p>For example, to access the Twitter API, you would obtain your key and necessary tokens from <a href="https://developer.twitter.com/en/docs/tweets/search/overview">Twitter’s API</a> and replace the text in the <code>key</code>, <code>secret</code>, <code>token</code> and <code>token_secret</code> arguments below. This would authenticate you to use Twitter’s API to acquire information about your home timeline.</p>
 <div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1">myapp =<span class="st"> </span><span class="kw">oauth_app</span>(<span class="st">&quot;twitter&quot;</span>,</a>
@@ -1500,8 +1492,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">2.13</span> Foreign Formats</h2>
 <div id="haven-1" class="section level3">
 <h3><span class="header-section-number">2.13.1</span> <code>haven</code></h3>
-<p>Perhaps you or your collaborators use other types of statistical software such as <a href="https://en.wikipedia.org/wiki/SPSS">SPSS</a>, <a href="https://en.wikipedia.org/wiki/Stata">Stata</a>, and <a href="https://en.wikipedia.org/wiki/SAS_(software)">SAS</a>. Files supported by these software packages can be imported into R and exported from R using the <code>haven</code> package.</p>
-<p>As an example we will first write files for each of these software packages and then read them. The data needs to be in a data frame format and spaces and punctuation in variable names will cause issues. We will use the Toy Story character data frame that we created earlier for this example. Note that we are using the <code>here</code> package that was described in the introduction to save our files in a directory called <code>data</code> which is a subdirectory of the directory in which the <code>.Rproj</code> file is located.</p>
+<p>Perhaps you or your collaborators use other types of statistical software such as <a href="https://en.wikipedia.org/wiki/SAS_(software)">SAS</a>, <a href="https://en.wikipedia.org/wiki/SPSS">SPSS</a>, and <a href="https://en.wikipedia.org/wiki/Stata">Stata</a>. Files supported by these software packages can be imported into R and exported from R using the <code>haven</code> package.</p>
+<p>As an example, we will first write files for each of these software packages and then read them. The data needs to be in a data frame format and spaces and punctuation in variable names will cause issues. We will use the Toy Story character data frame that we created earlier for this example. Note that we are using the <code>here</code> package that was described in the introduction to save our files in a directory called <code>data</code> which is a subdirectory of the directory in which the <code>.Rproj</code> file is located.</p>
 <div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1"><span class="co">#install.packages(&quot;haven&quot;)</span></a>
 <a class="sourceLine" id="cb88-2" data-line-number="2"><span class="kw">library</span>(haven)</a>
 <a class="sourceLine" id="cb88-3" data-line-number="3"></a>
@@ -1542,12 +1534,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1 Woody             40 Sherriff    
 ## 2 Buzz Lightyear    34 Space Ranger
 ## 3 Andy              NA Toy Owner</code></pre>
-<p>When exporting and importing to and from all foreign statistical formats it’s important to realize that the conversion will generally be less than perfect. For simple data frames with numerical data, the conversion should work well. However, when there are a lot of missing data, or different types of data that perhaps a given statistical software package may not recognize, it’s always important to check the output to make sure it contains all of the information that you expected to be there.</p>
+<p>When exporting and importing to and from all foreign statistical formats it’s important to realize that the conversion will generally be less than perfect. For simple data frames with numerical data, the conversion should work well. However, when there are a lot of missing data, or different types of data that perhaps a given statistical software package may not recognize, it’s always important to check the output to make sure it contains all of the information that you expected.</p>
 </div>
 </div>
 <div id="images" class="section level2">
 <h2><span class="header-section-number">2.14</span> Images</h2>
-<p>Only a few decades ago, analyzing a large dataset of images was not feasible for most researchers. Many didn’t even think of images as data. But, there is so much we can get from analyzing image data. Although we will not study images processing techniques in this lesson, let’s look at one example that give us an idea of how image data can be used.</p>
+<p>Only a few decades ago, analyzing a large dataset of images was not feasible for most researchers. Many didn’t even think of images as data. But, there is so much we can get from analyzing image data. Although we will not study images processing techniques in this lesson, let’s look at one example that gives us an idea of how image data can be used.</p>
 <p>Within Google Maps there is a Street View feature that allows panoramic views from positions along many streets in the world. One of the things you may notice if you’re looking around on Google Maps’ street view is that for many streets in the world you do not only see houses; you are also able to see cars.</p>
 <div class="figure">
 <img src="https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&amp;pageid=g392f0f9db9_0_4" alt="Google Maps street view" />
@@ -1565,9 +1557,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="reading-images-in-r" class="section level4">
 <h4><span class="header-section-number">2.14.0.1</span> Reading Images in R</h4>
-<p>Like with text, there are packages in R that will help you carry out analysis of images. In particular, <code>magick</code> is particularly helpful for advanced image processing within R, allowing you to process, edit, and manipulate images within R. Like JSON and XML, where there is more than one file format for a similar task, there are also a number of different image file formats. We touched on the pros and cons of a number of these in the Data Visualization course; however, of importance here is the fact that the <code>magick</code> package is capable of working with many different types of images, including PNG, JPEG, and TIFF. The <code>magick</code> package has a particularly helpful <a href="https://cran.r-project.org/web/packages/magick/vignettes/intro.html#drawing_and_graphics">vignette</a> where you can learn the ins and outs of working with images using <code>magick</code>’s functionality. Their documentation will discuss how to read image data into R, how to edit images, and even how to add images to your R plots!</p>
+<p>Like with text, there are packages in R that will help you carry out analysis of images. In particular, <code>magick</code> is particularly helpful for advanced image processing within R, allowing you to process, edit, and manipulate images within R. Like JSON and XML, where there is more than one file format for a similar task, there are also a number of different image file formats. The <code>magick</code> package is capable of working with many different types of images, including PNG, JPEG, and TIFF. The <code>magick</code> package has a particularly helpful <a href="https://cran.r-project.org/web/packages/magick/vignettes/intro.html#drawing_and_graphics">vignette</a> where you can learn the ins and outs of working with images using <code>magick</code>’s functionality. Their documentation will discuss how to read image data into R, how to edit images, and even how to add images to your R plots!</p>
 <p>[<code>magick</code> package’s example of adding an image to a plot]<img src="https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&amp;pageid=g3d555e2b2e_0_153" alt="Google Maps street view" /></p>
-<p>A really useful manipulation that one can perform is text extraction from images. Typically this works best with images that have text that is not angled and in a conventional font.</p>
+<p>A really useful manipulation that one can perform is text extraction from images. Typically this works best with images that have text, where the text is not angled and is in a conventional font.</p>
+<p>We will show how to do this using a couple of tidyverse package hex stickers.</p>
 <div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" data-line-number="1"><span class="co"># install package</span></a>
 <a class="sourceLine" id="cb96-2" data-line-number="2"><span class="co">#install.packages(&quot;magick&quot;)</span></a>
 <a class="sourceLine" id="cb96-3" data-line-number="3"><span class="co"># load package</span></a>
@@ -1596,12 +1589,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## ggplot2</code></pre>
 <div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" data-line-number="1"><span class="kw">cat</span>(<span class="kw">image_ocr</span>(img2))</a></code></pre></div>
 <pre><code>## parsnip</code></pre>
+<p>Great! We extracted the text!</p>
 </div>
 </div>
 <div id="googledrive-1" class="section level2">
 <h2><span class="header-section-number">2.15</span> <code>googledrive</code></h2>
-<p>Another really helpful package is the <code>googledrive</code> package which enables users to interact with their Google Drive directly from R. This package, unlike the <code>googlesheets</code> package, also allows for users to interact with other file types besides Google Sheets.</p>
-<p>This requires having an established Google Drive account. You will be asked to authorize access for the package to interact with your Google Drive.</p>
+<p>Another really helpful package is the <code>googledrive</code> package which enables users to interact with their Google Drive directly from R. This package, unlike the <code>googlesheets</code> package, also allows for users to interact with other file types besides Google Sheets. It however does not allow for as many modifications of these files like the googlesheets package allows for Google Sheets files.</p>
+<p>Using <code>googledrive</code> requires having an established Google Drive account. You will be asked to authorize access for the package to interact with your Google Drive.</p>
 <p>Finding files in your drive can be done using <code>drive_find()</code>.</p>
 <div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" data-line-number="1"><span class="co"># install.packages(&quot;googledrive&quot;)</span></a>
 <a class="sourceLine" id="cb107-2" data-line-number="2"><span class="co"># load package</span></a>
@@ -1620,11 +1614,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" data-line-number="1"><span class="kw">drive_upload</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;tidyverse.txt&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;document&quot;</span>)</a>
 <a class="sourceLine" id="cb110-2" data-line-number="2"><span class="kw">drive_upload</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;tidyverse.csv&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;spreadsheet&quot;</span>)</a>
 <a class="sourceLine" id="cb110-3" data-line-number="3"><span class="kw">drive_upload</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;tidyverse.pptx&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;presentation&quot;</span>)</a></code></pre></div>
-<p>Files can be downloaded using the <code>drive_download()</code>function. Google file types need to be converted to a conventional file type. For example one might save a Google Sheet file to a CSV file. This would download a file called tidyverse.csv to your project directory. This file could then be used in an analysis.</p>
+<p>Files can be downloaded using the <code>drive_download()</code> function. Google file types need to be converted to a conventional file type. For example one might save a Google Sheet file to a CSV file. This would download a file called tidyverse.csv to your project directory. This file could then be used in an analysis.</p>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" data-line-number="1"><span class="kw">drive_download</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;csv&quot;</span>)</a>
 <a class="sourceLine" id="cb111-2" data-line-number="2">tidyverse_data &lt;-readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="kw">here</span>(<span class="st">&quot;tidyverse.csv&quot;</span>))</a></code></pre></div>
-<p>Files can be moved to trash using the <code>drive_trash()</code> function. This can be undone using the <code>drive_untrash()</code> function.
-The trash can also be emptied using <code>drive_empty_trash()</code>.</p>
+<p>Files can be moved to trash using the <code>drive_trash()</code> function. This can be undone using the <code>drive_untrash()</code> function.</p>
+<p>The trash can also be emptied using <code>drive_empty_trash()</code>.</p>
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" data-line-number="1"><span class="kw">drive_trash</span>(<span class="st">&quot;tidyverse.txt&quot;</span>)</a>
 <a class="sourceLine" id="cb112-2" data-line-number="2"><span class="kw">drive_untrash</span>(<span class="st">&quot;tidyverse.txt&quot;</span>)</a>
 <a class="sourceLine" id="cb112-3" data-line-number="3"><span class="kw">drive_empty_trash</span>()</a></code></pre></div>
@@ -1929,11 +1923,11 @@ After creating a directory called raw_data within a directory that we called dat
 <a class="sourceLine" id="cb141-7" data-line-number="7"><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></a>
 <a class="sourceLine" id="cb141-8" data-line-number="8"><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xlsx&quot;</span>)))</a></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2020-11-20 16:16
+##   Date: 2020-11-20 17:15
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpGQXOzF/file468a74856499.xlsx</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpH2aWAj/file707774856499.xlsx</code></pre>
 <div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" data-line-number="1">brady &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb143-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb143-3" data-line-number="3">brady</a></code></pre></div>
@@ -1968,11 +1962,11 @@ After creating a directory called raw_data within a directory that we called dat
 <a class="sourceLine" id="cb145-4" data-line-number="4"><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></a>
 <a class="sourceLine" id="cb145-5" data-line-number="5"><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</a></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2020-11-20 16:16
+##   Date: 2020-11-20 17:15
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpGQXOzF/file468a21980f48.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpH2aWAj/file707721980f48.xls</code></pre>
 <div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" data-line-number="1">crime &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>, <span class="dt">skip =</span> <span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb147-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb147-3" data-line-number="3"><span class="co"># see data</span></a>
@@ -2005,11 +1999,11 @@ After creating a directory called raw_data within a directory that we called dat
 <a class="sourceLine" id="cb149-4" data-line-number="4"><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></a>
 <a class="sourceLine" id="cb149-5" data-line-number="5"><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</a></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2020-11-20 16:16
+##   Date: 2020-11-20 17:15
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpGQXOzF/file468a5e37ee62.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpH2aWAj/file70775e37ee62.xls</code></pre>
 <div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" data-line-number="1">land &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb151-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb151-3" data-line-number="3"><span class="co"># see data</span></a>
