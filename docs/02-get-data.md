@@ -101,16 +101,16 @@ slice_sample(trees, n = 10)
 
 ```
 ##    Girth Height Volume
-## 1   20.6     87   77.0
-## 2   14.2     80   31.7
-## 3   10.5     72   16.4
-## 4   11.7     69   21.3
-## 5   11.3     79   24.2
-## 6   12.9     74   22.2
-## 7   16.0     72   38.3
-## 8   11.0     66   15.6
-## 9   13.7     71   25.7
-## 10  14.0     78   34.5
+## 1    8.6     65   10.3
+## 2   16.0     72   38.3
+## 3   18.0     80   51.0
+## 4   12.0     75   19.1
+## 5   11.0     66   15.6
+## 6   13.3     86   27.4
+## 7   17.3     81   55.4
+## 8   11.2     75   19.9
+## 9   16.3     77   42.6
+## 10  11.4     76   21.4
 ```
 
 You can also use `slice_head()` or `slice_tail()` to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.
@@ -1933,8 +1933,9 @@ tail(spending)
 
 Recall from the introduction, that in data science workflows, we perform multiple steps in evaluating data. To keep this process tidy and reproducible, it is often helpful to save our data in a raw state and in processed states to allow for easy comparison. So let's save our case study 1 data to use in later sections of the course. 
 
-We can use the `here` package described in the introduction to help us make this process easier. Recall that `here` package allows us to quickly reference the directory in which the .Rproj file is located.
-Assuming we created a project called "project", let's save our raw coverage data in a raw_data directory within a directory called data inside of our RStudio project similarly to the work flows that we have seen in the introduction. 
+We can use the `here` package described in the introduction to help us make this process easier. Recall that the `here` package allows us to quickly reference the directory in which the .Rproj file is located.
+
+Assuming we created a project called "project", let's save our raw coverage data in a directory called raw_data within a directory called data inside of our RStudio project similarly to the workflows that we have seen in the introduction. 
 
 <img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/file_structure.png" width="60%" style="display: block; margin: auto;" />
 After creating a directory called raw_data within a directory that we called data, we can now save our raw data for case study #1 using the `here` package by simply typing:
@@ -1955,13 +1956,13 @@ save(coverage, spending, file = here::here("data", "raw_data", "case_study_1.rda
 
 ### Case Study #2: Firearms
 
-We've got a whole bunch of datasets that we'll need to read in for this case study. They are from a number of different sources and are stored in different file formats. This means we'll need to use various functions to read the data in *and* keep this in mind we we start wrangling the data.
+We've got a whole bunch of datasets that we'll need to read in for this case study. They are from a number of different sources and are stored in different file formats. This means we'll need to use various functions to read the data into R.
 
 As a reminder, we're interested in the following question: At the state-level, what is the relationship between firearm legislation strength and annual rate of fatal police shootings?
 
 #### Census Data
 
-Population characteristics at the state level for 2017 are available:
+Population characteristics at the state level for 2017 are available [here](https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/sc-est2017-alldata6.csv). Let's read it into R.
 
 
 ```r
@@ -1993,7 +1994,7 @@ census
 
 #### Counted Data
 
-The Counted project started to count persons killed by police in the US due to the fact “the US government has no comprehensive record of the number of people killed by law enforcement. These data can be read in from the CSV stored on GitHub, for 2015:
+[The Counted](https://docubase.mit.edu/project/the-counted/) project started to count persons killed by police in the US due to the fact that as stated by Jon Swaine "the US government has no comprehensive record of the number of people killed by law enforcement". These data can be read in from the CSV stored on [GitHub](https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/the-counted-2015.csv), for 2015:
 
 
 ```r
@@ -2074,11 +2075,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2020-11-20 17:15
+##   Date: 2020-11-20 21:15
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpH2aWAj/file707774856499.xlsx
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpntpNuL/file11b1a74856499.xlsx
 ```
 
 ```r
@@ -2126,11 +2127,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2020-11-20 17:15
+##   Date: 2020-11-20 21:15
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpH2aWAj/file707721980f48.xls
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpntpNuL/file11b1a21980f48.xls
 ```
 
 ```r
@@ -2160,11 +2161,11 @@ crime
 ## #   Burglary <dbl>, `Larceny-\ntheft` <dbl>, `Motor \nvehicle \ntheft` <dbl>
 ```
 
-Note, however, there are slight differences in the code used here, relative to the Brady data. We have to use `skip = 3` to skip the first three lines of this file. *And*, this file has the extension `.xls` rather than `.xlsx`, which we specify within the `fileext` argument.
+Note, however, there are slight differences in the code used here, relative to the Brady data. We have to use `skip = 3` to skip the first three lines of this file. *Also*, this file has the extension `.xls` rather than `.xlsx`, which we specify within the `fileext` argument.
 
 #### Land Area Data
 
-US Census 2010 Land Area data are also stored in an excel spreadsheet"
+US Census 2010 land area data are also stored in an excel spreadsheet. So again we will use a similar method.
 
 
 ```r
@@ -2177,11 +2178,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2020-11-20 17:15
+##   Date: 2020-11-20 21:15
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpH2aWAj/file70775e37ee62.xls
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpntpNuL/file11b1a5e37ee62.xls
 ```
 
 ```r
@@ -2217,7 +2218,7 @@ land
 
 #### Unemployment Data
 
-This data is available online from the BLS, but there is no easy download of the table. It is also difficult to simply copy and paste; it doesn’t hold it’s table format. Thus we will want to use web scraping to most easily and accurately obtain this information using the `rvest` package.
+This data is available online from the [Bureau of Labor Statistics (BLS)](https://www.bls.gov/), but there is no easy download of the table. It is also difficult to simply copy and paste; it doesn’t hold it’s table format. Thus we will want to use web scraping to most easily and accurately obtain this information using the `rvest` package.
 
 As a reminder, to view the HTML of a webpage, right-click and select “View page source.”
 
@@ -2256,7 +2257,7 @@ unemployment
 ## # … with 44 more rows
 ```
 
-Then we get the values from each column of the data table. html_nodes acts as a CSS selector. The "table" class returns two tables from the webpage and we specify that we want the second table. From `out` we select the first in the list and store this as a tibble.
+Then we get the values from each column of the data table. The `html_nodes()` function acts as a CSS selector. The "table" class returns two tables from the webpage and we specify that we want the second table. From the object `out` we select the first in the list and store this as a tibble.
 
 Now that we have gathered all the raw data we will need for our second case study, let's save it using the `here` package:
 

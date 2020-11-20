@@ -1297,8 +1297,9 @@ tail(spending)
 
 Recall from the introduction, that in data science workflows, we perform multiple steps in evaluating data. To keep this process tidy and reproducible, it is often helpful to save our data in a raw state and in processed states to allow for easy comparison. So let's save our case study 1 data to use in later sections of the course. 
 
-We can use the `here` package described in the introduction to help us make this process easier. Recall that `here` package allows us to quickly reference the directory in which the .Rproj file is located.
-Assuming we created a project called "project", let's save our raw coverage data in a raw_data directory within a directory called data inside of our RStudio project similarly to the work flows that we have seen in the introduction. 
+We can use the `here` package described in the introduction to help us make this process easier. Recall that the `here` package allows us to quickly reference the directory in which the .Rproj file is located.
+
+Assuming we created a project called "project", let's save our raw coverage data in a directory called raw_data within a directory called data inside of our RStudio project similarly to the workflows that we have seen in the introduction. 
 
 ```{r, echo = FALSE, out.width="60%", fig.align="center"}
 knitr::include_graphics(here::here("book_figures", "file_structure.png"))
@@ -1313,13 +1314,13 @@ save(coverage, spending, file = here::here("data", "raw_data", "case_study_1.rda
 
 ### Case Study #2: Firearms
 
-We've got a whole bunch of datasets that we'll need to read in for this case study. They are from a number of different sources and are stored in different file formats. This means we'll need to use various functions to read the data in *and* keep this in mind we we start wrangling the data.
+We've got a whole bunch of datasets that we'll need to read in for this case study. They are from a number of different sources and are stored in different file formats. This means we'll need to use various functions to read the data into R.
 
 As a reminder, we're interested in the following question: At the state-level, what is the relationship between firearm legislation strength and annual rate of fatal police shootings?
 
 #### Census Data
 
-Population characteristics at the state level for 2017 are available:
+Population characteristics at the state level for 2017 are available [here](https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/sc-est2017-alldata6.csv). Let's read it into R.
 
 ```{r message = FALSE}
 # read in the census data
@@ -1330,7 +1331,7 @@ census
 
 #### Counted Data
 
-The Counted project started to count persons killed by police in the US due to the fact “the US government has no comprehensive record of the number of people killed by law enforcement. These data can be read in from the CSV stored on GitHub, for 2015:
+[The Counted](https://docubase.mit.edu/project/the-counted/) project started to count persons killed by police in the US due to the fact that as stated by Jon Swaine "the US government has no comprehensive record of the number of people killed by law enforcement". These data can be read in from the CSV stored on [GitHub](https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/the-counted-2015.csv), for 2015:
 
 ```{r message = FALSE}
 # read in the counted data
@@ -1386,11 +1387,11 @@ crime <- read_excel(tf, sheet = 1, skip = 3)
 crime
 ```
 
-Note, however, there are slight differences in the code used here, relative to the Brady data. We have to use `skip = 3` to skip the first three lines of this file. *And*, this file has the extension `.xls` rather than `.xlsx`, which we specify within the `fileext` argument.
+Note, however, there are slight differences in the code used here, relative to the Brady data. We have to use `skip = 3` to skip the first three lines of this file. *Also*, this file has the extension `.xls` rather than `.xlsx`, which we specify within the `fileext` argument.
 
 #### Land Area Data
 
-US Census 2010 Land Area data are also stored in an excel spreadsheet"
+US Census 2010 land area data are also stored in an excel spreadsheet. So again we will use a similar method.
 
 ```{r message = FALSE}
 # specify URL to file
@@ -1406,7 +1407,7 @@ land
 
 #### Unemployment Data
 
-This data is available online from the BLS, but there is no easy download of the table. It is also difficult to simply copy and paste; it doesn’t hold it’s table format. Thus we will want to use web scraping to most easily and accurately obtain this information using the `rvest` package.
+This data is available online from the [Bureau of Labor Statistics (BLS)](https://www.bls.gov/), but there is no easy download of the table. It is also difficult to simply copy and paste; it doesn’t hold it’s table format. Thus we will want to use web scraping to most easily and accurately obtain this information using the `rvest` package.
 
 As a reminder, to view the HTML of a webpage, right-click and select “View page source.”
 
@@ -1427,7 +1428,7 @@ unemployment <- as_tibble(out[[1]])
 unemployment
 ```
 
-Then we get the values from each column of the data table. html_nodes acts as a CSS selector. The "table" class returns two tables from the webpage and we specify that we want the second table. From `out` we select the first in the list and store this as a tibble.
+Then we get the values from each column of the data table. The `html_nodes()` function acts as a CSS selector. The "table" class returns two tables from the webpage and we specify that we want the second table. From the object `out` we select the first in the list and store this as a tibble.
 
 Now that we have gathered all the raw data we will need for our second case study, let's save it using the `here` package:
 ```{r}
