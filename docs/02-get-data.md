@@ -101,16 +101,16 @@ slice_sample(trees, n = 10)
 
 ```
 ##    Girth Height Volume
-## 1   14.0     78   34.5
-## 2   14.2     80   31.7
-## 3   17.3     81   55.4
-## 4   11.7     69   21.3
-## 5   16.3     77   42.6
-## 6   13.8     64   24.9
-## 7   16.0     72   38.3
-## 8   11.3     79   24.2
-## 9   11.2     75   19.9
-## 10  17.5     82   55.7
+## 1   17.5     82   55.7
+## 2   17.9     80   58.3
+## 3   12.9     74   22.2
+## 4   13.3     86   27.4
+## 5   17.3     81   55.4
+## 6   10.8     83   19.7
+## 7   11.7     69   21.3
+## 8   18.0     80   51.5
+## 9    8.8     63   10.2
+## 10   8.6     65   10.3
 ```
 
 You can also use `slice_head()` or `slice_tail()` to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.
@@ -775,7 +775,7 @@ read_xml("xml_file.xml")
 
 ## Databases
 
-So far we've discussed reading in data that exist in a single file, like a CSV file or a Google Sheet. However, there will be many cases as where the data for your project will stored across a number of different tables that are all related to one another. In this lesson, we'll discuss what relational data are, why you would want to store data in this way, and how to work with these types of data into R.
+So far we've discussed reading in data that exist in a single file, like a CSV file or a Google Sheet. However, there will be many cases where the data for your project will be stored across a number of different tables that are all related to one another. In this lesson, we'll discuss what relational data are, why you would want to store data in this way, and how to work with these types of data into R.
 
 ### Relational Data
 
@@ -783,7 +783,7 @@ Relational data can be thought of as information being stored across many tables
 
 ![Relational data are related by unique identifiers](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g392f0f9db9_1_9)
 
-To better understand this, let's consider a toy example. We mentioned this example in the introductory lesson in this course, and we'll return to it now. Consider a town where you have a number of different restaurants. In one table you have information about these restaurants including, where they are located and what type of food they serve. You then have a second table where information about health and safety inspections is stored. Each inspection is a different row and the date of the inspection, the inspector, and the safety rating are stored in this table. Finally, you have a third table. This third table contains information pulled from an API, regarding the number of stars given to each restaurant, as rated by people online. Each table contains different bits of information; however, there is a common column `id` in each of the tables. This allows the information to be linked between the tables. The restaurant with the `id` "JJ29JJ" in the restaurant table would refer to the same restaurant with the `id` "JJ29JJ" in the health inspections table, and so on. The values in this `id` column are known as `unique identifiers` because they uniquely identify each restaurant. No two restaurants will have the same `id`, and the same restaurant will always have the same `id`, no matter what table you're looking at. The fact that these tables have unique identifiers connecting each table to all the other tables makes this example **relational data**.
+To better understand this, let's consider a toy example. Consider a town where you have a number of different restaurants. In one table you have information about these restaurants including, where they are located and what type of food they serve. You then have a second table where information about health and safety inspections is stored. Each inspection is a different row and the date of the inspection, the inspector, and the safety rating are stored in this table. Finally, you have a third table. This third table contains information pulled from an API, regarding the number of stars given to each restaurant, as rated by people online. Each table contains different bits of information; however, there is a common column `id` in each of the tables. This allows the information to be linked between the tables. The restaurant with the `id` "JJ29JJ" in the restaurant table would refer to the same restaurant with the `id` "JJ29JJ" in the health inspections table, and so on. The values in this `id` column are known as `unique identifiers` because they uniquely identify each restaurant. No two restaurants will have the same `id`, and the same restaurant will always have the same `id`, no matter what table you're looking at. The fact that these tables have unique identifiers connecting each table to all the other tables makes this example what we call **relational data**.
 
 ![Unique identifiers help link entries across tables](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_27)
 
@@ -809,7 +809,7 @@ Now that we have an idea of what relational data are, let's spend a second talki
 
 For example, a query of the above example may look to obtain information about any restaurant that was inspected after July 1st of 2018. One would then use SQL commands to carry out this query and return the information requested.
 
-While we won't be discussing how to write SQL commands in-depth here, we *will* be discussing how to use the R package `RSQLite` to connect to an SQLite database using `RSQLite` and how to work with relational data using `dplyr` and `dbplyr`
+While we won't be discussing how to write SQL commands in-depth here, we *will* be discussing how to use the R package `RSQLite` to connect to an SQLite database using `RSQLite` and how to work with relational data using `dplyr` and `dbplyr`.
 
 ### Connecting to Databases: `RSQLite`
 
@@ -822,7 +822,9 @@ You will need to unzip the file before using it. The original version of this da
 
 ![relationship between two tables in the company database](databasefigure.png)
 
-Without any more details, let's get to it! Here you'll see the code to install and load the `RSQLite` package. You'll then load the `company.db` sample database, connect to the database, and first obtain a list the tables in the database. Before you begin, make sure that the file `company.db` is in your current working directory (you can check by calling the `ls()` function).
+Without any more details, let's get to it! Here you'll see the code to install and load the `RSQLite` package. 
+
+You'll then load the `company.db` sample database, connect to the database, and first obtain a list the tables in the database. Before you begin, make sure that the file `company.db` is in your current working directory (you can check by calling the `ls()` function).
 
 
 ```r
@@ -856,7 +858,7 @@ In this example, we're downloading a database and working with the data locally.
 
 ### Working with Relational Data: `dplyr` & `dbplyr`
 
-To access these tables within R, we'll have to install the packages `dbplyr`, which enables us to access the parts of the database we're going to be working with. The `dbplyr` package allows you to use the same functions you learned when working with `dplyr`; however, it allows you to use these functions with a *database*. While `dbplyr` has to be loaded to work with databases, you likely won't notice that you're using it beyond that. Otherwise, you'll just work with the files as if you were working with `dplyr` functions!
+To access these tables within R, we'll have to install the packages `dbplyr`, which enables us to access the parts of the database we're going to be working with. The `dbplyr` package allows you to use the same functions that you learned about and will learn about when working with `dplyr`; however, it allows you to use these functions with a *database*. While `dbplyr` has to be loaded to work with databases, you likely won't notice that you're using it beyond that. Otherwise, you'll just work with the files as if you were working with `dplyr` functions!
 
 After installing and loading `dbplyr`, we'll be able to use the helpful `tbl()` function to extract the two tables we're interested in working with!
 
@@ -876,14 +878,14 @@ artists <- tbl(db, "artists")
 
 Mutating joins allow you to take two different tables and combine the variables from both tables. This requires that each table have a column relating the tables to one another (i.e. a unique identifier). This unique identifier is used to match observations between the tables.
 
-However, when combining tables, there are a number of different ways in which the tables can be joined. We touched on this in the Data Tidying course; however, there we only covered left joins. Now, in this lesson, we'll cover the following types of joins:
+However, when combining tables, there are a number of different ways in which the tables can be joined:
 
 * Inner Join - only keep observations found in *both* `x` *and* `y`
 * Left Join - keep all observations in `x`
 * Right Join - keep all observations in `y`
 * Full Join - keep *any* observations in `x` *or* `y`
 
-Let's break down exactly what we mean by this using just a small toy example from the `artists` and `albums` tables from the `company` database. Here you see three rows from the `artists` table and four rows from the `albums` table
+Let's break down exactly what we mean by this using just a small toy example from the `artists` and `albums` tables from the `company` database. Here you see three rows from the `artists` table and four rows from the `albums` table.
 
 ![small parts of the `albums` and `artist` tables](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_88)
 
@@ -1023,7 +1025,7 @@ Thus, in our toy example, this join produces five rows, including all the observ
 
 ![full join will fill in NAs](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_185)
 
-As you saw in the last example, to carry out a full join, we have to again specify that the objects are tibbles before being able to carry out the join
+As you saw in the last example, to carry out a full join, we have to again specify that the objects are tibbles before being able to carry out the join:
 
 
 ```r
@@ -1057,7 +1059,7 @@ Now that we've walked through a number of examples of mutating joins, cases wher
 
 ![mutating joins summary](https://docs.google.com/presentation/d/1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c/export/png?id=1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c&pageid=g6112cc596f_0_28)
 
-To see a visual representation of this, there is a great resource on GitHub, where these joins are illustrated, so feel free to check out [this link](https://github.com/gadenbuie/tidyexplain#readme) from [Garrick Aden-Buie](https://www.garrickadenbuie.com/) animating joins within relational data 
+To see a visual representation of this, there is a great resource on GitHub, where these joins are illustrated, so feel free to check out [this link](https://github.com/gadenbuie/tidyexplain#readme) from [Garrick Aden-Buie](https://www.garrickadenbuie.com/) animating joins within relational data. 
 
 ### Filtering Joins
 
@@ -1071,11 +1073,11 @@ Filtering joins keep observations in one table based on the observations present
 In our toy example, if the join `semi_join(artists, albums)` were run, this would keep rows of `artists` where the `ArtistID` in `artist` was also in the `albums` table.
 
 
-![`semi_join()` output](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_255)
+<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/semi_join.png" width="900px" />
 
 Alternatively, `anti_join(artists, albums)` would output the rows of `artists` whose `ArtistId` was *NOT* found in the `albums` table.
 
-![`anti_join()` output](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_259)
+<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/anti_join.png" width="900px" />
 
 Note that in the case of filtering joins, the number of variables in the table *after* the join does not change. While **mutating joins** merged the tables creating a resulting table with more columns, with **filtering joins** we're simply filtering the observations in one table based on the values in a second table.
 
@@ -1558,7 +1560,7 @@ print(img1)
 ## 1 PNG      240    278 sRGB       TRUE     38516 85x85
 ```
 
-<img src="02-get-data_files/figure-html/unnamed-chunk-51-1.png" width="120" />
+<img src="02-get-data_files/figure-html/unnamed-chunk-53-1.png" width="120" />
 
 ```r
 print(img2)
@@ -1571,7 +1573,7 @@ print(img2)
 ## 1 PNG      864    864 sRGB       TRUE     54056 72x72
 ```
 
-<img src="02-get-data_files/figure-html/unnamed-chunk-51-2.png" width="432" />
+<img src="02-get-data_files/figure-html/unnamed-chunk-53-2.png" width="432" />
 
 ```r
 #concatenate and print text
@@ -2070,11 +2072,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2020-11-19 18:55
+##   Date: 2020-11-20 16:16
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//Rtmpsao2VI/file86a174856499.xlsx
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpGQXOzF/file468a74856499.xlsx
 ```
 
 ```r
@@ -2122,11 +2124,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2020-11-19 18:55
+##   Date: 2020-11-20 16:16
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//Rtmpsao2VI/file86a121980f48.xls
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpGQXOzF/file468a21980f48.xls
 ```
 
 ```r
@@ -2173,11 +2175,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2020-11-19 18:55
+##   Date: 2020-11-20 16:16
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//Rtmpsao2VI/file86a15e37ee62.xls
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpGQXOzF/file468a5e37ee62.xls
 ```
 
 ```r
