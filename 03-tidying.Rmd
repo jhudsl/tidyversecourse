@@ -29,11 +29,11 @@ We had four tidy data principles in an earlier lesson, where the fourth was that
 
 ## Reshaping Data
 
-Tidy data generally exist in two forms: wide data and long data. Both types of data are used and needed in data analysis, and fortunately, there are tools that can take you from wide-to-long and from long-to-wide. This makes it easy to work with any tidy data set. We'll discuss the basics of what wide and long data are and how to go back and forth between the two in R. Getting data into the right format will be crucial later when summarizing data and visualizing it.
+Tidy data generally exist in two forms: wide data and long data. Both types of data are used and needed in data analysis, and fortunately, there are tools that can take you from wide-to-long and from long-to-wide. This makes it easy to work with any tidy dataset. We'll discuss the basics of what wide and long data are and how to go back and forth between the two in R. Getting data into the right format will be crucial later when summarizing data and visualizing it.
 
 ### Wide Data
 
-Wide data has a column for each variable and a row for each observation. Data are often entered and stored in this manner. This is because wide data are often easy to understand at a glance. For example, this is a wide data set:
+Wide data has a column for each variable and a row for each observation. Data are often entered and stored in this manner. This is because wide data are often easy to understand at a glance. For example, this is a wide dataset:
 
 ![Wide dataset](https://docs.google.com/presentation/d/1zcn01MIeABs90ZABS2Oh--HDPZCfUHP5Utdex4TvbZs/export/png?id=1zcn01MIeABs90ZABS2Oh--HDPZCfUHP5Utdex4TvbZs&pageid=g2bfdb07292_0_151)
 
@@ -210,7 +210,7 @@ library(janitor)
 The final package we'll discuss here is the `skimr` package. This package provides a quick way to summarize a data.frame or tibble within the tidy data framework. We'll discuss its most useful function here:
 
 * `skim()` - summarize a data frame
-* `summary()` - quick overview stats about a data set
+* `summary()` - quick overview stats about a dataset
 
 If you have not already, you'll want to be sure this package is installed and loaded:
 
@@ -276,7 +276,7 @@ When working with a large dataset, you're often interested in only working with 
 
 For the examples below, we'll be using a dataset from the `ggplot2` package called `msleep`. (You'll learn more about this package in a later course on data visualization. For now, it's a core tidyverse package so it's loaded in along with the other tidyverse packages using `library(tidyverse)`.) This dataset includes sleep times and weights from a number of different mammals. It has 83 rows, with each row including information about a different type of animal, and 11 variables. As each row is a different animal and each column includes information about that animal, this is a **wide** dataset.
 
-To get an idea of what variables are included in this data frame, you can use `glimpse()`. This function summarizes how many rows there are (`Observations`) and how many columns there are (`Variables`). Additionally, it gives you a glimpse into the type of data contained in each column. Specifically, in this data set, we know that the first column is `name` and that it contains a character vector (`chr`) and that the first three entries are "Cheetah", "Owl monkey", and "Mountain beaver." It works similarly to the `summary()` function covered in an earlier course.
+To get an idea of what variables are included in this data frame, you can use `glimpse()`. This function summarizes how many rows there are (`Observations`) and how many columns there are (`Variables`). Additionally, it gives you a glimpse into the type of data contained in each column. Specifically, in this dataset, we know that the first column is `name` and that it contains a character vector (`chr`) and that the first three entries are "Cheetah", "Owl monkey", and "Mountain beaver." It works similarly to the `summary()` function covered in an earlier course.
 
 ```{r eval = FALSE}
 ## take a look at the data
@@ -472,7 +472,7 @@ conservation <- read_csv("https://raw.githubusercontent.com/suzanbaert/Dplyr_Tut
 conservation
 ```
 
-![Conservation data set](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_250)
+![Conservation dataset](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_250)
 
 In this dataset, we see that there is a single column that includes *both* the abbreviation for the conservation term as well as what that abbreviation means. Recall that this violates one of the tidy data principles covered in the first lesson: Put just one thing in a cell. To work with these data, you could imagine that you may want these two pieces of information (the abbreviation and the description) in two different columns. To accomplish this in R, you'll want to use `separate()` from `tidyr`.
 
@@ -507,7 +507,7 @@ While maybe not quite as important as some of the other functions mentioned in t
 
 So remember this is what the data first looked like:
 
-![Conservation data set](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_250)
+![Conservation dataset](https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&pageid=g38bb68a535_0_250)
 
 And now with "clean names" it looks like this:
 ```{r}
@@ -751,7 +751,7 @@ The output demonstrates there are 10 mammals that overlap in their genus and vor
 
 #### `skim()`
 
-When you would rather get a snapshot of the entire dataset, rather than just one variable, the `skim()` function from the `skimr` package can be very helpful. The output from `skim()` breaks the data up by variable type. For example, the `msleep` data set is broken up into `character` and `numeric` variable types. The data are then summarized in a meaningful way for each. This function provides a lot of information about the entire data set. So, when you want a summarize a dataset and quickly get a sense of your data, `skim()` is a great option!
+When you would rather get a snapshot of the entire dataset, rather than just one variable, the `skim()` function from the `skimr` package can be very helpful. The output from `skim()` breaks the data up by variable type. For example, the `msleep` dataset is broken up into `character` and `numeric` variable types. The data are then summarized in a meaningful way for each. This function provides a lot of information about the entire dataset. So, when you want a summarize a dataset and quickly get a sense of your data, `skim()` is a great option!
 
 ```{r}
 # summarize dataset
@@ -925,13 +925,13 @@ We see now with `fct_inorder` that even when we sort the output, it does not sor
 
 ### Advanced Factoring 
 
-For the remainder of this lesson, we're going to return to using a dataset that's in R by default. We'll use the `chickwts` dataset for exploring the remaining advanced functions. This data set includes data from an experiment that was looking to compare the "effectiveness of various feed supplements on the growth rate of chickens."
+For the remainder of this lesson, we're going to return to using a dataset that's in R by default. We'll use the `chickwts` dataset for exploring the remaining advanced functions. This dataset includes data from an experiment that was looking to compare the "effectiveness of various feed supplements on the growth rate of chickens."
 
 ![chickwts dataset](https://docs.google.com/presentation/d/16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU/export/png?id=16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU&pageid=g391e563ea4_0_24)
 
 ### Re-ordering Factor Levels by Frequency: `fct_infreq()`
 
-To re-order factor levels by frequency of the value in the dataset, you'll want to use `fct_infreq()`. Below, we see from the output from `tabyl()` that 'soybean' is the most frequent feed in the data set while 'horsebean' is the least frequent. Thus, when we order by frequency, we can expect these two feeds to be at opposite ends for our levels.
+To re-order factor levels by frequency of the value in the dataset, you'll want to use `fct_infreq()`. Below, we see from the output from `tabyl()` that 'soybean' is the most frequent feed in the dataset while 'horsebean' is the least frequent. Thus, when we order by frequency, we can expect these two feeds to be at opposite ends for our levels.
 
 ```{r}
 ## take a look at frequency of each level 
@@ -1052,7 +1052,7 @@ ymd_hms("1988-09-29 20:11:59")
 
 #### From individual parts
 
-If you have a data set where month, date, year, and/or time information are included in separate columns, the functions within `lubridate` can take this separate information and create a date or date-time object. To work through examples using the functions `make_date()` and `make_timedate()`, we'll use a dataset called `nycflights13`. As this dataset is *not* included with the R by default, you'll have to install and load it in directly:
+If you have a dataset where month, date, year, and/or time information are included in separate columns, the functions within `lubridate` can take this separate information and create a date or date-time object. To work through examples using the functions `make_date()` and `make_timedate()`, we'll use a dataset called `nycflights13`. As this dataset is *not* included with the R by default, you'll have to install and load it in directly:
 
 ```{r message = FALSE}
 #install.packages('nycflights13')

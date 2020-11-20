@@ -37,9 +37,9 @@ We will look at a few different types of questions that you might want to answer
 
 There are four classes of question that we will focus on:
 
-1. <u>Descriptive</u>: The goal of descriptive data science questions is to understand the components of a data set, describe what they are, and explain that description to others who might want to understand the data. This is the simplest type of data analysis.
+1. <u>Descriptive</u>: The goal of descriptive data science questions is to understand the components of a dataset, describe what they are, and explain that description to others who might want to understand the data. This is the simplest type of data analysis.
 
-2. <u>Exploratory</u>: The goal of exploratory data science questions is to find unknown relationships between the different variables you have measured in your data set. Exploratory analysis is open ended and designed to find expected or unexpected relationships between different measurements. We have already seen how plotting the data can be very helpful to get a general understanding about how variables relate to one another.
+2. <u>Exploratory</u>: The goal of exploratory data science questions is to find unknown relationships between the different variables you have measured in your dataset. Exploratory analysis is open ended and designed to find expected or unexpected relationships between different measurements. We have already seen how plotting the data can be very helpful to get a general understanding about how variables relate to one another.
 
 3. <u>Inferential</u>: The goal of inferential data science questions is to is to use a small sample of data to say something about what would happen if we collected more data. Inferential questions come up because we want to understand the relationships between different variables but it is too expensive or difficult to collect data on every person or object.
 
@@ -630,7 +630,7 @@ We can see from these plots that the `brainwt` variable seems have a relationshi
 
 ## Inference
 
-Inferential Analysis is what analysts carry out after they've described and explored their data set. After understanding your dataset better, analysts often try to infer something from the data. 
+Inferential Analysis is what analysts carry out after they've described and explored their dataset. After understanding your dataset better, analysts often try to infer something from the data. 
 This is done using **statistical tests**.
 
 We discussed a bit about how we can use models to perform inference and prediction analyses. What does this mean?
@@ -1642,7 +1642,7 @@ This results in printing the number of training data rows, the number testing da
 
 We can see that about 70% of our observations are in the training dataset and the other 30% are in the tuning dataset, as we specified.
 
-We can then extract the training and testing data sets by using the `training()` and `testing()` functions, also of the `rsample` package.
+We can then extract the training and testing datasets by using the `training()` and `testing()` functions, also of the `rsample` package.
 
 
 ```r
@@ -1859,13 +1859,13 @@ first_recipe
 
 Optionally one can use the `prep()` function of the `recipes` package to update the recipe for manually performing the preprocessing to see how this influences the data. This step is however not required when using the `workflows` package. The preprocessed training data can than be viewed by using the `bake()` function with the `new_data = NULL` argument, while preprocessed testing data can be viewed using the `bake()` function and specifying that the testing data is the `new_data`.
 
-The `prep()` function estimates parameters (estimating the required quantities and statistics required by the steps for the variables) for preprocessing and updates the variables roles, as sometimes predictors may be removed, this allows the recipe to be ready to use on other data sets. 
+The `prep()` function estimates parameters (estimating the required quantities and statistics required by the steps for the variables) for preprocessing and updates the variables roles, as sometimes predictors may be removed, this allows the recipe to be ready to use on other datasets. 
 
 It **does not necessarily actually execute the preprocessing itself**, however we will specify using the `retain` argument for it to do this so that we can take a look at the preprocessed data.
 
 There are some important arguments to know about:
 
-1. `training` - you must supply a training data set to estimate parameters for preprocessing operations (recipe steps) - this may already be included in your recipe - as is the case for us
+1. `training` - you must supply a training dataset to estimate parameters for preprocessing operations (recipe steps) - this may already be included in your recipe - as is the case for us
 2. `fresh` - if `fresh=TRUE`, - will retrain and estimate parameters for any previous steps that were already prepped if you add more steps to the recipe
 3. `verbose` - if `verbose=TRUE`, shows the progress as the steps are evaluated and the size of the preprocessed training set
 4. `retain` - if `retain=TRUE`, then the preprocessed training set will be saved within the recipe (as template). This is good if you are likely to add more steps and do not want to rerun the `prep()` on the previous steps. However this can make the recipe size large. This is necessary if you want to actually look at the preprocessed data.
@@ -1921,7 +1921,7 @@ You can see:
 3. the updated variable info after preprocessing (`term_info`)
 4. the new `levels` of the variables 
 5. the original levels of the variables (`orig_lvls`)
-6. info about the training data set size and completeness (`tr_info`)
+6. info about the training dataset size and completeness (`tr_info`)
 
 We can see these using the `$` notation:
 
@@ -3114,7 +3114,7 @@ glimpse(pm)
 Great! Now we can see that these variables are now factors as indicated by `<fct>` after the variable name.
 
 The `skim()` function of the `skimr` package is also really helpful for getting a general sense of your data.
-By design, it provides summary statistics about variables in the data set. 
+By design, it provides summary statistics about variables in the dataset. 
 
 
 ```r
@@ -3211,7 +3211,7 @@ Notice how there is a column called `n_missing` about the number of values that 
 
 This is also indicated by the `complete_rate` variable (or missing/number of observations). 
 
-In our data set, it looks like our data do not contain any missing data. 
+In our dataset, it looks like our data do not contain any missing data. 
 
 Also notice how the function provides separate tables of summary statistics for each data type: character, factor and numeric. 
 
@@ -3887,7 +3887,7 @@ dim(dplyr::intersect(traincities, testcities))
 Indeed, there are lots of different cities in our test data that are not in our training data!
 
 
-So, let go back to our `pm` data set and modify the `city` variable to just be values of `in a city` or `not in a city` using the `case_when()` function of `dplyr`.
+So, let go back to our `pm` dataset and modify the `city` variable to just be values of `in a city` or `not in a city` using the `case_when()` function of `dplyr`.
 This function allows you to vectorize multiple `if_else()` statements.
 
 
@@ -5112,12 +5112,12 @@ tune_RF_results%>%
 ## # A tibble: 6 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1     1    27 rmse    standard   2.07     10  0.142 
-## 2     1    27 rsq     standard   0.473    10  0.0357
-## 3     4    30 rmse    standard   1.81     10  0.143 
-## 4     4    30 rsq     standard   0.591    10  0.0394
-## 5     6    32 rmse    standard   1.77     10  0.145 
-## 6     6    32 rsq     standard   0.601    10  0.0387
+## 1     1    27 rmse    standard   2.06     10  0.144 
+## 2     1    27 rsq     standard   0.480    10  0.0396
+## 3     4    30 rmse    standard   1.81     10  0.145 
+## 4     4    30 rsq     standard   0.591    10  0.0403
+## 5     6    32 rmse    standard   1.77     10  0.144 
+## 6     6    32 rsq     standard   0.602    10  0.0396
 ```
 
 We can now use the `show_best()` function as it was truly intended, to see what values for `min_n` and `mtry` resulted in the best performance.
@@ -5131,7 +5131,7 @@ show_best(tune_RF_results, metric = "rmse", n =1)
 ## # A tibble: 1 x 7
 ##    mtry min_n .metric .estimator  mean     n std_err
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl>
-## 1    13     7 rmse    standard    1.67    10   0.145
+## 1    13     7 rmse    standard    1.67    10   0.146
 ```
 There we have it... looks like an `mtry` of 17 and `min_n` of 4 had the best `rmse` value. You can verify this in the above output, but it is easier to just pull this row out using this function. We can see that the mean `rmse` value across the cross validation sets was 1.68. Before tuning it was 1.68 with a similar `std_err` so the performance was in this particular case wasn't really improved, but that will not always be the case.
 

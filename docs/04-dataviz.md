@@ -3,7 +3,7 @@
 
 ## About This Course
 
-Data visualization is a critical part of any data science project. Once data have been imported and wrangled into place, visualizing your data can help you get a handle on what's going on in the data set. Similarly, once you've completed your analysis and are ready to present your findings, data visualizations are a highly effective way to communicate your results to others. In this course we will cover what data visualization is and define some of the basic types of data visualizations.
+Data visualization is a critical part of any data science project. Once data have been imported and wrangled into place, visualizing your data can help you get a handle on what's going on in the dataset. Similarly, once you've completed your analysis and are ready to present your findings, data visualizations are a highly effective way to communicate your results to others. In this course we will cover what data visualization is and define some of the basic types of data visualizations.
 
 In this course you will learn about the ggplot2 R package, a powerful set of tools for making stunning data graphics that has become the industry standard. You will learn about different types of plots, how to construct effect plots, and what makes for a successful or unsuccessful visualization. 
 
@@ -68,11 +68,11 @@ Above we saw data displayed as both an exploratory plot and an explanatory plot.
 
 To do this, we'll use the "Davis" dataset which includes, height and weight information for 200 people.
 
-![Data Set](https://docs.google.com/presentation/d/1MiYOmyqu6Et6mBVTS91gip8h-tids8Wo0JDlMfXULqE/export/png?id=1MiYOmyqu6Et6mBVTS91gip8h-tids8Wo0JDlMfXULqE&pageid=g313d6498b0_0_128)
+![Dataset](https://docs.google.com/presentation/d/1MiYOmyqu6Et6mBVTS91gip8h-tids8Wo0JDlMfXULqE/export/png?id=1MiYOmyqu6Et6mBVTS91gip8h-tids8Wo0JDlMfXULqE&pageid=g313d6498b0_0_128)
 
 ### Histogram
 
-Histograms are helpful when you want to **better understand what values you have in your data set for a single set of numbers**. For example, if you had a dataset with information about many people, you may want to know how tall the people in your data set are. To quickly visualize this, you could use a histogram. Histograms let you know what range of values you have in your data set. For example, below you can see that in this data set, the height values range from around 50 to around 200 cm. The shape of the histogram also gives you information about the individuals in your dataset. The number of people at each height are also counted. So, the tallest bars show that there are about 40 people in the data set whose height is between 165 and 170 cm. Finally, you can quickly tell, at a glance that most people in this data set are at least 150 cm tall, but that there is at least one individually whose reported height is much lower. 
+Histograms are helpful when you want to **better understand what values you have in your dataset for a single set of numbers**. For example, if you had a dataset with information about many people, you may want to know how tall the people in your dataset are. To quickly visualize this, you could use a histogram. Histograms let you know what range of values you have in your dataset. For example, below you can see that in this dataset, the height values range from around 50 to around 200 cm. The shape of the histogram also gives you information about the individuals in your dataset. The number of people at each height are also counted. So, the tallest bars show that there are about 40 people in the dataset whose height is between 165 and 170 cm. Finally, you can quickly tell, at a glance that most people in this dataset are at least 150 cm tall, but that there is at least one individually whose reported height is much lower. 
 
 ![Histogram](https://docs.google.com/presentation/d/1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo/export/png?id=1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo&pageid=g62494e73ab_0_144) 
 
@@ -84,13 +84,13 @@ Densityplots are smoothed versions of histograms, visualizing the distribution o
 
 ### Scatterplot
 
-Scatterplots are helpful when you have **numerical values for two different pieces of information** and you want to understand the relationship between those pieces of information. Here, each dot represents a different person in the data set. The dot's position on the graph represents that individual's height and weight. Overall, in this data set, we can see that, in general, the more someone weighs, the taller they are. Scatterplots, therefore help us at a glance better understand the relationship between two sets of numbers.
+Scatterplots are helpful when you have **numerical values for two different pieces of information** and you want to understand the relationship between those pieces of information. Here, each dot represents a different person in the dataset. The dot's position on the graph represents that individual's height and weight. Overall, in this dataset, we can see that, in general, the more someone weighs, the taller they are. Scatterplots, therefore help us at a glance better understand the relationship between two sets of numbers.
 
 ![Scatter Plot](https://docs.google.com/presentation/d/1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo/export/png?id=1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo&pageid=g62494e73ab_0_222)
 
 ### Barplot
 
-When you only have **a single categorical variable that you want broken down and quantified by category**, a barplot will be ideal. For example if you wanted to look at how many females and how many males you have in your data set, you could use a barplot.  The comparison in heights between bars clearly demonstrates that there are more females in this dataset than males. 
+When you only have **a single categorical variable that you want broken down and quantified by category**, a barplot will be ideal. For example if you wanted to look at how many females and how many males you have in your dataset, you could use a barplot.  The comparison in heights between bars clearly demonstrates that there are more females in this dataset than males. 
 
 ![Barplot](https://docs.google.com/presentation/d/1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo/export/png?id=1IdjblNKtwaoJq72p3gQE0ldDm2XQuXHmEq-c789LgRo&pageid=g62494e73ab_0_229)
 
@@ -275,7 +275,7 @@ You will map your variables using the aesthetic argument **`aes`**. We'll walk t
 
 ### Example Dataset: `diamonds`
 
-To build your first plot in `ggplot2` we'll make use of the fact that there are some datasets already available in R. One frequently-used data set is known as `diamonds`. This data set contains prices and other attributes of 53,940 diamonds, with each row containing information about a different diamond. If you look at the first few rows of data, you can get an idea of what data are included in this dataset. 
+To build your first plot in `ggplot2` we'll make use of the fact that there are some datasets already available in R. One frequently-used dataset is known as `diamonds`. This dataset contains prices and other attributes of 53,940 diamonds, with each row containing information about a different diamond. If you look at the first few rows of data, you can get an idea of what data are included in this dataset. 
 
 
 ```r
@@ -302,9 +302,9 @@ diamonds
 
 ![First 12 rows of diamonds dataset](https://docs.google.com/presentation/d/1WRfoVxRU_dRcbMGtsha5zSokBRoAFIirm32Wq6bZuEc/export/png?id=1WRfoVxRU_dRcbMGtsha5zSokBRoAFIirm32Wq6bZuEc&pageid=g360e22de56_0_108)
 
-Here you see a lot of numbers and can get an idea of what data are available in this data set. For example, in looking at the column names across the top, you can see that we have information about how many carats each diamond is (`carat`), some information on the quality of the diamond cut (`cut`), the color of the diamond from J (worst) to D (best) (`color`), along with a number of other pieces of information about each diamond.
+Here you see a lot of numbers and can get an idea of what data are available in this dataset. For example, in looking at the column names across the top, you can see that we have information about how many carats each diamond is (`carat`), some information on the quality of the diamond cut (`cut`), the color of the diamond from J (worst) to D (best) (`color`), along with a number of other pieces of information about each diamond.
 
-We will use this data set to better understand how to generate plots in R, using `ggplot2`.
+We will use this dataset to better understand how to generate plots in R, using `ggplot2`.
 
 ### Scatterplots: `geom_point()`
 
@@ -507,7 +507,7 @@ Specifically here, we can quickly see that most of the diamonds in the dataset a
 
 #### Barplots: geom_bar
 
-Barplots show the relationship between a set of numbers and a categorical variable. In the diamonds data set, we may be interested in knowing how many diamonds there are of each cut of diamonds. There are five categories for cut of diamond. If we make a barplot for this variable, we can see the number of diamonds in each category.
+Barplots show the relationship between a set of numbers and a categorical variable. In the diamonds dataset, we may be interested in knowing how many diamonds there are of each cut of diamonds. There are five categories for cut of diamond. If we make a barplot for this variable, we can see the number of diamonds in each category.
 
 
 ```r
@@ -1180,7 +1180,7 @@ This would be helpful if we wanted to especially point out differences between t
 
 While we have focused on figures here so far, tables can be incredibly informative at a glance too. If you are looking to display summary numbers, **a table can also visually display information**. 
 
-Using this same data set, we can use a table to get a quick breakdown of how many males and females there are in the data set and what percentage of each gender there is.
+Using this same dataset, we can use a table to get a quick breakdown of how many males and females there are in the dataset and what percentage of each gender there is.
 
 A few things to keep in mind when making tables is that it's best to:
 
@@ -1192,7 +1192,7 @@ A few things to keep in mind when making tables is that it's best to:
 
 ### Tables in R
 
-Now that we have a good understanding of what to consider when making tables, we can to practice making good tables in R. To do this, we'll return to the diamonds data set. As a reminder, this dataset contains prices and other information about ~54,000 different diamonds. If we want to provide viewers with a summary of these data, we may want to provide information about diamonds broken down by the quality of the diamond's cut. To get the data we're interested in, we'll use the `diamonds` dataset and the `dplyr` R package, which we discussed in a lesson in an earlier course.
+Now that we have a good understanding of what to consider when making tables, we can to practice making good tables in R. To do this, we'll return to the diamonds dataset. As a reminder, this dataset contains prices and other information about ~54,000 different diamonds. If we want to provide viewers with a summary of these data, we may want to provide information about diamonds broken down by the quality of the diamond's cut. To get the data we're interested in, we'll use the `diamonds` dataset and the `dplyr` R package, which we discussed in a lesson in an earlier course.
 
 ### Getting the Data in Order
 
@@ -1268,13 +1268,13 @@ kable(df)
 
 
 
-|cut       |     N| min|      avg|   max|
-|:---------|-----:|---:|--------:|-----:|
-|Fair      |  1610| 337| 4358.758| 18574|
-|Good      |  4906| 327| 3928.864| 18788|
-|Very Good | 12082| 336| 3981.760| 18818|
-|Premium   | 13791| 326| 4584.258| 18823|
-|Ideal     | 21551| 326| 3457.542| 18806|
+cut              N   min        avg     max
+----------  ------  ----  ---------  ------
+Fair          1610   337   4358.758   18574
+Good          4906   327   3928.864   18788
+Very Good    12082   336   3981.760   18818
+Premium      13791   326   4584.258   18823
+Ideal        21551   326   3457.542   18806
 
 ![kable basic output](https://docs.google.com/presentation/d/1vjyG1vibsmtXrPA1hs2HS3MfjsPMjRDEmBEsVlgkIxg/export/png?id=1vjyG1vibsmtXrPA1hs2HS3MfjsPMjRDEmBEsVlgkIxg&pageid=g361cf16451_0_18) 
 
@@ -1303,8 +1303,8 @@ kable(df, digits=0, "html") %>%
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
  <thead>
 <tr>
-<th style="empty-cells: hide;border-bottom:hidden;" colspan="2"></th>
-<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">price (USD)</div></th>
+<th style="border-bottom:hidden" colspan="2"></th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">price (USD)</div></th>
 </tr>
   <tr>
    <th style="text-align:left;"> cut </th>
@@ -1368,12 +1368,12 @@ kable(df, digits=0, "html", caption="Table 1: Diamonds Price by Quality of Cut. 
   footnote(general = "Diamonds dataset from ggplot2", general_title = "Source:", footnote_as_chunk = T)
 ```
 
-<table class="table table-striped" style="margin-left: auto; margin-right: auto;border-bottom: 0;">
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
 <caption>(\#tab:unnamed-chunk-48)Table 1: Diamonds Price by Quality of Cut. Most Diamonds are of the highest quality cut and the most expensive diamonds are of the highest quality</caption>
  <thead>
 <tr>
-<th style="empty-cells: hide;border-bottom:hidden;" colspan="2"></th>
-<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">price (USD)</div></th>
+<th style="border-bottom:hidden" colspan="2"></th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">price (USD)</div></th>
 </tr>
   <tr>
    <th style="text-align:left;"> cut </th>
@@ -1420,7 +1420,7 @@ kable(df, digits=0, "html", caption="Table 1: Diamonds Price by Quality of Cut. 
    <td style="text-align:right;"> 18806 </td>
   </tr>
 </tbody>
-<tfoot><tr><td style="padding: 0; " colspan="100%">
+<tfoot><tr><td style="padding: 0; border: 0;" colspan="100%">
 <span style="font-style: italic;">Source:</span> <sup></sup> Diamonds dataset from ggplot2</td></tr></tfoot>
 </table>
 
