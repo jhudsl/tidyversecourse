@@ -101,16 +101,16 @@ slice_sample(trees, n = 10)
 
 ```
 ##    Girth Height Volume
-## 1    8.6     65   10.3
-## 2   16.0     72   38.3
-## 3   18.0     80   51.0
-## 4   12.0     75   19.1
-## 5   11.0     66   15.6
-## 6   13.3     86   27.4
-## 7   17.3     81   55.4
-## 8   11.2     75   19.9
-## 9   16.3     77   42.6
-## 10  11.4     76   21.4
+## 1   12.9     85   33.8
+## 2   16.3     77   42.6
+## 3   14.2     80   31.7
+## 4   10.8     83   19.7
+## 5   14.5     74   36.3
+## 6   11.0     66   15.6
+## 7   12.0     75   19.1
+## 8   16.0     72   38.3
+## 9   17.5     82   55.7
+## 10  11.0     75   18.2
 ```
 
 You can also use `slice_head()` or `slice_tail()` to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.
@@ -698,13 +698,7 @@ In this format, we cannot easily work with the data with within R; however, the 
 ```r
 #install.packages("jsonlite")
 library(jsonlite)
-```
 
-```
-## Warning: package 'jsonlite' was built under R version 4.0.2
-```
-
-```r
 ## take JSON object and covert to a data frame
 mydf <- fromJSON(json)
 
@@ -1073,11 +1067,11 @@ Filtering joins keep observations in one table based on the observations present
 In our toy example, if the join `semi_join(artists, albums)` were run, this would keep rows of `artists` where the `ArtistID` in `artist` was also in the `albums` table.
 
 
-<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/semi_join.png" width="900px" />
+<img src="/Users/rdpeng/books/tidyversecourse/book_figures/semi_join.png" width="900px" />
 
 Alternatively, `anti_join(artists, albums)` would output the rows of `artists` whose `ArtistId` was *NOT* found in the `albums` table.
 
-<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/anti_join.png" width="900px" />
+<img src="/Users/rdpeng/books/tidyversecourse/book_figures/anti_join.png" width="900px" />
 
 Note that in the case of filtering joins, the number of variables in the table *after* the join does not change. While **mutating joins** merged the tables creating a resulting table with more columns, with **filtering joins** we're simply filtering the observations in one table based on the values in a second table.
 
@@ -1262,13 +1256,6 @@ The goal of this request is to obtain information about what repositories are av
 ```r
 ## load package
 library(httr)
-```
-
-```
-## Warning: package 'httr' was built under R version 4.0.2
-```
-
-```r
 library(dplyr)
  	
 ## Save GitHub username as variable
@@ -1536,13 +1523,13 @@ library(magick)
 ```
 
 ```
-## Warning: package 'magick' was built under R version 4.0.2
+## Linking to ImageMagick 7.0.10.34
+## Enabled features: freetype, ghostscript, lcms, webp
+## Disabled features: cairo, fontconfig, fftw, pango, rsvg, x11
 ```
 
 ```
-## Linking to ImageMagick 6.9.11.32
-## Enabled features: cairo, fontconfig, freetype, lcms, pango, rsvg, webp
-## Disabled features: fftw, ghostscript, x11
+## Using 16 threads
 ```
 
 ```r
@@ -1556,7 +1543,7 @@ print(img1)
 ## # A tibble: 1 x 7
 ##   format width height colorspace matte filesize density
 ##   <chr>  <int>  <int> <chr>      <lgl>    <int> <chr>  
-## 1 PNG      240    278 sRGB       TRUE     38516 85x85
+## 1 PNG      240    278 sRGB       TRUE     38516 +85x+85
 ```
 
 <img src="02-get-data_files/figure-html/unnamed-chunk-53-1.png" width="120" />
@@ -1569,7 +1556,7 @@ print(img2)
 ## # A tibble: 1 x 7
 ##   format width height colorspace matte filesize density
 ##   <chr>  <int>  <int> <chr>      <lgl>    <int> <chr>  
-## 1 PNG      864    864 sRGB       TRUE     54056 72x72
+## 1 PNG      864    864 sRGB       TRUE     54056 +72x+72
 ```
 
 <img src="02-get-data_files/figure-html/unnamed-chunk-53-2.png" width="432" />
@@ -1937,7 +1924,7 @@ We can use the `here` package described in the introduction to help us make this
 
 Assuming we created a project called "project", let's save our raw coverage data in a directory called raw_data within a directory called data inside of our RStudio project similarly to the workflows that we have seen in the introduction. 
 
-<img src="/Users/carriewright/Documents/GitHub/tidyversecourse/book_figures/file_structure.png" width="60%" style="display: block; margin: auto;" />
+<img src="/Users/rdpeng/books/tidyversecourse/book_figures/file_structure.png" width="60%" style="display: block; margin: auto;" />
 After creating a directory called raw_data within a directory that we called data, we can now save our raw data for case study #1 using the `here` package by simply typing:
 
 ```r
@@ -1945,7 +1932,7 @@ library(here)
 ```
 
 ```
-## here() starts at /Users/carriewright/Documents/GitHub/tidyversecourse
+## here() starts at /Users/rdpeng/books/tidyversecourse
 ```
 
 ```r
@@ -2075,11 +2062,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2020-11-20 21:15
+##   Date: 2020-11-23 16:30
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpntpNuL/file11b1a74856499.xlsx
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//Rtmp7eUHXU/filebf7974856499.xlsx
 ```
 
 ```r
@@ -2127,11 +2114,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2020-11-20 21:15
+##   Date: 2020-11-23 16:30
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpntpNuL/file11b1a21980f48.xls
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//Rtmp7eUHXU/filebf7921980f48.xls
 ```
 
 ```r
@@ -2178,11 +2165,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2020-11-20 21:15
+##   Date: 2020-11-23 16:30
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpntpNuL/file11b1a5e37ee62.xls
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//Rtmp7eUHXU/filebf795e37ee62.xls
 ```
 
 ```r

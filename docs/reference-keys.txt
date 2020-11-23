@@ -5,7 +5,7 @@ tab:unnamed-chunk-49
 tab:unnamed-chunk-99
 tab:unnamed-chunk-100
 tab:unnamed-chunk-114
-tab:unnamed-chunk-94
+tab:unnamed-chunk-93
 intro
 about-this-course
 tidy-data
@@ -23,7 +23,7 @@ dont-use-font-color-or-highlighting-as-data
 save-the-data-as-plain-text-files
 summary
 from-non-tidy-tidy
-common-problems-with-messy-data-sets
+common-problems-with-messy-datasets
 examples-of-untidy-data
 examples-from-data-organization-in-spreadsheets
 tidying-untidy-data
@@ -61,7 +61,6 @@ data-modeling
 the-tidymodels-ecosystem
 inferential-packages-broom-and-infer
 tidyverts-tsibble-feasts-and-fable
-tidymodels
 data-science-project-organization
 rstudio-projects
 file-paths
@@ -73,6 +72,7 @@ setting-your-project-directory
 get-files-paths-using-here
 save-and-load-files-using-here
 where-you-should-use-this
+the-utility-of-the-here-package
 file-naming
 good-file-names
 machine-readable-files
@@ -146,7 +146,7 @@ api-keys
 foreign-formats
 haven-1
 images
-analyzing-and-manipulating-images-in-r
+reading-images-in-r
 googledrive-1
 case-studies-1
 case-study-1-health-expenditures-1
@@ -472,3 +472,4 @@ assessing-model-performance-on-v-folds-using-tune
 random-forest
 model-tuning
 final-model-performance-evaluation
+summary-of-tidymodels
