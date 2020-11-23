@@ -2,12 +2,13 @@
 
 library(knitr)
 
-inputs <- c("01-intro.Rmd",
-            "02-get-data.Rmd")
+inputs <- c("index.Rmd", 
+            "01-intro.Rmd",
+            "02-get-data.Rmd",
 #            "03-tidying.Rmd",
 #	    "04-dataviz.Rmd",
 #            "05-prediction.Rmd",
-#	    "about.Rmd")
+	    "about.Rmd")
 
 lapply(inputs, function(input) {
         out <- knit(input)
