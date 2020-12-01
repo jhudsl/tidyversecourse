@@ -1268,13 +1268,13 @@ kable(df)
 
 
 
-cut              N   min        avg     max
-----------  ------  ----  ---------  ------
-Fair          1610   337   4358.758   18574
-Good          4906   327   3928.864   18788
-Very Good    12082   336   3981.760   18818
-Premium      13791   326   4584.258   18823
-Ideal        21551   326   3457.542   18806
+|cut       |     N| min|      avg|   max|
+|:---------|-----:|---:|--------:|-----:|
+|Fair      |  1610| 337| 4358.758| 18574|
+|Good      |  4906| 327| 3928.864| 18788|
+|Very Good | 12082| 336| 3981.760| 18818|
+|Premium   | 13791| 326| 4584.258| 18823|
+|Ideal     | 21551| 326| 3457.542| 18806|
 
 ![kable basic output](https://docs.google.com/presentation/d/1vjyG1vibsmtXrPA1hs2HS3MfjsPMjRDEmBEsVlgkIxg/export/png?id=1vjyG1vibsmtXrPA1hs2HS3MfjsPMjRDEmBEsVlgkIxg&pageid=g361cf16451_0_18) 
 
@@ -1303,8 +1303,8 @@ kable(df, digits=0, "html") %>%
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
  <thead>
 <tr>
-<th style="border-bottom:hidden" colspan="2"></th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">price (USD)</div></th>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="2"></th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">price (USD)</div></th>
 </tr>
   <tr>
    <th style="text-align:left;"> cut </th>
@@ -1368,12 +1368,12 @@ kable(df, digits=0, "html", caption="Table 1: Diamonds Price by Quality of Cut. 
   footnote(general = "Diamonds dataset from ggplot2", general_title = "Source:", footnote_as_chunk = T)
 ```
 
-<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;border-bottom: 0;">
 <caption>(\#tab:unnamed-chunk-48)Table 1: Diamonds Price by Quality of Cut. Most Diamonds are of the highest quality cut and the most expensive diamonds are of the highest quality</caption>
  <thead>
 <tr>
-<th style="border-bottom:hidden" colspan="2"></th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">price (USD)</div></th>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="2"></th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">price (USD)</div></th>
 </tr>
   <tr>
    <th style="text-align:left;"> cut </th>
@@ -1420,7 +1420,7 @@ kable(df, digits=0, "html", caption="Table 1: Diamonds Price by Quality of Cut. 
    <td style="text-align:right;"> 18806 </td>
   </tr>
 </tbody>
-<tfoot><tr><td style="padding: 0; border: 0;" colspan="100%">
+<tfoot><tr><td style="padding: 0; " colspan="100%">
 <span style="font-style: italic;">Source:</span> <sup></sup> Diamonds dataset from ggplot2</td></tr></tfoot>
 </table>
 
