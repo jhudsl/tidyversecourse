@@ -1,2 +1,5 @@
+frontmatter.txt
+mainmatter.txt
 intro.md
+backmatter.txt
 about.md
