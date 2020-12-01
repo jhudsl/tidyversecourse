@@ -2,8 +2,7 @@
 
 library(knitr)
 
-inputs <- c("index.Rmd", 
-            "01-intro.Rmd",
+inputs <- c("01-intro.Rmd",
 #            "02-get-data.Rmd",
 #            "03-tidying.Rmd",
 #	    "04-dataviz.Rmd",
