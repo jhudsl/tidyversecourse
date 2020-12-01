@@ -4,7 +4,7 @@ library(knitr)
 
 inputs <- c("index.Rmd", 
             "01-intro.Rmd",
-            "02-get-data.Rmd",
+#            "02-get-data.Rmd",
 #            "03-tidying.Rmd",
 #	    "04-dataviz.Rmd",
 #            "05-prediction.Rmd",
@@ -17,6 +17,6 @@ lapply(inputs, function(input) {
         file.rename(out, output)
 })
 
-system("rsync -av figure/ manuscript/figure/")
+#system("rsync -av figure/ manuscript/figure/")
         
 
