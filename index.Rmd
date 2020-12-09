@@ -1,6 +1,6 @@
 --- 
 title: "Tidyverse Skills for Data Science"
-author: "Carrie Wright, Shannon C. Ellis, Stephanie C. Hicks and Roger D. Peng"
+author: "Carrie Wright, Shannon E. Ellis, Stephanie C. Hicks and Roger D. Peng"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book

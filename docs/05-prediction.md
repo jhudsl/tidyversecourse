@@ -2269,7 +2269,74 @@ overallfit <-iris_reg_wflow %>%
 ```
 
 ```
-FALSE ! Resample1: model (predictions): prediction from a rank-deficient fit may be misleading
+FALSE For binary classification, the first factor level is assumed to be the event.
+FALSE Use the argument `event_level = "second"` to alter this as needed.
+```
+
+```
+FALSE 
+FALSE Attaching package: 'yardstick'
+```
+
+```
+FALSE The following object is masked from 'package:readr':
+FALSE 
+FALSE     spec
+```
+
+```
+FALSE Loading required package: scales
+```
+
+```
+FALSE 
+FALSE Attaching package: 'scales'
+```
+
+```
+FALSE The following object is masked from 'package:purrr':
+FALSE 
+FALSE     discard
+```
+
+```
+FALSE The following object is masked from 'package:readr':
+FALSE 
+FALSE     col_factor
+```
+
+```
+FALSE 
+FALSE Attaching package: 'rlang'
+```
+
+```
+FALSE The following objects are masked from 'package:purrr':
+FALSE 
+FALSE     %@%, as_function, flatten, flatten_chr, flatten_dbl, flatten_int,
+FALSE     flatten_lgl, flatten_raw, invoke, list_along, modify, prepend,
+FALSE     splice
+```
+
+```
+FALSE 
+FALSE Attaching package: 'vctrs'
+```
+
+```
+FALSE The following object is masked from 'package:dplyr':
+FALSE 
+FALSE     data_frame
+```
+
+```
+FALSE The following object is masked from 'package:tibble':
+FALSE 
+FALSE     data_frame
+```
+
+```
+FALSE ! train/test split: preprocessor 1/1, model 1/1 (predictions): prediction from a rank-defici...
 ```
 
 ```r
@@ -2278,12 +2345,12 @@ overallfit
 
 ```
 FALSE Warning: This tuning result has notes. Example notes on model fitting include:
-FALSE model (predictions): prediction from a rank-deficient fit may be misleading
+FALSE preprocessor 1/1, model 1/1 (predictions): prediction from a rank-deficient fit may be misleading
 ```
 
 ```
 FALSE # Resampling results
-FALSE # Monte Carlo cross-validation (0.67/0.33) with 1 resamples  
+FALSE # Manual resampling 
 FALSE # A tibble: 1 x 6
 FALSE   splits       id           .metrics      .notes       .predictions    .workflow
 FALSE   <list>       <chr>        <list>        <list>       <list>          <list>   
@@ -2298,11 +2365,11 @@ collect_metrics(overallfit)
 ```
 
 ```
-## # A tibble: 2 x 3
-##   .metric .estimator .estimate
-##   <chr>   <chr>          <dbl>
-## 1 rmse    standard       0.481
-## 2 rsq     standard       0.710
+## # A tibble: 2 x 4
+##   .metric .estimator .estimate .config             
+##   <chr>   <chr>          <dbl> <chr>               
+## 1 rmse    standard       0.481 Preprocessor1_Model1
+## 2 rsq     standard       0.710 Preprocessor1_Model1
 ```
 
 We can see that our RMSE is pretty similar for the testing data as well. 
@@ -2538,6 +2605,20 @@ Now our next step is to specify our model. Again the modeling options for parsni
 
 ```r
 library(rpart)
+```
+
+```
+## 
+## Attaching package: 'rpart'
+```
+
+```
+## The following object is masked from 'package:dials':
+## 
+##     prune
+```
+
+```r
 cat_model <- parsnip::decision_tree() %>%
              parsnip::set_mode("classification") %>%
              parsnip::set_engine("rpart")
@@ -2725,10 +2806,10 @@ resample_fit
 ## # A tibble: 4 x 4
 ##   splits          id    .metrics         .notes          
 ##   <list>          <chr> <list>           <list>          
-## 1 <split [75/25]> Fold1 <tibble [2 × 3]> <tibble [0 × 1]>
-## 2 <split [75/25]> Fold2 <tibble [2 × 3]> <tibble [0 × 1]>
-## 3 <split [75/25]> Fold3 <tibble [2 × 3]> <tibble [0 × 1]>
-## 4 <split [75/25]> Fold4 <tibble [2 × 3]> <tibble [0 × 1]>
+## 1 <split [75/25]> Fold1 <tibble [2 × 4]> <tibble [0 × 1]>
+## 2 <split [75/25]> Fold2 <tibble [2 × 4]> <tibble [0 × 1]>
+## 3 <split [75/25]> Fold3 <tibble [2 × 4]> <tibble [0 × 1]>
+## 4 <split [75/25]> Fold4 <tibble [2 × 4]> <tibble [0 × 1]>
 ```
 
 ```r
@@ -2736,11 +2817,11 @@ collect_metrics(resample_fit)
 ```
 
 ```
-## # A tibble: 2 x 5
-##   .metric  .estimator  mean     n std_err
-##   <chr>    <chr>      <dbl> <int>   <dbl>
-## 1 accuracy multiclass 0.94      4  0.0258
-## 2 roc_auc  hand_till  0.961     4  0.0172
+## # A tibble: 2 x 6
+##   .metric  .estimator  mean     n std_err .config             
+##   <chr>    <chr>      <dbl> <int>   <dbl> <chr>               
+## 1 accuracy multiclass 0.94      4  0.0258 Preprocessor1_Model1
+## 2 roc_auc  hand_till  0.961     4  0.0172 Preprocessor1_Model1
 ```
 
 The accuracy appears to be 94.7 percent. Often the performance will be reduced using cross validation.
@@ -2793,11 +2874,11 @@ tune::collect_metrics(resample_fit)
 ```
 
 ```
-## # A tibble: 2 x 5
-##   .metric  .estimator  mean     n std_err
-##   <chr>    <chr>      <dbl> <int>   <dbl>
-## 1 accuracy multiclass 0.94      4  0.0258
-## 2 roc_auc  hand_till  0.961     4  0.0172
+## # A tibble: 2 x 6
+##   .metric  .estimator  mean     n std_err .config             
+##   <chr>    <chr>      <dbl> <int>   <dbl> <chr>               
+## 1 accuracy multiclass 0.94      4  0.0258 Preprocessor1_Model1
+## 2 roc_auc  hand_till  0.961     4  0.0172 Preprocessor1_Model1
 ```
 
 ```r
@@ -2805,10 +2886,10 @@ tune::show_best(resample_fit, metric = "accuracy")
 ```
 
 ```
-## # A tibble: 1 x 5
-##   .metric  .estimator  mean     n std_err
-##   <chr>    <chr>      <dbl> <int>   <dbl>
-## 1 accuracy multiclass  0.94     4  0.0258
+## # A tibble: 1 x 6
+##   .metric  .estimator  mean     n std_err .config             
+##   <chr>    <chr>      <dbl> <int>   <dbl> <chr>               
+## 1 accuracy multiclass  0.94     4  0.0258 Preprocessor1_Model1
 ```
 
 
@@ -3042,6 +3123,12 @@ library(magrittr)
 ```
 ## 
 ## Attaching package: 'magrittr'
+```
+
+```
+## The following object is masked from 'package:rlang':
+## 
+##     set_names
 ```
 
 ```
@@ -3306,26 +3393,39 @@ library(tidymodels)
 ```
 
 ```
-## ── Attaching packages ────────────────────────────────────── tidymodels 0.1.1 ──
+## ── Attaching packages ────────────────────────────────────── tidymodels 0.1.2 ──
 ```
 
 ```
-## ✓ dials     0.0.9     ✓ yardstick 0.0.7
 ## ✓ modeldata 0.1.0
 ```
 
 ```
 ## ── Conflicts ───────────────────────────────────────── tidymodels_conflicts() ──
+## x rlang::%@%()          masks purrr::%@%()
+## x rlang::as_function()  masks purrr::as_function()
+## x vctrs::data_frame()   masks dplyr::data_frame(), tibble::data_frame()
 ## x scales::discard()     masks purrr::discard()
 ## x magrittr::extract()   masks tidyr::extract()
 ## x dplyr::filter()       masks stats::filter()
 ## x xts::first()          masks dplyr::first()
 ## x recipes::fixed()      masks stringr::fixed()
+## x rlang::flatten()      masks purrr::flatten()
+## x rlang::flatten_chr()  masks purrr::flatten_chr()
+## x rlang::flatten_dbl()  masks purrr::flatten_dbl()
+## x rlang::flatten_int()  masks purrr::flatten_int()
+## x rlang::flatten_lgl()  masks purrr::flatten_lgl()
+## x rlang::flatten_raw()  masks purrr::flatten_raw()
+## x rlang::invoke()       masks purrr::invoke()
 ## x dplyr::lag()          masks stats::lag()
 ## x xts::last()           masks dplyr::last()
-## x dials::prune()        masks rpart::prune()
-## x magrittr::set_names() masks purrr::set_names()
+## x rlang::list_along()   masks purrr::list_along()
+## x rlang::modify()       masks purrr::modify()
+## x rlang::prepend()      masks purrr::prepend()
+## x rpart::prune()        masks dials::prune()
+## x magrittr::set_names() masks rlang::set_names(), purrr::set_names()
 ## x yardstick::spec()     masks readr::spec()
+## x rlang::splice()       masks purrr::splice()
 ## x recipes::step()       masks stats::step()
 ```
 
@@ -4606,83 +4706,83 @@ resample_fit <- tune::fit_resamples(PM_wflow, vfold_pm)
 ```
 
 ```
-## ! Fold01: recipe: the standard deviation is zero, The correlation matrix has missi...
+## ! Fold01: preprocessor 1/1: the standard deviation is zero, The correlation matrix...
 ```
 
 ```
-## ! Fold01: model (predictions): There are new levels in a factor: Shelby, Faulkner,...
+## ! Fold01: preprocessor 1/1, model 1/1 (predictions): There are new levels in a fac...
 ```
 
 ```
-## ! Fold02: recipe: the standard deviation is zero, The correlation matrix has missi...
+## ! Fold02: preprocessor 1/1: the standard deviation is zero, The correlation matrix...
 ```
 
 ```
-## ! Fold02: model (predictions): There are new levels in a factor: White, Nevada, St...
+## ! Fold02: preprocessor 1/1, model 1/1 (predictions): There are new levels in a fac...
 ```
 
 ```
-## ! Fold03: recipe: the standard deviation is zero, The correlation matrix has missi...
+## ! Fold03: preprocessor 1/1: the standard deviation is zero, The correlation matrix...
 ```
 
 ```
-## ! Fold03: model (predictions): There are new levels in a factor: Houston, Garland,...
+## ! Fold03: preprocessor 1/1, model 1/1 (predictions): There are new levels in a fac...
 ```
 
 ```
-## ! Fold04: recipe: the standard deviation is zero, The correlation matrix has missi...
+## ! Fold04: preprocessor 1/1: the standard deviation is zero, The correlation matrix...
 ```
 
 ```
-## ! Fold04: model (predictions): There are new levels in a factor: Baldwin, Apache, ...
+## ! Fold04: preprocessor 1/1, model 1/1 (predictions): There are new levels in a fac...
 ```
 
 ```
-## ! Fold05: recipe: the standard deviation is zero, The correlation matrix has missi...
+## ! Fold05: preprocessor 1/1: the standard deviation is zero, The correlation matrix...
 ```
 
 ```
-## ! Fold05: model (predictions): There are new levels in a factor: Russell, Phillips...
+## ! Fold05: preprocessor 1/1, model 1/1 (predictions): There are new levels in a fac...
 ```
 
 ```
-## ! Fold06: recipe: the standard deviation is zero, The correlation matrix has missi...
+## ! Fold06: preprocessor 1/1: the standard deviation is zero, The correlation matrix...
 ```
 
 ```
-## ! Fold06: model (predictions): There are new levels in a factor: Crittenden, Monte...
+## ! Fold06: preprocessor 1/1, model 1/1 (predictions): There are new levels in a fac...
 ```
 
 ```
-## ! Fold07: recipe: the standard deviation is zero, The correlation matrix has missi...
+## ! Fold07: preprocessor 1/1: the standard deviation is zero, The correlation matrix...
 ```
 
 ```
-## ! Fold07: model (predictions): There are new levels in a factor: Arkansas, Sebasti...
+## ! Fold07: preprocessor 1/1, model 1/1 (predictions): There are new levels in a fac...
 ```
 
 ```
-## ! Fold08: recipe: the standard deviation is zero, The correlation matrix has missi...
+## ! Fold08: preprocessor 1/1: the standard deviation is zero, The correlation matrix...
 ```
 
 ```
-## ! Fold08: model (predictions): There are new levels in a factor: Etowah, Coconino,...
+## ! Fold08: preprocessor 1/1, model 1/1 (predictions): There are new levels in a fac...
 ```
 
 ```
-## ! Fold09: recipe: the standard deviation is zero, The correlation matrix has missi...
+## ! Fold09: preprocessor 1/1: the standard deviation is zero, The correlation matrix...
 ```
 
 ```
-## ! Fold09: model (predictions): There are new levels in a factor: Tuscaloosa, Cochi...
+## ! Fold09: preprocessor 1/1, model 1/1 (predictions): There are new levels in a fac...
 ```
 
 ```
-## ! Fold10: recipe: the standard deviation is zero, The correlation matrix has missi...
+## ! Fold10: preprocessor 1/1: the standard deviation is zero, The correlation matrix...
 ```
 
 ```
-## ! Fold10: model (predictions): There are new levels in a factor: Colbert, Walker, ...
+## ! Fold10: preprocessor 1/1, model 1/1 (predictions): There are new levels in a fac...
 ```
 
 We can now take a look at various performance metrics based on the fit of our cross validation "resamples". 
@@ -4696,9 +4796,9 @@ resample_fit
 
 ```
 ## Warning: This tuning result has notes. Example notes on model fitting include:
-## model (predictions): There are new levels in a factor: Baldwin, Apache, Contra Costa, Sacramento, Santa Cruz, Lee, Iberville, Plymouth, Dakota, Stearns, Hudson, Alamance, Muskogee, Berks, Virginia Beach City, Kanawha, Fremont, prediction from a rank-deficient fit may be misleading
-## recipe: the standard deviation is zero, The correlation matrix has missing values. 327 columns were excluded from the filter.
-## model (predictions): There are new levels in a factor: Etowah, Coconino, Mohave, Butte, Fresno, San Benito, Shasta, Solano, Tulare, Richmond, La Salle, Winnebago, Carter, Tangipahoa, Cecil, Santa Fe, Chautauqua, Onondaga, Billings, Deschutes, Umatilla, Cambria, York, Lexington, Ellis, Tarrant, Rutland, Berkeley, Outagamie, prediction from a rank-deficient fit may be misleading
+## preprocessor 1/1: the standard deviation is zero, The correlation matrix has missing values. 330 columns were excluded from the filter.
+## preprocessor 1/1: the standard deviation is zero, The correlation matrix has missing values. 331 columns were excluded from the filter.
+## preprocessor 1/1: the standard deviation is zero, The correlation matrix has missing values. 329 columns were excluded from the filter.
 ```
 
 ```
@@ -4707,16 +4807,16 @@ resample_fit
 ## # A tibble: 10 x 4
 ##    splits           id     .metrics         .notes          
 ##    <list>           <chr>  <list>           <list>          
-##  1 <split [525/59]> Fold01 <tibble [2 × 3]> <tibble [2 × 1]>
-##  2 <split [525/59]> Fold02 <tibble [2 × 3]> <tibble [2 × 1]>
-##  3 <split [525/59]> Fold03 <tibble [2 × 3]> <tibble [2 × 1]>
-##  4 <split [525/59]> Fold04 <tibble [2 × 3]> <tibble [2 × 1]>
-##  5 <split [526/58]> Fold05 <tibble [2 × 3]> <tibble [2 × 1]>
-##  6 <split [526/58]> Fold06 <tibble [2 × 3]> <tibble [2 × 1]>
-##  7 <split [526/58]> Fold07 <tibble [2 × 3]> <tibble [2 × 1]>
-##  8 <split [526/58]> Fold08 <tibble [2 × 3]> <tibble [2 × 1]>
-##  9 <split [526/58]> Fold09 <tibble [2 × 3]> <tibble [2 × 1]>
-## 10 <split [526/58]> Fold10 <tibble [2 × 3]> <tibble [2 × 1]>
+##  1 <split [525/59]> Fold01 <tibble [2 × 4]> <tibble [2 × 1]>
+##  2 <split [525/59]> Fold02 <tibble [2 × 4]> <tibble [2 × 1]>
+##  3 <split [525/59]> Fold03 <tibble [2 × 4]> <tibble [2 × 1]>
+##  4 <split [525/59]> Fold04 <tibble [2 × 4]> <tibble [2 × 1]>
+##  5 <split [526/58]> Fold05 <tibble [2 × 4]> <tibble [2 × 1]>
+##  6 <split [526/58]> Fold06 <tibble [2 × 4]> <tibble [2 × 1]>
+##  7 <split [526/58]> Fold07 <tibble [2 × 4]> <tibble [2 × 1]>
+##  8 <split [526/58]> Fold08 <tibble [2 × 4]> <tibble [2 × 1]>
+##  9 <split [526/58]> Fold09 <tibble [2 × 4]> <tibble [2 × 1]>
+## 10 <split [526/58]> Fold10 <tibble [2 × 4]> <tibble [2 × 1]>
 ```
 
 ```r
@@ -4724,11 +4824,11 @@ collect_metrics(resample_fit)
 ```
 
 ```
-## # A tibble: 2 x 5
-##   .metric .estimator  mean     n std_err
-##   <chr>   <chr>      <dbl> <int>   <dbl>
-## 1 rmse    standard   2.13     10  0.114 
-## 2 rsq     standard   0.370    10  0.0318
+## # A tibble: 2 x 6
+##   .metric .estimator  mean     n std_err .config             
+##   <chr>   <chr>      <dbl> <int>   <dbl> <chr>               
+## 1 rmse    standard   2.13     10  0.114  Preprocessor1_Model1
+## 2 rsq     standard   0.370    10  0.0318 Preprocessor1_Model1
 ```
 In the previous section, we demonstrated how to build a machine learning model (specifically a linear regression model) to predict air pollution with the `tidymodels` framework. 
 
@@ -4922,8 +5022,8 @@ RF_wflow_fit
 ##                      Number of trees: 500
 ## No. of variables tried at each split: 10
 ## 
-##           Mean of squared residuals: 2.857103
-##                     % Var explained: 60.35
+##           Mean of squared residuals: 2.839215
+##                     % Var explained: 60.6
 ```
 
 Now, we will look at variable importance:
@@ -5092,7 +5192,7 @@ tune_RF_results
 
 ```
 ## Warning: This tuning result has notes. Example notes on model fitting include:
-## model 15/20: 34 columns were requested but there were 33 predictors in the data. 33 will be used.
+## preprocessor 1/1, model 15/20: 34 columns were requested but there were 33 predictors in the data. 33 will be used.
 ```
 
 ```
@@ -5131,14 +5231,14 @@ tune_RF_results%>%
 
 ```
 ## # A tibble: 6 x 8
-##    mtry min_n .metric .estimator  mean     n std_err .config
-##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl> <chr>  
-## 1    12    33 rmse    standard   1.73     10  0.144  Model01
-## 2    12    33 rsq     standard   0.602    10  0.0372 Model01
-## 3    26    35 rmse    standard   1.75     10  0.148  Model02
-## 4    26    35 rsq     standard   0.578    10  0.0366 Model02
-## 5    21    40 rmse    standard   1.75     10  0.151  Model03
-## 6    21    40 rsq     standard   0.581    10  0.0386 Model03
+##    mtry min_n .metric .estimator  mean     n std_err .config              
+##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl> <chr>                
+## 1    12    33 rmse    standard   1.73     10  0.146  Preprocessor1_Model01
+## 2    12    33 rsq     standard   0.600    10  0.0383 Preprocessor1_Model01
+## 3    26    35 rmse    standard   1.76     10  0.149  Preprocessor1_Model02
+## 4    26    35 rsq     standard   0.573    10  0.0379 Preprocessor1_Model02
+## 5    21    40 rmse    standard   1.75     10  0.148  Preprocessor1_Model03
+## 6    21    40 rsq     standard   0.584    10  0.0375 Preprocessor1_Model03
 ```
 
 We can now use the `show_best()` function as it was truly intended, to see what values for `min_n` and `mtry` resulted in the best performance.
@@ -5150,9 +5250,9 @@ show_best(tune_RF_results, metric = "rmse", n =1)
 
 ```
 ## # A tibble: 1 x 8
-##    mtry min_n .metric .estimator  mean     n std_err .config
-##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl> <chr>  
-## 1    17     4 rmse    standard    1.67    10   0.145 Model17
+##    mtry min_n .metric .estimator  mean     n std_err .config              
+##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl> <chr>                
+## 1    17     4 rmse    standard    1.67    10   0.142 Preprocessor1_Model17
 ```
 There we have it... looks like an `mtry` of 17 and `min_n` of 4 had the best `rmse` value. You can verify this in the above output, but it is easier to just pull this row out using this function. We can see that the mean `rmse` value across the cross validation sets was 1.68. Before tuning it was 1.68 with a similar `std_err` so the performance was in this particular case wasn't really improved, but that will not always be the case.
 
@@ -5174,9 +5274,9 @@ tuned_RF_values
 
 ```
 ## # A tibble: 1 x 3
-##    mtry min_n .config
-##   <int> <int> <chr>  
-## 1    17     4 Model17
+##    mtry min_n .config              
+##   <int> <int> <chr>                
+## 1    17     4 Preprocessor1_Model17
 ```
 
 Now we can finalize the model/workflow that we we used for tuning with these values.
@@ -5211,11 +5311,11 @@ To see the performance on the test data we can use the `collect_metrics()` funct
 ```
 
 ```
-## # A tibble: 2 x 3
-##   .metric .estimator .estimate
-##   <chr>   <chr>          <dbl>
-## 1 rmse    standard       1.44 
-## 2 rsq     standard       0.638
+## # A tibble: 2 x 4
+##   .metric .estimator .estimate .config             
+##   <chr>   <chr>          <dbl> <chr>               
+## 1 rmse    standard       1.43  Preprocessor1_Model1
+## 2 rsq     standard       0.644 Preprocessor1_Model1
 ```
 
 Awesome! We can see that our `rmse` of 1.43 is quite similar with our testing data cross validation sets. We achieved quite good performance, which suggests that we would could predict other locations with more sparse monitoring based on our predictors with reasonable accuracy.
@@ -5233,15 +5333,15 @@ head(test_predictions)
 ```
 
 ```
-## # A tibble: 6 x 4
-##   id               .pred  .row value
-##   <chr>            <dbl> <int> <dbl>
-## 1 train/test split  11.1     4  11.7
-## 2 train/test split  12.0    10  13.1
-## 3 train/test split  12.2    12  12.2
-## 4 train/test split  11.5    15  12.2
-## 5 train/test split  11.4    19  11.4
-## 6 train/test split  12.0    22  12.2
+## # A tibble: 6 x 5
+##   id               .pred  .row value .config             
+##   <chr>            <dbl> <int> <dbl> <chr>               
+## 1 train/test split  11.2     4  11.7 Preprocessor1_Model1
+## 2 train/test split  11.8    10  13.1 Preprocessor1_Model1
+## 3 train/test split  12.2    12  12.2 Preprocessor1_Model1
+## 4 train/test split  11.5    15  12.2 Preprocessor1_Model1
+## 5 train/test split  11.4    19  11.4 Preprocessor1_Model1
+## 6 train/test split  12.0    22  12.2 Preprocessor1_Model1
 ```
 
 Nice!
