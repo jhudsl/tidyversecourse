@@ -21,10 +21,10 @@
   <meta name="twitter:description" content="This book demonstrates how to use the Tidyverse collection of packages for doing data science." />
   
 
-<meta name="author" content="Carrie Wright, Shannon C. Ellis, Stephanie C. Hicks and Roger D. Peng" />
+<meta name="author" content="Carrie Wright, Shannon E. Ellis, Stephanie C. Hicks and Roger D. Peng" />
 
 
-<meta name="date" content="2020-11-23" />
+<meta name="date" content="2020-12-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -561,16 +561,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The <code>slice_sample()</code> function of the <code>dplyr</code> package will allow you to see a sample of random rows in random order. The number of rows to show is specified by the <code>n</code> argument. This can be useful if you don’t want to print the entire tibble, but you want to get a greater sense of the values. This is a good option for data analysis reports, where printing the entire tibble would not be appropriate if the tibble is quite large.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="get-data.html#cb11-1"></a><span class="kw">slice_sample</span>(trees, <span class="dt">n =</span> <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##    Girth Height Volume
-## 1   12.9     85   33.8
-## 2   16.3     77   42.6
-## 3   14.2     80   31.7
-## 4   10.8     83   19.7
-## 5   14.5     74   36.3
-## 6   11.0     66   15.6
-## 7   12.0     75   19.1
-## 8   16.0     72   38.3
-## 9   17.5     82   55.7
-## 10  11.0     75   18.2</code></pre>
+## 1   16.3     77   42.6
+## 2   10.7     81   18.8
+## 3    8.8     63   10.2
+## 4   11.1     80   22.6
+## 5    8.6     65   10.3
+## 6   13.3     86   27.4
+## 7   13.7     71   25.7
+## 8   14.0     78   34.5
+## 9   11.4     76   21.4
+## 10   8.3     70   10.3</code></pre>
 <p>You can also use <code>slice_head()</code> or <code>slice_tail()</code> to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.</p>
 <p>This will show the first 5 rows.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="get-data.html#cb13-1"></a><span class="kw">slice_head</span>(trees, <span class="dt">n =</span> <span class="dv">5</span>)</span></code></pre></div>
@@ -1974,11 +1974,11 @@ After creating a directory called raw_data within a directory that we called dat
 <span id="cb142-7"><a href="get-data.html#cb142-7"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb142-8"><a href="get-data.html#cb142-8"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xlsx&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2020-11-23 16:30
+##   Date: 2020-12-09 22:11
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//Rtmp7eUHXU/filebf7974856499.xlsx</code></pre>
+## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpX8Q3QX/file170f474856499.xlsx</code></pre>
 <div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="get-data.html#cb144-1"></a>brady &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</span>
 <span id="cb144-2"><a href="get-data.html#cb144-2"></a></span>
 <span id="cb144-3"><a href="get-data.html#cb144-3"></a>brady</span></code></pre></div>
@@ -2013,11 +2013,11 @@ After creating a directory called raw_data within a directory that we called dat
 <span id="cb146-4"><a href="get-data.html#cb146-4"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb146-5"><a href="get-data.html#cb146-5"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2020-11-23 16:30
+##   Date: 2020-12-09 22:11
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//Rtmp7eUHXU/filebf7921980f48.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpX8Q3QX/file170f421980f48.xls</code></pre>
 <div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="get-data.html#cb148-1"></a>crime &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>, <span class="dt">skip =</span> <span class="dv">3</span>)</span>
 <span id="cb148-2"><a href="get-data.html#cb148-2"></a></span>
 <span id="cb148-3"><a href="get-data.html#cb148-3"></a><span class="co"># see data</span></span>
@@ -2050,11 +2050,11 @@ After creating a directory called raw_data within a directory that we called dat
 <span id="cb150-4"><a href="get-data.html#cb150-4"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb150-5"><a href="get-data.html#cb150-5"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2020-11-23 16:30
+##   Date: 2020-12-09 22:11
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//Rtmp7eUHXU/filebf795e37ee62.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpX8Q3QX/file170f45e37ee62.xls</code></pre>
 <div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="get-data.html#cb152-1"></a>land &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</span>
 <span id="cb152-2"><a href="get-data.html#cb152-2"></a></span>
 <span id="cb152-3"><a href="get-data.html#cb152-3"></a><span class="co"># see data</span></span>
