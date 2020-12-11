@@ -65,7 +65,7 @@ These points are known as the tidy data principles. Here, we'll break down each 
 
 2. Each different observation of that variable should be in a different row.
 
-![Principle #2 of Tidy Data](images/gslides/003.png6)
+![Principle #2 of Tidy Data](images/gslides/005.png)
 
 3. There should be one table for each "type" of data.
 
