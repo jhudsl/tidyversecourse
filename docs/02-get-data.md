@@ -101,16 +101,16 @@ slice_sample(trees, n = 10)
 
 ```
 ##    Girth Height Volume
-## 1   13.8     64   24.9
-## 2    8.3     70   10.3
-## 3   14.0     78   34.5
-## 4   11.2     75   19.9
-## 5   16.0     72   38.3
-## 6   14.2     80   31.7
-## 7   11.1     80   22.6
-## 8   17.5     82   55.7
-## 9   20.6     87   77.0
-## 10  11.0     75   18.2
+## 1   11.4     76   21.0
+## 2   20.6     87   77.0
+## 3   12.0     75   19.1
+## 4   16.3     77   42.6
+## 5   13.3     86   27.4
+## 6   10.8     83   19.7
+## 7    8.6     65   10.3
+## 8   17.3     81   55.4
+## 9   10.5     72   16.4
+## 10   8.3     70   10.3
 ```
 
 You can also use `slice_head()` or `slice_tail()` to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.
@@ -533,7 +533,7 @@ my_response <- c("Me", 10, 8, 2, 2, 1, 1)
 gs_add_row(survey_sheet, input = my_response)
 ```
 
-![`gs_add_row()`](images/gslides/034.png8)
+![`gs_add_row()`](images/gslides/042.png)
 
 If you now check the sheet on Google Sheets, you will see the appended row.
 
@@ -1236,7 +1236,7 @@ HTTP is based on a number of important verbs : `GET()`, `HEAD()`, `PATCH()`, `PU
 
 `GET()` will access the API, provide the API with the necessary information to request the data we want, and retrieve some output. 
 
-![API requests are made to an API endpoint to get an API response](images/gslides/068.png0)
+![API requests are made to an API endpoint to get an API response](images/gslides/074.png)
 
 ### Example 1: GitHub's API
 
@@ -1270,7 +1270,7 @@ api_response <- GET(url = paste0(url_git, 'users/', username, '/repos'))
 
 Note: In the code above, you see the function `paste0()`. This function concatenates (links together) each the pieces within the parentheses, where each piece is separated by a comma. This provides `GET()` with the URL we want to use as our endpoints! 
 
-![`httr` code to access GitHub](images/gslides/069.png4)
+![`httr` code to access GitHub](images/gslides/075.png)
 
 #### API response: `content()`
 
@@ -2062,11 +2062,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2020-12-11 18:55
+##   Date: 2020-12-11 19:41
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpUg0twv/file3a3274856499.xlsx
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpuaV5zc/file443574856499.xlsx
 ```
 
 ```r
@@ -2114,11 +2114,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2020-12-11 18:55
+##   Date: 2020-12-11 19:41
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpUg0twv/file3a3221980f48.xls
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpuaV5zc/file443521980f48.xls
 ```
 
 ```r
@@ -2165,11 +2165,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2020-12-11 18:55
+##   Date: 2020-12-11 19:41
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpUg0twv/file3a325e37ee62.xls
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpuaV5zc/file44355e37ee62.xls
 ```
 
 ```r

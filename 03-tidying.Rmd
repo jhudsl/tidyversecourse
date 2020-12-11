@@ -284,7 +284,7 @@ library(ggplot2)
 glimpse(msleep)
 ```
 
-![Glimpse of msleep dataset](images/gslides/085.png33)
+![Glimpse of msleep dataset](images/gslides/093.png)
 
 #### Filtering Rows
 
@@ -306,7 +306,7 @@ filter(msleep, order == "Primates")
 
 The output is the same as above here, but the code is slightly less readable. This is why we use the pipe (`%>%`)!
 
-![Filtered to only include Primates](images/gslides/085.png64)
+![Filtered to only include Primates](images/gslides/094.png)
 
 Now, we have a smaller dataset of only 12 mammals (as opposed to the original 83) and we can see that the `order` variable column only includes "Primates." 
 
@@ -321,7 +321,7 @@ Note that we have used the "greater than" comparison operator with `sleep_total`
 
 Now, we have a dataset focused in on only 5 mammals, all of which are primates who sleep for more than 10 hours a night total.
 
-![Numerically filtered dataset](images/gslides/085.png79)
+![Numerically filtered dataset](images/gslides/095.png)
 
 We can obtain the same result with the AND `&` logical operator instead of separating filtering conditions with a comma:
 
@@ -345,7 +345,7 @@ msleep %>%
 ```
 
 
-![Data with selected columns](images/gslides/085.png87)
+![Data with selected columns](images/gslides/096.png)
 
 Now, using `select()` we see that we still have the five rows we filtered to before, but we only have the four columns specified using `select()`. Here you can hopefully see the power of the pipe operator to chain together several commands in a row. Without the pipe operator, the full command would look like this:
 
@@ -365,7 +365,7 @@ msleep %>%
   select(name, total = sleep_total, rem = sleep_rem, cycle = sleep_cycle)
 ```
 
-![Data with renamed columns names with `select()`](images/gslides/085.png94)
+![Data with renamed columns names with `select()`](images/gslides/097.png)
 
 It's important to keep in mind that when using `select()` to rename columns, only the specified columns will be included and renamed in the output. If you, instead, want to change the names of a few columns but return *all* columns in your output, you'll want to use `rename()`. For example, the following, returns a data frame with all 11 columns, where the column names for three columns specified within `rename()` function have been renamed.
 
@@ -1361,7 +1361,7 @@ To extract only the portions of the string that match the specified pattern, you
 str_extract(names, "^M")
 ```
 
-![`str_extract()` returns the portions of the strings that match the pattern specified](images/gslides/133.png2)
+![`str_extract()` returns the portions of the strings that match the pattern specified](images/gslides/147.png)
 
 #### Replace matches: `str_replace()`
 
@@ -1457,7 +1457,7 @@ Using the definitions above, we can see that the following code will identify pa
 str_view_all(addresses, "n+")
 ```
 
-![+ specifies to match the pattern one or more times](images/gslides/134.png7)
+![+ specifies to match the pattern one or more times](images/gslides/154.png)
 
 While the difference is slight in the output here, we're identifying portions of the string where n shows up exactly once. So, instead of the 'nn' in Pennsylvania matching together, the code here splits these up, due to the fact that we're specifying the pattern match 'n' exactly one time:
 
