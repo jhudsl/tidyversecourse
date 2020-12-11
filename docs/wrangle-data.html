@@ -24,7 +24,7 @@
 <meta name="author" content="Carrie Wright, Shannon E. Ellis, Stephanie C. Hicks and Roger D. Peng" />
 
 
-<meta name="date" content="2020-12-09" />
+<meta name="date" content="2020-12-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -507,7 +507,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This course covers many of the critical details about handling tidy and non-tidy data in R such as converting from wide to long formats, manipulating tables with the <code>dplyr</code> package, understanding different R data types, processing text data with regular expressions, and conducting basic exploratory data analyses. Investing the time to learn these data wrangling techniques will make your analyses more efficient, more reproducible, and more understandable to your data science team.</p>
 <p>In this specialization we assume familiarity with the R programming language. If you are not yet familiar with R, we suggest you first complete <a href="https://www.coursera.org/learn/r-programming">R Programming</a> before returning to complete this course.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&amp;pageid=g38bb68a535_0_1" alt="" />
+<img src="gslides/085.png" alt="" />
 <p class="caption">Data wrangling example</p>
 </div>
 </div>
@@ -528,7 +528,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">3.3.1</span> Wide Data</h3>
 <p>Wide data has a column for each variable and a row for each observation. Data are often entered and stored in this manner. This is because wide data are often easy to understand at a glance. For example, this is a wide dataset:</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1zcn01MIeABs90ZABS2Oh--HDPZCfUHP5Utdex4TvbZs/export/png?id=1zcn01MIeABs90ZABS2Oh--HDPZCfUHP5Utdex4TvbZs&amp;pageid=g2bfdb07292_0_151" alt="" />
+<img src="gslides/086.png" alt="" />
 <p class="caption">Wide dataset</p>
 </div>
 <p>Up until this point, we would have described this dataset as a rectangular, tidy dataset. With the additional information just introduced, we can also state that it is a <em>wide</em> dataset. Here, you can clearly see what measurements were taken for each individual and can get a sense of how many individuals are contained in the dataset.</p>
@@ -538,7 +538,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">3.3.2</span> Long Data</h3>
 <p>Long data, on the other hand, has one column indicating the type of variable contained in that row and then a separate row for the value for that variable. Each row contains a single observation for a single variable. It’s <em>still</em> a tidy datasets, but the information is stored in a long format:</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1zcn01MIeABs90ZABS2Oh--HDPZCfUHP5Utdex4TvbZs/export/png?id=1zcn01MIeABs90ZABS2Oh--HDPZCfUHP5Utdex4TvbZs&amp;pageid=g38bb68a532_0_0" alt="" />
+<img src="gslides/087.png" alt="" />
 <p class="caption">Long dataset</p>
 </div>
 <p>This long dataset includes the exact same information as the previous wide dataset; it is just stored differently. It’s harder to see visually how many different measurements were taken and on how many different people, but the same information is there.</p>
@@ -548,7 +548,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">3.3.3</span> Reshaping the Data</h3>
 <p>Converting your data from wide-to-long or from long-to-wide data formats is referred to as <strong>reshaping</strong> your data.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1zcn01MIeABs90ZABS2Oh--HDPZCfUHP5Utdex4TvbZs/export/png?id=1zcn01MIeABs90ZABS2Oh--HDPZCfUHP5Utdex4TvbZs&amp;pageid=g38bb68a532_0_13" alt="" />
+<img src="gslides/088.png" alt="" />
 <p class="caption">Reshaping data</p>
 </div>
 <p>Within the tidyverse, <a href="https://tidyr.tidyverse.org/">tidyr</a> is the go-to package for accomplishing this task. Within the <code>tidyr</code> package, you’ll have to become familiar with a number of functions. The two most pertinent to reshaping data are: <code>pivot_wider()</code> and <code>pivot_longer()</code>.</p>
@@ -606,7 +606,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 Temp     72  
 ## # … with 908 more rows</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1zcn01MIeABs90ZABS2Oh--HDPZCfUHP5Utdex4TvbZs/export/png?id=1zcn01MIeABs90ZABS2Oh--HDPZCfUHP5Utdex4TvbZs&amp;pageid=g38bb68a532_0_205" alt="" />
+<img src="gslides/089.png" alt="" />
 <p class="caption">Longer dataset</p>
 </div>
 <p>However, it’s very easy to change the names of these columns within <code>pivot_longer()</code>. To do so you specify what the <code>names_to</code> and <code>values_to</code> columns names should be within <code>pivot_longer()</code>:</p>
@@ -632,7 +632,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 Temp      72  
 ## # … with 908 more rows</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1zcn01MIeABs90ZABS2Oh--HDPZCfUHP5Utdex4TvbZs/export/png?id=1zcn01MIeABs90ZABS2Oh--HDPZCfUHP5Utdex4TvbZs&amp;pageid=g38bb68a532_0_213" alt="" />
+<img src="gslides/090.png" alt="" />
 <p class="caption">gather column names changed</p>
 </div>
 <p>However, you’re likely not interested in your day and month variable being separated out into their own variables within the <code>variable</code> column. In fact, knowing the day and month associated with a particular data point helps identify that particular data point. To account for this, you can exclude <code>day</code> and <code>month</code> from the variables being included in the <code>variable</code> column by specifying all the variables that you <em>do</em> want included in the <code>variable</code> column. Here, that means specifying <code>Ozone</code>, <code>Solar.R</code>, <code>Wind</code>, and <code>Temp</code>. This will keep <code>Day</code> and <code>Month</code> in their own columns, allowing each row to be identified by the specific day and month being discussed.</p>
@@ -661,7 +661,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10     5     3 Solar.R  149  
 ## # … with 602 more rows</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1zcn01MIeABs90ZABS2Oh--HDPZCfUHP5Utdex4TvbZs/export/png?id=1zcn01MIeABs90ZABS2Oh--HDPZCfUHP5Utdex4TvbZs&amp;pageid=g38bb68a532_0_222" alt="" />
+<img src="gslides/091.png" alt="" />
 <p class="caption">gather specifying which variables to include in long format</p>
 </div>
 <p>Now, when you look at the top of this object, you’ll see that <code>Month</code> and <code>Day</code> remain in the data frame and that variable combines information from the other columns in <code>airquality</code> (<code>Ozone</code>, <code>Solar.R</code>, <code>Wind</code>, <code>Temp</code>). This is still a long format dataset; however, it has used <code>Month</code> and <code>Day</code> as IDs when reshaping the data frame.</p>
@@ -707,7 +707,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10    NA     194   8.6    69     5    10
 ## # … with 143 more rows</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1zcn01MIeABs90ZABS2Oh--HDPZCfUHP5Utdex4TvbZs/export/png?id=1zcn01MIeABs90ZABS2Oh--HDPZCfUHP5Utdex4TvbZs&amp;pageid=g38bb68a532_0_236" alt="" />
+<img src="gslides/092.png" alt="" />
 <p class="caption">spread data</p>
 </div>
 <p>While reshaping data may not <em>read</em> like the most exciting topic, having this skill will be indispensable as you start working with data. It’s best to get these skills down pat early!</p>
@@ -805,7 +805,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb176-2"><a href="wrangle-data.html#cb176-2"></a><span class="kw">library</span>(ggplot2)</span>
 <span id="cb176-3"><a href="wrangle-data.html#cb176-3"></a><span class="kw">glimpse</span>(msleep)</span></code></pre></div>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&amp;pageid=g38bb68a535_0_133" alt="" />
+<img src="gslides/085.png33" alt="" />
 <p class="caption">Glimpse of msleep dataset</p>
 </div>
 <div id="filtering-rows" class="section level4" number="3.4.3.1">
@@ -851,7 +851,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # … with 2 more variables: brainwt &lt;dbl&gt;, bodywt &lt;dbl&gt;</code></pre>
 <p>The output is the same as above here, but the code is slightly less readable. This is why we use the pipe (<code>%&gt;%</code>)!</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&amp;pageid=g38bb68a535_0_164" alt="" />
+<img src="gslides/085.png64" alt="" />
 <p class="caption">Filtered to only include Primates</p>
 </div>
 <p>Now, we have a smaller dataset of only 12 mammals (as opposed to the original 83) and we can see that the <code>order</code> variable column only includes “Primates.”</p>
@@ -870,7 +870,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Note that we have used the “greater than” comparison operator with <code>sleep_total</code>.</p>
 <p>Now, we have a dataset focused in on only 5 mammals, all of which are primates who sleep for more than 10 hours a night total.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&amp;pageid=g38bb68a535_0_179" alt="" />
+<img src="gslides/085.png79" alt="" />
 <p class="caption">Numerically filtered dataset</p>
 </div>
 <p>We can obtain the same result with the AND <code>&amp;</code> logical operator instead of separating filtering conditions with a comma:</p>
@@ -903,7 +903,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 Slow loris          11        NA         NA   
 ## 5 Potto               11        NA         NA</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&amp;pageid=g38bb68a535_0_187" alt="" />
+<img src="gslides/085.png87" alt="" />
 <p class="caption">Data with selected columns</p>
 </div>
 <p>Now, using <code>select()</code> we see that we still have the five rows we filtered to before, but we only have the four columns specified using <code>select()</code>. Here you can hopefully see the power of the pipe operator to chain together several commands in a row. Without the pipe operator, the full command would look like this:</p>
@@ -925,7 +925,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 Slow loris    11    NA   NA   
 ## 5 Potto         11    NA   NA</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&amp;pageid=g38bb68a535_0_194" alt="" />
+<img src="gslides/085.png94" alt="" />
 <p class="caption">Data with renamed columns names with <code>select()</code></p>
 </div>
 <p>It’s important to keep in mind that when using <code>select()</code> to rename columns, only the specified columns will be included and renamed in the output. If you, instead, want to change the names of a few columns but return <em>all</em> columns in your output, you’ll want to use <code>rename()</code>. For example, the following, returns a data frame with all 11 columns, where the column names for three columns specified within <code>rename()</code> function have been renamed.</p>
@@ -941,7 +941,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 Slow l… Nycti… carni Prim… &lt;NA&gt;          11    NA   NA     13    0.0125   1.4 
 ## 5 Potto   Perod… omni  Prim… lc            11    NA   NA     13   NA        1.1</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&amp;pageid=g4518ccec72_0_0" alt="" />
+<img src="gslides/098.png" alt="" />
 <p class="caption">Data with renamed columns names using <code>rename()</code></p>
 </div>
 </div>
@@ -965,7 +965,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5 Potto             NA         NA           11</code></pre>
 <p>Here we see that sleep_rem <code>name</code> is displayed first followed by <code>sleep_rem</code>, <code>sleep_cycle</code>, and <code>sleep_total</code>, just as it was specified within <code>select()</code>.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&amp;pageid=g38bb68a535_0_204" alt="" />
+<img src="gslides/099.png" alt="" />
 <p class="caption">Data with reordered columns names</p>
 </div>
 </div>
@@ -985,7 +985,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 Potto             NA         NA           11  
 ## 5 Owl monkey         1.8       NA           17</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&amp;pageid=g38bb68a535_0_215" alt="" />
+<img src="gslides/100.png" alt="" />
 <p class="caption">Data arranged by total sleep in ascending order</p>
 </div>
 <p>While <code>arrange</code> sorts variables in ascending order, it’s also possible to sort in descending (largest to smallest) order. To do this you just use <code>desc()</code> with the following syntax:</p>
@@ -1003,7 +1003,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5 Macaque            1.2        0.75        10.1</code></pre>
 <p>By putting <code>sleep_total</code> within <code>desc()</code>, <code>arrange()</code> will now sort your data from the primates with the longest total sleep to the shortest.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&amp;pageid=g38bb68a535_0_215" alt="" />
+<img src="gslides/100.png" alt="" />
 <p class="caption">Data arranged by total sleep in descending order</p>
 </div>
 <p><code>arrange()</code> can also be used to order non-numeric variables. For example, <code>arrange()</code> will sort character vectors alphabetically.</p>
@@ -1020,7 +1020,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 Potto             NA         NA           11  
 ## 5 Slow loris        NA         NA           11</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&amp;pageid=g38bb68a535_0_234" alt="" />
+<img src="gslides/102.png" alt="" />
 <p class="caption">Data arranged alphabetically by name</p>
 </div>
 <p>If you would like to reorder rows based on information in multiple columns, you can specify them separated by commas. This is useful if you have repeated labels in one column and want to sort within a category based on information in another column. In the example here, if there were repeated primates, this would sort the repeats based on their total sleep.</p>
@@ -1056,7 +1056,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 Potto             NA         NA           11               660
 ## 5 Slow loris        NA         NA           11               660</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&amp;pageid=g38bb68a535_0_242" alt="" />
+<img src="gslides/103.png" alt="" />
 <p class="caption">Mutate to add new column to data</p>
 </div>
 </div>
@@ -1084,7 +1084,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 PE = Probably extinct (informal)             
 ## 11 PEW = Probably extinct in the wild (informal)</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&amp;pageid=g38bb68a535_0_250" alt="" />
+<img src="gslides/104.png" alt="" />
 <p class="caption">Conservation dataset</p>
 </div>
 <p>In this dataset, we see that there is a single column that includes <em>both</em> the abbreviation for the conservation term as well as what that abbreviation means. Recall that this violates one of the tidy data principles covered in the first lesson: Put just one thing in a cell. To work with these data, you could imagine that you may want these two pieces of information (the abbreviation and the description) in two different columns. To accomplish this in R, you’ll want to use <code>separate()</code> from <code>tidyr</code>.</p>
@@ -1108,7 +1108,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 11 PEW          Probably extinct in the wild (informal)</code></pre>
 <p>The output of this code shows that we now have two separate columns with the information in the original column separated out into <code>abbreviation</code> and <code>description</code>.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&amp;pageid=g38bb68a535_0_261" alt="" />
+<img src="gslides/105.png" alt="" />
 <p class="caption">Output of separate()</p>
 </div>
 </div>
@@ -1134,7 +1134,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 PE = Probably extinct (informal)             
 ## 11 PEW = Probably extinct in the wild (informal)</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&amp;pageid=g38bb68a535_0_408" alt="" />
+<img src="gslides/106.png" alt="" />
 <p class="caption">Output of unite()</p>
 </div>
 </div>
@@ -1143,7 +1143,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>While maybe not quite as important as some of the other functions mentioned in this lesson, a function that will likely prove very helpful as you start analyzing lots of different datasets is <code>clean_names()</code> from the <code>janitor</code> package. This function takes the existing column names of your dataset, converts them all to lowercase letters and numbers, and separates all words using the underscore character. For example, there is a space in the column name for conservation. The <code>clean_names()</code>function will convert <code>conservation abbreviation</code> to <code>conservation_abbreviation</code>. These cleaned up column names are a lot easier to work with when you have large datasets.</p>
 <p>So remember this is what the data first looked like:</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&amp;pageid=g38bb68a535_0_250" alt="" />
+<img src="gslides/104.png" alt="" />
 <p class="caption">Conservation dataset</p>
 </div>
 <p>And now with “clean names” it looks like this:</p>
@@ -1164,7 +1164,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 PE = Probably extinct (informal)             
 ## 11 PEW = Probably extinct in the wild (informal)</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&amp;pageid=g38bb68a535_0_329" alt="" />
+<img src="gslides/108.png" alt="" />
 <p class="caption">clean_names() output</p>
 </div>
 </div>
@@ -1187,7 +1187,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb212-11"><a href="wrangle-data.html#cb212-11"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">conservation =</span> <span class="kw">toupper</span>(conservation)) <span class="op">%&gt;%</span></span>
 <span id="cb212-12"><a href="wrangle-data.html#cb212-12"></a><span class="st">  </span><span class="kw">left_join</span>(conserve, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;conservation&quot;</span> =<span class="st"> &quot;abbreviation&quot;</span>))</span></code></pre></div>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&amp;pageid=g38bb68a535_0_265" alt="" />
+<img src="gslides/109.png" alt="" />
 <p class="caption">Data resulting from left_join</p>
 </div>
 <p>It’s important to note that there are many other ways to join data, which are covered in more detail on this <a href="http://stat545.com/bit001_dplyr-cheatsheet.html">dplyr join cheatsheet</a> from Jenny Bryan. For now, it’s important to know that joining datasets is done easily in R using tools in <code>dplyr</code>. As you join data frames in your own work, it’s a good idea to refer back to this cheatsheet for assistance.</p>
@@ -1203,7 +1203,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb213-3"><a href="wrangle-data.html#cb213-3"></a>msleep <span class="op">%&gt;%</span></span>
 <span id="cb213-4"><a href="wrangle-data.html#cb213-4"></a><span class="st">  </span><span class="kw">group_by</span>(order)</span></code></pre></div>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&amp;pageid=g38bb68a535_0_278" alt="" />
+<img src="gslides/110.png" alt="" />
 <p class="caption">group_by() output</p>
 </div>
 <p>In fact, the only aspect of the output that is different is that the number of different orders is now printed on your screen. However, in the next section, you’ll see that the output from any further functions you carry out at this point will differ between the two datasets.</p>
@@ -1233,7 +1233,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1    83</code></pre>
 <p>This provides a summary of the data with the new column name we specified above (<code>N</code>) and the number of samples in the dataset. Note that we could also obtain the same information by directly obtaining the number of rows in the data frame with <code>nrow(msleep)</code>.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&amp;pageid=g38bb68a535_0_285" alt="" />
+<img src="gslides/111.png" alt="" />
 <p class="caption">Summarize with n()</p>
 </div>
 <p>However, if you wanted to count how many of each different <code>order</code> of mammal you had. You would first <code>group_by(order)</code> and then use <code>summarize()</code>. This will summarize within group.</p>
@@ -1266,7 +1266,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 19 Soricomorpha        5</code></pre>
 <p>The output from this, like above, includes the column name we specified in summarize (<code>N</code>). However, it includes the number of samples in the group_by variable we specified (<code>order</code>).</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&amp;pageid=g38bb68a535_0_293" alt="" />
+<img src="gslides/112.png" alt="" />
 <p class="caption">group_by() and summarize with n()</p>
 </div>
 <p>There are other ways in which the data can be summarized using <code>summarize()</code>. In addition to using n() to count the number of samples within a group, you can also summarize using other helpful functions within R, such as <code>mean()</code>, <code>median()</code>, <code>min()</code>, and <code>max()</code>.</p>
@@ -1299,7 +1299,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 18 Scandentia          1       8.9 
 ## 19 Soricomorpha        5      11.1</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&amp;pageid=g38bb68a535_0_300" alt="" />
+<img src="gslides/113.png" alt="" />
 <p class="caption">summarize using mean()</p>
 </div>
 </div>
@@ -1330,7 +1330,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##       Scandentia  1 0.01204819
 ##     Soricomorpha  5 0.06024096</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&amp;pageid=g38bb68a535_0_304" alt="" />
+<img src="gslides/114.png" alt="" />
 <p class="caption">summarize using tabyl() from janitor</p>
 </div>
 <p>Note, that <code>tabyl</code> assumes categorical variables. If you want to summarize numeric variables <code>summary()</code> works well. For example, this code will summarize the values in <code>msleep$awake</code> for you.</p>
@@ -1338,7 +1338,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    4.10   10.25   13.90   13.57   16.15   22.10</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&amp;pageid=g38bb68a535_0_320" alt="" />
+<img src="gslides/115.png" alt="" />
 <p class="caption">summarize numeric variables</p>
 </div>
 </div>
@@ -1721,7 +1721,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4/export/png?id=1Z1pukaF-HrZHEwSfr3SV8N2Slo2rMEJxpgl1qJv-QL4&amp;pageid=g38bb68a535_0_313" alt="" />
+<img src="gslides/116.png" alt="" />
 <p class="caption">summarize entire dataset using skim() from skimr</p>
 </div>
 <p>Note that this function allows for you to specify which columns you’d like to summarize, if you’re not interested in seeing a summary of the entire dataset:</p>
@@ -2171,7 +2171,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In R, categorical data are handled as factors. By definition, categorical data are limited in that they have a set number of possible values they can take. For example, there are 12 months in a calendar year. In a month variable, each observation is limited to taking one of these twelve values. Thus, with a limited number of possible values, month is a categorical variable. Categorical data, which will be referred to as factors for the rest of this lesson, are regularly found in data. Learning how to work with this type of variable effectively will be incredibly helpful.</p>
 <p>To make working with factors simpler, we’ll utilize the <code>forcats</code> package, a core tidyverse package. All functions within <code>forcats</code> begin with <code>fct_</code>, making them easier to look up and remember. As before, to see available functions you can type <code>?fct_</code> in your RStudio console. A drop-down menu will appear with all the possible forcats functions.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU/export/png?id=16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU&amp;pageid=g391e563ea4_0_0" alt="" />
+<img src="gslides/117.png" alt="" />
 <p class="caption">fct_ output from RStudio</p>
 </div>
 <div id="factor-review" class="section level3" number="3.5.1">
@@ -2188,7 +2188,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb266-2"><a href="wrangle-data.html#cb266-2"></a><span class="kw">sort</span>(some_months)</span></code></pre></div>
 <pre><code>## [1] &quot;Apr&quot; &quot;Dec&quot; &quot;Jan&quot; &quot;Jul&quot; &quot;Mar&quot;</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU/export/png?id=16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU&amp;pageid=g391e563ea4_0_12" alt="" />
+<img src="gslides/118.png" alt="" />
 <p class="caption">sort sorts variable alphabetically</p>
 </div>
 <p>While you and I know that this is not how months should be ordered, we haven’t yet told R that. To do so, we need to let R know that it’s a factor variable and what the levels of that factor variable should be.</p>
@@ -2204,7 +2204,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] Jan Mar Apr Jul Dec
 ## Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU/export/png?id=16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU&amp;pageid=g391e563ea4_0_16" alt="" />
+<img src="gslides/119.png" alt="" />
 <p class="caption">defining the factor levels sorts this variable sensibly</p>
 </div>
 <p>Here, we specify all the possible values that the factor could take in the <code>levels = all_months</code> argument. So, even though not all twelve months are included in the some_months object, we’ve stated that all of the months are possible values. Further, when you sort this variable, it now sorts in the sensical way!</p>
@@ -2223,7 +2223,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] Jul Dec Jan Mar Apr
 ## Levels: Jul Aug Sep Oct Nov Dec Jan Feb Mar Apr May Jun</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU/export/png?id=16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU&amp;pageid=g391e563ea4_0_47" alt="" />
+<img src="gslides/120.png" alt="" />
 <p class="caption">fct_relevel enables you to change the order of your factor levels</p>
 </div>
 <p>After re-leveling, when we sort this factor, we see that Jul is placed first, as specified by the level re-ordering.</p>
@@ -2243,7 +2243,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] Mar Dec Jan Apr Jul
 ## Levels: Mar Dec Jan Apr Jul</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU/export/png?id=16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU&amp;pageid=g391e563ea4_0_52" alt="" />
+<img src="gslides/121.png" alt="" />
 <p class="caption">fct_inorder() assigns levels in the same order the level is seen in the data</p>
 </div>
 <p>We see now with <code>fct_inorder()</code> that even when we sort the output, it does not sort the factor alphabetically, nor does it put it in calendar order. In fact, it stays in the same order as the input, just as we specified.</p>
@@ -2252,7 +2252,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">3.5.4</span> Advanced Factoring</h3>
 <p>For the remainder of this lesson, we’re going to return to using a dataset that’s in R by default. We’ll use the <code>chickwts</code> dataset for exploring the remaining advanced functions. This dataset includes data from an experiment that was looking to compare the “effectiveness of various feed supplements on the growth rate of chickens.”</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU/export/png?id=16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU&amp;pageid=g391e563ea4_0_24" alt="" />
+<img src="gslides/122.png" alt="" />
 <p class="caption">chickwts dataset</p>
 </div>
 </div>
@@ -2274,7 +2274,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] horsebean horsebean horsebean horsebean horsebean horsebean
 ## Levels: soybean casein linseed sunflower meatmeal horsebean</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU/export/png?id=16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU&amp;pageid=g391e563ea4_0_56" alt="" />
+<img src="gslides/123.png" alt="" />
 <p class="caption">fct_infreq orders levels based on frequency in dataset</p>
 </div>
 <p>As expected, <code>soybean</code>, the most frequent level, appears as the first level and <code>horsebean</code>, the least frequent level, appears last. The rest of the levels are sorted by frequency.</p>
@@ -2287,7 +2287,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] horsebean horsebean horsebean horsebean horsebean horsebean
 ## Levels: horsebean meatmeal sunflower linseed casein soybean</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU/export/png?id=16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU&amp;pageid=g391e563ea4_0_20" alt="" />
+<img src="gslides/124.png" alt="" />
 <p class="caption">fct_rev() reverses the factor level order</p>
 </div>
 </div>
@@ -2301,7 +2301,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb286-5"><a href="wrangle-data.html#cb286-5"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <p><img src="03-tidying_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU/export/png?id=16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU&amp;pageid=g391e563ea4_0_69" alt="" />
+<img src="gslides/125.png" alt="" />
 <p class="caption">fct_reorder allows you to re-level a factor based on a secondary numeric variable</p>
 </div>
 </div>
@@ -2328,7 +2328,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##         seed 24 0.3380282
 ##         meal 11 0.1549296</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU/export/png?id=16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU&amp;pageid=g391e563ea4_0_79" alt="" />
+<img src="gslides/126.png" alt="" />
 <p class="caption">fct_recode() can be used to group multiple levels into a single level and/or to rename levels</p>
 </div>
 </div>
@@ -2344,7 +2344,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##           high 54 0.7605634
 ##            low 17 0.2394366</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU/export/png?id=16Y8swNgNfpmZPqDfw-lO36MXRc2T66zWoFB5Y35rmJU&amp;pageid=g391e563ea4_0_84" alt="" />
+<img src="gslides/127.png" alt="" />
 <p class="caption">converting a numeric type variable to a factor</p>
 </div>
 </div>
@@ -2375,7 +2375,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb296-2"><a href="wrangle-data.html#cb296-2"></a><span class="kw">dmy</span>(<span class="st">&quot;29-Sep-1988&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;1988-09-29&quot;</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1iLU-H6-GZw7EhL2syFZnjn_tC_cI6s9PmKRxcSOjg1c/export/png?id=1iLU-H6-GZw7EhL2syFZnjn_tC_cI6s9PmKRxcSOjg1c&amp;pageid=g39252087a2_0_22" alt="" />
+<img src="gslides/128.png" alt="" />
 <p class="caption">creating date and date-time objects</p>
 </div>
 <p>However, this has only covered working with date objects. To work with date-time objects, you have to further include hour (<code>h</code>), minute(<code>m</code>), and second (<code>s</code>) into the function. For example, in the code below, you can see that the output contains time information in addition to the date information generated in the functions above:</p>
@@ -2409,7 +2409,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10  2013     1     1 2013-01-01
 ## # … with 336,766 more rows</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1iLU-H6-GZw7EhL2syFZnjn_tC_cI6s9PmKRxcSOjg1c/export/png?id=1iLU-H6-GZw7EhL2syFZnjn_tC_cI6s9PmKRxcSOjg1c&amp;pageid=g39252087a2_0_0" alt="" />
+<img src="gslides/129.png" alt="" />
 <p class="caption">mutate() and make_date() create a new column – departure – with a date object</p>
 </div>
 <p>A similar procedure is used to create a date-time object; however, this requires the function <code>make_datetime()</code> and requires columns with information about time be specified. Below, <code>hour</code> and <code>minute</code> are included to the function’s input.</p>
@@ -2433,7 +2433,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10  2013     1     1     6      0 2013-01-01 06:00:00
 ## # … with 336,766 more rows</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1iLU-H6-GZw7EhL2syFZnjn_tC_cI6s9PmKRxcSOjg1c/export/png?id=1iLU-H6-GZw7EhL2syFZnjn_tC_cI6s9PmKRxcSOjg1c&amp;pageid=g39252087a2_0_4" alt="" />
+<img src="gslides/130.png" alt="" />
 <p class="caption">mutate() and make_datetime() create a new column – departure – with a date-time object</p>
 </div>
 </div>
@@ -2458,7 +2458,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb305-12"><a href="wrangle-data.html#cb305-12"></a><span class="co">## label with actual day of the week</span></span>
 <span id="cb305-13"><a href="wrangle-data.html#cb305-13"></a><span class="kw">wday</span>(mydate, <span class="dt">label =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1iLU-H6-GZw7EhL2syFZnjn_tC_cI6s9PmKRxcSOjg1c/export/png?id=1iLU-H6-GZw7EhL2syFZnjn_tC_cI6s9PmKRxcSOjg1c&amp;pageid=g39252087a2_0_27" alt="" />
+<img src="gslides/131.png" alt="" />
 <p class="caption">lubridate has specific functions to extract components from date and date-time objects</p>
 </div>
 </div>
@@ -2472,12 +2472,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb306-4"><a href="wrangle-data.html#cb306-4"></a><span class="co">## subtract birthday from todays date</span></span>
 <span id="cb306-5"><a href="wrangle-data.html#cb306-5"></a>age &lt;-<span class="st"> </span><span class="kw">today</span>() <span class="op">-</span><span class="st"> </span>mydate</span>
 <span id="cb306-6"><a href="wrangle-data.html#cb306-6"></a>age</span></code></pre></div>
-<pre><code>## Time difference of 11759 days</code></pre>
+<pre><code>## Time difference of 11761 days</code></pre>
 <div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="wrangle-data.html#cb308-1"></a><span class="co">## a duration object can get this information in years</span></span>
 <span id="cb308-2"><a href="wrangle-data.html#cb308-2"></a><span class="kw">as.duration</span>(age)</span></code></pre></div>
-<pre><code>## [1] &quot;1015977600s (~32.19 years)&quot;</code></pre>
+<pre><code>## [1] &quot;1016150400s (~32.2 years)&quot;</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1iLU-H6-GZw7EhL2syFZnjn_tC_cI6s9PmKRxcSOjg1c/export/png?id=1iLU-H6-GZw7EhL2syFZnjn_tC_cI6s9PmKRxcSOjg1c&amp;pageid=g39252087a2_0_37" alt="" />
+<img src="gslides/132.png" alt="" />
 <p class="caption">dates and date-times can be operated upon</p>
 </div>
 <p>Using addition, subtraction, multiplication, and division is possible with date objects, and accurately takes into account things like leap years and different number of days each month. This capability and the additional functions that exist within <code>lubridate</code> can be enormously helpful when working with dates and date-time objects.</p>
@@ -2501,7 +2501,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">3.7.1.1</span> Available functions</h4>
 <p>As we’ll only cover a few of the functions within <code>stringr</code> in this lesson, it’s important to remember that if you start typing “str_” within RStudio, a list of the many options will show up.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g38bb68a539_0_12" alt="" />
+<img src="gslides/133.png" alt="" />
 <p class="caption">str_ image</p>
 </div>
 </div>
@@ -2520,7 +2520,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb312-3"><a href="wrangle-data.html#cb312-3"></a><span class="kw">str_length</span>(objectA)</span></code></pre></div>
 <pre><code>## [1] 26 12 12</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g38bb68a539_0_17" alt="" />
+<img src="gslides/134.png" alt="" />
 <p class="caption"><code>str_length()</code> output</p>
 </div>
 <p>Here we see that the first string has a length of 26. If you were to go back and count the characters in the first string, you would see that this 26 includes each letter, space, and period in that string. The length of a string does not just could the letters in its length. The length includes every character. The second and third strings each have length 12.</p>
@@ -2531,7 +2531,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="wrangle-data.html#cb314-1"></a><span class="kw">str_c</span>( <span class="st">&quot;Good&quot;</span>, <span class="st">&quot;Morning&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;GoodMorning&quot;</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g38bb68a539_0_0" alt="" />
+<img src="gslides/135.png" alt="" />
 <p class="caption"><code>str_c()</code></p>
 </div>
 <p>However, the output from this doesn’t look quite right. You may want a space between these two words when you combine the two strings. That can be controlled with the <code>sep</code> argument.</p>
@@ -2546,7 +2546,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb318-3"><a href="wrangle-data.html#cb318-3"></a><span class="kw">str_sub</span>(object, <span class="dv">1</span>, <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Goo&quot; &quot;Mor&quot;</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g398837bd56_0_29" alt="" />
+<img src="gslides/136.png" alt="" />
 <p class="caption"><code>str_sub()</code> output</p>
 </div>
 <p>You can also use negative numbers to count from the end of the string. For example, below we see code that returns the last three positions in the string.</p>
@@ -2555,7 +2555,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb320-3"><a href="wrangle-data.html#cb320-3"></a><span class="kw">str_sub</span>(object, <span class="dv">-3</span>, <span class="dv">-1</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;ood&quot; &quot;ing&quot;</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g398837bd56_0_36" alt="" />
+<img src="gslides/137.png" alt="" />
 <p class="caption"><code>str_sub()</code> output counting from end of string</p>
 </div>
 </div>
@@ -2567,7 +2567,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb322-3"><a href="wrangle-data.html#cb322-3"></a><span class="kw">str_sort</span>(names)</span></code></pre></div>
 <pre><code>## [1] &quot;Jane&quot;     &quot;Keisha&quot;   &quot;Mohammed&quot;</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g398837bd56_0_42" alt="" />
+<img src="gslides/138.png" alt="" />
 <p class="caption"><code>str_sort()</code> output sorts strings</p>
 </div>
 </div>
@@ -2597,36 +2597,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb324-2"><a href="wrangle-data.html#cb324-2"></a></span>
 <span id="cb324-3"><a href="wrangle-data.html#cb324-3"></a><span class="co">## identify strings that start with &quot;M&quot;</span></span>
 <span id="cb324-4"><a href="wrangle-data.html#cb324-4"></a><span class="kw">str_view</span>(names, <span class="st">&quot;^M&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-ea661fe926d76067a0e5" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ea661fe926d76067a0e5">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li><span class='match'>M<\/span>ohammed<\/li>\n  <li>Jane<\/li>\n  <li><span class='match'>M<\/span>athieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-baed41781474eff7b8ab" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-baed41781474eff7b8ab">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li><span class='match'>M<\/span>ohammed<\/li>\n  <li>Jane<\/li>\n  <li><span class='match'>M<\/span>athieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g38bb68a539_0_30" alt="" />
+<img src="gslides/139.png" alt="" />
 <p class="caption"><code>str_view()</code> identifies names that start with M</p>
 </div>
 <p>In this first example we see in the Viewer Panel that <code>str_view()</code> has identified the names that start with the letter “M”.</p>
 <p>However, if you try to match strings that end with the letter “M”, no match is found.</p>
 <div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="wrangle-data.html#cb325-1"></a><span class="co">## identify strings that end with &quot;M&quot;</span></span>
 <span id="cb325-2"><a href="wrangle-data.html#cb325-2"></a><span class="kw">str_view</span>(names, <span class="st">&quot;M$&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-b8d75f9a52d856bdadeb" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b8d75f9a52d856bdadeb">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-909d7e515f90db40098a" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-909d7e515f90db40098a">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g38bb68a539_0_26" alt="" />
+<img src="gslides/140.png" alt="" />
 <p class="caption"><code>str_view()</code> does not identify any names that end with M</p>
 </div>
 <p>To identify names by that end with the letter “a”, you would use the following.</p>
 <div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="wrangle-data.html#cb326-1"></a><span class="co">## identify strings that end with &quot;a&quot;</span></span>
 <span id="cb326-2"><a href="wrangle-data.html#cb326-2"></a><span class="kw">str_view</span>(names, <span class="st">&quot;a$&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-00d4e007dba64fe8de50" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-00d4e007dba64fe8de50">{"x":{"html":"<ul>\n  <li>Keish<span class='match'>a<\/span><\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-4135b249c627f18abe4d" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4135b249c627f18abe4d">{"x":{"html":"<ul>\n  <li>Keish<span class='match'>a<\/span><\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g38bb68a539_0_34" alt="" />
+<img src="gslides/141.png" alt="" />
 <p class="caption"><code>str_view()</code> identifies names that end with a</p>
 </div>
 <p>Note, however, that regexps are case sensitive. To match patterns, you have to consider that “A” and “a” are different characters.</p>
 <div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="wrangle-data.html#cb327-1"></a><span class="co">## identify strings that end with &quot;A&quot;</span></span>
 <span id="cb327-2"><a href="wrangle-data.html#cb327-2"></a><span class="kw">str_view</span>(names, <span class="st">&quot;A$&quot;</span>)</span></code></pre></div>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g38bb68a539_0_39" alt="" />
+<img src="gslides/142.png" alt="" />
 <p class="caption"><code>str_view()</code> does not identify any names that end with A</p>
 </div>
 </div>
@@ -2637,7 +2637,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb328-2"><a href="wrangle-data.html#cb328-2"></a><span class="co">## return count of the number of times string matches pattern</span></span>
 <span id="cb328-3"><a href="wrangle-data.html#cb328-3"></a><span class="kw">str_count</span>(names, <span class="st">&quot;^M&quot;</span>)</span></code></pre></div>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g38bb68a539_0_90" alt="" />
+<img src="gslides/143.png" alt="" />
 <p class="caption"><code>str_count()</code> strings that start with “M”</p>
 </div>
 <p>However, if we instead wanted a count of the numbers of lowercase “m”s, we could still use <code>str_count()</code> to accomplish that. Notice below we’ve removed the specification to just look at the beginning of the string. Here, we’re looking for lowercase m’s anywhere in the string and counting them:</p>
@@ -2646,7 +2646,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb329-3"><a href="wrangle-data.html#cb329-3"></a><span class="kw">str_count</span>(names, <span class="st">&quot;m&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] 0 2 0 0</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g38bb68a539_0_108" alt="" />
+<img src="gslides/144.png" alt="" />
 <p class="caption"><code>str_count()</code> strings that have an m in them</p>
 </div>
 </div>
@@ -2658,7 +2658,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb331-3"><a href="wrangle-data.html#cb331-3"></a><span class="kw">str_detect</span>(names, <span class="st">&quot;^M&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] FALSE  TRUE FALSE  TRUE</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g38bb68a539_0_96" alt="" />
+<img src="gslides/145.png" alt="" />
 <p class="caption">str_detect() returns TRUE for strings that match the specified pattern; FALSE otherwise</p>
 </div>
 </div>
@@ -2670,7 +2670,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb333-3"><a href="wrangle-data.html#cb333-3"></a><span class="kw">str_subset</span>(names, <span class="st">&quot;^M&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Mohammed&quot; &quot;Mathieu&quot;</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g38bb68a539_0_102" alt="" />
+<img src="gslides/146.png" alt="" />
 <p class="caption"><code>str_subset()</code> returns the strings that match the pattern specified</p>
 </div>
 </div>
@@ -2682,7 +2682,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb335-3"><a href="wrangle-data.html#cb335-3"></a><span class="kw">str_extract</span>(names, <span class="st">&quot;^M&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] NA  &quot;M&quot; NA  &quot;M&quot;</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g38bb68a539_0_122" alt="" />
+<img src="gslides/133.png2" alt="" />
 <p class="caption"><code>str_extract()</code> returns the portions of the strings that match the pattern specified</p>
 </div>
 </div>
@@ -2693,7 +2693,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb337-2"><a href="wrangle-data.html#cb337-2"></a><span class="kw">str_replace</span>(names, <span class="st">&quot;^M&quot;</span>, <span class="st">&quot;?&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Keisha&quot;   &quot;?ohammed&quot; &quot;Jane&quot;     &quot;?athieu&quot;</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g38bb68a539_0_131" alt="" />
+<img src="gslides/148.png" alt="" />
 <p class="caption"><code>str_replace()</code> replaces regex with specified characters</p>
 </div>
 </div>
@@ -2705,10 +2705,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To search for a set of characters, you place these characters within brackets. Below, this will identify anywhere in the strings where you have a lowercase vowel. Note, that we’re now using <code>str_view_all()</code> to identify all occurrences of these characters, rather than <code>str_view()</code>, which only identifies the first occurrence in each string.</p>
 <div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="wrangle-data.html#cb339-1"></a><span class="co">## identify all lowercase vowels</span></span>
 <span id="cb339-2"><a href="wrangle-data.html#cb339-2"></a><span class="kw">str_view_all</span>(names, <span class="st">&quot;[aeiou]&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-3bd78af66a38c316c353" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3bd78af66a38c316c353">{"x":{"html":"<ul>\n  <li>K<span class='match'>e<\/span><span class='match'>i<\/span>sh<span class='match'>a<\/span><\/li>\n  <li>M<span class='match'>o<\/span>h<span class='match'>a<\/span>mm<span class='match'>e<\/span>d<\/li>\n  <li>J<span class='match'>a<\/span>n<span class='match'>e<\/span><\/li>\n  <li>M<span class='match'>a<\/span>th<span class='match'>i<\/span><span class='match'>e<\/span><span class='match'>u<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-b99141604f909ed999c3" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b99141604f909ed999c3">{"x":{"html":"<ul>\n  <li>K<span class='match'>e<\/span><span class='match'>i<\/span>sh<span class='match'>a<\/span><\/li>\n  <li>M<span class='match'>o<\/span>h<span class='match'>a<\/span>mm<span class='match'>e<\/span>d<\/li>\n  <li>J<span class='match'>a<\/span>n<span class='match'>e<\/span><\/li>\n  <li>M<span class='match'>a<\/span>th<span class='match'>i<\/span><span class='match'>e<\/span><span class='match'>u<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g38bb68a539_0_69" alt="" />
+<img src="gslides/149.png" alt="" />
 <p class="caption">brackets specify which characters to search for</p>
 </div>
 </div>
@@ -2717,10 +2717,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>By adding a caret (<code>^</code>) before the vowels within the brackets, this regular expressions specifies that you are searching for any character that is not a lowercase vowel within your strings.</p>
 <div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="wrangle-data.html#cb340-1"></a><span class="co">## identify anything that&#39;s NOT a lowercase vowel</span></span>
 <span id="cb340-2"><a href="wrangle-data.html#cb340-2"></a><span class="kw">str_view_all</span>(names, <span class="st">&quot;[^aeiou]&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-142aa8752421f02b5565" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-142aa8752421f02b5565">{"x":{"html":"<ul>\n  <li><span class='match'>K<\/span>ei<span class='match'>s<\/span><span class='match'>h<\/span>a<\/li>\n  <li><span class='match'>M<\/span>o<span class='match'>h<\/span>a<span class='match'>m<\/span><span class='match'>m<\/span>e<span class='match'>d<\/span><\/li>\n  <li><span class='match'>J<\/span>a<span class='match'>n<\/span>e<\/li>\n  <li><span class='match'>M<\/span>a<span class='match'>t<\/span><span class='match'>h<\/span>ieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-d31591d386a640d27b5c" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d31591d386a640d27b5c">{"x":{"html":"<ul>\n  <li><span class='match'>K<\/span>ei<span class='match'>s<\/span><span class='match'>h<\/span>a<\/li>\n  <li><span class='match'>M<\/span>o<span class='match'>h<\/span>a<span class='match'>m<\/span><span class='match'>m<\/span>e<span class='match'>d<\/span><\/li>\n  <li><span class='match'>J<\/span>a<span class='match'>n<\/span>e<\/li>\n  <li><span class='match'>M<\/span>a<span class='match'>t<\/span><span class='match'>h<\/span>ieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g38bb68a539_0_78" alt="" />
+<img src="gslides/150.png" alt="" />
 <p class="caption">brackets with a caret first specify which characters NOT to search for</p>
 </div>
 </div>
@@ -2731,10 +2731,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb341-2"><a href="wrangle-data.html#cb341-2"></a></span>
 <span id="cb341-3"><a href="wrangle-data.html#cb341-3"></a><span class="co">## identify anything that&#39;s a digit</span></span>
 <span id="cb341-4"><a href="wrangle-data.html#cb341-4"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">d&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-9bb3602adfb97be7b596" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9bb3602adfb97be7b596">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span> Main Street<\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span> Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-40b4d55744d2d9678c17" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-40b4d55744d2d9678c17">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span> Main Street<\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span> Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g38bb68a539_0_140" alt="" />
+<img src="gslides/151.png" alt="" />
 <p class="caption"><code>\d</code> searches for digits</p>
 </div>
 </div>
@@ -2743,10 +2743,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Identifying whitespace in R identifies any spaces, tabs or newlines. Note that again we have to escape the “” with a backslash for R to recognize the regular expression.</p>
 <div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="wrangle-data.html#cb342-1"></a><span class="co">## identify any whitespace</span></span>
 <span id="cb342-2"><a href="wrangle-data.html#cb342-2"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">s&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-9d96a83b788b4cda0377" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9d96a83b788b4cda0377">{"x":{"html":"<ul>\n  <li>1234<span class='match'> <\/span>Main<span class='match'> <\/span>Street<\/li>\n  <li>1600<span class='match'> <\/span>Pennsylvania<span class='match'> <\/span>Ave<\/li>\n  <li>Brick<span class='match'> <\/span>Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2d6d519587f4e15d4d51" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2d6d519587f4e15d4d51">{"x":{"html":"<ul>\n  <li>1234<span class='match'> <\/span>Main<span class='match'> <\/span>Street<\/li>\n  <li>1600<span class='match'> <\/span>Pennsylvania<span class='match'> <\/span>Ave<\/li>\n  <li>Brick<span class='match'> <\/span>Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g38bb68a539_0_153" alt="" />
+<img src="gslides/152.png" alt="" />
 <p class="caption"><code>\s</code> searches for whitespace</p>
 </div>
 </div>
@@ -2755,10 +2755,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To identify any character except for a newline you’ll use <code>"."</code>. Notice in our addresses example that there are no newlines, so this pattern will match with the entire string.</p>
 <div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="wrangle-data.html#cb343-1"></a><span class="co">## identify any character</span></span>
 <span id="cb343-2"><a href="wrangle-data.html#cb343-2"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;.&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-6b3e5773556c6223098b" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6b3e5773556c6223098b">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span><span class='match'> <\/span><span class='match'>M<\/span><span class='match'>a<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'> <\/span><span class='match'>S<\/span><span class='match'>t<\/span><span class='match'>r<\/span><span class='match'>e<\/span><span class='match'>e<\/span><span class='match'>t<\/span><\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>e<\/span><span class='match'>n<\/span><span class='match'>n<\/span><span class='match'>s<\/span><span class='match'>y<\/span><span class='match'>l<\/span><span class='match'>v<\/span><span class='match'>a<\/span><span class='match'>n<\/span><span class='match'>i<\/span><span class='match'>a<\/span><span class='match'> <\/span><span class='match'>A<\/span><span class='match'>v<\/span><span class='match'>e<\/span><\/li>\n  <li><span class='match'>B<\/span><span class='match'>r<\/span><span class='match'>i<\/span><span class='match'>c<\/span><span class='match'>k<\/span><span class='match'> <\/span><span class='match'>B<\/span><span class='match'>u<\/span><span class='match'>i<\/span><span class='match'>l<\/span><span class='match'>d<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'>g<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-324a4e5b890cd652083c" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-324a4e5b890cd652083c">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span><span class='match'> <\/span><span class='match'>M<\/span><span class='match'>a<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'> <\/span><span class='match'>S<\/span><span class='match'>t<\/span><span class='match'>r<\/span><span class='match'>e<\/span><span class='match'>e<\/span><span class='match'>t<\/span><\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>e<\/span><span class='match'>n<\/span><span class='match'>n<\/span><span class='match'>s<\/span><span class='match'>y<\/span><span class='match'>l<\/span><span class='match'>v<\/span><span class='match'>a<\/span><span class='match'>n<\/span><span class='match'>i<\/span><span class='match'>a<\/span><span class='match'> <\/span><span class='match'>A<\/span><span class='match'>v<\/span><span class='match'>e<\/span><\/li>\n  <li><span class='match'>B<\/span><span class='match'>r<\/span><span class='match'>i<\/span><span class='match'>c<\/span><span class='match'>k<\/span><span class='match'> <\/span><span class='match'>B<\/span><span class='match'>u<\/span><span class='match'>i<\/span><span class='match'>l<\/span><span class='match'>d<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'>g<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g38bb68a539_0_164" alt="" />
+<img src="gslides/153.png" alt="" />
 <p class="caption">. searches for any character</p>
 </div>
 </div>
@@ -2779,50 +2779,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Using the definitions above, we can see that the following code will identify patterns within the addresses vector where n shows up one more more times in a string.</p>
 <div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="wrangle-data.html#cb344-1"></a><span class="co">## identify any time n shows up one or more times</span></span>
 <span id="cb344-2"><a href="wrangle-data.html#cb344-2"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;n+&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-3a17526ef70bf9d022ee" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3a17526ef70bf9d022ee">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-d89749bdde6fae15119e" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d89749bdde6fae15119e">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g38bb68a539_0_177" alt="" />
+<img src="gslides/134.png7" alt="" />
 <p class="caption">+ specifies to match the pattern one or more times</p>
 </div>
 <p>While the difference is slight in the output here, we’re identifying portions of the string where n shows up exactly once. So, instead of the ‘nn’ in Pennsylvania matching together, the code here splits these up, due to the fact that we’re specifying the pattern match ‘n’ exactly one time:</p>
 <div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="wrangle-data.html#cb345-1"></a><span class="co">## identify any time n shows up</span></span>
 <span id="cb345-2"><a href="wrangle-data.html#cb345-2"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;n{1}&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-91a72d15dec7270cad6c" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-91a72d15dec7270cad6c">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>n<\/span><span class='match'>n<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-5de15b5e58fcb29686d9" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5de15b5e58fcb29686d9">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>n<\/span><span class='match'>n<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g38bb68a539_0_183" alt="" />
+<img src="gslides/155.png" alt="" />
 <p class="caption">{#} looks to match the pattern exactly the number of times within the curly braces</p>
 </div>
 <p>If you only wanted to match strings where n showed up twice in a row, you could specify that in this way:</p>
 <div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="wrangle-data.html#cb346-1"></a><span class="co">## identify any time n shows up exactly two times in a row</span></span>
 <span id="cb346-2"><a href="wrangle-data.html#cb346-2"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;n{2}&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-ecd1aea51155ae2a3083" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ecd1aea51155ae2a3083">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-7d1e428da338071be0a3" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7d1e428da338071be0a3">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g38bb68a539_0_188" alt="" />
+<img src="gslides/156.png" alt="" />
 <p class="caption">{2} specifies that the pattern must be found exactly twice</p>
 </div>
 <p>This could similarly be achieved by specifying to search for the pattern ‘nn’ one or more times (<code>+</code>):</p>
 <div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="wrangle-data.html#cb347-1"></a><span class="co">## identify any time &#39;nn&#39; shows up one or more times </span></span>
 <span id="cb347-2"><a href="wrangle-data.html#cb347-2"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;nn+&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-973ce9be1f14ebb605ee" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-973ce9be1f14ebb605ee">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-4acfe7c2f887c9adf7bd" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4acfe7c2f887c9adf7bd">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g38bb68a539_0_193" alt="" />
+<img src="gslides/157.png" alt="" />
 <p class="caption">nn+ searches for double n one or more times in a string</p>
 </div>
 <p>You can also specify a range of the number of times to search for a pattern within your string. Below, we see that if we specify n be searched for at least two and at most 3 times, the pattern matches within our string. However, if we increase that to between three and four times, no pattern matching occurs, as there are never three or four n’s in a row in our strings.</p>
 <div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="wrangle-data.html#cb348-1"></a><span class="co">## identify any time n shows up two or three times </span></span>
 <span id="cb348-2"><a href="wrangle-data.html#cb348-2"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;n{2,3}&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-3075fc205d71ff6a804c" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3075fc205d71ff6a804c">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2e57913f43da2c2a0b87" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2e57913f43da2c2a0b87">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="wrangle-data.html#cb349-1"></a><span class="co">## identify any time n shows up three or four times </span></span>
 <span id="cb349-2"><a href="wrangle-data.html#cb349-2"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;n{3,4}&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-cc4d63e707238d1d229e" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cc4d63e707238d1d229e">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-6ad38a4bc5320de56732" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6ad38a4bc5320de56732">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw/export/png?id=1-6k6usRR06dp-YK-M3HUOUgQZKXXqKnAD5RC4TISGhw&amp;pageid=g38bb68a539_0_65" alt="" />
+<img src="gslides/158.png" alt="" />
 <p class="caption">{n,m} looks to pattern match between n and m times</p>
 </div>
 </div>
@@ -3383,42 +3383,42 @@ pmap(LIST_OF_INPUT_LISTS, FUNCTION_TO_APPLY, OPTIONAL_OTHER_STUFF)</code></pre>
 </ul>
 <p>These principles may be more clear in an example. We will use a dataset from <a href="www.kaggle.com">Kaggle.com</a> that contains 120 years of Olympics history on athletes and results. If you don’t have an account on Kaggle, create one and go to the link <a href="https://www.kaggle.com/heesoo37/120-years-of-olympic-history-athletes-and-results" class="uri">https://www.kaggle.com/heesoo37/120-years-of-olympic-history-athletes-and-results</a> and under “Data Sources” download the <code>athlete_events.csv</code> to your computer.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0/export/png?id=1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0&amp;pageid=g3a82126a9f_0_24" alt="" />
+<img src="gslides/159.png" alt="" />
 <p class="caption">Dataset on 120 years of Olympics history on athletes and results</p>
 </div>
 <p>Upload the data in R and import the CSV file using the commands you have learned. Unfortunately, you cannot download the CSV file directly from the web address since downloading datasets on Kaggle requires logging in.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0/export/png?id=1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0&amp;pageid=g3a82126a9f_0_30" alt="" />
+<img src="gslides/160.png" alt="" />
 <p class="caption">Importing data using <code>read_csv()</code></p>
 </div>
 <p>As we learned before, we can use the package <code>skimr</code> to take a look at the data.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0/export/png?id=1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0&amp;pageid=g3a82126a9f_0_35" alt="" />
+<img src="gslides/161.png" alt="" />
 <p class="caption">Using the skimr package to have a summary of the data</p>
 </div>
 <p>We see that the dataset contains 15 variables and 271,116 observations. Some of the variables are of factor type and others are of integer or numeric type. The dataset includes variables on athletes such as name, sex, the sport played, whether they received a medal, age, and height. We first need to understand the data properties. So let’s start with missing values.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0/export/png?id=1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0&amp;pageid=g3a82126a9f_0_44" alt="" />
+<img src="gslides/162.png" alt="" />
 <p class="caption">We have different types of variables in our data</p>
 </div>
 <p>First, the results of the <code>skim()</code> function indicate that some of our variables have lots of missing values. For instance, the variable <code>Medal</code> has 231,333 missing values. Generally, this is a place for concern since most statistical analyses ignore observations with missing values. However, it is obvious that the missing values for the variable <code>Medal</code> are mainly because the athlete didn’t receive any medals. So this kind of missing value should not be a problem. However, we have missing values in the variables <code>Height</code> and <code>Age</code>. Since we are going to use these variables in our analysis in this lesson, observations with missing values for these two variables will be dropped from our analysis. Remember that <code>NA</code> is the most common character for missing values, but sometimes they are coded as spaces, 999, -1 or “missing”. Check for missing values in a variety of ways.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0/export/png?id=1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0&amp;pageid=g3a82126a9f_0_49" alt="" />
+<img src="gslides/163.png" alt="" />
 <p class="caption">There are some missing values in the data</p>
 </div>
 <p>Second, we can see that there are some outliers in some of the numerical variables. For example, look at the summary of the variable <code>Age</code>. Although the average age among all the athletes is around 25, there is an individual who is 97 years old (fun fact: use the command <code>subset(df, df$Age == 97)</code> to check out the information about this athlete. You will see that the name of the athlete is John Quincy Adams Ward and he competed in the sport(!) Art Competitions Mixed Sculpturing in 1928. This artist is known for his George Washington statue in front of Federal Hall in Wall Street in New York City.) It is always good to know about the existence of outliers in your sample. Outliers can significantly skew the results of your analysis. You can find outliers by looking at the distribution of your variable too.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0/export/png?id=1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0&amp;pageid=g3a82126a9f_0_63" alt="" />
+<img src="gslides/164.png" alt="" />
 <p class="caption">There is an outlier in the Age variable</p>
 </div>
 <p>Histograms, in general, are one of the best ways to look at a variable and find abnormalities. You can see that the age of most individuals in the sample are between 18-35.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0/export/png?id=1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0&amp;pageid=g3a82126a9f_0_40" alt="" />
+<img src="gslides/165.png" alt="" />
 <p class="caption">Histogram of the variable Age</p>
 </div>
 <p>Now, rather than just summarizing the data points within a single variable, we can look at how two or more variables might be related to each other. For instance, we like to know if there is an association between age of athletes and their gender. One of the ways to do this is to look at a boxplot of age grouped by gender, i.e., the distribution of age separated for male and female athletes. Boxplot shows the distribution of the variable age for the gender groups. You can see that the average age is slightly higher for men than for women.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0/export/png?id=1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0&amp;pageid=g3a82126a9f_0_5" alt="" />
+<img src="gslides/166.png" alt="" />
 <p class="caption">Boxplot of the variable Age for male and female individuals</p>
 </div>
 <p>If we are interested in looking at the distribution of male and female athletes over time, we can use frequency tables. Let us first create a frequency table of the share of women in each Olympic event. Tables are good for looking at factor or character variables.</p>
@@ -3445,7 +3445,7 @@ pmap(LIST_OF_INPUT_LISTS, FUNCTION_TO_APPLY, OPTIONAL_OTHER_STUFF)</code></pre>
 ## # … with 24 more rows</code></pre>
 <p>Now, if we want to plot this trend, we can use <code>geom_line()</code> from <code>ggplot</code>. It’s interesting that the share of women among all athletes that was once at a very low level in the early 1900s has gone up to almost 50% in modern times.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0/export/png?id=1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0&amp;pageid=g3a82126a9f_0_79" alt="" />
+<img src="gslides/167.png" alt="" />
 <p class="caption">Plot of the share of female athletes over time</p>
 </div>
 <p>In general, the most important plots in exploratory data analysis are:</p>
@@ -3458,12 +3458,12 @@ pmap(LIST_OF_INPUT_LISTS, FUNCTION_TO_APPLY, OPTIONAL_OTHER_STUFF)</code></pre>
 </ul>
 <p>To end our lesson on exploratory analysis, let’s consider a question: are taller athletes more likely to win a medal? To answer this question we can use different methods. We can look at the distribution of height for those who received a medal and those who didn’t. We can use boxplots or barplots. The choice is yours but because boxplots are more informative, we will use them. We can first create a variable that indicates whether the athlete has any medal (the variable <code>Medal</code> indicates the type of medals). Note that the variable <code>has.medal</code> is a transformation of the variable <code>Medal</code>.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0/export/png?id=1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0&amp;pageid=g3a82126a9f_0_91" alt="" />
+<img src="gslides/168.png" alt="" />
 <p class="caption">Creating a variable that shows whether the athlete has a medal or not</p>
 </div>
 <p>And now, we use the following code to create the boxplot.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0/export/png?id=1fVhtSr4JTBQW4oSxtJ4u3T6EijVvXIa8DnSgz7_L9r0&amp;pageid=g3a82126a9f_0_96" alt="" />
+<img src="gslides/169.png" alt="" />
 <p class="caption">Boxplot for the relationship between height and having won a medal</p>
 </div>
 <p>What is obvious is that those who have a medal are taller. Can we say that being tall increases the probability of winning a medal in the Olympics? The answer to this question is that we don’t know. There are some possible scenarios. For instance, it could be true that being tall increase the chances of winning medals. But it could also be that there are more medals awarded in sports such as volleyball or basketball that require taller athletes. In these sports, every member of the winning team gets a medal (even if country counts only one medal is counted for the country). As a result, we may end up having so many tall athletes with a medal in each Olympics. It could also be that there are other confounding factors involved that explain why an athlete wins a medal. We will learn about confounding variables in future lessons. For now, it’s important to know, as we said in the beginning of this lesson, that association or correlation does not mean causation.</p>
@@ -3475,7 +3475,7 @@ pmap(LIST_OF_INPUT_LISTS, FUNCTION_TO_APPLY, OPTIONAL_OTHER_STUFF)</code></pre>
 <p>Above we discussed how to analyze pure text (meaning, text written by humans in their native written and spoken language). Here, we’ll discuss how to briefly how others have wrangled text-based data from the Internet in the JSON format within R. This is possible because of the R package <code>jsonlite</code>, which was used in the following example:</p>
 <p><a href="https://blog.exploratory.io/@kanaugust">Kan Nishida</a>, a data scientist, was interested in <a href="https://blog.exploratory.io/working-with-json-data-in-very-simple-way-ad7ebcc0bb89">understanding what restaurant types found most frequently in each state or province</a>. To do this, he used JSON data originally released from Yelp. He wrangled the data from JSON format into a tabular format using <code>jsonlite</code> and other data wrangling packages, such as <code>dplyr</code>, to ultimately determine the types of restaurants found most frequently in a number of different states and provinces.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&amp;pageid=g3d555e2b2e_0_17" alt="" />
+<img src="gslides/170.png" alt="" />
 <p class="caption">Wrangling Yelp data from JSON into tidy tabular data</p>
 </div>
 </div>
@@ -3484,7 +3484,7 @@ pmap(LIST_OF_INPUT_LISTS, FUNCTION_TO_APPLY, OPTIONAL_OTHER_STUFF)</code></pre>
 <p>AVOCADO - this section stinks</p>
 <p>To see an example of not only using <code>xml2</code> to parse XML data, but also another example of using <code>rvest</code> to obtain the XML data, check out this post from <a href="https://towardsdatascience.com/@jroberayalas">José Roberto Ayala Solares</a> where he took the text from a New York Times article called <a href="https://www.nytimes.com/interactive/2017/06/23/opinion/trumps-lies.html">“Trump’s Lies”</a>, scraped the data from the web (obtaining it in XML), and then <a href="https://towardsdatascience.com/web-scraping-tutorial-in-r-5e71fd107f32">wrangled it into a tidy format</a> using <code>xml2</code>.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&amp;pageid=g3d555e2b2e_0_148" alt="" />
+<img src="gslides/171.png" alt="" />
 <p class="caption"><code>rvest</code> and <code>xml2</code> are helpful for web scraping and working with XML data</p>
 </div>
 <p>In this lesson, our goal is to make you aware that data from the Internet (and APIs in particular) will often come in either JSON or XML format. Thus, the JSON and XML examples provided here only give you a bit of an idea of what JSON and XML data are and how to work with them. Nevertheless, the more frequently you retrieve data from APIs and the Internet, the more comfortable you’ll have to become with both JSON and XML. And, <code>jsonlite</code> and <code>xml2</code> will help you as you work with these data in R!</p>

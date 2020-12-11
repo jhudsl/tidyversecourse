@@ -24,7 +24,7 @@
 <meta name="author" content="Carrie Wright, Shannon E. Ellis, Stephanie C. Hicks and Roger D. Peng" />
 
 
-<meta name="date" content="2020-12-09" />
+<meta name="date" content="2020-12-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -562,15 +562,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="get-data.html#cb11-1"></a><span class="kw">slice_sample</span>(trees, <span class="dt">n =</span> <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##    Girth Height Volume
 ## 1   16.3     77   42.6
-## 2   10.7     81   18.8
-## 3    8.8     63   10.2
-## 4   11.1     80   22.6
-## 5    8.6     65   10.3
-## 6   13.3     86   27.4
-## 7   13.7     71   25.7
-## 8   14.0     78   34.5
-## 9   11.4     76   21.4
-## 10   8.3     70   10.3</code></pre>
+## 2   14.0     78   34.5
+## 3   12.9     85   33.8
+## 4   18.0     80   51.5
+## 5   12.0     75   19.1
+## 6   11.7     69   21.3
+## 7   11.4     76   21.0
+## 8   11.4     76   21.4
+## 9   11.2     75   19.9
+## 10  13.8     64   24.9</code></pre>
 <p>You can also use <code>slice_head()</code> or <code>slice_tail()</code> to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.</p>
 <p>This will show the first 5 rows.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="get-data.html#cb13-1"></a><span class="kw">slice_head</span>(trees, <span class="dt">n =</span> <span class="dv">5</span>)</span></code></pre></div>
@@ -757,13 +757,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>As Google Sheets are stored on the Internet and not on your computer, the <code>googlesheets</code> package does not require you to download the file to your computer before reading it into R. Instead, it reads the data into R directly from Google Sheets. Note that if the data hosted on Google Sheets changes, every time the file is read into R, the most updated version of the file will be utilized. This can be very helpful if you’re collecting data over time; however, it could lead to unexpected changes in results if you’re not aware that the data in the Google Sheet is changing.</p>
 <p>To see exactly what we mean, let’s look at a specific example. Imagine you’ve sent out a survey to your friends asking about how they spend their day. Let’s say you’re mostly interested in knowing the hours spent on work, leisure, sleep, eating, socializing, and other activities. So in your Google Sheet you add these six items as columns and one column asking for your friends names. To collect this data, you then share the link with your friends, giving them the ability to edit the Google Sheet.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA/export/png?id=1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA&amp;pageid=g2bfdb07292_0_151" alt="" />
+<img src="gslides/033.png" alt="" />
 <p class="caption">Survey Google Sheets</p>
 </div>
 <p>Your friends will then one-by-one complete the survey. And, because it’s a Google Sheet, everyone will be able to update the Google Sheet, regardless of whether or not someone else is also looking at the Sheet at the same time. As they do, you’ll be able to pull the data and import it to R for analysis at any point. You won’t have to wait for everyone to respond. You’ll be able to analyze the results in real-time by directly reading it into R from Google Sheets, avoiding the need to download it each time you do so.</p>
 <p>In other words, every time you import the data from the Google Sheets link using the <code>googlesheets</code> package, the most updated data will be imported. Let’s say, after waiting for a week, your friends’ data look something like this:</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA/export/png?id=1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA&amp;pageid=g398ce98dcf_0_1" alt="" />
+<img src="gslides/034.png" alt="" />
 <p class="caption">Survey Data</p>
 </div>
 <p>You’d be able to analyze these updated data using R and the <code>googlesheets</code> package!</p>
@@ -781,12 +781,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Now, let’s get to importing your survey data into R. Every time you start a new session, you need to authenticate the use of the <code>googlesheets</code> package with your Google account. This is a great feature as it ensures that you <em>want</em> to allow access to your Google Sheets and allows the Google Sheets API to make sure that you <em>should</em> have access to the files you’re going to try to access.</p>
 <p>The command <code>gs_auth(new_user = TRUE)</code> will open a new page in your browser that asks you which Google account you’d like to have access to. Click on the appropriate Google user to provide <code>googlesheets</code> access to the Google Sheets API.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA/export/png?id=1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA&amp;pageid=g3d555bce3d_0_4" alt="" />
+<img src="gslides/035.png" alt="" />
 <p class="caption">Authenticate</p>
 </div>
 <p>After you click “ALLOW”, giving permission for the <code>googlesheets</code> package to connect to your Google account, you will likely be shown a screen where you will be asked to copy an authentication code. Copy this authentication code and paste it into R.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA/export/png?id=1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA&amp;pageid=g3d555bce3d_0_12" alt="" />
+<img src="gslides/036.png" alt="" />
 <p class="caption">Allow</p>
 </div>
 </div>
@@ -799,7 +799,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Note that we assign the information stored from registering this Google Sheet to the object <code>survey_sheet</code> so that we can use it again shortly.</p>
 <p>If you type the name of the sheet correctly <em>and</em> it exists in your Google Drive, you will see a message that says <em>Sheet successfully identified: “survey”</em>.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA/export/png?id=1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA&amp;pageid=g3d555bce3d_0_23" alt="" />
+<img src="gslides/037.png" alt="" />
 <p class="caption">Sheet successfully identified</p>
 </div>
 </div>
@@ -809,7 +809,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="get-data.html#cb42-1"></a><span class="co"># access information stored in survey_sheet</span></span>
 <span id="cb42-2"><a href="get-data.html#cb42-2"></a>survey_data &lt;-<span class="st"> </span><span class="kw">gs_read</span>(survey_sheet)</span></code></pre></div>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA/export/png?id=1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA&amp;pageid=g3d555bce3d_0_28" alt="" />
+<img src="gslides/038.png" alt="" />
 <p class="caption">Sheet successfully read into R</p>
 </div>
 <p>There are additional (optional) arguments to <code>gs_read()</code>, some are similar to those in <code>read_csv()</code> and <code>read_excel(),</code> while others are more specific to reading in Google Sheets:</p>
@@ -824,12 +824,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>There is a dataset provided as an example with the <code>googlesheets package</code>. The data stored in the example dataset come from the <a href="https://www.gapminder.org/">Gapminder dataset</a>. This includes longitudinal data about a few global economic variables. We’ll use this dataset to discuss registering a Google Sheet by key or URL.</p>
 <p>To register a Google Sheet in <code>googlesheets</code> by key, you must first know the key of the Google Sheet and have access to it. To work through a full example here you’ll first want to navigate to [<a href="https://docs.google.com/spreadsheets/d/1BzfL0kZUz1TsI5zxJF1WNF01IxvC67FbOJUiiGMZ_mQ/" class="uri">https://docs.google.com/spreadsheets/d/1BzfL0kZUz1TsI5zxJF1WNF01IxvC67FbOJUiiGMZ_mQ/</a>] in your web browser. This will open up the gapminder dataset in Google Sheets so that you can have a look at the data in Google Sheets.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c/export/png?id=1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c&amp;pageid=g5fbdfde92a_0_8" alt="" />
+<img src="gslides/039.png" alt="" />
 <p class="caption">Gapminder Dataset in Google Sheets</p>
 </div>
 <p>Now, it’s just up to us to register this information from Google Sheets into R using the <code>googlesheets</code> package. To do this, we could use the <em>title</em> of the sheet, the <em>key</em>, or the <em>URL</em>:</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c/export/png?id=1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c&amp;pageid=g6112cc596f_0_4" alt="" />
+<img src="gslides/040.png" alt="" />
 <p class="caption">Where to find the title, key, and URL in Google Sheets</p>
 </div>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="get-data.html#cb43-1"></a><span class="co"># register in with title </span></span>
@@ -842,7 +842,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb43-8"><a href="get-data.html#cb43-8"></a><span class="kw">gs_url</span>(<span class="st">&quot;https://docs.google.com/spreadsheets/d/1BzfL0kZUz1TsI5zxJF1WNF01IxvC67FbOJUiiGMZ_mQ/edit#gid=1150108545&quot;</span>)</span></code></pre></div>
 <p>Regardless of how you register the sheet, you’ll get an output to inform you that the sheet was successfully identified. (Note: if you have not opened up the <a href="https://docs.google.com/spreadsheets/d/1BzfL0kZUz1TsI5zxJF1WNF01IxvC67FbOJUiiGMZ_mQ/">Google Sheet</a> using the Google Drive account you specified during authentication, you will get an error.)</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c/export/png?id=1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c&amp;pageid=g6112cc596f_0_9" alt="" />
+<img src="gslides/041.png" alt="" />
 <p class="caption">Sheet Successfully Identified</p>
 </div>
 </div>
@@ -853,18 +853,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="get-data.html#cb44-1"></a>my_response &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Me&quot;</span>, <span class="dv">10</span>, <span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
 <span id="cb44-2"><a href="get-data.html#cb44-2"></a><span class="kw">gs_add_row</span>(survey_sheet, <span class="dt">input =</span> my_response)</span></code></pre></div>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA/export/png?id=1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA&amp;pageid=g398ce98dcf_0_18" alt="" />
+<img src="gslides/034.png8" alt="" />
 <p class="caption"><code>gs_add_row()</code></p>
 </div>
 <p>If you now check the sheet on Google Sheets, you will see the appended row.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA/export/png?id=1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA&amp;pageid=g398ce98dcf_0_23" alt="" />
+<img src="gslides/043.png" alt="" />
 <p class="caption">Survey Data with Added Row</p>
 </div>
 <p>To edit a specific cell you can use the command <code>gs_edit_cell()</code> but you will have to tell <code>googlesheets</code> which specific cell to edit. Let’s say we want to change the value of the cell <em>D4</em> from 0 to 2. For this we will use the <code>gs_edit_cells()</code> function. The <code>anchor</code> argument points to the cell that we want to modify and the <code>input</code> argument contains the new value that we want to assign to the cell.</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="get-data.html#cb45-1"></a><span class="kw">gs_edit_cells</span>(survey_sheet, <span class="dt">anchor =</span> <span class="st">&quot;D4&quot;</span>, <span class="dt">input =</span> <span class="dv">2</span>)</span></code></pre></div>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA/export/png?id=1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA&amp;pageid=g398ce98dcf_0_29" alt="" />
+<img src="gslides/044.png" alt="" />
 <p class="caption"><code>gs_edit_cells()</code></p>
 </div>
 <p>If you were to return to your Google Sheets, you’d notice that cell D4 now has a 2, rather than a 0 in it!</p>
@@ -877,12 +877,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Like Excel Spreadsheets and Google Sheets, <strong>Comma-separated values (CSV)</strong> files allow us to store tabular data; however, it does this in a much simple format. CSVs are <strong>plain-text</strong> files, which means that all the important information in the file is represented by text (where text is numbers, letters, and symbols you can type on your keyboard). This means that there are no workbooks or metadata making it difficult to open these files. CSVs are flexible files and are thus the preferred storage method for tabular data for many data scientists.</p>
 <p>For example, consider a dataset that includes information about the heights and blood types of three individuals. You could make a table that has three columns (names, heights, and blood types) and three rows (one for each person) in Google Docs or Microsoft Word. However, there is a better way of storing this data in plain text without needing to put them in table format. CSVs are a perfect way to store these data. In the CSV format, the values of each column for each person in the data are separated by commas and each row (each person in our case) is separated by a new line. This means your data would be stored in the following format:</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM/export/png?id=199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM&amp;pageid=g2bfdb07292_0_151" alt="" />
+<img src="gslides/045.png" alt="" />
 <p class="caption">sample CSV</p>
 </div>
 <p>Notice that CSV files have a .csv extension at the end. You can see this above at the top of the file. One of the advantages of CSV files is their <em>simplicity</em>. Because of this, they are one of the most common file formats used to store tabular data. Additionally, because they are plain text, they are compatible with <em>many</em> different types of software. CSVs can be read by most programs. Specifically, for our purposes, these files can be easily read into R (or Google Sheets, or Excel), where they can be better understood by the human eye. Here you see the same CSV opened in Google Sheets, where it’s more easily interpretable by the human eye:</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM/export/png?id=199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM&amp;pageid=g3a4d18d722_0_92" alt="" />
+<img src="gslides/046.png" alt="" />
 <p class="caption">CSV opened in Google Sheets</p>
 </div>
 <p>As with any file type, CSVs do have their limitations. Specifically, CSV files are best used for data that have a consistent number of variables across observations. In our example, there are three variables for each observation: “name”, “height”, and “blood_type”. If, however, you had eye color and weight for the second observation, but not for the other rows, you’d have a different number of variables for the second observation than the other two. This type of data is not best suited for CSVs (although NA values could be used to make the data rectangular). Whenever you have information with the same number of variables across all observations, CSVs are a good bet!</p>
@@ -890,7 +890,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">2.4.1</span> Downloading CSV files</h3>
 <p>If you entered the same values used above into Google Sheets first and wanted to download this file as a CSV to read into R, you would enter the values in Google Sheets and then click on “File” and then “Download as” and choose “Comma-separated values (.csv, current sheet)”. The dataset that you created will be downloaded as a CSV file on your computer. Make sure you know the location of your file (if on a Chromebook, this will be in your “Downloads” folder).</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM/export/png?id=199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM&amp;pageid=g399e5a917a_0_56" alt="" />
+<img src="gslides/047.png" alt="" />
 <p class="caption">Download as CSV file</p>
 </div>
 </div>
@@ -906,7 +906,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb46-7"><a href="get-data.html#cb46-7"></a><span class="co">## look at the object</span></span>
 <span id="cb46-8"><a href="get-data.html#cb46-8"></a><span class="kw">head</span>(df_csv)</span></code></pre></div>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM/export/png?id=199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM&amp;pageid=g399e5a917a_0_16" alt="" />
+<img src="gslides/048.png" alt="" />
 <p class="caption"><code>read_csv()</code></p>
 </div>
 <p>Above, you see the simplest way to import a CSV file. However, as with many functions, there are other arguments that you can set to specify how to import your specific CSV file, a few of which are listed below. However, as usual, to see all the arguments for this function, use <code>?read_csv</code> within R.</p>
@@ -962,7 +962,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Alternatively, JSON (JavaScript Object Notation) data are <em>nested</em> and <em>hierarchical</em>. JSON is a very commonly-used text-based way to send information between a browser and a server. It is easy for humans to read and to write. JSON data adhere to certain rules in how they are structured. For simplicity, JSON format requires objects to be comprised of <strong>key-value pairs</strong>. For example, in the case of: <code>{"Name": "Isabela"}</code>, “Name” would be a key, “Isabela” would be a value, and together they would be a key-value pair. Let’s take a look at how JSON data looks in R.This means that key-pairs can be organized into different levels (hierarchical) with some levels of information being stored <em>within</em> other levels (nested).</p>
 <p>Using a snippet of JSON data here, we see a portion of JSON data from Yelp looking at the <code>attributes</code> of a restaurant. Within <code>attributes</code>, there are four nested categories: <code>Take-out</code>, <code>Wi-Fi</code>, <code>Drive-Thru</code>, and <code>Good For</code>. In the hierarchy, attributes is at the top, while these four categories are within attributes. Within one of these attributes <code>Good For</code>, we see another level within the hierarchy. In this third level we see a number of other categories nested within <code>Good For</code>. This should give you a slightly better idea of how JSON data are structured.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&amp;pageid=g3d555e2b2e_0_13" alt="" />
+<img src="gslides/049.png" alt="" />
 <p class="caption">JSON data are hierarchical and nested</p>
 </div>
 <p>To get a sense of what JSON data look like in R, take a peak at this minimal example:</p>
@@ -992,7 +992,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 2 Buzz Lightyear  34 Space Ranger
 ## 3           Andy  NA    Toy Owner</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_219" alt="" />
+<img src="gslides/050.png" alt="" />
 <p class="caption"><code>fromJSON()</code></p>
 </div>
 <p>Data frames can also be returned to their original JSON format using the function: <code>toJSON()</code>.</p>
@@ -1001,7 +1001,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb54-3"><a href="get-data.html#cb54-3"></a>json</span></code></pre></div>
 <pre><code>## [{&quot;Name&quot;:&quot;Woody&quot;,&quot;Age&quot;:40,&quot;Occupation&quot;:&quot;Sherriff&quot;},{&quot;Name&quot;:&quot;Buzz Lightyear&quot;,&quot;Age&quot;:34,&quot;Occupation&quot;:&quot;Space Ranger&quot;},{&quot;Name&quot;:&quot;Andy&quot;,&quot;Occupation&quot;:&quot;Toy Owner&quot;}]</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_228" alt="" />
+<img src="gslides/051.png" alt="" />
 <p class="caption"><code>toJSON()</code></p>
 </div>
 <p>While this gives us an idea of how to work with JSON formatted data in R, we haven’t yet discussed how to read a JSON file into R. When you have data in the JSON format (file extension: .json), you’ll use the <code>read_json()</code> function, which helpfully looks very similar to the other <code>read_</code> functions we’ve discussed so far:</p>
@@ -1017,7 +1017,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">2.9</span> XML</h2>
 <p><strong>Extensible Markup Language (XML)</strong>, is another human- and machine-readable language that is used frequently by web services and APIs. However, instead of being based on key-value pairs, XML relies on <strong>nodes</strong>, <strong>tags</strong>, and <strong>elements</strong>. The author defines these <em>tags</em> to specify what information is included in each <em>element</em> of the XML document and allows for elements to be nested within one another. The <strong>nodes</strong> define the hierarchical structure of the XML (which means that XML is hierarchical and nested like JSON)!</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&amp;pageid=g3d555e2b2e_0_128" alt="" />
+<img src="gslides/052.png" alt="" />
 <p class="caption">XML format relies on nodes, tags, and elements</p>
 </div>
 <p>XML accomplishes the same goal as JSON, but it just does it in a different format. Thus, the two formats are commonly used for similar purposes – sharing information on the web; however, because the format in which they do this is different, a different R package is needed to process XML data. This packages is called <code>xml2</code>.</p>
@@ -1032,12 +1032,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">2.10.1</span> Relational Data</h3>
 <p>Relational data can be thought of as information being stored across many tables, with each table being related to all the other tables. Each table is linked to every other table by a set of <strong>unique identifiers</strong>.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&amp;pageid=g392f0f9db9_1_9" alt="" />
+<img src="gslides/053.png" alt="" />
 <p class="caption">Relational data are related by unique identifiers</p>
 </div>
 <p>To better understand this, let’s consider a toy example. Consider a town where you have a number of different restaurants. In one table you have information about these restaurants including, where they are located and what type of food they serve. You then have a second table where information about health and safety inspections is stored. Each inspection is a different row and the date of the inspection, the inspector, and the safety rating are stored in this table. Finally, you have a third table. This third table contains information pulled from an API, regarding the number of stars given to each restaurant, as rated by people online. Each table contains different bits of information; however, there is a common column <code>id</code> in each of the tables. This allows the information to be linked between the tables. The restaurant with the <code>id</code> “JJ29JJ” in the restaurant table would refer to the same restaurant with the <code>id</code> “JJ29JJ” in the health inspections table, and so on. The values in this <code>id</code> column are known as <code>unique identifiers</code> because they uniquely identify each restaurant. No two restaurants will have the same <code>id</code>, and the same restaurant will always have the same <code>id</code>, no matter what table you’re looking at. The fact that these tables have unique identifiers connecting each table to all the other tables makes this example what we call <strong>relational data</strong>.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&amp;pageid=g3a5854d1ae_0_27" alt="" />
+<img src="gslides/054.png" alt="" />
 <p class="caption">Unique identifiers help link entries across tables</p>
 </div>
 <div id="why-relational-data" class="section level4" number="2.10.1.1">
@@ -1051,7 +1051,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Efficient Data Storage</strong> - By storing each bit of information in a separate table, you limit the need to repeat information. Taking our example above, imagine if we included everything in a single table. This means that for each inspection, we would copy and paste the restaurant’s address, type, and number of stars every time the facility is inspected. If a restaurant were inspected 15 times, this same information would be unnecessarily copy and pasted in each row! To avoid this, we simply separate out the information into different tables and relate them by their unique identifiers.</p>
 <p><strong>Avoids Ambiguity</strong> - Take a look at the first table: “restaurant” here. You may notice there are two different restaurants named “Taco Stand.” However, looking more closely, they have a different id <em>and</em> a different address. They’re even different types of restaurants. So, despite having the same name, they actually are two different restaurants. The unique identifier makes this immediately clear!</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&amp;pageid=g3a5854d1ae_0_43" alt="" />
+<img src="gslides/055.png" alt="" />
 <p class="caption">Unique identifiers in relational data avoid ambiguity</p>
 </div>
 <p><strong>Privacy</strong> - In using relational data, if there is ever information that is private and only some people should have access to, using this system simplifies that. You can restrict access to some of the data to ensure only those who should have access are able to access the data.</p>
@@ -1095,7 +1095,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [13] &quot;tracks&quot;</code></pre>
 <p>The output from <code>dbListTables()</code> will include 13 tables. Among them will be the two tables we’re going to work through in our example: <code>artists</code>, and <code>albums</code>.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&amp;pageid=g3a5854d1ae_0_286" alt="" />
+<img src="gslides/056.png" alt="" />
 <p class="caption">output from <code>dbListTables(db)</code></p>
 </div>
 <p>In this example, we’re downloading a database and working with the data locally. However, more often, when working with SQLite databases, you’ll be connecting remotely. Using the <code>RSQLite</code> package is particularly helpful in this case because it allows you to connect to and query the database from R without reading all the data in. This is helpful in the case of very large databases, where you’ll want to avoid copying all the data and will instead want to only work with the parts of the database you need.</p>
@@ -1125,20 +1125,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Let’s break down exactly what we mean by this using just a small toy example from the <code>artists</code> and <code>albums</code> tables from the <code>company</code> database. Here you see three rows from the <code>artists</code> table and four rows from the <code>albums</code> table.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&amp;pageid=g3a5854d1ae_0_88" alt="" />
+<img src="gslides/057.png" alt="" />
 <p class="caption">small parts of the <code>albums</code> and <code>artist</code> tables</p>
 </div>
 <div id="inner-join" class="section level4" number="2.10.5.1">
 <h4><span class="header-section-number">2.10.5.1</span> Inner Join</h4>
 <p>When talking about inner joins, we are only going to keep an observation if it is found in all of the tables we’re combining. Here, we’re combining the tables based on the <code>ArtistId</code> column. In our dummy example, there are only two artists that are found in <em>both</em> tables. These are highlighted in green and will be the rows used to join the two tables. Then, once the inner join happens, only these artists’ data will be included after the inner join.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&amp;pageid=g3a5854d1ae_0_97" alt="" />
+<img src="gslides/058.png" alt="" />
 <p class="caption">inner join output will include any observation found in both tables</p>
 </div>
 <p>In our toy example, when doing an <code>inner_join()</code>, data from any observation found in all the tables being joined are included in the output. Here, <code>ArtistId</code>s “1” and “2” are in both the <code>artists</code> and <code>albums</code> tables. Thus, those will be the only <code>ArtistId</code>s in the output from the inner join.</p>
 <p>And, since it’s a mutating join, our new table will have information from both tables! We now have <code>ArtistId</code>, <code>Name</code>, <code>AlbumId</code>, <em>and</em> <code>Title</code> in a single table! We’ve joined the two tables, based on the column <code>ArtistId</code>!</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&amp;pageid=g3a5854d1ae_0_108" alt="" />
+<img src="gslides/059.png" alt="" />
 <p class="caption">inner join includes observations found in both tables</p>
 </div>
 <p>Throughout this lesson we will use the coloring use see here to explain the joins, so we want to explain it explicitly here. Green cells are cells that will be used to make the merge happen and will be included in the resulting merged table. Blue cells are information that comes from the <code>artists</code> table that will be included after the merge. Red cells are pieces of information that come from the <code>albums</code> table that will be included after the merge. Finally, cells that are left white in the <code>artists</code> or <code>albums</code> table are cells that will not be included in the merge while cells that are white <em>after</em> the merge are NAs that have been added as a result of the merge.</p>
@@ -1168,12 +1168,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>For a left join, all rows in the first table specified will be included in the output. Any row in the second table that is <em>not</em> in the first table will not be included.</p>
 <p>In our toy example this means that <code>ArtistID</code>s 1, 2, and 3 will be included in the output; however, <code>ArtistID</code> 4 will not.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&amp;pageid=g3a5854d1ae_0_138" alt="" />
+<img src="gslides/060.png" alt="" />
 <p class="caption">left join will include all observations found in the first table specified</p>
 </div>
 <p>Thus, our output will again include all the columns from both tables combined into a single table; however, for <code>ArtistId</code> 3, there will be NAs for <code>AlbumId</code> and <code>Title</code>. NAs will be filled in for any observations in the first table specified that are missing in the second table.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&amp;pageid=g3a5854d1ae_0_123" alt="" />
+<img src="gslides/061.png" alt="" />
 <p class="caption">left join will fill in NAs</p>
 </div>
 <p>Now, to run this for our tables from the database, rather than just for a few rows in our toy example, you would do the following:</p>
@@ -1202,12 +1202,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Right Join is similar to what we just discussed; however, in the output from a right join, all rows in the final table specified are included in the output. NAs will be included for any observations found in the last specified table but not in the other tables.</p>
 <p>In our toy example, that means, information about <code>ArtistID</code>s 1, 2, and 4 will be included.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&amp;pageid=g3a5854d1ae_0_150" alt="" />
+<img src="gslides/062.png" alt="" />
 <p class="caption">right join will include all observations found in the last table specified</p>
 </div>
 <p>Again, in our toy example, we see that <code>right_join()</code> combines the information across tables; however, in this case, <code>ArtistId</code> 4 is included, but <code>Name</code> is an NA, as this information was not in the <code>artists</code> table for this artist.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&amp;pageid=g3a5854d1ae_0_160" alt="" />
+<img src="gslides/063.png" alt="" />
 <p class="caption">right join will fill in NAs</p>
 </div>
 <p>Now, to run this for our tables from the database, you would have to do something <em>slightly</em> different than what you saw above. Note in the code below that we have to change the class of the tables from the database into tibbles before doing the join. This is because SQL does not currently support right or full joins, but <code>dplyr</code> does. Thus, we first have to be sure the data are a class that <code>dplyr</code> can work with using <code>as_tibble()</code>. Other than that, the code below is similar to what you’ve seen already:</p>
@@ -1236,12 +1236,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">2.10.5.4</span> Full Join</h4>
 <p>Finally, a full join will take every observation from every table and include it in the output.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&amp;pageid=g3a5854d1ae_0_175" alt="" />
+<img src="gslides/064.png" alt="" />
 <p class="caption">full join will include any observation found in either table</p>
 </div>
 <p>Thus, in our toy example, this join produces five rows, including all the observations from either table. NAs are filled in when data are missing for an observation.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&amp;pageid=g3a5854d1ae_0_185" alt="" />
+<img src="gslides/065.png" alt="" />
 <p class="caption">full join will fill in NAs</p>
 </div>
 <p>As you saw in the last example, to carry out a full join, we have to again specify that the objects are tibbles before being able to carry out the join:</p>
@@ -1269,7 +1269,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">2.10.5.5</span> Mutating Joins Summary</h4>
 <p>Now that we’ve walked through a number of examples of mutating joins, cases where you’re combining information across tables, we just want to take a second to summarize the four types of joins discussed using a visual frequently used to explain the most common mutating joins where each circle represents a different table and the gray shading on the Venn diagrams indicates which observations will be included after the join.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c/export/png?id=1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c&amp;pageid=g6112cc596f_0_28" alt="" />
+<img src="gslides/066.png" alt="" />
 <p class="caption">mutating joins summary</p>
 </div>
 <p>To see a visual representation of this, there is a great resource on GitHub, where these joins are illustrated, so feel free to check out <a href="https://github.com/gadenbuie/tidyexplain#readme">this link</a> from <a href="https://www.garrickadenbuie.com/">Garrick Aden-Buie</a> animating joins within relational data.</p>
@@ -1314,7 +1314,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">2.11.1</span> <code>rvest</code> Basics</h3>
 <p>When <code>rvest</code> is given a webpage (URL) as input, an <code>rvest</code> function reads in the HTML code from the webpage. HTML is the language websites use to display everything you see on the website. Generally, all HTML documents require each webpage to have a similar structure. This structure is specified by using different <strong>tags</strong>. For example, a header at the top of your webpage would use a specific tag. Website links would use a different tag. These different tags help to specify how the website should appear. The <code>rvest</code> package takes advantage of these tags to help you extract the parts of the webpage you’re most interested in. So let’s see exactly how to do that all of this with an example.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_179" alt="" />
+<img src="gslides/067.png" alt="" />
 <p class="caption">Different tags are used to specify different parts of a website</p>
 </div>
 </div>
@@ -1328,21 +1328,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Click “ADD TO CHROME”</p></li>
 </ol>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_9" alt="" />
+<img src="gslides/068.png" alt="" />
 <p class="caption">ADD TO CHROME</p>
 </div>
 <ol start="3" style="list-style-type: decimal">
 <li>Click “Add extension”</li>
 </ol>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_5" alt="" />
+<img src="gslides/069.png" alt="" />
 <p class="caption">Add extension</p>
 </div>
 <ol start="4" style="list-style-type: decimal">
 <li>SelectorGadget’s icon will now be visible to the right of the web address bar within Google Chrome. You will click on this to use SelectorGadget in the example below.</li>
 </ol>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_0" alt="" />
+<img src="gslides/070.png" alt="" />
 <p class="caption">SelectorGadget icon</p>
 </div>
 </div>
@@ -1354,12 +1354,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">2.11.3.1</span> Using SelectorGadget</h4>
 <p>To use SelectorGadget, navigate to the webpage we’re interested in scraping: <a href="http://jhudatascience.org/stable_website/webscrape.html">http://jhudatascience.org/stable_website/webscrape.html</a> and toggle SelectorGadget by clicking on the SelectorGadget icon. A menu at the bottom-right of your web page should appear.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_22" alt="" />
+<img src="gslides/071.png" alt="" />
 <p class="caption">SelectorGadget icon on webpage of interest</p>
 </div>
 <p>Now that SelectorGadget has been toggled, as you mouse over the page, colored boxes should appear. We’ll click on the the name of the first package to start to tell SelectorGadget which component of the webpage we’re interested in.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_31" alt="" />
+<img src="gslides/072.png" alt="" />
 <p class="caption">SelectorGadget selects <code>strong</code> on webpage of interest</p>
 </div>
 <p>An orange box will appear around the component of the webpage you’ve clicked. Other components of the webpage that SelectorGadget has deemed similar to what you’ve clicked will be highlighted. And, text will show up in the menu at the bottom of the page letting you know what you should use in <code>rvest</code> to specify the part of the webpage you’re most interested in extracting.</p>
@@ -1406,7 +1406,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Working with a web API is similar to accessing a website in many ways. When you type a URL (ie www.google.com) into your browser, information is sent from your computer to your browser. Your browser then interprets what you’re asking for and displays the website you’ve requested. Web APIs work similarly. You <strong>request</strong> some information from the API and the API sends back a <strong>response</strong>.</p>
 <p>The <code>httr</code> package will help you carry out these types of requests within R. Let’s stop talking about it, and see an actual example!</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_69" alt="" />
+<img src="gslides/073.png" alt="" />
 <p class="caption">HTTP access via <code>httr</code></p>
 </div>
 <div id="getting-data-httr" class="section level3" number="2.12.1">
@@ -1414,7 +1414,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>HTTP is based on a number of important verbs : <code>GET()</code>, <code>HEAD()</code>, <code>PATCH()</code>, <code>PUT()</code>, <code>DELETE()</code>, and <code>POST()</code>. For the purposes of retrieving data from the Internet, you may be able to guess which verb will be the most important for our purposes! <code>GET()</code> will allow us to <em>fetch</em> a resource that already exists. We’ll specify a URL to tell <code>GET()</code> where to go look for what we want. While we’ll only highlight <code>GET()</code> in this lesson, for full understanding of the many other HTTP verbs and capabilities of <code>httr</code>, refer to the additional resources provided at the end of this lesson.</p>
 <p><code>GET()</code> will access the API, provide the API with the necessary information to request the data we want, and retrieve some output.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_90" alt="" />
+<img src="gslides/068.png0" alt="" />
 <p class="caption">API requests are made to an API endpoint to get an API response</p>
 </div>
 </div>
@@ -1443,7 +1443,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb77-12"><a href="get-data.html#cb77-12"></a>api_response &lt;-<span class="st"> </span><span class="kw">GET</span>(<span class="dt">url =</span> <span class="kw">paste0</span>(url_git, <span class="st">&#39;users/&#39;</span>, username, <span class="st">&#39;/repos&#39;</span>))</span></code></pre></div>
 <p>Note: In the code above, you see the function <code>paste0()</code>. This function concatenates (links together) each the pieces within the parentheses, where each piece is separated by a comma. This provides <code>GET()</code> with the URL we want to use as our endpoints!</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_54" alt="" />
+<img src="gslides/069.png4" alt="" />
 <p class="caption"><code>httr</code> code to access GitHub</p>
 </div>
 </div>
@@ -1455,7 +1455,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>##  [1] &quot;url&quot;         &quot;status_code&quot; &quot;headers&quot;     &quot;all_headers&quot; &quot;cookies&quot;    
 ##  [6] &quot;content&quot;     &quot;date&quot;        &quot;times&quot;       &quot;request&quot;     &quot;handle&quot;</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_112" alt="" />
+<img src="gslides/076.png" alt="" />
 <p class="caption"><code>httr</code> response</p>
 </div>
 <p>While we see ten different variables within <code>api_response</code>, we should probably first make sure that the request to GitHub’s API was successful. We can do this by checking the status code of the request, where “200” means that everything worked properly:</p>
@@ -1467,7 +1467,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="get-data.html#cb82-1"></a><span class="co">## Extract content from API response</span></span>
 <span id="cb82-2"><a href="get-data.html#cb82-2"></a>repo_content &lt;-<span class="st"> </span><span class="kw">content</span>(api_response)</span></code></pre></div>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_117" alt="" />
+<img src="gslides/077.png" alt="" />
 <p class="caption"><code>httr</code> status code and <code>content()</code></p>
 </div>
 <p>You can see here that the length of <code>repo_content</code> in our case is 6 by looking at the Environment tab. This is because the GitHub account <code>janeeverydaydoe</code> had six repositories at the time of this API call. We can get some information about each repo by running the function below:</p>
@@ -1492,7 +1492,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 7 newproject                 https://github.com/JaneEverydayDoe/newproject      
 ## 8 Temporary_add_to_version_… https://github.com/JaneEverydayDoe/Temporary_add_t…</code></pre>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_132" alt="" />
+<img src="gslides/078.png" alt="" />
 <p class="caption">output from API request</p>
 </div>
 <p>Here, we’ve pulled out the name and URL of each repository in Jane Doe’s account; however, there is <em>a lot</em> more information in the <code>repo_content</code> object. To see how to extract more information, check out the rest of Tyler’s wonderful post <a href="https://www.tylerclavelle.com/code/2017/randapis/">here</a>.</p>
@@ -1502,7 +1502,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">2.12.3</span> Example 2: Obtaining a CSV</h3>
 <p>This same approach can be used to download datasets directly from the web. The data for this example are available for download from this link: <a href="https://data.fivethirtyeight.com/">data.fivethirtyeight.com</a>, but are also hosted on GitHub <a href="https://github.com/fivethirtyeight/data">here</a>, and we will want to use the specific URL for this file: <a href="https://raw.githubusercontent.com/fivethirtyeight/data/master/steak-survey/steak-risk-survey.csv">https://raw.githubusercontent.com/fivethirtyeight/data/master/steak-survey/steak-risk-survey.csv</a> in our <code>GET()</code> request.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_148" alt="" />
+<img src="gslides/079.png" alt="" />
 <p class="caption">steak-survey on GitHub</p>
 </div>
 <p>To do so, we would do the following:</p>
@@ -1512,7 +1512,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb86-4"><a href="get-data.html#cb86-4"></a><span class="co">## Extract content from API response</span></span>
 <span id="cb86-5"><a href="get-data.html#cb86-5"></a>df_steak &lt;-<span class="st"> </span><span class="kw">content</span>(api_response, <span class="dt">type=</span><span class="st">&quot;text/csv&quot;</span>)</span></code></pre></div>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&amp;pageid=g3d5b27bb5d_0_154" alt="" />
+<img src="gslides/080.png" alt="" />
 <p class="caption"><code>GET()</code> steak-survey CSV</p>
 </div>
 <p>Here, we again specify our url within <code>GET()</code> followed by use of the helpful <code>content()</code> function from <code>httr</code> to obtain the CSV from the <code>api_response</code> object. The <code>df_steak</code> includes the data from the CSV directly from the GitHub API, without having to download the data first!</p>
@@ -1593,23 +1593,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Only a few decades ago, analyzing a large dataset of images was not feasible for most researchers. Many didn’t even think of images as data. But, there is so much we can get from analyzing image data. Although we will not study images processing techniques in this lesson, let’s look at one example that gives us an idea of how image data can be used.</p>
 <p>Within Google Maps there is a Street View feature that allows panoramic views from positions along many streets in the world. One of the things you may notice if you’re looking around on Google Maps’ street view is that for many streets in the world you do not only see houses; you are also able to see cars.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&amp;pageid=g392f0f9db9_0_4" alt="" />
+<img src="gslides/081.png" alt="" />
 <p class="caption">Google Maps street view</p>
 </div>
 <p>Some 50 million images of cars from over 200 cities were used by researchers to detect the make, model, body type, and age of the cars in each neighborhood. They were able to take unstructured image data and compile a structured dataset! These same researchers then pulled together a structured dataset from the Census and the 2008 elections of demographic information (such as race and income), and voting history in these same neighborhoods.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&amp;pageid=g2bfdb07292_0_151" alt="" />
+<img src="gslides/082.png" alt="" />
 <p class="caption">Data used from Google Maps street view to predict demographics of a neighborhood</p>
 </div>
 <p>Using these two datasets (the Google Street view car image data and the demographic data), researchers used a technique known as <strong>machine learning</strong> to build an algorithm that could, from the images of cars in a neighborhood, predict the demographics (race, income, etc) and how that area is likely to vote. Comparing these two sets of data, they were able to accurately estimate income, race, education, and voting patterns at the zip code level from the Google Street view images.</p>
 <div class="figure">
-<img src="https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&amp;pageid=g3d555e2b2e_0_0" alt="" />
+<img src="gslides/083.png" alt="" />
 <p class="caption">Cars in a neighborhood can predict how the area votes</p>
 </div>
 <div id="reading-images-in-r" class="section level4" number="2.14.0.1">
 <h4><span class="header-section-number">2.14.0.1</span> Reading Images in R</h4>
 <p>Like with text, there are packages in R that will help you carry out analysis of images. In particular, <code>magick</code> is particularly helpful for advanced image processing within R, allowing you to process, edit, and manipulate images within R. Like JSON and XML, where there is more than one file format for a similar task, there are also a number of different image file formats. The <code>magick</code> package is capable of working with many different types of images, including PNG, JPEG, and TIFF. The <code>magick</code> package has a particularly helpful <a href="https://cran.r-project.org/web/packages/magick/vignettes/intro.html#drawing_and_graphics">vignette</a> where you can learn the ins and outs of working with images using <code>magick</code>’s functionality. Their documentation will discuss how to read image data into R, how to edit images, and even how to add images to your R plots!</p>
-<p>[<code>magick</code> package’s example of adding an image to a plot]<img src="https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&amp;pageid=g3d555e2b2e_0_153" alt="Google Maps street view" /></p>
+<p>[<code>magick</code> package’s example of adding an image to a plot]<img src="gslides/084.png" alt="Google Maps street view" /></p>
 <p>A really useful manipulation that one can perform is text extraction from images. Typically this works best with images that have text, where the text is not angled and is in a conventional font.</p>
 <p>We will show how to do this using a couple of tidyverse package hex stickers.</p>
 <div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="get-data.html#cb97-1"></a><span class="co"># install package</span></span>
@@ -1974,11 +1974,11 @@ After creating a directory called raw_data within a directory that we called dat
 <span id="cb142-7"><a href="get-data.html#cb142-7"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb142-8"><a href="get-data.html#cb142-8"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xlsx&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2020-12-09 22:11
+##   Date: 2020-12-11 16:23
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpX8Q3QX/file170f474856499.xlsx</code></pre>
+## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpdviqPT/file236474856499.xlsx</code></pre>
 <div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="get-data.html#cb144-1"></a>brady &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</span>
 <span id="cb144-2"><a href="get-data.html#cb144-2"></a></span>
 <span id="cb144-3"><a href="get-data.html#cb144-3"></a>brady</span></code></pre></div>
@@ -2013,11 +2013,11 @@ After creating a directory called raw_data within a directory that we called dat
 <span id="cb146-4"><a href="get-data.html#cb146-4"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb146-5"><a href="get-data.html#cb146-5"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2020-12-09 22:11
+##   Date: 2020-12-11 16:24
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpX8Q3QX/file170f421980f48.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpdviqPT/file236421980f48.xls</code></pre>
 <div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="get-data.html#cb148-1"></a>crime &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>, <span class="dt">skip =</span> <span class="dv">3</span>)</span>
 <span id="cb148-2"><a href="get-data.html#cb148-2"></a></span>
 <span id="cb148-3"><a href="get-data.html#cb148-3"></a><span class="co"># see data</span></span>
@@ -2050,11 +2050,11 @@ After creating a directory called raw_data within a directory that we called dat
 <span id="cb150-4"><a href="get-data.html#cb150-4"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb150-5"><a href="get-data.html#cb150-5"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2020-12-09 22:11
+##   Date: 2020-12-11 16:24
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpX8Q3QX/file170f45e37ee62.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpdviqPT/file23645e37ee62.xls</code></pre>
 <div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="get-data.html#cb152-1"></a>land &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</span>
 <span id="cb152-2"><a href="get-data.html#cb152-2"></a></span>
 <span id="cb152-3"><a href="get-data.html#cb152-3"></a><span class="co"># see data</span></span>
