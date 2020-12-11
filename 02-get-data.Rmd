@@ -344,7 +344,7 @@ my_response <- c("Me", 10, 8, 2, 2, 1, 1)
 gs_add_row(survey_sheet, input = my_response)
 ```
 
-![`gs_add_row()`](images/gslides/034.png8)
+![`gs_add_row()`](images/gslides/042.png)
 
 If you now check the sheet on Google Sheets, you will see the appended row.
 
@@ -918,7 +918,7 @@ HTTP is based on a number of important verbs : `GET()`, `HEAD()`, `PATCH()`, `PU
 
 `GET()` will access the API, provide the API with the necessary information to request the data we want, and retrieve some output. 
 
-![API requests are made to an API endpoint to get an API response](images/gslides/068.png0)
+![API requests are made to an API endpoint to get an API response](images/gslides/074.png)
 
 ### Example 1: GitHub's API
 
@@ -951,7 +951,7 @@ api_response <- GET(url = paste0(url_git, 'users/', username, '/repos'))
 
 Note: In the code above, you see the function `paste0()`. This function concatenates (links together) each the pieces within the parentheses, where each piece is separated by a comma. This provides `GET()` with the URL we want to use as our endpoints! 
 
-![`httr` code to access GitHub](images/gslides/069.png4)
+![`httr` code to access GitHub](images/gslides/075.png)
 
 #### API response: `content()`
 
