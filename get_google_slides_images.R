@@ -37,6 +37,37 @@ for(i in seq_along(files)) {
 }
 
 
+## Replace GitHub images
+
+text <- read_lines("05-prediction.Rmd")
+links <- grep("camo.githubusercontent.com", text, fixed = TRUE,
+              value = TRUE)
+urls <- str_match(links, "(http.*)\\)")
+infiles <- urls[, 2]
+outfiles <- file.path("ghimage", 
+                      paste(formatC(seq_along(infiles),
+                                    flag = "0", width = 3),
+                            "png", sep = "."))
+
+for(i in seq_along(infiles)) {
+        message(infiles[i])
+        download.file(infiles[i], outfiles[i])
+        Sys.sleep(1)
+}
+
+## Replace links
+dict <- cbind(url = infiles, newurl = outfiles)
+text <- read_lines("05-prediction.Rmd")
+
+for(j in seq_len(nrow(dict))) {
+        idx <- grep(dict[j, 1], text, fixed = TRUE)
+        text[idx] <- sub(dict[j, 1], dict[j, 2], text[idx], fixed = TRUE)
+}
+write_lines(text, "05-prediction.Rmd")
+
+
+
+
 
 
 
