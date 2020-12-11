@@ -561,16 +561,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The <code>slice_sample()</code> function of the <code>dplyr</code> package will allow you to see a sample of random rows in random order. The number of rows to show is specified by the <code>n</code> argument. This can be useful if you don’t want to print the entire tibble, but you want to get a greater sense of the values. This is a good option for data analysis reports, where printing the entire tibble would not be appropriate if the tibble is quite large.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="get-data.html#cb11-1"></a><span class="kw">slice_sample</span>(trees, <span class="dt">n =</span> <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##    Girth Height Volume
-## 1   16.3     77   42.6
-## 2   14.0     78   34.5
-## 3   12.9     85   33.8
-## 4   18.0     80   51.5
-## 5   12.0     75   19.1
-## 6   11.7     69   21.3
-## 7   11.4     76   21.0
-## 8   11.4     76   21.4
-## 9   11.2     75   19.9
-## 10  13.8     64   24.9</code></pre>
+## 1   17.5     82   55.7
+## 2   11.7     69   21.3
+## 3   10.8     83   19.7
+## 4   16.3     77   42.6
+## 5   12.9     85   33.8
+## 6   14.0     78   34.5
+## 7   12.9     74   22.2
+## 8   11.1     80   22.6
+## 9   11.4     76   21.0
+## 10  11.3     79   24.2</code></pre>
 <p>You can also use <code>slice_head()</code> or <code>slice_tail()</code> to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.</p>
 <p>This will show the first 5 rows.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="get-data.html#cb13-1"></a><span class="kw">slice_head</span>(trees, <span class="dt">n =</span> <span class="dv">5</span>)</span></code></pre></div>
@@ -1974,11 +1974,11 @@ After creating a directory called raw_data within a directory that we called dat
 <span id="cb142-7"><a href="get-data.html#cb142-7"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb142-8"><a href="get-data.html#cb142-8"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xlsx&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2020-12-11 16:23
+##   Date: 2020-12-11 17:38
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpdviqPT/file236474856499.xlsx</code></pre>
+## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpThdNIV/file341b74856499.xlsx</code></pre>
 <div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="get-data.html#cb144-1"></a>brady &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</span>
 <span id="cb144-2"><a href="get-data.html#cb144-2"></a></span>
 <span id="cb144-3"><a href="get-data.html#cb144-3"></a>brady</span></code></pre></div>
@@ -2013,11 +2013,11 @@ After creating a directory called raw_data within a directory that we called dat
 <span id="cb146-4"><a href="get-data.html#cb146-4"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb146-5"><a href="get-data.html#cb146-5"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2020-12-11 16:24
+##   Date: 2020-12-11 17:38
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpdviqPT/file236421980f48.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpThdNIV/file341b21980f48.xls</code></pre>
 <div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="get-data.html#cb148-1"></a>crime &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>, <span class="dt">skip =</span> <span class="dv">3</span>)</span>
 <span id="cb148-2"><a href="get-data.html#cb148-2"></a></span>
 <span id="cb148-3"><a href="get-data.html#cb148-3"></a><span class="co"># see data</span></span>
@@ -2050,11 +2050,11 @@ After creating a directory called raw_data within a directory that we called dat
 <span id="cb150-4"><a href="get-data.html#cb150-4"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb150-5"><a href="get-data.html#cb150-5"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2020-12-11 16:24
+##   Date: 2020-12-11 17:38
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpdviqPT/file23645e37ee62.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpThdNIV/file341b5e37ee62.xls</code></pre>
 <div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="get-data.html#cb152-1"></a>land &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</span>
 <span id="cb152-2"><a href="get-data.html#cb152-2"></a></span>
 <span id="cb152-3"><a href="get-data.html#cb152-3"></a><span class="co"># see data</span></span>
