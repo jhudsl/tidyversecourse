@@ -35,7 +35,7 @@ These are **data displays to help you better understand and discover hidden patt
 
 Below we have a graph where the axes are labeled and general pattern can be determined. This is a great example of an exploratory plot. It lets you the analyst know what's going on in your data, but it isn't yet ready for a big presentation.
 
-![Exploratory Plot](gslides/172.png)
+![Exploratory Plot](images/gslides/172.png)
 
 As you're trying to understand the data you have on hand, you'll likely make a lot of plots and tables just to figure out to explore and understand the data. Because there are a lot of them and they're for your use (rather than for communicating with others), you don't have to spend all your time making them perfect. But, you do have to spend enough time to make sure that you're drawing the right conclusions from this. Thus, you don't have to spend a long time considering what colors are perfect on these, but you do want to make sure your axes are not cut off.  
 
@@ -53,7 +53,7 @@ These are data displays that aim to **communicate insights to others**. These ar
 
 Here we see  an improvement upon the exploratory plot we looked at previously. Here, the axis labels are more descriptive. All of the text is larger. The legend has been moved onto the plot. The points on the plot are larger. And, there is a title. All of these changes help to improve the plot, making it an explanatory plot that would be presentation-ready.
 
-![Explanatory Plots](gslides/173.png)
+![Explanatory Plots](images/gslides/173.png)
 
 Explanatory plots are made after you've done an analysis and once you really understand the data you have. The goal of these plots is to communicate your findings clearly to others. To do so, you want to make sure these plots are made carefully - the axis labels should all be clear, the labels should all be large enough to read, the colors should all be carefully chosen, etc.. As this takes times and because you do not want to overwhelm your audience, you only want to have a few of these for each project. We often refer to these as "publication ready" plots. These are the plots that would make it into an article at the New York Times or in your presentation to your bosses.
 
@@ -68,49 +68,49 @@ Above we saw data displayed as both an exploratory plot and an explanatory plot.
 
 To do this, we'll use the "Davis" dataset which includes, height and weight information for 200 people.
 
-![Dataset](gslides/174.png)
+![Dataset](images/gslides/174.png)
 
 ### Histogram
 
 Histograms are helpful when you want to **better understand what values you have in your dataset for a single set of numbers**. For example, if you had a dataset with information about many people, you may want to know how tall the people in your dataset are. To quickly visualize this, you could use a histogram. Histograms let you know what range of values you have in your dataset. For example, below you can see that in this dataset, the height values range from around 50 to around 200 cm. The shape of the histogram also gives you information about the individuals in your dataset. The number of people at each height are also counted. So, the tallest bars show that there are about 40 people in the dataset whose height is between 165 and 170 cm. Finally, you can quickly tell, at a glance that most people in this dataset are at least 150 cm tall, but that there is at least one individually whose reported height is much lower. 
 
-![Histogram](gslides/175.png) 
+![Histogram](images/gslides/175.png) 
 
 ### Densityplot
 
 Densityplots are smoothed versions of histograms, visualizing the distribution of a continuous variable. These plots effectively visualize the distribution shape and are, unlike histograms, are not sensitive to the number of bins chosen for visualization.
 
-![Densityplot](gslides/176.png) 
+![Densityplot](images/gslides/176.png) 
 
 ### Scatterplot
 
 Scatterplots are helpful when you have **numerical values for two different pieces of information** and you want to understand the relationship between those pieces of information. Here, each dot represents a different person in the dataset. The dot's position on the graph represents that individual's height and weight. Overall, in this dataset, we can see that, in general, the more someone weighs, the taller they are. Scatterplots, therefore help us at a glance better understand the relationship between two sets of numbers.
 
-![Scatter Plot](gslides/177.png)
+![Scatter Plot](images/gslides/177.png)
 
 ### Barplot
 
 When you only have **a single categorical variable that you want broken down and quantified by category**, a barplot will be ideal. For example if you wanted to look at how many females and how many males you have in your dataset, you could use a barplot.  The comparison in heights between bars clearly demonstrates that there are more females in this dataset than males. 
 
-![Barplot](gslides/178.png)
+![Barplot](images/gslides/178.png)
 
 #### Grouped Barplot
 
 Grouped barplots, like simple barplots, demonstrate the counts for a group; however, they break this down by an additional categorical variable. For example, here we see the number of individuals within each % category along the x-axis. But, these data are further broken down by gender (an additional categorical variable). Comparisons between bars that are side-by-side are made most easily by our visual system. So, it's important to ensure that the bars you want viewers to be able to compare most easily are next to one another in this plot type. 
 
-![Grouped Barplot](gslides/179.png)
+![Grouped Barplot](images/gslides/179.png)
 
 #### Stacked Barplot
 
 Another common variation on barplots are stacked barplots. Stacked barplots take the information from a grouped barplot but stacks them on top of one another. This is most helpful when the bars add up to 100%, such as in a survey response where you're measuring percent of respondents within each category. Otherwise, it can be hard to compare between the groups within each bar. 
 
-![Stacked Barplot](gslides/180.png)
+![Stacked Barplot](images/gslides/180.png)
 
 ### Boxplot
 
 Boxplots also summarize **numerical values across a category**; however, instead of just comparing the heights of the bar, they give us an idea of the range of values that each category can take. For example, if we wanted to compare the heights of men to the heights of women, we could do that with a boxplot.
 
-![Boxplot](gslides/181.png)
+![Boxplot](images/gslides/181.png)
 
 To interpret a boxplot, there are a few places where we'll want to focus our attention. For each category, the horizontal line through the middle of the box corresponds to the median value for that group. So, here, we can say that the median, or most typical height for females is about 165 cm. For males, this value is higher, just under 180 cm. Outside of the colored boxes, there are dashed lines. The ends of these lines correspond to the typical range of values. Here, we can see that females tend to have heights between 150 and 180cm. Lastly, when individuals have values outside the typical range, a boxplot will show these individuals as circles. These circles are referred to as outliers.
 
@@ -118,7 +118,7 @@ To interpret a boxplot, there are a few places where we'll want to focus our att
 
 The final type of basic plot we'll discuss here are line plots. Line plots are most effective at showing a **quantitative trend over time**.
 
-![Line Plot](gslides/182.png)
+![Line Plot](images/gslides/182.png)
 
 
 #### Resources to look at these and other types of plots:
@@ -139,14 +139,14 @@ When generating exploratory or explanatory plots, you'll want to ensure informat
 
 If your goal is to allow the viewer to compare values across groups, pie charts should largely be avoided. This is because it's easier for the human eye to differentiate between bar heights than it is between similarly-sized slices of a pie. Thinking about the best way to visualize your data before making the plot is an important step in the process of data visualization.
 
-![Choose an appropriate plot for the data you're visualizing.](gslides/183.png)
+![Choose an appropriate plot for the data you're visualizing.](images/gslides/183.png)
 
 ### Be Mindful When Choosing Colors
 
 Choosing colors that work for the story you're trying to convey with your visualization is important. Avoiding colors that are hard to see on a screen or when projected, such as pastels, is a good idea. Additionally, red-green color blindness is common and leads to difficulty in distinguishing reds from greens. Simply avoiding making comparisons between these two colors is a good first step when visualizing data. 
 
 
-![Choosing appropriate colors for visualizations is important](gslides/184.png)
+![Choosing appropriate colors for visualizations is important](images/gslides/184.png)
 
 Beyond red-green color blindness, there is an entire group of experts out there in color theory.To learn more about available [color palettes in R](https://github.com/EmilHvitfeldt/r-color-palettes) or to read more from a pro named Lisa Charlotte Rost [talking about color choices in data visualization](https://lisacharlotterost.github.io/2016/04/22/Colors-for-DataVis/), feel free to read more.
 
@@ -154,38 +154,38 @@ Beyond red-green color blindness, there is an entire group of experts out there 
 
 Whether you're making an exploratory or explanatory visualization, labeled axes are a must. They help tell the story of the figure. Making sure the axes are clearly labeled is also important. Rather than labeling the graph below with "h" and "g," we chose the labels "height" and "gender," making it clear to the viewer exactly what is being plotted.
 
-![Having descriptive labels on your axes is critical](gslides/185.png)
+![Having descriptive labels on your axes is critical](images/gslides/185.png)
 
 ### Make Sure the Text is Readable
 
 Often text on plots is too small for viewers to read. By being mindful of the size of the text on your axes, in your legend, and used for your labels, your visualizations will be greatly improved.
 
-![On the right, we see that the text is easily readable](gslides/186.png)
+![On the right, we see that the text is easily readable](images/gslides/186.png)
 
 ### Make Sure the Numbers Add Up
 
 When you're making a plot that should sum to 100, make sure that it in fact does. Taking a look at visualizations after you make them to ensure that they make sense is an important part of the data visualization process. 
 
-![At left, the pieces of the pie only add up to 95%. On the right, this error has been fixed and the pieces add up to 100%](gslides/187.png)
+![At left, the pieces of the pie only add up to 95%. On the right, this error has been fixed and the pieces add up to 100%](images/gslides/187.png)
 
 ### Make Sure the Numbers and Plots Make Sense Together
 
 Another common error is having labels that don't reflect the underlying graphic. For example, here, we can see on the left that the turquoise piece is more than half the graph, and thus the label 45% must be incorrect. At right, we see that the labels match what we see in the figure.
 
 
-![Checking to make sure the numbers and plot make sense together is important](gslides/188.png)
+![Checking to make sure the numbers and plot make sense together is important](images/gslides/188.png)
 
 ### Make Comparisons Easy on Viewers
 
 There are many ways in which you can make comparisons easier on the viewer. For example, avoiding unnecessary whitespace between the bars on your graph can help viewers make comparisons between the bars on the barplot.
 
-![At left, there is extra white space between the bars of the plot that should be removed. On the right, we see an improved plot](gslides/189.png)
+![At left, there is extra white space between the bars of the plot that should be removed. On the right, we see an improved plot](images/gslides/189.png)
 
 ### Use y-axes That Start at Zero
 
 Often, in an attempt to make differences between groups look larger than they are, y-axis will be started at a value other than zero. This is misleading. Y-axis for numerical information should start at zero. 
 
-![At left, the differences between the vars appears larger than on the right; however, this is just because the y-axis starts at 200. The proper way to start this graph is to start the y-axis at 0.](gslides/190.png)
+![At left, the differences between the vars appears larger than on the right; however, this is just because the y-axis starts at 200. The proper way to start this graph is to start the y-axis at 0.](images/gslides/190.png)
 
 ### Keep It Simple
 
@@ -193,12 +193,12 @@ The goal of data visualization is to improve understanding of data. Sometimes co
 
 Here, the graphic does not immediately convey a main point. It's hard to interpret what each circle means or what the story of this graphic is supposed to me. Make sure in your graphics that your main point comes through:
 
-![Main point unclear](gslides/191.png)
+![Main point unclear](images/gslides/191.png)
 
 
 Similarly, the intention of your graphic should never be to mislead and confuse. Unlike what was done here, be sure that your data visualizations improve viewers' understanding. Do not aim to confuse:
 
-![Confusion is conveyed here](gslides/192.png)
+![Confusion is conveyed here](images/gslides/192.png)
 
 ## Plot Generation Process
 
@@ -300,7 +300,7 @@ diamonds
 ## # … with 53,930 more rows
 ```
 
-![First 12 rows of diamonds dataset](gslides/193.png)
+![First 12 rows of diamonds dataset](images/gslides/193.png)
 
 Here you see a lot of numbers and can get an idea of what data are available in this dataset. For example, in looking at the column names across the top, you can see that we have information about how many carats each diamond is (`carat`), some information on the quality of the diamond cut (`cut`), the color of the diamond from J (worst) to D (best) (`color`), along with a number of other pieces of information about each diamond.
 
@@ -319,7 +319,7 @@ ggplot(data = diamonds) +
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 
-![diamonds scatterplot](gslides/194.png)
+![diamonds scatterplot](images/gslides/194.png)
 
 In this plot, we see that, in general, the larger the diamond is (or the more carats it has), the more expensive the diamond is (price), which is probably what we would have expected. However, now, we have a plot that definitively supports this conclusion!
 
@@ -344,7 +344,7 @@ ggplot(data = diamonds) +
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 
-![changing point colors helps us better understand the data](gslides/195.png)
+![changing point colors helps us better understand the data](images/gslides/195.png)
 
 Here, we see that not only are the points now colored by clarity, ggplot2 has also automatically added a legend for us with the various classes and their corresponding point color. 
 
@@ -363,7 +363,7 @@ ggplot(data = diamonds) +
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
-![manually specifying point color occurs outside of `aes()`](gslides/196.png)
+![manually specifying point color occurs outside of `aes()`](images/gslides/196.png)
 
 #### Point size
 
@@ -378,7 +378,7 @@ ggplot(data = diamonds) +
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 
-![mapping to size changes point size on plot](gslides/197.png)
+![mapping to size changes point size on plot](images/gslides/197.png)
 
 As above, `ggplot2` handles actually doing the mapping. All you have to do is specify what variable you want mapped (`clarity`) and how you want ggplot2 to handle the mapping (change the point `size`). With this code, you do get a warning when you run it in R that using a "discrete variable is not advised." This is because mapping to size is usually done for numeric variables, rather than categorical variables like clarity. 
 
@@ -396,7 +396,7 @@ ggplot(data = diamonds) +
 <img src="04-dataviz_files/figure-html/unnamed-chunk-8-1.png" width="672" />
 
 
-![manually specifying point size of all points occurs outside of `aes()`](gslides/198.png)
+![manually specifying point size of all points occurs outside of `aes()`](images/gslides/198.png)
 
 Here, we have manually increased the size of *all* the points on the plot. 
 
@@ -427,13 +427,13 @@ ggplot(data = diamonds) +
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
-![mapping clarity to shape](gslides/199.png)
+![mapping clarity to shape](images/gslides/199.png)
 
 Here, while the mapping occurs correctly within ggplot2, we do get a warning message that discriminating more than six different shapes is difficult for the human eye. Thus, ggplot2 won't allow more than six different shapes on a plot. This suggests that while you *can* do something, it's not always the *best* to do that thing. Here, with more than six levels of clarity, it's best to stick to mapping this variable to `color` as we did initially.
 
 To manually specify a shape for all the points on your plot, you would specify it outside of `aes` using one of the twenty-five different shape options available:
 
-![options for points in ggplot2's `shape`](gslides/200.png)
+![options for points in ggplot2's `shape`](images/gslides/200.png)
 
 For example, to plot all of the points on the plot as filled diamonds (it is a dataset about diamonds after all...), you would specify shape '18':
 
@@ -446,7 +446,7 @@ ggplot(data = diamonds) +
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
-![specifying filled diamonds as shape for all points manually](gslides/201.png)
+![specifying filled diamonds as shape for all points manually](images/gslides/201.png)
 
 ### Facets
 
@@ -466,7 +466,7 @@ ggplot(data = diamonds) +
 
 Here, read the tilde as the word "by". Specifically here, we want a scatterplot of the relationship between carat and price and we want it faceted (broken down) **by (~)** clarity.
 
-![facet_wrap breaks plots down into subplots](gslides/202.png)
+![facet_wrap breaks plots down into subplots](images/gslides/202.png)
 
 Now, we have eight different plots, one for each level of clarity, where we can see the relationship between diamond carats and price.
 
@@ -497,7 +497,7 @@ ggplot(data = diamonds) +
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
-![histogram of carat shows range and shape](gslides/203.png)
+![histogram of carat shows range and shape](images/gslides/203.png)
 
 The code follows what we've seen so far in this lesson; however, we've now called `geom_histogram` to specify that we want to plot a histogram rather than a scatterplot. 
 
@@ -520,7 +520,7 @@ ggplot(data = diamonds) +
 
 Again, the changes to the code are minimal. We are now interested in plotting the categorical variable `cut` and state that we want a bar plot, by including `geom_bar()`. 
 
-![diamonds barplot](gslides/204.png)
+![diamonds barplot](images/gslides/204.png)
 
 Here, we again use rectangular shapes to represent the data, but we're not showing the distribution of a single variable (as we were with `geom_histogram`). Rather, we're using rectangles to show the count (number) of diamonds within each category within cut. Thus, we need a different geom: `geom_bar`!
 
@@ -539,7 +539,7 @@ ggplot(data = diamonds) +
 
 In the code, we see that again, we only have to change what variables we want to be included in the plot the type of plot (or geom) we want (here, `geom_boxplot()`) to get a basic boxplot.
 
-![diamonds boxplot](gslides/205.png)
+![diamonds boxplot](images/gslides/205.png)
 
 In the figure itself we see that the median price (the black horizontal bar in the middle of each box represents the median for each category) increases as the diamond color increases from the worst category (J) to the best (D).
 
@@ -555,7 +555,7 @@ ggplot(data = diamonds) +
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-15-1.png" width="672" />
 
-![diamonds boxplot with red fill](gslides/206.png)
+![diamonds boxplot with red fill](images/gslides/206.png)
 
 Here, by specifying the color "red" in the `fill` argument, you're able to change the plot's appearance. In the next lesson, we'll go deeper into the many ways in which a plot can be customized within `ggplot2`!
 
@@ -563,11 +563,11 @@ Here, by specifying the color "red" in the `fill` argument, you're able to chang
 
 While we've reviewed basic code to make a few common types of plots, there are a number of other plot types that can be made in `ggplot2.` These are listed in the [online reference material for ggplot2](http://ggplot2.tidyverse.org/reference/) or can be accessed through RStudio directly. To do so, you would type `?geom_` into the Console in RStudio. A list of geoms will appear. You can hover your cursor over any one of these to get a short description. 
 
-![?geom in Console](gslides/207.png)
+![?geom in Console](images/gslides/207.png)
 
 Or, you can select a geom from this list and click enter. After selecting a geom, such as geom_abline and hitting 'Enter,' the help page for that geom will pop up in the 'Help' tab at bottom right. Here, you can find more detailed information about the selected geom.
 
-![geom_abline help page](gslides/208.png)
+![geom_abline help page](images/gslides/208.png)
 
 ### EDA Plots
 
@@ -606,7 +606,7 @@ ggplot(diamonds) +
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-17-1.png" width="672" />
 
-![diamonds broken down by clarity](gslides/209.png)
+![diamonds broken down by clarity](images/gslides/209.png)
 
 As a general note, we've stopped including `data =` and `mapping =` here within our code. We included it so far to be explicit; however, in code you see in the world, the names of the arguments will typically be excluded and we want you to be familiar with code that appears as you see above. 
 
@@ -621,7 +621,7 @@ ggplot(diamonds) +
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-18-1.png" width="672" />
 
-![color does add color but around the bars](gslides/210.png)
+![color does add color but around the bars](images/gslides/210.png)
 
 As expected, color added a legend for each level of clarity; however, it colored the lines around the bars on the plot, rather than the bars themselves. In order to color the bars themselves, you want to specify the more helpful argument `fill`:
 
@@ -634,7 +634,7 @@ ggplot(diamonds) +
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
-![`fill` automatically colors the bars](gslides/211.png)
+![`fill` automatically colors the bars](images/gslides/211.png)
 
 Great! We now have a plot with bars of different colors, which was our first goal! However, adding colors here, while maybe making the plot prettier doesn't actually give us any more information. We can see the same pattern of which clarity is most frequent among the diamonds in our dataset that we could in the first plot we made. 
 
@@ -649,7 +649,7 @@ ggplot(diamonds) +
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
-![mapping a different variable to fill provides new information](gslides/212.png)
+![mapping a different variable to fill provides new information](images/gslides/212.png)
 
 Now we're getting some new information! We can see that each level in clarity appears to have diamonds of all levels of cut. Color here has really helped us understand more about the data.
 
@@ -665,7 +665,7 @@ ggplot(diamonds) +
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 
-![manually setting colors using `scale_fill_manual`](gslides/213.png)
+![manually setting colors using `scale_fill_manual`](images/gslides/213.png)
 
 Here, we've specified five different colors within the `values` argument of `scale_fill_manual()`, one for each cut of diamond. The names of these colors can be specified using the names explained on the third page of the cheatsheet [here](https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/colorPaletteCheatsheet.pdf). (Note: There are other ways to specify colors within R. Explore the details in that cheatsheet to better understand the various ways!)
 
@@ -687,7 +687,7 @@ ggplot(diamonds) +
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-22-1.png" width="672" />
 
-![`position = "fill"` allows for comparison of proportion across groups](gslides/214.png)
+![`position = "fill"` allows for comparison of proportion across groups](images/gslides/214.png)
 
 Here, we've specified how we want to adjust the position of the bars in the plot. Each bar is now of equal height and we can compare each colored bar across the different clarities. As expected, we see that among the best clarity group (IF), we see more diamonds of the best cut ("Ideal")!
 
@@ -701,7 +701,7 @@ ggplot(diamonds) +
   scale_fill_manual(values = c("red", "orange", "darkgreen", "dodgerblue", "purple4"))
 ```
 
-![`position = "dodge"` helps compare values within each group](gslides/215.png)
+![`position = "dodge"` helps compare values within each group](images/gslides/215.png)
 
 Unlike in the first plot where we specified `fill = cut`, we can actually see the relationship between each cut within the lowest clarity group (I1). Before, when the values were stacked on top of one another, we were not able to visually see that there were more "Fair" and "Premium" cut diamonds in this group than the other cuts. Now, with `position = "dodge"`, this information is visually apparent.
 
@@ -729,7 +729,7 @@ ggplot(diamonds) +
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-24-1.png" width="672" />
 
- ![`labs()` adds helpful tittles, subtitles, and captions](gslides/216.png)
+ ![`labs()` adds helpful tittles, subtitles, and captions](images/gslides/216.png)
  
 #### Axis labels
  
@@ -750,13 +750,13 @@ ggplot(diamonds) +
 
 Note that the x- and y- axis labels can *also* be changed within `labs()`, using the argument (`x = ` and `y =`, respectively).
 
-![Accurate axis labels are incredibly important](gslides/217.png)
+![Accurate axis labels are incredibly important](images/gslides/217.png)
  
 ### Themes
 
 To change the overall aesthetic of your graph, there are 8 themes built into `ggplot2` that can be added as an additional layer in your graph:
 
-![themes](gslides/218.png)
+![themes](images/gslides/218.png)
 
 For example, if we wanted remove the gridlines and grey background from the chart, we would use `theme_classic()`. Building on what we've already generated:
 
@@ -774,7 +774,7 @@ ggplot(diamonds) +
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-26-1.png" width="672" />
 
-![`theme_classic` changes aesthetic of our plot](gslides/219.png)
+![`theme_classic` changes aesthetic of our plot](images/gslides/219.png)
 
 We now have a pretty good looking plot! However, a few additional changes would make this plot *even better* for communication.
 
@@ -806,7 +806,7 @@ ggplot(diamonds) +
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-27-1.png" width="672" />
 
-![`theme()` allows us to adjust font size](gslides/220.png)
+![`theme()` allows us to adjust font size](images/gslides/220.png)
 
 #### Additional text alterations
 
@@ -832,7 +832,7 @@ ggplot(diamonds) +
 <img src="04-dataviz_files/figure-html/unnamed-chunk-28-1.png" width="672" />
 
 
-![`theme()` allows us to tweak many parts of our plot](gslides/221.png)
+![`theme()` allows us to tweak many parts of our plot](images/gslides/221.png)
 
 Any alterations to plot spacing/background, title, axis, and legend will all be made within `theme()`
 
@@ -860,7 +860,7 @@ ggplot(diamonds) +
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-29-1.png" width="672" />
 
-![`guides()` allows us to change the legend title](gslides/222.png)
+![`guides()` allows us to change the legend title](images/gslides/222.png)
 
 This `guides()` function, as well as the `guides_*` functions also allow us to modify legends even further. 
 
@@ -955,7 +955,7 @@ ggplot(diamonds) +
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-33-1.png" width="672" />
 
-![Continuous cales can be altered](gslides/223.png)
+![Continuous cales can be altered](images/gslides/223.png)
 
 There is very handy argument called `trans` for the `scale_y_continuous` or the `scale_x_continuous` functions to change the scale of the axes. For example it can be very useful to show the logrithmic version of the scale if you have very high values with large differences.
 
@@ -1040,7 +1040,7 @@ ggplot(diamonds) +
   scale_y_continuous(breaks = seq(0, 17000, by = 1000)) 
 ```
 
-![Discrete scales can be altered](gslides/224.png)
+![Discrete scales can be altered](images/gslides/224.png)
 
 
 ### Coordinate Adjustment
@@ -1074,7 +1074,7 @@ ggplot(diamonds) +
 <img src="04-dataviz_files/figure-html/unnamed-chunk-39-1.png" width="672" />
 
 
-![Axes can be flipped using `coord_flip`](gslides/225.png)
+![Axes can be flipped using `coord_flip`](images/gslides/225.png)
 
 It's important to remember that all the additional alterations we already discussed can still be applied to this graph, due to the fact that ggplot2 uses layering! 
 
@@ -1095,7 +1095,7 @@ p <- ggplot(diamonds) +
         plot.subtitle = element_text(color = "gray30") ) 
 ```
 
-![Additional layers will help customize this plot](gslides/226.png)
+![Additional layers will help customize this plot](images/gslides/226.png)
 
 ### Annotation
 
@@ -1131,7 +1131,7 @@ ggplot(diamonds) +
 
 <img src="04-dataviz_files/figure-html/unnamed-chunk-41-1.png" width="672" />
 
-![`annotate` helps add text to our plot](gslides/227.png)
+![`annotate` helps add text to our plot](images/gslides/227.png)
 
 Note: we could have accomplished this by adding an additional `geom`: `geom_text`. However, this requires creating a new data frame, as explained [here](http://r4ds.had.co.nz/graphics-for-communication.html#annotations). This can also be used to **label the points on your plot**. Keep this reference in mind in case you have to do that in the future.
 
@@ -1188,7 +1188,7 @@ A few things to keep in mind when making tables is that it's best to:
 * Include a caption
 * When possible, keep it simple.
 
-![Table](gslides/228.png)
+![Table](images/gslides/228.png)
 
 ### Tables in R
 
@@ -1238,7 +1238,7 @@ df
 
 By getting the data summarized into a single object in R (`df`), we're on our way to making an informative table. However, this is clearly just an exploratory table. The output in R from this code follows some of the good table rules above, but not all of them.  At a glance, it will help you to understand the data, but it's not the finished table you would want to send to your boss. 
 
-![Exploratory diamonds table](gslides/229.png)
+![Exploratory diamonds table](images/gslides/229.png)
 
 From this output, you, the creator of the table, would be able to see that there are a number of **good qualities**:
 
@@ -1276,7 +1276,7 @@ kable(df)
 |Premium   | 13791| 326| 4584.258| 18823|
 |Ideal     | 21551| 326| 3457.542| 18806|
 
-![kable basic output](gslides/230.png) 
+![kable basic output](images/gslides/230.png) 
 
 However, there are still a few issues we want to improve upon:
 
@@ -1353,7 +1353,7 @@ kable(df, digits=0, "html") %>%
 </tbody>
 </table>
 
-![Viewer tab with formatted table](gslides/231.png)
+![Viewer tab with formatted table](images/gslides/231.png)
 
 ### Annotating Your Table
 
@@ -1424,7 +1424,7 @@ kable(df, digits=0, "html", caption="Table 1: Diamonds Price by Quality of Cut. 
 <span style="font-style: italic;">Source:</span> <sup></sup> Diamonds dataset from ggplot2</td></tr></tfoot>
 </table>
 
-![Viewer tab with annotated and formatted table](gslides/232.png)
+![Viewer tab with annotated and formatted table](images/gslides/232.png)
 
 ## `ggplot2`: Extensions
 
