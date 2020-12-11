@@ -229,13 +229,13 @@ As Google Sheets are stored on the Internet and not on your computer, the `googl
 
 To see exactly what we mean, let's look at a specific example. Imagine you've sent out a survey to your friends asking about how they spend their day. Let's say you're mostly interested in knowing the hours spent on work, leisure, sleep, eating, socializing, and other activities. So in your Google Sheet you add these six items as columns and one column asking for your friends names. To collect this data, you then share the link with your friends, giving them the ability to edit the Google Sheet. 
 
-![Survey Google Sheets](https://docs.google.com/presentation/d/1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA/export/png?id=1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA&pageid=g2bfdb07292_0_151)
+![Survey Google Sheets](gslides/033.png)
 
 Your friends will then one-by-one complete the survey. And, because it's a Google Sheet, everyone will be able to update the Google Sheet, regardless of whether or not someone else is also looking at the Sheet at the same time. As they do, you'll be able to pull the data and import it to R for analysis at any point. You won't have to wait for everyone to respond. You'll be able to analyze the results in real-time by directly reading it into R from Google Sheets, avoiding  the need to download it each time you do so. 
 
 In other words, every time you import the data from the Google Sheets link using the `googlesheets` package, the most updated data will be imported. Let's say, after waiting for a week, your friends' data look something like this:
 
-![Survey Data](https://docs.google.com/presentation/d/1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA/export/png?id=1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA&pageid=g398ce98dcf_0_1)
+![Survey Data](gslides/034.png)
 
 You'd be able to analyze these updated data using R and the `googlesheets` package!
 
@@ -261,11 +261,11 @@ Now, let's get to importing your survey data into R. Every time you start a new 
 
 The command `gs_auth(new_user = TRUE)` will open a new page in your browser that asks you which Google account you'd like to have access to. Click on the appropriate Google user to provide `googlesheets` access to the Google Sheets API.
 
-![Authenticate](https://docs.google.com/presentation/d/1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA/export/png?id=1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA&pageid=g3d555bce3d_0_4)
+![Authenticate](gslides/035.png)
 
 After you click "ALLOW", giving permission for the `googlesheets` package to connect to your Google account, you will likely be shown a screen where you will be asked to copy an authentication code. Copy this authentication code and paste it into R.
 
-![Allow](https://docs.google.com/presentation/d/1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA/export/png?id=1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA&pageid=g3d555bce3d_0_12)
+![Allow](gslides/036.png)
 
 ##### Navigating `googlesheets`: `gs_ls()` and `gs_title()`
 
@@ -282,7 +282,7 @@ Note that we assign the information stored from registering this Google Sheet to
 
 If you type the name of the sheet correctly *and* it exists in your Google Drive, you will see a message that says *Sheet successfully identified: "survey"*. 
 
-![Sheet successfully identified](https://docs.google.com/presentation/d/1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA/export/png?id=1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA&pageid=g3d555bce3d_0_23)
+![Sheet successfully identified](gslides/037.png)
 
 
 ##### Reading data in using `googlesheets`: `gs_read()`
@@ -294,7 +294,7 @@ At this point, your Google Sheet is registered and you can now read the data int
 survey_data <- gs_read(survey_sheet)
 ```
 
-![Sheet successfully read into R](https://docs.google.com/presentation/d/1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA/export/png?id=1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA&pageid=g3d555bce3d_0_28)
+![Sheet successfully read into R](gslides/038.png)
 
 There are additional (optional) arguments to `gs_read()`, some are similar to those in `read_csv()` and `read_excel(),` while others are more specific to reading in Google Sheets:
 
@@ -310,11 +310,11 @@ There is a dataset provided as an example with the `googlesheets package`. The d
 
 To register a Google Sheet in `googlesheets` by key, you must first know the key of the Google Sheet and have access to it. To work through a full example here you'll first want to navigate to [https://docs.google.com/spreadsheets/d/1BzfL0kZUz1TsI5zxJF1WNF01IxvC67FbOJUiiGMZ_mQ/] in your web browser. This will open up the gapminder dataset in Google Sheets so that you can have a look at the data in Google Sheets.
 
-![Gapminder Dataset in Google Sheets](https://docs.google.com/presentation/d/1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c/export/png?id=1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c&pageid=g5fbdfde92a_0_8)
+![Gapminder Dataset in Google Sheets](gslides/039.png)
 
 Now, it's just up to us to register this information from Google Sheets into R using the `googlesheets` package. To do this, we could use the *title* of the sheet, the *key*, or the *URL*:
 
-![Where to find the title, key, and URL in Google Sheets](https://docs.google.com/presentation/d/1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c/export/png?id=1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c&pageid=g6112cc596f_0_4)
+![Where to find the title, key, and URL in Google Sheets](gslides/040.png)
 
 
 ```{r eval = FALSE}
@@ -330,7 +330,7 @@ gs_url("https://docs.google.com/spreadsheets/d/1BzfL0kZUz1TsI5zxJF1WNF01IxvC67Fb
 
 Regardless of how you register the sheet, you'll get an output to inform you that the sheet was successfully identified. (Note: if you have not opened up the [Google Sheet](https://docs.google.com/spreadsheets/d/1BzfL0kZUz1TsI5zxJF1WNF01IxvC67FbOJUiiGMZ_mQ/) using the Google Drive account you specified during authentication, you will get an error.)
 
-![Sheet Successfully Identified](https://docs.google.com/presentation/d/1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c/export/png?id=1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c&pageid=g6112cc596f_0_9)
+![Sheet Successfully Identified](gslides/041.png)
 
 
 ##### Adding rows and editing cells
@@ -344,11 +344,11 @@ my_response <- c("Me", 10, 8, 2, 2, 1, 1)
 gs_add_row(survey_sheet, input = my_response)
 ```
 
-![`gs_add_row()`](https://docs.google.com/presentation/d/1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA/export/png?id=1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA&pageid=g398ce98dcf_0_18)
+![`gs_add_row()`](gslides/034.png8)
 
 If you now check the sheet on Google Sheets, you will see the appended row.
 
-![Survey Data with Added Row](https://docs.google.com/presentation/d/1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA/export/png?id=1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA&pageid=g398ce98dcf_0_23)
+![Survey Data with Added Row](gslides/043.png)
 
 To edit a specific cell you can use the command `gs_edit_cell()` but you will have to tell `googlesheets` which specific cell to edit. Let's say we want to change the value of the cell *D4* from 0 to 2. For this we will use the `gs_edit_cells()` function. The `anchor` argument points to the cell that we want to modify and the `input` argument contains the new value that we want to assign to the cell.
 
@@ -357,7 +357,7 @@ gs_edit_cells(survey_sheet, anchor = "D4", input = 2)
 ```
 
 
-![`gs_edit_cells()`](https://docs.google.com/presentation/d/1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA/export/png?id=1BtZv6mbC0ufQASlkWjdnXY1MQKVsC3Mo0rGmzfMadyA&pageid=g398ce98dcf_0_29)
+![`gs_edit_cells()`](gslides/044.png)
 
 If you were to return to your Google Sheets, you'd notice that cell D4 now has a 2, rather than a 0 in it!
 
@@ -367,11 +367,11 @@ Like Excel Spreadsheets and Google Sheets, **Comma-separated values (CSV)** file
 
 For example, consider a dataset that includes information about the heights and blood types of three individuals. You could make a table that has three columns (names, heights, and blood types) and three rows (one for each person) in Google Docs or Microsoft Word. However, there is a better way of storing this data in plain text without needing to put them in table format. CSVs are a perfect way to store these data. In the CSV format, the values of each column for each person in the data are separated by commas and each row (each person in our case) is separated by a new line. This means your data would be stored in the following format:
 
-![sample CSV](https://docs.google.com/presentation/d/199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM/export/png?id=199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM&pageid=g2bfdb07292_0_151)
+![sample CSV](gslides/045.png)
 
 Notice that CSV files have a .csv extension at the end. You can see this above at the top of the file. One of the advantages of CSV files is their *simplicity*. Because of this, they are one of the most common file formats used to store tabular data. Additionally, because they are plain text, they are compatible with *many* different types of software.  CSVs can be read by most programs. Specifically, for our purposes, these files can be easily read into R (or Google Sheets, or Excel), where they can be better understood by the human eye. Here you see the same CSV opened in Google Sheets, where it's more easily interpretable by the human eye:
 
-![CSV opened in Google Sheets](https://docs.google.com/presentation/d/199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM/export/png?id=199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM&pageid=g3a4d18d722_0_92)
+![CSV opened in Google Sheets](gslides/046.png)
 
 As with any file type, CSVs do have their limitations. Specifically, CSV files are best used for data that have a consistent number of variables across observations. In our example, there are three variables for each observation: "name", "height", and "blood_type". If, however, you had eye color and weight for the second observation, but not for the other rows, you'd have a different number of variables for the second observation than the other two. This type of data is not best suited for CSVs (although NA values could be used to make the data rectangular). Whenever you have information with the same number of variables across all observations, CSVs are a good bet!
 
@@ -379,7 +379,7 @@ As with any file type, CSVs do have their limitations. Specifically, CSV files a
 
 If you entered the same values used above into Google Sheets first and wanted to download this file as a CSV to read into R, you would enter the values in Google Sheets and then click on "File" and then "Download as" and choose "Comma-separated values (.csv, current sheet)". The dataset that you created will be downloaded as a CSV file on your computer. Make sure you know the location of your file (if on a Chromebook, this will be in your "Downloads" folder).
 
-![Download as CSV file](https://docs.google.com/presentation/d/199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM/export/png?id=199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM&pageid=g399e5a917a_0_56)
+![Download as CSV file](gslides/047.png)
 
 
 ### Reading CSVs into R
@@ -398,7 +398,7 @@ head(df_csv)
 ```
 
 
-![`read_csv()`](https://docs.google.com/presentation/d/199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM/export/png?id=199w7E8ggb0nrf40A7WvVIYmNKJdVbUkcWpgnLBysZzM&pageid=g399e5a917a_0_16)
+![`read_csv()`](gslides/048.png)
 
 Above, you see the simplest way to import a CSV file. However, as with many functions, there are other arguments that you can set to specify how to import your specific CSV file, a few of which are listed below. However, as usual, to see all the arguments for this function, use `?read_csv` within R.
 
@@ -473,7 +473,7 @@ Alternatively, JSON (JavaScript Object Notation) data are *nested* and *hierarch
 
 Using a snippet of JSON data here, we see a portion of JSON data from Yelp looking at the `attributes` of a restaurant. Within `attributes`, there are four nested categories: `Take-out`, `Wi-Fi`, `Drive-Thru`, and `Good For`. In the hierarchy, attributes is at the top, while these four categories are within attributes. Within one of these attributes `Good For`, we see another level within the hierarchy. In this third level we see a number of other categories nested within `Good For`. This should give you a slightly better idea of how JSON data are structured.
 
-![JSON data are hierarchical and nested](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g3d555e2b2e_0_13)
+![JSON data are hierarchical and nested](gslides/049.png)
 
 To get a sense of what JSON data look like in R, take a peak at this minimal example:
 
@@ -508,7 +508,7 @@ mydf
 
 
 
-![`fromJSON()`](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_219)
+![`fromJSON()`](gslides/050.png)
 
 
 Data frames can also be returned to their original JSON format using the function: `toJSON()`.
@@ -520,7 +520,7 @@ json
 ```
 
 
-![`toJSON()`](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_228)
+![`toJSON()`](gslides/051.png)
 
 
 While this gives us an idea of how to work with JSON formatted data in R, we haven't yet discussed how to read a JSON file into R. When you have data in the JSON format (file extension: .json), you'll use the `read_json()` function, which helpfully looks very similar to the other `read_` functions we've discussed so far:
@@ -541,7 +541,7 @@ Note in our examples here that by default, `read_json()` reads the data in while
 
 **Extensible Markup Language (XML)**, is another human- and machine-readable language that is used frequently by web services and APIs. However, instead of being based on key-value pairs, XML relies on **nodes**, **tags**, and **elements**. The author defines these *tags* to specify what information is included in each *element* of the XML document and allows for elements to be nested within one another. The **nodes** define the hierarchical structure of the XML (which means that XML is hierarchical and nested like JSON)! 
 
-![XML format relies on nodes, tags, and elements](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g3d555e2b2e_0_128)
+![XML format relies on nodes, tags, and elements](gslides/052.png)
 
 XML accomplishes the same goal as JSON, but it just does it in a different format. Thus, the two formats are commonly used for similar purposes -- sharing information on the web; however, because the format in which they do this is different, a different R package is needed to process XML data. This packages is called `xml2`.
 
@@ -563,11 +563,11 @@ So far we've discussed reading in data that exist in a single file, like a CSV f
 
 Relational data can be thought of as information being stored across many tables, with each table being related to all the other tables. Each table is linked to every other table by a set of **unique identifiers**. 
 
-![Relational data are related by unique identifiers](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g392f0f9db9_1_9)
+![Relational data are related by unique identifiers](gslides/053.png)
 
 To better understand this, let's consider a toy example. Consider a town where you have a number of different restaurants. In one table you have information about these restaurants including, where they are located and what type of food they serve. You then have a second table where information about health and safety inspections is stored. Each inspection is a different row and the date of the inspection, the inspector, and the safety rating are stored in this table. Finally, you have a third table. This third table contains information pulled from an API, regarding the number of stars given to each restaurant, as rated by people online. Each table contains different bits of information; however, there is a common column `id` in each of the tables. This allows the information to be linked between the tables. The restaurant with the `id` "JJ29JJ" in the restaurant table would refer to the same restaurant with the `id` "JJ29JJ" in the health inspections table, and so on. The values in this `id` column are known as `unique identifiers` because they uniquely identify each restaurant. No two restaurants will have the same `id`, and the same restaurant will always have the same `id`, no matter what table you're looking at. The fact that these tables have unique identifiers connecting each table to all the other tables makes this example what we call **relational data**.
 
-![Unique identifiers help link entries across tables](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_27)
+![Unique identifiers help link entries across tables](gslides/054.png)
 
 #### Why relational data?
 
@@ -581,7 +581,7 @@ Storing data in this way has a number of advantages; however, the three most imp
 
 **Avoids Ambiguity** - Take a look at the first table: "restaurant" here. You may notice there are two different restaurants named "Taco Stand." However, looking more closely, they have a different id *and* a different address. They're even different types of restaurants. So, despite having the same name, they actually are two different restaurants. The unique identifier makes this immediately clear!
 
-![Unique identifiers in relational data avoid ambiguity](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_43)
+![Unique identifiers in relational data avoid ambiguity](gslides/055.png)
 
 **Privacy** - In using relational data, if there is ever information that is private and only some people should have access to, using this system simplifies that. You can restrict access to some of the data to ensure only those who should have access are able to access the data.
 
@@ -626,7 +626,7 @@ dbListTables(db)
 
 The output from `dbListTables()` will include 13 tables. Among them will be the two tables we're going to work through in our example: `artists`, and `albums`.
 
-![output from `dbListTables(db)`](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_286)
+![output from `dbListTables(db)`](gslides/056.png)
 
 In this example, we're downloading a database and working with the data locally. However, more often, when working with SQLite databases, you'll be connecting remotely. Using the `RSQLite` package is particularly helpful in this case because it allows you to connect to and query the database from R without reading all the data in. This is helpful in the case of very large databases, where you'll want to avoid copying all the data and will instead want to only work with the parts of the database you need. 
 
@@ -660,19 +660,19 @@ However, when combining tables, there are a number of different ways in which th
 
 Let's break down exactly what we mean by this using just a small toy example from the `artists` and `albums` tables from the `company` database. Here you see three rows from the `artists` table and four rows from the `albums` table.
 
-![small parts of the `albums` and `artist` tables](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_88)
+![small parts of the `albums` and `artist` tables](gslides/057.png)
 
 #### Inner Join
 
 When talking about inner joins, we are only going to keep an observation if it is found in all of the tables we're combining. Here, we're combining the tables based on the `ArtistId` column. In our dummy example, there are only two artists that are found in *both* tables. These are highlighted in green and will be the rows used to join the two tables. Then, once the inner join happens, only these artists' data will be included after the inner join.
 
-![inner join output will include any observation found in both tables](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_97)
+![inner join output will include any observation found in both tables](gslides/058.png)
 
 In our toy example, when doing an `inner_join()`, data from any observation found in all the tables being joined are included in the output. Here, `ArtistId`s "1" and "2" are in both the `artists` and `albums` tables. Thus, those will be the only `ArtistId`s in the output from the inner join. 
 
 And, since it's a mutating join, our new table will have information from both tables! We now have `ArtistId`, `Name`, `AlbumId`, *and* `Title` in a single table! We've joined the two tables, based on the column `ArtistId`!
 
-![inner join includes observations found in both tables](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_108)
+![inner join includes observations found in both tables](gslides/059.png)
 
 Throughout this lesson we will use the coloring use see here to explain the joins, so we want to explain it explicitly here. Green cells are cells that will be used to make the merge happen and will be included in the resulting merged table. Blue cells are information that comes from the `artists` table that will be included after the merge. Red cells are pieces of information that come from the `albums` table that will be included after the merge. Finally, cells that are left white in the `artists` or `albums` table are cells that will not be included in the merge while cells that are white *after* the merge are NAs that have been added as a result of the merge.
 
@@ -692,11 +692,11 @@ For a left join, all rows in the first table specified will be included in the o
 
 In our toy example this means that `ArtistID`s 1, 2, and 3 will be included in the output; however, `ArtistID` 4 will not.
 
-![left join will include all observations found in the first table specified](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_138)
+![left join will include all observations found in the first table specified](gslides/060.png)
 
 Thus, our output will again include all the columns from both tables combined into a single table; however, for `ArtistId` 3, there will be NAs for `AlbumId` and `Title`. NAs will be filled in for any observations in the first table specified that are missing in the second table.
 
-![left join will fill in NAs](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_123)
+![left join will fill in NAs](gslides/061.png)
 
 Now, to run this for our tables from the database, rather than just for a few rows in our toy example, you would do the following:
 
@@ -715,11 +715,11 @@ Right Join is similar to what we just discussed; however, in the output from a r
 
 In our toy example, that means, information about `ArtistID`s 1, 2, and 4 will be included. 
 
-![right join will include all observations found in the last table specified](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_150)
+![right join will include all observations found in the last table specified](gslides/062.png)
 
 Again, in our toy example, we see that `right_join()` combines the information across tables; however, in this case, `ArtistId` 4 is included, but `Name` is an NA, as this information was not in the `artists` table for this artist.
 
-![right join will fill in NAs](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_160)
+![right join will fill in NAs](gslides/063.png)
 
 Now, to run this for our tables from the database, you would have to do something *slightly* different than what you saw above. Note in the code below that we have to change the class of the tables from the database into tibbles before doing the join. This is because SQL does not currently support right or full joins, but `dplyr` does. Thus, we first have to be sure the data are a class that `dplyr` can work with using `as_tibble()`. Other than that, the code below is similar to what you've seen already:
 
@@ -738,11 +738,11 @@ While the output may look similar to the output from `left_join()`, you'll note 
 
 Finally, a full join will take every observation from every table and include it in the output.
 
-![full join will include any observation found in either table](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_175)
+![full join will include any observation found in either table](gslides/064.png)
 
 Thus, in our toy example, this join produces five rows, including all the observations from either table. NAs are filled in when data are missing for an observation.
 
-![full join will fill in NAs](https://docs.google.com/presentation/d/18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M/export/png?id=18NcOwo7PvEgs71mVbvCxawDFLNftxPqUpuTNnKv-C_M&pageid=g3a5854d1ae_0_185)
+![full join will fill in NAs](gslides/065.png)
 
 As you saw in the last example, to carry out a full join, we have to again specify that the objects are tibbles before being able to carry out the join:
 
@@ -758,7 +758,7 @@ as_tibble(full)
 
 Now that we've walked through a number of examples of mutating joins, cases where you're combining information across tables, we just want to take a second to summarize the four types of joins discussed using a visual frequently used to explain the most common mutating joins where each circle represents a different table and the gray shading on the Venn diagrams indicates which observations will be included after the join.
 
-![mutating joins summary](https://docs.google.com/presentation/d/1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c/export/png?id=1tKBs1sYK4dIZeCQt4sc7o88cuPkXA3eVfZ4Xkns7k-c&pageid=g6112cc596f_0_28)
+![mutating joins summary](gslides/066.png)
 
 To see a visual representation of this, there is a great resource on GitHub, where these joins are illustrated, so feel free to check out [this link](https://github.com/gadenbuie/tidyexplain#readme) from [Garrick Aden-Buie](https://www.garrickadenbuie.com/) animating joins within relational data. 
 
@@ -822,7 +822,7 @@ A very helpful package `rvest` can help us do this. It gets its name from the wo
 When `rvest` is given a webpage (URL) as input, an `rvest` function reads in the HTML code from the webpage. HTML is the language websites use to display everything you see on the website. Generally, all HTML documents require each webpage to have a similar structure. This structure is specified by using different **tags**. For example, a header at the top of your webpage would use a specific tag. Website links would use a different tag. These different tags help to specify how the website should appear. The `rvest` package takes advantage of these tags to help you extract the parts of the webpage you're most interested in. So let's see exactly how to do that all of this with an example.
 
 
-![Different tags are used to specify different parts of a website](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_179)
+![Different tags are used to specify different parts of a website](gslides/067.png)
 
 
 ### SelectorGadget
@@ -837,16 +837,16 @@ To enable SelectorGadget using Google Chrome:
 
 2. Click "ADD TO CHROME"
 
-![ADD TO CHROME](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_9)
+![ADD TO CHROME](gslides/068.png)
 
 3. Click "Add extension" 
 
-![Add extension](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_5)
+![Add extension](gslides/069.png)
 
 4. SelectorGadget's icon will now be visible to the right of the web address bar within Google Chrome. You will click on this to use SelectorGadget in the example below.
 
 
-![SelectorGadget icon](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_0)
+![SelectorGadget icon](gslides/070.png)
 
 ### Web Scraping Example
 
@@ -859,11 +859,11 @@ Alternatively, you could write and run a few lines of code and get all the infor
 To use SelectorGadget, navigate to the webpage we're interested in scraping: [http://jhudatascience.org/stable_website/webscrape.html](http://jhudatascience.org/stable_website/webscrape.html) and toggle SelectorGadget by clicking on the SelectorGadget icon. A menu at the bottom-right of your web page should appear.
 
 
-![SelectorGadget icon on webpage of interest](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_22)
+![SelectorGadget icon on webpage of interest](gslides/071.png)
 
 Now that SelectorGadget has been toggled, as you mouse over the page, colored boxes should appear. We'll click on the the name of the first package to start to tell SelectorGadget which component of the webpage we're interested in.
 
-![SelectorGadget selects `strong` on webpage of interest](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_31)
+![SelectorGadget selects `strong` on webpage of interest](gslides/072.png)
 
 An orange box will appear around the component of the webpage you've clicked. Other components of the webpage that SelectorGadget has deemed similar to what you've clicked will be highlighted. And, text will show up in the menu at the bottom of the page letting you know what you should use in `rvest` to specify the part of the webpage you're most interested in extracting. 
 
@@ -910,7 +910,7 @@ Working with a web API is similar to accessing a website in many ways. When you 
 
 The `httr` package will help you carry out these types of requests within R. Let's stop talking about it, and see an actual example!
 
-![HTTP access via `httr`](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_69)
+![HTTP access via `httr`](gslides/073.png)
 
 ### Getting Data: `httr`
 
@@ -918,7 +918,7 @@ HTTP is based on a number of important verbs : `GET()`, `HEAD()`, `PATCH()`, `PU
 
 `GET()` will access the API, provide the API with the necessary information to request the data we want, and retrieve some output. 
 
-![API requests are made to an API endpoint to get an API response](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_90)
+![API requests are made to an API endpoint to get an API response](gslides/068.png0)
 
 ### Example 1: GitHub's API
 
@@ -951,7 +951,7 @@ api_response <- GET(url = paste0(url_git, 'users/', username, '/repos'))
 
 Note: In the code above, you see the function `paste0()`. This function concatenates (links together) each the pieces within the parentheses, where each piece is separated by a comma. This provides `GET()` with the URL we want to use as our endpoints! 
 
-![`httr` code to access GitHub](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_54)
+![`httr` code to access GitHub](gslides/069.png4)
 
 #### API response: `content()`
 
@@ -962,7 +962,7 @@ Let's first take a look at what other variables are available within the `api_re
 names(api_response)
 ```
 
-![`httr` response](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_112)
+![`httr` response](gslides/076.png)
 
 While we see ten different variables within `api_response`, we should probably first make sure that the request to GitHub's API was successful. We can do this by checking the status code of the request, where "200" means that everything worked properly:
 
@@ -981,7 +981,7 @@ repo_content <- content(api_response)
 ```
 
 
-![`httr` status code and `content()`](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_117)
+![`httr` status code and `content()`](gslides/077.png)
 
 You can see here that the length of `repo_content` in our case is 6 by looking at the Environment tab. This is because the GitHub account `janeeverydaydoe` had six repositories at the time of this API call. We can get some information about each repo by running the function below:
 
@@ -993,7 +993,7 @@ lapply(repo_content, function(x) {
   bind_rows()
 ```
 
-![output from API request](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_132)
+![output from API request](gslides/078.png)
 
 Here, we've pulled out the name and URL of each repository in Jane Doe's account; however, there is *a lot* more information in the `repo_content` object. To see how to extract more information, check out the rest of Tyler's wonderful post [here](https://www.tylerclavelle.com/code/2017/randapis/).
 
@@ -1002,7 +1002,7 @@ Here, we've pulled out the name and URL of each repository in Jane Doe's account
 
 This same approach can be used to download datasets directly from the web. The data for this example are available for download from this link: [data.fivethirtyeight.com](https://data.fivethirtyeight.com/), but are also hosted on GitHub [here](https://github.com/fivethirtyeight/data), and we will want to use the specific URL for this file: [https://raw.githubusercontent.com/fivethirtyeight/data/master/steak-survey/steak-risk-survey.csv](https://raw.githubusercontent.com/fivethirtyeight/data/master/steak-survey/steak-risk-survey.csv) in our `GET()` request.
 
-![steak-survey on GitHub](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_148)
+![steak-survey on GitHub](gslides/079.png)
 
 To do so, we would do the following:
 
@@ -1014,7 +1014,7 @@ api_response <- GET(url = "https://raw.githubusercontent.com/fivethirtyeight/dat
 df_steak <- content(api_response, type="text/csv")
 ```
 
-![`GET()` steak-survey CSV](https://docs.google.com/presentation/d/1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg/export/png?id=1oK-vBO2kVl9VlzsZTwd61pqURcdKfRulmrOoxYkjlLg&pageid=g3d5b27bb5d_0_154)
+![`GET()` steak-survey CSV](gslides/080.png)
 
 Here, we again specify our url within `GET()` followed by use of the helpful `content()` function from `httr` to obtain the CSV from the `api_response` object. The `df_steak` includes the data from the CSV directly from the GitHub API, without having to download the data first!
 
@@ -1099,23 +1099,23 @@ Only a few decades ago, analyzing a large dataset of images was not feasible for
 
 Within Google Maps there is a Street View feature that allows panoramic views from positions along many streets in the world. One of the things you may notice if you're looking around on Google Maps' street view is that for many streets in the world you do not only see houses; you are also able to see cars. 
 
-![Google Maps street view](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g392f0f9db9_0_4)
+![Google Maps street view](gslides/081.png)
 
 
 Some 50 million images of cars from over 200 cities were used by researchers to detect the make, model, body type, and age of the cars in each neighborhood. They were able to take unstructured image data and compile a structured dataset! These same researchers then pulled together a structured dataset from the Census and the 2008 elections of demographic information (such as race and income), and voting history in these same neighborhoods. 
 
-![Data used from Google Maps street view to predict demographics of a neighborhood](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g2bfdb07292_0_151)
+![Data used from Google Maps street view to predict demographics of a neighborhood](gslides/082.png)
 
 Using these two datasets (the Google Street view car image data and the demographic data), researchers used a technique known as **machine learning** to build an algorithm that could, from the images of cars in a neighborhood, predict the demographics (race, income, etc) and how that area is likely to vote. Comparing these two sets of data, they were able to accurately estimate income, race, education, and voting patterns at the zip code level from the Google Street view images.
 
-![Cars in a neighborhood can predict how the area votes](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g3d555e2b2e_0_0)
+![Cars in a neighborhood can predict how the area votes](gslides/083.png)
 
 #### Reading Images in R
 
 Like with text, there are packages in R that will help you carry out analysis of images. In particular, `magick` is particularly helpful for advanced image processing within R, allowing you to process, edit, and manipulate images within R. Like JSON and XML, where there is more than one file format for a similar task, there are also a number of different image file formats. The `magick` package is capable of working with many different types of images, including PNG, JPEG, and TIFF. The `magick` package has a particularly helpful [vignette](https://cran.r-project.org/web/packages/magick/vignettes/intro.html#drawing_and_graphics) where you can learn the ins and outs of working with images using `magick`'s functionality. Their documentation will discuss how to read image data into R, how to edit images, and even how to add images to your R plots! 
 
 
-![`magick` package's example of adding an image to a plot]![Google Maps street view](https://docs.google.com/presentation/d/1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU/export/png?id=1r5T8BgmyVkHQMxXuZ8o575D1515v3RSCeciG8uyBghU&pageid=g3d555e2b2e_0_153)
+![`magick` package's example of adding an image to a plot]![Google Maps street view](gslides/084.png)
 
 
 A really useful manipulation that one can perform is text extraction from images. Typically this works best with images that have text, where the text is not angled and is in a conventional font.

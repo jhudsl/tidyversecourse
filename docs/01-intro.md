@@ -37,19 +37,19 @@ A *dataset* is a collection of values. These are often numbers and strings, and 
 
 *Variables* in a dataset are the different categories of data that will be collected. They are the different pieces of information that can be collected or measured on each observation. Here, we see there are 7 different variables: ID, LastName, FirstName, Sex, City, State, and Occupation. The names for variables are put in the first row of the spreadsheet.
 
-![Variables](https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&pageid=g2bfdb07292_0_151)
+![Variables](gslides/001.png)
 
 **Observations**
 
 The measurements taken from a person for each variable are called *observations.* Observations in a tidy dataset are stored in a single row, with each observation being put in the appropriate column for each variable. 
 
-![Observations](https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&pageid=g326b47e392_0_12)
+![Observations](gslides/002.png)
 
 **Types**
 
 Often, data are collected for the same individuals from multiple sources. For example, when you go to the doctor's office, you fill out a survey about yourself. That would count as one type of data. The measurements a doctor collects at your visit, however, would be a different type of data. 
 
-![Types](https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&pageid=g326e316938_0_3)
+![Types](gslides/003.png)
 
 ### Principles of Tidy Data
 
@@ -61,25 +61,25 @@ These points are known as the tidy data principles. Here, we'll break down each 
 
 1. Each variable you measure should be in one column.
 
-![Principle #1 of Tidy Data](https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&pageid=g326e316938_0_44)
+![Principle #1 of Tidy Data](gslides/004.png)
 
 2. Each different observation of that variable should be in a different row.
 
-![Principle #2 of Tidy Data](https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&pageid=g326e316938_0_36)
+![Principle #2 of Tidy Data](gslides/003.png6)
 
 3. There should be one table for each "type" of data.
 
-![Principle #3 of Tidy Data](https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&pageid=g326e316938_0_57)
+![Principle #3 of Tidy Data](gslides/006.png)
 
 4. If you have multiple tables, they should include a column in each spreadsheet (with the same column label!) that allows them to be joined or merged.
 
-![Principle #4 of Tidy Data](https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&pageid=g326e316938_0_40)
+![Principle #4 of Tidy Data](gslides/007.png)
 
 ### Tidy Data Are Rectangular
 
 When it comes to thinking about tidy data, remember that tidy data are rectangular data. The data should be a rectangle with each variable in a separate column and each entry in a different row. All cells should contain some text, so that the spreadsheet looks like a rectangle with something in every cell.
 
-![Tidy Data = rectangular data](https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&pageid=g326e316938_1_6)
+![Tidy Data = rectangular data](gslides/008.png)
 
 So, if you're working with a dataset and attempting to tidy it, if you don't have a rectangle at the end of the process, you likely have more work to do before it's truly in a tidy data format.
 
@@ -115,7 +115,7 @@ With regard to entering a person's sex, we were talking about how to code observ
 Consistency matters across every step of the analysis. Name your files in a consistent format. Always code dates in a consistent format (discussed further below). Avoid extra spaces in cells. Being careful and consistent in data entry will be incredibly helpful when you get to the point of analyzing your data.
 
 
-![Be Consistent!](https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&pageid=g326e316938_0_81)
+![Be Consistent!](gslides/009.png)
 
 #### Choose good names for things
 
@@ -124,35 +124,35 @@ Choosing good variable names is important. Generally, avoid spaces in variable n
 Additionally, make sure that file and variable names are as short as possible while still being meaningful. "F1" is short, but it doesn't really tell you anything about what is in that file. "doctor_visit_v1" is a more meaningful file name. We know now that this spreadsheet contains information about a doctor's visit. 'v1' specifies version 1 allowing for updates to this file later which would create a new file "doctor_visit_v2." 
 
 
-![Choose good names](https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&pageid=g326e316938_0_86)
+![Choose good names](gslides/010.png)
 
 #### Write dates as YYYY-MM-DD
 
 When entering dates, there is a global [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) standard. Dates should be encoded YYYY-MM-DD. For example if you want to specify that a measurement was taken on February 27th, 2018, you would type 2018-02-27. YYYY refers to the year, 2018. MM refers to the month of February, 02. And DD refers to the day of the month, 27. This standard is used for dates for two main reason. First, it avoids confusion when sharing data across different countries, where date conventions can differ. By all using ISO 8601 standard conventions, there is less room for error in interpretation of dates. Secondly, spreadsheet software often mishandles dates and assumes that non-date information are actually dates and vice versa. By encoding dates as YYYY-MM-DD, this confusion is minimized. 
 
 
-![YYYY-MM-DD](https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&pageid=g326e316938_0_91)
+![YYYY-MM-DD](gslides/011.png)
 
 #### No empty cells
 
 Simply, fill in every cell. If the data is unknown for that cell, put `NA`. Without information in each cell, the analyst is often left guessing. In the spreadsheets below, on the left, is the analyst to assume that the empty cells should use the date from the cell above? Or are we to assume that the date for that measurement is unknown? Fill in the date if it is known or type 'NA' if it is not. That will clear up the need for any guessing on behalf of the analyst. On the spreadsheet to the right, the first two rows have a lot of empty cells. This is problematic for the analysis. This spreadsheet does not follow the rules for tidy data. There is not a single variable per column with a single entry per row. These data would have to be reformatted before they could be used in analysis.
 
 
-![No empty cells](https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&pageid=g326e316938_0_96)
+![No empty cells](gslides/012.png)
 
 #### Put just one thing in a cell
 
 Sometimes people are tempted to include a number and a unit in a single cell. For weight, someone may *want* to put '165 lbs' in that cell. Avoid this temptation! Keep numbers and units separate. In this case, put one piece of information in the cell (the person's weight) and either put the unit in a separate column, or better yet, make the variable name weight_lbs. That clears everything up for the analyst and avoids a number and a unit from both being put in a single cell. As analysts, we prefer weight information to be in number form if we want to make calculations or figures. This is facilitated by the first column called "Weight_lbs" because it will be read into R as a numeric object. The second column called "Weight", however, will be read into R as a character object because of the "lbs", which makes our desired tasks more difficult.
 
 
-![One thing per cell](https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&pageid=g326e316938_0_101)
+![One thing per cell](gslides/013.png)
 
 #### Don't use font color or highlighting as data
 
 Avoid the temptation to highlight particular cells with a color to specify something about the data. Instead, add another column to convey that information. In the example below, 1.1 looks like an incorrect value for an individual's glucose measure. Instead of highlighting the value in red, create a new variable. Here, on the right, this column has been named 'outlier.' Including 'TRUE' for this individual suggests that this individual may be an outlier to the data analyst. Doing it in this way ensures that this information will not be lost. Using font color or highlighting however can easily be lost in data processing, as you will see in future lessons.
 
 
-![No highlighting or font color](https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&pageid=g326e316938_0_106)
+![No highlighting or font color](gslides/014.png)
 
 #### Save the data as plain text files
 
@@ -162,7 +162,7 @@ The following lessons will go into detail about which file formats are ideal for
 
 The data entry guidelines discussed in and a few additional rules have been summarized below and are [available online for reference](https://doi.org/10.7287/peerj.preprints.3139v5).
 
-![Naming Guidelines](https://docs.google.com/presentation/d/1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54/export/png?id=1JTG8Kt9htfyNsGQcsleHZNNXHKLe1zUlOb-SsnVNf54&pageid=g326e316938_0_134)
+![Naming Guidelines](gslides/015.png)
 
 
 ## From Non-Tidy --> Tidy
@@ -187,25 +187,25 @@ To see some of these messy datasets, let's explore three different sources of me
 
 In each of these examples, we see the principles of tidy data being broken. Each variable is not a unique column. There are empty cells all over the place. The data are not rectangular. Data formatted in these messy ways are likely to cause problems during analysis.
 
-![Examples from Data Organization in Spreadsheets](https://docs.google.com/presentation/d/1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs/export/png?id=1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs&pageid=g2bfdb07292_0_151)
+![Examples from Data Organization in Spreadsheets](gslides/016.png)
 
 For a specific example, [Miles McBain](https://milesmcbain.github.io/), a data scientist from Brisbane, Australia set out to analyze Australian survey data on Same Sex marriage. Before he could do the analysis, however, he had a lot of tidying to do. He annotated all the ways in which the data were untidy, including the use of commas in numerical data entry, blank cells, junk at the top of the spreadsheet, and merged cells. All of these would have stopped him from being able to analyze the data had he not taken the time to first tidy the data. Luckily, he wrote a [Medium piece](https://medium.com/@miles.mcbain/tidying-the-australian-same-sex-marriage-postal-survey-data-with-r-5d35cea07962) including all the steps he took to tidy the data. 
 
-![Miles McBain's' tidying of Australian Same Sex Marriage Postal Survey Data](https://docs.google.com/presentation/d/1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs/export/png?id=1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs&pageid=g326b2fc90a_0_6)
+![Miles McBain's' tidying of Australian Same Sex Marriage Postal Survey Data](gslides/017.png)
 
 Inspired by Miles' work, Sharla Gelfand decided to tackle a messy dataset from Toronto's open data. She similarly outlined all the ways in which the data were messy including: names and addresses across multiple cells in the spreadsheet, merged column headings, and lots of blank cells. She has also included the details of how she cleaned these data [in a blog post](https://sharlagelfand.netlify.com/posts/tidying-toronto-open-data/). While the details of the code may not make sense yet, it will shortly as you get more comfortable with the programming language, R.
 
-![Sharla Gelfand's tidying of Toronto's open data](https://docs.google.com/presentation/d/1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs/export/png?id=1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs&pageid=g326b2fc90a_0_1)
+![Sharla Gelfand's tidying of Toronto's open data](gslides/018.png)
 
 ### Tidying untidy data
 
 There are a number of actions you can take on a dataset to tidy the data depending on the problem. These include: filtering, transforming, modifying variables, aggregating the data, and sorting the order of the observations. There are functions to accomplish each of these actions in R. While we'll get to the details of the code in a few lessons, it's important at this point to be able to identify untidy data and to determine what needs to be done in order to get those data into a tidy format. Specifically, we will focus on a single messy dataset. This is dataset D from the 'Data Organization in Spreadsheets' example of messy data provided above. We note that there are blank cells and that the data are not rectangular.
 
-![Messy dataset](https://docs.google.com/presentation/d/1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs/export/png?id=1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs&pageid=g326b2fc90a_0_22)
+![Messy dataset](gslides/019.png)
 
 To address this, these data can be split into two different spreadsheets, one for each type of data. Spreadsheet A includes information about each sample. Spreadsheet B includes measurements for each sample over time. Note that both spreadsheets have an 'id' column so that the data can be merged if necessary during analysis. The 'note' column does have some missing data. Filling in these blank cells with 'NA' would fully tidy these data. We note that sometimes a single spreadsheet becomes two spreadsheets during the tidying process. This is OK as long as there is a consistent variable name that links the two spreadsheets!
 
-![Tidy version of the messy dataset](https://docs.google.com/presentation/d/1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs/export/png?id=1SS0PYUE9_dE1MIWt6CZePEMUFL2P2Zy_3BidNWSq7hs&pageid=g326b2fc90a_0_16)
+![Tidy version of the messy dataset](gslides/018.png6)
 
 ## The Data Science Life Cycle
 
@@ -213,11 +213,11 @@ Now that we have an understanding of what tidy data are, it's important to put t
 
 The most famous is likely this version from [R for Data Science](https://r4ds.had.co.nz). This version highlights import and tidying as important steps in the pipeline. It also captures the fact that visualization, data transformation, and modeling are often an iterative process before one can arrive at an answer to their question of interest.
 
-![The Data Science Life Cycle](https://docs.google.com/presentation/d/1jEJTVbvn52sjZX7uGE38LUcj4ocs1P8DQZhYcTzs_W0/export/png?id=1jEJTVbvn52sjZX7uGE38LUcj4ocs1P8DQZhYcTzs_W0&pageid=g5fbdfde92a_0_8)
+![The Data Science Life Cycle](gslides/021.png)
 
 Others have set out to design charts to explain all the steps in between asking and answering question. They are all similar but have different aspects of the process they highlight and/or on which they focus. These have been summarized in [A First Course on Data Science](https://doi.org/10.1080/10691898.2019.1623136).
 
-![Other Data Science Life Cycles](https://docs.google.com/presentation/d/1jEJTVbvn52sjZX7uGE38LUcj4ocs1P8DQZhYcTzs_W0/export/png?id=1jEJTVbvn52sjZX7uGE38LUcj4ocs1P8DQZhYcTzs_W0&pageid=g5fbdfde92a_0_1)
+![Other Data Science Life Cycles](gslides/022.png)
 
 Regardless of which life cycle chart you like best, when it comes down to answering a data science question, **importing**, **tidying**, **visualizing**, and **analyzing** the data are important parts of the process. It's these four parts of the pipeline that we'll cover throughout this specialization.
 
@@ -473,7 +473,7 @@ Creating [RStudio projects](https://support.rstudio.com/hc/en-us/articles/200526
 
 New projects can be created by clicking on the RStudio Projects button in RStudio:
 
-![RStudio Project](images/rproj-fig.png)
+<img src="/Users/rdpeng/books/tidyversecourse/book_figures/rproj-fig.png" width="60%" />
 
 This will create a special file with the .Rproj extension. This file tells RStudio to identify the directory containing the .Rproj file as the main directory for that R Project. A new session of RStudio will be started when a user opens an R project from this main directory. The previous state including settings of that project will be maintained from one time to the next. The files that were open the last time the user worked on the project will automatically be opened again. Other packages like the `here` package will also recognize the .Rproj file to make analyses easier for the user. We will explain how this package works in the next section.
 
@@ -488,7 +488,7 @@ In future courses, whenever you write code and run commands within R to work wit
 Knowing your working directory is important because if you want to tell Terminal to perform some actions on files in other folders, you will need to be able to tell the Terminal where that folder is. That is, you will need to be able to specify a **path** to that folder. A path is a string that specifies a sequence of folders to traverse in order to end up at a final destination. The end of a path string may be a file name if you are creating a path to a file. If you are creating a path to a folder, the path string will end with the destination folder. In a path, folder names are separated by forward slashes `/`. For example, let's say that your current working directory in the Terminal is the `raw_code` directory, and you wish to navigate to the `exploratory` subfolder within the `figures` folder to see the graphics you've created.
 
 
-![Definitions: working directory and path](https://docs.google.com/presentation/d/18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY/export/png?id=18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY&pageid=g3a9f4bba8b_0_20)
+![Definitions: working directory and path](gslides/023.png)
 
 There are two types of paths that can lead to that location: **relative** and **absolute**.
 
@@ -497,14 +497,14 @@ There are two types of paths that can lead to that location: **relative** and **
 The first is called a **relative path** which gives a path to the destination folder based on where you are right now (in `raw_code`). ]
 
 
-![Relative path](https://docs.google.com/presentation/d/18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY/export/png?id=18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY&pageid=g39e98c7b77_0_52)
+![Relative path](gslides/024.png)
 
 #### Absolute Paths
 
 Alternatively, you can specify an **absolute path**. An absolute path starts at the **root directory** of a file system. The root directory does not have a name like other folders do. It is specified with a single forward slash `/` and is special in that it cannot be contained within other folders. In the current file system, the root directory contains a folder called `cloud`, which contains a folder called `project`.
 
 
-![Absolute path](https://docs.google.com/presentation/d/18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY/export/png?id=18PSP0OXbduVX_qjWX87zTxyNj6OaX5pU9Sw2f83NGDY&pageid=g39e98c7b77_0_89)
+![Absolute path](gslides/025.png)
 
 #### Path Summary
 
@@ -512,7 +512,7 @@ Alternatively, you can specify an **absolute path**. An absolute path starts at 
 
 Imagine that your friend plans to go from the town square, then to the library, and finally to the bakery. In this analogy, the town square represents the root directory, a universal starting location. If your friend is currently at the library and asks you for directions, you would likely tell them how to go from the library (where they are) to the bakery (where they want to go). This represents a **relative path** -- taking you from where you are currently to where you want to be. Alternatively, you could give them directions from the Town square, to the library, and then to the bakery. This represents an **absolute path**, directions that will always work in this town, no matter where you are currently, but that contain extra information given where your friend is currently.
 
-![Directions and paths analogy](https://docs.google.com/presentation/d/18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ/export/png?id=18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ&pageid=g3aa9ae33ea_0_151)
+![Directions and paths analogy](gslides/026.png)
 
 To summarize once more, **relative paths** give a path to the destination folder based on where you are right now (your current working directory) while **absolute paths** give a path to the destination folder based on the root directory of a file system. 
 
@@ -543,12 +543,12 @@ After installing and loading the `here` package, to set your project directory u
 The `here()` function is what you want to use to set your project directory so that you can use it for future relative paths in your code. While in this case it *also* happened to be in the same directory you were in, it doesn't have to be this way. The here() function looks to see if you have a .Rproj file in your project. It then sets your base directory to whichever directory that file is located. 
 
 
-![here sets your project directory for future reference using here()](https://docs.google.com/presentation/d/18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ/export/png?id=18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ&pageid=g3aa9ae33ea_0_427)
+![here sets your project directory for future reference using here()](gslides/027.png)
 
 So, if we were to change our current directory and re-type `here()` in the Console, you'll note that the output from here() does not change because it's still looking for the directory where .Rproj is. 
 
 
-![here() does not care what your current working directory is](https://docs.google.com/presentation/d/18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ/export/png?id=18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ&pageid=g3aa9ae33ea_0_494)
+![here() does not care what your current working directory is](gslides/028.png)
 
 Note: In cases where there is no .Rproj file, `here()` will look for files other than a .Rproj file. You can read about those cases in the fine print [here](https://github.com/jennybc/here_here#the-fine-print). But for most of your purposes, `here()` will behave as we just discussed.
 
@@ -570,7 +570,7 @@ The syntax is simplified when using `here()`. Each subdirectory or file in the p
 
 The output from this code includes the correct file path to this file, just as you wanted!
 
-![using here to get a file path](https://docs.google.com/presentation/d/18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ/export/png?id=18hkG4zMtlD5c6RUC2yzKG90sl1_zMT3b6D84qGvR1mQ&pageid=g3aa9ae33ea_0_0)
+![using here to get a file path](gslides/029.png)
 
 #### Save and load files using `here()`
 Using the `here` package, files within the project can be saved or loaded by simply typing `here` (to replace the path to the project directory) and typing any subdirectories like in this example, where we want to save data to the raw_data directory within the data directory of the project: 
@@ -634,7 +634,7 @@ The machine we are talking about when we say "machine readable" is a computer. T
 So to wrap up, spaces, punctuations, and periods should be avoided but underscores and dashes are recommended. You should always use lowercase since you don't have to later remember if the name of the file contained lowercase or uppercase letters. Another suggestion is the use of delimiters (hyphens or underscores) instead of combining all the words together. The use of delimiters makes it easier to look for files on your computer or in R and to extract information from the file names like the image below.
 
 
-![Extracting information from properly named files](https://docs.google.com/presentation/d/1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4/export/png?id=1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4&pageid=g397b53245b_0_19)
+![Extracting information from properly named files](gslides/030.png)
 
 #### Human readable files
 
@@ -647,11 +647,11 @@ By using dates, you can sort your files based on chronological order. Dates are 
 
 If dates are not relevant for your file naming, put something numeric first. For instance if you're dealing with multiple reports, you can add a reportxxx to the beginning of the file name so you can easily sort files by the report number.
 
-![Using numbers for ordering files](https://docs.google.com/presentation/d/1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4/export/png?id=1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4&pageid=g397b53245b_0_40)
+![Using numbers for ordering files](gslides/031.png)
 
 In addition to making sure your files can be nicely ordered, always left-pad numbers with zeros. That is first set a max number of digits for your numbers determined by how many files you will potentially have. So if you may not have more than 1000 files you can choose three digits. If not more than a hundred you can choose two digits and so on. Once you know the number of digits, left-pad numbers with zeros to satisfy the number of digits you determined in the first step. In other words, if you're using three digits, instead of writing 1 write 001 and instead of writing 17 write 017.
 
-![Left padding numbers with zeros](https://docs.google.com/presentation/d/1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4/export/png?id=1vQEUA7UqgEWrCUZv25t6qpwbLwrZo9oC0y0zUjLRUT4&pageid=g397b53245b_0_45)
+![Left padding numbers with zeros](gslides/032.png)
 
 ### Project Template: Everything In Its Place
 
@@ -668,7 +668,7 @@ create.project(project.name = "data_analysis",
 
 The `create.project()` function creates a directory called `data_analysis` for this project. Inside that directory are the following sub-directories (which we can view in the RStudio File browser):
 
-![Project Template Directory Layout](images/projecttemplatedir.png)
+![Project Template Directory Layout](book_figures/projecttemplatedir.png)
 
 Inside each directory is a README file that contains a brief description of what kinds of files should go in this directory. If you do not need all of these directories, it is okay to leave them empty for now.
 
