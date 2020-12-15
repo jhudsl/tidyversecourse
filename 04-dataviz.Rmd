@@ -66,7 +66,15 @@ Other Explanatory Plotting Examples:
 
 Above we saw data displayed as both an exploratory plot and an explanatory plot. That plot was an example of a scatterplot. However, there are many types of plots that are helpful. We'll discuss a few basic ones below and will include links to a few galleries where you can get a sense of the many different types of plots out there.
 
-To do this, we'll use the "Davis" dataset which includes, height and weight information for 200 people.
+To do this, we'll use the "Davis" dataset of the `carData` package which includes, height and weight information for 200 people.
+
+To use this data first make sure the `carData` package is installed and load it. 
+
+```{r}
+#install.packages(carData)
+library(carData)
+Davis <- carData::Davis
+```
 
 ![Dataset](images/gslides/174.png)
 
@@ -104,7 +112,23 @@ Grouped barplots, like simple barplots, demonstrate the counts for a group; howe
 
 Another common variation on barplots are stacked barplots. Stacked barplots take the information from a grouped barplot but stacks them on top of one another. This is most helpful when the bars add up to 100%, such as in a survey response where you're measuring percent of respondents within each category. Otherwise, it can be hard to compare between the groups within each bar. 
 
-![Stacked Barplot](images/gslides/180.png)
+```{r, eval = FALSE, echo = FALSE}
+library(ggplot2)
+library(dplyr)
+
+Davis %<>% mutate(percent_weight =round(percent_rank(weight) *100))
+Davis %<>% mutate(percent_height =round(percent_rank(height) *100))
+Davis %<>% mutate(percent_height_breaks =  cut(
+  percent_height,
+breaks = seq(0, 101, by = 20), right = TRUE, include.lowest = TRUE,
+  labels = c("0-20%", "21-40%", "41-60%", "61-80%", "81-100%")))
+
+
+Davis  %>%ggplot() + 
+geom_bar(aes(x = percent_height_breaks, fill = sex), position = "fill") + scale_y_continuous(labels = scales::percent) + coord_flip()+labs(y = "Percent of Each Gender for Each Height Category", x = "Category of % Height Percentile") +  theme_linedraw()  
+```
+
+![Stacked Barplot](images/gslides/180_update.png)
 
 ### Boxplot
 
