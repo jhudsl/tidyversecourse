@@ -602,7 +602,7 @@ To better understand databases and how to work with relational data, let's just 
 You will need to unzip the file before using it. The original version of this database can be downloaded [here](http://www.sqlitetutorial.net/). For our purposes though, we're only going to only describe two of the tables we'll be using in our example in this lesson. We're going to be looking at data in the `artists` and `albums` tables, which both have the column `ArtistId`.
 
 
-![relationship between two tables in the company database](databasefigure.png)
+![relationship between two tables in the company database](images/databasefigure.png)
 
 Without any more details, let's get to it! Here you'll see the code to install and load the `RSQLite` package. 
 
@@ -1117,7 +1117,7 @@ A really useful manipulation that one can perform is text extraction from images
 
 We will show how to do this using a couple of tidyverse package hex stickers.
 
-```{r}
+```{r, fig.path="images/"}
 # install package
 #install.packages("magick")
 # load package
