@@ -1,6 +1,7 @@
 "googledrive"
 bookdown
 broom
+carData
 corrplot
 cowplot
 datasets
@@ -36,10 +37,10 @@ patchwork
 PerformanceAnalytics
 ProjectTemplate
 purrr
+randomForest
 readr
 readxl
 recipes
-reshape2
 rpart
 rsample
 RSQLite
@@ -57,4 +58,3 @@ vip
 visdat
 workflows
 yardstick
-zoo
