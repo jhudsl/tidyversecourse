@@ -760,7 +760,7 @@ Now that we've walked through a number of examples of mutating joins, cases wher
 
 ![mutating joins summary](images/gslides/066.png)
 
-To see a visual representation of this, there is a great resource on GitHub, where these joins are illustrated, so feel free to check out [this link](https://github.com/gadenbuie/tidyexplain#readme) from [Garrick Aden-Buie](https://www.garrickadenbuie.com/) animating joins within relational data. 
+To see a visual representation of this, there is a great resource on GitHub, where these joins are illustrated, so feel free to check out [this link](https://github.com/gadenbuie/tidyexplain) from [Garrick Aden-Buie](https://www.garrickadenbuie.com/) animating joins within relational data. 
 
 ### Filtering Joins
 
