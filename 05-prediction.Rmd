@@ -152,9 +152,7 @@ df
 
 Here we also get information about the dimensions of our data object and the name and class of our variables.
 
-```{r, echo = FALSE, out.width="60%"}
-knitr::include_graphics(here::here("book_figures/tibble.png"))
-```
+![](images/book_figures/tibble.png)
 
 ### Missing Values
 
@@ -1178,9 +1176,7 @@ In this lesson, we've decided to go with the terminology that fits the tidymodel
 ### Train
 Training data are the data we described above. It is the data used to *build* your predictive model. These data are referred to as your training set.
 
-```{r, echo = FALSE, fig.align="centered"}
-knitr::include_graphics("book_figures/data_splitting.png")
-```
+![](images/book_figures/data_splitting.png)
 
 
 ### Test
@@ -1188,17 +1184,13 @@ Before getting started, your original dataset is often split. Some (often 70%-75
 
 These hold-out samples are used to see whether or not your predictive model accurately makes predictions in the set of samples not used to train the model.
 
-```{r, echo = FALSE, fig.align="centered"}
-knitr::include_graphics("book_figures/data_splitting2.png")
-```
+![](images/book_figures/data_splitting2.png)
 
 ### Validate
 
 Finally, an independent dataset -- one that is not from the same experiment or source as the data used to train and test your model are used to see whether or not your predictive model makes accurate predictions in a completely new dataset. Predictive models that can be generalized to and make accurate predictions in new datasets are the best predictive models.
 
-```{r, echo = FALSE, fig.align="centered"}
-knitr::include_graphics("book_figures/data_splitting3.png")
-```
+![](images/book_figures/data_splitting3.png)
 
 Ultimately, we want to create a model that will perform well with any new data that we try to use. In other words we want the model to be generalizable so we can use it again to make predictions with new data. We don't want the model to only work well with the data that we used to train the model (this is called [overfitting](https://en.wikipedia.org/wiki/Overfitting)). Using a validation set helps us to assess how well our model might work with new data in the future. This is part of what we call [out-of-sample testing](https://en.wikipedia.org/wiki/Cross-validation_(statistics)), as we evaluate the performance of the model on independent data that was not a part of the sample used to train the model. 
 
@@ -1352,9 +1344,7 @@ Modifying a piece of the overall process is now easier than before because many 
 
 We will focus on the following packages although there are many more in the tidymodels ecosystem:                          
 
-```{r, echo = FALSE}
-knitr::include_graphics(here::here("book_figures/simpletidymodels.png"))
-```
+![](images/book_figures/simpletidymodels.png)
 
 1) `rsamples` - to split the data into training and testing sets (as well as cross validation sets - more on that later!)  
 2) `recipes` -  to prepare the data with preprocessing (assign variables and preprocessing steps)  
@@ -1368,18 +1358,15 @@ knitr::include_graphics(here::here("book_figures/simpletidymodels.png"))
 
 Here you can see a visual of how these packages work together in the process of performing a machine learning analysis:
 
-```{r, echo = FALSE, fig.align="centered"}
-knitr::include_graphics(here::here("book_figures/MachineLearning_tidymodels.png"))
-```
+![](images/book_figures/MachineLearning_tidymodels.png)
 
 To illustrate how to use each of these packages, we will work through some examples.
 
 
 Other `tidymodels` packages include:
 
-```{r, echo = FALSE, fig.align="centered"}
-knitr::include_graphics(here::here("book_figures/tidymodels_packages.jpg"))
-```
+![](images/book_figures/tidymodels_packages.jpg)
+
 [[source](https://pbs.twimg.com/media/Ef1Oac7WAAImCos.jpg)]
 
 1) `applicable` compares new data points with the training data to see how much the new data points appear to be an extrapolation of the training data  
@@ -1834,21 +1821,14 @@ The number of $v$ subsets to use is also a bit arbitrary, although generally spe
 
 We are going to use 4 folds for the sake of expediency and simplicity. 
 
-
-```{r, echo = FALSE, fig.align="centered"}
-knitr::include_graphics(here::here("book_figures/vfold.png"))
-```
+![](images/book_figures/vfold.png)
 
 The model will be trained on  $v$-1 subsets of the data iteratively (removing a different $v$ until all possible $v$-1 sets have been evaluated), while one fold will be saved to act as a test set. This will give us a sense of the out-of-sample (meaning not the entire training sample) performance of the model.
 
 In the case of tuning, multiple values for the hyperparameter are tested to determine what yields the best model performance.
  
 
-```{r, echo = FALSE, fig.align="centered"}
-
-knitr::include_graphics(here::here("book_figures/cross_validation.png"))
-
-```
+![](images/book_figures/cross_validation.png)
 
 
 #### Example of creating cross validation samples with `rsample`
@@ -3053,19 +3033,11 @@ Great!
 
 In summary, these are the minimal steps to perform a prediction analysis using `tidymodels`:
 
-```{r, echo = FALSE, fig.align="centered"}
-knitr::include_graphics(here::here("book_figures", "tidymodelsBasics.png"))
-```
-
-
+![](images/book_figures/tidymodelsBasics.png)
 
 If you wish to perform preprocessing, cross validation, or tuning, these are the steps required:
 
-```{r, echo = FALSE, fig.align="centered"}
-
-knitr::include_graphics(here::here("book_figures", "full_tidymodels_overview.png"))
-
-```
+![](images/book_figures/full_tidymodels_overview.png)
 
 
 
