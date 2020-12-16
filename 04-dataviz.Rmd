@@ -142,7 +142,13 @@ To interpret a boxplot, there are a few places where we'll want to focus our att
 
 The final type of basic plot we'll discuss here are line plots. Line plots are most effective at showing a **quantitative trend over time**.
 
-![Line Plot](images/gslides/182.png)
+```{r, eval = FALSE, echo = FALSE}
+
+USPop %>% ggplot(aes(x = year, y = population)) + geom_line(col = "blue", size = 2) + labs(title = "United States Population Over Time", y = "Population in Millions", x = "Year") + theme_linedraw()+ theme(axis.text = element_text(size = 12), axis.title = element_text(size = 14), plot.title = element_text(hjust = .5, size = 16))
+
+```
+
+![Line Plot](images/gslides/182_update.png)
 
 
 #### Resources to look at these and other types of plots:
