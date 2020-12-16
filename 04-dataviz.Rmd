@@ -241,9 +241,20 @@ iris %>% ggplot(aes(x = Petal.Width, y = Petal.Length,  col = Species)) +geom_po
 
 ```
 
-Similarly, the intention of your graphic should never be to mislead and confuse. Unlike what was done here, be sure that your data visualizations improve viewers' understanding. Do not aim to confuse:
+Similarly, the intention of your graphic should never be to mislead or confuse. Be sure that your data visualizations improve viewers' understanding. Using unusual axes limits or point sizes or vague labels, can make plots misleading. This plot creates an effective exclamation mark shape which is fun, but it is no longer clear what points correspond to what species. Furthermore, this plot makes it look like petal width is not very distinguishable across the different species (particularly for versicolor and virginica), which is the opposite of what the previous petal plot conveyed.
 
-![Confusion is conveyed here](images/gslides/192.png)
+```{r, eval = FALSE, echo = FALSE}
+library(tidyr)
+library(ggplot2)
+library(dplyr)
+
+  iris %>% ggplot(aes(x = Petal.Width, y = Petal.Length,  shape = Species)) +geom_point(size =10, alpha = 0.5)+ labs( x = "Width", y = "Length", title = "Iris Petal Characteristics") + theme_linedraw()+ theme(axis.text = element_text(size = 12), axis.title = element_text(size = 14), plot.title = element_text(hjust = .5, size = 16), legend.text = element_text(size = 13), legend.title = element_text(size = 13)) + ylim(c(0,10))+ xlim(c(0,20))
+```
+
+![Confusion is conveyed here](images/gslides/192_update.png)
+
+
+
 
 ## Plot Generation Process
 
