@@ -773,16 +773,11 @@ Filtering joins keep observations in one table based on the observations present
 
 In our toy example, if the join `semi_join(artists, albums)` were run, this would keep rows of `artists` where the `ArtistID` in `artist` was also in the `albums` table.
 
-
-```{r, echo = FALSE, fig.align="centered", out.width= "900px"}
-knitr::include_graphics(here::here("book_figures", "semi_join.png"))
-```
+![Semi Join](images/book_figures/semi_join.png)
 
 Alternatively, `anti_join(artists, albums)` would output the rows of `artists` whose `ArtistId` was *NOT* found in the `albums` table.
 
-```{r, echo = FALSE, fig.align="centered", out.width= "900px"}
-knitr::include_graphics(here::here("book_figures", "anti_join.png"))
-```
+![Anti Join](images/book_figures/semi_join.png)
 
 Note that in the case of filtering joins, the number of variables in the table *after* the join does not change. While **mutating joins** merged the tables creating a resulting table with more columns, with **filtering joins** we're simply filtering the observations in one table based on the values in a second table.
 
@@ -1301,9 +1296,8 @@ We can use the `here` package described in the introduction to help us make this
 
 Assuming we created a project called "project", let's save our raw coverage data in a directory called raw_data within a directory called data inside of our RStudio project similarly to the workflows that we have seen in the introduction. 
 
-```{r, echo = FALSE, out.width="60%", fig.align="center"}
-knitr::include_graphics(here::here("book_figures", "file_structure.png"))
-```
+![File Structure](images/book_figures/file_structure.png)
+
 After creating a directory called raw_data within a directory that we called data, we can now save our raw data for case study #1 using the `here` package by simply typing:
 ```{r}
 library(here)
