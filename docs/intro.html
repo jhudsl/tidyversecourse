@@ -24,7 +24,7 @@
 <meta name="author" content="Carrie Wright, Shannon E. Ellis, Stephanie C. Hicks and Roger D. Peng" />
 
 
-<meta name="date" content="2020-12-11" />
+<meta name="date" content="2020-12-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -955,7 +955,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">1.6.1</span> RStudio Projects</h3>
 <p>Creating <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">RStudio projects</a> can be very helpful for organizing your code and any other files that you may want to use in one location together.</p>
 <p>New projects can be created by clicking on the RStudio Projects button in RStudio:</p>
-<p><img src="book_figures/rproj-fig.png" width="60%" /></p>
+<div class="figure">
+<img src="images/book_figures/rproj-fig.png" alt="" />
+<p class="caption">Creating RStudio Projects</p>
+</div>
 <p>This will create a special file with the .Rproj extension. This file tells RStudio to identify the directory containing the .Rproj file as the main directory for that R Project. A new session of RStudio will be started when a user opens an R project from this main directory. The previous state including settings of that project will be maintained from one time to the next. The files that were open the last time the user worked on the project will automatically be opened again. Other packages like the <code>here</code> package will also recognize the .Rproj file to make analyses easier for the user. We will explain how this package works in the next section.</p>
 </div>
 <div id="file-paths" class="section level3" number="1.6.2">
@@ -1116,7 +1119,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-3"><a href="intro.html#cb5-3"></a>               <span class="dt">template =</span> <span class="st">&quot;minimal&quot;</span>)</span></code></pre></div>
 <p>The <code>create.project()</code> function creates a directory called <code>data_analysis</code> for this project. Inside that directory are the following sub-directories (which we can view in the RStudio File browser):</p>
 <div class="figure">
-<img src="book_figures/projecttemplatedir.png" alt="" />
+<img src="images/book_figures/projecttemplatedir.png" alt="" />
 <p class="caption">Project Template Directory Layout</p>
 </div>
 <p>Inside each directory is a README file that contains a brief description of what kinds of files should go in this directory. If you do not need all of these directories, it is okay to leave them empty for now.</p>

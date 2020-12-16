@@ -24,7 +24,7 @@
 <meta name="author" content="Carrie Wright, Shannon E. Ellis, Stephanie C. Hicks and Roger D. Peng" />
 
 
-<meta name="date" content="2020-12-11" />
+<meta name="date" content="2020-12-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -561,16 +561,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The <code>slice_sample()</code> function of the <code>dplyr</code> package will allow you to see a sample of random rows in random order. The number of rows to show is specified by the <code>n</code> argument. This can be useful if you don’t want to print the entire tibble, but you want to get a greater sense of the values. This is a good option for data analysis reports, where printing the entire tibble would not be appropriate if the tibble is quite large.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="get-data.html#cb6-1"></a><span class="kw">slice_sample</span>(trees, <span class="dt">n =</span> <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##    Girth Height Volume
-## 1   11.4     76   21.0
-## 2   20.6     87   77.0
-## 3   12.0     75   19.1
-## 4   16.3     77   42.6
-## 5   13.3     86   27.4
-## 6   10.8     83   19.7
-## 7    8.6     65   10.3
-## 8   17.3     81   55.4
-## 9   10.5     72   16.4
-## 10   8.3     70   10.3</code></pre>
+## 1    8.8     63   10.2
+## 2   12.0     75   19.1
+## 3   14.5     74   36.3
+## 4   13.7     71   25.7
+## 5   18.0     80   51.5
+## 6   11.1     80   22.6
+## 7   10.5     72   16.4
+## 8   17.5     82   55.7
+## 9   14.0     78   34.5
+## 10  13.3     86   27.4</code></pre>
 <p>You can also use <code>slice_head()</code> or <code>slice_tail()</code> to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.</p>
 <p>This will show the first 5 rows.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="get-data.html#cb8-1"></a><span class="kw">slice_head</span>(trees, <span class="dt">n =</span> <span class="dv">5</span>)</span></code></pre></div>
@@ -1071,7 +1071,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>You will need to unzip the file before using it. The original version of this database can be downloaded <a href="http://www.sqlitetutorial.net/">here</a>. For our purposes though, we’re only going to only describe two of the tables we’ll be using in our example in this lesson. We’re going to be looking at data in the <code>artists</code> and <code>albums</code> tables, which both have the column <code>ArtistId</code>.</p>
 <div class="figure">
-<img src="databasefigure.png" alt="" />
+<img src="images/databasefigure.png" alt="" />
 <p class="caption">relationship between two tables in the company database</p>
 </div>
 <p>Without any more details, let’s get to it! Here you’ll see the code to install and load the <code>RSQLite</code> package.</p>
@@ -1284,9 +1284,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>anti_join(x, y)</code> : keeps observations in <code>x</code> that do <em>NOT</em> have a match in <code>y</code>.</li>
 </ul>
 <p>In our toy example, if the join <code>semi_join(artists, albums)</code> were run, this would keep rows of <code>artists</code> where the <code>ArtistID</code> in <code>artist</code> was also in the <code>albums</code> table.</p>
-<p><img src="book_figures/semi_join.png" width="900px" /></p>
+<div class="figure">
+<img src="images/book_figures/semi_join.png" alt="" />
+<p class="caption">Semi Join</p>
+</div>
 <p>Alternatively, <code>anti_join(artists, albums)</code> would output the rows of <code>artists</code> whose <code>ArtistId</code> was <em>NOT</em> found in the <code>albums</code> table.</p>
-<p><img src="book_figures/anti_join.png" width="900px" /></p>
+<div class="figure">
+<img src="images/book_figures/semi_join.png" alt="" />
+<p class="caption">Anti Join</p>
+</div>
 <p>Note that in the case of filtering joins, the number of variables in the table <em>after</em> the join does not change. While <strong>mutating joins</strong> merged the tables creating a resulting table with more columns, with <strong>filtering joins</strong> we’re simply filtering the observations in one table based on the values in a second table.</p>
 </div>
 <div id="how-to-connect-to-a-database-online" class="section level3" number="2.10.7">
@@ -1628,13 +1634,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   format width height colorspace matte filesize density
 ##   &lt;chr&gt;  &lt;int&gt;  &lt;int&gt; &lt;chr&gt;      &lt;lgl&gt;    &lt;int&gt; &lt;chr&gt;  
 ## 1 PNG      240    278 sRGB       TRUE     38516 +85x+85</code></pre>
-<p><img src="02-get-data_files/figure-html/unnamed-chunk-53-1.png" width="120" /></p>
+<p><img src="images/unnamed-chunk-51-1.png" width="120" /></p>
 <div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="get-data.html#cb97-1"></a><span class="kw">print</span>(img2)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 7
 ##   format width height colorspace matte filesize density
 ##   &lt;chr&gt;  &lt;int&gt;  &lt;int&gt; &lt;chr&gt;      &lt;lgl&gt;    &lt;int&gt; &lt;chr&gt;  
 ## 1 PNG      864    864 sRGB       TRUE     54056 +72x+72</code></pre>
-<p><img src="02-get-data_files/figure-html/unnamed-chunk-53-2.png" width="432" /></p>
+<p><img src="images/unnamed-chunk-51-2.png" width="432" /></p>
 <div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="get-data.html#cb99-1"></a><span class="co">#concatenate and print text</span></span>
 <span id="cb99-2"><a href="get-data.html#cb99-2"></a><span class="kw">cat</span>(<span class="kw">image_ocr</span>(img1))</span></code></pre></div>
 <pre><code>## ggplot2</code></pre>
@@ -1876,8 +1882,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Recall from the introduction, that in data science workflows, we perform multiple steps in evaluating data. To keep this process tidy and reproducible, it is often helpful to save our data in a raw state and in processed states to allow for easy comparison. So let’s save our case study 1 data to use in later sections of the course.</p>
 <p>We can use the <code>here</code> package described in the introduction to help us make this process easier. Recall that the <code>here</code> package allows us to quickly reference the directory in which the .Rproj file is located.</p>
 <p>Assuming we created a project called “project”, let’s save our raw coverage data in a directory called raw_data within a directory called data inside of our RStudio project similarly to the workflows that we have seen in the introduction.</p>
-<p><img src="book_figures/file_structure.png" width="60%" style="display: block; margin: auto;" />
-After creating a directory called raw_data within a directory that we called data, we can now save our raw data for case study #1 using the <code>here</code> package by simply typing:</p>
+<div class="figure">
+<img src="images/book_figures/file_structure.png" alt="" />
+<p class="caption">File Structure</p>
+</div>
+<p>After creating a directory called raw_data within a directory that we called data, we can now save our raw data for case study #1 using the <code>here</code> package by simply typing:</p>
 <div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="get-data.html#cb127-1"></a><span class="kw">library</span>(here)</span></code></pre></div>
 <pre><code>## here() starts at /Users/rdpeng/books/tidyversecourse</code></pre>
 <div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="get-data.html#cb129-1"></a><span class="kw">save</span>(coverage, spending, <span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;case_study_1.rda&quot;</span>))</span>
@@ -1974,11 +1983,11 @@ After creating a directory called raw_data within a directory that we called dat
 <span id="cb137-7"><a href="get-data.html#cb137-7"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb137-8"><a href="get-data.html#cb137-8"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xlsx&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2020-12-11 19:41
+##   Date: 2020-12-16 15:27
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpuaV5zc/file443574856499.xlsx</code></pre>
+## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpXLcjeg/file6b9059c09d07.xlsx</code></pre>
 <div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="get-data.html#cb139-1"></a>brady &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</span>
 <span id="cb139-2"><a href="get-data.html#cb139-2"></a></span>
 <span id="cb139-3"><a href="get-data.html#cb139-3"></a>brady</span></code></pre></div>
@@ -2013,11 +2022,11 @@ After creating a directory called raw_data within a directory that we called dat
 <span id="cb141-4"><a href="get-data.html#cb141-4"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb141-5"><a href="get-data.html#cb141-5"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2020-12-11 19:41
+##   Date: 2020-12-16 15:27
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpuaV5zc/file443521980f48.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpXLcjeg/file6b90618fb492.xls</code></pre>
 <div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="get-data.html#cb143-1"></a>crime &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>, <span class="dt">skip =</span> <span class="dv">3</span>)</span>
 <span id="cb143-2"><a href="get-data.html#cb143-2"></a></span>
 <span id="cb143-3"><a href="get-data.html#cb143-3"></a><span class="co"># see data</span></span>
@@ -2050,11 +2059,11 @@ After creating a directory called raw_data within a directory that we called dat
 <span id="cb145-4"><a href="get-data.html#cb145-4"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb145-5"><a href="get-data.html#cb145-5"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2020-12-11 19:41
+##   Date: 2020-12-16 15:27
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpuaV5zc/file44355e37ee62.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpXLcjeg/file6b906135133.xls</code></pre>
 <div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="get-data.html#cb147-1"></a>land &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</span>
 <span id="cb147-2"><a href="get-data.html#cb147-2"></a></span>
 <span id="cb147-3"><a href="get-data.html#cb147-3"></a><span class="co"># see data</span></span>

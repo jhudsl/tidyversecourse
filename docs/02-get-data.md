@@ -101,16 +101,16 @@ slice_sample(trees, n = 10)
 
 ```
 ##    Girth Height Volume
-## 1   11.4     76   21.0
-## 2   20.6     87   77.0
-## 3   12.0     75   19.1
-## 4   16.3     77   42.6
-## 5   13.3     86   27.4
-## 6   10.8     83   19.7
-## 7    8.6     65   10.3
-## 8   17.3     81   55.4
-## 9   10.5     72   16.4
-## 10   8.3     70   10.3
+## 1    8.8     63   10.2
+## 2   12.0     75   19.1
+## 3   14.5     74   36.3
+## 4   13.7     71   25.7
+## 5   18.0     80   51.5
+## 6   11.1     80   22.6
+## 7   10.5     72   16.4
+## 8   17.5     82   55.7
+## 9   14.0     78   34.5
+## 10  13.3     86   27.4
 ```
 
 You can also use `slice_head()` or `slice_tail()` to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.
@@ -814,7 +814,7 @@ To better understand databases and how to work with relational data, let's just 
 You will need to unzip the file before using it. The original version of this database can be downloaded [here](http://www.sqlitetutorial.net/). For our purposes though, we're only going to only describe two of the tables we'll be using in our example in this lesson. We're going to be looking at data in the `artists` and `albums` tables, which both have the column `ArtistId`.
 
 
-![relationship between two tables in the company database](databasefigure.png)
+![relationship between two tables in the company database](images/databasefigure.png)
 
 Without any more details, let's get to it! Here you'll see the code to install and load the `RSQLite` package. 
 
@@ -1066,12 +1066,11 @@ Filtering joins keep observations in one table based on the observations present
 
 In our toy example, if the join `semi_join(artists, albums)` were run, this would keep rows of `artists` where the `ArtistID` in `artist` was also in the `albums` table.
 
-
-<img src="/Users/rdpeng/books/tidyversecourse/book_figures/semi_join.png" width="900px" />
+![Semi Join](images/book_figures/semi_join.png)
 
 Alternatively, `anti_join(artists, albums)` would output the rows of `artists` whose `ArtistId` was *NOT* found in the `albums` table.
 
-<img src="/Users/rdpeng/books/tidyversecourse/book_figures/anti_join.png" width="900px" />
+![Anti Join](images/book_figures/semi_join.png)
 
 Note that in the case of filtering joins, the number of variables in the table *after* the join does not change. While **mutating joins** merged the tables creating a resulting table with more columns, with **filtering joins** we're simply filtering the observations in one table based on the values in a second table.
 
@@ -1546,7 +1545,7 @@ print(img1)
 ## 1 PNG      240    278 sRGB       TRUE     38516 +85x+85
 ```
 
-<img src="02-get-data_files/figure-html/unnamed-chunk-53-1.png" width="120" />
+<img src="images/unnamed-chunk-51-1.png" width="120" />
 
 ```r
 print(img2)
@@ -1559,7 +1558,7 @@ print(img2)
 ## 1 PNG      864    864 sRGB       TRUE     54056 +72x+72
 ```
 
-<img src="02-get-data_files/figure-html/unnamed-chunk-53-2.png" width="432" />
+<img src="images/unnamed-chunk-51-2.png" width="432" />
 
 ```r
 #concatenate and print text
@@ -1924,7 +1923,8 @@ We can use the `here` package described in the introduction to help us make this
 
 Assuming we created a project called "project", let's save our raw coverage data in a directory called raw_data within a directory called data inside of our RStudio project similarly to the workflows that we have seen in the introduction. 
 
-<img src="/Users/rdpeng/books/tidyversecourse/book_figures/file_structure.png" width="60%" style="display: block; margin: auto;" />
+![File Structure](images/book_figures/file_structure.png)
+
 After creating a directory called raw_data within a directory that we called data, we can now save our raw data for case study #1 using the `here` package by simply typing:
 
 ```r
@@ -2062,11 +2062,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2020-12-11 19:41
+##   Date: 2020-12-16 15:27
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpuaV5zc/file443574856499.xlsx
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpXLcjeg/file6b9059c09d07.xlsx
 ```
 
 ```r
@@ -2114,11 +2114,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2020-12-11 19:41
+##   Date: 2020-12-16 15:27
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpuaV5zc/file443521980f48.xls
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpXLcjeg/file6b90618fb492.xls
 ```
 
 ```r
@@ -2165,11 +2165,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2020-12-11 19:41
+##   Date: 2020-12-16 15:27
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpuaV5zc/file44355e37ee62.xls
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpXLcjeg/file6b906135133.xls
 ```
 
 ```r
