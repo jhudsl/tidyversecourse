@@ -473,7 +473,7 @@ Creating [RStudio projects](https://support.rstudio.com/hc/en-us/articles/200526
 
 New projects can be created by clicking on the RStudio Projects button in RStudio:
 
-<img src="/Users/rdpeng/books/tidyversecourse/book_figures/rproj-fig.png" width="60%" />
+![Creating RStudio Projects](images/book_figures/rproj-fig.png)
 
 This will create a special file with the .Rproj extension. This file tells RStudio to identify the directory containing the .Rproj file as the main directory for that R Project. A new session of RStudio will be started when a user opens an R project from this main directory. The previous state including settings of that project will be maintained from one time to the next. The files that were open the last time the user worked on the project will automatically be opened again. Other packages like the `here` package will also recognize the .Rproj file to make analyses easier for the user. We will explain how this package works in the next section.
 
@@ -668,7 +668,7 @@ create.project(project.name = "data_analysis",
 
 The `create.project()` function creates a directory called `data_analysis` for this project. Inside that directory are the following sub-directories (which we can view in the RStudio File browser):
 
-![Project Template Directory Layout](book_figures/projecttemplatedir.png)
+![Project Template Directory Layout](images/book_figures/projecttemplatedir.png)
 
 Inside each directory is a README file that contains a brief description of what kinds of files should go in this directory. If you do not need all of these directories, it is okay to leave them empty for now.
 

@@ -150,7 +150,7 @@ df
 
 Here we also get information about the dimensions of our data object and the name and class of our variables.
 
-<img src="/Users/rdpeng/books/tidyversecourse/book_figures/tibble.png" width="60%" />
+![](images/book_figures/tibble.png)
 
 ### Missing Values
 
@@ -232,7 +232,7 @@ iris %>%
   geom_density(aes(x=Sepal.Width))
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 
 
 **Skewed Distribution**
@@ -253,7 +253,7 @@ ggplot(df, aes(sleep_rem)) +
 ## Warning: Removed 22 rows containing non-finite values (stat_density).
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-8-1.png" width="672" />
 
 **Uniform Distribution**
 
@@ -296,7 +296,7 @@ iris %>%
   geom_density()
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
 Since the two humps in the plot are about the same height, this shows that it's not just one or two flowers with much smaller petal lengths, but rather that there are many. Thus, these observations aren't likely an outlier.
 
@@ -310,7 +310,7 @@ iris %>%
   geom_boxplot()
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 In this boxplot, we see in fact that setosa have a shorter petal length while virginica have the longest. Had we simply removed all the shorter petal length flowers from our dataset, we would have lost information about an entire species!
 
@@ -435,7 +435,7 @@ Taking a deeper look at the histogram we can see that there are two values that 
 hist(pull(df, bodywt))
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-15-1.png" width="672" />
 
 
 ```r
@@ -475,7 +475,7 @@ dplyr::select_if(is.numeric) %>%
   chart.Correlation()
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-18-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-17-1.png" width="672" />
 
 
 ```r
@@ -494,7 +494,7 @@ dplyr::select_if(is.numeric) %>%
     ggcorr(label = TRUE)
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-18-1.png" width="672" />
 
 
 ```r
@@ -504,7 +504,7 @@ dplyr::select_if(is.numeric) %>%
     ggpairs()
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-20-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-19-1.png" width="672" />
  
 We can see from these plots that the `awake` variable and the `sleep_total` variable are perfectly correlated. This becomes important for choosing what to include in models when we try to perform prediction or inference analyses.
 
@@ -518,7 +518,7 @@ ggplot(df, aes(x = bodywt, y = brainwt)) +
   geom_point()
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
 Clearly, including the elephant data points makes it hard to look at the other data points, it is possible that these points are driving the positive correlation that we get when we use all the data. Here is a plot of the relationship between these to variables excluding the elephant data and the very low body weight organisms:
 
@@ -537,7 +537,7 @@ df %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-22-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 
 ```r
 cor.test(pull(df %>% filter(bodywt<2000 & bodywt >1),bodywt),
@@ -569,7 +569,7 @@ We can also see it in our histogram of this variable:
 hist(pull(df, brainwt))
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-22-1.png" width="672" />
 
 Let's see which organism this is:
 
@@ -604,7 +604,7 @@ df %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-25-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-24-1.png" width="672" />
 
 ```r
 cor.test(pull(df %>% filter(bodywt<2000 & bodywt >1 & brainwt<1),bodywt),
@@ -859,7 +859,7 @@ trees %>%
   geom_point(aes(Height, Girth))
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-26-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-25-1.png" width="672" />
 
 From the looks of this plot, the relationship looks approximately linear, but to visually make this a little easier, we'll add a line of best first to the plot.
 
@@ -875,7 +875,7 @@ trees %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-27-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-26-1.png" width="672" />
 
 On this graph, the relationship looks approximately linear and the variance (distance from points to the line) is constant across the data. Given this, it's appropriate to use linear regression for these data.
 
@@ -901,7 +901,7 @@ par(mfrow = c(2, 2))
 plot(fit)
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-29-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-28-1.png" width="672" />
 
 This generates four plots:
 1) **Residuals vs Fitted** - checks linear relationship assumption of linear regression. A linear relationship will demonstrate a horizontal red line here. Deviations from a horizontal line suggest nonlinearity and that a different approach may be necessary.
@@ -931,7 +931,7 @@ ggplot(fit, aes(fit$residuals)) +
   geom_histogram(bins = 5)
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-30-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-29-1.png" width="672" />
 
 The QQ Plot and the histogram of the residuals will always give the same answer. Here, we see that with our limited sample size, we do not have perfectly Normally distributed residuals; however, the points do not fall wildly far from the dotted line.
 
@@ -1047,7 +1047,7 @@ ggplot(mtcars, aes(wt, mpg)) +
   geom_point()
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-33-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-32-1.png" width="672" />
 
 From the scatterplot, the relationship looks approximately linear and the variance looks constant. Thus, we could model this using linear regression:
 
@@ -1073,7 +1073,7 @@ ggplot(mtcars, aes(wt, mpg)) +
   facet_wrap(~vs)
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-35-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-34-1.png" width="672" />
 
 
 From this plot, we can see that V-shaped engines (`vs`= 0), tend to be heavier and get fewer miles per gallon while straight engines (`vs` = 1) tend to weigh less and get more miles per gallon. Importantly, however, we see that a car that weighs 3000 points (`wt` = 3) and has a V-Shaped engine (`vs` = 0) gets fewer miles per gallon than a car of the same weight with a straight engine (`vs` = 1), suggesting that simply modeling a linear relationship between weight and mpg is not appropriate.
@@ -1153,7 +1153,7 @@ ggplot(as.data.frame(soda_ounces))+
   geom_histogram(aes(soda_ounces), bins = 10)
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-38-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-37-1.png" width="672" />
 
 Here, we see that the data are approximately normally distributed.
 
@@ -1360,7 +1360,7 @@ bootstrap_means %>%
   visualize()
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-43-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-42-1.png" width="672" />
 
 ## Prediction Modeling
 
@@ -1407,7 +1407,7 @@ In this lesson, we've decided to go with the terminology that fits the tidymodel
 ### Train
 Training data are the data we described above. It is the data used to *build* your predictive model. These data are referred to as your training set.
 
-<img src="book_figures/data_splitting.png" width="480" />
+![](images/book_figures/data_splitting.png)
 
 
 ### Test
@@ -1415,13 +1415,13 @@ Before getting started, your original dataset is often split. Some (often 70%-75
 
 These hold-out samples are used to see whether or not your predictive model accurately makes predictions in the set of samples not used to train the model.
 
-<img src="book_figures/data_splitting2.png" width="480" />
+![](images/book_figures/data_splitting2.png)
 
 ### Validate
 
 Finally, an independent dataset -- one that is not from the same experiment or source as the data used to train and test your model are used to see whether or not your predictive model makes accurate predictions in a completely new dataset. Predictive models that can be generalized to and make accurate predictions in new datasets are the best predictive models.
 
-<img src="book_figures/data_splitting3.png" width="480" />
+![](images/book_figures/data_splitting3.png)
 
 Ultimately, we want to create a model that will perform well with any new data that we try to use. In other words we want the model to be generalizable so we can use it again to make predictions with new data. We don't want the model to only work well with the data that we used to train the model (this is called [overfitting](https://en.wikipedia.org/wiki/Overfitting)). Using a validation set helps us to assess how well our model might work with new data in the future. This is part of what we call [out-of-sample testing](https://en.wikipedia.org/wiki/Cross-validation_(statistics)), as we evaluate the performance of the model on independent data that was not a part of the sample used to train the model. 
 
@@ -1575,7 +1575,7 @@ Modifying a piece of the overall process is now easier than before because many 
 
 We will focus on the following packages although there are many more in the tidymodels ecosystem:                          
 
-<img src="/Users/rdpeng/books/tidyversecourse/book_figures/simpletidymodels.png" width="830" />
+![](images/book_figures/simpletidymodels.png)
 
 1) `rsamples` - to split the data into training and testing sets (as well as cross validation sets - more on that later!)  
 2) `recipes` -  to prepare the data with preprocessing (assign variables and preprocessing steps)  
@@ -1589,14 +1589,15 @@ We will focus on the following packages although there are many more in the tidy
 
 Here you can see a visual of how these packages work together in the process of performing a machine learning analysis:
 
-<img src="/Users/rdpeng/books/tidyversecourse/book_figures/MachineLearning_tidymodels.png" width="1252" />
+![](images/book_figures/MachineLearning_tidymodels.png)
 
 To illustrate how to use each of these packages, we will work through some examples.
 
 
 Other `tidymodels` packages include:
 
-<img src="/Users/rdpeng/books/tidyversecourse/book_figures/tidymodels_packages.jpg" width="600" />
+![](images/book_figures/tidymodels_packages.jpg)
+
 [[source](https://pbs.twimg.com/media/Ef1Oac7WAAImCos.jpg)]
 
 1) `applicable` compares new data points with the training data to see how much the new data points appear to be an extrapolation of the training data  
@@ -2250,7 +2251,7 @@ wf_fitted_values %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-68-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-61-1.png" width="672" />
 
 We can see that overall our model predicted the sepal length fairly well, as the predicted values are fairly close to the true values. We can also see that the predictions were similar to the truth for the full range of true sepal length values. 
 
@@ -2489,15 +2490,14 @@ The number of $v$ subsets to use is also a bit arbitrary, although generally spe
 
 We are going to use 4 folds for the sake of expediency and simplicity. 
 
-
-<img src="/Users/rdpeng/books/tidyversecourse/book_figures/vfold.png" width="463" />
+![](images/book_figures/vfold.png)
 
 The model will be trained on  $v$-1 subsets of the data iteratively (removing a different $v$ until all possible $v$-1 sets have been evaluated), while one fold will be saved to act as a test set. This will give us a sense of the out-of-sample (meaning not the entire training sample) performance of the model.
 
 In the case of tuning, multiple values for the hyperparameter are tested to determine what yields the best model performance.
  
 
-<img src="/Users/rdpeng/books/tidyversecourse/book_figures/cross_validation.png" width="389" />
+![](images/book_figures/cross_validation.png)
 
 
 #### Example of creating cross validation samples with `rsample`
@@ -3217,7 +3217,7 @@ skim(pm)
 ```
 
 
-Table: (\#tab:unnamed-chunk-93)Data summary
+Table: (\#tab:unnamed-chunk-84)Data summary
 
 |                         |     |
 |:------------------------|:----|
@@ -3374,7 +3374,7 @@ PM_cor <- cor(pm %>% dplyr::select_if(is.numeric))
 corrplot::corrplot(PM_cor, tl.cex = 0.5)
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-95-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-86-1.png" width="672" />
 
 We can see that the development variables (`imp`) variables are correlated with each other as we might expect. 
 We also see that the road density variables seem to be correlated with each other, and the emission variables seem to be correlated with each other. 
@@ -4465,7 +4465,7 @@ PM_wflow_fit %>%
   vip(num_features = 10)
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-120-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-111-1.png" width="672" />
 
 The state in which the monitor was located and the CMAQ model and the aod satellite information appear to be the most important for predicting the air pollution at a given monitor.
 
@@ -4570,7 +4570,7 @@ wf_fitted_values %>%
   ylab("predicted outcome values")
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-124-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-115-1.png" width="672" />
 
 OK, so our range of the predicted outcome values appears to be smaller than the real values. 
 We could probably do a bit better.
@@ -5035,7 +5035,7 @@ RF_wflow_fit %>%
   vip(num_features = 10)
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-136-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-127-1.png" width="672" />
 
 Interesting! In the previous model the CMAQ values and the state where the monitor was located were also the top two most important, however predictors about education levels of the communities where the monitor was located was among the top most important. Now we see that population density and proximity to sources of emissions and roads are among the top ten.
 
@@ -5363,7 +5363,7 @@ test_predictions %>%
 ## `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="05-prediction_files/figure-html/unnamed-chunk-151-1.png" width="672" />
+<img src="05-prediction_files/figure-html/unnamed-chunk-142-1.png" width="672" />
 
 Great!
 
@@ -5371,13 +5371,11 @@ Great!
 
 In summary, these are the minimal steps to perform a prediction analysis using `tidymodels`:
 
-<img src="/Users/rdpeng/books/tidyversecourse/book_figures/tidymodelsBasics.png" width="567" />
-
-
+![](images/book_figures/tidymodelsBasics.png)
 
 If you wish to perform preprocessing, cross validation, or tuning, these are the steps required:
 
-<img src="/Users/rdpeng/books/tidyversecourse/book_figures/full_tidymodels_overview.png" width="576" />
+![](images/book_figures/full_tidymodels_overview.png)
 
 
 
