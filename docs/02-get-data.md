@@ -101,16 +101,16 @@ slice_sample(trees, n = 10)
 
 ```
 ##    Girth Height Volume
-## 1    8.8     63   10.2
-## 2   12.0     75   19.1
-## 3   14.5     74   36.3
-## 4   13.7     71   25.7
-## 5   18.0     80   51.5
-## 6   11.1     80   22.6
-## 7   10.5     72   16.4
-## 8   17.5     82   55.7
-## 9   14.0     78   34.5
-## 10  13.3     86   27.4
+## 1    8.3     70   10.3
+## 2   11.4     76   21.0
+## 3    8.6     65   10.3
+## 4   10.7     81   18.8
+## 5   13.8     64   24.9
+## 6   14.0     78   34.5
+## 7   12.9     74   22.2
+## 8   11.1     80   22.6
+## 9   10.5     72   16.4
+## 10  11.0     66   15.6
 ```
 
 You can also use `slice_head()` or `slice_tail()` to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.
@@ -1053,7 +1053,7 @@ Now that we've walked through a number of examples of mutating joins, cases wher
 
 ![mutating joins summary](images/gslides/066.png)
 
-To see a visual representation of this, there is a great resource on GitHub, where these joins are illustrated, so feel free to check out [this link](https://github.com/gadenbuie/tidyexplain#readme) from [Garrick Aden-Buie](https://www.garrickadenbuie.com/) animating joins within relational data. 
+To see a visual representation of this, there is a great resource on GitHub, where these joins are illustrated, so feel free to check out [this link](https://github.com/gadenbuie/tidyexplain) from [Garrick Aden-Buie](https://www.garrickadenbuie.com/) animating joins within relational data. 
 
 ### Filtering Joins
 
@@ -1506,7 +1506,7 @@ Using these two datasets (the Google Street view car image data and the demograp
 Like with text, there are packages in R that will help you carry out analysis of images. In particular, `magick` is particularly helpful for advanced image processing within R, allowing you to process, edit, and manipulate images within R. Like JSON and XML, where there is more than one file format for a similar task, there are also a number of different image file formats. The `magick` package is capable of working with many different types of images, including PNG, JPEG, and TIFF. The `magick` package has a particularly helpful [vignette](https://cran.r-project.org/web/packages/magick/vignettes/intro.html#drawing_and_graphics) where you can learn the ins and outs of working with images using `magick`'s functionality. Their documentation will discuss how to read image data into R, how to edit images, and even how to add images to your R plots! 
 
 
-![`magick` package's example of adding an image to a plot]![Google Maps street view](images/gslides/084.png)
+![`magick` package's example of adding an image to a plot](images/gslides/084.png)
 
 
 A really useful manipulation that one can perform is text extraction from images. Typically this works best with images that have text, where the text is not angled and is in a conventional font.
@@ -2062,11 +2062,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2020-12-16 15:27
+##   Date: 2020-12-16 15:54
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpXLcjeg/file6b9059c09d07.xlsx
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpLTevXy/file6fa459c09d07.xlsx
 ```
 
 ```r
@@ -2114,11 +2114,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2020-12-16 15:27
+##   Date: 2020-12-16 15:54
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpXLcjeg/file6b90618fb492.xls
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpLTevXy/file6fa4618fb492.xls
 ```
 
 ```r
@@ -2165,11 +2165,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2020-12-16 15:27
+##   Date: 2020-12-16 15:54
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpXLcjeg/file6b906135133.xls
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpLTevXy/file6fa46135133.xls
 ```
 
 ```r

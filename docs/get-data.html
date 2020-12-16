@@ -561,16 +561,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The <code>slice_sample()</code> function of the <code>dplyr</code> package will allow you to see a sample of random rows in random order. The number of rows to show is specified by the <code>n</code> argument. This can be useful if you don’t want to print the entire tibble, but you want to get a greater sense of the values. This is a good option for data analysis reports, where printing the entire tibble would not be appropriate if the tibble is quite large.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="get-data.html#cb6-1"></a><span class="kw">slice_sample</span>(trees, <span class="dt">n =</span> <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##    Girth Height Volume
-## 1    8.8     63   10.2
-## 2   12.0     75   19.1
-## 3   14.5     74   36.3
-## 4   13.7     71   25.7
-## 5   18.0     80   51.5
-## 6   11.1     80   22.6
-## 7   10.5     72   16.4
-## 8   17.5     82   55.7
-## 9   14.0     78   34.5
-## 10  13.3     86   27.4</code></pre>
+## 1    8.3     70   10.3
+## 2   11.4     76   21.0
+## 3    8.6     65   10.3
+## 4   10.7     81   18.8
+## 5   13.8     64   24.9
+## 6   14.0     78   34.5
+## 7   12.9     74   22.2
+## 8   11.1     80   22.6
+## 9   10.5     72   16.4
+## 10  11.0     66   15.6</code></pre>
 <p>You can also use <code>slice_head()</code> or <code>slice_tail()</code> to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.</p>
 <p>This will show the first 5 rows.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="get-data.html#cb8-1"></a><span class="kw">slice_head</span>(trees, <span class="dt">n =</span> <span class="dv">5</span>)</span></code></pre></div>
@@ -1272,7 +1272,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="images/gslides/066.png" alt="" />
 <p class="caption">mutating joins summary</p>
 </div>
-<p>To see a visual representation of this, there is a great resource on GitHub, where these joins are illustrated, so feel free to check out <a href="https://github.com/gadenbuie/tidyexplain#readme">this link</a> from <a href="https://www.garrickadenbuie.com/">Garrick Aden-Buie</a> animating joins within relational data.</p>
+<p>To see a visual representation of this, there is a great resource on GitHub, where these joins are illustrated, so feel free to check out <a href="https://github.com/gadenbuie/tidyexplain">this link</a> from <a href="https://www.garrickadenbuie.com/">Garrick Aden-Buie</a> animating joins within relational data.</p>
 </div>
 </div>
 <div id="filtering-joins" class="section level3" number="2.10.6">
@@ -1615,7 +1615,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="reading-images-in-r" class="section level4" number="2.14.0.1">
 <h4><span class="header-section-number">2.14.0.1</span> Reading Images in R</h4>
 <p>Like with text, there are packages in R that will help you carry out analysis of images. In particular, <code>magick</code> is particularly helpful for advanced image processing within R, allowing you to process, edit, and manipulate images within R. Like JSON and XML, where there is more than one file format for a similar task, there are also a number of different image file formats. The <code>magick</code> package is capable of working with many different types of images, including PNG, JPEG, and TIFF. The <code>magick</code> package has a particularly helpful <a href="https://cran.r-project.org/web/packages/magick/vignettes/intro.html#drawing_and_graphics">vignette</a> where you can learn the ins and outs of working with images using <code>magick</code>’s functionality. Their documentation will discuss how to read image data into R, how to edit images, and even how to add images to your R plots!</p>
-<p>[<code>magick</code> package’s example of adding an image to a plot]<img src="images/gslides/084.png" alt="Google Maps street view" /></p>
+<div class="figure">
+<img src="images/gslides/084.png" alt="" />
+<p class="caption"><code>magick</code> package’s example of adding an image to a plot</p>
+</div>
 <p>A really useful manipulation that one can perform is text extraction from images. Typically this works best with images that have text, where the text is not angled and is in a conventional font.</p>
 <p>We will show how to do this using a couple of tidyverse package hex stickers.</p>
 <div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="get-data.html#cb92-1"></a><span class="co"># install package</span></span>
@@ -1983,11 +1986,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb137-7"><a href="get-data.html#cb137-7"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb137-8"><a href="get-data.html#cb137-8"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xlsx&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2020-12-16 15:27
+##   Date: 2020-12-16 15:54
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpXLcjeg/file6b9059c09d07.xlsx</code></pre>
+## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpLTevXy/file6fa459c09d07.xlsx</code></pre>
 <div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="get-data.html#cb139-1"></a>brady &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</span>
 <span id="cb139-2"><a href="get-data.html#cb139-2"></a></span>
 <span id="cb139-3"><a href="get-data.html#cb139-3"></a>brady</span></code></pre></div>
@@ -2022,11 +2025,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb141-4"><a href="get-data.html#cb141-4"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb141-5"><a href="get-data.html#cb141-5"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2020-12-16 15:27
+##   Date: 2020-12-16 15:54
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpXLcjeg/file6b90618fb492.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpLTevXy/file6fa4618fb492.xls</code></pre>
 <div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="get-data.html#cb143-1"></a>crime &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>, <span class="dt">skip =</span> <span class="dv">3</span>)</span>
 <span id="cb143-2"><a href="get-data.html#cb143-2"></a></span>
 <span id="cb143-3"><a href="get-data.html#cb143-3"></a><span class="co"># see data</span></span>
@@ -2059,11 +2062,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb145-4"><a href="get-data.html#cb145-4"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb145-5"><a href="get-data.html#cb145-5"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2020-12-16 15:27
+##   Date: 2020-12-16 15:54
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpXLcjeg/file6b906135133.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpLTevXy/file6fa46135133.xls</code></pre>
 <div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="get-data.html#cb147-1"></a>land &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</span>
 <span id="cb147-2"><a href="get-data.html#cb147-2"></a></span>
 <span id="cb147-3"><a href="get-data.html#cb147-3"></a><span class="co"># see data</span></span>
