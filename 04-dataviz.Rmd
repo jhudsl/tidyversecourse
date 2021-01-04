@@ -1077,7 +1077,8 @@ df <- diamonds %>%
     N = n(), 
     min = min(price), 
     avg = mean(price), 
-    max = max(price)
+    max = max(price),
+    .groups = "drop"
   )
 ```
 
