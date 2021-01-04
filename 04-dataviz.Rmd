@@ -224,14 +224,40 @@ Often, in an attempt to make differences between groups look larger than they ar
 
 The goal of data visualization is to improve understanding of data. Sometimes complicated visualizations cannot be avoided; however, when possible, keep it simple. 
 
-Here, the graphic does not immediately convey a main point. It's hard to interpret what each circle means or what the story of this graphic is supposed to me. Make sure in your graphics that your main point comes through:
+Here, the graphic on the left does not immediately convey a main point. It's hard to interpret what each point means or what the story of this graphic is supposed to be. In contrast, the graphics on the right are simpler and each show a more obvious story. Make sure that your main point comes through:
 
-![Main point unclear](images/gslides/191.png)
+![Main point unclear](images/gslides/191_update.png)
+
+```{r, eval = FALSE, echo = FALSE}
+library(tidyr)
+
+  iris %>% pivot_longer(cols = -Species) %>%
+separate(col = "name", into = c("Type","Measurement")) %>% 
+      mutate(row = rep(1:(600/2), each=2))%>%
+      tidyr::pivot_wider(names_from = Measurement, values_from = value) %>% ggplot() + 
+    geom_point(aes(x = Width, y = Length, col = Species, shape = Type), size = 3, alpha = .7) +labs(title = "Iris Characteristics") + theme_linedraw()+ theme(axis.text = element_text(size = 12), axis.title = element_text(size = 14), plot.title = element_text(hjust = .5, size = 16), legend.text = element_text(size = 13), legend.title = element_text(size = 13))
 
 
-Similarly, the intention of your graphic should never be to mislead and confuse. Unlike what was done here, be sure that your data visualizations improve viewers' understanding. Do not aim to confuse:
+iris %>% ggplot(aes(x = Sepal.Width, y = Sepal.Length,  col = Species)) +geom_point(size = 2)+ labs(x = "Width", y = "Length", title = "Iris Sepal Characteristics") + theme_linedraw()+ theme(axis.text = element_text(size = 12), axis.title = element_text(size = 14), plot.title = element_text(hjust = .5, size = 16), legend.text = element_text(size = 13), legend.title = element_text(size = 13)) + ylim(c(0,10))
 
-![Confusion is conveyed here](images/gslides/192.png)
+iris %>% ggplot(aes(x = Petal.Width, y = Petal.Length,  col = Species)) +geom_point(size =2)+ labs( x = "Width", y = "Length", title = "Iris Petal Characteristics") + theme_linedraw()+ theme(axis.text = element_text(size = 12), axis.title = element_text(size = 14), plot.title = element_text(hjust = .5, size = 16), legend.text = element_text(size = 13), legend.title = element_text(size = 13)) + ylim(c(0,10))
+
+```
+
+Similarly, the intention of your graphic should never be to mislead or confuse. Be sure that your data visualizations improve viewers' understanding. Using unusual axes limits or point sizes or vague labels, can make plots misleading. This plot creates an effective exclamation mark shape which is fun, but it is no longer clear what points correspond to what species. Furthermore, this plot makes it look like petal width is not very distinguishable across the different species (particularly for versicolor and virginica), which is the opposite of what the previous petal plot conveyed.
+
+```{r, eval = FALSE, echo = FALSE}
+library(tidyr)
+library(ggplot2)
+library(dplyr)
+
+  iris %>% ggplot(aes(x = Petal.Width, y = Petal.Length,  shape = Species)) +geom_point(size =10, alpha = 0.5)+ labs( x = "Width", y = "Length", title = "Iris Petal Characteristics") + theme_linedraw()+ theme(axis.text = element_text(size = 12), axis.title = element_text(size = 14), plot.title = element_text(hjust = .5, size = 16), legend.text = element_text(size = 13), legend.title = element_text(size = 13)) + ylim(c(0,10))+ xlim(c(0,20))
+```
+
+![Confusion is conveyed here](images/gslides/192_update.png)
+
+
+
 
 ## Plot Generation Process
 
