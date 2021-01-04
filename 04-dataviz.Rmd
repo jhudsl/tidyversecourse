@@ -1131,7 +1131,7 @@ To begin addressing these issues, we can use the `add_header_above` function fro
 
 If you copy this code into your R console, the formatted table will show up in the Viewer tab at the bottom right-hand side of your RStudio console and the HTML code used to generate that table will appear in your console. 
 
-```{r message = FALSE}
+```{r message = FALSE, eval = FALSE}
 # install.packages("kableExtra")
 library(kableExtra)
 
@@ -1147,7 +1147,7 @@ kable(df, digits=0, "html") %>%
 
 We mentioned earlier that captions and sourcing your data are incredibly important. The `kable` package allows for a `caption` argument. Below, an informative caption has been included. Additionally, `kableExtra` has a `footnote()` function. This allows you to include the source of your data at the bottom of the table. With these final additions, you have a table that clearly displays the data and could be confidently shared with your boss. 
 
-```{r}
+```{r, eval=FALSE}
 kable(df, digits=0, "html", caption="Table 1: Diamonds Price by Quality of Cut. Most Diamonds are of the highest quality cut and the most expensive diamonds are of the highest quality") %>%
   kable_styling("striped", "bordered") %>% 
   # add headers and footnote
