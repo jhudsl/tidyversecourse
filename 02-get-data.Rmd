@@ -2,6 +2,10 @@
 
 Data are stored in all sorts of different file formats and structures. In this course, we'll discuss each of these common formats and discuss how to get them into R so you can start working with them! 
 
+```{r, include=FALSE}
+opts_chunk$set(fig.path = "images/get-data-")
+```
+
 ## About This Course
 
 Getting data into your statistical analysis system can be one of the most challenging parts of any data science project. Data must be imported and harmonized into a coherent format before any insights can be obtained. You will learn how to get data into R from commonly used formats and how to harmonize different kinds of datasets from different sources. If you work in an organization where different departments collect data using different systems and different storage formats, then this course will provide essential tools for bringing those datasets together and making sense of the wealth of information in your organization.
@@ -1117,7 +1121,7 @@ A really useful manipulation that one can perform is text extraction from images
 
 We will show how to do this using a couple of tidyverse package hex stickers.
 
-```{r, fig.path="images/"}
+```{r}
 # install package
 #install.packages("magick")
 # load package
