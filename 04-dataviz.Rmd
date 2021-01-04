@@ -1,7 +1,7 @@
 # Visualizing Data in the Tidyverse {#dataviz}
 
 ```{r, include=FALSE}
-opts_chunk$set(fig.path = "images/")
+opts_chunk$set(fig.path = "images/dataviz-")
 ```
 
 ## About This Course
