@@ -1,7 +1,7 @@
 # Wrangling Data in the Tidyverse {#wrangle-data}
 
 ```{r, include=FALSE}
-opts_chunk$set(fig.path = "images/tidying-")
+knitr::opts_chunk$set(fig.path = "images/tidying-")
 ```
 
 In the last course we spent a ton of time talking about all the most common ways data are stored and reviewed how to get them into a tibble (or data.frame) in R.

@@ -1,7 +1,7 @@
 # Modeling Data in the Tidyverse {#model}
 
 ```{r, include=FALSE}
-opts_chunk$set(fig.path = "images/modeling-")
+knitr::opts_chunk$set(fig.path = "images/modeling-")
 ```
 
 
