@@ -24,7 +24,7 @@
 <meta name="author" content="Carrie Wright, Shannon E. Ellis, Stephanie C. Hicks and Roger D. Peng" />
 
 
-<meta name="date" content="2020-12-16" />
+<meta name="date" content="2021-01-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="get-data.html"/>
-<script src="libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,10 +51,7 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
 <script src="libs/str_view-binding-1.4.0/str_view.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
@@ -65,6 +62,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -640,7 +638,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="put-just-one-thing-in-a-cell" class="section level4" number="1.2.5.5">
 <h4><span class="header-section-number">1.2.5.5</span> Put just one thing in a cell</h4>
-<p>Sometimes people are tempted to include a number and a unit in a single cell. For weight, someone may <em>want</em> to put ‘165 lbs’ in that cell. Avoid this temptation! Keep numbers and units separate. In this case, put one piece of information in the cell (the person’s weight) and either put the unit in a separate column, or better yet, make the variable name weight_lbs. That clears everything up for the analyst and avoids a number and a unit from both being put in a single cell. As analysts, we prefer weight information to be in number form if we want to make calculations or figures. This is facilitated by the first column called “Weight_lbs” because it will be read into R as a numeric object. The second column called “Weight”, however, will be read into R as a character object because of the “lbs”, which makes our desired tasks more difficult.</p>
+<p>Sometimes people are tempted to include a number and a unit in a single cell. For weight, someone may <em>want</em> to put ‘165 lbs’ in that cell. Avoid this temptation! Keep numbers and units separate. In this case, put one piece of information in the cell (the person’s weight) and either put the unit in a separate column, or better yet, make the variable name weight_lbs. That clears everything up for the analyst and avoids a number and a unit from both being put in a single cell. As analysts, we prefer weight information to be in number form if we want to make calculations or figures. This is facilitated by the first column called “Weight_lbs” because it will be read into R as a numeric object. The second column called “Weight,” however, will be read into R as a character object because of the “lbs,” which makes our desired tasks more difficult.</p>
 <div class="figure">
 <img src="images/gslides/013.png" alt="" />
 <p class="caption">One thing per cell</p>
@@ -1002,8 +1000,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">1.6.3</span> The <code>here</code> package</h3>
 <p>With most things in R, there’s a package to help minimize the pain of working with and setting file paths within an R Project - the <a href="https://github.com/r-lib/here"><code>here</code></a> package.</p>
 <p>As a reminder, to get started using the <code>here</code> package (or any R package!), it first has to be installed (using the <code>install.packages()</code> function) and then loaded in (using the <code>library()</code> function). Note that the package name in the <code>install.packages()</code> function has to be in quotes but for <code>library()</code> it doesn’t have to. The code to copy and paste into your R console is below:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="intro.html#cb1-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;here&quot;</span>)</span>
-<span id="cb1-2"><a href="intro.html#cb1-2"></a><span class="kw">library</span>(here)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="intro.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;here&quot;</span>)</span>
+<span id="cb1-2"><a href="intro.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span></code></pre></div>
 <p><code>here</code> is a package specifically designed to help you deal with file organization when you’re coding. This package allows you to define in which folder all your relative paths should begin within a project. The path of this folder will be displayed after typing <code>library(here)</code> or <code>here()</code>.</p>
 <div id="setting-your-project-directory" class="section level4" number="1.6.3.1">
 <h4><span class="header-section-number">1.6.3.1</span> Setting your project directory</h4>
@@ -1028,7 +1026,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">1.6.3.2</span> Get files paths using <code>here()</code></h4>
 <p>After setting your project folder using <code>here()</code>, R will then know what folder to use to define any and all other paths within this project.</p>
 <p>For example, if you wanted to include a path to a file named “intro_code.R” in your <code>raw_code</code> directory (which is in your code directory), you would simply specify that in your code like this:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="intro.html#cb2-1"></a><span class="kw">here</span>(<span class="st">&quot;code&quot;</span>, <span class="st">&quot;raw_code&quot;</span>, <span class="st">&quot;intro_code.R&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="intro.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">here</span>(<span class="st">&quot;code&quot;</span>, <span class="st">&quot;raw_code&quot;</span>, <span class="st">&quot;intro_code.R&quot;</span>)</span></code></pre></div>
 <p>This code says start from where I’ve already defined the project starts (<code>here()</code>), then look in the folders <code>code</code> and then <code>raw_code</code>, for the file “intro_code.R.”</p>
 <p>The syntax is simplified when using <code>here()</code>. Each subdirectory or file in the path is in quotes and simply separated by commas within the <code>here()</code> function, and voila you have the relative path you’re looking for relative to <code>here()</code>.</p>
 <p>The output from this code includes the correct file path to this file, just as you wanted!</p>
@@ -1040,9 +1038,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="save-and-load-files-using-here" class="section level4" number="1.6.3.3">
 <h4><span class="header-section-number">1.6.3.3</span> Save and load files using <code>here()</code></h4>
 <p>Using the <code>here</code> package, files within the project can be saved or loaded by simply typing <code>here</code> (to replace the path to the project directory) and typing any subdirectories like in this example, where we want to save data to the raw_data directory within the data directory of the project:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="intro.html#cb3-1"></a><span class="kw">save</span>(introcode_data_object, <span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;intro_code_object.rda&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="intro.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(introcode_data_object, <span class="at">file =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;intro_code_object.rda&quot;</span>))</span></code></pre></div>
 <p>Or if we want to load this data:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro.html#cb4-1"></a><span class="kw">load</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;intro_code_object.rda&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;intro_code_object.rda&quot;</span>))</span></code></pre></div>
 <p>Remember that the <code>::</code> notation indicates that we are using a function of a particular package. So the <code>here</code> package is indicated on the left of the <code>::</code> and the <code>here()</code> function is indicated on the right.</p>
 </div>
 <div id="where-you-should-use-this" class="section level4" number="1.6.3.4">
@@ -1051,7 +1049,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="the-utility-of-the-here-package" class="section level4" number="1.6.3.5">
 <h4><span class="header-section-number">1.6.3.5</span> The utility of the <code>here</code> package</h4>
-<p>You may be asking, “Why do I need the <code>here</code> package?”, and you may be thinking, “I can just write the paths myself or use the <code>setwd()</code> function”.</p>
+<p>You may be asking, “Why do I need the <code>here</code> package?” and you may be thinking, “I can just write the paths myself or use the <code>setwd()</code> function.”</p>
 <p><a href="https://github.com/jennybc">Jenny Bryan</a>, has several <a href="https://www.tidyverse.org/blog/2017/12/workflow-vs-script/">reasons</a>. We highly recommend checking them out.</p>
 <p>In our own words:</p>
 <ol style="list-style-type: decimal">
@@ -1114,9 +1112,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">1.6.5</span> Project Template: Everything In Its Place</h3>
 <p>When organizing a data science project all of your files need to be placed somewhere on your computer. While there is no universal layout for how to do this, most projects have some aspects in common. The <code>ProjectTemplate</code> package codifies some of these defaults into a usable file hierarchy so that you can immediately start placing files in the right place.</p>
 <p>Here, we load the <code>ProjectTemplate</code> package and create a new project called <code>data_analysis</code> under the current working directory using the <code>minimal</code> template.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="intro.html#cb5-1"></a><span class="kw">library</span>(ProjectTemplate)</span>
-<span id="cb5-2"><a href="intro.html#cb5-2"></a><span class="kw">create.project</span>(<span class="dt">project.name =</span> <span class="st">&quot;data_analysis&quot;</span>,</span>
-<span id="cb5-3"><a href="intro.html#cb5-3"></a>               <span class="dt">template =</span> <span class="st">&quot;minimal&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="intro.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ProjectTemplate)</span>
+<span id="cb5-2"><a href="intro.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">create.project</span>(<span class="at">project.name =</span> <span class="st">&quot;data_analysis&quot;</span>,</span>
+<span id="cb5-3"><a href="intro.html#cb5-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">template =</span> <span class="st">&quot;minimal&quot;</span>)</span></code></pre></div>
 <p>The <code>create.project()</code> function creates a directory called <code>data_analysis</code> for this project. Inside that directory are the following sub-directories (which we can view in the RStudio File browser):</p>
 <div class="figure">
 <img src="images/book_figures/projecttemplatedir.png" alt="" />
