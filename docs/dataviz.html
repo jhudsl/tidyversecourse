@@ -713,14 +713,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="keep-it-simple" class="section level3" number="4.4.9">
 <h3><span class="header-section-number">4.4.9</span> Keep It Simple</h3>
 <p>The goal of data visualization is to improve understanding of data. Sometimes complicated visualizations cannot be avoided; however, when possible, keep it simple.</p>
-<p>Here, the graphic does not immediately convey a main point. It’s hard to interpret what each circle means or what the story of this graphic is supposed to me. Make sure in your graphics that your main point comes through:</p>
+<p>Here, the graphic on the left does not immediately convey a main point. It’s hard to interpret what each point means or what the story of this graphic is supposed to be. In contrast, the graphics on the right are simpler and each show a more obvious story. Make sure that your main point comes through:</p>
 <div class="figure">
-<img src="images/gslides/191.png" alt="" />
+<img src="images/gslides/191_update.png" alt="" />
 <p class="caption">Main point unclear</p>
 </div>
-<p>Similarly, the intention of your graphic should never be to mislead and confuse. Unlike what was done here, be sure that your data visualizations improve viewers’ understanding. Do not aim to confuse:</p>
+<p>Similarly, the intention of your graphic should never be to mislead or confuse. Be sure that your data visualizations improve viewers’ understanding. Using unusual axes limits or point sizes or vague labels, can make plots misleading. This plot creates an effective exclamation mark shape which is fun, but it is no longer clear what points correspond to what species. Furthermore, this plot makes it look like petal width is not very distinguishable across the different species (particularly for versicolor and virginica), which is the opposite of what the previous petal plot conveyed.</p>
 <div class="figure">
-<img src="images/gslides/192.png" alt="" />
+<img src="images/gslides/192_update.png" alt="" />
 <p class="caption">Confusion is conveyed here</p>
 </div>
 </div>
@@ -814,7 +814,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb546-1"><a href="dataviz.html#cb546-1" aria-hidden="true" tabindex="-1"></a><span class="co"># generate scatterplot with geom_point()</span></span>
 <span id="cb546-2"><a href="dataviz.html#cb546-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span> </span>
 <span id="cb546-3"><a href="dataviz.html#cb546-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-10-1.png" width="672" /></p>
 <div class="figure">
 <img src="images/gslides/194.png" alt="" />
 <p class="caption">diamonds scatterplot</p>
@@ -832,7 +832,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb547-1"><a href="dataviz.html#cb547-1" aria-hidden="true" tabindex="-1"></a><span class="co"># adjusting color within aes</span></span>
 <span id="cb547-2"><a href="dataviz.html#cb547-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span> </span>
 <span id="cb547-3"><a href="dataviz.html#cb547-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price, <span class="at">color =</span> clarity))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-11-1.png" width="672" /></p>
 <div class="figure">
 <img src="images/gslides/195.png" alt="" />
 <p class="caption">changing point colors helps us better understand the data</p>
@@ -844,7 +844,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb548-1"><a href="dataviz.html#cb548-1" aria-hidden="true" tabindex="-1"></a><span class="co"># manually control color point outside aes</span></span>
 <span id="cb548-2"><a href="dataviz.html#cb548-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span> </span>
 <span id="cb548-3"><a href="dataviz.html#cb548-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) </span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-12-1.png" width="672" /></p>
 <div class="figure">
 <img src="images/gslides/196.png" alt="" />
 <p class="caption">manually specifying point color occurs outside of <code>aes()</code></p>
@@ -856,7 +856,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb549-1"><a href="dataviz.html#cb549-1" aria-hidden="true" tabindex="-1"></a><span class="co"># adjust point size within aes</span></span>
 <span id="cb549-2"><a href="dataviz.html#cb549-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span> </span>
 <span id="cb549-3"><a href="dataviz.html#cb549-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price, <span class="at">size =</span> clarity))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-13-1.png" width="672" /></p>
 <div class="figure">
 <img src="images/gslides/197.png" alt="" />
 <p class="caption">mapping to size changes point size on plot</p>
@@ -867,7 +867,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb550-1"><a href="dataviz.html#cb550-1" aria-hidden="true" tabindex="-1"></a><span class="co"># global control of point size</span></span>
 <span id="cb550-2"><a href="dataviz.html#cb550-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span> </span>
 <span id="cb550-3"><a href="dataviz.html#cb550-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price), <span class="at">size =</span> <span class="fl">4.5</span>)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-14-1.png" width="672" /></p>
 <div class="figure">
 <img src="images/gslides/198.png" alt="" />
 <p class="caption">manually specifying point size of all points occurs outside of <code>aes()</code></p>
@@ -885,7 +885,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## more than 6 becomes difficult to discriminate; you have 8. Consider
 ## specifying shapes manually if you must have them.</code></pre>
 <pre><code>## Warning: Removed 5445 rows containing missing values (geom_point).</code></pre>
-<p><img src="images/dataviz-unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-15-1.png" width="672" /></p>
 <div class="figure">
 <img src="images/gslides/199.png" alt="" />
 <p class="caption">mapping clarity to shape</p>
@@ -900,7 +900,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="dataviz.html#cb555-1" aria-hidden="true" tabindex="-1"></a><span class="co"># global control of point shape outside aes</span></span>
 <span id="cb555-2"><a href="dataviz.html#cb555-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span> </span>
 <span id="cb555-3"><a href="dataviz.html#cb555-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price), <span class="at">shape =</span> <span class="dv">18</span>)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-16-1.png" width="672" /></p>
 <div class="figure">
 <img src="images/gslides/201.png" alt="" />
 <p class="caption">specifying filled diamonds as shape for all points manually</p>
@@ -915,7 +915,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb556-2"><a href="dataviz.html#cb556-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span> </span>
 <span id="cb556-3"><a href="dataviz.html#cb556-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># facet by clarity</span></span>
 <span id="cb556-4"><a href="dataviz.html#cb556-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>clarity, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-17-1.png" width="672" /></p>
 <p>Here, read the tilde as the word “by.” Specifically here, we want a scatterplot of the relationship between carat and price and we want it faceted (broken down) <strong>by (~)</strong> clarity.</p>
 <div class="figure">
 <img src="images/gslides/202.png" alt="" />
@@ -936,7 +936,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb557-2"><a href="dataviz.html#cb557-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span> </span>
 <span id="cb557-3"><a href="dataviz.html#cb557-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">mapping =</span>  <span class="fu">aes</span>(carat))</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<p><img src="images/dataviz-unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-18-1.png" width="672" /></p>
 <div class="figure">
 <img src="images/gslides/203.png" alt="" />
 <p class="caption">histogram of carat shows range and shape</p>
@@ -951,7 +951,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="dataviz.html#cb559-1" aria-hidden="true" tabindex="-1"></a><span class="co"># geom_bar for bar plots</span></span>
 <span id="cb559-2"><a href="dataviz.html#cb559-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span> </span>
 <span id="cb559-3"><a href="dataviz.html#cb559-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(cut))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-17-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-19-1.png" width="672" /></p>
 <p>Again, the changes to the code are minimal. We are now interested in plotting the categorical variable <code>cut</code> and state that we want a bar plot, by including <code>geom_bar()</code>.</p>
 <div class="figure">
 <img src="images/gslides/204.png" alt="" />
@@ -965,7 +965,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb560-1"><a href="dataviz.html#cb560-1" aria-hidden="true" tabindex="-1"></a><span class="co"># geom_boxplot for boxplots</span></span>
 <span id="cb560-2"><a href="dataviz.html#cb560-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span> </span>
 <span id="cb560-3"><a href="dataviz.html#cb560-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> color, <span class="at">y =</span> price))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-20-1.png" width="672" /></p>
 <p>In the code, we see that again, we only have to change what variables we want to be included in the plot the type of plot (or geom) we want (here, <code>geom_boxplot()</code>) to get a basic boxplot.</p>
 <div class="figure">
 <img src="images/gslides/205.png" alt="" />
@@ -977,7 +977,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb561-2"><a href="dataviz.html#cb561-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span> </span>
 <span id="cb561-3"><a href="dataviz.html#cb561-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> color, <span class="at">y =</span> price), </span>
 <span id="cb561-4"><a href="dataviz.html#cb561-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">fill =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-21-1.png" width="672" /></p>
 <div class="figure">
 <img src="images/gslides/206.png" alt="" />
 <p class="caption">diamonds boxplot with red fill</p>
@@ -1014,12 +1014,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To get started, we’ll learn how to control color across plots in <code>ggplot2</code>. Previously, we discussed using color within <code>aes()</code> on a scatterplot to automatically color points by the clarity of the diamond when looking at the relationship between price and carat.</p>
 <div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb562-1"><a href="dataviz.html#cb562-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds) <span class="sc">+</span> </span>
 <span id="cb562-2"><a href="dataviz.html#cb562-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price, <span class="at">color =</span> clarity))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-20-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-22-1.png" width="672" /></p>
 <p>However, what if we wanted to carry this concept over to a bar plot and look at how many diamonds we have of each clarity group?</p>
 <div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb563-1"><a href="dataviz.html#cb563-1" aria-hidden="true" tabindex="-1"></a><span class="co"># generate bar plot</span></span>
 <span id="cb563-2"><a href="dataviz.html#cb563-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds) <span class="sc">+</span> </span>
 <span id="cb563-3"><a href="dataviz.html#cb563-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> clarity))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-21-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-23-1.png" width="672" /></p>
 <div class="figure">
 <img src="images/gslides/209.png" alt="" />
 <p class="caption">diamonds broken down by clarity</p>
@@ -1029,7 +1029,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb564-1"><a href="dataviz.html#cb564-1" aria-hidden="true" tabindex="-1"></a><span class="co"># color changes outline of bar</span></span>
 <span id="cb564-2"><a href="dataviz.html#cb564-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds) <span class="sc">+</span> </span>
 <span id="cb564-3"><a href="dataviz.html#cb564-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> clarity, <span class="at">color =</span> clarity))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-24-1.png" width="672" /></p>
 <div class="figure">
 <img src="images/gslides/210.png" alt="" />
 <p class="caption">color does add color but around the bars</p>
@@ -1038,7 +1038,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb565-1"><a href="dataviz.html#cb565-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use fill to color bars</span></span>
 <span id="cb565-2"><a href="dataviz.html#cb565-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds) <span class="sc">+</span> </span>
 <span id="cb565-3"><a href="dataviz.html#cb565-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> clarity, <span class="at">fill =</span> clarity))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-25-1.png" width="672" /></p>
 <div class="figure">
 <img src="images/gslides/211.png" alt="" />
 <p class="caption"><code>fill</code> automatically colors the bars</p>
@@ -1048,7 +1048,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="dataviz.html#cb566-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fill by separate variable (cut) = stacked bar chart</span></span>
 <span id="cb566-2"><a href="dataviz.html#cb566-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds) <span class="sc">+</span> </span>
 <span id="cb566-3"><a href="dataviz.html#cb566-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> clarity, <span class="at">fill =</span> cut))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-24-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-26-1.png" width="672" /></p>
 <div class="figure">
 <img src="images/gslides/212.png" alt="" />
 <p class="caption">mapping a different variable to fill provides new information</p>
@@ -1059,7 +1059,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb567-2"><a href="dataviz.html#cb567-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> clarity, <span class="at">fill =</span> cut)) <span class="sc">+</span></span>
 <span id="cb567-3"><a href="dataviz.html#cb567-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># manually control colors used</span></span>
 <span id="cb567-4"><a href="dataviz.html#cb567-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>, <span class="st">&quot;dodgerblue&quot;</span>, <span class="st">&quot;purple4&quot;</span>))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-25-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-27-1.png" width="672" /></p>
 <div class="figure">
 <img src="images/gslides/213.png" alt="" />
 <p class="caption">manually setting colors using <code>scale_fill_manual</code></p>
@@ -1073,7 +1073,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb568-2"><a href="dataviz.html#cb568-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># fill scales to 100%</span></span>
 <span id="cb568-3"><a href="dataviz.html#cb568-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> clarity, <span class="at">fill =</span> cut), <span class="at">position =</span> <span class="st">&quot;fill&quot;</span>) <span class="sc">+</span></span>
 <span id="cb568-4"><a href="dataviz.html#cb568-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>, <span class="st">&quot;dodgerblue&quot;</span>, <span class="st">&quot;purple4&quot;</span>))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-26-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-28-1.png" width="672" /></p>
 <div class="figure">
 <img src="images/gslides/214.png" alt="" />
 <p class="caption"><code>position = "fill"</code> allows for comparison of proportion across groups</p>
@@ -1104,7 +1104,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb570-4"><a href="dataviz.html#cb570-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add titles</span></span>
 <span id="cb570-5"><a href="dataviz.html#cb570-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Clearer diamonds tend to be of higher quality cut&quot;</span>,</span>
 <span id="cb570-6"><a href="dataviz.html#cb570-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;The majority of IF diamonds are an </span><span class="sc">\&quot;</span><span class="st">Ideal</span><span class="sc">\&quot;</span><span class="st"> cut&quot;</span>)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-28-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-30-1.png" width="672" /></p>
 <div class="figure">
 <img src="images/gslides/216.png" alt="" />
 <p class="caption"><code>labs()</code> adds helpful tittles, subtitles, and captions</p>
@@ -1120,7 +1120,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb571-5"><a href="dataviz.html#cb571-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;The majority of IF diamonds are an </span><span class="sc">\&quot;</span><span class="st">Ideal</span><span class="sc">\&quot;</span><span class="st"> cut&quot;</span>) <span class="sc">+</span></span>
 <span id="cb571-6"><a href="dataviz.html#cb571-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add y axis label explicitly</span></span>
 <span id="cb571-7"><a href="dataviz.html#cb571-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;proportion&quot;</span>)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-29-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-31-1.png" width="672" /></p>
 <p>Note that the x- and y- axis labels can <em>also</em> be changed within <code>labs()</code>, using the argument (<code>x =</code> and <code>y =</code>, respectively).</p>
 <div class="figure">
 <img src="images/gslides/217.png" alt="" />
@@ -1144,7 +1144,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb572-6"><a href="dataviz.html#cb572-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;proportion&quot;</span>) <span class="sc">+</span></span>
 <span id="cb572-7"><a href="dataviz.html#cb572-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># change plot theme</span></span>
 <span id="cb572-8"><a href="dataviz.html#cb572-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-30-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-32-1.png" width="672" /></p>
 <div class="figure">
 <img src="images/gslides/219.png" alt="" />
 <p class="caption"><code>theme_classic</code> changes aesthetic of our plot</p>
@@ -1170,7 +1170,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb573-10"><a href="dataviz.html#cb573-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span><span class="dv">14</span>),</span>
 <span id="cb573-11"><a href="dataviz.html#cb573-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
 <span id="cb573-12"><a href="dataviz.html#cb573-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-31-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-33-1.png" width="672" /></p>
 <div class="figure">
 <img src="images/gslides/220.png" alt="" />
 <p class="caption"><code>theme()</code> allows us to adjust font size</p>
@@ -1192,7 +1192,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb574-11"><a href="dataviz.html#cb574-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
 <span id="cb574-12"><a href="dataviz.html#cb574-12" aria-hidden="true" tabindex="-1"></a>        <span class="co"># additional control</span></span>
 <span id="cb574-13"><a href="dataviz.html#cb574-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;gray30&quot;</span>))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-32-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-34-1.png" width="672" /></p>
 <div class="figure">
 <img src="images/gslides/221.png" alt="" />
 <p class="caption"><code>theme()</code> allows us to tweak many parts of our plot</p>
@@ -1217,7 +1217,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb575-12"><a href="dataviz.html#cb575-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;gray30&quot;</span>)) <span class="sc">+</span></span>
 <span id="cb575-13"><a href="dataviz.html#cb575-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># control legend</span></span>
 <span id="cb575-14"><a href="dataviz.html#cb575-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="st">&quot;cut quality&quot;</span>)) </span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-33-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-35-1.png" width="672" /></p>
 <div class="figure">
 <img src="images/gslides/222.png" alt="" />
 <p class="caption"><code>guides()</code> allows us to change the legend title</p>
@@ -1239,7 +1239,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb576-13"><a href="dataviz.html#cb576-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># control legend</span></span>
 <span id="cb576-14"><a href="dataviz.html#cb576-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="st">&quot;Cut Quality&quot;</span>, </span>
 <span id="cb576-15"><a href="dataviz.html#cb576-15" aria-hidden="true" tabindex="-1"></a>                              <span class="at">ncol =</span> <span class="dv">2</span>))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-34-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-36-1.png" width="672" /></p>
 <p>Or, we can modify the font of the legend title using <code>title.theme()</code>.</p>
 <div class="sourceCode" id="cb577"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb577-1"><a href="dataviz.html#cb577-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds) <span class="sc">+</span> </span>
 <span id="cb577-2"><a href="dataviz.html#cb577-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> clarity, <span class="at">fill =</span> cut), <span class="at">position =</span> <span class="st">&quot;fill&quot;</span>) <span class="sc">+</span></span>
@@ -1256,7 +1256,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb577-13"><a href="dataviz.html#cb577-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># control legend</span></span>
 <span id="cb577-14"><a href="dataviz.html#cb577-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="st">&quot;Cut Quality&quot;</span>, </span>
 <span id="cb577-15"><a href="dataviz.html#cb577-15" aria-hidden="true" tabindex="-1"></a>                             <span class="at">title.theme =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>)))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-35-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-37-1.png" width="672" /></p>
 <p>Alternatively, we can do this modifcation as well as other legend modifcations, like adding a rectangle around the legend, using the <code>theme()</code> function.</p>
 <div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="dataviz.html#cb578-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds) <span class="sc">+</span> </span>
 <span id="cb578-2"><a href="dataviz.html#cb578-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> clarity, <span class="at">fill =</span> cut), <span class="at">position =</span> <span class="st">&quot;fill&quot;</span>) <span class="sc">+</span></span>
@@ -1275,7 +1275,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb578-15"><a href="dataviz.html#cb578-15" aria-hidden="true" tabindex="-1"></a><span class="co"># changing the legend style:</span></span>
 <span id="cb578-16"><a href="dataviz.html#cb578-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
 <span id="cb578-17"><a href="dataviz.html#cb578-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-36-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-38-1.png" width="672" /></p>
 <p>At this point, we have an informative title, clear colors, a well-labeled legend, and text that is large enough throughout the graph. This is certainly a graph that could be used in a presentation. We’ve taken it from a graph that is useful to just ourselves (exploratory) and made it into a plot that can communicate our findings well to others (explanatory)!</p>
 <p>We have touched on a number of alterations you can make by adding additional layers to a ggplot. In the rest of this lesson we’ll touch on a few more changes you can make within <code>ggplot2</code> using a slightly different graph.</p>
 </div>
@@ -1286,7 +1286,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb579-2"><a href="dataviz.html#cb579-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> clarity)) <span class="sc">+</span></span>
 <span id="cb579-3"><a href="dataviz.html#cb579-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># control scale for continuous variable</span></span>
 <span id="cb579-4"><a href="dataviz.html#cb579-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">17000</span>, <span class="at">by =</span> <span class="dv">1000</span>))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-37-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-39-1.png" width="672" /></p>
 <div class="figure">
 <img src="images/gslides/223.png" alt="" />
 <p class="caption">Continuous cales can be altered</p>
@@ -1300,18 +1300,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb580-4"><a href="dataviz.html#cb580-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">trans =</span> <span class="st">&quot;log10&quot;</span>) <span class="sc">+</span></span>
 <span id="cb580-5"><a href="dataviz.html#cb580-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Count (log10 scale)&quot;</span>,</span>
 <span id="cb580-6"><a href="dataviz.html#cb580-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">x =</span> <span class="st">&quot;Clarity&quot;</span>)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-38-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-40-1.png" width="672" /></p>
 <p>Notice that the values are not changed, just the way they are plotted. Now the y-axis increases by a factor of 10 for each break.</p>
 <p>We will create a plot of the price of the diamonds to demonstrate the utility of creating a plot with a log10 scaled y-axis.</p>
 <div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb581-1"><a href="dataviz.html#cb581-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds) <span class="sc">+</span> </span>
 <span id="cb581-2"><a href="dataviz.html#cb581-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> price, <span class="at">x =</span> clarity))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-39-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-41-1.png" width="672" /></p>
 <div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb582-1"><a href="dataviz.html#cb582-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds) <span class="sc">+</span> </span>
 <span id="cb582-2"><a href="dataviz.html#cb582-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> price, <span class="at">x =</span> clarity)) <span class="sc">+</span> </span>
 <span id="cb582-3"><a href="dataviz.html#cb582-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">trans =</span> <span class="st">&quot;log10&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb582-4"><a href="dataviz.html#cb582-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Price (log10 scale)&quot;</span>,</span>
 <span id="cb582-5"><a href="dataviz.html#cb582-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Diamond Clarity&quot;</span>)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-39-2.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-41-2.png" width="672" /></p>
 <p>In the first plot, it is difficult to tell what values the boxplots correspond to and it is difficult to compare the boxplots (particullarly for the last three clarity categories), however this is greatly improved in the second plot.</p>
 <p>We can also use another argument of the <code>scale_y_continuous()</code> function to add specific labels to our plot. For example, it would be nice to add dollar signs to the y-axis. We can do so using the <code>labels</code> argument. A variety of <code>label_*</code> functions within the <code>scales</code> package can be used to modify axis labels. See <a href="https://scales.r-lib.org/reference/index.html">here</a> to take a look at the many options.</p>
 <div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb583-1"><a href="dataviz.html#cb583-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds) <span class="sc">+</span> </span>
@@ -1320,7 +1320,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb583-4"><a href="dataviz.html#cb583-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_dollar</span>()) <span class="sc">+</span></span>
 <span id="cb583-5"><a href="dataviz.html#cb583-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Price (log10 scale)&quot;</span>,</span>
 <span id="cb583-6"><a href="dataviz.html#cb583-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Diamond Clarity&quot;</span>)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-40-1.png" width="672" />
+<p><img src="images/dataviz-unnamed-chunk-42-1.png" width="672" />
 In the above plot, we might also want to order the boxplots by the median price, we can do so using the <code>fct_reorder</code> function of <code>forcats</code> package to change the order for the <code>clarity</code> levels to be based on the median of the <code>price</code> values.</p>
 <div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="dataviz.html#cb584-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds) <span class="sc">+</span> </span>
 <span id="cb584-2"><a href="dataviz.html#cb584-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> price, <span class="at">x =</span> forcats<span class="sc">::</span><span class="fu">fct_reorder</span>(clarity, price, <span class="at">.fun =</span> median))) <span class="sc">+</span> </span>
@@ -1328,7 +1328,7 @@ In the above plot, we might also want to order the boxplots by the median price,
 <span id="cb584-4"><a href="dataviz.html#cb584-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_dollar</span>()) <span class="sc">+</span></span>
 <span id="cb584-5"><a href="dataviz.html#cb584-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Price (log10 scale)&quot;</span>,</span>
 <span id="cb584-6"><a href="dataviz.html#cb584-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Diamond Clarity&quot;</span>)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-41-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-43-1.png" width="672" /></p>
 <p>Now we can more easily determine that the <code>SI2</code> diamonds are the most expensive.</p>
 <p>Another way modify <strong>discrete variables</strong> (aka factors or categorical variables), where there is a limited number of levels, you would use <code>scale_x_discrete</code> or <code>scale_y_discrete</code>. In this case we will just pick a few of the clarity categories to plot and we will specify the order.</p>
 <div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb585-1"><a href="dataviz.html#cb585-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds) <span class="sc">+</span> </span>
@@ -1361,7 +1361,7 @@ In the above plot, we might also want to order the boxplots by the median price,
 <span id="cb586-15"><a href="dataviz.html#cb586-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;gray30&quot;</span>)) <span class="sc">+</span></span>
 <span id="cb586-16"><a href="dataviz.html#cb586-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="st">&quot;cut quality&quot;</span>)) </span></code></pre></div>
 <pre><code>## Warning: Removed 30940 rows containing non-finite values (stat_count).</code></pre>
-<p><img src="images/dataviz-unnamed-chunk-43-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-45-1.png" width="672" /></p>
 <div class="figure">
 <img src="images/gslides/225.png" alt="" />
 <p class="caption">Axes can be flipped using <code>coord_flip</code></p>
@@ -1408,7 +1408,7 @@ In the above plot, we might also want to order the boxplots by the median price,
 <span id="cb589-17"><a href="dataviz.html#cb589-17" aria-hidden="true" tabindex="-1"></a>           <span class="at">vjust =</span> <span class="st">&quot;top&quot;</span>, <span class="at">hjust =</span> <span class="st">&quot;right&quot;</span>, </span>
 <span id="cb589-18"><a href="dataviz.html#cb589-18" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="dv">6</span>)</span></code></pre></div>
 <pre><code>## Warning: Removed 30940 rows containing non-finite values (stat_count).</code></pre>
-<p><img src="images/dataviz-unnamed-chunk-45-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-47-1.png" width="672" /></p>
 <div class="figure">
 <img src="images/gslides/227.png" alt="" />
 <p class="caption"><code>annotate</code> helps add text to our plot</p>
@@ -1427,7 +1427,7 @@ In the above plot, we might also want to order the boxplots by the median price,
 <span id="cb591-5"><a href="dataviz.html#cb591-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
 <span id="cb591-6"><a href="dataviz.html#cb591-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Percent of diamonds&quot;</span>) <span class="sc">+</span></span>
 <span id="cb591-7"><a href="dataviz.html#cb591-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-46-1.png" width="672" />
+<p><img src="images/dataviz-unnamed-chunk-48-1.png" width="672" />
 Now, it is easier to tell that slightly over half of the <code>VVS2</code> diamonds have an <code>Ideal</code> cut. This would be much more difficult to see without the horizontal line.</p>
 <p>To add a vertical line we would instead use the <code>geom_vline()</code> function and we would specify an x-axis intercept. Since this plot has a discrete x-axis, numeric values specify a categorical value based on the order, thus a value of 4 would create a line down the center of the <code>VS2</code> bar. However, if we used 5.5 we could add a line offset from the center of a bar, as you can see in the following example:</p>
 <div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb592-1"><a href="dataviz.html#cb592-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds) <span class="sc">+</span> </span>
@@ -1438,7 +1438,7 @@ Now, it is easier to tell that slightly over half of the <code>VVS2</code> diamo
 <span id="cb592-6"><a href="dataviz.html#cb592-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Percent of diamonds&quot;</span>) <span class="sc">+</span></span>
 <span id="cb592-7"><a href="dataviz.html#cb592-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">1</span> ) <span class="sc">+</span></span>
 <span id="cb592-8"><a href="dataviz.html#cb592-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">5.5</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">size =</span> .<span class="dv">5</span>)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-47-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-49-1.png" width="672" /></p>
 <p>This would be helpful if we wanted to especially point out differences between the last three clarity categories of diamonds compared to the other categories.</p>
 </div>
 </div>
@@ -1713,7 +1713,7 @@ Ideal
 <span id="cb598-5"><a href="dataviz.html#cb598-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">footnote</span>(<span class="at">general =</span> <span class="st">&quot;Diamonds dataset from ggplot2&quot;</span>, <span class="at">general_title =</span> <span class="st">&quot;Source:&quot;</span>, <span class="at">footnote_as_chunk =</span> T)</span></code></pre></div>
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;border-bottom: 0;">
 <caption>
-<span id="tab:unnamed-chunk-52">Table 4.1: </span>Table 1: Diamonds Price by Quality of Cut. Most Diamonds are of the highest quality cut and the most expensive diamonds are of the highest quality
+<span id="tab:unnamed-chunk-54">Table 4.1: </span>Table 1: Diamonds Price by Quality of Cut. Most Diamonds are of the highest quality cut and the most expensive diamonds are of the highest quality
 </caption>
 <thead>
 <tr>
@@ -1872,7 +1872,7 @@ Ideal
 <span id="cb600-3"><a href="dataviz.html#cb600-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>() <span class="sc">+</span></span>
 <span id="cb600-4"><a href="dataviz.html#cb600-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&#39;dodgerblue&#39;</span>) <span class="sc">+</span></span>
 <span id="cb600-5"><a href="dataviz.html#cb600-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-54-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-56-1.png" width="672" /></p>
 <p>The overall trend is clear here - the more a car weights, the more horsepower it tends to have. However, many of the labels are overlapping and impossible to read - this is where <code>ggrepel</code> plays a role:</p>
 <div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb601-1"><a href="dataviz.html#cb601-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install and load package</span></span>
 <span id="cb601-2"><a href="dataviz.html#cb601-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;ggrepel&quot;)</span></span>
@@ -1885,7 +1885,7 @@ Ideal
 <span id="cb601-9"><a href="dataviz.html#cb601-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
 <pre><code>## Warning: ggrepel: 1 unlabeled data points (too many overlaps). Consider
 ## increasing max.overlaps</code></pre>
-<p><img src="images/dataviz-unnamed-chunk-55-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-57-1.png" width="672" /></p>
 <p>The only bit of code here that changed was that we changed <code>geom_text()</code> to <code>geom_text_repel()</code>. This, like <code>geom_text()</code> adds text directly to the plot. However, it also helpfully repels overlapping labels away from one another and away from the data points on the plot.</p>
 <div id="custom-formatting" class="section level4" number="4.9.1.1">
 <h4><span class="header-section-number">4.9.1.1</span> Custom Formatting</h4>
@@ -1901,7 +1901,7 @@ Ideal
 <span id="cb603-7"><a href="dataviz.html#cb603-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(wt, hp, <span class="at">label =</span> merc)) <span class="sc">+</span></span>
 <span id="cb603-8"><a href="dataviz.html#cb603-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="fu">ifelse</span>(mtcars<span class="sc">$</span>merc <span class="sc">==</span> <span class="st">&quot;&quot;</span>, <span class="st">&quot;grey50&quot;</span>, <span class="st">&quot;dodgerblue&quot;</span>)) <span class="sc">+</span></span>
 <span id="cb603-9"><a href="dataviz.html#cb603-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>()</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-56-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-58-1.png" width="672" /></p>
 <p>Here, notice that we first create a new column in our dataframe called <code>merc</code>. Here, we include the model of the car, only if “Merc” is in the model of the car’s name.</p>
 <p>We then, specify that only these Mercedes cars should be labeled <em>and</em> that we only want them colored blue if they are Mercedes. This allows us to focus in on those few points we’re interested in. And, we can see that among the cars in this dataset, Mercedes tend to be of average weight but have varying horsepower, depending on the model of the car.</p>
 <p><strong>Text Alignment</strong></p>
@@ -1930,7 +1930,7 @@ Ideal
 <span id="cb604-10"><a href="dataviz.html#cb604-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="fu">ifelse</span>(mtcars<span class="sc">$</span>mpg <span class="sc">&gt;</span> <span class="dv">30</span>, <span class="st">&quot;dodgerblue&quot;</span>, <span class="st">&quot;black&quot;</span>)) <span class="sc">+</span></span>
 <span id="cb604-11"><a href="dataviz.html#cb604-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.05</span>)) <span class="sc">+</span></span>
 <span id="cb604-12"><a href="dataviz.html#cb604-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">36</span>))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-57-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-59-1.png" width="672" /></p>
 <p>Notice that we’ve also had to provide the plot with more room by customizing the x- and y- axes, using the final two lines of code you see above.</p>
 <p>With this plot, it is clear that there are four cars with mpg &gt; 30. And, among these, we now know that the Toyota Corolla has the fastest quarter mile time, all thanks to direct labeling of the points!</p>
 </div>
@@ -1949,7 +1949,7 @@ Ideal
 <span id="cb605-8"><a href="dataviz.html#cb605-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dl</span>(<span class="at">data =</span> <span class="fu">subset</span>(mtcars, mpg <span class="sc">&gt;</span> <span class="dv">30</span>), <span class="fu">aes</span>(<span class="at">label =</span> model), </span>
 <span id="cb605-9"><a href="dataviz.html#cb605-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">method =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;first.points&quot;</span>),</span>
 <span id="cb605-10"><a href="dataviz.html#cb605-10" aria-hidden="true" tabindex="-1"></a>                        <span class="at">cex =</span> <span class="dv">1</span>))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-58-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-60-1.png" width="672" /></p>
 <div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb606-1"><a href="dataviz.html#cb606-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(qsec, mpg, <span class="at">label =</span> model)) <span class="sc">+</span></span>
 <span id="cb606-2"><a href="dataviz.html#cb606-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="fu">ifelse</span>(mtcars<span class="sc">$</span>mpg <span class="sc">&gt;</span> <span class="dv">30</span>, <span class="st">&quot;dodgerblue&quot;</span>, <span class="st">&quot;black&quot;</span>)) <span class="sc">+</span></span>
 <span id="cb606-3"><a href="dataviz.html#cb606-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.05</span>)) <span class="sc">+</span></span>
@@ -1957,7 +1957,7 @@ Ideal
 <span id="cb606-5"><a href="dataviz.html#cb606-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dl</span>(<span class="at">data =</span> <span class="fu">subset</span>(mtcars, mpg <span class="sc">&gt;</span> <span class="dv">30</span>), <span class="fu">aes</span>(<span class="at">label =</span> model), </span>
 <span id="cb606-6"><a href="dataviz.html#cb606-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">method =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;last.points&quot;</span>),</span>
 <span id="cb606-7"><a href="dataviz.html#cb606-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">cex =</span> <span class="dv">1</span>))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-58-2.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-60-2.png" width="672" /></p>
 <p>This package is especially useful for labeling lines in a lineplot. There are several methods, one of which is the <code>angled.boxes</code> method. This often negates the need for a legend.</p>
 <div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb607-1"><a href="dataviz.html#cb607-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(qsec, mpg, <span class="at">color =</span> cyl, <span class="at">group =</span> cyl)) <span class="sc">+</span> </span>
 <span id="cb607-2"><a href="dataviz.html#cb607-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
@@ -1966,7 +1966,7 @@ Ideal
 <span id="cb607-5"><a href="dataviz.html#cb607-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">cex =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
 <span id="cb607-6"><a href="dataviz.html#cb607-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
 <span id="cb607-7"><a href="dataviz.html#cb607-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Differences in cars with 4, 6, or 8 cylinders&quot;</span>)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-59-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-61-1.png" width="672" /></p>
 <p>See <a href="https://cran.r-project.org/web/packages/directlabels/directlabels.pdf">here</a> for more information about this package.</p>
 </div>
 <div id="cowplot-1" class="section level3" number="4.9.3">
@@ -1988,7 +1988,7 @@ Ideal
 <span id="cb610-3"><a href="dataviz.html#cb610-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_cowplot</span>(<span class="dv">12</span>) <span class="sc">+</span> </span>
 <span id="cb610-4"><a href="dataviz.html#cb610-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.7</span>, <span class="fl">0.2</span>))</span>
 <span id="cb610-5"><a href="dataviz.html#cb610-5" aria-hidden="true" tabindex="-1"></a>p1</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-62-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-64-1.png" width="672" /></p>
 <p>Let’s make a similar plot, but color by engine type. We’ll want to manually change the colors here so that we aren’t using the same colors for transmission and engine. We’ll store this in <code>p2</code>.</p>
 <div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb611-1"><a href="dataviz.html#cb611-1" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(qsec, mpg, <span class="at">color =</span> engine)) <span class="sc">+</span> </span>
 <span id="cb611-2"><a href="dataviz.html#cb611-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -1996,7 +1996,7 @@ Ideal
 <span id="cb611-4"><a href="dataviz.html#cb611-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_cowplot</span>(<span class="dv">12</span>) <span class="sc">+</span></span>
 <span id="cb611-5"><a href="dataviz.html#cb611-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.7</span>, <span class="fl">0.2</span>))</span>
 <span id="cb611-6"><a href="dataviz.html#cb611-6" aria-hidden="true" tabindex="-1"></a>p2</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-63-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-65-1.png" width="672" /></p>
 <p>Great - we’ve now got two plots with the same theme and similar appearance. What if we wanted to combine these into a single grid for presentation purposes?</p>
 </div>
 <div id="multiple-plots" class="section level4" number="4.9.3.2">
@@ -2004,12 +2004,12 @@ Ideal
 <p>Aligning plots is made simple within the <code>cowplot</code> package using the <code>align_plots()</code> function:</p>
 <div class="sourceCode" id="cb612"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb612-1"><a href="dataviz.html#cb612-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot side by side</span></span>
 <span id="cb612-2"><a href="dataviz.html#cb612-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_grid</span>(p1, p2, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-64-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-66-1.png" width="672" /></p>
 <p>Here, we specify the two plots we’d like to plot on a single grid and we also optionally include how many columns we’d like using the <code>ncol</code> parameter.</p>
 <p>To plot these one on top of the other, you could specify for <code>plot_grid()</code> to use a single column. Also note here that we’re aligning the plots vertically with <code>align = "v"</code>. The default here is “none,” so if you want the graphs in the grid to be aligned, be sure to specify “h” (horizontally), “v” (vertically) or “hv” (align in both directions) explicitly.</p>
 <div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb613-1"><a href="dataviz.html#cb613-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot on top of one another</span></span>
 <span id="cb613-2"><a href="dataviz.html#cb613-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_grid</span>(p1, p2, <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">align =</span> <span class="st">&quot;v&quot;</span>)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-65-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-67-1.png" width="672" /></p>
 <p>Note that by default, the plots will share the space equally, but it’s also possible to make one larger than the other within the grid using <code>rel_widths</code> and <code>rel_heights</code>.</p>
 <p>For example, if you had a faceted plot summarizing the number of cars by transmission and engine (which we’ll call <code>p3</code>):</p>
 <div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb614-1"><a href="dataviz.html#cb614-1" aria-hidden="true" tabindex="-1"></a><span class="co"># generate faceted plot</span></span>
@@ -2022,21 +2022,21 @@ Ideal
 <span id="cb614-8"><a href="dataviz.html#cb614-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;gray80&quot;</span>))</span></code></pre></div>
 <pre><code>## Warning: `expand_scale()` is deprecated; use `expansion()` instead.</code></pre>
 <div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb616-1"><a href="dataviz.html#cb616-1" aria-hidden="true" tabindex="-1"></a>p3</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-66-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-68-1.png" width="672" /></p>
 <p>Note that for this plot we’ve chosen a different theme, allowing for horizontal grid lines. This can be helpful when visualizing bar plots.</p>
 <p>If we were to plot these next to one another using the defaults, the faceted plot would be squished:</p>
 <div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="dataviz.html#cb617-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot next to one another</span></span>
 <span id="cb617-2"><a href="dataviz.html#cb617-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_grid</span>(p1, p3)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-67-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-69-1.png" width="672" /></p>
 <p>We can use <code>rel_widths</code> to specify the relative width for the plot on the left relative to the plot on the right:</p>
 <div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb618-1"><a href="dataviz.html#cb618-1" aria-hidden="true" tabindex="-1"></a><span class="co"># control relative spacing within grid</span></span>
 <span id="cb618-2"><a href="dataviz.html#cb618-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_grid</span>(p1, p3, <span class="at">rel_widths =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">1.3</span>))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-68-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-70-1.png" width="672" /></p>
 <p><strong>Adding Labels</strong></p>
 <p>Within these grids, you’ll often want to label these plots so that you can refer to them in your report or presentation. This can be done using the <code>labels</code> parameter within <code>plot_grid()</code>:</p>
 <div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="dataviz.html#cb619-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add A and B labels to plots</span></span>
 <span id="cb619-2"><a href="dataviz.html#cb619-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_grid</span>(p1, p3, <span class="at">labels =</span> <span class="st">&quot;AUTO&quot;</span>, <span class="at">rel_widths =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">1.3</span>))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-69-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-71-1.png" width="672" /></p>
 <p><strong>Adding Joint Titles</strong></p>
 <p>Finally, when generating grids with multiple plots, at times you’ll often want a single title to explain what’s going on across the plots. Here, the process <em>looks</em> slightly confusing, but this is only because we’re putting all of these <code>cowplot</code> pieces together.</p>
 <p>Generally, there are three steps:</p>
@@ -2060,7 +2060,7 @@ Ideal
 <span id="cb620-13"><a href="dataviz.html#cb620-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb620-14"><a href="dataviz.html#cb620-14" aria-hidden="true" tabindex="-1"></a><span class="co"># plot title and plot togetner</span></span>
 <span id="cb620-15"><a href="dataviz.html#cb620-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_grid</span>(title, three_plots, <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">rel_heights =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">1</span>))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-70-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-72-1.png" width="672" /></p>
 <p>And, just like that we’ve got three plots, labeled, spaced out nicely in a grid, with a shared title, all thanks to the functionality within the <code>cowplot</code> package.</p>
 </div>
 </div>
@@ -2077,57 +2077,57 @@ Ideal
 ## 
 ##     align_plots</code></pre>
 <div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="dataviz.html#cb624-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-71-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-73-1.png" width="672" /></p>
 <div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="dataviz.html#cb625-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">|</span> p2</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-71-2.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-73-2.png" width="672" /></p>
 <p>If we want a plot above another plot we can use the “/” symbol:</p>
 <div class="sourceCode" id="cb626"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb626-1"><a href="dataviz.html#cb626-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">/</span> p2</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-72-1.png" width="672" />
+<p><img src="images/dataviz-unnamed-chunk-74-1.png" width="672" />
 Grouping or nesting plots together using parenthesis can result in two or more plots taking up a single grid space.</p>
 <p>Thus, to combine multiple plots in a more complicated layout, one can combine two plots on one row and have a third plot on another row like this:</p>
 <div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="dataviz.html#cb627-1" aria-hidden="true" tabindex="-1"></a>(p3 <span class="sc">+</span> p2) <span class="sc">/</span> p1</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-73-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-75-1.png" width="672" /></p>
 <p>Otherwise, we would have the following:</p>
 <div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb628-1"><a href="dataviz.html#cb628-1" aria-hidden="true" tabindex="-1"></a>p3 <span class="sc">+</span> p2 <span class="sc">/</span> p1</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-74-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-76-1.png" width="672" /></p>
 <p>You can also empty plot spacers using the <code>plotspacer()</code> function like so:</p>
 <div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb629-1"><a href="dataviz.html#cb629-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">plot_spacer</span>() <span class="sc">+</span> p2 <span class="sc">+</span> <span class="fu">plot_spacer</span>()) <span class="sc">/</span> p1</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-75-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-77-1.png" width="672" /></p>
 <p>You can modify the widths of the plots using the <code>widths</code> argument of the <code>plot_layout()</code> function. In the following example we will make the width of the plot on the left 3 times that of the plot on the right. Any numeric values will do, it is the ratio of the numbers that make the difference.</p>
 <p>Thus, both <code>p1 + p2 + plot_layout(widths = c(2, 1))</code> and <code>p1 + p2 + plot_layout(widths = c(60, 30))</code> will result in the same relative size difference between <code>p1</code> and <code>p2</code>.</p>
 <div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb630-1"><a href="dataviz.html#cb630-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">widths =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-76-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-78-1.png" width="672" /></p>
 <div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb631-1"><a href="dataviz.html#cb631-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">widths =</span> <span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">30</span>))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-76-2.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-78-2.png" width="672" /></p>
 <p>The relative heights of the plots can also be modified using a <code>heights</code> argument with the same function.</p>
 <div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="dataviz.html#cb632-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">heights =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-77-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-79-1.png" width="672" /></p>
 <div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb633-1"><a href="dataviz.html#cb633-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">heights =</span> <span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">30</span>))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-77-2.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-79-2.png" width="672" /></p>
 <p>This package also allows for modification of legends. For example, legends can be gathered together to one side of the combined plots using the <code>guides = 'collect'</code> argument of the <code>plot_grid()</code> function.</p>
 <div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="dataviz.html#cb634-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">&quot;collect&quot;</span>)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-78-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-80-1.png" width="672" /></p>
 <p>You can also specify the number of columns or rows using this same function with the <code>ncol</code> or <code>nrow</code> as you would with <code>facet_wrap()</code> of the <code>ggplot2</code> package, where plots are added to <strong>complete a row</strong> before they will be added to a new row. For example, the following will result in an empty 2nd row.</p>
 <div class="sourceCode" id="cb635"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb635-1"><a href="dataviz.html#cb635-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">guides =</span> <span class="st">&quot;collect&quot;</span>)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-79-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-81-1.png" width="672" /></p>
 <p>However, the <code>byrow = FALSE</code> argument can disrupt this behavior and result in an empty 2nd column:</p>
 <div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="dataviz.html#cb636-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span>p2 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">FALSE</span>, <span class="at">guides =</span> <span class="st">&quot;collect&quot;</span>)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-80-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-82-1.png" width="672" /></p>
 <p>In this case the <strong>columns will be preferentially completed</strong> before placing a plot in a new column.</p>
 <p>We can also use the package to change the theme specifications of specific plots. By default the plot just prior to the <code>theme()</code> function will be the only plot changed.</p>
 <div class="sourceCode" id="cb637"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb637-1"><a href="dataviz.html#cb637-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="sc">+</span> p2</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-81-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-83-1.png" width="672" /></p>
 <p>Using the <code>*</code>, themes can be added to all plots that are nested together.</p>
 <div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="dataviz.html#cb638-1" aria-hidden="true" tabindex="-1"></a>(p1 <span class="sc">+</span> p2) <span class="sc">*</span><span class="fu">theme_bw</span>() <span class="sc">+</span> p2</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-82-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-84-1.png" width="672" /></p>
 <p>The <code>&amp;</code> adds themes to all plots.</p>
 <div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb639-1"><a href="dataviz.html#cb639-1" aria-hidden="true" tabindex="-1"></a>(p1 <span class="sc">+</span> p2) <span class="sc">+</span> p2 <span class="sc">&amp;</span> <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-83-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-85-1.png" width="672" /></p>
 <p>Annotations for all the plots combined can also be added using the <code>plot_annotation()</code> function, which can also take <code>theme()</code> function specifications with the <code>theme</code> argument.</p>
 <div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="dataviz.html#cb640-1" aria-hidden="true" tabindex="-1"></a>(p1 <span class="sc">+</span> p2) <span class="sc">+</span> p3 <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>)) <span class="sc">+</span></span>
 <span id="cb640-2"><a href="dataviz.html#cb640-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">&quot;Plot title for all 3 plots&quot;</span>, </span>
 <span id="cb640-3"><a href="dataviz.html#cb640-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">theme =</span> <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-84-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-86-1.png" width="672" /></p>
 <p>See <a href="https://patchwork.data-imaginist.com/">here</a> for more information about the <code>patchwork</code> package.</p>
 </div>
 <div id="gganimate-1" class="section level3" number="4.9.5">
@@ -2148,14 +2148,14 @@ Grouping or nesting plots together using parenthesis can result in two or more p
 <div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb642-1"><a href="dataviz.html#cb642-1" aria-hidden="true" tabindex="-1"></a><span class="co"># generate static boxplot</span></span>
 <span id="cb642-2"><a href="dataviz.html#cb642-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
 <span id="cb642-3"><a href="dataviz.html#cb642-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="fu">factor</span>(cyl), mpg))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-86-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-88-1.png" width="672" /></p>
 <p>But what if we wanted to understand the relationship between those two variables and the number of gears a car has (<code>gear</code>)?</p>
 <p>One option would be to use faceting:</p>
 <div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="dataviz.html#cb643-1" aria-hidden="true" tabindex="-1"></a><span class="co"># facet by gear</span></span>
 <span id="cb643-2"><a href="dataviz.html#cb643-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
 <span id="cb643-3"><a href="dataviz.html#cb643-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="fu">factor</span>(cyl), mpg)) <span class="sc">+</span></span>
 <span id="cb643-4"><a href="dataviz.html#cb643-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>gear)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-87-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-89-1.png" width="672" /></p>
 <p>Alternatively, we could animate the plot, using <code>gganimate</code> so that on a single plot we rotate between each of these three plots.</p>
 <div id="transitions" class="section level5" number="4.9.5.1.1">
 <h5><span class="header-section-number">4.9.5.1.1</span> Transitions</h5>
@@ -2167,7 +2167,7 @@ Grouping or nesting plots together using parenthesis can result in two or more p
 <span id="cb644-5"><a href="dataviz.html#cb644-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
 <span id="cb644-6"><a href="dataviz.html#cb644-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(cyl, mpg)) <span class="sc">+</span> </span>
 <span id="cb644-7"><a href="dataviz.html#cb644-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transition_manual</span>(gear)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-88-1.gif" /><!-- --></p>
+<p><img src="images/dataviz-unnamed-chunk-90-1.gif" /><!-- --></p>
 <p>Note that here, <code>transition_manual()</code> is a new grammar class that we add right on top of our <code>ggplot2</code> plot code! Within this grammar class, we specify the variable upon which we’d like the transition in the animation to occur.</p>
 <p>This means that the number of frames in the animation will be the number of levels in the variable by which you’re transitioning. Here, there will be 3 frames, as there are three different levels of <code>gear</code> in the <code>mtcars</code> dataset.</p>
 <p><code>transition_manual()</code> is not the only option for transition. In fact, there are a number of different <code>transition_*</code> options, depending upon your animation needs. One of the most commonly used is <code>transition_states()</code>. The animation will plot the same information as the example above; however, it allows for finer tune control of the animation</p>
@@ -2179,7 +2179,7 @@ Grouping or nesting plots together using parenthesis can result in two or more p
 <span id="cb645-6"><a href="dataviz.html#cb645-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">state_length =</span> <span class="dv">1</span>)</span>
 <span id="cb645-7"><a href="dataviz.html#cb645-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb645-8"><a href="dataviz.html#cb645-8" aria-hidden="true" tabindex="-1"></a>anim</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-89-1.gif" /><!-- --></p>
+<p><img src="images/dataviz-unnamed-chunk-91-1.gif" /><!-- --></p>
 <p>Note here that we’ve stored the output from <code>transition_states</code> in the object <code>anim</code>. We’ll build on this object below.</p>
 </div>
 <div id="labeling" class="section level5" number="4.9.5.1.2">
@@ -2190,7 +2190,7 @@ Grouping or nesting plots together using parenthesis can result in two or more p
 <span id="cb646-3"><a href="dataviz.html#cb646-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;Now showing gear: {closest_state}&#39;</span>)</span>
 <span id="cb646-4"><a href="dataviz.html#cb646-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb646-5"><a href="dataviz.html#cb646-5" aria-hidden="true" tabindex="-1"></a>anim</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-90-1.gif" /><!-- --></p>
+<p><img src="images/dataviz-unnamed-chunk-92-1.gif" /><!-- --></p>
 <p>Note that we’re referring to the appropriate gear within the animation frame by specifying <code>{closest_state}</code>.</p>
 </div>
 <div id="easing" class="section level5" number="4.9.5.1.3">
@@ -2201,7 +2201,7 @@ Grouping or nesting plots together using parenthesis can result in two or more p
 <span id="cb647-3"><a href="dataviz.html#cb647-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ease_aes</span>(<span class="st">&#39;cubic-in-out&#39;</span>)</span>
 <span id="cb647-4"><a href="dataviz.html#cb647-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb647-5"><a href="dataviz.html#cb647-5" aria-hidden="true" tabindex="-1"></a>anim</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-91-1.gif" /><!-- --></p>
+<p><img src="images/dataviz-unnamed-chunk-93-1.gif" /><!-- --></p>
 <p>There are a number of easing functions, all of which are listed within the documentation, which can be viewed, as always, using the <code>?</code> help function: <code>?ease_aes</code>.</p>
 </div>
 <div id="enter-exit" class="section level5" number="4.9.5.1.4">
@@ -2214,7 +2214,7 @@ Grouping or nesting plots together using parenthesis can result in two or more p
 <span id="cb648-5"><a href="dataviz.html#cb648-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">exit_shrink</span>()</span>
 <span id="cb648-6"><a href="dataviz.html#cb648-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb648-7"><a href="dataviz.html#cb648-7" aria-hidden="true" tabindex="-1"></a>anim</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-92-1.gif" /><!-- --></p>
+<p><img src="images/dataviz-unnamed-chunk-94-1.gif" /><!-- --></p>
 <p>The changes are subtle but you’ll notice that on transition the data fades in to appear and shrinks upon exit.</p>
 </div>
 <div id="position-scales" class="section level5" number="4.9.5.1.5">
@@ -2223,7 +2223,7 @@ Grouping or nesting plots together using parenthesis can result in two or more p
 <p>The static plot would be as follows</p>
 <div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="dataviz.html#cb649-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
 <span id="cb649-2"><a href="dataviz.html#cb649-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(qsec, mpg))</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-93-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-95-1.png" width="672" /></p>
 <p>However, upon adding animation, we see how the data changes by gear.</p>
 <div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="dataviz.html#cb650-1" aria-hidden="true" tabindex="-1"></a><span class="co"># animate it!</span></span>
 <span id="cb650-2"><a href="dataviz.html#cb650-2" aria-hidden="true" tabindex="-1"></a>scat <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
@@ -2234,7 +2234,7 @@ Grouping or nesting plots together using parenthesis can result in two or more p
 <span id="cb650-7"><a href="dataviz.html#cb650-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;Now showing gear: {closest_state}&#39;</span>)</span>
 <span id="cb650-8"><a href="dataviz.html#cb650-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb650-9"><a href="dataviz.html#cb650-9" aria-hidden="true" tabindex="-1"></a>scat</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-94-1.gif" /><!-- --></p>
+<p><img src="images/dataviz-unnamed-chunk-96-1.gif" /><!-- --></p>
 <p>However, the x- and y-axes remain constant throughout the animation.</p>
 <p>If you wanted to allow these positional scales to adjust between each gear level, you could use <code>view_step</code>:</p>
 <div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="dataviz.html#cb651-1" aria-hidden="true" tabindex="-1"></a><span class="co"># allow positional scaling for each level in gear</span></span>
@@ -2243,7 +2243,7 @@ Grouping or nesting plots together using parenthesis can result in two or more p
 <span id="cb651-4"><a href="dataviz.html#cb651-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">step_length =</span> <span class="dv">1</span>, </span>
 <span id="cb651-5"><a href="dataviz.html#cb651-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">nsteps =</span> <span class="dv">3</span>, </span>
 <span id="cb651-6"><a href="dataviz.html#cb651-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">include =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-95-1.gif" /><!-- --></p>
+<p><img src="images/dataviz-unnamed-chunk-97-1.gif" /><!-- --></p>
 </div>
 </div>
 <div id="example-gapminder" class="section level4" number="4.9.5.2">
@@ -2265,7 +2265,7 @@ Grouping or nesting plots together using parenthesis can result in two or more p
 <span id="cb652-14"><a href="dataviz.html#cb652-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transition_time</span>(year)</span>
 <span id="cb652-15"><a href="dataviz.html#cb652-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb652-16"><a href="dataviz.html#cb652-16" aria-hidden="true" tabindex="-1"></a>gap</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-96-1.gif" /><!-- --></p>
+<p><img src="images/dataviz-unnamed-chunk-98-1.gif" /><!-- --></p>
 <p>Note that in this example, we’re now using <code>transition_time()</code> rather than <code>transition_states()</code>. This is a variant of <code>transition_states()</code> that is particularly useful when the states represent points in time, such as the years we’re animating through in the plot above. The transition length is set to correspond to the time difference between the points in the data.</p>
 <div id="shadow" class="section level5" number="4.9.5.2.1">
 <h5><span class="header-section-number">4.9.5.2.1</span> Shadow</h5>
@@ -2274,7 +2274,7 @@ Grouping or nesting plots together using parenthesis can result in two or more p
 <div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="dataviz.html#cb653-1" aria-hidden="true" tabindex="-1"></a>gap <span class="sc">+</span></span>
 <span id="cb653-2"><a href="dataviz.html#cb653-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">shadow_trail</span>(<span class="at">distance =</span> <span class="fl">0.05</span>,</span>
 <span id="cb653-3"><a href="dataviz.html#cb653-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.3</span>)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-97-1.gif" /><!-- --></p>
+<p><img src="images/dataviz-unnamed-chunk-99-1.gif" /><!-- --></p>
 <p>Here, distance specifies the temporal distance between the frames to show and alpha specifies the transparency of the trail, so that the current frame’s data is always discernible.</p>
 </div>
 </div>
@@ -2320,11 +2320,11 @@ Grouping or nesting plots together using parenthesis can result in two or more p
 <span id="cb657-2"><a href="dataviz.html#cb657-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visdat)</span>
 <span id="cb657-3"><a href="dataviz.html#cb657-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb657-4"><a href="dataviz.html#cb657-4" aria-hidden="true" tabindex="-1"></a><span class="fu">vis_dat</span>(hc)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-100-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-102-1.png" width="672" /></p>
 <p>We now have a sense that a few states, for some years are missing coverage data, which also affects the ability to calculate proportion covered.</p>
 <p>To see these values highlighted more specifically, we can use the related <code>vis_miss()</code> function.</p>
 <div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="dataviz.html#cb658-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vis_miss</span>(hc)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-101-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-103-1.png" width="672" /></p>
 <p>Here we see that missing values only occur 0.6% of the time, with 3.1% of the observations missing entries for <code>tot_coverage</code> and <code>prop_coverage</code>. So, all in all, there is not a lot of missing data, but we still want to be sure we understand where missingness occurs before answering our questions.</p>
 <p>Let’s use <code>dplyr</code> to see <em>which</em> observations have missing data:</p>
 <div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="dataviz.html#cb659-1" aria-hidden="true" tabindex="-1"></a>hc <span class="sc">%&gt;%</span></span>
@@ -2360,7 +2360,7 @@ Grouping or nesting plots together using parenthesis can result in two or more p
 <span id="cb661-4"><a href="dataviz.html#cb661-4" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(hc)</span></code></pre></div>
 <table style="width: auto;" class="table table-condensed">
 <caption>
-<span id="tab:unnamed-chunk-103">Table 4.2: </span>Data summary
+<span id="tab:unnamed-chunk-105">Table 4.2: </span>Data summary
 </caption>
 <thead>
 <tr>
@@ -2870,7 +2870,7 @@ spending_capita
 <span id="cb662-4"><a href="dataviz.html#cb662-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>()</span></code></pre></div>
 <table style="width: auto;" class="table table-condensed">
 <caption>
-<span id="tab:unnamed-chunk-104">Table 4.3: </span>Data summary
+<span id="tab:unnamed-chunk-106">Table 4.3: </span>Data summary
 </caption>
 <thead>
 <tr>
@@ -3691,7 +3691,7 @@ spending_capita
 <span id="cb663-6"><a href="dataviz.html#cb663-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
 <span id="cb663-7"><a href="dataviz.html#cb663-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;spending per capita&quot;</span>,</span>
 <span id="cb663-8"><a href="dataviz.html#cb663-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;coverage proportion&quot;</span>)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-105-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-107-1.png" width="672" /></p>
 <p>We see that there appears to be some relationship, with those states that spend more per capita also having higher proportions of their population having healthcare coverage.</p>
 <p>We can continue to improve this plot to better understand the underlying data. For example, we can add a best-fit line using <code>geom_smooth()</code> to visualize the magnitude of the linear relationship:</p>
 <div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb664-1"><a href="dataviz.html#cb664-1" aria-hidden="true" tabindex="-1"></a><span class="co"># generate scatterplot with fit line</span></span>
@@ -3705,7 +3705,7 @@ spending_capita
 <span id="cb664-9"><a href="dataviz.html#cb664-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;coverage proportion&quot;</span>) <span class="sc">+</span></span>
 <span id="cb664-10"><a href="dataviz.html#cb664-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="images/dataviz-unnamed-chunk-106-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-108-1.png" width="672" /></p>
 <p>Beyond that, we likely want to know which point represents which state, so we can add state labels:</p>
 <div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb666-1"><a href="dataviz.html#cb666-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add state abbreviation labels</span></span>
 <span id="cb666-2"><a href="dataviz.html#cb666-2" aria-hidden="true" tabindex="-1"></a>hc <span class="sc">%&gt;%</span></span>
@@ -3720,7 +3720,7 @@ spending_capita
 <span id="cb666-11"><a href="dataviz.html#cb666-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label=</span>abb), </span>
 <span id="cb666-12"><a href="dataviz.html#cb666-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">nudge_x =</span> <span class="dv">150</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="images/dataviz-unnamed-chunk-107-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-109-1.png" width="672" /></p>
 <p>From there, it’d likely be helpful to have information from each region:</p>
 <div class="sourceCode" id="cb668"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb668-1"><a href="dataviz.html#cb668-1" aria-hidden="true" tabindex="-1"></a><span class="co"># color by region</span></span>
 <span id="cb668-2"><a href="dataviz.html#cb668-2" aria-hidden="true" tabindex="-1"></a>hc <span class="sc">%&gt;%</span></span>
@@ -3737,7 +3737,7 @@ spending_capita
 <span id="cb668-13"><a href="dataviz.html#cb668-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">nudge_x =</span> <span class="dv">150</span>, </span>
 <span id="cb668-14"><a href="dataviz.html#cb668-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">show.legend =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="images/dataviz-unnamed-chunk-108-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-110-1.png" width="672" /></p>
 <p>So far, we’ve only been focusing on data from 2013. What about looking at data from both 2013 and 2014? We can do that using <code>facet_wrap()</code>:</p>
 <div class="sourceCode" id="cb670"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb670-1"><a href="dataviz.html#cb670-1" aria-hidden="true" tabindex="-1"></a><span class="co"># color by region</span></span>
 <span id="cb670-2"><a href="dataviz.html#cb670-2" aria-hidden="true" tabindex="-1"></a>hc <span class="sc">%&gt;%</span></span>
@@ -3754,7 +3754,7 @@ spending_capita
 <span id="cb670-13"><a href="dataviz.html#cb670-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">nudge_x =</span> <span class="dv">150</span>, </span>
 <span id="cb670-14"><a href="dataviz.html#cb670-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">show.legend =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="images/dataviz-unnamed-chunk-109-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-111-1.png" width="672" /></p>
 <p>We see that the overall trend holds, but there has been some movement. For example, we see at a glance that DC has a higher proportion of its population covered in 2014 relative to 2013, while MA saw a drop in coverage. UT appears to be an outlier in both years having low spending but a high proportion of individuals covered.</p>
 <p>Beyond “Employer”-held healthcare coverage, let’s look at the other types of coverage data we have. Here, we’ll facet by type, rather than year, again focusing on just data from 2013.</p>
 <div class="sourceCode" id="cb672"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb672-1"><a href="dataviz.html#cb672-1" aria-hidden="true" tabindex="-1"></a><span class="co"># visualize 2013 data by type</span></span>
@@ -3772,7 +3772,7 @@ spending_capita
 <span id="cb672-13"><a href="dataviz.html#cb672-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">nudge_x =</span> <span class="dv">150</span>, </span>
 <span id="cb672-14"><a href="dataviz.html#cb672-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">show.legend =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="images/dataviz-unnamed-chunk-110-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-112-1.png" width="672" /></p>
 <p>From these data, we see that Employer health care coverage is the most popular way in which individuals receive their health insurance across all states. We also see a flat or positive relationship for all other types of insurance, except for “Uninsured.” There, as makes sense, we see that the more money spent per capita the fewer individuals the state has without insurance.</p>
 <p>We can quickly peak at the data from 2014 to be sure the same general patterns hold:</p>
 <div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb674-1"><a href="dataviz.html#cb674-1" aria-hidden="true" tabindex="-1"></a><span class="co"># visualize 2014 data by type</span></span>
@@ -3790,7 +3790,7 @@ spending_capita
 <span id="cb674-13"><a href="dataviz.html#cb674-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">nudge_x =</span> <span class="dv">150</span>, </span>
 <span id="cb674-14"><a href="dataviz.html#cb674-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">show.legend =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="images/dataviz-unnamed-chunk-111-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-113-1.png" width="672" /></p>
 <p>The same general patterns hold in 2014 as we saw in 2013; however, the patterns are not exactly the same.</p>
 <p>With these plots we have a pretty good understanding of the relationship between spending and coverage across this country when it comes to health care.</p>
 <p>Let’s save some of these plots for later:</p>
@@ -3871,7 +3871,7 @@ spending_capita
 <span id="cb694-4"><a href="dataviz.html#cb694-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> spending_capita)) <span class="sc">+</span> </span>
 <span id="cb694-5"><a href="dataviz.html#cb694-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
 <span id="cb694-6"><a href="dataviz.html#cb694-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;spending per capita&quot;</span>)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-113-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-115-1.png" width="672" /></p>
 <p>Here, we get a sense of the overall trend, seeing that states in the Northeast tend to spend the most on health care, while states in the West spend the least.</p>
 <p>But, sometimes, it can be helpful to see the distribution of points along with the boxplot, so we can add those onto the plot. We’ll use <code>geom_jitter()</code> rather than <code>geom_point()</code> here so that we can see all the points without overlap. Note that we also use <code>alpha = 0.2</code> to increase the transparency of the points and <code>outlier.shape = NA</code> to hide the outliers on the boxplot. This way, each observation is only plotted a single time:</p>
 <div class="sourceCode" id="cb695"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb695-1"><a href="dataviz.html#cb695-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add data points to boxplot</span></span>
@@ -3882,7 +3882,7 @@ spending_capita
 <span id="cb695-6"><a href="dataviz.html#cb695-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
 <span id="cb695-7"><a href="dataviz.html#cb695-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
 <span id="cb695-8"><a href="dataviz.html#cb695-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;spending per capita&quot;</span>)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-114-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-116-1.png" width="672" /></p>
 <p>This gives us a sense of the variation in spending for states in each region. Of note, there are more outliers in the South and West, with a few states spending more on health care than even states in the Northeast, where spending tends to be higher.</p>
 <p>With this we have a good sense of the regional effects of spending across the United states.</p>
 </div>
@@ -3906,7 +3906,7 @@ spending_capita
 <span id="cb696-9"><a href="dataviz.html#cb696-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb696-10"><a href="dataviz.html#cb696-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(year<span class="sc">~</span>type)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="images/dataviz-unnamed-chunk-115-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-117-1.png" width="672" /></p>
 <p>With this, output the top row are the data from 2013 and the bottom from 2014. We can then visually compare the top plot to the bottom plot for each time of insurance.</p>
 <p>Visually, we can start to get a sense that a few things changed from 2013 to 2014. For example, as we saw previously, individual states changed from one year to the next, but overall patterns seem to hold pretty steady between these two years.</p>
 <p>We were able to start answering all our questions of interest with a number of quick plots using <code>ggplot2</code>.</p>
@@ -3944,7 +3944,7 @@ spending_capita
 <p>Similar to how we approached the health care case study, let’s get an overall understanding of the data in our dataset, starting with understanding where data are missing in our dataset:</p>
 <div class="sourceCode" id="cb700"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb700-1"><a href="dataviz.html#cb700-1" aria-hidden="true" tabindex="-1"></a><span class="co"># visualize missingness</span></span>
 <span id="cb700-2"><a href="dataviz.html#cb700-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vis_dat</span>(firearms)</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-117-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-119-1.png" width="672" /></p>
 <p>We see that we have data for all 50 states (and Washington, D.C.) for most variables in our dataset; however, we’re missing information for one state when it comes to gunshot information and another state when it comes to Brady scores and ownership by suicide rates.</p>
 <p>Additionally, we see that most of our variables are numeric (either integers or numeric) while the state name (<code>NAME</code>) is a character, confirming what we expect for these data.</p>
 <p>We will also again use <code>skim()</code> to get a better sense of the values in our dataset:</p>
@@ -3952,7 +3952,7 @@ spending_capita
 <span id="cb701-2"><a href="dataviz.html#cb701-2" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(firearms)</span></code></pre></div>
 <table style="width: auto;" class="table table-condensed">
 <caption>
-<span id="tab:unnamed-chunk-118">Table 4.4: </span>Data summary
+<span id="tab:unnamed-chunk-120">Table 4.4: </span>Data summary
 </caption>
 <thead>
 <tr>
@@ -4638,7 +4638,7 @@ ownership
 <span id="cb702-9"><a href="dataviz.html#cb702-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> NAME))</span></code></pre></div>
 <pre><code>## Warning: ggrepel: 21 unlabeled data points (too many overlaps). Consider
 ## increasing max.overlaps</code></pre>
-<p><img src="images/dataviz-unnamed-chunk-119-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-121-1.png" width="672" /></p>
 <p>Here we see that the visualization of this relationship is largely dependent upon the state’s population, with large states like Texas and California sticking out. However, we do see that, for its size, Washington D.C had many more violent cries than other states, despite its small population.</p>
 <p>It would also be helpful to understand the relationship between unemployment and violent crime:</p>
 <div class="sourceCode" id="cb704"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb704-1"><a href="dataviz.html#cb704-1" aria-hidden="true" tabindex="-1"></a><span class="co"># violent crimes</span></span>
@@ -4649,7 +4649,7 @@ ownership
 <span id="cb704-6"><a href="dataviz.html#cb704-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Unemployment Rate&quot;</span>,</span>
 <span id="cb704-7"><a href="dataviz.html#cb704-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Violent Crime&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb704-8"><a href="dataviz.html#cb704-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
-<p><img src="images/dataviz-unnamed-chunk-120-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-122-1.png" width="672" /></p>
 <p>Here, there appears to be some relationship with states that have higher rates of unemployment having slightly more violent crimes, but violent crimes is not adjusted by population, so this is likely not <em>that</em> helpful.</p>
 <p>What about the relationship between fatal police shootings and gun <code>ownership</code> as a percent of firearm suicides to all suicides.</p>
 <div class="sourceCode" id="cb705"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb705-1"><a href="dataviz.html#cb705-1" aria-hidden="true" tabindex="-1"></a><span class="co"># violent crimes</span></span>
@@ -4661,7 +4661,7 @@ ownership
 <span id="cb705-7"><a href="dataviz.html#cb705-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Gun Ownership </span><span class="sc">\n</span><span class="st"> (firearm suicides:all suicides)&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb705-8"><a href="dataviz.html#cb705-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
 <pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
-<p><img src="images/dataviz-unnamed-chunk-121-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-123-1.png" width="672" /></p>
 <p>This suggests that states with more fatal police shootings <em>tend</em> to have more firearm suicides relative to non-firearm suicides; however, this relationship is non linear.</p>
 <p>With these plots, we’re starting to get an understanding of the data and see that there are patterns and don’t appear to be wild outliers in any one variable (although, we should keep an eye on Washington, D.C. as it appeared as an outlier in a few plots). With that we’re confident we can move on to start looking into our question of interest.</p>
 </div>
@@ -4679,7 +4679,7 @@ ownership
 <span id="cb707-6"><a href="dataviz.html#cb707-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Annualized Rate of Fatal </span><span class="sc">\n</span><span class="st"> Police Shootings per 1,000,000&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb707-7"><a href="dataviz.html#cb707-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
 <pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
-<p><img src="images/dataviz-unnamed-chunk-122-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-124-1.png" width="672" /></p>
 <p>In this plot, we see that there is a relationship, but it is non-linear. Overall, the higher the legislative strength score (<code>brady_scores</code>), the lower the rate of police shootings; however, this decrease is nonlinear, as all states with a positive Brady Score have a similar police shooting rate.</p>
 <p>For now, we won’t explore a model, but we will label the points to better contextualize the information displayed. To see which states are at either end of the distribution, using <code>geom_text()</code> is a good option:</p>
 <div class="sourceCode" id="cb709"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb709-1"><a href="dataviz.html#cb709-1" aria-hidden="true" tabindex="-1"></a><span class="co"># label points with state name</span></span>
@@ -4693,7 +4693,7 @@ ownership
 <span id="cb709-9"><a href="dataviz.html#cb709-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">nudge_x =</span> <span class="dv">7</span>)</span></code></pre></div>
 <pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
 <pre><code>## Warning: Removed 2 rows containing missing values (geom_text).</code></pre>
-<p><img src="images/dataviz-unnamed-chunk-123-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-125-1.png" width="672" /></p>
 <p>This makes it clear that Wyoming, New Mexico, Oklahoma, Arizona, and Nevada have some of the highest rates of fatal police shootings, while Connecticut, New York, Pennsylvania, and North Dakota are among the lowest.</p>
 <p>However, a number of labels overlap there, so it can be helpful to use <code>ggrepel</code> if you want to be able to match each point to its label:</p>
 <div class="sourceCode" id="cb712"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb712-1"><a href="dataviz.html#cb712-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
@@ -4710,7 +4710,7 @@ ownership
 <pre><code>## Warning: Removed 2 rows containing missing values (geom_text_repel).</code></pre>
 <pre><code>## Warning: ggrepel: 7 unlabeled data points (too many overlaps). Consider
 ## increasing max.overlaps</code></pre>
-<p><img src="images/dataviz-unnamed-chunk-124-1.png" width="672" /></p>
+<p><img src="images/dataviz-unnamed-chunk-126-1.png" width="672" /></p>
 <p>If we wanted to save this particular plot as a pdf, we could do so like this to save the plot in a directory called exploratory within a directory called figures:</p>
 <div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb716-1"><a href="dataviz.html#cb716-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;figures&quot;</span>, <span class="st">&quot;exploratory&quot;</span>, <span class="st">&quot;Fatal_police_shootings_and_firearm_legislative_strength.pdf&quot;</span>))</span>
 <span id="cb716-2"><a href="dataviz.html#cb716-2" aria-hidden="true" tabindex="-1"></a></span>
