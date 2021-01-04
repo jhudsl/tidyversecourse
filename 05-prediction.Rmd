@@ -1,5 +1,9 @@
 # Modeling Data in the Tidyverse {#model}
 
+```{r, include=FALSE}
+knitr::opts_chunk$set(fig.path = "images/modeling-")
+```
+
 
 ## About This Course
 
