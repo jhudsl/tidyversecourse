@@ -2,6 +2,8 @@
 
 Data are stored in all sorts of different file formats and structures. In this course, we'll discuss each of these common formats and discuss how to get them into R so you can start working with them! 
 
+
+
 ## About This Course
 
 Getting data into your statistical analysis system can be one of the most challenging parts of any data science project. Data must be imported and harmonized into a coherent format before any insights can be obtained. You will learn how to get data into R from commonly used formats and how to harmonize different kinds of datasets from different sources. If you work in an organization where different departments collect data using different systems and different storage formats, then this course will provide essential tools for bringing those datasets together and making sense of the wealth of information in your organization.
@@ -101,16 +103,16 @@ slice_sample(trees, n = 10)
 
 ```
 ##    Girth Height Volume
-## 1   11.2     75   19.9
-## 2   11.1     80   22.6
-## 3    8.8     63   10.2
-## 4   18.0     80   51.0
-## 5   17.9     80   58.3
-## 6   14.5     74   36.3
-## 7   11.0     75   18.2
-## 8   17.5     82   55.7
-## 9   14.0     78   34.5
-## 10  18.0     80   51.5
+## 1   17.9     80   58.3
+## 2   12.9     74   22.2
+## 3   14.0     78   34.5
+## 4   10.5     72   16.4
+## 5   13.8     64   24.9
+## 6   12.9     85   33.8
+## 7   17.3     81   55.4
+## 8   11.3     79   24.2
+## 9    8.6     65   10.3
+## 10  11.4     76   21.0
 ```
 
 You can also use `slice_head()` or `slice_tail()` to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.
@@ -1522,7 +1524,7 @@ library(magick)
 ```
 
 ```
-## Linking to ImageMagick 7.0.10.34
+## Linking to ImageMagick 7.0.10.50
 ## Enabled features: freetype, ghostscript, lcms, webp
 ## Disabled features: cairo, fontconfig, fftw, pango, rsvg, x11
 ```
@@ -1545,7 +1547,7 @@ print(img1)
 ## 1 PNG      240    278 sRGB       TRUE     38516 +85x+85
 ```
 
-<img src="images/unnamed-chunk-51-1.png" width="120" />
+<img src="images/get-data-unnamed-chunk-52-1.png" width="120" />
 
 ```r
 print(img2)
@@ -1558,7 +1560,7 @@ print(img2)
 ## 1 PNG      864    864 sRGB       TRUE     54056 +72x+72
 ```
 
-<img src="images/unnamed-chunk-51-2.png" width="432" />
+<img src="images/get-data-unnamed-chunk-52-2.png" width="432" />
 
 ```r
 #concatenate and print text
@@ -2062,11 +2064,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2020-12-16 17:12
+##   Date: 2021-01-04 18:49
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmplJu1kJ/file797859c09d07.xlsx
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpPv0PBU/file654559c09d07.xlsx
 ```
 
 ```r
@@ -2114,11 +2116,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2020-12-16 17:12
+##   Date: 2021-01-04 18:49
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmplJu1kJ/file7978618fb492.xls
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpPv0PBU/file6545618fb492.xls
 ```
 
 ```r
@@ -2165,11 +2167,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2020-12-16 17:12
+##   Date: 2021-01-04 18:49
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmplJu1kJ/file79786135133.xls
+## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpPv0PBU/file65456135133.xls
 ```
 
 ```r

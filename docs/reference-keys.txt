@@ -2,11 +2,11 @@ tab:unnamed-chunk-47
 tab:unnamed-chunk-48
 tab:unnamed-chunk-49
 tab:unnamed-chunk-50
-tab:unnamed-chunk-51
-tab:unnamed-chunk-102
+tab:unnamed-chunk-52
 tab:unnamed-chunk-103
-tab:unnamed-chunk-117
-tab:unnamed-chunk-84
+tab:unnamed-chunk-104
+tab:unnamed-chunk-118
+tab:unnamed-chunk-85
 intro
 about-this-course
 tidy-data
