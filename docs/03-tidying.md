@@ -2272,8 +2272,8 @@ names <- c("Keisha", "Mohammed", "Jane", "Mathieu")
 str_view(names, "^M")
 ```
 
-<!--html_preserve--><div id="htmlwidget-90ddf1dea871d06cb68e" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-90ddf1dea871d06cb68e">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li><span class='match'>M<\/span>ohammed<\/li>\n  <li>Jane<\/li>\n  <li><span class='match'>M<\/span>athieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-38a672b27a8d584e795b" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-38a672b27a8d584e795b">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li><span class='match'>M<\/span>ohammed<\/li>\n  <li>Jane<\/li>\n  <li><span class='match'>M<\/span>athieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 
 ![`str_view()` identifies names that start with M](images/gslides/139.png)
@@ -2288,8 +2288,8 @@ However, if you try to match strings that end with the letter "M", no match is f
 str_view(names, "M$")
 ```
 
-<!--html_preserve--><div id="htmlwidget-34f1c4401b6d1f5b706d" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-34f1c4401b6d1f5b706d">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-128f7551d1e45ecd9f90" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-128f7551d1e45ecd9f90">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 
 ![`str_view()` does not identify any names that end with M](images/gslides/140.png)
@@ -2302,8 +2302,8 @@ To identify names by that end with the letter "a", you would use the following.
 str_view(names, "a$")
 ```
 
-<!--html_preserve--><div id="htmlwidget-880e6dfba3697f37301d" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-880e6dfba3697f37301d">{"x":{"html":"<ul>\n  <li>Keish<span class='match'>a<\/span><\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-757b50136485d39d1e44" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-757b50136485d39d1e44">{"x":{"html":"<ul>\n  <li>Keish<span class='match'>a<\/span><\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![`str_view()` identifies names that end with a](images/gslides/141.png)
 
@@ -2427,8 +2427,8 @@ To search for a set of characters, you place these characters within brackets. B
 str_view_all(names, "[aeiou]")
 ```
 
-<!--html_preserve--><div id="htmlwidget-8e2af778788febe74b68" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8e2af778788febe74b68">{"x":{"html":"<ul>\n  <li>K<span class='match'>e<\/span><span class='match'>i<\/span>sh<span class='match'>a<\/span><\/li>\n  <li>M<span class='match'>o<\/span>h<span class='match'>a<\/span>mm<span class='match'>e<\/span>d<\/li>\n  <li>J<span class='match'>a<\/span>n<span class='match'>e<\/span><\/li>\n  <li>M<span class='match'>a<\/span>th<span class='match'>i<\/span><span class='match'>e<\/span><span class='match'>u<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-326feea407b4025fca32" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-326feea407b4025fca32">{"x":{"html":"<ul>\n  <li>K<span class='match'>e<\/span><span class='match'>i<\/span>sh<span class='match'>a<\/span><\/li>\n  <li>M<span class='match'>o<\/span>h<span class='match'>a<\/span>mm<span class='match'>e<\/span>d<\/li>\n  <li>J<span class='match'>a<\/span>n<span class='match'>e<\/span><\/li>\n  <li>M<span class='match'>a<\/span>th<span class='match'>i<\/span><span class='match'>e<\/span><span class='match'>u<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![brackets specify which characters to search for](images/gslides/149.png)
 
@@ -2443,8 +2443,8 @@ By adding a caret (`^`) before the vowels within the brackets, this regular expr
 str_view_all(names, "[^aeiou]")
 ```
 
-<!--html_preserve--><div id="htmlwidget-5e3c066ec6baf86f08c0" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5e3c066ec6baf86f08c0">{"x":{"html":"<ul>\n  <li><span class='match'>K<\/span>ei<span class='match'>s<\/span><span class='match'>h<\/span>a<\/li>\n  <li><span class='match'>M<\/span>o<span class='match'>h<\/span>a<span class='match'>m<\/span><span class='match'>m<\/span>e<span class='match'>d<\/span><\/li>\n  <li><span class='match'>J<\/span>a<span class='match'>n<\/span>e<\/li>\n  <li><span class='match'>M<\/span>a<span class='match'>t<\/span><span class='match'>h<\/span>ieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-798f5f4abbf433df3f4b" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-798f5f4abbf433df3f4b">{"x":{"html":"<ul>\n  <li><span class='match'>K<\/span>ei<span class='match'>s<\/span><span class='match'>h<\/span>a<\/li>\n  <li><span class='match'>M<\/span>o<span class='match'>h<\/span>a<span class='match'>m<\/span><span class='match'>m<\/span>e<span class='match'>d<\/span><\/li>\n  <li><span class='match'>J<\/span>a<span class='match'>n<\/span>e<\/li>\n  <li><span class='match'>M<\/span>a<span class='match'>t<\/span><span class='match'>h<\/span>ieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![brackets with a caret first specify which characters NOT to search for](images/gslides/150.png)
 
@@ -2460,8 +2460,8 @@ addresses <- c("1234 Main Street", "1600 Pennsylvania Ave", "Brick Building")
 str_view_all(addresses, "\\d")
 ```
 
-<!--html_preserve--><div id="htmlwidget-44e34e9ca2b79ae001d3" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-44e34e9ca2b79ae001d3">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span> Main Street<\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span> Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-9b867379cf7b7351c536" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9b867379cf7b7351c536">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span> Main Street<\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span> Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![`\d` searches for digits](images/gslides/151.png)
 
@@ -2475,8 +2475,8 @@ Identifying whitespace in R identifies any spaces, tabs or newlines. Note that a
 str_view_all(addresses, "\\s")
 ```
 
-<!--html_preserve--><div id="htmlwidget-c0d400f394654ef6957e" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c0d400f394654ef6957e">{"x":{"html":"<ul>\n  <li>1234<span class='match'> <\/span>Main<span class='match'> <\/span>Street<\/li>\n  <li>1600<span class='match'> <\/span>Pennsylvania<span class='match'> <\/span>Ave<\/li>\n  <li>Brick<span class='match'> <\/span>Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-dd7e475bfada6d231226" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-dd7e475bfada6d231226">{"x":{"html":"<ul>\n  <li>1234<span class='match'> <\/span>Main<span class='match'> <\/span>Street<\/li>\n  <li>1600<span class='match'> <\/span>Pennsylvania<span class='match'> <\/span>Ave<\/li>\n  <li>Brick<span class='match'> <\/span>Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![`\s` searches for whitespace](images/gslides/152.png)
 
@@ -2490,8 +2490,8 @@ To identify any character except for a newline you'll use `"."`. Notice in our a
 str_view_all(addresses, ".")
 ```
 
-<!--html_preserve--><div id="htmlwidget-111ff286e1de2943a70b" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-111ff286e1de2943a70b">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span><span class='match'> <\/span><span class='match'>M<\/span><span class='match'>a<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'> <\/span><span class='match'>S<\/span><span class='match'>t<\/span><span class='match'>r<\/span><span class='match'>e<\/span><span class='match'>e<\/span><span class='match'>t<\/span><\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>e<\/span><span class='match'>n<\/span><span class='match'>n<\/span><span class='match'>s<\/span><span class='match'>y<\/span><span class='match'>l<\/span><span class='match'>v<\/span><span class='match'>a<\/span><span class='match'>n<\/span><span class='match'>i<\/span><span class='match'>a<\/span><span class='match'> <\/span><span class='match'>A<\/span><span class='match'>v<\/span><span class='match'>e<\/span><\/li>\n  <li><span class='match'>B<\/span><span class='match'>r<\/span><span class='match'>i<\/span><span class='match'>c<\/span><span class='match'>k<\/span><span class='match'> <\/span><span class='match'>B<\/span><span class='match'>u<\/span><span class='match'>i<\/span><span class='match'>l<\/span><span class='match'>d<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'>g<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-cdedb6e70e02173a5cde" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cdedb6e70e02173a5cde">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span><span class='match'> <\/span><span class='match'>M<\/span><span class='match'>a<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'> <\/span><span class='match'>S<\/span><span class='match'>t<\/span><span class='match'>r<\/span><span class='match'>e<\/span><span class='match'>e<\/span><span class='match'>t<\/span><\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>e<\/span><span class='match'>n<\/span><span class='match'>n<\/span><span class='match'>s<\/span><span class='match'>y<\/span><span class='match'>l<\/span><span class='match'>v<\/span><span class='match'>a<\/span><span class='match'>n<\/span><span class='match'>i<\/span><span class='match'>a<\/span><span class='match'> <\/span><span class='match'>A<\/span><span class='match'>v<\/span><span class='match'>e<\/span><\/li>\n  <li><span class='match'>B<\/span><span class='match'>r<\/span><span class='match'>i<\/span><span class='match'>c<\/span><span class='match'>k<\/span><span class='match'> <\/span><span class='match'>B<\/span><span class='match'>u<\/span><span class='match'>i<\/span><span class='match'>l<\/span><span class='match'>d<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'>g<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![. searches for any character](images/gslides/153.png)
 
@@ -2517,8 +2517,8 @@ Using the definitions above, we can see that the following code will identify pa
 str_view_all(addresses, "n+")
 ```
 
-<!--html_preserve--><div id="htmlwidget-1aac09ba5e0cb8a50a4d" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1aac09ba5e0cb8a50a4d">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-73a41ac9abe93cd49656" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-73a41ac9abe93cd49656">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![+ specifies to match the pattern one or more times](images/gslides/154.png)
 
@@ -2530,8 +2530,8 @@ While the difference is slight in the output here, we're identifying portions of
 str_view_all(addresses, "n{1}")
 ```
 
-<!--html_preserve--><div id="htmlwidget-fbe78a643528a2bc8d3a" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fbe78a643528a2bc8d3a">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>n<\/span><span class='match'>n<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-025d7fb6aad83afecbd6" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-025d7fb6aad83afecbd6">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>n<\/span><span class='match'>n<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![{#} looks to match the pattern exactly the number of times within the curly braces](images/gslides/155.png)
 
@@ -2543,8 +2543,8 @@ If you only wanted to match strings where n showed up twice in a row, you could 
 str_view_all(addresses, "n{2}")
 ```
 
-<!--html_preserve--><div id="htmlwidget-47874fe2fa8930d8a01f" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-47874fe2fa8930d8a01f">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-fe6f631b171fd7fc286c" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fe6f631b171fd7fc286c">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![{2} specifies that the pattern must be found exactly twice](images/gslides/156.png)
 
@@ -2556,8 +2556,8 @@ This could similarly be achieved by specifying to search for the pattern 'nn' on
 str_view_all(addresses, "nn+")
 ```
 
-<!--html_preserve--><div id="htmlwidget-509b4ed3763ad8e60f14" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-509b4ed3763ad8e60f14">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-771b0606661085529ffb" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-771b0606661085529ffb">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![nn+ searches for double n one or more times in a string](images/gslides/157.png)
 
@@ -2569,16 +2569,16 @@ You can also specify a range of the number of times to search for a pattern with
 str_view_all(addresses, "n{2,3}")
 ```
 
-<!--html_preserve--><div id="htmlwidget-0f0564d4a4b7985a9c83" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0f0564d4a4b7985a9c83">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-67d4fa86874c796e15ad" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-67d4fa86874c796e15ad">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ```r
 ## identify any time n shows up three or four times 
 str_view_all(addresses, "n{3,4}")
 ```
 
-<!--html_preserve--><div id="htmlwidget-4df28a0741730d23a22b" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4df28a0741730d23a22b">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-4b6c96d7eb7b89b5abf0" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4b6c96d7eb7b89b5abf0">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ![{n,m} looks to pattern match between n and m times](images/gslides/158.png)
 
