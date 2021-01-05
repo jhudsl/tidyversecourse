@@ -24,7 +24,7 @@
 <meta name="author" content="Carrie Wright, Shannon E. Ellis, Stephanie C. Hicks and Roger D. Peng" />
 
 
-<meta name="date" content="2021-01-04" />
+<meta name="date" content="2021-01-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -406,7 +406,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1" data-path="model.html"><a href="model.html#about-this-course-4"><i class="fa fa-check"></i><b>5.1</b> About This Course</a></li>
 <li class="chapter" data-level="5.2" data-path="model.html"><a href="model.html#the-purpose-of-data-science"><i class="fa fa-check"></i><b>5.2</b> The Purpose of Data Science</a></li>
 <li class="chapter" data-level="5.3" data-path="model.html"><a href="model.html#types-of-data-science-questions"><i class="fa fa-check"></i><b>5.3</b> Types of Data Science Questions</a></li>
-<li class="chapter" data-level="5.4" data-path="model.html"><a href="model.html#data-needs"><i class="fa fa-check"></i><b>5.4</b> Data Needs</a></li>
+<li class="chapter" data-level="5.4" data-path="model.html"><a href="model.html#data-needs"><i class="fa fa-check"></i><b>5.4</b> Data Needs</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="model.html"><a href="model.html#number-of-observations-is-too-small"><i class="fa fa-check"></i><b>5.4.1</b> Number of observations is too small</a></li>
+<li class="chapter" data-level="5.4.2" data-path="model.html"><a href="model.html#dataset-does-not-contain-the-exact-variables-you-are-looking-for"><i class="fa fa-check"></i><b>5.4.2</b> Dataset does not contain the exact variables you are looking for</a></li>
+<li class="chapter" data-level="5.4.3" data-path="model.html"><a href="model.html#variables-in-the-dataset-are-not-collected-in-the-same-year"><i class="fa fa-check"></i><b>5.4.3</b> Variables in the dataset are not collected in the same year</a></li>
+<li class="chapter" data-level="5.4.4" data-path="model.html"><a href="model.html#dataset-is-not-representative-of-the-population-that-you-are-interested-in"><i class="fa fa-check"></i><b>5.4.4</b> Dataset is not representative of the population that you are interested in</a></li>
+<li class="chapter" data-level="5.4.5" data-path="model.html"><a href="model.html#some-variables-in-the-dataset-are-measured-with-error"><i class="fa fa-check"></i><b>5.4.5</b> Some variables in the dataset are measured with error</a></li>
+<li class="chapter" data-level="5.4.6" data-path="model.html"><a href="model.html#variables-are-confounded"><i class="fa fa-check"></i><b>5.4.6</b> Variables are confounded</a></li>
+</ul></li>
 <li class="chapter" data-level="5.5" data-path="model.html"><a href="model.html#descriptive-and-exploratory-analysis"><i class="fa fa-check"></i><b>5.5</b> Descriptive and Exploratory Analysis</a>
 <ul>
 <li class="chapter" data-level="5.5.1" data-path="model.html"><a href="model.html#missing-values"><i class="fa fa-check"></i><b>5.5.1</b> Missing Values</a></li>
@@ -524,10 +532,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We will look at a few different types of questions that you might want to answer from data. This flowchart gives some questions you can ask to figure out what type of question your analysis focuses on. Each type of question has different goals.</p>
 <p>There are four classes of question that we will focus on:</p>
 <ol style="list-style-type: decimal">
-<li><p><u>Descriptive</u>: The goal of descriptive data science questions is to understand the components of a dataset, describe what they are, and explain that description to others who might want to understand the data. This is the simplest type of data analysis.</p></li>
-<li><p><u>Exploratory</u>: The goal of exploratory data science questions is to find unknown relationships between the different variables you have measured in your dataset. Exploratory analysis is open ended and designed to find expected or unexpected relationships between different measurements. We have already seen how plotting the data can be very helpful to get a general understanding about how variables relate to one another.</p></li>
-<li><p><u>Inferential</u>: The goal of inferential data science questions is to is to use a small sample of data to say something about what would happen if we collected more data. Inferential questions come up because we want to understand the relationships between different variables but it is too expensive or difficult to collect data on every person or object.</p></li>
-<li><p><u>Predictive</u>: The goal of predictive data science question is to use data from a large collection to predict values for new individuals. This might be predicting what will happen in the future or predicting characteristics that are difficult to measure. Predictive data science is sometimes called machine learning.</p></li>
+<li><p><strong>Descriptive</strong>: The goal of descriptive data science questions is to understand the components of a dataset, describe what they are, and explain that description to others who might want to understand the data. This is the simplest type of data analysis.</p></li>
+<li><p><strong>Exploratory</strong>: The goal of exploratory data science questions is to find unknown relationships between the different variables you have measured in your dataset. Exploratory analysis is open ended and designed to find expected or unexpected relationships between different measurements. We have already seen how plotting the data can be very helpful to get a general understanding about how variables relate to one another.</p></li>
+<li><p><strong>Inferential</strong>: The goal of inferential data science questions is to is to use a small sample of data to say something about what would happen if we collected more data. Inferential questions come up because we want to understand the relationships between different variables but it is too expensive or difficult to collect data on every person or object.</p></li>
+<li><p><strong>Predictive</strong>: The goal of predictive data science question is to use data from a large collection to predict values for new individuals. This might be predicting what will happen in the future or predicting characteristics that are difficult to measure. Predictive data science is sometimes called machine learning.</p></li>
 </ol>
 <p><img src="images/ghimage/001.png" /></p>
 <p>One primary thing we need to be aware of is that just because two variables are correlated with each other, doesn’t mean that changing one causes a change in the other.</p>
@@ -536,14 +544,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="data-needs" class="section level2" number="5.4">
 <h2><span class="header-section-number">5.4</span> Data Needs</h2>
 <p>Let’s assume you have the dataset that contains the variables you are looking for to evaluate the question(s) you are interested in, and it is tidy and ready to go for your analysis. It’s always nice to step back to make sure the data is the right data before you spend hours and hours on your analysis. So, let’s discuss some of the potential and common issues people run into with their data.</p>
-<p><u> Number of observations is too small</u></p>
+<div id="number-of-observations-is-too-small" class="section level3" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Number of observations is too small</h3>
 <p>It happens quite often that collecting data is expensive or not easy. For instance, in a medical study on the effect of a drug on patients with Alzheimer disease, researchers will be happy if they can get a sample of 100 people. These studies are expensive, and it’s hard to find volunteers who enroll in the study. It is also the case with most social experiments. While data are everywhere, the data you need may not be. Therefore, most data scientists at some point in their career face the curse of small sample size. Small sample size makes it hard to be confident about the results of your analysis. So when you can, and it’s feasible, a large sample is preferable to a small sample. But when your only available dataset to work with is small you will have to note that in your analysis. Although we won’t learn them in this course, there are particular methods for inferential analysis when sample size is small.</p>
-<p><u> Dataset does not contain the exact variables you are looking for</u></p>
+</div>
+<div id="dataset-does-not-contain-the-exact-variables-you-are-looking-for" class="section level3" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> Dataset does not contain the exact variables you are looking for</h3>
 <p>In data analysis, it is common that you don’t always have what you need. You may need to know individuals’ IQ, but all you have is their GPA. You may need to understand food expenditure, but you have total expenditure. You may need to know parental education, but all you have is the number of books the family owns. It is often that the variable that we need in the analysis does not exist in the dataset and we can’t measure it. In these cases, our best bet is to find the closest variables to that variable. Variables that may be different in nature but are highly correlated with (similar to) the variable of interest are what are often used in such cases. These variables are called proxy variables.</p>
 <p>For instance, if we don’t have parental education in our dataset, we can use the number of books the family has in their home as a proxy. Although the two variables are different, they are highly correlated (very similar), since more educated parents tend to have more books at home. So in most cases where you can’t have the variable you need in your analysis, you can replace it with a proxy. Again, it must always be noted clearly in your analysis why you used a proxy variable and what variable was used as your proxy.</p>
-<p><u>Variables in the dataset are not collected in the same year</u></p>
+</div>
+<div id="variables-in-the-dataset-are-not-collected-in-the-same-year" class="section level3" number="5.4.3">
+<h3><span class="header-section-number">5.4.3</span> Variables in the dataset are not collected in the same year</h3>
 <p>Imagine we want to find the relationship between the effect of cab prices and the number of rides in New York City. We want to see how people react to price changes. We get a hold of data on cab prices in 2018, but we only have data on the number of rides from 2015. Can these two variables be used together in our analysis? Simply, no. If we want to answer this question, we can’t match these two sets of data. If we’re using the prices from 2018, we should find the number of rides from 2018 as well. Unfortunately, a lot of the time, this is an issue you’ll run into. You’ll either have to find a way to get the data from the same year or go back to the drawing board and ask a different question. This issue can be ignored only in cases where we’re confident the variables does not change much from year to year.</p>
-<p><u>Dataset is not representative of the population that you are interested in</u></p>
+</div>
+<div id="dataset-is-not-representative-of-the-population-that-you-are-interested-in" class="section level3" number="5.4.4">
+<h3><span class="header-section-number">5.4.4</span> Dataset is not representative of the population that you are interested in</h3>
 <p>You will hear the term <strong>representative sample</strong>, but what is it? Before defining a representative sample, let’s see what a population is in statistical terms. We have used the word population without really getting into its definition.</p>
 <p>A sample is part of a ** population **. A population, in general, is every member of the whole group of people we are interested in. Sometimes it is possible to collect data for the entire population, like in the U.S. Census, but in most cases, we can’t. So we collect data on only a subset of the population. For example, if we are studying the effect of sugar consumption on diabetes, we can’t collect data on the entire population of the United States. Instead, we collect data on a sample of the population. Now, that we know what sample and population are, let’s go back to the definition of a representative sample.</p>
 <p>A representative sample is a sample that accurately reflects the larger population. For instance, if the population is every adult in the United States, the sample includes an appropriate share of men and women, racial groups, educational groups, age groups, geographical groups, and income groups. If the population is supposed to be every adult in the U.S., then you can’t collect data on just people in California, or just young people, or only men. This is the idea of a representative sample. It has to model the broader population in all major respects.</p>
@@ -557,15 +572,20 @@ A TV show host asks the program viewers to visit the network website and respond
 With this logic, most online surveys or surveys on social media has to be taken with a grain of salt because not members of all social groups have an online presentation or use social media.</p>
 <p>The moral of the story is to always think about what your population is. Your population will change from one project to the next. If you are researching the effect of smoking on pregnant women, then your population is, well, pregnant women (and not men). After you know your population, then you will always want collect data from a sample that is representative of your population. Random sampling helps.</p>
 <p>And lastly, if you have no choice but to work with a dataset that is not collected randomly and is biased, be careful not to generalize your results to the entire population. If you collect data on pregnant women of age 18-24, you can’t generalize your results to older women. If you collect data from the political attitudes of residents of Washington, DC, you can’t say anything about the whole nation.</p>
-<p><u>Some variables in the dataset are measured with error</u></p>
+</div>
+<div id="some-variables-in-the-dataset-are-measured-with-error" class="section level3" number="5.4.5">
+<h3><span class="header-section-number">5.4.5</span> Some variables in the dataset are measured with error</h3>
 <p>Another curse of a dataset is measurement error. In simple, measurement error refers to incorrect measurement of variables in your sample. Just like measuring things in the physical world comes with error (like measuring distance, exact temperature, BMI, etc.), measuring variables in the social context can come with an error. When you ask people how many books they have read in the past year, not everyone remembers it correctly. Similarly, you may have measurement error when you ask people about their income. A good researcher recognizes measurement error in the data before any analysis and takes it into account during their analysis.</p>
-<p><u>Variables are confounded</u></p>
+</div>
+<div id="variables-are-confounded" class="section level3" number="5.4.6">
+<h3><span class="header-section-number">5.4.6</span> Variables are confounded</h3>
 <p>What if you were interested in determining what variables lead to increases in crime? To do so, you obtain data from a US city with lots of different variables and crime rates for a particular time period. You would then wrangle the data and at first you look at the relationship between popsicle sales and crime rates. You see that the more popsicles that are sold, the higher the crime rate.</p>
 <p><img src="images/ghimage/002.png" /></p>
 <p>Your first thought may be that popsicles lead to crimes being committed. However, there is a confounder that’s not being considered!</p>
 <p>In short, confounders are other variables that may affect our outcome but are also correlated with (have a relationship with) our main variable of interest. In the popsicle example, temperature is an important confounder. More crimes happen when it’s warm out and more popsicles are sold. It’s not the popsicles at all driving the relationship. Instead temperature is likely the culprit.</p>
 <p><img src="images/ghimage/003.png" /></p>
 <p>This is why getting an understanding of what data you have and how the variables relate to one another is so vital before moving forward with inference or prediction. We have already described exploratory analysis to some extent using visualization methods. Now we will recap a bit and discuss descriptive analysis.</p>
+</div>
 </div>
 <div id="descriptive-and-exploratory-analysis" class="section level2" number="5.5">
 <h2><span class="header-section-number">5.5</span> Descriptive and Exploratory Analysis</h2>
@@ -1616,7 +1636,7 @@ We again expected that it did. Thus we had a statement that " car mileage can be
 <h5><span class="header-section-number">5.13.3.2.2</span> Step 2: Specify the preprocessing steps with <code>step*()</code> functions</h5>
 <p>Next, we use the <code>step*()</code> functions from the <code>recipe</code> package to specify preprocessing steps.</p>
 <p><strong>This <a href="https://tidymodels.github.io/recipes/reference/index.html" target="_blank">link</a> and this <a href="https://cran.r-project.org/web/packages/recipes/recipes.pdf" target="_blank">link</a> show the many options for recipe step functions.</strong></p>
-<p><u>There are step functions for a variety of purposes:</u></p>
+<p>There are step functions for a variety of purposes:</p>
 <ol style="list-style-type: decimal">
 <li><a href="https://en.wikipedia.org/wiki/Imputation_(statistics)" target="_blank"><strong>Imputation</strong></a> – filling in missing values based on the existing data</li>
 <li><a href="https://en.wikipedia.org/wiki/Data_transformation_(statistics)" target="_blank"><strong>Transformation</strong></a> – changing all values of a variable in the same way, typically to make it more normal or easier to interpret</li>
@@ -3532,7 +3552,7 @@ Instead of including it as a predictor variable, we could also use the <code>upd
 ##      outcome          1
 ##    predictor         48</code></pre>
 <p><strong>This <a href="https://tidymodels.github.io/recipes/reference/index.html" target="_blank">link</a> and this <a href="https://cran.r-project.org/web/packages/recipes/recipes.pdf" target="_blank">link</a> show the many options for recipe step functions.</strong></p>
-<p><u>There are step functions for a variety of purposes:</u></p>
+<p>There are step functions for a variety of purposes:</p>
 <ol style="list-style-type: decimal">
 <li><a href="https://en.wikipedia.org/wiki/Imputation_(statistics)" target="_blank"><strong>Imputation</strong></a> – filling in missing values based on the existing data</li>
 <li><a href="https://en.wikipedia.org/wiki/Data_transformation_(statistics)" target="_blank"><strong>Transformation</strong></a> – changing all values of a variable in the same way, typically to make it more normal or easier to interpret</li>
