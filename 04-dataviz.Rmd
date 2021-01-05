@@ -1639,11 +1639,13 @@ ggplot(mtcars) +
 
 Alternatively, we could animate the plot, using `gganimate` so that on a single plot we rotate between each of these three plots. 
 
+NOTE: For this book, we only show the code for the animations, not the output. In order to see the animations live, you can see the [web version of this book](https://jhudatascience.org/tidyversecourse/dataviz.html#gganimate-1).
+
 ##### Transitions
 
 We'll transition in this example between frames by gear:
 
-```{r message = FALSE}
+```{r message = FALSE, eval = FALSE}
 # animate it!
 mtcars %>%
   mutate(gear = factor(gear),
@@ -1659,7 +1661,7 @@ This means that the number of frames in the animation will be the number of leve
 
 `transition_manual()` is not the only option for transition. In fact, there are a number of different `transition_*` options, depending upon your animation needs. One of the most commonly used is `transition_states()`. The animation will plot the same information as the example above; however, it allows for finer tune control of the animation
 
-```{r message = FALSE}
+```{r message = FALSE, eval=FALSE}
 # animate it!
 anim <- ggplot(mtcars) + 
   geom_boxplot(aes(factor(cyl), mpg)) + 
@@ -1676,7 +1678,7 @@ Note here that we've stored the output from `transition_states` in the object `a
 
 Currently, it's hard to know which frame corresponds to which `gear`. To make this easier on the viewer, let's label our animation:
 
-```{r message = FALSE}
+```{r message = FALSE, eval=FALSE}
 # animate it!
 anim <- anim +  
   labs(title = 'Now showing gear: {closest_state}')
@@ -1690,7 +1692,7 @@ Note that we're referring to the appropriate gear within the animation frame by 
 
 Easing determines how the change from one value to another should occur. The default is linear, but there are other options that will control the appearance of progression in your animation. for example, 'cubic-in-out' allows for the start and end of the animation to have a smoother look.
 
-```{r message = FALSE}
+```{r message = FALSE, eval=FALSE}
 anim <- anim + 
   # Slow start and end for a smoother look
   ease_aes('cubic-in-out')
@@ -1704,7 +1706,7 @@ There are a number of easing functions, all of which are listed within the docum
 
 Building on top of easing, we can also control how the data appears (enters) and disappears (exits), using `enter_*` and `exit_*`:
 
-```{r message = FALSE}
+```{r message = FALSE,eval=FALSE}
 anim <- anim + 
   # fade to enter
   enter_fade() +
@@ -1728,7 +1730,7 @@ ggplot(mtcars) +
 
 However, upon adding animation, we see how the data changes by gear.
 
-```{r message = FALSE}
+```{r message = FALSE,eval=FALSE}
 # animate it!
 scat <- ggplot(mtcars) + 
   geom_point(aes(qsec, mpg)) + 
@@ -1744,7 +1746,7 @@ However, the x- and y-axes remain constant throughout the animation.
 
 If you wanted to allow these positional scales to adjust between each gear level, you could use `view_step`:
 
-```{r message = FALSE}
+```{r message = FALSE,eval=FALSE}
 # allow positional scaling for each level in gear
 scat +
   view_step(pause_length = 2, 
@@ -1758,7 +1760,7 @@ scat +
 
 One of the most famous examples of an animated plot uses the gapminder dataset. This dataset includes economic data for countries all over the world. The animated plot here demonstrates the relationship between GDP (per capita) and life expectancy over time, by continent. Note that the year whose data is being displayed is shown at the top left portion of the plot.
 
-```{r message = FALSE}
+```{r message = FALSE,eval=FALSE}
 # install.packages("gapminder")
 library(gapminder)
 
@@ -1785,7 +1787,7 @@ However, what if we didn't want the data to completely disappear from one frame 
 
 To do this, we would use `shadow_*`. Here, we'll use `shadow_trail()` to see a trail of the data from one frame to the next:
 
-```{r message = FALSE}
+```{r message = FALSE,eval=FALSE}
 gap +
  shadow_trail(distance = 0.05,
               alpha = 0.3)
