@@ -24,7 +24,7 @@
 <meta name="author" content="Carrie Wright, Shannon E. Ellis, Stephanie C. Hicks and Roger D. Peng" />
 
 
-<meta name="date" content="2021-01-04" />
+<meta name="date" content="2021-01-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -406,7 +406,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1" data-path="model.html"><a href="model.html#about-this-course-4"><i class="fa fa-check"></i><b>5.1</b> About This Course</a></li>
 <li class="chapter" data-level="5.2" data-path="model.html"><a href="model.html#the-purpose-of-data-science"><i class="fa fa-check"></i><b>5.2</b> The Purpose of Data Science</a></li>
 <li class="chapter" data-level="5.3" data-path="model.html"><a href="model.html#types-of-data-science-questions"><i class="fa fa-check"></i><b>5.3</b> Types of Data Science Questions</a></li>
-<li class="chapter" data-level="5.4" data-path="model.html"><a href="model.html#data-needs"><i class="fa fa-check"></i><b>5.4</b> Data Needs</a></li>
+<li class="chapter" data-level="5.4" data-path="model.html"><a href="model.html#data-needs"><i class="fa fa-check"></i><b>5.4</b> Data Needs</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="model.html"><a href="model.html#number-of-observations-is-too-small"><i class="fa fa-check"></i><b>5.4.1</b> Number of observations is too small</a></li>
+<li class="chapter" data-level="5.4.2" data-path="model.html"><a href="model.html#dataset-does-not-contain-the-exact-variables-you-are-looking-for"><i class="fa fa-check"></i><b>5.4.2</b> Dataset does not contain the exact variables you are looking for</a></li>
+<li class="chapter" data-level="5.4.3" data-path="model.html"><a href="model.html#variables-in-the-dataset-are-not-collected-in-the-same-year"><i class="fa fa-check"></i><b>5.4.3</b> Variables in the dataset are not collected in the same year</a></li>
+<li class="chapter" data-level="5.4.4" data-path="model.html"><a href="model.html#dataset-is-not-representative-of-the-population-that-you-are-interested-in"><i class="fa fa-check"></i><b>5.4.4</b> Dataset is not representative of the population that you are interested in</a></li>
+<li class="chapter" data-level="5.4.5" data-path="model.html"><a href="model.html#some-variables-in-the-dataset-are-measured-with-error"><i class="fa fa-check"></i><b>5.4.5</b> Some variables in the dataset are measured with error</a></li>
+<li class="chapter" data-level="5.4.6" data-path="model.html"><a href="model.html#variables-are-confounded"><i class="fa fa-check"></i><b>5.4.6</b> Variables are confounded</a></li>
+</ul></li>
 <li class="chapter" data-level="5.5" data-path="model.html"><a href="model.html#descriptive-and-exploratory-analysis"><i class="fa fa-check"></i><b>5.5</b> Descriptive and Exploratory Analysis</a>
 <ul>
 <li class="chapter" data-level="5.5.1" data-path="model.html"><a href="model.html#missing-values"><i class="fa fa-check"></i><b>5.5.1</b> Missing Values</a></li>
@@ -559,16 +567,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The <code>slice_sample()</code> function of the <code>dplyr</code> package will allow you to see a sample of random rows in random order. The number of rows to show is specified by the <code>n</code> argument. This can be useful if you don’t want to print the entire tibble, but you want to get a greater sense of the values. This is a good option for data analysis reports, where printing the entire tibble would not be appropriate if the tibble is quite large.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="get-data.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_sample</span>(trees, <span class="at">n =</span> <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##    Girth Height Volume
-## 1   13.3     86   27.4
-## 2   17.5     82   55.7
-## 3   10.8     83   19.7
-## 4   13.7     71   25.7
-## 5   18.0     80   51.5
-## 6   10.7     81   18.8
-## 7   10.5     72   16.4
-## 8   16.0     72   38.3
-## 9    8.3     70   10.3
-## 10   8.8     63   10.2</code></pre>
+## 1   16.0     72   38.3
+## 2    8.8     63   10.2
+## 3   13.7     71   25.7
+## 4   10.8     83   19.7
+## 5   16.3     77   42.6
+## 6   20.6     87   77.0
+## 7   13.8     64   24.9
+## 8   11.7     69   21.3
+## 9   18.0     80   51.5
+## 10  13.3     86   27.4</code></pre>
 <p>You can also use <code>slice_head()</code> or <code>slice_tail()</code> to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.</p>
 <p>This will show the first 5 rows.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="get-data.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_head</span>(trees, <span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div>
@@ -1984,11 +1992,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb142-7"><a href="get-data.html#cb142-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb142-8"><a href="get-data.html#cb142-8" aria-hidden="true" tabindex="-1"></a><span class="fu">GET</span>(url, <span class="fu">write_disk</span>(tf <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.xlsx&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2021-01-04 19:02
+##   Date: 2021-01-05 13:36
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpJu2Ef4/file67d159c09d07.xlsx</code></pre>
+## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpZ2Snrl/file751c59c09d07.xlsx</code></pre>
 <div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="get-data.html#cb144-1" aria-hidden="true" tabindex="-1"></a>brady <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(tf, <span class="at">sheet =</span> <span class="dv">1</span>)</span>
 <span id="cb144-2"><a href="get-data.html#cb144-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb144-3"><a href="get-data.html#cb144-3" aria-hidden="true" tabindex="-1"></a>brady</span></code></pre></div>
@@ -2023,11 +2031,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb146-4"><a href="get-data.html#cb146-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb146-5"><a href="get-data.html#cb146-5" aria-hidden="true" tabindex="-1"></a><span class="fu">GET</span>(url, <span class="fu">write_disk</span>(tf <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2021-01-04 19:02
+##   Date: 2021-01-05 13:36
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpJu2Ef4/file67d1618fb492.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpZ2Snrl/file751c618fb492.xls</code></pre>
 <div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="get-data.html#cb148-1" aria-hidden="true" tabindex="-1"></a>crime <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(tf, <span class="at">sheet =</span> <span class="dv">1</span>, <span class="at">skip =</span> <span class="dv">3</span>)</span>
 <span id="cb148-2"><a href="get-data.html#cb148-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb148-3"><a href="get-data.html#cb148-3" aria-hidden="true" tabindex="-1"></a><span class="co"># see data</span></span>
@@ -2060,11 +2068,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb150-4"><a href="get-data.html#cb150-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb150-5"><a href="get-data.html#cb150-5" aria-hidden="true" tabindex="-1"></a><span class="fu">GET</span>(url, <span class="fu">write_disk</span>(tf <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2021-01-04 19:02
+##   Date: 2021-01-05 13:36
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpJu2Ef4/file67d16135133.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpZ2Snrl/file751c6135133.xls</code></pre>
 <div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="get-data.html#cb152-1" aria-hidden="true" tabindex="-1"></a>land <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(tf, <span class="at">sheet =</span> <span class="dv">1</span>)</span>
 <span id="cb152-2"><a href="get-data.html#cb152-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-3"><a href="get-data.html#cb152-3" aria-hidden="true" tabindex="-1"></a><span class="co"># see data</span></span>

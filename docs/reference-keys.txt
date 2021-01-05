@@ -381,6 +381,12 @@ about-this-course-4
 the-purpose-of-data-science
 types-of-data-science-questions
 data-needs
+number-of-observations-is-too-small
+dataset-does-not-contain-the-exact-variables-you-are-looking-for
+variables-in-the-dataset-are-not-collected-in-the-same-year
+dataset-is-not-representative-of-the-population-that-you-are-interested-in
+some-variables-in-the-dataset-are-measured-with-error
+variables-are-confounded
 descriptive-and-exploratory-analysis
 missing-values
 shape
