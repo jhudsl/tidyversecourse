@@ -1,7 +1,9 @@
 # Visualizing Data in the Tidyverse {#dataviz}
 
 ```{r, include=FALSE}
-knitr::opts_chunk$set(fig.path = "images/dataviz-")
+knitr::opts_chunk$set(fig.path = "images/dataviz-",
+                      collapse = TRUE,
+                      comment = NA)
 ```
 
 ## About This Course

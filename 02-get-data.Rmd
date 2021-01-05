@@ -3,7 +3,9 @@
 Data are stored in all sorts of different file formats and structures. In this course, we'll discuss each of these common formats and discuss how to get them into R so you can start working with them! 
 
 ```{r, include=FALSE}
-knitr::opts_chunk$set(fig.path = "images/get-data-")
+knitr::opts_chunk$set(fig.path = "images/get-data-",
+                      collapse = TRUE,
+                      comment = NA)
 ```
 
 ## About This Course
