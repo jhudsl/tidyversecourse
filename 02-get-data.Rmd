@@ -1109,7 +1109,6 @@ Some 50 million images of cars from over 200 cities were used by researchers to 
 
 Using these two datasets (the Google Street view car image data and the demographic data), researchers used a technique known as **machine learning** to build an algorithm that could, from the images of cars in a neighborhood, predict the demographics (race, income, etc) and how that area is likely to vote. Comparing these two sets of data, they were able to accurately estimate income, race, education, and voting patterns at the zip code level from the Google Street view images.
 
-![Cars in a neighborhood can predict how the area votes](images/gslides/083.png)
 
 #### Reading Images in R
 
