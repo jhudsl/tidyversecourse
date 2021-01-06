@@ -692,11 +692,11 @@ The phrase "data science workflow" describes the method or steps by which a data
 - Generation of data visualizations to demonstrate findings
 - Communication of your analysis and findings
         
-We will demonstrate potential ways of organizing a workflow using real data from the [Open Case Studies](https://opencasestudies.github.io/) project. 
+We will demonstrate potential ways of organizing a workflow using real data from the [Open Case Studies](https://www.opencasestudies.org) project. 
 
 ## Case Studies
 
-Throughout this specialization, we're going to make use of a number of case studies from [Open Case Studies](https://opencasestudies.github.io/) to demonstrate the concepts introduced in the course. We will generally make use of the same case studies throughout the specialization, providing continuity to allow you focus on the concepts and skills being taught (rather than the context) while working with interesting data. These case studies aim to address a public-health question and all of them use real data. 
+Throughout this specialization, we're going to make use of a number of case studies from [Open Case Studies](https://www.opencasestudies.org) to demonstrate the concepts introduced in the course. We will generally make use of the same case studies throughout the specialization, providing continuity to allow you focus on the concepts and skills being taught (rather than the context) while working with interesting data. These case studies aim to address a public-health question and all of them use real data. 
 
 ### Case Study #1: Health Expenditures
 
