@@ -10,7 +10,7 @@ Getting data into your statistical analysis system can be one of the most challe
 
 This course introduces the Tidyverse tools for importing data into R so that it can be prepared for analysis, visualization, and modeling. Common data formats are introduced, including delimited files, spreadsheets, and relational databases. We will also introduce techniques for obtaining data from the web, such as web scraping and getting data from web APIs. 
 
-In this specialization we assume familiarity with the R programming language. If you are not yet familiar with R, we suggest you first complete [R Programming](https://www.coursera.org/learn/r-programming) before returning to complete this course.
+In this book we assume familiarity with the R programming language. If you are not yet familiar with R, we suggest you first complete [R Programming](https://www.coursera.org/learn/r-programming) before returning to complete this course.
 
 
 
@@ -94,16 +94,16 @@ The `slice_sample()` function of the `dplyr` package will allow you to see a sam
 ```r
 slice_sample(trees, n = 10)
    Girth Height Volume
-1    8.6     65   10.3
-2   14.2     80   31.7
-3   13.3     86   27.4
-4   11.4     76   21.4
-5   11.1     80   22.6
-6   16.3     77   42.6
-7   14.5     74   36.3
-8   18.0     80   51.5
-9   11.0     75   18.2
-10  16.0     72   38.3
+1   11.0     66   15.6
+2    8.8     63   10.2
+3   11.4     76   21.4
+4   16.0     72   38.3
+5   13.3     86   27.4
+6   11.0     75   18.2
+7   12.9     85   33.8
+8   12.0     75   19.1
+9   17.5     82   55.7
+10  11.2     75   19.9
 ```
 
 You can also use `slice_head()` or `slice_tail()` to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.
@@ -777,7 +777,10 @@ db <- dbConnect(sqlite, "company.db")
 
 ## List tables in database
 dbListTables(db)
-character(0)
+ [1] "albums"          "artists"         "customers"       "employees"      
+ [5] "genres"          "invoice_items"   "invoices"        "media_types"    
+ [9] "playlist_track"  "playlists"       "sqlite_sequence" "sqlite_stat1"   
+[13] "tracks"         
 ```
 
 The output from `dbListTables()` will include 13 tables. Among them will be the two tables we're going to work through in our example: `artists`, and `albums`.
@@ -801,9 +804,7 @@ library(dplyr)
 
 ## get two tables
 albums <- tbl(db, "albums")
-Error: no such table: albums
 artists <- tbl(db, "artists")
-Error: no such table: artists
 ```
 
 ### Mutating Joins
@@ -841,11 +842,23 @@ Now, to run this for our tables from the database, rather than just for a few ro
 ```r
 ## do inner join
 inner <- inner_join(artists, albums, by = "ArtistId")
-Error in inner_join(artists, albums, by = "ArtistId"): object 'artists' not found
 
 ## look at output as a tibble
 as_tibble(inner)
-Error in as_tibble(inner): object 'inner' not found
+# A tibble: 347 x 4
+   ArtistId Name                 AlbumId Title                                
+      <int> <chr>                  <int> <chr>                                
+ 1        1 AC/DC                      1 For Those About To Rock We Salute You
+ 2        2 Accept                     2 Balls to the Wall                    
+ 3        2 Accept                     3 Restless and Wild                    
+ 4        1 AC/DC                      4 Let There Be Rock                    
+ 5        3 Aerosmith                  5 Big Ones                             
+ 6        4 Alanis Morissette          6 Jagged Little Pill                   
+ 7        5 Alice In Chains            7 Facelift                             
+ 8        6 Antônio Carlos Jobim       8 Warner 25 Anos                       
+ 9        7 Apocalyptica               9 Plays Metallica By Four Cellos       
+10        8 Audioslave                10 Audioslave                           
+# … with 337 more rows
 ```
 
 #### Left Join
@@ -866,11 +879,23 @@ Now, to run this for our tables from the database, rather than just for a few ro
 ```r
 ## do left join
 left <- left_join(artists, albums, by = "ArtistId")
-Error in left_join(artists, albums, by = "ArtistId"): object 'artists' not found
 
 ## look at output as a tibble
 as_tibble(left)
-Error in as_tibble(left): object 'left' not found
+# A tibble: 418 x 4
+   ArtistId Name                 AlbumId Title                                
+      <int> <chr>                  <int> <chr>                                
+ 1        1 AC/DC                      1 For Those About To Rock We Salute You
+ 2        1 AC/DC                      4 Let There Be Rock                    
+ 3        2 Accept                     2 Balls to the Wall                    
+ 4        2 Accept                     3 Restless and Wild                    
+ 5        3 Aerosmith                  5 Big Ones                             
+ 6        4 Alanis Morissette          6 Jagged Little Pill                   
+ 7        5 Alice In Chains            7 Facelift                             
+ 8        6 Antônio Carlos Jobim       8 Warner 25 Anos                       
+ 9        6 Antônio Carlos Jobim      34 Chill: Brazil (Disc 2)               
+10        7 Apocalyptica               9 Plays Metallica By Four Cellos       
+# … with 408 more rows
 ```
 
 
@@ -892,11 +917,23 @@ Now, to run this for our tables from the database, you would have to do somethin
 ```r
 ## do right join
 right <- right_join(as_tibble(artists), as_tibble(albums), by = "ArtistId")
-Error in as_tibble(artists): object 'artists' not found
 
 ## look at output as a tibble
 as_tibble(right)
-Error in as_tibble(right): object 'right' not found
+# A tibble: 347 x 4
+   ArtistId Name                 AlbumId Title                                
+      <int> <chr>                  <int> <chr>                                
+ 1        1 AC/DC                      1 For Those About To Rock We Salute You
+ 2        1 AC/DC                      4 Let There Be Rock                    
+ 3        2 Accept                     2 Balls to the Wall                    
+ 4        2 Accept                     3 Restless and Wild                    
+ 5        3 Aerosmith                  5 Big Ones                             
+ 6        4 Alanis Morissette          6 Jagged Little Pill                   
+ 7        5 Alice In Chains            7 Facelift                             
+ 8        6 Antônio Carlos Jobim       8 Warner 25 Anos                       
+ 9        6 Antônio Carlos Jobim      34 Chill: Brazil (Disc 2)               
+10        7 Apocalyptica               9 Plays Metallica By Four Cellos       
+# … with 337 more rows
 ```
 
 
@@ -918,11 +955,23 @@ As you saw in the last example, to carry out a full join, we have to again speci
 ```r
 ## do right join
 full <- full_join(as_tibble(artists), as_tibble(albums), by = "ArtistId")
-Error in as_tibble(artists): object 'artists' not found
 
 ## look at output as a tibble
 as_tibble(full)
-Error in as_tibble(full): object 'full' not found
+# A tibble: 418 x 4
+   ArtistId Name                 AlbumId Title                                
+      <int> <chr>                  <int> <chr>                                
+ 1        1 AC/DC                      1 For Those About To Rock We Salute You
+ 2        1 AC/DC                      4 Let There Be Rock                    
+ 3        2 Accept                     2 Balls to the Wall                    
+ 4        2 Accept                     3 Restless and Wild                    
+ 5        3 Aerosmith                  5 Big Ones                             
+ 6        4 Alanis Morissette          6 Jagged Little Pill                   
+ 7        5 Alice In Chains            7 Facelift                             
+ 8        6 Antônio Carlos Jobim       8 Warner 25 Anos                       
+ 9        6 Antônio Carlos Jobim      34 Chill: Brazil (Disc 2)               
+10        7 Apocalyptica               9 Plays Metallica By Four Cellos       
+# … with 408 more rows
 ```
 
 #### Mutating Joins Summary
@@ -1333,7 +1382,6 @@ Some 50 million images of cars from over 200 cities were used by researchers to 
 
 Using these two datasets (the Google Street view car image data and the demographic data), researchers used a technique known as **machine learning** to build an algorithm that could, from the images of cars in a neighborhood, predict the demographics (race, income, etc) and how that area is likely to vote. Comparing these two sets of data, they were able to accurately estimate income, race, education, and voting patterns at the zip code level from the Google Street view images.
 
-![Cars in a neighborhood can predict how the area votes](images/gslides/083.png)
 
 #### Reading Images in R
 
@@ -1712,7 +1760,7 @@ After creating a directory called raw_data within a directory that we called dat
 
 ```r
 library(here)
-here() starts at /Users/rdpeng/books/tidyverse-devel
+here() starts at /Users/rdpeng/books/tidyversecourse
 save(coverage, spending, file = here::here("data", "raw_data", "case_study_1.rda"))
 #the coverage object and the spending object will get saved as case_study_1.rda within the raw_data directory which is a subdirectory of data 
 #the here package identifies where the project directory is located based on the .Rproj, and thus the path to this directory is not needed
@@ -1825,11 +1873,11 @@ url = "https://github.com/opencasestudies/ocs-police-shootings-firearm-legislati
 # Use httr's GET() and read_excel() to read in file
 GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-  Date: 2021-01-05 19:25
+  Date: 2021-01-06 23:05
   Status: 200
   Content-Type: application/octet-stream
   Size: 66.2 kB
-<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpZT4ret/file85d659c09d07.xlsx
+<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpU5GWrO/file9c7859c09d07.xlsx
 brady <- read_excel(tf, sheet = 1)
 
 brady
@@ -1868,11 +1916,11 @@ url = "https://github.com/opencasestudies/ocs-police-shootings-firearm-legislati
 # Use httr's GET() and read_excel() to read in file
 GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-  Date: 2021-01-05 19:25
+  Date: 2021-01-06 23:05
   Status: 200
   Content-Type: application/octet-stream
   Size: 98.3 kB
-<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpZT4ret/file85d6618fb492.xls
+<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpU5GWrO/file9c78618fb492.xls
 crime <- read_excel(tf, sheet = 1, skip = 3)
 
 # see data
@@ -1910,11 +1958,11 @@ url = "https://github.com/opencasestudies/ocs-police-shootings-firearm-legislati
 # Use httr's GET() and read_excel() to read in file
 GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-  Date: 2021-01-05 19:25
+  Date: 2021-01-06 23:05
   Status: 200
   Content-Type: application/octet-stream
   Size: 1.57 MB
-<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpZT4ret/file85d66135133.xls
+<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpU5GWrO/file9c786135133.xls
 land <- read_excel(tf, sheet = 1)
 
 # see data

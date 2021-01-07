@@ -2458,7 +2458,6 @@ Let's save some of these plots for later:
 
 ```r
 pdf(here::here("figures", "exploratory", "2013and2014_spending_and_coverage.pdf"))
-Error in pdf(here::here("figures", "exploratory", "2013and2014_spending_and_coverage.pdf")): cannot open file '/Users/rdpeng/books/tidyverse-devel/figures/exploratory/2013and2014_spending_and_coverage.pdf'
 
 hc %>%
   filter(type == "Employer") %>% 
@@ -2474,17 +2473,11 @@ hc %>%
             nudge_x = 150, 
             show.legend = FALSE)
 `geom_smooth()` using formula 'y ~ x'
-```
-
-![plot of chunk unnamed-chunk-114](images/dataviz-unnamed-chunk-114-1.png)
-
-```r
 dev.off()
-null device 
-          1 
+quartz_off_screen 
+                2 
 
 pdf(here::here("figures", "exploratory", "2013_coverage_type.pdf"))
-Error in pdf(here::here("figures", "exploratory", "2013_coverage_type.pdf")): cannot open file '/Users/rdpeng/books/tidyverse-devel/figures/exploratory/2013_coverage_type.pdf'
 hc %>%
   filter(year == "2013") %>% 
   ggplot(aes(x = spending_capita, 
@@ -2503,11 +2496,10 @@ Warning: Removed 9 rows containing non-finite values (stat_smooth).
 Warning: Removed 9 rows containing missing values (geom_point).
 Warning: Removed 9 rows containing missing values (geom_text).
 dev.off()
-null device 
-          1 
+quartz_off_screen 
+                2 
 
 pdf(here::here("figures", "exploratory", "2014_coverage_type.pdf"))
-Error in pdf(here::here("figures", "exploratory", "2014_coverage_type.pdf")): cannot open file '/Users/rdpeng/books/tidyverse-devel/figures/exploratory/2014_coverage_type.pdf'
 hc %>%
   filter(year == "2014") %>% 
   ggplot(aes(x = spending_capita, 
@@ -2526,8 +2518,8 @@ Warning: Removed 10 rows containing non-finite values (stat_smooth).
 Warning: Removed 10 rows containing missing values (geom_point).
 Warning: Removed 10 rows containing missing values (geom_text).
 dev.off()
-null device 
-          1 
+quartz_off_screen 
+                2 
 ```
 
 #### Q2: Spending Across Geographic Regions?
@@ -2847,7 +2839,6 @@ If we wanted to save this particular plot as a pdf, we could do so like this to 
 
 ```r
 pdf(here::here("figures", "exploratory", "Fatal_police_shootings_and_firearm_legislative_strength.pdf"))
-Error in pdf(here::here("figures", "exploratory", "Fatal_police_shootings_and_firearm_legislative_strength.pdf")): cannot open file '/Users/rdpeng/books/tidyverse-devel/figures/exploratory/Fatal_police_shootings_and_firearm_legislative_strength.pdf'
 
 ggplot(firearms, aes(x = brady_scores, 
                      y = gunshot_rate)) + 
@@ -2860,13 +2851,8 @@ Warning: Removed 2 rows containing missing values (geom_point).
 Warning: Removed 2 rows containing missing values (geom_text_repel).
 Warning: ggrepel: 3 unlabeled data points (too many overlaps). Consider
 increasing max.overlaps
-```
-
-![plot of chunk unnamed-chunk-127](images/dataviz-unnamed-chunk-127-1.png)
-
-```r
 
 dev.off()
-null device 
-          1 
+quartz_off_screen 
+                2 
 ```

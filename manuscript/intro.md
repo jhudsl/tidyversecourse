@@ -7,11 +7,11 @@
 
 The **data science life cycle** begins with a question that can be answered with data and ends with an answer to that question. However, there are a lot of steps that happen after a question has been generated and before arriving at an answer. After generating their specific question, data scientists have to determine what data will be useful, import the data, tidy the data into a format that is easy to work with, explore the data, generate insightful visualizations, carry out the analysis, and communicate their findings. Throughout this process, it is often said that [50-80% of a data scientist's time is spent wrangling data](https://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html). It can be hard work to read the data in and get data into the format you need to ultimately answer the question. As a result, conceptual frameworks and software packages to make these steps easier have been developed.
 
-Within the R community, R packages that have been developed for this very purpose are often referred to as the Tidyverse. According to their website, the [tidyverse](https://www.tidyverse.org/) is "an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures." There are currently about a dozen packages that make up the official tidyverse; however, there are dozens of tidyverse-adjacent packages that follow this philosophy, grammar, and data structures and work well with the official tidyverse packages. It is this whole set of packages that we have set out to teach in this specialization. 
+Within the R community, R packages that have been developed for this very purpose are often referred to as the Tidyverse. According to their website, the [tidyverse](https://www.tidyverse.org/) is "an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures." There are currently about a dozen packages that make up the official tidyverse; however, there are dozens of tidyverse-adjacent packages that follow this philosophy, grammar, and data structures and work well with the official tidyverse packages. It is this whole set of packages that we have set out to teach in this book. 
 
-In this course, we set out to introduce the conceptual framework behind tidy data and introduce the tidyverse and tidyverse-adjacent packages that we'll be teaching throughout this specialization. Mastery of these fundamental concepts and familiarity with what can be accomplished using the tidyverse will be critical throughout the more technical courses ahead. So, be sure you are familiar with the vocabulary provided and have a clear understanding of the tidy data principles introduced here before moving forward.
+In this course, we set out to introduce the conceptual framework behind tidy data and introduce the tidyverse and tidyverse-adjacent packages that we'll be teaching throughout this book. Mastery of these fundamental concepts and familiarity with what can be accomplished using the tidyverse will be critical throughout the more technical courses ahead. So, be sure you are familiar with the vocabulary provided and have a clear understanding of the tidy data principles introduced here before moving forward.
 
-In this specialization we assume familiarity with the R programming language. If you are not yet familiar with R, we suggest you first complete [R Programming](https://www.coursera.org/learn/r-programming) before returning to complete this specialization. However, if you have some familiarity with R and want to learn how to work more efficiently with data, then you've come to the right place!
+In this book we assume familiarity with the R programming language. If you are not yet familiar with R, we suggest you first complete [R Programming](https://www.coursera.org/learn/r-programming) before returning to complete this book. However, if you have some familiarity with R and want to learn how to work more efficiently with data, then you've come to the right place!
 
 
 ## About This Course
@@ -193,11 +193,8 @@ In each of these examples, we see the principles of tidy data being broken. Each
 
 For a specific example, [Miles McBain](https://milesmcbain.github.io/), a data scientist from Brisbane, Australia set out to analyze Australian survey data on Same Sex marriage. Before he could do the analysis, however, he had a lot of tidying to do. He annotated all the ways in which the data were untidy, including the use of commas in numerical data entry, blank cells, junk at the top of the spreadsheet, and merged cells. All of these would have stopped him from being able to analyze the data had he not taken the time to first tidy the data. Luckily, he wrote a [Medium piece](https://medium.com/@miles.mcbain/tidying-the-australian-same-sex-marriage-postal-survey-data-with-r-5d35cea07962) including all the steps he took to tidy the data. 
 
-![Miles McBain's' tidying of Australian Same Sex Marriage Postal Survey Data](images/gslides/017.png)
-
 Inspired by Miles' work, Sharla Gelfand decided to tackle a messy dataset from Toronto's open data. She similarly outlined all the ways in which the data were messy including: names and addresses across multiple cells in the spreadsheet, merged column headings, and lots of blank cells. She has also included the details of how she cleaned these data [in a blog post](https://sharlagelfand.netlify.com/posts/tidying-toronto-open-data/). While the details of the code may not make sense yet, it will shortly as you get more comfortable with the programming language, R.
 
-![Sharla Gelfand's tidying of Toronto's open data](images/gslides/018.png)
 
 ### Tidying untidy data
 
@@ -211,27 +208,21 @@ To address this, these data can be split into two different spreadsheets, one fo
 
 ## The Data Science Life Cycle
 
-Now that we have an understanding of what tidy data are, it's important to put them in context of the data science life cycle. We mentioned this briefly earlier, but the data science life cycle starts with a question and then uses data to answer that question. The focus of this specialization is mastering all the steps in between formulating a question and finding an answer. There have been a number of charts that have been designed to capture what these in-between steps are.
-
-The most famous is likely this version from [R for Data Science](https://r4ds.had.co.nz). This version highlights import and tidying as important steps in the pipeline. It also captures the fact that visualization, data transformation, and modeling are often an iterative process before one can arrive at an answer to their question of interest.
-
-![The Data Science Life Cycle](images/gslides/021.png)
+Now that we have an understanding of what tidy data are, it's important to put them in context of the data science life cycle. We mentioned this briefly earlier, but the data science life cycle starts with a question and then uses data to answer that question. The focus of this book is mastering all the steps in between formulating a question and finding an answer. 
 
 Others have set out to design charts to explain all the steps in between asking and answering question. They are all similar but have different aspects of the process they highlight and/or on which they focus. These have been summarized in [A First Course on Data Science](https://doi.org/10.1080/10691898.2019.1623136).
 
-![Other Data Science Life Cycles](images/gslides/022.png)
-
-Regardless of which life cycle chart you like best, when it comes down to answering a data science question, **importing**, **tidying**, **visualizing**, and **analyzing** the data are important parts of the process. It's these four parts of the pipeline that we'll cover throughout this specialization.
+Regardless of which life cycle chart you like best, when it comes down to answering a data science question, **importing**, **tidying**, **visualizing**, and **analyzing** the data are important parts of the process. It's these four parts of the pipeline that we'll cover throughout this book.
 
 ## The Tidyverse Ecosystem
 
-With a solid understanding of tidy data and how tidy data fit into the data science life cycle, we'll take a bit of time to introduce you to the tidyverse and tidyverse-adjacent packages that we'll be teaching and using throughout this specialization. Taken together, these packages make up what we're referring to as the **tidyverse ecosystem**. The purpose for the rest of this course is not for you to understand *how* to use each of these packages (that's coming soon!), but rather to help you familiarize yourself with which packages fit into which part of the data science life cycle.
+With a solid understanding of tidy data and how tidy data fit into the data science life cycle, we'll take a bit of time to introduce you to the tidyverse and tidyverse-adjacent packages that we'll be teaching and using throughout this book. Taken together, these packages make up what we're referring to as the **tidyverse ecosystem**. The purpose for the rest of this course is not for you to understand *how* to use each of these packages (that's coming soon!), but rather to help you familiarize yourself with which packages fit into which part of the data science life cycle.
 
 Note that the official tidyverse packages below are **bold**. All other packages are tidyverse-adjacent, meaning they follow the same conventions as the official tidyverse packages and work well within the tidy framework and structure of data analysis.
 
 ### Reading Data into R
 
-After identifying a question that can be answered using data, there are *many* different ways in which the data you'll want to use may be stored. Sometimes information is stored within an Excel spreadsheet. Other times, the data are in a table on a website that needs to be scraped. Or, in a CSV file. Each of these types of data files has their own structure, but R can work with all of them. To do so, however, requires becoming familiar with a few different packages. Here, we'll discuss these packages briefly. In later courses in the specialization we'll get into the details of what characterizes each file type and how to use each packages to read data into R.
+After identifying a question that can be answered using data, there are *many* different ways in which the data you'll want to use may be stored. Sometimes information is stored within an Excel spreadsheet. Other times, the data are in a table on a website that needs to be scraped. Or, in a CSV file. Each of these types of data files has their own structure, but R can work with all of them. To do so, however, requires becoming familiar with a few different packages. Here, we'll discuss these packages briefly. In later courses in the book we'll get into the details of what characterizes each file type and how to use each packages to read data into R.
 
 #### **`tibble`**
 
@@ -302,7 +293,7 @@ According to the [`dplyr` website](https://dplyr.tidyverse.org/)
 
 > dplyr is a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges. 
 
-`dplyr` is built around five primary verbs (mutate, select, filter, summarize, and arrange) that help make the data wrangling process simpler. This specialization will cover these verbs among other functionality within the `dplyr` package.
+`dplyr` is built around five primary verbs (mutate, select, filter, summarize, and arrange) that help make the data wrangling process simpler. This book will cover these verbs among other functionality within the `dplyr` package.
 
 #### **`tidyr`**
 
@@ -332,7 +323,7 @@ According to the [`forcats` website](https://forcats.tidyverse.org/)
 
 #### **`stringr`**
 
-Similar to `forcats`, but for strings, the `stringr` package makes common tasks simple and streamlined. Working with this package becomes easier with some knowledge of regular expressions, which we'll cover in this specialization.
+Similar to `forcats`, but for strings, the `stringr` package makes common tasks simple and streamlined. Working with this package becomes easier with some knowledge of regular expressions, which we'll cover in this book.
 
 According to the [`string` website](https://stringr.tidyverse.org/)
 
@@ -349,7 +340,7 @@ According to the [`lubridate` website](https://lubridate.tidyverse.org/)
 
 #### **`glue`**
 
-The [`glue`](https://glue.tidyverse.org/) package makes working with interpreted string literals simpler. We'll discuss this package in detail in this specialization.
+The [`glue`](https://glue.tidyverse.org/) package makes working with interpreted string literals simpler. We'll discuss this package in detail in this book.
 
 #### **`skimr`**
 
@@ -390,7 +381,7 @@ According to the [`ggplot2` website](https://ggplot2.tidyverse.org/):
 
 > `ggplot2` is a system for declaratively creating graphics, based on [The Grammar of Graphics](http://amzn.to/2ef1eWp). You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.
 
-This package will be covered in a great amount of detail in this specialization, largely due to the fact that you'll find yourself using it all the time. Having a strong foundation of how to use `ggplot2` is incredibly important for any data science project.
+This package will be covered in a great amount of detail in this book, largely due to the fact that you'll find yourself using it all the time. Having a strong foundation of how to use `ggplot2` is incredibly important for any data science project.
 
 #### **`kableExtra`**
 
@@ -695,11 +686,11 @@ The phrase "data science workflow" describes the method or steps by which a data
 - Generation of data visualizations to demonstrate findings
 - Communication of your analysis and findings
         
-We will demonstrate potential ways of organizing a workflow using real data from the [Open Case Studies](https://opencasestudies.github.io/) project. 
+We will demonstrate potential ways of organizing a workflow using real data from the [Open Case Studies](https://www.opencasestudies.org) project. 
 
 ## Case Studies
 
-Throughout this specialization, we're going to make use of a number of case studies from [Open Case Studies](https://opencasestudies.github.io/) to demonstrate the concepts introduced in the course. We will generally make use of the same case studies throughout the specialization, providing continuity to allow you focus on the concepts and skills being taught (rather than the context) while working with interesting data. These case studies aim to address a public-health question and all of them use real data. 
+Throughout this book, we're going to make use of a number of case studies from [Open Case Studies](https://www.opencasestudies.org) to demonstrate the concepts introduced in the course. We will generally make use of the same case studies throughout the book, providing continuity to allow you focus on the concepts and skills being taught (rather than the context) while working with interesting data. These case studies aim to address a public-health question and all of them use real data. 
 
 ### Case Study #1: Health Expenditures
 
