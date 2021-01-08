@@ -2,5 +2,6 @@ frontmatter.txt
 mainmatter.txt
 intro.md
 get-data.md
+tidying.md
 backmatter.txt
 about.md
