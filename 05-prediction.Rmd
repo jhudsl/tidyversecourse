@@ -1009,7 +1009,6 @@ Note that the confidence interval is the exact same here using `lm()` as above w
 Now that you've seen how to measure the linear relationship between variables (linear regression) and how to determine if the mean of a dataset differs from expectation (t-test), it's important to know that you can ask lots of different questions using extensions of linear regression.
 These have been nicely summarized by Jonas Kristoffer Lindelov in is blog post [Common statistical tests are linear models (or: how to teach stats)](https://lindeloev.github.io/tests-as-linear).
 
-![](images/ghimage/055.png)
 
 
 ## Hypothesis Testing
