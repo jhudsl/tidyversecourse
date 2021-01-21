@@ -901,10 +901,9 @@ msleep %>%
   group_by(order) %>% 
   select(order) %>%
   summarize(N=n())
-`summarise()` ungrouping output (override with `.groups` argument)
 # A tibble: 19 x 2
    order               N
-   <chr>           <int>
+ * <chr>           <int>
  1 Afrosoricida        1
  2 Artiodactyla        6
  3 Carnivora          12
@@ -941,10 +940,9 @@ msleep %>%
   group_by(order) %>% 
   select(order, sleep_total) %>%
   summarize(N=n(), mean_sleep=mean(sleep_total))
-`summarise()` ungrouping output (override with `.groups` argument)
 # A tibble: 19 x 3
    order               N mean_sleep
-   <chr>           <int>      <dbl>
+ * <chr>           <int>      <dbl>
  1 Afrosoricida        1      15.6 
  2 Artiodactyla        6       4.52
  3 Carnivora          12      10.1 
@@ -1127,7 +1125,7 @@ msleep %>%
   count(vore)
 # A tibble: 5 x 2
   vore        n
-  <chr>   <int>
+* <chr>   <int>
 1 carni      19
 2 herbi      32
 3 insecti     5
@@ -1144,7 +1142,7 @@ msleep %>%
   tally()
 # A tibble: 5 x 2
   vore        n
-  <chr>   <int>
+* <chr>   <int>
 1 carni      19
 2 herbi      32
 3 insecti     5
@@ -1870,11 +1868,11 @@ mydate <- ymd("1988-09-29")
 ## subtract birthday from todays date
 age <- today() - mydate
 age
-Time difference of 11789 days
+Time difference of 11802 days
 
 ## a duration object can get this information in years
 as.duration(age)
-[1] "1018569600s (~32.28 years)"
+[1] "1019692800s (~32.31 years)"
 ```
 
 
@@ -2033,9 +2031,9 @@ names <- c("Keisha", "Mohammed", "Jane", "Mathieu")
 ## identify strings that start with "M"
 str_view(names, "^M")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshotc9b2624a7a.png": No such file or
+Warning in normalizePath(f2): path[1]="webshot1663b624a7a.png": No such file or
 directory
-Warning in file(con, "rb"): cannot open file 'webshotc9b2624a7a.png': No such
+Warning in file(con, "rb"): cannot open file 'webshot1663b624a7a.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```
@@ -2052,9 +2050,9 @@ However, if you try to match strings that end with the letter "M", no match is f
 ## identify strings that end with "M"
 str_view(names, "M$")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshotc9b2780d04c9.png": No such file or
-directory
-Warning in file(con, "rb"): cannot open file 'webshotc9b2780d04c9.png': No such
+Warning in normalizePath(f2): path[1]="webshot1663b780d04c9.png": No such file
+or directory
+Warning in file(con, "rb"): cannot open file 'webshot1663b780d04c9.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```
@@ -2069,9 +2067,9 @@ To identify names by that end with the letter "a", you would use the following.
 ## identify strings that end with "a"
 str_view(names, "a$")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshotc9b27188e8f6.png": No such file or
-directory
-Warning in file(con, "rb"): cannot open file 'webshotc9b27188e8f6.png': No such
+Warning in normalizePath(f2): path[1]="webshot1663b7188e8f6.png": No such file
+or directory
+Warning in file(con, "rb"): cannot open file 'webshot1663b7188e8f6.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```
@@ -2182,9 +2180,9 @@ To search for a set of characters, you place these characters within brackets. B
 ## identify all lowercase vowels
 str_view_all(names, "[aeiou]")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshotc9b27a4ad61f.png": No such file or
-directory
-Warning in file(con, "rb"): cannot open file 'webshotc9b27a4ad61f.png': No such
+Warning in normalizePath(f2): path[1]="webshot1663b7a4ad61f.png": No such file
+or directory
+Warning in file(con, "rb"): cannot open file 'webshot1663b7a4ad61f.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```
@@ -2201,9 +2199,9 @@ By adding a caret (`^`) before the vowels within the brackets, this regular expr
 ## identify anything that's NOT a lowercase vowel
 str_view_all(names, "[^aeiou]")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshotc9b23452778e.png": No such file or
-directory
-Warning in file(con, "rb"): cannot open file 'webshotc9b23452778e.png': No such
+Warning in normalizePath(f2): path[1]="webshot1663b3452778e.png": No such file
+or directory
+Warning in file(con, "rb"): cannot open file 'webshot1663b3452778e.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```
@@ -2221,9 +2219,9 @@ addresses <- c("1234 Main Street", "1600 Pennsylvania Ave", "Brick Building")
 ## identify anything that's a digit
 str_view_all(addresses, "\\d")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshotc9b23e87a50e.png": No such file or
-directory
-Warning in file(con, "rb"): cannot open file 'webshotc9b23e87a50e.png': No such
+Warning in normalizePath(f2): path[1]="webshot1663b3e87a50e.png": No such file
+or directory
+Warning in file(con, "rb"): cannot open file 'webshot1663b3e87a50e.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```
@@ -2239,9 +2237,9 @@ Identifying whitespace in R identifies any spaces, tabs or newlines. Note that a
 ## identify any whitespace
 str_view_all(addresses, "\\s")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshotc9b21991a4d7.png": No such file or
-directory
-Warning in file(con, "rb"): cannot open file 'webshotc9b21991a4d7.png': No such
+Warning in normalizePath(f2): path[1]="webshot1663b1991a4d7.png": No such file
+or directory
+Warning in file(con, "rb"): cannot open file 'webshot1663b1991a4d7.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```
@@ -2257,9 +2255,9 @@ To identify any character except for a newline you'll use `"."`. Notice in our a
 ## identify any character
 str_view_all(addresses, ".")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshotc9b2535c4858.png": No such file or
-directory
-Warning in file(con, "rb"): cannot open file 'webshotc9b2535c4858.png': No such
+Warning in normalizePath(f2): path[1]="webshot1663b535c4858.png": No such file
+or directory
+Warning in file(con, "rb"): cannot open file 'webshot1663b535c4858.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```
@@ -2287,9 +2285,9 @@ Using the definitions above, we can see that the following code will identify pa
 ## identify any time n shows up one or more times
 str_view_all(addresses, "n+")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshotc9b23cfbb7a2.png": No such file or
-directory
-Warning in file(con, "rb"): cannot open file 'webshotc9b23cfbb7a2.png': No such
+Warning in normalizePath(f2): path[1]="webshot1663b3cfbb7a2.png": No such file
+or directory
+Warning in file(con, "rb"): cannot open file 'webshot1663b3cfbb7a2.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```
@@ -2303,9 +2301,9 @@ While the difference is slight in the output here, we're identifying portions of
 ## identify any time n shows up
 str_view_all(addresses, "n{1}")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshotc9b2736a0986.png": No such file or
-directory
-Warning in file(con, "rb"): cannot open file 'webshotc9b2736a0986.png': No such
+Warning in normalizePath(f2): path[1]="webshot1663b736a0986.png": No such file
+or directory
+Warning in file(con, "rb"): cannot open file 'webshot1663b736a0986.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```
@@ -2319,9 +2317,9 @@ If you only wanted to match strings where n showed up twice in a row, you could 
 ## identify any time n shows up exactly two times in a row
 str_view_all(addresses, "n{2}")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshotc9b234852336.png": No such file or
-directory
-Warning in file(con, "rb"): cannot open file 'webshotc9b234852336.png': No such
+Warning in normalizePath(f2): path[1]="webshot1663b34852336.png": No such file
+or directory
+Warning in file(con, "rb"): cannot open file 'webshot1663b34852336.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```
@@ -2335,9 +2333,9 @@ This could similarly be achieved by specifying to search for the pattern 'nn' on
 ## identify any time 'nn' shows up one or more times 
 str_view_all(addresses, "nn+")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshotc9b214c2ec12.png": No such file or
-directory
-Warning in file(con, "rb"): cannot open file 'webshotc9b214c2ec12.png': No such
+Warning in normalizePath(f2): path[1]="webshot1663b14c2ec12.png": No such file
+or directory
+Warning in file(con, "rb"): cannot open file 'webshot1663b14c2ec12.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```
@@ -2351,18 +2349,18 @@ You can also specify a range of the number of times to search for a pattern with
 ## identify any time n shows up two or three times 
 str_view_all(addresses, "n{2,3}")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshotc9b2114b4387.png": No such file or
-directory
-Warning in file(con, "rb"): cannot open file 'webshotc9b2114b4387.png': No such
+Warning in normalizePath(f2): path[1]="webshot1663b114b4387.png": No such file
+or directory
+Warning in file(con, "rb"): cannot open file 'webshot1663b114b4387.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 
 ## identify any time n shows up three or four times 
 str_view_all(addresses, "n{3,4}")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshotc9b22cbd3509.png": No such file or
-directory
-Warning in file(con, "rb"): cannot open file 'webshotc9b22cbd3509.png': No such
+Warning in normalizePath(f2): path[1]="webshot1663b2cbd3509.png": No such file
+or directory
+Warning in file(con, "rb"): cannot open file 'webshot1663b2cbd3509.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```
@@ -2685,7 +2683,6 @@ poem_words <- poems %>%
 total_words <- poem_words %>% 
   group_by(title) %>% 
   summarize(total = sum(n))
-`summarise()` ungrouping output (override with `.groups` argument)
 
 # combine data frames
 poem_words <- left_join(poem_words, total_words)
@@ -3398,19 +3395,18 @@ coverage <- coverage %>%
 Warning: Problem with `mutate()` input `..1`.
 ℹ NAs introduced by coercion
 ℹ Input `..1` is `across(starts_with("20"), as.integer)`.
-Warning in fn(col, ...): NAs introduced by coercion
+
 Warning: Problem with `mutate()` input `..1`.
 ℹ NAs introduced by coercion
 ℹ Input `..1` is `across(starts_with("20"), as.integer)`.
-Warning in fn(col, ...): NAs introduced by coercion
+
 Warning: Problem with `mutate()` input `..1`.
 ℹ NAs introduced by coercion
 ℹ Input `..1` is `across(starts_with("20"), as.integer)`.
-Warning in fn(col, ...): NAs introduced by coercion
+
 Warning: Problem with `mutate()` input `..1`.
 ℹ NAs introduced by coercion
 ℹ Input `..1` is `across(starts_with("20"), as.integer)`.
-Warning in fn(col, ...): NAs introduced by coercion
 coverage
 # A tibble: 1,456 x 3
    Location      year_type          tot_coverage
@@ -3784,7 +3780,6 @@ census_stats <- census %>%
   group_by(NAME) %>%
   summarize(white = sum(POPESTIMATE2015[RACE == 1])/sum(POPESTIMATE2015)*100,
             black = sum(POPESTIMATE2015[RACE == 2])/sum(POPESTIMATE2015)*100)
-`summarise()` ungrouping output (override with `.groups` argument)
 
 # add hispanic information
 census_stats$hispanic <- census %>%
@@ -3792,7 +3787,6 @@ census_stats$hispanic <- census %>%
   group_by(NAME) %>%
   summarize(x = sum(POPESTIMATE2015[ORIGIN == 2])/sum(POPESTIMATE2015[ORIGIN == 0])*100) %>%
   pull(x)
-`summarise()` ungrouping output (override with `.groups` argument)
 
 # add male information
 census_stats$male <- census %>%
@@ -3800,7 +3794,6 @@ census_stats$male <- census %>%
   group_by(NAME) %>%
   summarize(x = sum(POPESTIMATE2015[SEX == 1])/sum(POPESTIMATE2015[SEX == 0])*100) %>%
   pull(x)
-`summarise()` ungrouping output (override with `.groups` argument)
 
 # add total population information
 census_stats$total_pop <- census %>%
@@ -3808,7 +3801,6 @@ census_stats$total_pop <- census %>%
   group_by(NAME) %>%
   summarize(total = sum(POPESTIMATE2015)) %>%
   pull(total)
-`summarise()` ungrouping output (override with `.groups` argument)
 
 # lowercase state name for consistency
 census_stats$NAME <- tolower(census_stats$NAME)
@@ -3839,7 +3831,7 @@ age_stats <- census %>%
   filter(ORIGIN == 0, SEX == 0) %>%
   group_by(NAME, AGE) %>%
   summarize(sum_ages = sum(POPESTIMATE2015))
-`summarise()` regrouping output by 'NAME' (override with `.groups` argument)
+`summarise()` has grouped output by 'NAME'. You can override using the `.groups` argument.
 
 age_stats
 # A tibble: 4,386 x 3
@@ -4495,12 +4487,11 @@ totalPop <- census %>%
   group_by(NAME) %>%
   summarize(total = sum(POPESTIMATE2015)) %>%
   mutate(NAME = tolower(NAME))
-`summarise()` ungrouping output (override with `.groups` argument)
 
 totalPop
 # A tibble: 51 x 2
    NAME                    total
-   <chr>                   <dbl>
+ * <chr>                   <dbl>
  1 alabama               4850858
  2 alaska                 737979
  3 arizona               6802262

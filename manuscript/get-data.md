@@ -94,16 +94,16 @@ The `slice_sample()` function of the `dplyr` package will allow you to see a sam
 ```r
 slice_sample(trees, n = 10)
    Girth Height Volume
-1   16.3     77   42.6
-2   17.5     82   55.7
-3   11.1     80   22.6
-4   16.0     72   38.3
-5   11.7     69   21.3
-6   13.8     64   24.9
-7   18.0     80   51.0
-8    8.3     70   10.3
-9   11.4     76   21.4
-10  18.0     80   51.5
+1   13.3     86   27.4
+2   11.7     69   21.3
+3   11.4     76   21.4
+4   17.9     80   58.3
+5    8.8     63   10.2
+6   13.7     71   25.7
+7   11.3     79   24.2
+8   14.5     74   36.3
+9   13.8     64   24.9
+10  11.4     76   21.0
 ```
 
 You can also use `slice_head()` or `slice_tail()` to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.
@@ -1402,8 +1402,8 @@ We will show how to do this using a couple of tidyverse package hex stickers.
 # load package
 library(magick)
 Linking to ImageMagick 7.0.10.50
-Enabled features: freetype, ghostscript, lcms, webp
-Disabled features: cairo, fontconfig, fftw, pango, rsvg, x11
+Enabled features: freetype, ghostscript, heic, lcms, webp
+Disabled features: cairo, fontconfig, fftw, pango, raw, rsvg, x11
 Using 16 threads
 img1 <- image_read("https://ggplot2.tidyverse.org/logo.png")
 img2 <- image_read("https://pbs.twimg.com/media/D5bccHZWkAQuPqS.png")
@@ -1873,11 +1873,11 @@ url = "https://github.com/opencasestudies/ocs-police-shootings-firearm-legislati
 # Use httr's GET() and read_excel() to read in file
 GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-  Date: 2021-01-08 19:41
+  Date: 2021-01-21 16:03
   Status: 200
   Content-Type: application/octet-stream
   Size: 66.2 kB
-<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//Rtmp3YmKsV/filec9b259c09d07.xlsx
+<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpfPHXa6/file1663b59c09d07.xlsx
 brady <- read_excel(tf, sheet = 1)
 
 brady
@@ -1916,11 +1916,11 @@ url = "https://github.com/opencasestudies/ocs-police-shootings-firearm-legislati
 # Use httr's GET() and read_excel() to read in file
 GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-  Date: 2021-01-08 19:41
+  Date: 2021-01-21 16:03
   Status: 200
   Content-Type: application/octet-stream
   Size: 98.3 kB
-<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//Rtmp3YmKsV/filec9b2618fb492.xls
+<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpfPHXa6/file1663b618fb492.xls
 crime <- read_excel(tf, sheet = 1, skip = 3)
 
 # see data
@@ -1958,11 +1958,11 @@ url = "https://github.com/opencasestudies/ocs-police-shootings-firearm-legislati
 # Use httr's GET() and read_excel() to read in file
 GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-  Date: 2021-01-08 19:41
+  Date: 2021-01-21 16:03
   Status: 200
   Content-Type: application/octet-stream
   Size: 1.57 MB
-<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//Rtmp3YmKsV/filec9b26135133.xls
+<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpfPHXa6/file1663b6135133.xls
 land <- read_excel(tf, sheet = 1)
 
 # see data

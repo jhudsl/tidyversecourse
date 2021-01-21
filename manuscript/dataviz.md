@@ -1219,7 +1219,7 @@ df <- diamonds %>%
 df
 # A tibble: 5 x 5
   cut           N   min   avg   max
-  <ord>     <int> <int> <dbl> <int>
+* <ord>     <int> <int> <dbl> <int>
 1 Fair       1610   337 4359. 18574
 2 Good       4906   327 3929. 18788
 3 Very Good 12082   336 3982. 18818
