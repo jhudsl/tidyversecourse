@@ -1868,11 +1868,11 @@ mydate <- ymd("1988-09-29")
 ## subtract birthday from todays date
 age <- today() - mydate
 age
-Time difference of 11802 days
+Time difference of 11807 days
 
 ## a duration object can get this information in years
 as.duration(age)
-[1] "1019692800s (~32.31 years)"
+[1] "1020124800s (~32.33 years)"
 ```
 
 
@@ -2031,9 +2031,9 @@ names <- c("Keisha", "Mohammed", "Jane", "Mathieu")
 ## identify strings that start with "M"
 str_view(names, "^M")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshot1663b624a7a.png": No such file or
+Warning in normalizePath(f2): path[1]="webshot6af624a7a.png": No such file or
 directory
-Warning in file(con, "rb"): cannot open file 'webshot1663b624a7a.png': No such
+Warning in file(con, "rb"): cannot open file 'webshot6af624a7a.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```
@@ -2050,9 +2050,9 @@ However, if you try to match strings that end with the letter "M", no match is f
 ## identify strings that end with "M"
 str_view(names, "M$")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshot1663b780d04c9.png": No such file
-or directory
-Warning in file(con, "rb"): cannot open file 'webshot1663b780d04c9.png': No such
+Warning in normalizePath(f2): path[1]="webshot6af780d04c9.png": No such file or
+directory
+Warning in file(con, "rb"): cannot open file 'webshot6af780d04c9.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```
@@ -2067,9 +2067,9 @@ To identify names by that end with the letter "a", you would use the following.
 ## identify strings that end with "a"
 str_view(names, "a$")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshot1663b7188e8f6.png": No such file
-or directory
-Warning in file(con, "rb"): cannot open file 'webshot1663b7188e8f6.png': No such
+Warning in normalizePath(f2): path[1]="webshot6af7188e8f6.png": No such file or
+directory
+Warning in file(con, "rb"): cannot open file 'webshot6af7188e8f6.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```
@@ -2180,9 +2180,9 @@ To search for a set of characters, you place these characters within brackets. B
 ## identify all lowercase vowels
 str_view_all(names, "[aeiou]")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshot1663b7a4ad61f.png": No such file
-or directory
-Warning in file(con, "rb"): cannot open file 'webshot1663b7a4ad61f.png': No such
+Warning in normalizePath(f2): path[1]="webshot6af7a4ad61f.png": No such file or
+directory
+Warning in file(con, "rb"): cannot open file 'webshot6af7a4ad61f.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```
@@ -2199,9 +2199,9 @@ By adding a caret (`^`) before the vowels within the brackets, this regular expr
 ## identify anything that's NOT a lowercase vowel
 str_view_all(names, "[^aeiou]")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshot1663b3452778e.png": No such file
-or directory
-Warning in file(con, "rb"): cannot open file 'webshot1663b3452778e.png': No such
+Warning in normalizePath(f2): path[1]="webshot6af3452778e.png": No such file or
+directory
+Warning in file(con, "rb"): cannot open file 'webshot6af3452778e.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```
@@ -2219,9 +2219,9 @@ addresses <- c("1234 Main Street", "1600 Pennsylvania Ave", "Brick Building")
 ## identify anything that's a digit
 str_view_all(addresses, "\\d")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshot1663b3e87a50e.png": No such file
-or directory
-Warning in file(con, "rb"): cannot open file 'webshot1663b3e87a50e.png': No such
+Warning in normalizePath(f2): path[1]="webshot6af3e87a50e.png": No such file or
+directory
+Warning in file(con, "rb"): cannot open file 'webshot6af3e87a50e.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```
@@ -2237,9 +2237,9 @@ Identifying whitespace in R identifies any spaces, tabs or newlines. Note that a
 ## identify any whitespace
 str_view_all(addresses, "\\s")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshot1663b1991a4d7.png": No such file
-or directory
-Warning in file(con, "rb"): cannot open file 'webshot1663b1991a4d7.png': No such
+Warning in normalizePath(f2): path[1]="webshot6af1991a4d7.png": No such file or
+directory
+Warning in file(con, "rb"): cannot open file 'webshot6af1991a4d7.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```
@@ -2255,9 +2255,9 @@ To identify any character except for a newline you'll use `"."`. Notice in our a
 ## identify any character
 str_view_all(addresses, ".")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshot1663b535c4858.png": No such file
-or directory
-Warning in file(con, "rb"): cannot open file 'webshot1663b535c4858.png': No such
+Warning in normalizePath(f2): path[1]="webshot6af535c4858.png": No such file or
+directory
+Warning in file(con, "rb"): cannot open file 'webshot6af535c4858.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```
@@ -2285,9 +2285,9 @@ Using the definitions above, we can see that the following code will identify pa
 ## identify any time n shows up one or more times
 str_view_all(addresses, "n+")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshot1663b3cfbb7a2.png": No such file
-or directory
-Warning in file(con, "rb"): cannot open file 'webshot1663b3cfbb7a2.png': No such
+Warning in normalizePath(f2): path[1]="webshot6af3cfbb7a2.png": No such file or
+directory
+Warning in file(con, "rb"): cannot open file 'webshot6af3cfbb7a2.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```
@@ -2301,9 +2301,9 @@ While the difference is slight in the output here, we're identifying portions of
 ## identify any time n shows up
 str_view_all(addresses, "n{1}")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshot1663b736a0986.png": No such file
-or directory
-Warning in file(con, "rb"): cannot open file 'webshot1663b736a0986.png': No such
+Warning in normalizePath(f2): path[1]="webshot6af736a0986.png": No such file or
+directory
+Warning in file(con, "rb"): cannot open file 'webshot6af736a0986.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```
@@ -2317,9 +2317,9 @@ If you only wanted to match strings where n showed up twice in a row, you could 
 ## identify any time n shows up exactly two times in a row
 str_view_all(addresses, "n{2}")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshot1663b34852336.png": No such file
-or directory
-Warning in file(con, "rb"): cannot open file 'webshot1663b34852336.png': No such
+Warning in normalizePath(f2): path[1]="webshot6af34852336.png": No such file or
+directory
+Warning in file(con, "rb"): cannot open file 'webshot6af34852336.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```
@@ -2333,9 +2333,9 @@ This could similarly be achieved by specifying to search for the pattern 'nn' on
 ## identify any time 'nn' shows up one or more times 
 str_view_all(addresses, "nn+")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshot1663b14c2ec12.png": No such file
-or directory
-Warning in file(con, "rb"): cannot open file 'webshot1663b14c2ec12.png': No such
+Warning in normalizePath(f2): path[1]="webshot6af14c2ec12.png": No such file or
+directory
+Warning in file(con, "rb"): cannot open file 'webshot6af14c2ec12.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```
@@ -2349,18 +2349,18 @@ You can also specify a range of the number of times to search for a pattern with
 ## identify any time n shows up two or three times 
 str_view_all(addresses, "n{2,3}")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshot1663b114b4387.png": No such file
-or directory
-Warning in file(con, "rb"): cannot open file 'webshot1663b114b4387.png': No such
+Warning in normalizePath(f2): path[1]="webshot6af114b4387.png": No such file or
+directory
+Warning in file(con, "rb"): cannot open file 'webshot6af114b4387.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 
 ## identify any time n shows up three or four times 
 str_view_all(addresses, "n{3,4}")
 PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Warning in normalizePath(f2): path[1]="webshot1663b2cbd3509.png": No such file
-or directory
-Warning in file(con, "rb"): cannot open file 'webshot1663b2cbd3509.png': No such
+Warning in normalizePath(f2): path[1]="webshot6af2cbd3509.png": No such file or
+directory
+Warning in file(con, "rb"): cannot open file 'webshot6af2cbd3509.png': No such
 file or directory
 Error in file(con, "rb"): cannot open the connection
 ```

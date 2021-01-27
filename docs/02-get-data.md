@@ -103,16 +103,16 @@ slice_sample(trees, n = 10)
 
 ```
 ##    Girth Height Volume
-## 1   10.5     72   16.4
-## 2   11.0     75   18.2
-## 3   11.2     75   19.9
-## 4   13.7     71   25.7
-## 5   12.9     85   33.8
-## 6   10.8     83   19.7
-## 7   11.4     76   21.4
-## 8   17.3     81   55.4
-## 9   17.9     80   58.3
-## 10  16.0     72   38.3
+## 1   11.4     76   21.4
+## 2   11.3     79   24.2
+## 3   13.7     71   25.7
+## 4   12.0     75   19.1
+## 5   17.5     82   55.7
+## 6   12.9     85   33.8
+## 7   14.0     78   34.5
+## 8   20.6     87   77.0
+## 9   16.0     72   38.3
+## 10  12.9     74   22.2
 ```
 
 You can also use `slice_head()` or `slice_tail()` to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.
@@ -409,9 +409,9 @@ Here we've really only focused on a single function (`read_excel()`) from the `r
 
 Similar to Microsoft Excel, Google Sheets is another place in which spreadsheet information is stored. Google Sheets also stores information in spreadsheets within workbooks. Like Excel, it allows for cell formatting and has defaults during data entry that *could* get you into trouble if you're not familiar with the program. 
 
-Unlike Excel files, however, Google Sheets live on the Internet, rather than your computer. This makes sharing and updating Google Sheets among people working on the same project much quicker. This also makes the process for reading them into R slightly different. Accordingly, it requires the use of a different, but also very helpful package, `googlesheets`!
+Unlike Excel files, however, Google Sheets live on the Internet, rather than your computer. This makes sharing and updating Google Sheets among people working on the same project much quicker. This also makes the process for reading them into R slightly different. Accordingly, it requires the use of a different, but also very helpful package, `googlesheets4`!
 
-As Google Sheets are stored on the Internet and not on your computer, the `googlesheets` package does not require you to download the file to your computer before reading it into R. Instead, it reads the data into R directly from Google Sheets. Note that if the data hosted on Google Sheets changes, every time the file is read into R, the most updated version of the file will be utilized. This can be very helpful if you're collecting data over time; however, it could lead to unexpected changes in results if you're not aware that the data in the Google Sheet is changing.
+As Google Sheets are stored on the Internet and not on your computer, the `googlesheets4` package does not require you to download the file to your computer before reading it into R. Instead, it reads the data into R directly from Google Sheets. Note that if the data hosted on Google Sheets changes, every time the file is read into R, the most updated version of the file will be utilized. This can be very helpful if you're collecting data over time; however, it could lead to unexpected changes in results if you're not aware that the data in the Google Sheet is changing.
 
 To see exactly what we mean, let's look at a specific example. Imagine you've sent out a survey to your friends asking about how they spend their day. Let's say you're mostly interested in knowing the hours spent on work, leisure, sleep, eating, socializing, and other activities. So in your Google Sheet you add these six items as columns and one column asking for your friends names. To collect this data, you then share the link with your friends, giving them the ability to edit the Google Sheet. 
 
@@ -419,139 +419,99 @@ To see exactly what we mean, let's look at a specific example. Imagine you've se
 
 Your friends will then one-by-one complete the survey. And, because it's a Google Sheet, everyone will be able to update the Google Sheet, regardless of whether or not someone else is also looking at the Sheet at the same time. As they do, you'll be able to pull the data and import it to R for analysis at any point. You won't have to wait for everyone to respond. You'll be able to analyze the results in real-time by directly reading it into R from Google Sheets, avoiding  the need to download it each time you do so. 
 
-In other words, every time you import the data from the Google Sheets link using the `googlesheets` package, the most updated data will be imported. Let's say, after waiting for a week, your friends' data look something like this:
+In other words, every time you import the data from the Google Sheets link using the `googlesheets4` package, the most updated data will be imported. Let's say, after waiting for a week, your friends' data look something like this:
 
 ![Survey Data](images/gslides/034.png)
 
-You'd be able to analyze these updated data using R and the `googlesheets` package!
+You'd be able to analyze these updated data using R and the `googlesheets4` package!
 
 In fact, let's have you do that right now! Click on [this link](https://docs.google.com/spreadsheets/d/e/2PACX-1vSOaV-SM4nI7HrtZs8GDSL9Wgyfl0kv_vlaIdYiueBZDPpKejKFF3zzT_eKk8TG3V6oW7xcMBV9VYR3/pubhtml) to see these data!
 
-#### The `googlesheets` package
+#### The `googlesheets4` package
 
-The `googlesheets` package allows R users to take advantage of the Google Sheets Application Programming Interface (API). Very generally, APIs allow different applications to communicate with one another. In this case, Google has released an API that allows other software to communicate with Google Sheets and retrieve data and information directly from Google Sheets. The `googlesheets` package enables R users (you!) to easily access the Google Sheets API and retrieve your Google Sheets data. 
+The `googlesheets4` package allows R users to take advantage of the Google Sheets Application Programming Interface (API). Very generally, APIs allow different applications to communicate with one another. In this case, Google has released an API that allows other software to communicate with Google Sheets and retrieve data and information directly from Google Sheets. The `googlesheets4` package enables R users (you!) to easily access the Google Sheets API and retrieve your Google Sheets data.
 
-Using this package is is the best and easiest way to analyze and edit Google Sheets data in R. In addition to the ability of pulling data, you can also edit a Google Sheet or create new sheets. 
+Using this package is is the best and easiest way to analyze and edit Google Sheets data in R. In addition to the ability of pulling data, you can also edit a Google Sheet or create new sheets.
 
-The `googlesheets` package is tidyverse-adjacent, so it requires its own installation.  It also requires that you load it into R before it can be used.
+The `googlesheets4` package is tidyverse-adjacent, so it requires its own installation. It also requires that you load it into R before it can be used.
 
-##### Getting Started with `googlesheets`
+##### Getting Started with `googlesheets4`
 
 
 ```r
-#install.packages("googlesheets")
+#install.packages("googlesheets4")
 # load package
-library(googlesheets)
+library(googlesheets4)
 ```
 
-Now, let's get to importing your survey data into R. Every time you start a new session, you need to authenticate the use of the `googlesheets` package with your Google account. This is a great feature as it ensures that you *want* to allow access to your Google Sheets and allows the Google Sheets API to make sure that you *should* have access to the files you're going to try to access.
+Now, let’s get to importing your survey data into R. Every time you start a new session, you need to authenticate the use of the `googlesheets4` package with your Google account. This is a great feature as it ensures that you want to allow access to your Google Sheets and allows the Google Sheets API to make sure that you should have access to the files you’re going to try to access.
 
-The command `gs_auth(new_user = TRUE)` will open a new page in your browser that asks you which Google account you'd like to have access to. Click on the appropriate Google user to provide `googlesheets` access to the Google Sheets API.
+The command `gs4_auth()` will open a new page in your browser that asks you which Google account you’d like to have access to. Click on the appropriate Google user to provide `googlesheets4` access to the Google Sheets API.
 
-![Authenticate](images/gslides/035.png)
+![Authenticate](images/book_figures/authenticate.png)
 
-After you click "ALLOW", giving permission for the `googlesheets` package to connect to your Google account, you will likely be shown a screen where you will be asked to copy an authentication code. Copy this authentication code and paste it into R.
+After you click “ALLOW”, giving permission for the `googlesheets4` package to connect to your Google account, you will likely be shown a screen where you will be asked to copy an authentication code. Copy this authentication code and paste it into R.
 
-![Allow](images/gslides/036.png)
+![Allow](images/book_figures/access.png)
 
-##### Navigating `googlesheets`: `gs_ls()` and `gs_title()`
+##### Navigating `googlesheets4`:`gs4_find()`
 
-Once authenticated, you can use the command `gs_ls()` to list all your worksheets on Google Sheets as a table.
+Once authenticated, you can use the command `gs4_find()` to **list** all your worksheets on Google Sheets as a table. Note that this will ask for authorization of the googledrive package. We will discuss more about googledrive later. 
 
-In order to ultimately access the information a specific Google Sheet, you have to first **register** the sheet. To do this we'll use `gs_title()`. For the example below to work, you'll need to have a Google Sheet named "survey" in your account. To access this sheet, navigate to [https://docs.google.com/spreadsheets/d/1FN7VVKzJJyifZFY5POdz_LalGTBYaC4SLB-X9vyDnbY/] in your web browser. 
+![gs4_find()](images/book_figures/gs4_find.png)
+
+##### Reading data in using `googlesheets`:`gs_read()`
+
+In order to ultimately access the information a specific Google Sheet, you can use `the read_sheets()` function by typing in the id listed for your Google Sheet of interest when using `gs4_find()`.
 
 
 ```r
-# register Google Sheet
-survey_sheet <- gs_title("survey")
+# read Google Sheet into R with id
+read_sheet("2cdw-678dSPLfdID__LIt8eEFZPasdebgIGwH")
+# note this is a fake id
 ```
 
-Note that we assign the information stored from registering this Google Sheet to the object `survey_sheet` so that we can use it again shortly.
-
-If you type the name of the sheet correctly *and* it exists in your Google Drive, you will see a message that says *Sheet successfully identified: "survey"*. 
-
-![Sheet successfully identified](images/gslides/037.png)
-
-
-##### Reading data in using `googlesheets`: `gs_read()`
-
-At this point, your Google Sheet is registered and you can now read the data into R using the function `gs_read()`. The `survey_sheet` object output you generated using `gs_title()` will now be the input to `gs_read()`:
+You can also navigate to your own sheets or to other people's sheets using a URL. For example, paste [https://docs.google.com/spreadsheets/d/1FN7VVKzJJyifZFY5POdz_LalGTBYaC4SLB-X9vyDnbY/] in your web browser. We will now read this into R like so:
 
 
 ```r
-# access information stored in survey_sheet
-survey_data <- gs_read(survey_sheet)
+ # read Google Sheet into R with URL
+survey_sheet <- read_sheet("https://docs.google.com/spreadsheets/d/1FN7VVKzJJyifZFY5POdz_LalGTBYaC4SLB-X9vyDnbY/")
 ```
 
-![Sheet successfully read into R](images/gslides/038.png)
+Note that we assign the information stored in this Google Sheet to the object `survey_sheet`so that we can use it again shortly.
 
-There are additional (optional) arguments to `gs_read()`, some are similar to those in `read_csv()` and `read_excel(),` while others are more specific to reading in Google Sheets:
+![Sheet successfully read into R](images/book_figures/sheet1.png)
 
-* `skip = 1` : will skip the first row of the Google Sheet
-* `ws = 1` : specifies that you want `googlesheets` to read in the first worksheet in your Google Sheet
-* `col_names = FALSE` : specifies that the first row is not column names
-* `range = "A1:G5"` : specifies the range of cells that we like to import is A1 to G5
-* `n_max = 100` : specifies the maximum number of rows that we want to import is 100
-
-The `gs_title()` function is not the only way in which a sheet can be registered. Google Sheets can also be registered by URL or key. Within the Google Sheets package, a practice Google Sheet is available for you so that you can familiarize yourself with these approaches before working with your own data.
-
-There is a dataset provided as an example with the `googlesheets package`. The data stored in the example dataset come from the [Gapminder dataset](https://www.gapminder.org/). This includes longitudinal data about a few global economic variables. We'll use this dataset to discuss registering a Google Sheet by key or URL.
-
-To register a Google Sheet in `googlesheets` by key, you must first know the key of the Google Sheet and have access to it. To work through a full example here you'll first want to navigate to [https://docs.google.com/spreadsheets/d/1BzfL0kZUz1TsI5zxJF1WNF01IxvC67FbOJUiiGMZ_mQ/] in your web browser. This will open up the gapminder dataset in Google Sheets so that you can have a look at the data in Google Sheets.
-
-![Gapminder Dataset in Google Sheets](images/gslides/039.png)
-
-Now, it's just up to us to register this information from Google Sheets into R using the `googlesheets` package. To do this, we could use the *title* of the sheet, the *key*, or the *URL*:
-
-![Where to find the title, key, and URL in Google Sheets](images/gslides/040.png)
+Note that by default the data on the first sheet will be read into R.  If you wanted the data on a particular sheet you could specify with the sheet argument, like so:
 
 
+ 
 
 ```r
-# register in with title 
-gs_title("test-gs-gapminder")
-
-# register with key
-gs_key("1BzfL0kZUz1TsI5zxJF1WNF01IxvC67FbOJUiiGMZ_mQ")
-
-# register with URL
-gs_url("https://docs.google.com/spreadsheets/d/1BzfL0kZUz1TsI5zxJF1WNF01IxvC67FbOJUiiGMZ_mQ/edit#gid=1150108545")
+ # read specific Google Sheet into R wih URL
+survey_sheet <- read_sheet("https://docs.google.com/spreadsheets/d/1FN7VVKzJJyifZFY5POdz_LalGTBYaC4SLB-X9vyDnbY/", sheet = 2)
 ```
 
-Regardless of how you register the sheet, you'll get an output to inform you that the sheet was successfully identified. (Note: if you have not opened up the [Google Sheet](https://docs.google.com/spreadsheets/d/1BzfL0kZUz1TsI5zxJF1WNF01IxvC67FbOJUiiGMZ_mQ/) using the Google Drive account you specified during authentication, you will get an error.)
+If the sheet was named something in particular you would use this instead of the number 2.
 
-![Sheet Successfully Identified](images/gslides/041.png)
+Here you can see that there is more data on sheet 2:
 
-
-##### Adding rows and editing cells
-
-In addition to reading in data from Google Sheets directly using the `googlesheets` package, you can also modify your Google Sheet directly through R. For example, returning to our friends' survey data example, you can edit a cell or add a row to your sheet. 
-
-Let's say you'd like to add your own response to the survey. For this you can use the command `gs_add_row()`. Note that the `input` argument specifies what you would like to add in the new row. If everything goes well, you will get a message saying *Row successfully appended*. 
+![Specific Sheet successfully read into R](images/book_figures/Sheet2.png)
 
 
-```r
-my_response <- c("Me", 10, 8, 2, 2, 1, 1)
-gs_add_row(survey_sheet, input = my_response)
-```
 
-![`gs_add_row()`](images/gslides/042.png)
+There are other additional (optional) arguments to `read_sheet()`, some are similar to those in `read_csv()` and `read_excel()`, while others are more specific to reading in Google Sheets:  
 
-If you now check the sheet on Google Sheets, you will see the appended row.
+* `skip = 1`: will skip the first row of the Google Sheet  
+* `col_names` = FALSE`: specifies that the first row is not column names  
+*`range = "A1:G5"`: specifies the range of cells that we like to import is A1 to G5  
+* `n_max = 100`: specifies the maximum number of rows that we want to import is 100  
 
-![Survey Data with Added Row](images/gslides/043.png)
+To read in data from a Google Sheet in `googlesheets4`, you must first know the **id**, the **name** or the **URL** of the Google Sheet and have access to it. 
 
-To edit a specific cell you can use the command `gs_edit_cell()` but you will have to tell `googlesheets` which specific cell to edit. Let's say we want to change the value of the cell *D4* from 0 to 2. For this we will use the `gs_edit_cells()` function. The `anchor` argument points to the cell that we want to modify and the `input` argument contains the new value that we want to assign to the cell.
+See [https://googlesheets4.tidyverse.org/reference/index.html] for a list of additional functions in the **googlesheets4** package.
 
-
-```r
-gs_edit_cells(survey_sheet, anchor = "D4", input = 2)
-```
-
-
-![`gs_edit_cells()`](images/gslides/044.png)
-
-If you were to return to your Google Sheets, you'd notice that cell D4 now has a 2, rather than a 0 in it!
 
 ## CSVs
 
@@ -1524,13 +1484,9 @@ library(magick)
 ```
 
 ```
-## Linking to ImageMagick 7.0.10.50
-## Enabled features: freetype, ghostscript, lcms, webp
-## Disabled features: cairo, fontconfig, fftw, pango, rsvg, x11
-```
-
-```
-## Using 16 threads
+## Linking to ImageMagick 6.9.11.32
+## Enabled features: cairo, fontconfig, freetype, lcms, pango, rsvg, webp
+## Disabled features: fftw, ghostscript, x11
 ```
 
 ```r
@@ -1544,10 +1500,10 @@ print(img1)
 ## # A tibble: 1 x 7
 ##   format width height colorspace matte filesize density
 ##   <chr>  <int>  <int> <chr>      <lgl>    <int> <chr>  
-## 1 PNG      240    278 sRGB       TRUE     38516 +85x+85
+## 1 PNG      240    278 sRGB       TRUE     38516 85x85
 ```
 
-<img src="images/get-data-unnamed-chunk-52-1.png" width="120" />
+<img src="images/get-data-unnamed-chunk-50-1.png" width="120" />
 
 ```r
 print(img2)
@@ -1557,10 +1513,10 @@ print(img2)
 ## # A tibble: 1 x 7
 ##   format width height colorspace matte filesize density
 ##   <chr>  <int>  <int> <chr>      <lgl>    <int> <chr>  
-## 1 PNG      864    864 sRGB       TRUE     54056 +72x+72
+## 1 PNG      864    864 sRGB       TRUE     54056 72x72
 ```
 
-<img src="images/get-data-unnamed-chunk-52-2.png" width="432" />
+<img src="images/get-data-unnamed-chunk-50-2.png" width="432" />
 
 ```r
 #concatenate and print text
@@ -1583,7 +1539,7 @@ Great! We extracted the text!
 
 ## `googledrive`
 
-Another really helpful package is the `googledrive` package which enables users to interact with their Google Drive directly from R. This package, unlike the `googlesheets` package, also allows for users to interact with other file types besides Google Sheets. It however does not allow for as many modifications of these files like the googlesheets package allows for Google Sheets files.
+Another really helpful package is the `googledrive` package which enables users to interact with their Google Drive directly from R. This package, unlike the `googlesheets4` package, also allows for users to interact with other file types besides Google Sheets. It however does not allow for as many modifications of these files like the `googlesheets4` package allows for Google Sheets files.
 
 Using `googledrive` requires having an established Google Drive account. You will be asked to authorize access for the package to interact with your Google Drive.
 
@@ -1934,7 +1890,7 @@ library(here)
 ```
 
 ```
-## here() starts at /Users/rdpeng/books/tidyversecourse
+## here() starts at /Users/carriewright/Documents/GitHub/Coursera/tidyversecourse
 ```
 
 ```r
@@ -2064,11 +2020,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2021-01-08 18:33
+##   Date: 2021-01-22 20:29
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpYvS6L3/filebff359c09d07.xlsx
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//Rtmp8mRlAI/filee7de59c09d07.xlsx
 ```
 
 ```r
@@ -2116,11 +2072,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2021-01-08 18:33
+##   Date: 2021-01-22 20:29
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpYvS6L3/filebff3618fb492.xls
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//Rtmp8mRlAI/filee7de618fb492.xls
 ```
 
 ```r
@@ -2167,11 +2123,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2021-01-08 18:33
+##   Date: 2021-01-22 20:29
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## <ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpYvS6L3/filebff36135133.xls
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//Rtmp8mRlAI/filee7de6135133.xls
 ```
 
 ```r

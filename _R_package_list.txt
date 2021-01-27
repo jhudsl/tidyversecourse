@@ -17,7 +17,7 @@ gganimate
 ggplot2
 ggrepel
 glue
-googlesheets
+googlesheets4
 haven
 here
 httr
