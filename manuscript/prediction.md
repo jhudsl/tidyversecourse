@@ -1942,16 +1942,16 @@ iris_reg_wflow <-workflows::workflow() %>%
                  workflows::add_recipe(first_recipe) %>%
                  workflows::add_model(Lin_reg_model)
 iris_reg_wflow
-══ Workflow ══════════════════════════════════════════════════════════════════════════════════
+══ Workflow ════════════════════════════════════════════════════════════════════
 Preprocessor: Recipe
 Model: linear_reg()
 
-── Preprocessor ──────────────────────────────────────────────────────────────────────────────
+── Preprocessor ────────────────────────────────────────────────────────────────
 1 Recipe Step
 
 ● step_dummy()
 
-── Model ─────────────────────────────────────────────────────────────────────────────────────
+── Model ───────────────────────────────────────────────────────────────────────
 Linear Regression Model Specification (regression)
 
 Computational engine: lm 
@@ -1967,16 +1967,16 @@ Printing the output, we can see the coefficients of the model.
 ```r
 iris_reg_wflow_fit <- parsnip::fit(iris_reg_wflow, data = training_iris)
 iris_reg_wflow_fit
-══ Workflow [trained] ════════════════════════════════════════════════════════════════════════
+══ Workflow [trained] ══════════════════════════════════════════════════════════
 Preprocessor: Recipe
 Model: linear_reg()
 
-── Preprocessor ──────────────────────────────────────────────────────────────────────────────
+── Preprocessor ────────────────────────────────────────────────────────────────
 1 Recipe Step
 
 ● step_dummy()
 
-── Model ─────────────────────────────────────────────────────────────────────────────────────
+── Model ───────────────────────────────────────────────────────────────────────
 
 Call:
 stats::lm(formula = ..y ~ ., data = data)
@@ -2035,15 +2035,15 @@ wf_fitted_values <-
   select(Sepal.Length, .fitted:.std.resid)
 
 head(wf_fitted_values)
-FALSE # A tibble: 6 x 3
-FALSE   Sepal.Length .fitted .std.resid
-FALSE          <dbl>   <dbl>      <dbl>
-FALSE 1          5.1    5.07   0.0748  
-FALSE 2          4.6    5.00  -0.972   
-FALSE 3          5      5.00  -0.000471
-FALSE 4          4.4    4.66  -0.629   
-FALSE 5          4.9    4.79   0.261   
-FALSE 6          5.4    5.21   0.469
+FALSE # A tibble: 6 x 6
+FALSE   Sepal.Length .fitted   .hat .sigma       .cooksd .std.resid
+FALSE          <dbl>   <dbl>  <dbl>  <dbl>         <dbl>      <dbl>
+FALSE 1          5.1    5.07 0.0286  0.420 0.0000413       0.0748  
+FALSE 2          4.6    5.00 0.0290  0.418 0.00706        -0.972   
+FALSE 3          5      5.00 0.0290  0.420 0.00000000166  -0.000471
+FALSE 4          4.4    4.66 0.0567  0.419 0.00595        -0.629   
+FALSE 5          4.9    4.79 0.0405  0.420 0.000717        0.261   
+FALSE 6          5.4    5.21 0.0329  0.420 0.00187         0.469
 
 # other option:
 # wf_fitted_values <- 
@@ -2373,14 +2373,14 @@ iris_cat_wflow <-workflows::workflow() %>%
            workflows::add_recipe(cat_recipe) %>%
            workflows::add_model(cat_model)
 iris_cat_wflow
-══ Workflow ══════════════════════════════════════════════════════════════════════════════════
+══ Workflow ════════════════════════════════════════════════════════════════════
 Preprocessor: Recipe
 Model: decision_tree()
 
-── Preprocessor ──────────────────────────────────────────────────────────────────────────────
+── Preprocessor ────────────────────────────────────────────────────────────────
 0 Recipe Steps
 
-── Model ─────────────────────────────────────────────────────────────────────────────────────
+── Model ───────────────────────────────────────────────────────────────────────
 Decision Tree Model Specification (classification)
 
 Computational engine: rpart 
@@ -2397,14 +2397,14 @@ First we will demonstrate how we could fit the model using our entire training d
 ```r
 iris_cat_wflow_fit <- parsnip::fit(iris_cat_wflow, data = training_iris)
 iris_cat_wflow_fit
-══ Workflow [trained] ════════════════════════════════════════════════════════════════════════
+══ Workflow [trained] ══════════════════════════════════════════════════════════
 Preprocessor: Recipe
 Model: decision_tree()
 
-── Preprocessor ──────────────────────────────────────────────────────────────────────────────
+── Preprocessor ────────────────────────────────────────────────────────────────
 0 Recipe Steps
 
-── Model ─────────────────────────────────────────────────────────────────────────────────────
+── Model ───────────────────────────────────────────────────────────────────────
 n= 100 
 
 node), split, n, loss, yval, (yprob)
@@ -2698,7 +2698,7 @@ We import the data using the `read_csv()` function from the `readr` package.
 library(here)
 pm <- readr::read_csv(here("data","tidy_data","pm25_data.csv"))
 
-── Column specification ──────────────────────────────────────────────────────────────────────
+── Column specification ────────────────────────────────────────────────────────
 cols(
   .default = col_double(),
   state = col_character(),
@@ -3038,9 +3038,9 @@ Now that we have a sense of what our data are, we can get started with building 
 
 ```r
 library(tidymodels)
-── Attaching packages ──────────────────────────────────────────────────── tidymodels 0.1.2 ──
+── Attaching packages ────────────────────────────────────── tidymodels 0.1.2 ──
 ✔ modeldata 0.1.0     
-── Conflicts ─────────────────────────────────────────────────────── tidymodels_conflicts() ──
+── Conflicts ───────────────────────────────────────── tidymodels_conflicts() ──
 ✖ rlang::%@%()          masks purrr::%@%()
 ✖ rlang::as_function()  masks purrr::as_function()
 ✖ rlang::as_list()      masks xml2::as_list()
@@ -3816,18 +3816,18 @@ PM_wflow <-workflows::workflow() %>%
            workflows::add_recipe(novel_rec) %>%
            workflows::add_model(lm_PM_model)
 PM_wflow
-══ Workflow ══════════════════════════════════════════════════════════════════════════════════
+══ Workflow ════════════════════════════════════════════════════════════════════
 Preprocessor: Recipe
 Model: linear_reg()
 
-── Preprocessor ──────────────────────────────────────────────────────────────────────────────
+── Preprocessor ────────────────────────────────────────────────────────────────
 3 Recipe Steps
 
 ● step_dummy()
 ● step_corr()
 ● step_nzv()
 
-── Model ─────────────────────────────────────────────────────────────────────────────────────
+── Model ───────────────────────────────────────────────────────────────────────
 Linear Regression Model Specification (regression)
 
 Computational engine: lm 
@@ -3847,18 +3847,18 @@ Warning in cor(x, use = use, method = method): the standard deviation is zero
 Warning: The correlation matrix has missing values. 274 columns were excluded
 from the filter.
 PM_wflow_fit
-══ Workflow [trained] ════════════════════════════════════════════════════════════════════════
+══ Workflow [trained] ══════════════════════════════════════════════════════════
 Preprocessor: Recipe
 Model: linear_reg()
 
-── Preprocessor ──────────────────────────────────────────────────────────────────────────────
+── Preprocessor ────────────────────────────────────────────────────────────────
 3 Recipe Steps
 
 ● step_dummy()
 ● step_corr()
 ● step_nzv()
 
-── Model ─────────────────────────────────────────────────────────────────────────────────────
+── Model ───────────────────────────────────────────────────────────────────────
 
 Call:
 stats::lm(formula = ..y ~ ., data = data)
@@ -3997,15 +3997,15 @@ wf_fitted_values <-
   select(value, .fitted:.std.resid)
 
 head(wf_fitted_values)
-# A tibble: 6 x 3
-  value .fitted .std.resid
-  <dbl>   <dbl>      <dbl>
-1  9.60    9.48     0.0573
-2 10.8    10.4      0.186 
-3 11.2    11.8     -0.281 
-4 12.4    11.3      0.526 
-5 10.5    10.8     -0.146 
-6 15.6    11.1      2.20  
+# A tibble: 6 x 6
+  value .fitted   .hat .sigma    .cooksd .std.resid
+  <dbl>   <dbl>  <dbl>  <dbl>      <dbl>      <dbl>
+1  9.60    9.48 0.0323   2.09 0.00000333     0.0573
+2 10.8    10.4  0.0338   2.09 0.0000368      0.186 
+3 11.2    11.8  0.0376   2.09 0.0000933     -0.281 
+4 12.4    11.3  0.0309   2.09 0.000267       0.526 
+5 10.5    10.8  0.0413   2.09 0.0000278     -0.146 
+6 15.6    11.1  0.0332   2.08 0.00501        2.20  
 ```
 Finally, we can also use the `predict()` function.
 Note that because we use the actual workflow here, we can (and actually need to) use the raw data instead of the preprocessed data.
@@ -4329,11 +4329,11 @@ RF_wflow <- workflows::workflow() %>%
             workflows::add_recipe(RF_rec) %>%
             workflows::add_model(RF_PM_model)
 RF_wflow
-══ Workflow ══════════════════════════════════════════════════════════════════════════════════
+══ Workflow ════════════════════════════════════════════════════════════════════
 Preprocessor: Recipe
 Model: rand_forest()
 
-── Preprocessor ──────────────────────────────────────────────────────────────────────────────
+── Preprocessor ────────────────────────────────────────────────────────────────
 6 Recipe Steps
 
 ● step_novel()
@@ -4343,7 +4343,7 @@ Model: rand_forest()
 ● step_corr()
 ● step_nzv()
 
-── Model ─────────────────────────────────────────────────────────────────────────────────────
+── Model ───────────────────────────────────────────────────────────────────────
 Random Forest Model Specification (regression)
 
 Main Arguments:
@@ -4363,11 +4363,11 @@ RF_wflow_fit <- parsnip::fit(RF_wflow, data = train_pm)
 
 ```r
 RF_wflow_fit
-══ Workflow [trained] ════════════════════════════════════════════════════════════════════════
+══ Workflow [trained] ══════════════════════════════════════════════════════════
 Preprocessor: Recipe
 Model: rand_forest()
 
-── Preprocessor ──────────────────────────────────────────────────────────────────────────────
+── Preprocessor ────────────────────────────────────────────────────────────────
 6 Recipe Steps
 
 ● step_novel()
@@ -4377,7 +4377,7 @@ Model: rand_forest()
 ● step_corr()
 ● step_nzv()
 
-── Model ─────────────────────────────────────────────────────────────────────────────────────
+── Model ───────────────────────────────────────────────────────────────────────
 
 Call:
  randomForest(x = maybe_data_frame(x), y = y, mtry = min_cols(~10,      x), nodesize = min_rows(~4, x)) 
@@ -4480,11 +4480,11 @@ RF_tune_wflow <- workflows::workflow() %>%
             workflows::add_recipe(RF_rec) %>%
             workflows::add_model(tune_RF_model)
 RF_tune_wflow
-══ Workflow ══════════════════════════════════════════════════════════════════════════════════
+══ Workflow ════════════════════════════════════════════════════════════════════
 Preprocessor: Recipe
 Model: rand_forest()
 
-── Preprocessor ──────────────────────────────────────────────────────────────────────────────
+── Preprocessor ────────────────────────────────────────────────────────────────
 6 Recipe Steps
 
 ● step_novel()
@@ -4494,7 +4494,7 @@ Model: rand_forest()
 ● step_corr()
 ● step_nzv()
 
-── Model ─────────────────────────────────────────────────────────────────────────────────────
+── Model ───────────────────────────────────────────────────────────────────────
 Random Forest Model Specification (regression)
 
 Main Arguments:

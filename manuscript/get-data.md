@@ -94,16 +94,16 @@ The `slice_sample()` function of the `dplyr` package will allow you to see a sam
 ```r
 slice_sample(trees, n = 10)
    Girth Height Volume
-1   16.3     77   42.6
-2   12.9     74   22.2
-3   16.0     72   38.3
-4   14.0     78   34.5
-5   17.5     82   55.7
-6   10.7     81   18.8
-7   11.1     80   22.6
-8    8.8     63   10.2
-9   11.4     76   21.4
-10  17.3     81   55.4
+1   11.2     75   19.9
+2   11.0     66   15.6
+3    8.6     65   10.3
+4   13.8     64   24.9
+5   14.5     74   36.3
+6   11.0     75   18.2
+7   17.5     82   55.7
+8   16.0     72   38.3
+9   10.8     83   19.7
+10  18.0     80   51.0
 ```
 
 You can also use `slice_head()` or `slice_tail()` to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.
@@ -1833,11 +1833,11 @@ url = "https://github.com/opencasestudies/ocs-police-shootings-firearm-legislati
 # Use httr's GET() and read_excel() to read in file
 GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-  Date: 2021-01-27 00:57
+  Date: 2021-02-02 20:18
   Status: 200
   Content-Type: application/octet-stream
   Size: 66.2 kB
-<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//Rtmps2YIVH/file6af59c09d07.xlsx
+<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpmOrc40/file2c9959c09d07.xlsx
 brady <- read_excel(tf, sheet = 1)
 
 brady
@@ -1876,11 +1876,11 @@ url = "https://github.com/opencasestudies/ocs-police-shootings-firearm-legislati
 # Use httr's GET() and read_excel() to read in file
 GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-  Date: 2021-01-27 00:57
+  Date: 2021-02-02 20:18
   Status: 200
   Content-Type: application/octet-stream
   Size: 98.3 kB
-<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//Rtmps2YIVH/file6af618fb492.xls
+<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpmOrc40/file2c99618fb492.xls
 crime <- read_excel(tf, sheet = 1, skip = 3)
 
 # see data
@@ -1918,11 +1918,11 @@ url = "https://github.com/opencasestudies/ocs-police-shootings-firearm-legislati
 # Use httr's GET() and read_excel() to read in file
 GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-  Date: 2021-01-27 00:57
+  Date: 2021-02-02 20:18
   Status: 200
   Content-Type: application/octet-stream
   Size: 1.57 MB
-<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//Rtmps2YIVH/file6af6135133.xls
+<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpmOrc40/file2c996135133.xls
 land <- read_excel(tf, sheet = 1)
 
 # see data
