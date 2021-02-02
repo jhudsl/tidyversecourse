@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Importing Data in the Tidyverse | Tidyverse Skills for Data Science</title>
   <meta name="description" content="This book demonstrates how to use the Tidyverse collection of packages for doing data science." />
-  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Importing Data in the Tidyverse | Tidyverse Skills for Data Science" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Carrie Wright, Shannon E. Ellis, Stephanie C. Hicks and Roger D. Peng" />
 
 
-<meta name="date" content="2021-01-22" />
+<meta name="date" content="2021-02-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,10 +51,11 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
 <script src="libs/str_view-binding-1.4.0/str_view.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -519,16 +520,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The <code>slice_sample()</code> function of the <code>dplyr</code> package will allow you to see a sample of random rows in random order. The number of rows to show is specified by the <code>n</code> argument. This can be useful if you don’t want to print the entire tibble, but you want to get a greater sense of the values. This is a good option for data analysis reports, where printing the entire tibble would not be appropriate if the tibble is quite large.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="get-data.html#cb11-1"></a><span class="kw">slice_sample</span>(trees, <span class="dt">n =</span> <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##    Girth Height Volume
-## 1   11.4     76   21.4
-## 2   11.3     79   24.2
-## 3   13.7     71   25.7
-## 4   12.0     75   19.1
-## 5   17.5     82   55.7
-## 6   12.9     85   33.8
-## 7   14.0     78   34.5
-## 8   20.6     87   77.0
-## 9   16.0     72   38.3
-## 10  12.9     74   22.2</code></pre>
+## 1   11.1     80   22.6
+## 2   14.5     74   36.3
+## 3   11.0     75   18.2
+## 4   10.5     72   16.4
+## 5   18.0     80   51.5
+## 6   16.3     77   42.6
+## 7   13.8     64   24.9
+## 8   10.8     83   19.7
+## 9   14.2     80   31.7
+## 10  17.5     82   55.7</code></pre>
 <p>You can also use <code>slice_head()</code> or <code>slice_tail()</code> to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.</p>
 <p>This will show the first 5 rows.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="get-data.html#cb13-1"></a><span class="kw">slice_head</span>(trees, <span class="dt">n =</span> <span class="dv">5</span>)</span></code></pre></div>
@@ -1546,8 +1547,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb95-2"><a href="get-data.html#cb95-2"></a><span class="co">#install.packages(&quot;magick&quot;)</span></span>
 <span id="cb95-3"><a href="get-data.html#cb95-3"></a><span class="co"># load package</span></span>
 <span id="cb95-4"><a href="get-data.html#cb95-4"></a><span class="kw">library</span>(magick)</span></code></pre></div>
-<pre><code>## Linking to ImageMagick 6.9.11.32
-## Enabled features: cairo, fontconfig, freetype, lcms, pango, rsvg, webp
+<pre><code>## Linking to ImageMagick 6.9.11.57
+## Enabled features: cairo, fontconfig, freetype, heic, lcms, pango, raw, rsvg, webp
 ## Disabled features: fftw, ghostscript, x11</code></pre>
 <div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="get-data.html#cb97-1"></a>img1 &lt;-<span class="st"> </span><span class="kw">image_read</span>(<span class="st">&quot;https://ggplot2.tidyverse.org/logo.png&quot;</span>)</span>
 <span id="cb97-2"><a href="get-data.html#cb97-2"></a>img2 &lt;-<span class="st"> </span><span class="kw">image_read</span>(<span class="st">&quot;https://pbs.twimg.com/media/D5bccHZWkAQuPqS.png&quot;</span>)</span>
@@ -1906,11 +1907,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb139-7"><a href="get-data.html#cb139-7"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb139-8"><a href="get-data.html#cb139-8"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xlsx&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2021-01-22 20:29
+##   Date: 2021-02-02 20:08
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//Rtmp8mRlAI/filee7de59c09d07.xlsx</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpSOgRY5/file9c1c59c09d07.xlsx</code></pre>
 <div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="get-data.html#cb141-1"></a>brady &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</span>
 <span id="cb141-2"><a href="get-data.html#cb141-2"></a></span>
 <span id="cb141-3"><a href="get-data.html#cb141-3"></a>brady</span></code></pre></div>
@@ -1945,11 +1946,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb143-4"><a href="get-data.html#cb143-4"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb143-5"><a href="get-data.html#cb143-5"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2021-01-22 20:29
+##   Date: 2021-02-02 20:08
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//Rtmp8mRlAI/filee7de618fb492.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpSOgRY5/file9c1c618fb492.xls</code></pre>
 <div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="get-data.html#cb145-1"></a>crime &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>, <span class="dt">skip =</span> <span class="dv">3</span>)</span>
 <span id="cb145-2"><a href="get-data.html#cb145-2"></a></span>
 <span id="cb145-3"><a href="get-data.html#cb145-3"></a><span class="co"># see data</span></span>
@@ -1982,11 +1983,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb147-4"><a href="get-data.html#cb147-4"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb147-5"><a href="get-data.html#cb147-5"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2021-01-22 20:29
+##   Date: 2021-02-02 20:08
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//Rtmp8mRlAI/filee7de6135133.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpSOgRY5/file9c1c6135133.xls</code></pre>
 <div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="get-data.html#cb149-1"></a>land &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</span>
 <span id="cb149-2"><a href="get-data.html#cb149-2"></a></span>
 <span id="cb149-3"><a href="get-data.html#cb149-3"></a><span class="co"># see data</span></span>
