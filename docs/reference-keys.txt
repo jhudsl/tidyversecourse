@@ -99,11 +99,10 @@ spreadsheets
 excel-files
 reading-excel-files-into-r
 google-sheets
-the-googlesheets-package
-getting-started-with-googlesheets
-navigating-googlesheets-gs_ls-and-gs_title
-reading-data-in-using-googlesheets-gs_read
-adding-rows-and-editing-cells
+the-googlesheets4-package
+getting-started-with-googlesheets4
+navigating-googlesheets4gs4_find
+reading-data-in-using-googlesheetsgs_read
 csvs
 downloading-csv-files
 reading-csvs-into-r
