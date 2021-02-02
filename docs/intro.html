@@ -695,7 +695,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="the-tidyverse-ecosystem" class="section level2">
 <h2><span class="header-section-number">1.5</span> The Tidyverse Ecosystem</h2>
 <p>With a solid understanding of tidy data and how tidy data fit into the data science life cycle, we’ll take a bit of time to introduce you to the tidyverse and tidyverse-adjacent packages that we’ll be teaching and using throughout this specialization. Taken together, these packages make up what we’re referring to as the <strong>tidyverse ecosystem</strong>. The purpose for the rest of this course is not for you to understand <em>how</em> to use each of these packages (that’s coming soon!), but rather to help you familiarize yourself with which packages fit into which part of the data science life cycle.</p>
-<p>Note that the official tidyverse packages below are <strong>bold</strong>. All other packages are tidyverse-adjacent, meaning they follow the same conventions as the official tidyverse packages and work well within the tidy framework and structure of data analysis.</p>
+<p>Note that we will describe the official tidyverse packages as well as other packages that are tidyverse-adjacent, meaning they follow the same conventions as the official tidyverse packages and work well within the tidy framework and structure of data analysis.</p>
 <div id="reading-data-into-r" class="section level3">
 <h3><span class="header-section-number">1.5.1</span> Reading Data into R</h3>
 <p>After identifying a question that can be answered using data, there are <em>many</em> different ways in which the data you’ll want to use may be stored. Sometimes information is stored within an Excel spreadsheet. Other times, the data are in a table on a website that needs to be scraped. Or, in a CSV file. Each of these types of data files has their own structure, but R can work with all of them. To do so, however, requires becoming familiar with a few different packages. Here, we’ll discuss these packages briefly. In later courses in the specialization we’ll get into the details of what characterizes each file type and how to use each packages to read data into R.</p>
@@ -716,9 +716,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The goal of <code>readr</code> is to provide a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes. If you are new to readr, the best place to start is the data import chapter in R for data science.</p>
 </blockquote>
 </div>
-<div id="googlesheets" class="section level4">
-<h4><span class="header-section-number">1.5.1.3</span> googlesheets</h4>
-<p><a href="https://github.com/jennybc/googlesheets"><code>googlesheets</code></a> is a brilliant package that allows users to “access and manage Google spreadsheets from R.” As more and more data is saved in the cloud (rather than on local computers), packages like googlesheets become invaluable. If you store data on Google Sheets or work with people who do, this package will be a lifesaver.</p>
+<div id="googlesheets4" class="section level4">
+<h4><span class="header-section-number">1.5.1.3</span> <strong><code>googlesheets4</code></strong></h4>
+<p><a href="https://github.com/tidyverse/googlesheets4"><code>googlesheets4</code></a> is a brilliant <code>tidyverse</code>-adjacent package that allows users to “access and manage Google spreadsheets from R.” As more and more data is saved in the cloud (rather than on local computers), packages like googlesheets4 become invaluable. If you store data on Google Sheets or work with people who do, this package will be a lifesaver.</p>
 </div>
 <div id="readxl" class="section level4">
 <h4><span class="header-section-number">1.5.1.4</span> <strong><code>readxl</code></strong></h4>
@@ -730,7 +730,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="googledrive" class="section level4">
 <h4><span class="header-section-number">1.5.1.5</span> <strong><code>googledrive</code></strong></h4>
-<p>Similar to <code>googlesheets</code>, but for interacting with file on Google Drive from R (rather than just Google Sheets), the <a href="https://googledrive.tidyverse.org/"><code>googledrive</code></a> package is an important package for working with data in R.</p>
+<p>Similar to <code>googlesheets4</code>, but for interacting with file on Google Drive from R (rather than just Google Sheets), the <code>tidyverse</code>-adjacent <a href="https://googledrive.tidyverse.org/"><code>googledrive</code></a> package is an important package for working with data in R.</p>
 </div>
 <div id="haven" class="section level4">
 <h4><span class="header-section-number">1.5.1.6</span> <strong><code>haven</code></strong></h4>
@@ -755,7 +755,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="dplyr" class="section level4">
 <h4><span class="header-section-number">1.5.2.1</span> <strong><code>dplyr</code></strong></h4>
 <p>The most critical package for wrangling data is <code>dplyr</code>. Its release completely transformed the way many R users write R code and work with data, greatly simplifying the process.</p>
-<p>According to the <a href="https://dplyr.tidyverse.org/"><code>dplyr</code> website</a></p>
+<p>According to the <a href="https://dplyr.tidyverse.org/"><code>dplyr</code> website</a>:</p>
 <blockquote>
 <p>dplyr is a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges.</p>
 </blockquote>
@@ -780,7 +780,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="forcats" class="section level4">
 <h4><span class="header-section-number">1.5.2.4</span> <strong><code>forcats</code></strong></h4>
 <p>R is known for its ability to work with categorical data (called factors); however, they have historically been more of a necessary evil than a joy to work with. Due to the frustratingly hard nature of working with factors in R, the <code>forcats</code> package developers set out to make working with categorical data simpler.</p>
-<p>According to the <a href="https://forcats.tidyverse.org/"><code>forcats</code> website</a></p>
+<p>According to the <a href="https://forcats.tidyverse.org/"><code>forcats</code> website</a>:</p>
 <blockquote>
 <p>The goal of the forcats package is to provide a suite of tools that solve common problems with factors, including changing the order of levels or the values.</p>
 </blockquote>
@@ -788,34 +788,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="stringr" class="section level4">
 <h4><span class="header-section-number">1.5.2.5</span> <strong><code>stringr</code></strong></h4>
 <p>Similar to <code>forcats</code>, but for strings, the <code>stringr</code> package makes common tasks simple and streamlined. Working with this package becomes easier with some knowledge of regular expressions, which we’ll cover in this specialization.</p>
-<p>According to the <a href="https://stringr.tidyverse.org/"><code>string</code> website</a></p>
+<p>According to the <a href="https://stringr.tidyverse.org/"><code>string</code> website</a>:</p>
 <blockquote>
 <p>Strings are not glamorous, high-profile components of R, but they do play a big role in many data cleaning and preparation tasks. The stringr package provide a cohesive set of functions designed to make working with strings as easy as possible.</p>
 </blockquote>
 </div>
 <div id="lubridate" class="section level4">
 <h4><span class="header-section-number">1.5.2.6</span> <strong><code>lubridate</code></strong></h4>
-<p>The final common package dedicated to working with a specific type of variable is <code>lubridate</code>, which makes working with dates and times simpler. Working with dates and times has historically been difficult due to the nature of our calendar, with its varying number of days per month and days per year, and due to time zones, which can make working with times infuriating. The <code>lubridate</code> developers aimed to make working with these types of data simpler.</p>
-<p>According to the <a href="https://lubridate.tidyverse.org/"><code>lubridate</code> website</a></p>
+<p>The final common package dedicated to working with a specific type of variable is <code>lubridate</code> (a <code>tidyverse</code>-adjacent package), which makes working with dates and times simpler. Working with dates and times has historically been difficult due to the nature of our calendar, with its varying number of days per month and days per year, and due to time zones, which can make working with times infuriating. The <code>lubridate</code> developers aimed to make working with these types of data simpler.</p>
+<p>According to the <a href="https://lubridate.tidyverse.org/"><code>lubridate</code> website</a>:</p>
 <blockquote>
 <p>Date-time data can be frustrating to work with in R. R commands for date-times are generally unintuitive and change depending on the type of date-time object being used. Moreover, the methods we use with date-times must be robust to time zones, leap days, daylight savings times, and other time related quirks, and R lacks these capabilities in some situations. <code>Lubridate</code> makes it easier to do the things R does with date-times and possible to do the things R does not.</p>
 </blockquote>
 </div>
 <div id="glue" class="section level4">
 <h4><span class="header-section-number">1.5.2.7</span> <strong><code>glue</code></strong></h4>
-<p>The <a href="https://glue.tidyverse.org/"><code>glue</code></a> package makes working with interpreted string literals simpler. We’ll discuss this package in detail in this specialization.</p>
+<p>The <a href="https://glue.tidyverse.org/"><code>glue</code></a> <code>tidyverse</code>-adjacent package makes working with interpreted string literals simpler. We’ll discuss this package in detail in this specialization.</p>
 </div>
 <div id="skimr" class="section level4">
 <h4><span class="header-section-number">1.5.2.8</span> <strong><code>skimr</code></strong></h4>
 <p>After you’ve got your data into a tidy format and all of your variable types have been cleaned, the next step is often summarizing your data. If you’ve used the <code>summary()</code> function in R before, you’re going to love <code>skimr</code>, which summarizes entire data frames for you in a tidy manner.</p>
-<p>According to the <a href="https://github.com/ropensci/skimr"><em>skimr</em></a> package:</p>
+<p>According to the <a href="https://github.com/ropensci/skimr"><em>skimr</em></a> <code>tidyverse</code>-adjacent package:</p>
 <blockquote>
 <p><code>skimr</code> provides a frictionless approach to summary statistics which conforms to the principle of least surprise, displaying summary statistics the user can skim quickly to understand their data.</p>
 </blockquote>
 </div>
 <div id="tidytext" class="section level4">
 <h4><span class="header-section-number">1.5.2.9</span> <strong><code>tidytext</code></strong></h4>
-<p>While working with factors, numbers, and small strings is common in R, longer texts have historically been analyzed using approaches outside of R. However, once <code>tidytext</code> was developed, R had a tidy approach to analyzing text data, such as novels, news stories, and speeches.</p>
+<p>While working with factors, numbers, and small strings is common in R, longer texts have historically been analyzed using approaches outside of R. However, once the <code>tidyverse</code>-adjacent package <code>tidytext</code> was developed, R had a tidy approach to analyzing text data, such as novels, news stories, and speeches.</p>
 <p>According to the <a href="https://github.com/juliasilge/tidytext"><code>tidytext</code> website</a>:</p>
 <blockquote>
 <p>In this package, we provide functions and supporting data sets to allow conversion of text to and from tidy formats, and to switch seamlessly between tidy tools and existing text mining packages.</p>
@@ -844,7 +844,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="kableextra" class="section level4">
 <h4><span class="header-section-number">1.5.3.2</span> <strong><code>kableExtra</code></strong></h4>
-<p>While the ability to make beautiful and informative plots is essential, tables can be incredibly effective vehicles for the conveyance of information. Customizing plots can be done using the <code>kableExtra</code> package, which is built on top of the <code>knitr()</code> function from the <code>kable</code> package, which generates basic tables. <a href="https://github.com/haozhu233/kableExtra"><code>kableExtra</code></a> allows complex and detailed tables to be built using a <code>ggplot2</code>-inspired syntax.</p>
+<p>While the ability to make beautiful and informative plots is essential, tables can be incredibly effective vehicles for the conveyance of information. Customizing plots can be done using the <code>tidyverse</code>-adjacent <code>kableExtra</code> package, which is built on top of the <code>knitr()</code> function from the <code>kable</code> package, which generates basic tables. <a href="https://github.com/haozhu233/kableExtra"><code>kableExtra</code></a> allows complex and detailed tables to be built using a <code>ggplot2</code>-inspired syntax.</p>
 </div>
 <div id="ggrepel" class="section level4">
 <h4><span class="header-section-number">1.5.3.3</span> <strong><code>ggrepel</code></strong></h4>
@@ -860,11 +860,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="patchwork" class="section level4">
 <h4><span class="header-section-number">1.5.3.5</span> <strong><code>patchwork</code></strong></h4>
-<p>The <a href="https://patchwork.data-imaginist.com/"><code>patchwork</code></a> package is similar to <code>cowplot</code> and is an excellent option for combining multiple plots together.</p>
+<p>The <a href="https://patchwork.data-imaginist.com/"><code>patchwork</code></a> package (also <code>tidyverse</code>-adjacent) is similar to <code>cowplot</code> and is an excellent option for combining multiple plots together.</p>
 </div>
 <div id="gganimate" class="section level4">
 <h4><span class="header-section-number">1.5.3.6</span> <strong><code>gganimate</code></strong></h4>
-<p>Beyond static images, there are times when we want to display changes over time or other visualizations that require animation. The <code>gganimate</code> package enables animation on top of <code>ggplot2</code> plots.</p>
+<p>Beyond static images, there are times when we want to display changes over time or other visualizations that require animation. The <code>gganimate</code> package (also <code>tidyverse</code>-adjacent) enables animation on top of <code>ggplot2</code> plots.</p>
 <p>According to the <a href="https://gganimate.com/"><code>gganimate</code> website</a>:</p>
 <blockquote>
 <p><code>gganimate</code> extends the grammar of graphics as implemented by <code>ggplot2</code> to include the description of animation. It does this by providing a range of new grammar classes that can be added to the plot object in order to customize how it should change with time.</p>
@@ -877,13 +877,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="the-tidymodels-ecosystem" class="section level4">
 <h4><span class="header-section-number">1.5.4.1</span> The <code>tidymodels</code> ecosystem</h4>
 <p>When it comes to predictive analyses and machine learning, there is a suite of packages called <code>tidymodels</code>.</p>
-<p>The <code>tidymodels</code> ecosystem contains packages for data splitting, preprocessing, model fitting, performance assessment and more.</p>
+<p>The <code>tidymodels</code> ecosystem contains packages for data splitting, preprocessing, model fitting, performance assessment, and more.</p>
 <p>The great advantage is that is allows for users to use predictive algorithms that were written across dozens of different R packages and makes them all usable with a standard syntax.</p>
 </div>
 <div id="inferential-packages-broom-and-infer" class="section level4">
 <h4><span class="header-section-number">1.5.4.2</span> Inferential packages: <code>broom</code> and <code>infer</code></h4>
 <p>When carrying out inferential analyses the <a href="https://github.com/tidymodels"><code>tidymodels</code></a> suite of tidyverse-adjacent packages is essential.</p>
-<p><a href="https://broom.tidyverse.org/"><code>broom</code></a> which happens to be an official <code>tidyverse</code> package and part of the <code>tidymodels</code> suite takes statistical analysis objects from R (think the output of your <code>lm()</code> function) and converts them into a tidy data format. This makes obtaining the information you’re most interested in from your statistical models much simpler.</p>
+<p>The <a href="https://broom.tidyverse.org/"><code>broom</code></a> package which is part of the <code>tidymodels</code> suite takes statistical analysis objects from R (think the output of your <code>lm()</code> function) and converts them into a tidy data format. This makes obtaining the information you’re most interested in from your statistical models much simpler.</p>
 <p>Similarly, <a href="https://github.com/tidymodels/infer"><code>infer</code></a> sets out to perform statistical inference using a standard statistical grammar. Historically, the syntax varied widely from one statistical test to the next in R. The <code>infer</code> package sets out to standardize the syntax, regardless of the test.</p>
 </div>
 <div id="tidyverts-tsibble-feasts-and-fable" class="section level4">
@@ -1014,8 +1014,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><a href="https://github.com/jennybc">Jenny Bryan</a>, has several <a href="https://www.tidyverse.org/blog/2017/12/workflow-vs-script/">reasons</a>. We highly recommend checking them out.</p>
 <p>In our own words:</p>
 <ol style="list-style-type: decimal">
-<li>It makes your project work more easily on someone else’s machine - there is no need to change the working directory path with the <code>setwd()</code> function. Everything will be relative to the .Rproj containing directory.</li>
-<li>It allows for your project to work more easily for you on your own machine - say your working directory was set to “/Users/somebody/2019_data_projects/that_big_project” and you decide you want to copy your scripts to be in “/Users/somebody/2020_data_projects/that_big_project_again” to update a project for the next year with new data. You would need to update all of your scripts each time you set your working directory or load or save files. In some cases that will happen many times in a single project!</li>
+<li>It makes your project work more easily on someone else’s machine - there is no need to change the working directory path with the <code>setwd()</code> function. Everything will be relative to the .Rproj containing directory.<br />
+</li>
+<li>It allows for your project to work more easily for you on your own machine - say your working directory was set to “/Users/somebody/2019_data_projects/that_big_project” and you decide you want to copy your scripts to be in “/Users/somebody/2020_data_projects/that_big_project_again” to update a project for the next year with new data. You would need to update all of your scripts each time you set your working directory or load or save files. In some cases that will happen many times in a single project!<br />
+</li>
 <li>It saves time. Sometimes our directory structures are complicated and we can easily make a typo. The <code>here</code> package makes writing paths easier!</li>
 </ol>
 </div>

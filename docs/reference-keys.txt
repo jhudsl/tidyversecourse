@@ -33,7 +33,7 @@ the-tidyverse-ecosystem
 reading-data-into-r
 tibble
 readr
-googlesheets
+googlesheets4
 readxl
 googledrive
 haven
