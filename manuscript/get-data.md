@@ -10,7 +10,7 @@ Getting data into your statistical analysis system can be one of the most challe
 
 This course introduces the Tidyverse tools for importing data into R so that it can be prepared for analysis, visualization, and modeling. Common data formats are introduced, including delimited files, spreadsheets, and relational databases. We will also introduce techniques for obtaining data from the web, such as web scraping and getting data from web APIs. 
 
-In this book we assume familiarity with the R programming language. If you are not yet familiar with R, we suggest you first complete [R Programming](https://www.coursera.org/learn/r-programming) before returning to complete this course.
+In this book we assume familiarity with the R programming language. If you are not yet familiar with R, we suggest you first complete [R Programming](https://leanpub.com/rprogramming) before returning to complete this course.
 
 
 
@@ -94,15 +94,15 @@ The `slice_sample()` function of the `dplyr` package will allow you to see a sam
 ```r
 slice_sample(trees, n = 10)
    Girth Height Volume
-1   11.2     75   19.9
-2   11.0     66   15.6
-3    8.6     65   10.3
-4   13.8     64   24.9
-5   14.5     74   36.3
-6   11.0     75   18.2
-7   17.5     82   55.7
-8   16.0     72   38.3
-9   10.8     83   19.7
+1   10.5     72   16.4
+2   10.7     81   18.8
+3   11.3     79   24.2
+4    8.6     65   10.3
+5   17.9     80   58.3
+6   11.2     75   19.9
+7   12.9     74   22.2
+8   11.7     69   21.3
+9   12.9     85   33.8
 10  18.0     80   51.0
 ```
 
@@ -1833,11 +1833,11 @@ url = "https://github.com/opencasestudies/ocs-police-shootings-firearm-legislati
 # Use httr's GET() and read_excel() to read in file
 GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-  Date: 2021-02-02 20:18
+  Date: 2021-02-02 20:45
   Status: 200
   Content-Type: application/octet-stream
   Size: 66.2 kB
-<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpmOrc40/file2c9959c09d07.xlsx
+<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpfMhXEY/file2e8659c09d07.xlsx
 brady <- read_excel(tf, sheet = 1)
 
 brady
@@ -1876,11 +1876,11 @@ url = "https://github.com/opencasestudies/ocs-police-shootings-firearm-legislati
 # Use httr's GET() and read_excel() to read in file
 GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-  Date: 2021-02-02 20:18
+  Date: 2021-02-02 20:45
   Status: 200
   Content-Type: application/octet-stream
   Size: 98.3 kB
-<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpmOrc40/file2c99618fb492.xls
+<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpfMhXEY/file2e86618fb492.xls
 crime <- read_excel(tf, sheet = 1, skip = 3)
 
 # see data
@@ -1918,11 +1918,11 @@ url = "https://github.com/opencasestudies/ocs-police-shootings-firearm-legislati
 # Use httr's GET() and read_excel() to read in file
 GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-  Date: 2021-02-02 20:18
+  Date: 2021-02-02 20:45
   Status: 200
   Content-Type: application/octet-stream
   Size: 1.57 MB
-<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpmOrc40/file2c996135133.xls
+<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpfMhXEY/file2e866135133.xls
 land <- read_excel(tf, sheet = 1)
 
 # see data
