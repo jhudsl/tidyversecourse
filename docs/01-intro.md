@@ -61,19 +61,19 @@ In Hadley Wickham's 2014 paper titled ["Tidy Data"](https://www.jstatsoft.org/ar
 
 These points are known as the tidy data principles. Here, we'll break down each one to ensure that we are all on the same page going forward.
 
-1. Each variable you measure should be in one column.
+1. Each variable you measure should be in one column.  
 
 ![Principle #1 of Tidy Data](images/gslides/004.png)
 
-2. Each different observation of that variable should be in a different row.
+2. Each different observation of that variable should be in a different row.  
 
 ![Principle #2 of Tidy Data](images/gslides/005.png)
 
-3. There should be one table for each "type" of data.
+3. There should be one table for each "type" of data.  
 
 ![Principle #3 of Tidy Data](images/gslides/006.png)
 
-4. If you have multiple tables, they should include a column in each spreadsheet (with the same column label!) that allows them to be joined or merged.
+4. If you have multiple tables, they should include a column in each spreadsheet (with the same column label!) that allows them to be joined or merged.  
 
 ![Principle #4 of Tidy Data](images/gslides/007.png)
 
@@ -227,7 +227,7 @@ Regardless of which life cycle chart you like best, when it comes down to answer
 
 With a solid understanding of tidy data and how tidy data fit into the data science life cycle, we'll take a bit of time to introduce you to the tidyverse and tidyverse-adjacent packages that we'll be teaching and using throughout this specialization. Taken together, these packages make up what we're referring to as the **tidyverse ecosystem**. The purpose for the rest of this course is not for you to understand *how* to use each of these packages (that's coming soon!), but rather to help you familiarize yourself with which packages fit into which part of the data science life cycle.
 
-Note that the official tidyverse packages below are **bold**. All other packages are tidyverse-adjacent, meaning they follow the same conventions as the official tidyverse packages and work well within the tidy framework and structure of data analysis.
+Note that we will describe the official tidyverse packages as well as other packages that are tidyverse-adjacent, meaning they follow the same conventions as the official tidyverse packages and work well within the tidy framework and structure of data analysis.
 
 ### Reading Data into R
 
@@ -252,9 +252,9 @@ According to the [`readr` website](https://readr.tidyverse.org/):
 > The goal of `readr` is to provide a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes. If you are new to readr, the best place to start is the data import chapter in R for data science.
 
 
-#### googlesheets
+#### **`googlesheets4`**
 
-[`googlesheets`](https://github.com/jennybc/googlesheets) is a brilliant package that allows users to "access and manage Google spreadsheets from R." As more and more data is saved in the cloud (rather than on local computers), packages like googlesheets become invaluable. If you store data on Google Sheets or work with people who do, this package will be a lifesaver.
+[`googlesheets4`](https://github.com/tidyverse/googlesheets4) is a brilliant `tidyverse`-adjacent package that allows users to "access and manage Google spreadsheets from R." As more and more data is saved in the cloud (rather than on local computers), packages like googlesheets4 become invaluable. If you store data on Google Sheets or work with people who do, this package will be a lifesaver.
 
 #### **`readxl`**
 
@@ -267,7 +267,7 @@ From the [`readxl` website](https://readxl.tidyverse.org/):
 
 #### **`googledrive`**
 
-Similar to `googlesheets`, but for interacting with file on Google Drive from R (rather than just Google Sheets), the [`googledrive`](https://googledrive.tidyverse.org/) package is an important package for working with data in R.
+Similar to `googlesheets4`, but for interacting with file on Google Drive from R (rather than just Google Sheets), the `tidyverse`-adjacent [`googledrive`](https://googledrive.tidyverse.org/) package is an important package for working with data in R.
 
 
 #### **`haven`**
@@ -298,7 +298,7 @@ There are *loads* of ways in which data and information are stored on computers 
 
 The most critical package for wrangling data is `dplyr`. Its release completely transformed the way many R users write R code and work with data, greatly simplifying the process.
 
-According to the [`dplyr` website](https://dplyr.tidyverse.org/)
+According to the [`dplyr` website](https://dplyr.tidyverse.org/):
 
 > dplyr is a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges. 
 
@@ -325,7 +325,7 @@ According to the [`janitor` website](https://github.com/sfirke/janitor):
 
 R is known for its ability to work with categorical data (called factors); however, they have historically been more of a necessary evil than a joy to work with. Due to the frustratingly hard nature of working with factors in R, the `forcats` package developers set out to make working with categorical data simpler.
 
-According to the [`forcats` website](https://forcats.tidyverse.org/)
+According to the [`forcats` website](https://forcats.tidyverse.org/):
 
 > The goal of the forcats package is to provide a suite of tools that solve common problems with factors, including changing the order of levels or the values.
 
@@ -334,36 +334,36 @@ According to the [`forcats` website](https://forcats.tidyverse.org/)
 
 Similar to `forcats`, but for strings, the `stringr` package makes common tasks simple and streamlined. Working with this package becomes easier with some knowledge of regular expressions, which we'll cover in this specialization.
 
-According to the [`string` website](https://stringr.tidyverse.org/)
+According to the [`string` website](https://stringr.tidyverse.org/):
 
 > Strings are not glamorous, high-profile components of R, but they do play a big role in many data cleaning and preparation tasks. The stringr package provide a cohesive set of functions designed to make working with strings as easy as possible.
 
 
 #### **`lubridate`**
 
-The final common package dedicated to working with a specific type of variable is `lubridate`, which makes working with dates and times simpler. Working with dates and times has historically been difficult due to the nature of our calendar, with its varying number of days per month and days per year, and due to time zones, which can make working with times infuriating. The `lubridate` developers aimed to make working with these types of data simpler.
+The final common package dedicated to working with a specific type of variable is `lubridate` (a `tidyverse`-adjacent package), which makes working with dates and times simpler. Working with dates and times has historically been difficult due to the nature of our calendar, with its varying number of days per month and days per year, and due to time zones, which can make working with times infuriating. The `lubridate` developers aimed to make working with these types of data simpler.
 
-According to the [`lubridate` website](https://lubridate.tidyverse.org/)
+According to the [`lubridate` website](https://lubridate.tidyverse.org/):
 
 > Date-time data can be frustrating to work with in R. R commands for date-times are generally unintuitive and change depending on the type of date-time object being used. Moreover, the methods we use with date-times must be robust to time zones, leap days, daylight savings times, and other time related quirks, and R lacks these capabilities in some situations. `Lubridate` makes it easier to do the things R does with date-times and possible to do the things R does not.
 
 #### **`glue`**
 
-The [`glue`](https://glue.tidyverse.org/) package makes working with interpreted string literals simpler. We'll discuss this package in detail in this specialization.
+The [`glue`](https://glue.tidyverse.org/) `tidyverse`-adjacent package makes working with interpreted string literals simpler. We'll discuss this package in detail in this specialization.
 
 #### **`skimr`**
 
 After you've got your data into a tidy format and all of your variable types have been cleaned, the next step is often summarizing your data. If you've used the `summary()` function in R before, you're going to love `skimr`, which summarizes entire data frames for you in a tidy manner. 
 
-According to the [*skimr*](https://github.com/ropensci/skimr) package:
+According to the [*skimr*](https://github.com/ropensci/skimr) `tidyverse`-adjacent package:
 
 > `skimr` provides a frictionless approach to summary statistics which conforms to the principle of least surprise, displaying summary statistics the user can skim quickly to understand their data.
 
 #### **`tidytext`**
 
-While working with factors, numbers, and small strings is common in R, longer texts have historically been analyzed using approaches outside of R. However, once `tidytext` was developed, R had a tidy approach to analyzing text data, such as novels, news stories, and speeches.
+While working with factors, numbers, and small strings is common in R, longer texts have historically been analyzed using approaches outside of R. However, once the `tidyverse`-adjacent package `tidytext` was developed, R had a tidy approach to analyzing text data, such as novels, news stories, and speeches.
 
-According to the [`tidytext` website](https://github.com/juliasilge/tidytext):
+According to the  [`tidytext` website](https://github.com/juliasilge/tidytext):
 
 
 > In this package, we provide functions and supporting data sets to allow conversion of text to and from tidy formats, and to switch seamlessly between tidy tools and existing text mining packages. 
@@ -394,7 +394,7 @@ This package will be covered in a great amount of detail in this specialization,
 
 #### **`kableExtra`**
 
-While the ability to make beautiful and informative plots is essential, tables can be incredibly effective vehicles for the conveyance of information. Customizing plots can be done using the `kableExtra` package, which is built on top of the `knitr()` function from the `kable` package, which generates basic tables. [`kableExtra`](https://github.com/haozhu233/kableExtra) allows complex and detailed tables to be built using a `ggplot2`-inspired syntax.
+While the ability to make beautiful and informative plots is essential, tables can be incredibly effective vehicles for the conveyance of information. Customizing plots can be done using the `tidyverse`-adjacent `kableExtra` package, which is built on top of the `knitr()` function from the `kable` package, which generates basic tables. [`kableExtra`](https://github.com/haozhu233/kableExtra) allows complex and detailed tables to be built using a `ggplot2`-inspired syntax.
 
 #### **`ggrepel`**
 
@@ -410,11 +410,11 @@ According to the [`cowplot`](https://github.com/wilkelab/cowplot) developers:
 
 #### **`patchwork`**
 
-The [`patchwork`](https://patchwork.data-imaginist.com/) package is similar to `cowplot` and is an excellent option for combining multiple plots together. 
+The [`patchwork`](https://patchwork.data-imaginist.com/) package (also `tidyverse`-adjacent) is similar to `cowplot` and is an excellent option for combining multiple plots together. 
 
 #### **`gganimate`**
 
-Beyond static images, there are times when we want to display changes over time or other visualizations that require animation. The `gganimate` package enables animation on top of `ggplot2` plots. 
+Beyond static images, there are times when we want to display changes over time or other visualizations that require animation. The `gganimate` package (also `tidyverse`-adjacent) enables animation on top of `ggplot2` plots. 
 
 According to the [`gganimate` website](https://gganimate.com/):
 
@@ -428,7 +428,7 @@ Once data have been read in, tidied, and explored, the last step to answering yo
 
 When it comes to predictive analyses and machine learning, there is a suite of packages called `tidymodels`. 
 
-The `tidymodels` ecosystem contains packages for data splitting, preprocessing, model fitting, performance assessment and more. 
+The `tidymodels` ecosystem contains packages for data splitting, preprocessing, model fitting, performance assessment, and more. 
 
 The great advantage is that is allows for users to use predictive algorithms that were written across dozens of different R packages and makes them all usable with a standard syntax. 
 
@@ -436,7 +436,7 @@ The great advantage is that is allows for users to use predictive algorithms tha
 #### Inferential packages: `broom` and `infer`
 When carrying out inferential analyses the [`tidymodels`](https://github.com/tidymodels) suite of tidyverse-adjacent packages is essential. 
 
-[`broom`](https://broom.tidyverse.org/) which happens to be an official `tidyverse` package and part of the `tidymodels` suite takes statistical analysis objects from R (think the output of your `lm()` function) and converts them into a tidy data format. This makes obtaining the information you're most interested in from your statistical models much simpler. 
+The [`broom`](https://broom.tidyverse.org/) package which is part of the `tidymodels` suite takes statistical analysis objects from R (think the output of your `lm()` function) and converts them into a tidy data format. This makes obtaining the information you're most interested in from your statistical models much simpler. 
 
 Similarly, [`infer`](https://github.com/tidymodels/infer) sets out to perform statistical inference using a standard statistical grammar. Historically, the syntax varied widely from one statistical test to the next in R. The `infer` package sets out to standardize the syntax, regardless of the test.
 
@@ -603,9 +603,9 @@ You may be asking, "Why do I need the `here` package?", and you may be thinking,
 
 In our own words:
 
-1) It makes your project work more easily on someone else's machine - there is no need to change the working directory path with the `setwd()` function. Everything will be relative to the .Rproj containing directory.
-2) It allows for your project to work more easily for you on your own machine - say your working directory was set to "/Users/somebody/2019_data_projects/that_big_project" and you decide you want to copy your scripts to be in  "/Users/somebody/2020_data_projects/that_big_project_again" to update a project for the next year with new data. You would need to update all of your scripts each time you set your working directory or load or save files. In some cases that will happen many times in a single project!
-3) It saves time. Sometimes our directory structures are complicated and we can easily make a typo. The `here` package makes writing paths easier!
+1) It makes your project work more easily on someone else's machine - there is no need to change the working directory path with the `setwd()` function. Everything will be relative to the .Rproj containing directory.  
+2) It allows for your project to work more easily for you on your own machine - say your working directory was set to "/Users/somebody/2019_data_projects/that_big_project" and you decide you want to copy your scripts to be in  "/Users/somebody/2020_data_projects/that_big_project_again" to update a project for the next year with new data. You would need to update all of your scripts each time you set your working directory or load or save files. In some cases that will happen many times in a single project!  
+3) It saves time. Sometimes our directory structures are complicated and we can easily make a typo. The `here` package makes writing paths easier!  
 
 ### File Naming
 
