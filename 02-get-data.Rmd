@@ -114,7 +114,7 @@ tibble(
 
 ### Subsetting
 
-Subsetting tibbles also differs slightly from how subsetting occurs with data.frame. When it comes to tibbles, `[[` can subset by name or position;``$` only subsets by name. For example:
+Subsetting tibbles also differs slightly from how subsetting occurs with data.frame. When it comes to tibbles, `[[` can subset by name or position; `$` only subsets by name. For example:
 
 ```{r}
 df <- tibble(
@@ -147,6 +147,7 @@ Microsoft Excel files, which typically have the file extension .xls or .xlsx, st
 Reading spreadsheets from Excel into R is made possible thanks to the `readxl` package. This is not a core tidyverse package, so you'll need to install and load the package in before use:
 
 ```{r, message = FALSE}
+##install.packages("readxl")
 library(readxl)
 ```
 
@@ -283,18 +284,18 @@ In order to ultimately access the information a specific Google Sheet, you can u
 
 ```{r eval = FALSE}
 # read Google Sheet into R with id
-read_sheet("2cdw-678dSPLfdID__LIt8eEFZPasdebgIGwH")
+read_sheet("2cdw-678dSPLfdID__LIt8eEFZPasdebgIGwHk")
 # note this is a fake id
 ```
 
-You can also navigate to your own sheets or to other people's sheets using a URL. For example, paste [https://docs.google.com/spreadsheets/d/1FN7VVKzJJyifZFY5POdz_LalGTBYaC4SLB-X9vyDnbY/] in your web browser. We will now read this into R like so:
+You can also navigate to your own sheets or to other people's sheets using a URL. For example, paste [https://docs.google.com/spreadsheets/d/1FN7VVKzJJyifZFY5POdz_LalGTBYaC4SLB-X9vyDnbY/] in your web browser or click [here](https://docs.google.com/spreadsheets/d/1FN7VVKzJJyifZFY5POdz_LalGTBYaC4SLB-X9vyDnbY/). We will now read this into R using the URL:
 
 ```{r eval = FALSE}
  # read Google Sheet into R with URL
 survey_sheet <- read_sheet("https://docs.google.com/spreadsheets/d/1FN7VVKzJJyifZFY5POdz_LalGTBYaC4SLB-X9vyDnbY/")
 ```
 
-Note that we assign the information stored in this Google Sheet to the object `survey_sheet`so that we can use it again shortly.
+Note that we assign the information stored in this Google Sheet to the object `survey_sheet` so that we can use it again shortly.
 
 ![Sheet successfully read into R](images/book_figures/sheet1.png)
 
@@ -319,12 +320,12 @@ There are other additional (optional) arguments to `read_sheet()`, some are simi
 
 * `skip = 1`: will skip the first row of the Google Sheet  
 * `col_names` = FALSE`: specifies that the first row is not column names  
-*`range = "A1:G5"`: specifies the range of cells that we like to import is A1 to G5  
+* `range = "A1:G5"`: specifies the range of cells that we like to import is A1 to G5  
 * `n_max = 100`: specifies the maximum number of rows that we want to import is 100  
 
-To read in data from a Google Sheet in `googlesheets4`, you must first know the **id**, the **name** or the **URL** of the Google Sheet and have access to it. 
+In summary, to read in data from a Google Sheet in `googlesheets4`, you must first know the **id**, the **name** or the **URL** of the Google Sheet and have access to it. 
 
-See [https://googlesheets4.tidyverse.org/reference/index.html] for a list of additional functions in the **googlesheets4** package.
+See https://googlesheets4.tidyverse.org/reference/index.html for a list of additional functions in the `googlesheets4` package.
 
 
 ## CSVs
@@ -374,7 +375,7 @@ Above, you see the simplest way to import a CSV file. However, as with many func
 
 By default, `read_csv()` converts blank cells to missing data (NA).
 
-Finally, we introduce the function `read_csv` here and recommend that you use it, as it is the simplest and fastest way to read CSV files into R. However, we note that there *is* a function `read.csv()` which is available by default in R. You will likely see this function in others' code, so we just want to make sure you're aware of it.
+We have introduced the function `read_csv` here and recommend that you use it, as it is the simplest and fastest way to read CSV files into R. However, we note that there *is* a function `read.csv()` which is available by default in R. You will likely see this function in others' code, so we just want to make sure you're aware of it.
 
 
 ## TSVs
@@ -420,7 +421,7 @@ The last topic of this lesson is about how to export data from R. So far we lear
 
 As discussed above, CSV format is a good candidate because of its simplicity and compatibility. Let's say you have a data frame in the R environment that you would like to export as a CSV. To do so, you could use `write_csv()` from the `readr` package. 
 
-Since we've already created a data frame named `df_csv`, we can export it to a CSV file using the following code. After typing this command, a new CSV file called `my_csv_file.csv` will appear in the Files section.
+Since we've already created a data frame named `df_csv`, we can export it to a CSV file using the following code. After typing this command, a new CSV file called `my_csv_file.csv` will appear in the Files section of RStudio (if you are using it).
 
 ```{r eval = FALSE}
 write_csv(df_csv, path = "my_csv_file.csv")
@@ -433,7 +434,7 @@ We'll finally note that there are default R functions `write.csv()` and `write.t
 
 ## JSON
 
-All of the file formats we've discussed so far (tibbles, CSVs, Excel Spreadsheets and Google Sheets) are various ways to store what is known as tabular data, data where information is stored in rows and columns. To review, when data are stored in a tidy format, variables are stored in **columns** and each observation is stored in a different **row**. The values for each observation is stored in its respective **cell**. These *rules* for tabular data help define the **structure** of the file. Storing information in rows and columns, however, is not the only way to store data. 
+All of the file formats we've discussed so far (tibbles, CSVs, Excel Spreadsheets, and Google Sheets) are various ways to store what is known as tabular data, data where information is stored in rows and columns. To review, when data are stored in a tidy format, variables are stored in **columns** and each observation is stored in a different **row**. The values for each observation is stored in its respective **cell**. These *rules* for tabular data help define the **structure** of the file. Storing information in rows and columns, however, is not the only way to store data. 
 
 Alternatively, JSON (JavaScript Object Notation) data are *nested* and *hierarchical*. JSON  is a very commonly-used text-based way to send information between a browser and a server. It is easy for humans to read and to write. JSON data adhere to certain rules in how they are structured. For simplicity, JSON format requires objects to be comprised of **key-value pairs**. For example, in the case of: `{"Name": "Isabela"}`, "Name" would be a key, "Isabela" would be a value, and together they would be a key-value pair. Let's take a look at how JSON data looks in R.This means that key-pairs can be organized into different levels (hierarchical) with some levels of information being stored *within* other levels (nested).
 
@@ -459,7 +460,7 @@ json
 
 Here, we've stored information about Toy Story characters, their age, and their occupation in an object called `json`.
 
-In this format, we cannot easily work with the data with within R; however, the `jsonlite` package can help us. Using the defaults of the function `fromJSON()`, `jsonlite` will take the data from JSON array format and helpfully return a data frame. 
+In this format, we cannot easily work with the data within R; however, the `jsonlite` package can help us. Using the defaults of the function `fromJSON()`, `jsonlite` will take the data from JSON array format and helpfully return a data frame. 
 
 ```{r, message = FALSE}
 #install.packages("jsonlite")
@@ -561,7 +562,7 @@ While we won't be discussing how to write SQL commands in-depth here, we *will* 
 
 ### Connecting to Databases: `RSQLite`
 
-To better understand databases and how to work with relational data, let's just start working with data from a database! The data we'll be using are from a database with relational data: `company.db`. The database includes 11 tables with data that represents a digital media store. The data includes information generally related to related to media, artists, artists' work, and those who purchase artists' work (customers). You can download the database file here:
+To better understand databases and how to work with relational data, let's just start working with data from a database! The data we'll be using are from a database with relational data: `company.db`. The database includes tables with data that represents a digital media store. The data includes information generally related to related to media, artists, artists' work, and those who purchase artists' work (customers). You can download the database file here:
 
 * [company.db.zip](company.db.zip)
 
@@ -640,7 +641,7 @@ And, since it's a mutating join, our new table will have information from both t
 
 ![inner join includes observations found in both tables](images/gslides/059.png)
 
-Throughout this lesson we will use the coloring use see here to explain the joins, so we want to explain it explicitly here. Green cells are cells that will be used to make the merge happen and will be included in the resulting merged table. Blue cells are information that comes from the `artists` table that will be included after the merge. Red cells are pieces of information that come from the `albums` table that will be included after the merge. Finally, cells that are left white in the `artists` or `albums` table are cells that will not be included in the merge while cells that are white *after* the merge are NAs that have been added as a result of the merge.
+Throughout this lesson we will use the coloring you see here to explain the joins, so we want to explain it explicitly here. Green cells are cells that will be used to make the merge happen and will be included in the resulting merged table. Blue cells are information that comes from the `artists` table that will be included after the merge. Red cells are pieces of information that come from the `albums` table that will be included after the merge. Finally, cells that are left white in the `artists` or `albums` table are cells that will not be included in the merge while cells that are white *after* the merge are NAs that have been added as a result of the merge.
 
 Now, to run this for our tables from the database, rather than just for a few rows in our toy example, you would do the following:
 
@@ -811,7 +812,7 @@ To enable SelectorGadget using Google Chrome:
 
 ### Web Scraping Example
 
-Similar to the example above, what if you were interested in knowing a few recommended R packages for working with data. Sure, you could go to a whole bunch of websites and Google and copy and paste each one into a Google Sheet and have the information. But, that's not very fun!
+Similar to the example above, what if you were interested in knowing a few recommended R packages for working with data? Sure, you could go to a whole bunch of websites and Google and copy and paste each one into a Google Sheet and have the information. But, that's not very fun!
 
 Alternatively, you could write and run a few lines of code and get all the information that way! We'll do that in the example below. 
 
@@ -992,7 +993,7 @@ As this is a simpler approach than the previous example, you'll want to use this
 
 ### API keys
 
-Not all API's are as "open" as GitHub's. For example, if you ran the code for the first example above exactly as it was written (and didn't change the GitHub username), you would have gotten information about the repos in janeeverydaydoe's GitHub account. Because it is a fully-open API, you're able to retrieve information about not only your GitHub account, but also other users' public GitHub activity. This makes good sense because sharing code among public repositories is an important part of GitHub.
+Not all API's are as "open" as GitHub's. For example, if you ran the code for the first example above exactly as it was written (and didn't change the GitHub username), you would have gotten information about the repos in janeeverydaydoe's GitHub account. Because it is a fully-open API, you're able to retrieve information about not only your GitHub account, but also other users' **public** GitHub activity. This makes good sense because sharing code among public repositories is an important part of GitHub.
 
 Alternatively, while Google also has an API (or rather, *many* API's), they aren't quite as open. This makes good sense. There is no reason why one should have access to the files on someone else's Google Drive account. Controlling whose files one can access through Google's API is an important privacy feature. 
 
@@ -1081,7 +1082,7 @@ Like with text, there are packages in R that will help you carry out analysis of
 
 A really useful manipulation that one can perform is text extraction from images. Typically this works best with images that have text, where the text is not angled and is in a conventional font.
 
-We will show how to do this using a couple of tidyverse package hex stickers.
+We will show how to do this using a couple of tidyverse package hex stickers. This will involve using the `image_read()` function to import the image and the `image_ocr()` function to extract the text.
 
 ```{r}
 # install package
@@ -1201,13 +1202,13 @@ As a reminder, we're ultimately interested in answering the following questions 
 
 We'll first read the data in. Note that we have to skip the first two lines, as there are two lines in the CSV that store information about the file before we get to the actual data.
 
-To see what we mean, you can always use the `read_lines()` function from `readr` to see the first few lines:
+To see what we mean, you can always use the `read_lines()` function from `readr` to see the first 7 lines with the `n_max` argument:
 
 ```{r, message = FALSE}
-read_lines(file = 'https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv', n_max = 10)
+read_lines(file = 'https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv', n_max = 7)
 ```
 
-We'll read in the data, starting with the third line of the file:
+Looks like we don't need the first two lines, so we'll read in the data, starting with the third line of the file:
 
 ```{r, message = FALSE}
 coverage <- read_csv('https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv', 

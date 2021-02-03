@@ -229,7 +229,7 @@ Regardless of which life cycle chart you like best, when it comes down to answer
 
 With a solid understanding of tidy data and how tidy data fit into the data science life cycle, we'll take a bit of time to introduce you to the tidyverse and tidyverse-adjacent packages that we'll be teaching and using throughout this specialization. Taken together, these packages make up what we're referring to as the **tidyverse ecosystem**. The purpose for the rest of this course is not for you to understand *how* to use each of these packages (that's coming soon!), but rather to help you familiarize yourself with which packages fit into which part of the data science life cycle.
 
-Note that we will describe the official tidyverse packages as well as other packages that are tidyverse-adjacent, meaning they follow the same conventions as the official tidyverse packages and work well within the tidy framework and structure of data analysis.
+Note that we will describe the official tidyverse packages, as well as other packages that are tidyverse-adjacent. This means they follow the same conventions as the official tidyverse packages and work well within the tidy framework and structure of data analysis.
 
 ### Reading Data into R
 

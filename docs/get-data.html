@@ -24,7 +24,7 @@
 <meta name="author" content="Carrie Wright, Shannon E. Ellis, Stephanie C. Hicks and Roger D. Peng" />
 
 
-<meta name="date" content="2021-02-02" />
+<meta name="date" content="2021-02-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -520,16 +520,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The <code>slice_sample()</code> function of the <code>dplyr</code> package will allow you to see a sample of random rows in random order. The number of rows to show is specified by the <code>n</code> argument. This can be useful if you don’t want to print the entire tibble, but you want to get a greater sense of the values. This is a good option for data analysis reports, where printing the entire tibble would not be appropriate if the tibble is quite large.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="get-data.html#cb11-1"></a><span class="kw">slice_sample</span>(trees, <span class="dt">n =</span> <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##    Girth Height Volume
-## 1   17.9     80   58.3
-## 2   10.5     72   16.4
-## 3   13.7     71   25.7
-## 4   12.0     75   19.1
-## 5   11.3     79   24.2
-## 6   17.3     81   55.4
-## 7   10.8     83   19.7
-## 8   11.1     80   22.6
-## 9   14.0     78   34.5
-## 10   8.6     65   10.3</code></pre>
+## 1   11.4     76   21.4
+## 2   14.5     74   36.3
+## 3   11.0     66   15.6
+## 4   20.6     87   77.0
+## 5   18.0     80   51.0
+## 6   12.0     75   19.1
+## 7   10.5     72   16.4
+## 8   17.9     80   58.3
+## 9   17.5     82   55.7
+## 10  10.8     83   19.7</code></pre>
 <p>You can also use <code>slice_head()</code> or <code>slice_tail()</code> to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.</p>
 <p>This will show the first 5 rows.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="get-data.html#cb13-1"></a><span class="kw">slice_head</span>(trees, <span class="dt">n =</span> <span class="dv">5</span>)</span></code></pre></div>
@@ -585,7 +585,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="subsetting" class="section level3">
 <h3><span class="header-section-number">2.2.3</span> Subsetting</h3>
-<p>Subsetting tibbles also differs slightly from how subsetting occurs with data.frame. When it comes to tibbles, <code>[[</code> can subset by name or position;`<code>$</code> only subsets by name. For example:</p>
+<p>Subsetting tibbles also differs slightly from how subsetting occurs with data.frame. When it comes to tibbles, <code>[[</code> can subset by name or position; <code>$</code> only subsets by name. For example:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="get-data.html#cb21-1"></a>df &lt;-<span class="st"> </span><span class="kw">tibble</span>(</span>
 <span id="cb21-2"><a href="get-data.html#cb21-2"></a>  <span class="dt">a =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,</span>
 <span id="cb21-3"><a href="get-data.html#cb21-3"></a>  <span class="dt">b =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">10</span>,</span>
@@ -613,7 +613,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="reading-excel-files-into-r" class="section level4">
 <h4><span class="header-section-number">2.3.1.1</span> Reading Excel files into R</h4>
 <p>Reading spreadsheets from Excel into R is made possible thanks to the <code>readxl</code> package. This is not a core tidyverse package, so you’ll need to install and load the package in before use:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="get-data.html#cb27-1"></a><span class="kw">library</span>(readxl)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="get-data.html#cb27-1"></a><span class="co">##install.packages(&quot;readxl&quot;)</span></span>
+<span id="cb27-2"><a href="get-data.html#cb27-2"></a><span class="kw">library</span>(readxl)</span></code></pre></div>
 <p>The function <code>read_excel()</code> is particularly helpful whenever you want read an Excel file into your R Environment. The only required argument of this function is the path to the Excel file on your computer. In the following example, <code>read_excel()</code> would look for the file “filename.xlsx” in your current working directory. If the file were located somewhere else on your computer, you would have to provide the <em>path</em> to that file.</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="get-data.html#cb28-1"></a><span class="co"># read Excel file into R</span></span>
 <span id="cb28-2"><a href="get-data.html#cb28-2"></a>df_excel &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;filename.xlsx&quot;</span>)</span></code></pre></div>
@@ -761,12 +762,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h5><span class="header-section-number">2.3.2.1.3</span> Reading data in using <code>googlesheets</code>:<code>gs_read()</code></h5>
 <p>In order to ultimately access the information a specific Google Sheet, you can use <code>the read_sheets()</code> function by typing in the id listed for your Google Sheet of interest when using <code>gs4_find()</code>.</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="get-data.html#cb41-1"></a><span class="co"># read Google Sheet into R with id</span></span>
-<span id="cb41-2"><a href="get-data.html#cb41-2"></a><span class="kw">read_sheet</span>(<span class="st">&quot;2cdw-678dSPLfdID__LIt8eEFZPasdebgIGwH&quot;</span>)</span>
+<span id="cb41-2"><a href="get-data.html#cb41-2"></a><span class="kw">read_sheet</span>(<span class="st">&quot;2cdw-678dSPLfdID__LIt8eEFZPasdebgIGwHk&quot;</span>)</span>
 <span id="cb41-3"><a href="get-data.html#cb41-3"></a><span class="co"># note this is a fake id</span></span></code></pre></div>
-<p>You can also navigate to your own sheets or to other people’s sheets using a URL. For example, paste [<a href="https://docs.google.com/spreadsheets/d/1FN7VVKzJJyifZFY5POdz_LalGTBYaC4SLB-X9vyDnbY/" class="uri">https://docs.google.com/spreadsheets/d/1FN7VVKzJJyifZFY5POdz_LalGTBYaC4SLB-X9vyDnbY/</a>] in your web browser. We will now read this into R like so:</p>
+<p>You can also navigate to your own sheets or to other people’s sheets using a URL. For example, paste [<a href="https://docs.google.com/spreadsheets/d/1FN7VVKzJJyifZFY5POdz_LalGTBYaC4SLB-X9vyDnbY/" class="uri">https://docs.google.com/spreadsheets/d/1FN7VVKzJJyifZFY5POdz_LalGTBYaC4SLB-X9vyDnbY/</a>] in your web browser or click <a href="https://docs.google.com/spreadsheets/d/1FN7VVKzJJyifZFY5POdz_LalGTBYaC4SLB-X9vyDnbY/">here</a>. We will now read this into R using the URL:</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="get-data.html#cb42-1"></a> <span class="co"># read Google Sheet into R with URL</span></span>
 <span id="cb42-2"><a href="get-data.html#cb42-2"></a>survey_sheet &lt;-<span class="st"> </span><span class="kw">read_sheet</span>(<span class="st">&quot;https://docs.google.com/spreadsheets/d/1FN7VVKzJJyifZFY5POdz_LalGTBYaC4SLB-X9vyDnbY/&quot;</span>)</span></code></pre></div>
-<p>Note that we assign the information stored in this Google Sheet to the object <code>survey_sheet</code>so that we can use it again shortly.</p>
+<p>Note that we assign the information stored in this Google Sheet to the object <code>survey_sheet</code> so that we can use it again shortly.</p>
 <div class="figure">
 <img src="images/book_figures/Sheet1.png" alt="" />
 <p class="caption">Sheet successfully read into R</p>
@@ -784,12 +785,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><code>skip = 1</code>: will skip the first row of the Google Sheet<br />
 </li>
-<li><code>col_names</code> = FALSE<code>: specifies that the first row is not column names   *</code>range = “A1:G5”`: specifies the range of cells that we like to import is A1 to G5<br />
+<li><code>col_names</code> = FALSE`: specifies that the first row is not column names<br />
+</li>
+<li><code>range = "A1:G5"</code>: specifies the range of cells that we like to import is A1 to G5<br />
 </li>
 <li><code>n_max = 100</code>: specifies the maximum number of rows that we want to import is 100</li>
 </ul>
-<p>To read in data from a Google Sheet in <code>googlesheets4</code>, you must first know the <strong>id</strong>, the <strong>name</strong> or the <strong>URL</strong> of the Google Sheet and have access to it.</p>
-<p>See [<a href="https://googlesheets4.tidyverse.org/reference/index.html" class="uri">https://googlesheets4.tidyverse.org/reference/index.html</a>] for a list of additional functions in the <strong>googlesheets4</strong> package.</p>
+<p>In summary, to read in data from a Google Sheet in <code>googlesheets4</code>, you must first know the <strong>id</strong>, the <strong>name</strong> or the <strong>URL</strong> of the Google Sheet and have access to it.</p>
+<p>See <a href="https://googlesheets4.tidyverse.org/reference/index.html" class="uri">https://googlesheets4.tidyverse.org/reference/index.html</a> for a list of additional functions in the <code>googlesheets4</code> package.</p>
 </div>
 </div>
 </div>
@@ -838,7 +841,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>n_max = 100</code> will only read in the first 100 rows. You can set the number to any number you want. This is helpful if you’re not sure how big a file is and just want to see part of it.</li>
 </ul>
 <p>By default, <code>read_csv()</code> converts blank cells to missing data (NA).</p>
-<p>Finally, we introduce the function <code>read_csv</code> here and recommend that you use it, as it is the simplest and fastest way to read CSV files into R. However, we note that there <em>is</em> a function <code>read.csv()</code> which is available by default in R. You will likely see this function in others’ code, so we just want to make sure you’re aware of it.</p>
+<p>We have introduced the function <code>read_csv</code> here and recommend that you use it, as it is the simplest and fastest way to read CSV files into R. However, we note that there <em>is</em> a function <code>read.csv()</code> which is available by default in R. You will likely see this function in others’ code, so we just want to make sure you’re aware of it.</p>
 </div>
 </div>
 <div id="tsvs" class="section level2">
@@ -873,14 +876,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">2.7</span> Exporting Data from R</h2>
 <p>The last topic of this lesson is about how to export data from R. So far we learned about reading data into R. However, sometimes you would like to share <em>your</em> data with others and need to export your data from R to some format that your collaborators can see.</p>
 <p>As discussed above, CSV format is a good candidate because of its simplicity and compatibility. Let’s say you have a data frame in the R environment that you would like to export as a CSV. To do so, you could use <code>write_csv()</code> from the <code>readr</code> package.</p>
-<p>Since we’ve already created a data frame named <code>df_csv</code>, we can export it to a CSV file using the following code. After typing this command, a new CSV file called <code>my_csv_file.csv</code> will appear in the Files section.</p>
+<p>Since we’ve already created a data frame named <code>df_csv</code>, we can export it to a CSV file using the following code. After typing this command, a new CSV file called <code>my_csv_file.csv</code> will appear in the Files section of RStudio (if you are using it).</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="get-data.html#cb47-1"></a><span class="kw">write_csv</span>(df_csv, <span class="dt">path =</span> <span class="st">&quot;my_csv_file.csv&quot;</span>)</span></code></pre></div>
 <p>You could similarly save your data as a TSV file using the function <code>write_tsv()</code> function.</p>
 <p>We’ll finally note that there are default R functions <code>write.csv()</code> and <code>write.table()</code> that accomplish similar goals. You may see these in others’ code; however, we recommend sticking to the intuitive and quick <code>readr</code> functions discussed in this lesson.</p>
 </div>
 <div id="json" class="section level2">
 <h2><span class="header-section-number">2.8</span> JSON</h2>
-<p>All of the file formats we’ve discussed so far (tibbles, CSVs, Excel Spreadsheets and Google Sheets) are various ways to store what is known as tabular data, data where information is stored in rows and columns. To review, when data are stored in a tidy format, variables are stored in <strong>columns</strong> and each observation is stored in a different <strong>row</strong>. The values for each observation is stored in its respective <strong>cell</strong>. These <em>rules</em> for tabular data help define the <strong>structure</strong> of the file. Storing information in rows and columns, however, is not the only way to store data.</p>
+<p>All of the file formats we’ve discussed so far (tibbles, CSVs, Excel Spreadsheets, and Google Sheets) are various ways to store what is known as tabular data, data where information is stored in rows and columns. To review, when data are stored in a tidy format, variables are stored in <strong>columns</strong> and each observation is stored in a different <strong>row</strong>. The values for each observation is stored in its respective <strong>cell</strong>. These <em>rules</em> for tabular data help define the <strong>structure</strong> of the file. Storing information in rows and columns, however, is not the only way to store data.</p>
 <p>Alternatively, JSON (JavaScript Object Notation) data are <em>nested</em> and <em>hierarchical</em>. JSON is a very commonly-used text-based way to send information between a browser and a server. It is easy for humans to read and to write. JSON data adhere to certain rules in how they are structured. For simplicity, JSON format requires objects to be comprised of <strong>key-value pairs</strong>. For example, in the case of: <code>{"Name": "Isabela"}</code>, “Name” would be a key, “Isabela” would be a value, and together they would be a key-value pair. Let’s take a look at how JSON data looks in R.This means that key-pairs can be organized into different levels (hierarchical) with some levels of information being stored <em>within</em> other levels (nested).</p>
 <p>Using a snippet of JSON data here, we see a portion of JSON data from Yelp looking at the <code>attributes</code> of a restaurant. Within <code>attributes</code>, there are four nested categories: <code>Take-out</code>, <code>Wi-Fi</code>, <code>Drive-Thru</code>, and <code>Good For</code>. In the hierarchy, attributes is at the top, while these four categories are within attributes. Within one of these attributes <code>Good For</code>, we see another level within the hierarchy. In this third level we see a number of other categories nested within <code>Good For</code>. This should give you a slightly better idea of how JSON data are structured.</p>
 <div class="figure">
@@ -900,7 +903,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb48-10"><a href="get-data.html#cb48-10"></a>json</span></code></pre></div>
 <pre><code>## [1] &quot;[\n  {\&quot;Name\&quot; : \&quot;Woody\&quot;, \&quot;Age\&quot; : 40, \&quot;Occupation\&quot; : \&quot;Sherriff\&quot;}, \n  {\&quot;Name\&quot; : \&quot;Buzz Lightyear\&quot;, \&quot;Age\&quot; : 34, \&quot;Occupation\&quot; : \&quot;Space Ranger\&quot;},\n  {\&quot;Name\&quot; : \&quot;Andy\&quot;, \&quot;Occupation\&quot; : \&quot;Toy Owner\&quot;}\n]&quot;</code></pre>
 <p>Here, we’ve stored information about Toy Story characters, their age, and their occupation in an object called <code>json</code>.</p>
-<p>In this format, we cannot easily work with the data with within R; however, the <code>jsonlite</code> package can help us. Using the defaults of the function <code>fromJSON()</code>, <code>jsonlite</code> will take the data from JSON array format and helpfully return a data frame.</p>
+<p>In this format, we cannot easily work with the data within R; however, the <code>jsonlite</code> package can help us. Using the defaults of the function <code>fromJSON()</code>, <code>jsonlite</code> will take the data from JSON array format and helpfully return a data frame.</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="get-data.html#cb50-1"></a><span class="co">#install.packages(&quot;jsonlite&quot;)</span></span>
 <span id="cb50-2"><a href="get-data.html#cb50-2"></a><span class="kw">library</span>(jsonlite)</span>
 <span id="cb50-3"><a href="get-data.html#cb50-3"></a></span>
@@ -987,7 +990,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="connecting-to-databases-rsqlite" class="section level3">
 <h3><span class="header-section-number">2.10.3</span> Connecting to Databases: <code>RSQLite</code></h3>
-<p>To better understand databases and how to work with relational data, let’s just start working with data from a database! The data we’ll be using are from a database with relational data: <code>company.db</code>. The database includes 11 tables with data that represents a digital media store. The data includes information generally related to related to media, artists, artists’ work, and those who purchase artists’ work (customers). You can download the database file here:</p>
+<p>To better understand databases and how to work with relational data, let’s just start working with data from a database! The data we’ll be using are from a database with relational data: <code>company.db</code>. The database includes tables with data that represents a digital media store. The data includes information generally related to related to media, artists, artists’ work, and those who purchase artists’ work (customers). You can download the database file here:</p>
 <ul>
 <li><a href="company.db.zip">company.db.zip</a></li>
 </ul>
@@ -1063,7 +1066,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="images/gslides/059.png" alt="" />
 <p class="caption">inner join includes observations found in both tables</p>
 </div>
-<p>Throughout this lesson we will use the coloring use see here to explain the joins, so we want to explain it explicitly here. Green cells are cells that will be used to make the merge happen and will be included in the resulting merged table. Blue cells are information that comes from the <code>artists</code> table that will be included after the merge. Red cells are pieces of information that come from the <code>albums</code> table that will be included after the merge. Finally, cells that are left white in the <code>artists</code> or <code>albums</code> table are cells that will not be included in the merge while cells that are white <em>after</em> the merge are NAs that have been added as a result of the merge.</p>
+<p>Throughout this lesson we will use the coloring you see here to explain the joins, so we want to explain it explicitly here. Green cells are cells that will be used to make the merge happen and will be included in the resulting merged table. Blue cells are information that comes from the <code>artists</code> table that will be included after the merge. Red cells are pieces of information that come from the <code>albums</code> table that will be included after the merge. Finally, cells that are left white in the <code>artists</code> or <code>albums</code> table are cells that will not be included in the merge while cells that are white <em>after</em> the merge are NAs that have been added as a result of the merge.</p>
 <p>Now, to run this for our tables from the database, rather than just for a few rows in our toy example, you would do the following:</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="get-data.html#cb59-1"></a><span class="co">## do inner join</span></span>
 <span id="cb59-2"><a href="get-data.html#cb59-2"></a>inner &lt;-<span class="st"> </span><span class="kw">inner_join</span>(artists, albums, <span class="dt">by =</span> <span class="st">&quot;ArtistId&quot;</span>)</span>
@@ -1276,7 +1279,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="web-scraping-example" class="section level3">
 <h3><span class="header-section-number">2.11.3</span> Web Scraping Example</h3>
-<p>Similar to the example above, what if you were interested in knowing a few recommended R packages for working with data. Sure, you could go to a whole bunch of websites and Google and copy and paste each one into a Google Sheet and have the information. But, that’s not very fun!</p>
+<p>Similar to the example above, what if you were interested in knowing a few recommended R packages for working with data? Sure, you could go to a whole bunch of websites and Google and copy and paste each one into a Google Sheet and have the information. But, that’s not very fun!</p>
 <p>Alternatively, you could write and run a few lines of code and get all the information that way! We’ll do that in the example below.</p>
 <div id="using-selectorgadget" class="section level4">
 <h4><span class="header-section-number">2.11.3.1</span> Using SelectorGadget</h4>
@@ -1454,7 +1457,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="api-keys" class="section level3">
 <h3><span class="header-section-number">2.12.5</span> API keys</h3>
-<p>Not all API’s are as “open” as GitHub’s. For example, if you ran the code for the first example above exactly as it was written (and didn’t change the GitHub username), you would have gotten information about the repos in janeeverydaydoe’s GitHub account. Because it is a fully-open API, you’re able to retrieve information about not only your GitHub account, but also other users’ public GitHub activity. This makes good sense because sharing code among public repositories is an important part of GitHub.</p>
+<p>Not all API’s are as “open” as GitHub’s. For example, if you ran the code for the first example above exactly as it was written (and didn’t change the GitHub username), you would have gotten information about the repos in janeeverydaydoe’s GitHub account. Because it is a fully-open API, you’re able to retrieve information about not only your GitHub account, but also other users’ <strong>public</strong> GitHub activity. This makes good sense because sharing code among public repositories is an important part of GitHub.</p>
 <p>Alternatively, while Google also has an API (or rather, <em>many</em> API’s), they aren’t quite as open. This makes good sense. There is no reason why one should have access to the files on someone else’s Google Drive account. Controlling whose files one can access through Google’s API is an important privacy feature.</p>
 <p>In these cases, what is known as a key is required to gain access to the API. <strong>API keys</strong> are obtained from the website’s API site (ie, for Google’s APIs, you would start <a href="https://developers.google.com/apis-explorer/#p/">here</a>. Once acquired, these keys should <strong>never be shared on the Internet</strong>. There is a reason they’re required, after all. So, be sure to <strong>never push a key to GitHub or share it publicly</strong>. (If you do ever accidentally share a key on the Internet, return to the API and disable the key immediately.)</p>
 <p>For example, to access the Twitter API, you would obtain your key and necessary tokens from <a href="https://developer.twitter.com/en/docs/tweets/search/overview">Twitter’s API</a> and replace the text in the <code>key</code>, <code>secret</code>, <code>token</code> and <code>token_secret</code> arguments below. This would authenticate you to use Twitter’s API to acquire information about your home timeline.</p>
@@ -1542,7 +1545,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p class="caption"><code>magick</code> package’s example of adding an image to a plot</p>
 </div>
 <p>A really useful manipulation that one can perform is text extraction from images. Typically this works best with images that have text, where the text is not angled and is in a conventional font.</p>
-<p>We will show how to do this using a couple of tidyverse package hex stickers.</p>
+<p>We will show how to do this using a couple of tidyverse package hex stickers. This will involve using the <code>image_read()</code> function to import the image and the <code>image_ocr()</code> function to extract the text.</p>
 <div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="get-data.html#cb95-1"></a><span class="co"># install package</span></span>
 <span id="cb95-2"><a href="get-data.html#cb95-2"></a><span class="co">#install.packages(&quot;magick&quot;)</span></span>
 <span id="cb95-3"><a href="get-data.html#cb95-3"></a><span class="co"># load package</span></span>
@@ -1632,19 +1635,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="healthcare-coverage-data" class="section level4">
 <h4><span class="header-section-number">2.16.1.1</span> Healthcare Coverage Data</h4>
 <p>We’ll first read the data in. Note that we have to skip the first two lines, as there are two lines in the CSV that store information about the file before we get to the actual data.</p>
-<p>To see what we mean, you can always use the <code>read_lines()</code> function from <code>readr</code> to see the first few lines:</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="get-data.html#cb113-1"></a><span class="kw">read_lines</span>(<span class="dt">file =</span> <span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv&#39;</span>, <span class="dt">n_max =</span> <span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##  [1] &quot;\&quot;Title: Health Insurance Coverage of the Total Population | The Henry J. Kaiser Family Foundation\&quot;&quot;                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-##  [2] &quot;\&quot;Timeframe: 2013 - 2016\&quot;&quot;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-##  [3] &quot;\&quot;Location\&quot;,\&quot;2013__Employer\&quot;,\&quot;2013__Non-Group\&quot;,\&quot;2013__Medicaid\&quot;,\&quot;2013__Medicare\&quot;,\&quot;2013__Other Public\&quot;,\&quot;2013__Uninsured\&quot;,\&quot;2013__Total\&quot;,\&quot;2014__Employer\&quot;,\&quot;2014__Non-Group\&quot;,\&quot;2014__Medicaid\&quot;,\&quot;2014__Medicare\&quot;,\&quot;2014__Other Public\&quot;,\&quot;2014__Uninsured\&quot;,\&quot;2014__Total\&quot;,\&quot;2015__Employer\&quot;,\&quot;2015__Non-Group\&quot;,\&quot;2015__Medicaid\&quot;,\&quot;2015__Medicare\&quot;,\&quot;2015__Other Public\&quot;,\&quot;2015__Uninsured\&quot;,\&quot;2015__Total\&quot;,\&quot;2016__Employer\&quot;,\&quot;2016__Non-Group\&quot;,\&quot;2016__Medicaid\&quot;,\&quot;2016__Medicare\&quot;,\&quot;2016__Other Public\&quot;,\&quot;2016__Uninsured\&quot;,\&quot;2016__Total\&quot;&quot;
-##  [4] &quot;\&quot;United States\&quot;,\&quot;155696900\&quot;,\&quot;13816000\&quot;,\&quot;54919100\&quot;,\&quot;40876300\&quot;,\&quot;6295400\&quot;,\&quot;41795100\&quot;,\&quot;313401200\&quot;,\&quot;154347500\&quot;,\&quot;19313000\&quot;,\&quot;61650400\&quot;,\&quot;41896500\&quot;,\&quot;5985000\&quot;,\&quot;32967500\&quot;,\&quot;316159900\&quot;,\&quot;155965800\&quot;,\&quot;21816500\&quot;,\&quot;62384500\&quot;,\&quot;43308400\&quot;,\&quot;6422300\&quot;,\&quot;28965900\&quot;,\&quot;318868500\&quot;,\&quot;157381500\&quot;,\&quot;21884400\&quot;,\&quot;62303400\&quot;,\&quot;44550200\&quot;,\&quot;6192200\&quot;,\&quot;28051900\&quot;,\&quot;320372000\&quot;&quot;                                                                                                                                                                           
-##  [5] &quot;\&quot;Alabama\&quot;,\&quot;2126500\&quot;,\&quot;174200\&quot;,\&quot;869700\&quot;,\&quot;783000\&quot;,\&quot;85600\&quot;,\&quot;724800\&quot;,\&quot;4763900\&quot;,\&quot;2202800\&quot;,\&quot;288900\&quot;,\&quot;891900\&quot;,\&quot;718400\&quot;,\&quot;143900\&quot;,\&quot;522200\&quot;,\&quot;4768000\&quot;,\&quot;2218000\&quot;,\&quot;291500\&quot;,\&quot;911400\&quot;,\&quot;719100\&quot;,\&quot;174600\&quot;,\&quot;519400\&quot;,\&quot;4833900\&quot;,\&quot;2263800\&quot;,\&quot;262400\&quot;,\&quot;997000\&quot;,\&quot;761200\&quot;,\&quot;128800\&quot;,\&quot;420800\&quot;,\&quot;4834100\&quot;&quot;                                                                                                                                                                                                                                      
-##  [6] &quot;\&quot;Alaska\&quot;,\&quot;364900\&quot;,\&quot;24000\&quot;,\&quot;95000\&quot;,\&quot;55200\&quot;,\&quot;60600\&quot;,\&quot;102200\&quot;,\&quot;702000\&quot;,\&quot;345300\&quot;,\&quot;26800\&quot;,\&quot;130100\&quot;,\&quot;55300\&quot;,\&quot;37300\&quot;,\&quot;100800\&quot;,\&quot;695700\&quot;,\&quot;355700\&quot;,\&quot;22300\&quot;,\&quot;128100\&quot;,\&quot;60900\&quot;,\&quot;47700\&quot;,\&quot;90500\&quot;,\&quot;705300\&quot;,\&quot;324400\&quot;,\&quot;20300\&quot;,\&quot;145400\&quot;,\&quot;68200\&quot;,\&quot;55600\&quot;,\&quot;96900\&quot;,\&quot;710800\&quot;&quot;                                                                                                                                                                                                                                                             
-##  [7] &quot;\&quot;Arizona\&quot;,\&quot;2883800\&quot;,\&quot;170800\&quot;,\&quot;1346100\&quot;,\&quot;842000\&quot;,\&quot;N/A\&quot;,\&quot;1223000\&quot;,\&quot;6603100\&quot;,\&quot;2835200\&quot;,\&quot;333500\&quot;,\&quot;1639400\&quot;,\&quot;911100\&quot;,\&quot;N/A\&quot;,\&quot;827100\&quot;,\&quot;6657200\&quot;,\&quot;2766500\&quot;,\&quot;278400\&quot;,\&quot;1711500\&quot;,\&quot;949000\&quot;,\&quot;189300\&quot;,\&quot;844800\&quot;,\&quot;6739500\&quot;,\&quot;3010700\&quot;,\&quot;377000\&quot;,\&quot;1468400\&quot;,\&quot;1028000\&quot;,\&quot;172500\&quot;,\&quot;833700\&quot;,\&quot;6890200\&quot;&quot;                                                                                                                                                                                                                                     
-##  [8] &quot;\&quot;Arkansas\&quot;,\&quot;1128800\&quot;,\&quot;155600\&quot;,\&quot;600800\&quot;,\&quot;515200\&quot;,\&quot;67600\&quot;,\&quot;436800\&quot;,\&quot;2904800\&quot;,\&quot;1176500\&quot;,\&quot;231700\&quot;,\&quot;639200\&quot;,\&quot;479400\&quot;,\&quot;82000\&quot;,\&quot;287200\&quot;,\&quot;2896000\&quot;,\&quot;1293700\&quot;,\&quot;200200\&quot;,\&quot;641400\&quot;,\&quot;484500\&quot;,\&quot;63700\&quot;,\&quot;268400\&quot;,\&quot;2953000\&quot;,\&quot;1290900\&quot;,\&quot;252900\&quot;,\&quot;618600\&quot;,\&quot;490000\&quot;,\&quot;67500\&quot;,\&quot;225500\&quot;,\&quot;2945300\&quot;&quot;                                                                                                                                                                                                                                        
-##  [9] &quot;\&quot;California\&quot;,\&quot;17747300\&quot;,\&quot;1986400\&quot;,\&quot;8344800\&quot;,\&quot;3828500\&quot;,\&quot;675400\&quot;,\&quot;5594100\&quot;,\&quot;38176400\&quot;,\&quot;17703700\&quot;,\&quot;2778800\&quot;,\&quot;9618800\&quot;,\&quot;4049000\&quot;,\&quot;634400\&quot;,\&quot;3916700\&quot;,\&quot;38701300\&quot;,\&quot;17718300\&quot;,\&quot;3444200\&quot;,\&quot;10138100\&quot;,\&quot;4080100\&quot;,\&quot;752700\&quot;,\&quot;2980600\&quot;,\&quot;39113900\&quot;,\&quot;18116200\&quot;,\&quot;3195400\&quot;,\&quot;9853800\&quot;,\&quot;4436000\&quot;,\&quot;556100\&quot;,\&quot;3030800\&quot;,\&quot;39188300\&quot;&quot;                                                                                                                                                                                                         
-## [10] &quot;\&quot;Colorado\&quot;,\&quot;2852500\&quot;,\&quot;426300\&quot;,\&quot;697300\&quot;,\&quot;549700\&quot;,\&quot;118100\&quot;,\&quot;654000\&quot;,\&quot;5297800\&quot;,\&quot;2489400\&quot;,\&quot;397900\&quot;,\&quot;1053700\&quot;,\&quot;619500\&quot;,\&quot;214000\&quot;,\&quot;602900\&quot;,\&quot;5377400\&quot;,\&quot;2706000\&quot;,\&quot;346900\&quot;,\&quot;1036600\&quot;,\&quot;708000\&quot;,\&quot;148000\&quot;,\&quot;475700\&quot;,\&quot;5421300\&quot;,\&quot;2872600\&quot;,\&quot;370000\&quot;,\&quot;855800\&quot;,\&quot;692400\&quot;,\&quot;190100\&quot;,\&quot;528400\&quot;,\&quot;5509200\&quot;&quot;</code></pre>
-<p>We’ll read in the data, starting with the third line of the file:</p>
+<p>To see what we mean, you can always use the <code>read_lines()</code> function from <code>readr</code> to see the first 7 lines with the <code>n_max</code> argument:</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="get-data.html#cb113-1"></a><span class="kw">read_lines</span>(<span class="dt">file =</span> <span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv&#39;</span>, <span class="dt">n_max =</span> <span class="dv">7</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;\&quot;Title: Health Insurance Coverage of the Total Population | The Henry J. Kaiser Family Foundation\&quot;&quot;                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+## [2] &quot;\&quot;Timeframe: 2013 - 2016\&quot;&quot;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+## [3] &quot;\&quot;Location\&quot;,\&quot;2013__Employer\&quot;,\&quot;2013__Non-Group\&quot;,\&quot;2013__Medicaid\&quot;,\&quot;2013__Medicare\&quot;,\&quot;2013__Other Public\&quot;,\&quot;2013__Uninsured\&quot;,\&quot;2013__Total\&quot;,\&quot;2014__Employer\&quot;,\&quot;2014__Non-Group\&quot;,\&quot;2014__Medicaid\&quot;,\&quot;2014__Medicare\&quot;,\&quot;2014__Other Public\&quot;,\&quot;2014__Uninsured\&quot;,\&quot;2014__Total\&quot;,\&quot;2015__Employer\&quot;,\&quot;2015__Non-Group\&quot;,\&quot;2015__Medicaid\&quot;,\&quot;2015__Medicare\&quot;,\&quot;2015__Other Public\&quot;,\&quot;2015__Uninsured\&quot;,\&quot;2015__Total\&quot;,\&quot;2016__Employer\&quot;,\&quot;2016__Non-Group\&quot;,\&quot;2016__Medicaid\&quot;,\&quot;2016__Medicare\&quot;,\&quot;2016__Other Public\&quot;,\&quot;2016__Uninsured\&quot;,\&quot;2016__Total\&quot;&quot;
+## [4] &quot;\&quot;United States\&quot;,\&quot;155696900\&quot;,\&quot;13816000\&quot;,\&quot;54919100\&quot;,\&quot;40876300\&quot;,\&quot;6295400\&quot;,\&quot;41795100\&quot;,\&quot;313401200\&quot;,\&quot;154347500\&quot;,\&quot;19313000\&quot;,\&quot;61650400\&quot;,\&quot;41896500\&quot;,\&quot;5985000\&quot;,\&quot;32967500\&quot;,\&quot;316159900\&quot;,\&quot;155965800\&quot;,\&quot;21816500\&quot;,\&quot;62384500\&quot;,\&quot;43308400\&quot;,\&quot;6422300\&quot;,\&quot;28965900\&quot;,\&quot;318868500\&quot;,\&quot;157381500\&quot;,\&quot;21884400\&quot;,\&quot;62303400\&quot;,\&quot;44550200\&quot;,\&quot;6192200\&quot;,\&quot;28051900\&quot;,\&quot;320372000\&quot;&quot;                                                                                                                                                                           
+## [5] &quot;\&quot;Alabama\&quot;,\&quot;2126500\&quot;,\&quot;174200\&quot;,\&quot;869700\&quot;,\&quot;783000\&quot;,\&quot;85600\&quot;,\&quot;724800\&quot;,\&quot;4763900\&quot;,\&quot;2202800\&quot;,\&quot;288900\&quot;,\&quot;891900\&quot;,\&quot;718400\&quot;,\&quot;143900\&quot;,\&quot;522200\&quot;,\&quot;4768000\&quot;,\&quot;2218000\&quot;,\&quot;291500\&quot;,\&quot;911400\&quot;,\&quot;719100\&quot;,\&quot;174600\&quot;,\&quot;519400\&quot;,\&quot;4833900\&quot;,\&quot;2263800\&quot;,\&quot;262400\&quot;,\&quot;997000\&quot;,\&quot;761200\&quot;,\&quot;128800\&quot;,\&quot;420800\&quot;,\&quot;4834100\&quot;&quot;                                                                                                                                                                                                                                      
+## [6] &quot;\&quot;Alaska\&quot;,\&quot;364900\&quot;,\&quot;24000\&quot;,\&quot;95000\&quot;,\&quot;55200\&quot;,\&quot;60600\&quot;,\&quot;102200\&quot;,\&quot;702000\&quot;,\&quot;345300\&quot;,\&quot;26800\&quot;,\&quot;130100\&quot;,\&quot;55300\&quot;,\&quot;37300\&quot;,\&quot;100800\&quot;,\&quot;695700\&quot;,\&quot;355700\&quot;,\&quot;22300\&quot;,\&quot;128100\&quot;,\&quot;60900\&quot;,\&quot;47700\&quot;,\&quot;90500\&quot;,\&quot;705300\&quot;,\&quot;324400\&quot;,\&quot;20300\&quot;,\&quot;145400\&quot;,\&quot;68200\&quot;,\&quot;55600\&quot;,\&quot;96900\&quot;,\&quot;710800\&quot;&quot;                                                                                                                                                                                                                                                             
+## [7] &quot;\&quot;Arizona\&quot;,\&quot;2883800\&quot;,\&quot;170800\&quot;,\&quot;1346100\&quot;,\&quot;842000\&quot;,\&quot;N/A\&quot;,\&quot;1223000\&quot;,\&quot;6603100\&quot;,\&quot;2835200\&quot;,\&quot;333500\&quot;,\&quot;1639400\&quot;,\&quot;911100\&quot;,\&quot;N/A\&quot;,\&quot;827100\&quot;,\&quot;6657200\&quot;,\&quot;2766500\&quot;,\&quot;278400\&quot;,\&quot;1711500\&quot;,\&quot;949000\&quot;,\&quot;189300\&quot;,\&quot;844800\&quot;,\&quot;6739500\&quot;,\&quot;3010700\&quot;,\&quot;377000\&quot;,\&quot;1468400\&quot;,\&quot;1028000\&quot;,\&quot;172500\&quot;,\&quot;833700\&quot;,\&quot;6890200\&quot;&quot;</code></pre>
+<p>Looks like we don’t need the first two lines, so we’ll read in the data, starting with the third line of the file:</p>
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="get-data.html#cb115-1"></a>coverage &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv&#39;</span>, </span>
 <span id="cb115-2"><a href="get-data.html#cb115-2"></a>                     <span class="dt">skip =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## Warning: 26 parsing failures.
@@ -1907,11 +1907,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb139-7"><a href="get-data.html#cb139-7"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb139-8"><a href="get-data.html#cb139-8"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xlsx&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2021-02-02 22:15
+##   Date: 2021-02-03 18:33
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//Rtmp7ClDFF/filea69059c09d07.xlsx</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpA53CO7/file112e859c09d07.xlsx</code></pre>
 <div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="get-data.html#cb141-1"></a>brady &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</span>
 <span id="cb141-2"><a href="get-data.html#cb141-2"></a></span>
 <span id="cb141-3"><a href="get-data.html#cb141-3"></a>brady</span></code></pre></div>
@@ -1946,11 +1946,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb143-4"><a href="get-data.html#cb143-4"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb143-5"><a href="get-data.html#cb143-5"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2021-02-02 22:15
+##   Date: 2021-02-03 18:33
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//Rtmp7ClDFF/filea690618fb492.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpA53CO7/file112e8618fb492.xls</code></pre>
 <div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="get-data.html#cb145-1"></a>crime &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>, <span class="dt">skip =</span> <span class="dv">3</span>)</span>
 <span id="cb145-2"><a href="get-data.html#cb145-2"></a></span>
 <span id="cb145-3"><a href="get-data.html#cb145-3"></a><span class="co"># see data</span></span>
@@ -1983,11 +1983,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb147-4"><a href="get-data.html#cb147-4"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb147-5"><a href="get-data.html#cb147-5"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2021-02-02 22:15
+##   Date: 2021-02-03 18:33
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//Rtmp7ClDFF/filea6906135133.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpA53CO7/file112e86135133.xls</code></pre>
 <div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="get-data.html#cb149-1"></a>land &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</span>
 <span id="cb149-2"><a href="get-data.html#cb149-2"></a></span>
 <span id="cb149-3"><a href="get-data.html#cb149-3"></a><span class="co"># see data</span></span>
