@@ -103,16 +103,16 @@ slice_sample(trees, n = 10)
 
 ```
 ##    Girth Height Volume
-## 1   11.4     76   21.4
-## 2   14.5     74   36.3
-## 3   11.0     66   15.6
-## 4   20.6     87   77.0
-## 5   18.0     80   51.0
-## 6   12.0     75   19.1
-## 7   10.5     72   16.4
-## 8   17.9     80   58.3
-## 9   17.5     82   55.7
-## 10  10.8     83   19.7
+## 1   11.3     79   24.2
+## 2   11.7     69   21.3
+## 3   13.3     86   27.4
+## 4   11.0     75   18.2
+## 5   10.5     72   16.4
+## 6   17.5     82   55.7
+## 7   10.8     83   19.7
+## 8   11.1     80   22.6
+## 9   10.7     81   18.8
+## 10  14.5     74   36.3
 ```
 
 You can also use `slice_head()` or `slice_tail()` to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.
@@ -1743,7 +1743,7 @@ tail(coverage, n = 30)
 ## #   `2016__Other Public` <chr>, `2016__Uninsured` <dbl>, `2016__Total` <dbl>
 ```
 
-Looks like there's a lot of missing information there at the end of the file due the "Notes" observation. Seems as though Notes were added to the file that are not the actual data. We'll want to only include rows before the "Notes" at the end of the file, using `n_max`:
+Looks like there's a lot of missing information there at the end of the file due the "Notes" observation. Seems as though Notes were added to the file that are not the actual data. We'll want to only include rows before the value of "Notes" for the `Location` variable at the end of the file. Using `n_max` and the `==` operator, we can specify that we want all the lines up to and including where the Location variable "is equal to" "Notes". Using `-1` we can also remove the last line, which will be the line that contains "Notes".
 
 
 ```r
@@ -1776,7 +1776,7 @@ tail(coverage)
 ## #   `2016__Other Public` <chr>, `2016__Uninsured` <dbl>, `2016__Total` <dbl>
 ```
 
-Looks much better now! We can then use `glimpse()` to get a sense of what types of information are stored in our dataset.
+Looks much better now! We can then use the `glimpse()` function of the `dplyr` package to get a sense of what types of information are stored in our dataset.
 
 
 ```r
@@ -1817,7 +1817,9 @@ glimpse(coverage)
 ## $ `2016__Total`        <dbl> 320372000, 4834100, 710800, 6890200, 2945300, 39…
 ```
 
-Looks like we have a whole bunch of numeric variables, but a few that appear like they *should* be numeric, but are actually strings. We'll keep this in mind for when we wrangle the data!
+This gives an us output with all the variables listed on the far left. Thus essentially the data is rotated from the way it would be shown if we used `head()` instead of `glimpse()`. The first few observations for each variable are shown for each variable with a comma separating each observation. 
+
+Looks like we have a whole bunch of numeric variables (indicated by <dbl>), but a few that appear like they *should* be numeric, but are actually strings (indicated by <chr>). We'll keep this in mind for when we wrangle the data!
 
 #### Healthcare Spending Data
 
@@ -2018,11 +2020,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2021-02-03 18:33
+##   Date: 2021-02-04 01:34
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpA53CO7/file112e859c09d07.xlsx
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpY7CU7B/file1222159c09d07.xlsx
 ```
 
 ```r
@@ -2070,11 +2072,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2021-02-03 18:33
+##   Date: 2021-02-04 01:34
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpA53CO7/file112e8618fb492.xls
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpY7CU7B/file12221618fb492.xls
 ```
 
 ```r
@@ -2121,11 +2123,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2021-02-03 18:33
+##   Date: 2021-02-04 01:34
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpA53CO7/file112e86135133.xls
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpY7CU7B/file122216135133.xls
 ```
 
 ```r
