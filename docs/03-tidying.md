@@ -2082,7 +2082,7 @@ age
 ```
 
 ```
-## Time difference of 11815 days
+## Time difference of 11821 days
 ```
 
 ```r
@@ -2091,7 +2091,7 @@ as.duration(age)
 ```
 
 ```
-## [1] "1020816000s (~32.35 years)"
+## [1] "1021334400s (~32.36 years)"
 ```
 
 
@@ -2271,8 +2271,8 @@ str_view(names, "^M")
 ```
 
 ```{=html}
-<div id="htmlwidget-46228b592e4ae6e35639" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-46228b592e4ae6e35639">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li><span class='match'>M<\/span>ohammed<\/li>\n  <li>Jane<\/li>\n  <li><span class='match'>M<\/span>athieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-fcba857a6f5c8003b6f9" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fcba857a6f5c8003b6f9">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li><span class='match'>M<\/span>ohammed<\/li>\n  <li>Jane<\/li>\n  <li><span class='match'>M<\/span>athieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 
@@ -2289,8 +2289,8 @@ str_view(names, "M$")
 ```
 
 ```{=html}
-<div id="htmlwidget-9c58402af709f6a82ce3" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9c58402af709f6a82ce3">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c37809c82e6d91c78a38" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c37809c82e6d91c78a38">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 
@@ -2305,8 +2305,8 @@ str_view(names, "a$")
 ```
 
 ```{=html}
-<div id="htmlwidget-30207e9cc78ec633e129" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-30207e9cc78ec633e129">{"x":{"html":"<ul>\n  <li>Keish<span class='match'>a<\/span><\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-1e75dca509b7e701bc89" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1e75dca509b7e701bc89">{"x":{"html":"<ul>\n  <li>Keish<span class='match'>a<\/span><\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![`str_view()` identifies names that end with a](images/gslides/141.png)
@@ -2432,8 +2432,8 @@ str_view_all(names, "[aeiou]")
 ```
 
 ```{=html}
-<div id="htmlwidget-181f816146c678bebaff" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-181f816146c678bebaff">{"x":{"html":"<ul>\n  <li>K<span class='match'>e<\/span><span class='match'>i<\/span>sh<span class='match'>a<\/span><\/li>\n  <li>M<span class='match'>o<\/span>h<span class='match'>a<\/span>mm<span class='match'>e<\/span>d<\/li>\n  <li>J<span class='match'>a<\/span>n<span class='match'>e<\/span><\/li>\n  <li>M<span class='match'>a<\/span>th<span class='match'>i<\/span><span class='match'>e<\/span><span class='match'>u<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-444e1aaf481a3930c25a" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-444e1aaf481a3930c25a">{"x":{"html":"<ul>\n  <li>K<span class='match'>e<\/span><span class='match'>i<\/span>sh<span class='match'>a<\/span><\/li>\n  <li>M<span class='match'>o<\/span>h<span class='match'>a<\/span>mm<span class='match'>e<\/span>d<\/li>\n  <li>J<span class='match'>a<\/span>n<span class='match'>e<\/span><\/li>\n  <li>M<span class='match'>a<\/span>th<span class='match'>i<\/span><span class='match'>e<\/span><span class='match'>u<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![brackets specify which characters to search for](images/gslides/149.png)
@@ -2450,8 +2450,8 @@ str_view_all(names, "[^aeiou]")
 ```
 
 ```{=html}
-<div id="htmlwidget-6b89a4a4c8c536f3e13d" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6b89a4a4c8c536f3e13d">{"x":{"html":"<ul>\n  <li><span class='match'>K<\/span>ei<span class='match'>s<\/span><span class='match'>h<\/span>a<\/li>\n  <li><span class='match'>M<\/span>o<span class='match'>h<\/span>a<span class='match'>m<\/span><span class='match'>m<\/span>e<span class='match'>d<\/span><\/li>\n  <li><span class='match'>J<\/span>a<span class='match'>n<\/span>e<\/li>\n  <li><span class='match'>M<\/span>a<span class='match'>t<\/span><span class='match'>h<\/span>ieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-006ca65812e42c18e917" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-006ca65812e42c18e917">{"x":{"html":"<ul>\n  <li><span class='match'>K<\/span>ei<span class='match'>s<\/span><span class='match'>h<\/span>a<\/li>\n  <li><span class='match'>M<\/span>o<span class='match'>h<\/span>a<span class='match'>m<\/span><span class='match'>m<\/span>e<span class='match'>d<\/span><\/li>\n  <li><span class='match'>J<\/span>a<span class='match'>n<\/span>e<\/li>\n  <li><span class='match'>M<\/span>a<span class='match'>t<\/span><span class='match'>h<\/span>ieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![brackets with a caret first specify which characters NOT to search for](images/gslides/150.png)
@@ -2469,8 +2469,8 @@ str_view_all(addresses, "\\d")
 ```
 
 ```{=html}
-<div id="htmlwidget-0df660d75b485aef9068" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0df660d75b485aef9068">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span> Main Street<\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span> Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-3408cff0ca8d96ddf845" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3408cff0ca8d96ddf845">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span> Main Street<\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span> Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![`\d` searches for digits](images/gslides/151.png)
@@ -2486,8 +2486,8 @@ str_view_all(addresses, "\\s")
 ```
 
 ```{=html}
-<div id="htmlwidget-e1e68a3250eea1dd387f" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e1e68a3250eea1dd387f">{"x":{"html":"<ul>\n  <li>1234<span class='match'> <\/span>Main<span class='match'> <\/span>Street<\/li>\n  <li>1600<span class='match'> <\/span>Pennsylvania<span class='match'> <\/span>Ave<\/li>\n  <li>Brick<span class='match'> <\/span>Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-fcb228a498fd9b52fd52" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fcb228a498fd9b52fd52">{"x":{"html":"<ul>\n  <li>1234<span class='match'> <\/span>Main<span class='match'> <\/span>Street<\/li>\n  <li>1600<span class='match'> <\/span>Pennsylvania<span class='match'> <\/span>Ave<\/li>\n  <li>Brick<span class='match'> <\/span>Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![`\s` searches for whitespace](images/gslides/152.png)
@@ -2503,8 +2503,8 @@ str_view_all(addresses, ".")
 ```
 
 ```{=html}
-<div id="htmlwidget-a715ff5fbd08af320508" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a715ff5fbd08af320508">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span><span class='match'> <\/span><span class='match'>M<\/span><span class='match'>a<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'> <\/span><span class='match'>S<\/span><span class='match'>t<\/span><span class='match'>r<\/span><span class='match'>e<\/span><span class='match'>e<\/span><span class='match'>t<\/span><\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>e<\/span><span class='match'>n<\/span><span class='match'>n<\/span><span class='match'>s<\/span><span class='match'>y<\/span><span class='match'>l<\/span><span class='match'>v<\/span><span class='match'>a<\/span><span class='match'>n<\/span><span class='match'>i<\/span><span class='match'>a<\/span><span class='match'> <\/span><span class='match'>A<\/span><span class='match'>v<\/span><span class='match'>e<\/span><\/li>\n  <li><span class='match'>B<\/span><span class='match'>r<\/span><span class='match'>i<\/span><span class='match'>c<\/span><span class='match'>k<\/span><span class='match'> <\/span><span class='match'>B<\/span><span class='match'>u<\/span><span class='match'>i<\/span><span class='match'>l<\/span><span class='match'>d<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'>g<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-3c70176fb8109435ac21" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3c70176fb8109435ac21">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span><span class='match'> <\/span><span class='match'>M<\/span><span class='match'>a<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'> <\/span><span class='match'>S<\/span><span class='match'>t<\/span><span class='match'>r<\/span><span class='match'>e<\/span><span class='match'>e<\/span><span class='match'>t<\/span><\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>e<\/span><span class='match'>n<\/span><span class='match'>n<\/span><span class='match'>s<\/span><span class='match'>y<\/span><span class='match'>l<\/span><span class='match'>v<\/span><span class='match'>a<\/span><span class='match'>n<\/span><span class='match'>i<\/span><span class='match'>a<\/span><span class='match'> <\/span><span class='match'>A<\/span><span class='match'>v<\/span><span class='match'>e<\/span><\/li>\n  <li><span class='match'>B<\/span><span class='match'>r<\/span><span class='match'>i<\/span><span class='match'>c<\/span><span class='match'>k<\/span><span class='match'> <\/span><span class='match'>B<\/span><span class='match'>u<\/span><span class='match'>i<\/span><span class='match'>l<\/span><span class='match'>d<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'>g<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![. searches for any character](images/gslides/153.png)
@@ -2532,8 +2532,8 @@ str_view_all(addresses, "n+")
 ```
 
 ```{=html}
-<div id="htmlwidget-5f6a8190d1219a7405a1" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5f6a8190d1219a7405a1">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-90744372c108e8ff3b0e" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-90744372c108e8ff3b0e">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![+ specifies to match the pattern one or more times](images/gslides/154.png)
@@ -2547,8 +2547,8 @@ str_view_all(addresses, "n{1}")
 ```
 
 ```{=html}
-<div id="htmlwidget-4c0c8d1f6abda5c91c96" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4c0c8d1f6abda5c91c96">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>n<\/span><span class='match'>n<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a11f0024f3b0744fffda" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a11f0024f3b0744fffda">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>n<\/span><span class='match'>n<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![{#} looks to match the pattern exactly the number of times within the curly braces](images/gslides/155.png)
@@ -2562,8 +2562,8 @@ str_view_all(addresses, "n{2}")
 ```
 
 ```{=html}
-<div id="htmlwidget-e214b30c5f0bdb130153" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e214b30c5f0bdb130153">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2e98960b27b8db41b2c8" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2e98960b27b8db41b2c8">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![{2} specifies that the pattern must be found exactly twice](images/gslides/156.png)
@@ -2577,8 +2577,8 @@ str_view_all(addresses, "nn+")
 ```
 
 ```{=html}
-<div id="htmlwidget-a78806cda22b5e62175e" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a78806cda22b5e62175e">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a4eaee06c4ecfc8c68a0" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a4eaee06c4ecfc8c68a0">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![nn+ searches for double n one or more times in a string](images/gslides/157.png)
@@ -2592,8 +2592,8 @@ str_view_all(addresses, "n{2,3}")
 ```
 
 ```{=html}
-<div id="htmlwidget-51e5dbc7ae949db7d739" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-51e5dbc7ae949db7d739">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-17b27d9a0bc56e63e52c" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-17b27d9a0bc56e63e52c">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ```r
@@ -2602,8 +2602,8 @@ str_view_all(addresses, "n{3,4}")
 ```
 
 ```{=html}
-<div id="htmlwidget-97950d80b6b32deb0de2" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-97950d80b6b32deb0de2">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a3a55539121f7c9a3e4b" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a3a55539121f7c9a3e4b">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![{n,m} looks to pattern match between n and m times](images/gslides/158.png)
@@ -3765,21 +3765,13 @@ coverage <- coverage %>%
 ```
 
 ```
-## Warning: Problem with `mutate()` input `..1`.
-## ℹ NAs introduced by coercion
-## ℹ Input `..1` is `across(starts_with("20"), as.integer)`.
+## Warning in mask$eval_all_mutate(quo): NAs introduced by coercion
 
-## Warning: Problem with `mutate()` input `..1`.
-## ℹ NAs introduced by coercion
-## ℹ Input `..1` is `across(starts_with("20"), as.integer)`.
+## Warning in mask$eval_all_mutate(quo): NAs introduced by coercion
 
-## Warning: Problem with `mutate()` input `..1`.
-## ℹ NAs introduced by coercion
-## ℹ Input `..1` is `across(starts_with("20"), as.integer)`.
+## Warning in mask$eval_all_mutate(quo): NAs introduced by coercion
 
-## Warning: Problem with `mutate()` input `..1`.
-## ℹ NAs introduced by coercion
-## ℹ Input `..1` is `across(starts_with("20"), as.integer)`.
+## Warning in mask$eval_all_mutate(quo): NAs introduced by coercion
 ```
 
 ```r

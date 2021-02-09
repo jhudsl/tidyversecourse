@@ -211,7 +211,7 @@ Here, the graphic on the left does not immediately convey a main point. It's har
 
 
 
-Similarly, the intention of your graphic should never be to mislead or confuse. Be sure that your data visualizations improve viewers' understanding. Using unusual axes limits or point sizes or vague labels, can make plots misleading. This plot creates an effective exclamation mark shape which is fun, but it is no longer clear what points correspond to what species. Furthermore, this plot makes it look like petal width is not very distinguishable across the different species (particularly for versicolor and virginica), which is the opposite of what the previous petal plot conveyed.
+Similarly, the intention of your graphic should never be to mislead or confuse. Be sure that your data visualizations improve viewers' understanding. Using unusual axes limits or point sizes, or using vague labels can make plots misleading. This plot creates an effective exclamation mark shape which is fun, but it is no longer clear what points correspond to what species. Furthermore, this plot makes it look like petal width is not very distinguishable across the different species (particularly for versicolor and virginica), which is the opposite of what the previous petal plot conveyed.
 
 
 
@@ -230,7 +230,7 @@ Whenever you have data you're trying to plot, think about what you're actually t
 
 ### How can you emphasize your point in your chart?
 
-We talked about it in the last lesson, but an incredibly important decision is that, choosing an appropriate chart for the type of data you have is very important. In the next section of this lesson, we'll discuss what type of data are appropriate for each type of plot in R; however, for now, we'll just focus on the iPhone data example. With this example, we'll discuss that you can emphasize your point by:
+We talked about it in the last lesson, but an incredibly important decision is choosing an appropriate chart for the type of data you have. In the next section of this lesson, we'll discuss what type of data are appropriate for each type of plot in R; however, for now, we'll just focus on an iPhone data example. With this example, we'll discuss that you can emphasize your point by:
 
 * Adding data
 * Highlighting data with color
@@ -251,7 +251,7 @@ By highlighting parts of your plot with arrows or text on your plot, you can fur
 
 ### What Does Your Final Chart Show?
 
-The first step of the process told viewers what they would see in the plot. The second step showed them. The third step makes it extra clear to viewers what they should be seeing. You explain to viewers what they should be seeing in the plot. This is where you are sure to add descriptions, legends, and the source of your data. Again, these are important pieces of creating a complete explanatory plot, but are not all necessary when making exploratory plots.
+A plot title should first tell viewers what they would see in the plot. The second step is to show them with the plot. The third step is to make it extra clear to viewers what they should be seeing with descriptions, annotations, and legends. You explain to viewers what they should be seeing in the plot and the source of your data. Again, these are important pieces of creating a complete explanatory plot, but are not all necessary when making exploratory plots.
 
 #### Write precise descriptions 
 
@@ -265,7 +265,7 @@ When finalizing an explanatory plot, be sure to source your data. It's always be
 
 ## `ggplot2`: Basics
 
-R was initially developed for statisticians, who often are interested in generating plots or figures to visualize their data. As such, a few basic plotting features were built in when R was first developed. These are all still available; however, over time, a new approach to graphing in R was developed. This new approach implemented what is known as the [grammar of graphics](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448), which allows you to develop elegant graphs flexibly in R. Making plots with this set of rules requires the R package `ggplot2`. This package is a core package in the tidyverse, so as along as the tidyverse has been loaded in, you're ready to get started.
+R was initially developed for statisticians, who often are interested in generating plots or figures to visualize their data. As such, a few basic plotting features were built in when R was first developed. These are all still available; however, over time, a new approach to graphing in R was developed. This new approach implemented what is known as the [grammar of graphics](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448), which allows you to develop elegant graphs flexibly in R. Making plots with this set of rules requires the R package `ggplot2`. This package is a core package in the tidyverse. So as along as the tidyverse has been loaded, you're ready to get started.
 
 
 ```r
@@ -275,7 +275,7 @@ library(tidyverse)
 
 ### `ggplot2` Background
 
-The grammar of graphics implemented in `ggplot2` is based on the idea that you can build *any* plot as long as you have a few pieces of information. To start building plots in `ggplot2`, we'll need some data and to know the type of plot we want to make. The type of plot you want to make in `ggplot2` is referred to as a geom. This will get us started, but the idea behind ggplot2 is that every new concept we introduce will be layered on top of the information you've already learned. In this way, ggplot2 is *layered* - layers of information add on top of each other as you build your graph. In code written to generate a `ggplot2` figure, you will see each line is separated by a plus sign (`+`). Think of each line as a different layer of the graph. We're simply adding one layer on top of the previous layers to generate the graph. You'll see exactly what we mean by this throughout each section in this lesson.
+The grammar of graphics implemented in `ggplot2` is based on the idea that you can build *any* plot as long as you have a few pieces of information. To start building plots in `ggplot2`, we'll need some data and we'll need to know the type of plot we want to make. The type of plot you want to make in `ggplot2` is referred to as a geom. This will get us started, but the idea behind ggplot2 is that every new concept we introduce will be layered on top of the information you've already learned. In this way, ggplot2 is *layered* - layers of information add on top of each other as you build your graph. In code written to generate a `ggplot2` figure, you will see each line is separated by a plus sign (`+`). Think of each line as a different layer of the graph. We're simply adding one layer on top of the previous layers to generate the graph. You'll see exactly what we mean by this throughout each section in this lesson.
 
 To get started, we'll start with the two basics (data and a geom) and build additional layers from there. 
 
@@ -364,7 +364,7 @@ ggplot(data = diamonds) +
 
 <img src="images/dataviz-unnamed-chunk-11-1.png" width="672" />
 
-![changing point colors helps us better understand the data](images/gslides/195.png)
+![changing point colors helps us better understand the data](images/gslides/195_update.png)
 
 Here, we see that not only are the points now colored by clarity, ggplot2 has also automatically added a legend for us with the various classes and their corresponding point color. 
 
@@ -372,7 +372,7 @@ The Help pages of the diamonds dataset (accessed using `?diamonds`) state that c
 
 By coloring our points by a different variable in the dataset, we now understand our dataset better. This is one of the goals of data visualization! And, specifically, what we're doing here in `ggplot2` is known as **mapping a variable to an aesthetic**. We took another variable in the dataset, mapped it to a color, and then put those colors on the points in the plot. Well, we only told `ggplot2` what variable to map. It took care of the rest!
 
-Of course, we can also *manually* specify the colors of the points on our graph; however, manually specifying the colors of points happens *outside* of the `aes()` call. This is because `ggplot2` does not have to go through the mapping the variable to an aesthetic process. In the code here, `ggplot2` doesn't have to go through the trouble of figuring out which level of the variable is going to be which color on the plot (the mapping to the aesthetic part of the process). Instead, it just colors every point red. Thus, **manually specifying the color of your points happens _outside_ of `aes()`**:
+Of course, we can also *manually* specify the colors of the points on our graph; however, manually specifying the colors of points happens *outside* of the `aes()` call. This is because `ggplot2` does not have to go through the process of mapping the variable to an aesthetic (color in this case). In the code here, `ggplot2` doesn't have to go through the trouble of figuring out which level of the variable is going to be which color on the plot (the mapping to the aesthetic part of the process). Instead, it just colors every point red. Thus, **manually specifying the color of your points happens _outside_ of `aes()`**:
 
 
 ```r
@@ -400,11 +400,11 @@ ggplot(data = diamonds) +
 
 ![mapping to size changes point size on plot](images/gslides/197.png)
 
-As above, `ggplot2` handles actually doing the mapping. All you have to do is specify what variable you want mapped (`clarity`) and how you want ggplot2 to handle the mapping (change the point `size`). With this code, you do get a warning when you run it in R that using a "discrete variable is not advised." This is because mapping to size is usually done for numeric variables, rather than categorical variables like clarity. 
+As above, `ggplot2` handles the mapping process. All you have to do is specify what variable you want mapped (`clarity`) and how you want ggplot2 to handle the mapping (change the point `size`). With this code, you do get a warning when you run it in R that using a "discrete variable is not advised." This is because mapping to size is usually done for numeric variables, rather than categorical variables like clarity. 
 
-This makes sense here too. The relationship between clarity, carat and price was easier to visualize when clarity was mapped to `color` than here where it is mapped to `size`.
+This makes sense here too. The relationship between clarity, carat, and price was easier to visualize when clarity was mapped to `color` than here where it is mapped to `size`.
 
-As above, the size of *every* point can be changed by calling `size` outside of `aes`:
+Like the above example with color, the size of *every* point can be changed by calling `size` outside of `aes`:
 
 
 ```r
@@ -527,7 +527,7 @@ Specifically here, we can quickly see that most of the diamonds in the dataset a
 
 #### Barplots: geom_bar
 
-Barplots show the relationship between a set of numbers and a categorical variable. In the diamonds dataset, we may be interested in knowing how many diamonds there are of each cut of diamonds. There are five categories for cut of diamond. If we make a barplot for this variable, we can see the number of diamonds in each category.
+Barplots show the relationship between a set of numbers and a **categorical** variable. In the diamonds dataset, we may be interested in knowing how many diamonds there are of each cut of diamonds. There are five categories for cut of diamond. If we make a barplot for this variable, we can see the number of diamonds in each category.
 
 
 ```r
@@ -557,7 +557,7 @@ ggplot(data = diamonds) +
 
 <img src="images/dataviz-unnamed-chunk-20-1.png" width="672" />
 
-In the code, we see that again, we only have to change what variables we want to be included in the plot the type of plot (or geom) we want (here, `geom_boxplot()`) to get a basic boxplot.
+In the code, we see that again, we only have to change what variables we want to be included in the plot and the type of plot (or geom). We want to use `geom_boxplot()` to get a basic boxplot.
 
 ![diamonds boxplot](images/gslides/205.png)
 
@@ -597,7 +597,7 @@ In this process, using `ggplot2` defaults is totally fine. These plots do not ha
 
 ## `ggplot2`: Customization
 
-So far, we have walked through the steps of generating a number of different graphs (using different `geoms`) in `ggplot2`. We discussed the basics of mapping variables to your graph to customize its appearance or aesthetic (using size, shape, and color within `aes()`. Here, we'll build on what we've previously learned to really get down to how to customize your plots so that they're as clear as possible for communicating your results to others. 
+So far, we have walked through the steps of generating a number of different graphs (using different `geoms`) in `ggplot2`. We discussed the basics of mapping variables to your graph to customize its appearance or aesthetic (using size, shape, and color within `aes()`). Here, we'll build on what we've previously learned to really get down to how to customize your plots so that they're as clear as possible for communicating your results to others. 
 
 The skills learned in this lesson will help take you from generating exploratory plots that help *you* better understand your data to explanatory plots -- plots that help you communicate your results *to others*. We'll cover how to customize the colors, labels, legends, and text used on your graph.
 
@@ -656,7 +656,7 @@ ggplot(diamonds) +
 
 ![`fill` automatically colors the bars](images/gslides/211.png)
 
-Great! We now have a plot with bars of different colors, which was our first goal! However, adding colors here, while maybe making the plot prettier doesn't actually give us any more information. We can see the same pattern of which clarity is most frequent among the diamonds in our dataset that we could in the first plot we made. 
+Great! We now have a plot with bars of different colors, which was our first goal! However, adding colors here, while maybe making the plot prettier doesn't actually give us any more information. We can see the same pattern of which clarity is most frequent among the diamonds in our dataset like we could see in the first plot we made. 
 
 Color is particularly helpful here, however, if we wanted to map a *different* variable onto each bar. For example, what if we wanted to see the breakdown of diamond "cut" within each "clarity" bar? 
 
@@ -691,9 +691,9 @@ Here, we've specified five different colors within the `values` argument of `sca
 
 Additionally, it's important to note that here we've used `scale_fill_manual()` to adjust the color of what was mapped using `fill = cut`. If we had colored our chart using `color` within `aes()`, there is a different function called `scale_color_manual`. This makes good sense! You use scale_fill_manual() with `fill` and `scale_color_manual()` with `color`. Keep that in mind as you adjust colors in the future!
 
-Now that we have some sense of which clarity is most common in our diamonds dataset and were able to successfully specified the colors we wanted manually in order to make this plot useful for presentation, what if we wanted to compare the proportion of each cut across the different clarities?  Currently that's difficult because there is a different number within each clarity. In order to compare the proportion of each cut we have to use **position adjustment**. 
+Now that we have some sense of which clarity is most common in our diamonds dataset and now that we are able to successfully specify the colors we want manually in order to make this plot useful for presentation, what if we wanted to compare the proportion of each cut across the different clarities?  Currently, that's difficult because there is a different number within each clarity. In order to compare the proportion of each cut we have to use **position adjustment**. 
 
-What we've just generated is a **stacked bar chart**. It's a pretty good name for this type of chart as the bars fur cut are all stacked on top of one another. If you don't want a stacked bar chart you could use one of the other `position` options: `identity`, `fill`, or `dodge`.
+What we've just generated is a **stacked bar chart**. It's a pretty good name for this type of chart as the bars for cut are all stacked on top of one another. If you don't want a stacked bar chart you could use one of the other `position` options: `identity`, `fill`, or `dodge`.
 
 Returning to our question about proportion of each cut within each clarity group, we'll want to use `position = "fill"` within `geom_bar()`. Building off of what we've already done:
 
@@ -729,11 +729,11 @@ Note: `position = "identity"` is not very useful for bars, as it *places each ob
 
 ### Labels
 
-Text on plots is incredibly helpful. A good title tells viewers what they should be getting out of the plot. Axis labels are incredibly important to inform viewers of what's being plotted. Annotations on plot help guide viewers to important points in the plot. We'll discuss how to control all of these now!
+Text on plots is incredibly helpful. A good title tells viewers what they should be getting out of the plot. Axis labels are incredibly important to inform viewers of what's being plotted. Annotations on plots help guide viewers to important points in the plot. We'll discuss how to control all of these now!
 
 #### Titles 
 
-Now that we have an understanding of how to manually adjust color, let's improve the clarity of our plots by including helpful labels on our plot by adding an additional `labs()` layer. We'll return to the plot where we were comparing proportions of diamond cut across diamond clarity groups.
+Now that we have an understanding of how to manually adjust color, let's improve the clarity of our plots by including helpful labels by adding an additional `labs()` layer. We'll return to the plot where we were comparing proportions of diamond cut across diamond clarity groups.
 
 You can include a `title`, `subtitle`, and/or `caption` within the `labs()` function. Each argument, as per usual, will be specified by a comma. 
 
@@ -768,7 +768,7 @@ ggplot(diamonds) +
 
 <img src="images/dataviz-unnamed-chunk-31-1.png" width="672" />
 
-Note that the x- and y- axis labels can *also* be changed within `labs()`, using the argument (`x = ` and `y =`, respectively).
+Note that the x- and y- axis labels can *also* be changed within `labs()`, using the argument (`x = ` and `y =` respectively).
 
 ![Accurate axis labels are incredibly important](images/gslides/217.png)
  
@@ -798,7 +798,7 @@ ggplot(diamonds) +
 
 We now have a pretty good looking plot! However, a few additional changes would make this plot *even better* for communication.
 
-Note: Additional themes are available from the [`ggthemes` package](https://cran.r-project.org/web/packages/ggthemes/vignettes/ggthemes.html). Users can also generate their own themes.
+Note: Additional themes are available from the [`ggthemes` package](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/). Users can also generate their own themes.
 
 ### Custom Theme
 
@@ -806,7 +806,7 @@ In addition to using available themes, we can also adjust parts of the theme of 
 
 #### Altering text size
 
-For example, if we want to increase text size to make it more easily viewable when presenting this graph, we would do that within theme. Notice here that we're increasing the text size of the `title`, `axis.text`, `axis.title`, and `legend.text` all within `theme()`! The syntax here is important. Within each of the elements of the theme you want to alter, you have to specify what it is you want to change. Here, for all three, we want to later text, so we specify `element_text()`. Within that, we specify that it's `size` that we want to adjust. 
+For example, if we want to increase text size to make our plots more easily to view when presenting, we could do that within theme. Notice here that we're increasing the text size of the `title`, `axis.text`, `axis.title`, and `legend.text` all within `theme()`! The syntax here is important. Within each of the elements of the theme you want to alter, you have to specify what it is you want to change. Here, for all three, we want to alter the text, so we specify `element_text()`. Within that, we specify that it's `size` that we want to adjust. 
 
 
 ```r
@@ -830,7 +830,7 @@ ggplot(diamonds) +
 
 #### Additional text alterations
 
-Changing the size of text on your plot is not the only thing you can control within `theme()`. You can make text **bold* and change its color within `theme()`. Note here that multiple changes can be made to a single element. We can change size and make the text **bold**. All we do is separate each argument with a comma, per usual.
+Changing the size of text on your plot is not the only thing you can control within `theme()`. You can make text **bold** and change its color within `theme()`. Note here that multiple changes can be made to a single element. We can change size and make the text **bold**. All we do is separate each argument with a comma, per usual.
 
 
 ```r
@@ -854,7 +854,7 @@ ggplot(diamonds) +
 
 ![`theme()` allows us to tweak many parts of our plot](images/gslides/221.png)
 
-Any alterations to plot spacing/background, title, axis, and legend will all be made within `theme()`
+Any alterations to plot spacing/background, title, axis, and legend will all be made within `theme()`.
 
 ### Legends
 
@@ -882,9 +882,9 @@ ggplot(diamonds) +
 
 ![`guides()` allows us to change the legend title](images/gslides/222.png)
 
-This `guides()` function, as well as the `guides_*` functions also allow us to modify legends even further. 
+This `guides()` function, as well as the `guides_*` functions allow us to modify legends even further. 
 
-Thisis especially useful if you have many colors in your legend and you want to control how the legend is displayed in terms of the number of columns and rows using `ncol` and `nrow` respectively.
+This is especially useful if you have many colors in your legend and you want to control how the legend is displayed in terms of the number of columns and rows using `ncol` and `nrow` respectively.
 
 
 ```r
@@ -931,7 +931,7 @@ ggplot(diamonds) +
 
 <img src="images/dataviz-unnamed-chunk-37-1.png" width="672" />
 
-Alternatively, we can do this modifcation as well as other legend modifcations, like adding a rectangle around the legend, using the `theme()` function.
+Alternatively, we can do this modification, as well as other legend modifications, like adding a rectangle around the legend, using the `theme()` function.
 
 
 ```r
@@ -959,7 +959,7 @@ guides(fill = guide_legend("Cut Quality")) +
 
 At this point, we have an informative title, clear colors, a well-labeled legend, and text that is large enough throughout the graph. This is certainly a graph that could be used in a presentation. We've taken it from a graph that is useful to just ourselves (exploratory) and made it into a plot that can communicate our findings well to others (explanatory)! 
 
-We have touched on a number of alterations you can make by adding additional layers to a ggplot. In the rest of this lesson we'll touch on a few more changes you can make within `ggplot2` using a slightly different graph.
+We have touched on a number of alterations you can make by adding additional layers to a ggplot. In the rest of this lesson we'll touch on a few more changes you can make within `ggplot2`.
 
 ### Scales
 
@@ -975,11 +975,12 @@ ggplot(diamonds) +
 
 <img src="images/dataviz-unnamed-chunk-39-1.png" width="672" />
 
-![Continuous cales can be altered](images/gslides/223.png)
+![Continuous scales can be altered](images/gslides/223.png)
 
-There is very handy argument called `trans` for the `scale_y_continuous` or the `scale_x_continuous` functions to change the scale of the axes. For example it can be very useful to show the logrithmic version of the scale if you have very high values with large differences.
+There is very handy argument called `trans` for the `scale_y_continuous` or the `scale_x_continuous` functions to change the scale of the axes. For example, it can be very useful to show the logarithmic version of the scale if you have very high values with large differences.
 
 According to the documentation for the `trans` argument:
+
 > Built-in transformations include "asn", "atanh", "boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2", "logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal", "reverse", "sqrt" and "time".
 
 
@@ -1017,7 +1018,7 @@ ggplot(diamonds) +
 
 <img src="images/dataviz-unnamed-chunk-41-2.png" width="672" />
 
-In the first plot, it is difficult to tell what values the boxplots correspond to and it is difficult to compare the boxplots (particullarly for the last three clarity categories), however this is greatly improved in the second plot. 
+In the first plot, it is difficult to tell what values the boxplots correspond to and it is difficult to compare the boxplots (particularly for the last three clarity categories), however this is greatly improved in the second plot. 
 
 
 We can also use another argument of the `scale_y_continuous()` function to add specific labels to our plot. For example, it would be nice to add dollar signs to the y-axis. We can do so using the `labels` argument. A variety of `label_*` functions  within the `scales` package can be used to modify axis labels. See [here](https://scales.r-lib.org/reference/index.html) to take a look at the many options.
@@ -1049,7 +1050,7 @@ ggplot(diamonds) +
 
 Now we can more easily determine that the `SI2` diamonds are the most expensive.
 
-Another way modify **discrete variables** (aka factors or categorical variables), where there is a limited number of levels, you would use `scale_x_discrete` or `scale_y_discrete`. In this case we will just pick a few of the clarity categories to plot and we will specify the order.
+Another way to modify **discrete variables** (aka factors or categorical variables where there is a limited number of levels), is to use `scale_x_discrete` or `scale_y_discrete`. In this case we will just pick a few of the clarity categories to plot and we will specify the order.
 
 
 ```r
@@ -1121,7 +1122,7 @@ p <- ggplot(diamonds) +
 
 Finally, there will be times when you'll want to add text to a plot or to annotate points on your plot. We'll discuss briefly how to accomplish that here!
 
-To add text to your plot, we can use the function `annotate`. This requires us to specify that we want to annotate here with a "text" geom (rather than say a shape, like a rectangle - "rect"). Additionally, we have to specify what we'd like that text to say (`label`), where on the plot we'd like that text to show up (using `x` and `y` for coordinates), how we'd like the text aligned (using `hjust` for horizontal alignment where the options are "left", "center", or "right" and `vjust` for vertical alignment where the arguments are "top", "center" or "bottom"), and how big we'd like that text to be (`size`):
+To add text to your plot, we can use the function `annotate`. This requires us to specify that we want to annotate here with "text" (rather than say a shape, like a rectangle - "rect" - which you can also do!). Additionally, we have to specify what we'd like that text to say (using the `label` argument), where on the plot we'd like that text to show up (using `x` and `y` for coordinates), how we'd like the text aligned (using `hjust` for horizontal alignment where the options are "left", "center", or "right" and `vjust` for vertical alignment where the arguments are "top", "center", or "bottom"), and how big we'd like that text to be (using `size`):
 
 
 ```r
@@ -1159,7 +1160,7 @@ Note: we could have accomplished this by adding an additional `geom`: `geom_text
 
 Sometimes it is very useful to add a line to our plot to indicate an important threshold. We can do so by using the `geom_hline()` function for a horizontal line and `geom_vline()` for a vertical line. 
 
-In each case, the functions require that a y or x intercept be specified respectively.
+In each case, the functions require that a y-axis intercept or x-axis intercept be specified respectively.
 
 For example, it might be useful to add a horizontal line to indicate 50% of the total counts for each of the `clarity` categories. We will also use the `scale_y_continuous()` function to change the y-axis to show percentages.
 
@@ -1175,6 +1176,7 @@ ggplot(diamonds) +
 ```
 
 <img src="images/dataviz-unnamed-chunk-48-1.png" width="672" />
+
 Now, it is easier to tell that slightly over half of the `VVS2` diamonds have an `Ideal` cut. This would be much more difficult to see without the horizontal line. 
 
 
@@ -1212,11 +1214,11 @@ A few things to keep in mind when making tables is that it's best to:
 
 ### Tables in R
 
-Now that we have a good understanding of what to consider when making tables, we can to practice making good tables in R. To do this, we'll return to the diamonds dataset. As a reminder, this dataset contains prices and other information about ~54,000 different diamonds. If we want to provide viewers with a summary of these data, we may want to provide information about diamonds broken down by the quality of the diamond's cut. To get the data we're interested in, we'll use the `diamonds` dataset and the `dplyr` R package, which we discussed in a lesson in an earlier course.
+Now that we have a good understanding of what to consider when making tables, we can to practice making good tables in R. To do this, we'll continue to use the diamonds dataset (which is part of the `ggplot2` package). As a reminder, this dataset contains prices and other information about ~54,000 different diamonds. If we want to provide viewers with a summary of these data, we may want to provide information about diamonds broken down by the quality of the diamond's cut. To get our data in the form we want we will use the `dplyr` package, which we discussed in a lesson earlier.
 
 ### Getting the Data in Order
 
-To start figuring out how the quality of the cut of the diamond affects the price of that diamond, we first have to first get the data in order. To do that, we'll use the `dplyr` package that you learned about in an earlier course in this series. This allows us to group the data by the quality of the cut (`cut`) before summarizing the data to determine the number of diamonds in each category (`N`), the minimum price of the diamonds in this category (`min`), the average price (`avg`), and the highest price in the category (`max`).
+To start figuring out how the quality of the cut of the diamond affects the price of that diamond, we first have toget the data in order. To do that we'll use the `dplyr` package. This allows us to group the data by the quality of the cut (`cut`) before summarizing the data to determine the number of diamonds in each category (`N`), the minimum price of the diamonds in this category (`min`), the average price (`avg`), and the highest price in the category (`max`).
 
 To get these data in order, you could use the following code. This code groups the data by cut (quality of the diamond) and then calculates the number of diamonds in each group (N), the minimum price across each group (min), the average price of diamonds across each group (avg), and the maximum price within each group (max):
 
@@ -1253,21 +1255,21 @@ df
 ## 5 Ideal     21551   326 3458. 18806
 ```
 
-By getting the data summarized into a single object in R (`df`), we're on our way to making an informative table. However, this is clearly just an exploratory table. The output in R from this code follows some of the good table rules above, but not all of them.  At a glance, it will help you to understand the data, but it's not the finished table you would want to send to your boss. 
+By getting the data summarized into a single object in R (`df`), we're on our way to making an informative table. However, this is clearly just an exploratory table. The output in R from this code follows some of the good table rules above, but not all of them. At a glance, it will help you to understand the data, but it's not the finished table you would want to send to your boss. 
 
 ![Exploratory diamonds table](images/gslides/229.png)
 
 From this output, you, the creator of the table, would be able to see that there are a number of **good qualities**:
 
 * there is a **reasonable number of rows and columns** - There are 5 rows and 5 columns. A viewer can quickly look at this table and determine what's going on.
-* the first column `cut` is **organized logically** - The lowest quality diamond category is first and then they are ordered vertically until the highest quality cut (`ideal))
-* Comparisons are made **top to bottom** - To compare between the groups, your eye only has to travel up and down, rather than from left to right. 
+* the first column `cut` is **organized logically** - The lowest quality diamond category is first and then they are ordered vertically until the highest quality cut (`ideal`))
+* comparisons are made **top to bottom** - To compare between the groups, your eye only has to travel up and down, rather than from left to right. 
 
 There are also things that **need to be improved** on this table:
 
 * **column headers** could be even more clear
 * there's **no caption/title**
-* It could be more **aesthetically pleasing**
+* it could be more **aesthetically pleasing**
 
 ### Improving the Table Output
 
@@ -1299,8 +1301,8 @@ However, there are still a few issues we want to improve upon:
 
 * column names could be more informative
 * too many digits in the `avg` column
-* Caption/title is missing
-* Source of data not included.
+* caption/title is missing
+* source of data not included
 
 To begin addressing these issues, we can use the `add_header_above` function from `kableExtra()` to specify that the min, avg, and max columns refer to `price` in US dollars (USD). Additionally, `kable()` takes a `digits` argument to specify how many significant digits to display. This takes care of the display of too many digits in the `avg` column. Finally, we can also style the table so that every other row is shaded, helping our eye to keep each row's information separate from the other rows using `kable_styling()` from `kableExtra`.  These few changes really improve the readability of the table. 
 
@@ -1451,7 +1453,7 @@ Beyond the *many* capabilities of `ggplot2`, there are a few additional packages
 * combine multiple plots (`cowplot` + `patchwork`)
 * generate animated plots (`gganimate`)
 
-These are referred to as `ggplot2` extensions There are dozens of additional [`ggplot2` extensions](http://www.ggplot2-exts.org/gallery/) available if you'd like to explore other plotting options beyond what is covered here!
+These are referred to as `ggplot2` extensions. There are dozens of additional [`ggplot2` extensions](http://www.ggplot2-exts.org/gallery/) available if you'd like to explore other plotting options beyond what is covered here!
 
 ### `ggrepel`
 
@@ -1461,14 +1463,26 @@ To demonstrate the functionality within the `ggrepel` package and demonstrate ca
 
 > The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models).
 
-This dataset includes information about 32 different cars. Let's first convert this from a data.frame to a tibble.
+This dataset includes information about 32 different cars. Let's first convert this from a data.frame to a tibble. Note that we will keep the rownames and make it a new variable called `model`.
 
 
 ```r
 # see first 6 rows of mtcars
 mtcars <- mtcars %>%
-  rownames_to_column(var = "model") %>%
-  as_tibble()
+as_tibble(rownames = "model")
+head(mtcars)
+```
+
+```
+## # A tibble: 6 x 12
+##   model          mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+##   <chr>        <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+## 1 Mazda RX4     21       6   160   110  3.9   2.62  16.5     0     1     4     4
+## 2 Mazda RX4 W…  21       6   160   110  3.9   2.88  17.0     0     1     4     4
+## 3 Datsun 710    22.8     4   108    93  3.85  2.32  18.6     1     1     4     1
+## 4 Hornet 4 Dr…  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1
+## 5 Hornet Spor…  18.7     8   360   175  3.15  3.44  17.0     0     0     3     2
+## 6 Valiant       18.1     6   225   105  2.76  3.46  20.2     1     0     3     1
 ```
 
 What if we were to plot a scatterplot between horsepower (`hp`) and weight (`wt`) of each car and wanted to label each point in that plot with the care model. 
@@ -1513,7 +1527,7 @@ The only bit of code here that changed was that we changed `geom_text()` to `geo
 
 #### Custom Formatting
 
-Within `geom_text_repel()`, there are a number of additional formatting options available. We'll cover a number of the most important here, but the [`ggrepel` vignettes](https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html) explore these further
+Within `geom_text_repel()`, there are a number of additional formatting options available. We'll cover a number of the most important here, but the [`ggrepel` vignettes](https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html) explore these further.
 
 
 **Highlighting Specific Points**
@@ -1522,15 +1536,22 @@ Often, you do not want to highlight *all* the points on a plot, but want to draw
 
 
 ```r
-# Label with model  in new column "merc"
-# for columns with "Merc" in model column
-mtcars <- mtcars %>% 
-  mutate(merc = ifelse(grepl("Merc", mtcars$model), model, ""))
+# create a new column "merc" with true or false for Mercedes
+# value is true for rows with "Merc" in model column
+mtcars <- mtcars%>%
+          mutate(merc = str_detect(string = model, pattern = "Merc"))
 
-# Let's just label these items.
-ggplot(mtcars, aes(wt, hp, label = merc)) +
-  geom_point(color = ifelse(mtcars$merc == "", "grey50", "dodgerblue")) +
-  geom_text_repel()
+# Let's just label these items and manually color the points
+ggplot(mtcars, aes(wt, hp, label = model)) +
+  geom_text_repel() +
+  geom_point(aes(color = merc)) +
+  scale_color_manual(values = c("grey50", "dodgerblue")) +
+  theme_classic()
+```
+
+```
+## Warning: ggrepel: 2 unlabeled data points (too many overlaps). Consider
+## increasing max.overlaps
 ```
 
 <img src="images/dataviz-unnamed-chunk-58-1.png" width="672" />
@@ -1541,11 +1562,11 @@ We then, specify that only these Mercedes cars should be labeled *and* that we o
 
 **Text Alignment**
 
-Other times, you want to ensure that your labels are aligned on the top or bottom edge, relative to one another. This can be controlled using the `hjust` and `vjust` arguments. The values for particular alignment are:
+Other times, you want to ensure that your labels are aligned on the top or bottom edge, relative to one another. This can be controlled using the `hjust` and `vjust` arguments. The values for particular alignment are:  
 
-`hjust = 0`   |  to left-align
-`hjust = 0.5` |  to center
-`hjust = 1`   |  to right-align
+`hjust = 0`   |  to left-align  
+`hjust = 0.5` |  to center  
+`hjust = 1`   |  to right-align  
 
 Additionally, you can adjust the starting position of text vertically with `nudge_y` (or horizontally with `nudge_x`). To use this, you'll specify the distance from the point to the label you want to use.
 
@@ -1553,12 +1574,12 @@ You can also allow the labels to move horizontally with `direction = "x"` (or ve
 
 For example, what if we wanted to plot the relationship between quarter mile time (`qsec`) and miles per gallon (`mpg`) to identify cars that get the best gas mileage.
 
-To do this, we're specifying within `geom_text_repel()` the following arguments:
+To do this, we're specifying within `geom_text_repel()` the following arguments:  
 
-`data` | only label those cars with gas mileage > 30 mpg
-`nudge_y` | position all labels so that they're vertically aligned
-`hjust` | center-align the labels
-`direction` | allow labels to move horizontally
+`data` | only label those cars with gas mileage > 30 mpg  
+`nudge_y` | position all labels so that they're vertically aligned  
+`hjust` | center-align the labels  
+`direction` | allow labels to move horizontally  
 
 For further customization, we're also changing the segment color from the default black to a light gray ("gray60").
 
@@ -1587,7 +1608,7 @@ With this plot, it is clear that there are four cars with mpg > 30. And, among t
 
 ### `directlabels`
 
-The `directlabels` package also helps you to add labels directly to plots. There are functions that allow you to also add labels that generally dont overlap using less code than `ggrepel`, however there are less specification options.
+The `directlabels` package also helps you to add labels directly to plots. There are functions that allow you to also add labels that generally don't overlap using less code than `ggrepel`, however there are less specification options.
 
 There are several method options for adding direct labels to scatter plots, such as: `first.points` (which will place the label on the left in a scatterplot), and `last.points` (which will place the label on the right in a scatterplot).
 
@@ -1643,7 +1664,7 @@ Beyond customization within `ggplot2` and labeling points, there are times you'l
 
 #### Theme
 
-The standard theme within `cowplot`, which works for many types of plots is `theme_cowplot()`. This theme is very similar to `theme_classic()`, which removes the background color, removes grid lines, and plots only the x- and y- axis lines (rather than a box around all the data). We'll use this theme for the examples from this package. However, note that there are a number of additional themes available from the `cowplot` package.
+The standard theme within `cowplot`, which works for many types of plots is `theme_cowplot()`. This theme is very similar to `theme_classic()`, which removes the background color, removes grid lines, and plots only the x- and y- axis lines (rather than a box around all the data). We'll use this theme for the examples from this package. However, note that there are a number of additional themes available from the `cowplot` package. We will use the number 12 within this function to indicate that we want to use a font size of 12.
 
 
 ```r
@@ -1778,11 +1799,11 @@ plot_grid(p1, p3, labels = "AUTO", rel_widths = c(1, 1.3))
 
 Finally, when generating grids with multiple plots, at times you'll often want a single title to explain what's going on across the plots. Here, the process *looks* slightly confusing, but this is only because we're putting all of these `cowplot` pieces together.
 
-Generally, there are three steps:
+Generally, there are three steps:  
 
-1. Create `three_plots` grid with plots
-2. Create `title` object
-3. Piece `title` and `three_plots` together
+1. Create grid with plots  
+2. Create title object  
+3. Piece title and grid of plots together  
 
 
 ```r

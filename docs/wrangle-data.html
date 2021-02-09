@@ -24,7 +24,7 @@
 <meta name="author" content="Carrie Wright, Shannon E. Ellis, Stephanie C. Hicks and Roger D. Peng" />
 
 
-<meta name="date" content="2021-02-03" />
+<meta name="date" content="2021-02-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -2430,10 +2430,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb301-4"><a href="wrangle-data.html#cb301-4"></a><span class="co">## subtract birthday from todays date</span></span>
 <span id="cb301-5"><a href="wrangle-data.html#cb301-5"></a>age &lt;-<span class="st"> </span><span class="kw">today</span>() <span class="op">-</span><span class="st"> </span>mydate</span>
 <span id="cb301-6"><a href="wrangle-data.html#cb301-6"></a>age</span></code></pre></div>
-<pre><code>## Time difference of 11815 days</code></pre>
+<pre><code>## Time difference of 11821 days</code></pre>
 <div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="wrangle-data.html#cb303-1"></a><span class="co">## a duration object can get this information in years</span></span>
 <span id="cb303-2"><a href="wrangle-data.html#cb303-2"></a><span class="kw">as.duration</span>(age)</span></code></pre></div>
-<pre><code>## [1] &quot;1020816000s (~32.35 years)&quot;</code></pre>
+<pre><code>## [1] &quot;1021334400s (~32.36 years)&quot;</code></pre>
 <div class="figure">
 <img src="images/gslides/132.png" alt="" />
 <p class="caption">dates and date-times can be operated upon</p>
@@ -2559,8 +2559,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb319-2"><a href="wrangle-data.html#cb319-2"></a></span>
 <span id="cb319-3"><a href="wrangle-data.html#cb319-3"></a><span class="co">## identify strings that start with &quot;M&quot;</span></span>
 <span id="cb319-4"><a href="wrangle-data.html#cb319-4"></a><span class="kw">str_view</span>(names, <span class="st">&quot;^M&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-46228b592e4ae6e35639" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-46228b592e4ae6e35639">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li><span class='match'>M<\/span>ohammed<\/li>\n  <li>Jane<\/li>\n  <li><span class='match'>M<\/span>athieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-fcba857a6f5c8003b6f9" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fcba857a6f5c8003b6f9">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li><span class='match'>M<\/span>ohammed<\/li>\n  <li>Jane<\/li>\n  <li><span class='match'>M<\/span>athieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/139.png" alt="" />
 <p class="caption"><code>str_view()</code> identifies names that start with M</p>
@@ -2569,8 +2569,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>However, if you try to match strings that end with the letter “M”, no match is found.</p>
 <div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="wrangle-data.html#cb320-1"></a><span class="co">## identify strings that end with &quot;M&quot;</span></span>
 <span id="cb320-2"><a href="wrangle-data.html#cb320-2"></a><span class="kw">str_view</span>(names, <span class="st">&quot;M$&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-9c58402af709f6a82ce3" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9c58402af709f6a82ce3">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c37809c82e6d91c78a38" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c37809c82e6d91c78a38">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/140.png" alt="" />
 <p class="caption"><code>str_view()</code> does not identify any names that end with M</p>
@@ -2578,8 +2578,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To identify names by that end with the letter “a”, you would use the following.</p>
 <div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="wrangle-data.html#cb321-1"></a><span class="co">## identify strings that end with &quot;a&quot;</span></span>
 <span id="cb321-2"><a href="wrangle-data.html#cb321-2"></a><span class="kw">str_view</span>(names, <span class="st">&quot;a$&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-30207e9cc78ec633e129" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-30207e9cc78ec633e129">{"x":{"html":"<ul>\n  <li>Keish<span class='match'>a<\/span><\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-1e75dca509b7e701bc89" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1e75dca509b7e701bc89">{"x":{"html":"<ul>\n  <li>Keish<span class='match'>a<\/span><\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/141.png" alt="" />
 <p class="caption"><code>str_view()</code> identifies names that end with a</p>
@@ -2667,8 +2667,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To search for a set of characters, you place these characters within brackets. Below, this will identify anywhere in the strings where you have a lowercase vowel. Note, that we’re now using <code>str_view_all()</code> to identify all occurrences of these characters, rather than <code>str_view()</code>, which only identifies the first occurrence in each string.</p>
 <div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="wrangle-data.html#cb334-1"></a><span class="co">## identify all lowercase vowels</span></span>
 <span id="cb334-2"><a href="wrangle-data.html#cb334-2"></a><span class="kw">str_view_all</span>(names, <span class="st">&quot;[aeiou]&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-181f816146c678bebaff" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-181f816146c678bebaff">{"x":{"html":"<ul>\n  <li>K<span class='match'>e<\/span><span class='match'>i<\/span>sh<span class='match'>a<\/span><\/li>\n  <li>M<span class='match'>o<\/span>h<span class='match'>a<\/span>mm<span class='match'>e<\/span>d<\/li>\n  <li>J<span class='match'>a<\/span>n<span class='match'>e<\/span><\/li>\n  <li>M<span class='match'>a<\/span>th<span class='match'>i<\/span><span class='match'>e<\/span><span class='match'>u<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-444e1aaf481a3930c25a" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-444e1aaf481a3930c25a">{"x":{"html":"<ul>\n  <li>K<span class='match'>e<\/span><span class='match'>i<\/span>sh<span class='match'>a<\/span><\/li>\n  <li>M<span class='match'>o<\/span>h<span class='match'>a<\/span>mm<span class='match'>e<\/span>d<\/li>\n  <li>J<span class='match'>a<\/span>n<span class='match'>e<\/span><\/li>\n  <li>M<span class='match'>a<\/span>th<span class='match'>i<\/span><span class='match'>e<\/span><span class='match'>u<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/149.png" alt="" />
 <p class="caption">brackets specify which characters to search for</p>
@@ -2679,8 +2679,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>By adding a caret (<code>^</code>) before the vowels within the brackets, this regular expressions specifies that you are searching for any character that is not a lowercase vowel within your strings.</p>
 <div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="wrangle-data.html#cb335-1"></a><span class="co">## identify anything that&#39;s NOT a lowercase vowel</span></span>
 <span id="cb335-2"><a href="wrangle-data.html#cb335-2"></a><span class="kw">str_view_all</span>(names, <span class="st">&quot;[^aeiou]&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-6b89a4a4c8c536f3e13d" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6b89a4a4c8c536f3e13d">{"x":{"html":"<ul>\n  <li><span class='match'>K<\/span>ei<span class='match'>s<\/span><span class='match'>h<\/span>a<\/li>\n  <li><span class='match'>M<\/span>o<span class='match'>h<\/span>a<span class='match'>m<\/span><span class='match'>m<\/span>e<span class='match'>d<\/span><\/li>\n  <li><span class='match'>J<\/span>a<span class='match'>n<\/span>e<\/li>\n  <li><span class='match'>M<\/span>a<span class='match'>t<\/span><span class='match'>h<\/span>ieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-006ca65812e42c18e917" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-006ca65812e42c18e917">{"x":{"html":"<ul>\n  <li><span class='match'>K<\/span>ei<span class='match'>s<\/span><span class='match'>h<\/span>a<\/li>\n  <li><span class='match'>M<\/span>o<span class='match'>h<\/span>a<span class='match'>m<\/span><span class='match'>m<\/span>e<span class='match'>d<\/span><\/li>\n  <li><span class='match'>J<\/span>a<span class='match'>n<\/span>e<\/li>\n  <li><span class='match'>M<\/span>a<span class='match'>t<\/span><span class='match'>h<\/span>ieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/150.png" alt="" />
 <p class="caption">brackets with a caret first specify which characters NOT to search for</p>
@@ -2693,8 +2693,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb336-2"><a href="wrangle-data.html#cb336-2"></a></span>
 <span id="cb336-3"><a href="wrangle-data.html#cb336-3"></a><span class="co">## identify anything that&#39;s a digit</span></span>
 <span id="cb336-4"><a href="wrangle-data.html#cb336-4"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">d&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-0df660d75b485aef9068" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0df660d75b485aef9068">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span> Main Street<\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span> Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-3408cff0ca8d96ddf845" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3408cff0ca8d96ddf845">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span> Main Street<\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span> Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/151.png" alt="" />
 <p class="caption"><code>\d</code> searches for digits</p>
@@ -2705,8 +2705,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Identifying whitespace in R identifies any spaces, tabs or newlines. Note that again we have to escape the “” with a backslash for R to recognize the regular expression.</p>
 <div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="wrangle-data.html#cb337-1"></a><span class="co">## identify any whitespace</span></span>
 <span id="cb337-2"><a href="wrangle-data.html#cb337-2"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">s&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-e1e68a3250eea1dd387f" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e1e68a3250eea1dd387f">{"x":{"html":"<ul>\n  <li>1234<span class='match'> <\/span>Main<span class='match'> <\/span>Street<\/li>\n  <li>1600<span class='match'> <\/span>Pennsylvania<span class='match'> <\/span>Ave<\/li>\n  <li>Brick<span class='match'> <\/span>Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-fcb228a498fd9b52fd52" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fcb228a498fd9b52fd52">{"x":{"html":"<ul>\n  <li>1234<span class='match'> <\/span>Main<span class='match'> <\/span>Street<\/li>\n  <li>1600<span class='match'> <\/span>Pennsylvania<span class='match'> <\/span>Ave<\/li>\n  <li>Brick<span class='match'> <\/span>Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/152.png" alt="" />
 <p class="caption"><code>\s</code> searches for whitespace</p>
@@ -2717,8 +2717,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To identify any character except for a newline you’ll use <code>"."</code>. Notice in our addresses example that there are no newlines, so this pattern will match with the entire string.</p>
 <div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="wrangle-data.html#cb338-1"></a><span class="co">## identify any character</span></span>
 <span id="cb338-2"><a href="wrangle-data.html#cb338-2"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;.&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-a715ff5fbd08af320508" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a715ff5fbd08af320508">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span><span class='match'> <\/span><span class='match'>M<\/span><span class='match'>a<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'> <\/span><span class='match'>S<\/span><span class='match'>t<\/span><span class='match'>r<\/span><span class='match'>e<\/span><span class='match'>e<\/span><span class='match'>t<\/span><\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>e<\/span><span class='match'>n<\/span><span class='match'>n<\/span><span class='match'>s<\/span><span class='match'>y<\/span><span class='match'>l<\/span><span class='match'>v<\/span><span class='match'>a<\/span><span class='match'>n<\/span><span class='match'>i<\/span><span class='match'>a<\/span><span class='match'> <\/span><span class='match'>A<\/span><span class='match'>v<\/span><span class='match'>e<\/span><\/li>\n  <li><span class='match'>B<\/span><span class='match'>r<\/span><span class='match'>i<\/span><span class='match'>c<\/span><span class='match'>k<\/span><span class='match'> <\/span><span class='match'>B<\/span><span class='match'>u<\/span><span class='match'>i<\/span><span class='match'>l<\/span><span class='match'>d<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'>g<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-3c70176fb8109435ac21" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3c70176fb8109435ac21">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span><span class='match'> <\/span><span class='match'>M<\/span><span class='match'>a<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'> <\/span><span class='match'>S<\/span><span class='match'>t<\/span><span class='match'>r<\/span><span class='match'>e<\/span><span class='match'>e<\/span><span class='match'>t<\/span><\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>e<\/span><span class='match'>n<\/span><span class='match'>n<\/span><span class='match'>s<\/span><span class='match'>y<\/span><span class='match'>l<\/span><span class='match'>v<\/span><span class='match'>a<\/span><span class='match'>n<\/span><span class='match'>i<\/span><span class='match'>a<\/span><span class='match'> <\/span><span class='match'>A<\/span><span class='match'>v<\/span><span class='match'>e<\/span><\/li>\n  <li><span class='match'>B<\/span><span class='match'>r<\/span><span class='match'>i<\/span><span class='match'>c<\/span><span class='match'>k<\/span><span class='match'> <\/span><span class='match'>B<\/span><span class='match'>u<\/span><span class='match'>i<\/span><span class='match'>l<\/span><span class='match'>d<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'>g<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/153.png" alt="" />
 <p class="caption">. searches for any character</p>
@@ -2741,8 +2741,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Using the definitions above, we can see that the following code will identify patterns within the addresses vector where n shows up one more more times in a string.</p>
 <div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="wrangle-data.html#cb339-1"></a><span class="co">## identify any time n shows up one or more times</span></span>
 <span id="cb339-2"><a href="wrangle-data.html#cb339-2"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;n+&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-5f6a8190d1219a7405a1" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5f6a8190d1219a7405a1">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-90744372c108e8ff3b0e" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-90744372c108e8ff3b0e">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/154.png" alt="" />
 <p class="caption">+ specifies to match the pattern one or more times</p>
@@ -2750,8 +2750,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>While the difference is slight in the output here, we’re identifying portions of the string where n shows up exactly once. So, instead of the ‘nn’ in Pennsylvania matching together, the code here splits these up, due to the fact that we’re specifying the pattern match ‘n’ exactly one time:</p>
 <div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="wrangle-data.html#cb340-1"></a><span class="co">## identify any time n shows up</span></span>
 <span id="cb340-2"><a href="wrangle-data.html#cb340-2"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;n{1}&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-4c0c8d1f6abda5c91c96" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4c0c8d1f6abda5c91c96">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>n<\/span><span class='match'>n<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a11f0024f3b0744fffda" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a11f0024f3b0744fffda">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>n<\/span><span class='match'>n<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/155.png" alt="" />
 <p class="caption">{#} looks to match the pattern exactly the number of times within the curly braces</p>
@@ -2759,8 +2759,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>If you only wanted to match strings where n showed up twice in a row, you could specify that in this way:</p>
 <div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="wrangle-data.html#cb341-1"></a><span class="co">## identify any time n shows up exactly two times in a row</span></span>
 <span id="cb341-2"><a href="wrangle-data.html#cb341-2"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;n{2}&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-e214b30c5f0bdb130153" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e214b30c5f0bdb130153">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2e98960b27b8db41b2c8" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2e98960b27b8db41b2c8">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/156.png" alt="" />
 <p class="caption">{2} specifies that the pattern must be found exactly twice</p>
@@ -2768,8 +2768,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This could similarly be achieved by specifying to search for the pattern ‘nn’ one or more times (<code>+</code>):</p>
 <div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="wrangle-data.html#cb342-1"></a><span class="co">## identify any time &#39;nn&#39; shows up one or more times </span></span>
 <span id="cb342-2"><a href="wrangle-data.html#cb342-2"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;nn+&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-a78806cda22b5e62175e" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a78806cda22b5e62175e">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a4eaee06c4ecfc8c68a0" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a4eaee06c4ecfc8c68a0">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/157.png" alt="" />
 <p class="caption">nn+ searches for double n one or more times in a string</p>
@@ -2777,12 +2777,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>You can also specify a range of the number of times to search for a pattern within your string. Below, we see that if we specify n be searched for at least two and at most 3 times, the pattern matches within our string. However, if we increase that to between three and four times, no pattern matching occurs, as there are never three or four n’s in a row in our strings.</p>
 <div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="wrangle-data.html#cb343-1"></a><span class="co">## identify any time n shows up two or three times </span></span>
 <span id="cb343-2"><a href="wrangle-data.html#cb343-2"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;n{2,3}&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-51e5dbc7ae949db7d739" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-51e5dbc7ae949db7d739">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-17b27d9a0bc56e63e52c" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-17b27d9a0bc56e63e52c">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="wrangle-data.html#cb344-1"></a><span class="co">## identify any time n shows up three or four times </span></span>
 <span id="cb344-2"><a href="wrangle-data.html#cb344-2"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;n{3,4}&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-97950d80b6b32deb0de2" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-97950d80b6b32deb0de2">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a3a55539121f7c9a3e4b" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a3a55539121f7c9a3e4b">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/158.png" alt="" />
 <p class="caption">{n,m} looks to pattern match between n and m times</p>
@@ -3564,21 +3564,13 @@ pmap(LIST_OF_INPUT_LISTS, FUNCTION_TO_APPLY, OPTIONAL_OTHER_STUFF)</code></pre>
 <span id="cb430-4"><a href="wrangle-data.html#cb430-4"></a><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="op">-</span>Location,         <span class="co">## Use all columns BUT &#39;Location&#39;</span></span>
 <span id="cb430-5"><a href="wrangle-data.html#cb430-5"></a>               <span class="dt">names_to =</span> <span class="st">&quot;year_type&quot;</span>, </span>
 <span id="cb430-6"><a href="wrangle-data.html#cb430-6"></a>               <span class="dt">values_to =</span> <span class="st">&quot;tot_coverage&quot;</span>)</span></code></pre></div>
-<pre><code>## Warning: Problem with `mutate()` input `..1`.
-## ℹ NAs introduced by coercion
-## ℹ Input `..1` is `across(starts_with(&quot;20&quot;), as.integer)`.
+<pre><code>## Warning in mask$eval_all_mutate(quo): NAs introduced by coercion
 
-## Warning: Problem with `mutate()` input `..1`.
-## ℹ NAs introduced by coercion
-## ℹ Input `..1` is `across(starts_with(&quot;20&quot;), as.integer)`.
+## Warning in mask$eval_all_mutate(quo): NAs introduced by coercion
 
-## Warning: Problem with `mutate()` input `..1`.
-## ℹ NAs introduced by coercion
-## ℹ Input `..1` is `across(starts_with(&quot;20&quot;), as.integer)`.
+## Warning in mask$eval_all_mutate(quo): NAs introduced by coercion
 
-## Warning: Problem with `mutate()` input `..1`.
-## ℹ NAs introduced by coercion
-## ℹ Input `..1` is `across(starts_with(&quot;20&quot;), as.integer)`.</code></pre>
+## Warning in mask$eval_all_mutate(quo): NAs introduced by coercion</code></pre>
 <div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="wrangle-data.html#cb432-1"></a>coverage</span></code></pre></div>
 <pre><code>## # A tibble: 1,456 x 3
 ##    Location      year_type          tot_coverage
