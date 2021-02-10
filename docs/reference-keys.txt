@@ -374,7 +374,7 @@ q2-spending-across-geographic-regions
 q3-coverage-and-spending-change-over-time
 case-study-2-firearms-3
 exploratory-data-analysis-eda-1
-q-fatal-police-shootings-and-legislation
+q-relationship-between-fatal-police-shootings-and-legislation
 model
 about-this-course-4
 the-purpose-of-data-science

@@ -103,16 +103,16 @@ slice_sample(trees, n = 10)
 
 ```
 ##    Girth Height Volume
-## 1   20.6     87   77.0
-## 2   14.5     74   36.3
-## 3    8.8     63   10.2
-## 4   11.0     66   15.6
-## 5   12.9     74   22.2
-## 6   12.9     85   33.8
-## 7   12.0     75   19.1
-## 8   18.0     80   51.5
-## 9   11.2     75   19.9
-## 10  13.8     64   24.9
+## 1   10.8     83   19.7
+## 2    8.3     70   10.3
+## 3   20.6     87   77.0
+## 4   10.5     72   16.4
+## 5   11.3     79   24.2
+## 6   13.3     86   27.4
+## 7   11.2     75   19.9
+## 8   16.0     72   38.3
+## 9   17.9     80   58.3
+## 10  11.4     76   21.0
 ```
 
 You can also use `slice_head()` or `slice_tail()` to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.
@@ -2020,11 +2020,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2021-02-10 17:39
+##   Date: 2021-02-10 22:11
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpH9ugsL/file187d59c09d07.xlsx
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpHstPjb/file20ac59c09d07.xlsx
 ```
 
 ```r
@@ -2072,11 +2072,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2021-02-10 17:39
+##   Date: 2021-02-10 22:11
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpH9ugsL/file187d618fb492.xls
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpHstPjb/file20ac618fb492.xls
 ```
 
 ```r
@@ -2123,11 +2123,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2021-02-10 17:39
+##   Date: 2021-02-10 22:11
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpH9ugsL/file187d6135133.xls
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpHstPjb/file20ac6135133.xls
 ```
 
 ```r
