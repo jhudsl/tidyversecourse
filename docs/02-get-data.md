@@ -103,16 +103,16 @@ slice_sample(trees, n = 10)
 
 ```
 ##    Girth Height Volume
-## 1   10.8     83   19.7
-## 2    8.3     70   10.3
-## 3   20.6     87   77.0
-## 4   10.5     72   16.4
-## 5   11.3     79   24.2
-## 6   13.3     86   27.4
-## 7   11.2     75   19.9
-## 8   16.0     72   38.3
-## 9   17.9     80   58.3
-## 10  11.4     76   21.0
+## 1   11.4     76   21.4
+## 2   18.0     80   51.5
+## 3   11.2     75   19.9
+## 4   12.9     74   22.2
+## 5   12.0     75   19.1
+## 6   17.5     82   55.7
+## 7   11.3     79   24.2
+## 8   13.8     64   24.9
+## 9   11.1     80   22.6
+## 10  18.0     80   51.0
 ```
 
 You can also use `slice_head()` or `slice_tail()` to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.
@@ -1637,11 +1637,11 @@ The data for this case study are available in [CSVs hosted on GitHub](https://gi
 
 As a reminder, we're ultimately interested in answering the following questions with these data:
 
-1. Is there a relationship between healthcare coverage and healthcare spending in the United States?
+1. Is there a relationship between health care coverage and health care spending in the United States?
 2. How does the spending distribution change across geographic regions in the United States?
-3. Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?
+3. Does the relationship between health care coverage and health care spending in the United States change from 2013 to 2014?
 
-#### Healthcare Coverage Data
+#### health care Coverage Data
 
 We'll first read the data in. Note that we have to skip the first two lines, as there are two lines in the CSV that store information about the file before we get to the actual data.
 
@@ -1821,9 +1821,9 @@ This gives an us output with all the variables listed on the far left. Thus esse
 
 Looks like we have a whole bunch of numeric variables (indicated by <dbl>), but a few that appear like they *should* be numeric, but are actually strings (indicated by <chr>). We'll keep this in mind for when we wrangle the data!
 
-#### Healthcare Spending Data
+#### health care Spending Data
 
-Now, we're ready to read in our healthcare spending data, using a similar approach as we did for the coverage data.
+Now, we're ready to read in our health care spending data, using a similar approach as we did for the coverage data.
 
 
 ```r
@@ -2020,11 +2020,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2021-02-10 22:11
+##   Date: 2021-02-10 22:29
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpHstPjb/file20ac59c09d07.xlsx
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//Rtmp7XwDc3/file229259c09d07.xlsx
 ```
 
 ```r
@@ -2072,11 +2072,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2021-02-10 22:11
+##   Date: 2021-02-10 22:29
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpHstPjb/file20ac618fb492.xls
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//Rtmp7XwDc3/file2292618fb492.xls
 ```
 
 ```r
@@ -2123,11 +2123,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2021-02-10 22:11
+##   Date: 2021-02-10 22:29
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpHstPjb/file20ac6135133.xls
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//Rtmp7XwDc3/file22926135133.xls
 ```
 
 ```r

@@ -1194,11 +1194,11 @@ The data for this case study are available in [CSVs hosted on GitHub](https://gi
 
 As a reminder, we're ultimately interested in answering the following questions with these data:
 
-1. Is there a relationship between healthcare coverage and healthcare spending in the United States?
+1. Is there a relationship between health care coverage and health care spending in the United States?
 2. How does the spending distribution change across geographic regions in the United States?
-3. Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?
+3. Does the relationship between health care coverage and health care spending in the United States change from 2013 to 2014?
 
-#### Healthcare Coverage Data
+#### health care Coverage Data
 
 We'll first read the data in. Note that we have to skip the first two lines, as there are two lines in the CSV that store information about the file before we get to the actual data.
 
@@ -1244,9 +1244,9 @@ This gives an us output with all the variables listed on the far left. Thus esse
 
 Looks like we have a whole bunch of numeric variables (indicated by <dbl>), but a few that appear like they *should* be numeric, but are actually strings (indicated by <chr>). We'll keep this in mind for when we wrangle the data!
 
-#### Healthcare Spending Data
+#### health care Spending Data
 
-Now, we're ready to read in our healthcare spending data, using a similar approach as we did for the coverage data.
+Now, we're ready to read in our health care spending data, using a similar approach as we did for the coverage data.
 
 ```{r message = FALSE}
 ## read spending data into R
