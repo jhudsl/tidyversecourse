@@ -1154,7 +1154,7 @@ ggplot(diamonds) +
 
 ![`annotate` helps add text to our plot](images/gslides/227.png)
 
-Note: we could have accomplished this by adding an additional `geom`: `geom_text`. However, this requires creating a new data frame, as explained [here](http://r4ds.had.co.nz/graphics-for-communication.html#annotations). This can also be used to **label the points on your plot**. Keep this reference in mind in case you have to do that in the future.
+Note: we could have accomplished this by adding an additional `geom`: `geom_text`. However, this requires creating a new dataframe, as explained [here](http://r4ds.had.co.nz/graphics-for-communication.html#annotations). This can also be used to **label the points on your plot**. Keep this reference in mind in case you have to do that in the future.
 
 ### Vertical and Horizontal Lines
 
@@ -1218,7 +1218,7 @@ Now that we have a good understanding of what to consider when making tables, we
 
 ### Getting the Data in Order
 
-To start figuring out how the quality of the cut of the diamond affects the price of that diamond, we first have toget the data in order. To do that we'll use the `dplyr` package. This allows us to group the data by the quality of the cut (`cut`) before summarizing the data to determine the number of diamonds in each category (`N`), the minimum price of the diamonds in this category (`min`), the average price (`avg`), and the highest price in the category (`max`).
+To start figuring out how the quality of the cut of the diamond affects the price of that diamond, we first have to get the data in order. To do that we'll use the `dplyr` package. This allows us to group the data by the quality of the cut (`cut`) before summarizing the data to determine the number of diamonds in each category (`N`), the minimum price of the diamonds in this category (`min`), the average price (`avg`), and the highest price in the category (`max`).
 
 To get these data in order, you could use the following code. This code groups the data by cut (quality of the diamond) and then calculates the number of diamonds in each group (N), the minimum price across each group (min), the average price of diamonds across each group (avg), and the maximum price within each group (max):
 
@@ -1563,9 +1563,9 @@ We then, specify that only these Mercedes cars should be labeled *and* that we o
 
 Other times, you want to ensure that your labels are aligned on the top or bottom edge, relative to one another. This can be controlled using the `hjust` and `vjust` arguments. The values for particular alignment are:  
 
-`hjust = 0`   |  to left-align  
-`hjust = 0.5` |  to center  
-`hjust = 1`   |  to right-align  
+* `hjust = 0`   |  to left-align  
+* `hjust = 0.5` |  to center  
+* `hjust = 1`   |  to right-align  
 
 Additionally, you can adjust the starting position of text vertically with `nudge_y` (or horizontally with `nudge_x`). To use this, you'll specify the distance from the point to the label you want to use.
 
@@ -1575,10 +1575,10 @@ For example, what if we wanted to plot the relationship between quarter mile tim
 
 To do this, we're specifying within `geom_text_repel()` the following arguments:  
 
-`data` | only label those cars with gas mileage > 30 mpg  
-`nudge_y` | position all labels so that they're vertically aligned  
-`hjust` | center-align the labels  
-`direction` | allow labels to move horizontally  
+* `data` | only label those cars with gas mileage > 30 mpg  
+* `nudge_y` | position all labels so that they're vertically aligned  
+* `hjust` | center-align the labels  
+* `direction` | allow labels to move horizontally  
 
 For further customization, we're also changing the segment color from the default black to a light gray ("gray60").
 
@@ -1726,7 +1726,7 @@ Great - we've now got two plots with the same theme and similar appearance. What
 
 #### Multiple Plots
 
-Aligning plots is made simple within the `cowplot` package using the `align_plots()` function:
+Combining plots is made simple within the `cowplot` package using the `plot_grid()` function:
 
 
 ```r
@@ -1738,12 +1738,12 @@ plot_grid(p1, p2, ncol = 2)
 
 Here, we specify the two plots we'd like to plot on a single grid and we also optionally include how many columns we'd like using the `ncol` parameter. 
 
-To plot these one on top of the other, you could specify for `plot_grid()` to use a single column. Also note here that we're aligning the plots vertically with `align = "v"`. The default here is "none", so if you want the graphs in the grid to be aligned, be sure to specify "h" (horizontally), "v" (vertically) or "hv" (align in both directions) explicitly.
+To plot these one on top of the other, you could specify for `plot_grid()` to use a single column.
 
 
 ```r
 # plot on top of one another
-plot_grid(p1, p2, ncol = 1, align = "v")
+plot_grid(p1, p2, ncol = 1)
 ```
 
 <img src="images/dataviz-unnamed-chunk-67-1.png" width="672" />
@@ -1795,6 +1795,7 @@ plot_grid(p1, p3, rel_widths = c(1, 1.3))
 ```
 
 <img src="images/dataviz-unnamed-chunk-70-1.png" width="672" />
+Notice how the plot on the left is now a bit more narrow and the plot on the right is a bit wider.
 
 **Adding Labels**
 
@@ -1845,7 +1846,7 @@ And, just like that we've got three plots, labeled, spaced out nicely in a grid,
 
 The `patchwork` package is similar to the `cowplot` package in that they both are helpful for combining plots together. They each allow for different plot modifications, so it is useful to know about both packages.
 
-Instead of requiring a function like `plot_grid()` of the `cowplot` package plots can be combined using a few operators, such as `"+"`, `"/"`, and `"|".
+With the `patchwork` package, plots can be combined using a few operators, such as `"+"`, `"/"`, and `"|".
 
 To combine two plots together we can simply add them together with the `+` sign or place them next to one another using the `|`:
 
@@ -1898,7 +1899,7 @@ Thus, to combine multiple plots in a more complicated layout, one can combine tw
 
 <img src="images/dataviz-unnamed-chunk-75-1.png" width="672" />
 
-Otherwise, we would have the following:
+Without the parentheses we would have the following:
 
 
 ```r
@@ -1916,7 +1917,7 @@ You can also empty plot spacers using the `plotspacer()` function like so:
 
 <img src="images/dataviz-unnamed-chunk-77-1.png" width="672" />
 
-You can modify the widths of the plots using the `widths` argument of the `plot_layout()` function. In the following example we will make the width of the plot on the left 3 times that of the plot on the right. Any numeric values will do, it is the ratio of the numbers that make the difference.
+You can modify the widths of the plots using the `widths` argument of the `plot_layout()` function. In the following example we will make the width of the plot on the left 2 times that of the plot on the right. Any numeric values will do, it is the ratio of the numbers that make the difference.
 
 Thus, both `p1 + p2 + plot_layout(widths = c(2, 1))` and `p1 + p2 + plot_layout(widths = c(60, 30))` will result in the same relative size difference between `p1` and `p2`.
 
@@ -1946,7 +1947,7 @@ p1 + p2 + plot_layout(heights = c(60, 30))
 
 <img src="images/dataviz-unnamed-chunk-79-2.png" width="672" />
 
-This package also allows for modification of legends. For example, legends can be gathered together to one side of the combined plots using the `guides = 'collect'` argument of the `plot_grid()` function.
+This package also allows for modification of legends. For example, legends can be gathered together to one side of the combined plots using the `guides = 'collect'` argument of the `plot_layout()` function.
 
 
 ```r
@@ -1955,7 +1956,7 @@ p1 + p2 + plot_layout(guides = "collect")
 
 <img src="images/dataviz-unnamed-chunk-80-1.png" width="672" />
 
-You can also specify the number of columns or rows using this same function with the `ncol` or `nrow` as you would with `facet_wrap()` of the `ggplot2` package, where plots are added to **complete a row** before they will be added to a new row. For example, the following will result in an empty 2nd row.
+You can also specify the number of columns or rows using this same function with the `ncol` or `nrow` as you would with `facet_wrap()` of the `ggplot2` package, where plots are added to **complete a row** before they will be added to a new row. For example, the following will result in an empty 2nd row below the plots.
 
 
 ```r
@@ -2029,13 +2030,13 @@ The final `ggplot2` extension we'll discuss here is [`gganmiate`](https://gganim
 library(gganimate)
 ```
 
-The `gganimate` package adds functionality by providing a number of these grammar classes. Across the animation being generated, the following classes are made available, with each classes' corresponding functionality:
+The `gganimate` package adds functionality by providing a number of these grammar classes. Across the animation being generated, the following classes are made available, with each classes' corresponding functionality:  
 
-`transition_*()`  | specifies how data should transition 
-`enter_*()`/`exit_*()`  |  specifies how data should appear and disappear
-`ease_aes()`  |  specifies how different aesthetics should be eased during transitions
-`view_*()`  |  specifies how positional scales should change
-`shadow_*()` |  specifies how points from a previous frame should be displayed in current frame
+* `transition_*()` | specifies how data should transition 
+* `enter_*()`/`exit_*()`  |  specifies how data should appear and disappear  
+* `ease_aes()`  |  specifies how different aesthetics should be eased during transitions  
+* `view_*()`  |  specifies how positional scales should change  
+* `shadow_*()` |  specifies how points from a previous frame should be displayed in a current frame  
 
 We'll walk through these grammar classes using the `mtcars` dataset.
 
@@ -2166,7 +2167,7 @@ The changes are subtle but you'll notice that on transition the data fades in to
 
 To  demonstrate how changing positional scales can be adjusted, let's take a look at a scatterplot. Here, we're plotting the relationship between 1/4 mile speed and miles per gallon and we'll be transitioning between gear.
 
-The static plot would be as follows
+The static plot would be as follows:
 
 ```r
 ggplot(mtcars) + 
@@ -2239,7 +2240,7 @@ Note that in this example, we're now using `transition_time()` rather than `tran
 
 ##### Shadow
 
-However, what if we didn't want the data to completely disappear from one frame to the next and instead wanted to see the pattern emerge over time? We didn't demonstrate this using the `mtcars` dataset because each observation in that dataset is a different car. However, here, with the gapminder dataset, where we're looking at a trend over time, it makes more sense to include a trail
+However, what if we didn't want the data to completely disappear from one frame to the next and instead wanted to see the pattern emerge over time? We didn't demonstrate this using the `mtcars` dataset because each observation in that dataset is a different car. However, here, with the gapminder dataset, where we're looking at a trend over time, it makes more sense to include a trail.
 
 To do this, we would use `shadow_*`. Here, we'll use `shadow_trail()` to see a trail of the data from one frame to the next:
 
@@ -2299,11 +2300,11 @@ hc
 ## #   spending_capita <dbl>
 ```
 
-As a reminder, we have state level data, broken down by year and type of insurance. For each, we have the total number of individuals who have health care coverage (`tot_coverage`), the amount spent on coverage (`tot_spending`), the proportion of individuals covered (`prop_coverage`), and the amount spent per capita (`spending_capita`). Additionally, we have the state name (`Location`), the two letter state abbreviation  (`abb`) and the region of the United States where the state is located (`region`). Let's get visualizing!
+As a reminder, we have state level data, broken down by year and type of insurance. For each, we have the total number of individuals who have health care coverage (`tot_coverage`), the amount spent on coverage (`tot_spending`), the proportion of individuals covered (`prop_coverage`), and the amount spent per capita (`spending_capita`). Additionally, we have the state name (`Location`), the two letter state abbreviation  (`abb`), and the region of the United States where the state is located (`region`). Let's get visualizing!
 
 #### Exploratory Data Analysis (EDA)
 
-To first get a sense of what information we do and do not have, the `visdat` package can be very helpful. This package uses `ggplot2` to visualize missingness in a data frame. For example, `vis_dat()` takes the data frame as an input and visualizes the observations on the left and the variables across the top. Solid colors indicate that a value is present. Each type of variable is represented by a different color. Grey lines indicate missing values.
+To first get a sense of what information we do and do not have, the `visdat` package can be very helpful. This package uses `ggplot2` to visualize missingness in a dataframe. For example, `vis_dat()` takes the dataframe as an input and visualizes the observations on the left and the variables across the top. Solid colors indicate that a value is present. Each type of variable is represented by a different color. Grey lines indicate missing values.
 
 
 ```r
@@ -2362,7 +2363,7 @@ hc %>%
 ## # … with 2 more variables: prop_coverage <dbl>, spending_capita <dbl>
 ```
 
-Ah, so we see that the "Other" type of coverage is missing in both 2013 and 2014 for a subset of states. We'll be focusing on the non-"Other" types of healthcare coverage, so this shouldn't pose a problem, but is good to know!
+Ah, so we see that the "Other" type of coverage is missing in both 2013 and 2014 for a subset of states. We'll be focusing on the non-"Other" types of healthcare coverage, so this shouldn't pose a problem, but it is good to know!
 
 Taking this one step further, let's skim the entire dataset to get a sense of the information stored in each variable:
 
@@ -3121,7 +3122,7 @@ hc %>%
 
 <img src="images/dataviz-unnamed-chunk-112-1.png" width="672" />
 
-From these data, we see that Employer health care coverage is the most popular way in which individuals receive their health insurance across all states. We also see a flat or positive relationship for all other types of insurance, except for "Uninsured". There, as makes sense, we see that the more money spent per capita the fewer individuals the state has without insurance. 
+From these data, we see that Employer health care coverage is the most popular way in which individuals receive their health insurance across all states. We also see a flat or positive relationship for all other types of insurance, except for "Uninsured". We see that the more money spent per capita the fewer individuals the state has without insurance, as one might expect.
 
 We can quickly peak at the data from 2014 to be sure the same general patterns hold:
 
@@ -3349,7 +3350,7 @@ hc %>%
 
 <img src="images/dataviz-unnamed-chunk-117-1.png" width="672" />
 
-With this, output the top row are the data from 2013 and the bottom from 2014. We can then visually compare the top plot to the bottom plot for each time of insurance. 
+With this output, the top row shows the data from 2013 and the bottom shows the data from 2014. We can then visually compare the top plot to the bottom plot for each time of insurance. 
 
 Visually, we can start to get a sense that a few things changed from 2013 to 2014. For example, as we saw previously, individual states changed from one year to the next, but overall patterns seem to hold pretty steady between these two years.
 
@@ -3363,7 +3364,7 @@ For our second case study, we're interested in the following question:
 
 >At the state-level, what is the relationship between firearm legislation strength and annual rate of fatal police shootings?
 
-In the previous course, we wrangled the data into a single, helpful data frame: `firearms`.
+In the previous course, we wrangled the data into a single, helpful dataframe: `firearms`.
 
 
 ```r
@@ -3769,7 +3770,7 @@ This suggests that states with more fatal police shootings *tend* to have more f
 
 With these plots, we're starting to get an understanding of the data and see that there are patterns and don't appear to be wild outliers in any one variable (although, we should keep an eye on Washington, D.C. as it appeared as an outlier in a few plots). With that we're confident we can move on to start looking into our question of interest.
 
-#### Q: Fatal Police Shootings and Legislation
+#### Q: Relationship between Fatal Police Shootings and Legislation?
 
 Ultimately, we're interested in firearm legislation and fatal police shootings, so let's focus in on Brady scores here, which measure legislation and `gunshot_tally`, a measure of the rate of fatal police shootings.
 
