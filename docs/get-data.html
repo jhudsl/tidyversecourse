@@ -520,16 +520,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The <code>slice_sample()</code> function of the <code>dplyr</code> package will allow you to see a sample of random rows in random order. The number of rows to show is specified by the <code>n</code> argument. This can be useful if you don’t want to print the entire tibble, but you want to get a greater sense of the values. This is a good option for data analysis reports, where printing the entire tibble would not be appropriate if the tibble is quite large.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="get-data.html#cb11-1"></a><span class="kw">slice_sample</span>(trees, <span class="dt">n =</span> <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##    Girth Height Volume
-## 1   10.8     83   19.7
-## 2    8.3     70   10.3
-## 3   20.6     87   77.0
-## 4   10.5     72   16.4
-## 5   11.3     79   24.2
-## 6   13.3     86   27.4
-## 7   11.2     75   19.9
-## 8   16.0     72   38.3
-## 9   17.9     80   58.3
-## 10  11.4     76   21.0</code></pre>
+## 1   11.4     76   21.4
+## 2   18.0     80   51.5
+## 3   11.2     75   19.9
+## 4   12.9     74   22.2
+## 5   12.0     75   19.1
+## 6   17.5     82   55.7
+## 7   11.3     79   24.2
+## 8   13.8     64   24.9
+## 9   11.1     80   22.6
+## 10  18.0     80   51.0</code></pre>
 <p>You can also use <code>slice_head()</code> or <code>slice_tail()</code> to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.</p>
 <p>This will show the first 5 rows.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="get-data.html#cb13-1"></a><span class="kw">slice_head</span>(trees, <span class="dt">n =</span> <span class="dv">5</span>)</span></code></pre></div>
@@ -1628,12 +1628,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The data for this case study are available in <a href="https://github.com/opencasestudies/ocs-healthexpenditure/tree/master/data/KFF">CSVs hosted on GitHub</a>. CSVs from URLs can be read directly using <code>read_csv()</code> from <code>readr</code> (a core tidyverse package).</p>
 <p>As a reminder, we’re ultimately interested in answering the following questions with these data:</p>
 <ol style="list-style-type: decimal">
-<li>Is there a relationship between healthcare coverage and healthcare spending in the United States?</li>
+<li>Is there a relationship between health care coverage and health care spending in the United States?</li>
 <li>How does the spending distribution change across geographic regions in the United States?</li>
-<li>Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?</li>
+<li>Does the relationship between health care coverage and health care spending in the United States change from 2013 to 2014?</li>
 </ol>
-<div id="healthcare-coverage-data" class="section level4">
-<h4><span class="header-section-number">2.16.1.1</span> Healthcare Coverage Data</h4>
+<div id="health-care-coverage-data" class="section level4">
+<h4><span class="header-section-number">2.16.1.1</span> health care Coverage Data</h4>
 <p>We’ll first read the data in. Note that we have to skip the first two lines, as there are two lines in the CSV that store information about the file before we get to the actual data.</p>
 <p>To see what we mean, you can always use the <code>read_lines()</code> function from <code>readr</code> to see the first 7 lines with the <code>n_max</code> argument:</p>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="get-data.html#cb113-1"></a><span class="kw">read_lines</span>(<span class="dt">file =</span> <span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv&#39;</span>, <span class="dt">n_max =</span> <span class="dv">7</span>)</span></code></pre></div>
@@ -1764,9 +1764,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This gives an us output with all the variables listed on the far left. Thus essentially the data is rotated from the way it would be shown if we used <code>head()</code> instead of <code>glimpse()</code>. The first few observations for each variable are shown for each variable with a comma separating each observation.</p>
 <p>Looks like we have a whole bunch of numeric variables (indicated by <dbl>), but a few that appear like they <em>should</em> be numeric, but are actually strings (indicated by <chr>). We’ll keep this in mind for when we wrangle the data!</p>
 </div>
-<div id="healthcare-spending-data" class="section level4">
-<h4><span class="header-section-number">2.16.1.2</span> Healthcare Spending Data</h4>
-<p>Now, we’re ready to read in our healthcare spending data, using a similar approach as we did for the coverage data.</p>
+<div id="health-care-spending-data" class="section level4">
+<h4><span class="header-section-number">2.16.1.2</span> health care Spending Data</h4>
+<p>Now, we’re ready to read in our health care spending data, using a similar approach as we did for the coverage data.</p>
 <div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="get-data.html#cb125-1"></a><span class="co">## read spending data into R</span></span>
 <span id="cb125-2"><a href="get-data.html#cb125-2"></a>spending &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-spending.csv&#39;</span>, </span>
 <span id="cb125-3"><a href="get-data.html#cb125-3"></a>                     <span class="dt">skip =</span> <span class="dv">2</span>)</span></code></pre></div>
@@ -1908,11 +1908,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb139-7"><a href="get-data.html#cb139-7"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb139-8"><a href="get-data.html#cb139-8"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xlsx&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2021-02-10 22:11
+##   Date: 2021-02-10 22:29
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpHstPjb/file20ac59c09d07.xlsx</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//Rtmp7XwDc3/file229259c09d07.xlsx</code></pre>
 <div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="get-data.html#cb141-1"></a>brady &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</span>
 <span id="cb141-2"><a href="get-data.html#cb141-2"></a></span>
 <span id="cb141-3"><a href="get-data.html#cb141-3"></a>brady</span></code></pre></div>
@@ -1947,11 +1947,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb143-4"><a href="get-data.html#cb143-4"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb143-5"><a href="get-data.html#cb143-5"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2021-02-10 22:11
+##   Date: 2021-02-10 22:29
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpHstPjb/file20ac618fb492.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//Rtmp7XwDc3/file2292618fb492.xls</code></pre>
 <div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="get-data.html#cb145-1"></a>crime &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>, <span class="dt">skip =</span> <span class="dv">3</span>)</span>
 <span id="cb145-2"><a href="get-data.html#cb145-2"></a></span>
 <span id="cb145-3"><a href="get-data.html#cb145-3"></a><span class="co"># see data</span></span>
@@ -1984,11 +1984,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb147-4"><a href="get-data.html#cb147-4"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
 <span id="cb147-5"><a href="get-data.html#cb147-5"></a><span class="kw">GET</span>(url, <span class="kw">write_disk</span>(tf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2021-02-10 22:11
+##   Date: 2021-02-10 22:29
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpHstPjb/file20ac6135133.xls</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//Rtmp7XwDc3/file22926135133.xls</code></pre>
 <div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="get-data.html#cb149-1"></a>land &lt;-<span class="st"> </span><span class="kw">read_excel</span>(tf, <span class="dt">sheet =</span> <span class="dv">1</span>)</span>
 <span id="cb149-2"><a href="get-data.html#cb149-2"></a></span>
 <span id="cb149-3"><a href="get-data.html#cb149-3"></a><span class="co"># see data</span></span>

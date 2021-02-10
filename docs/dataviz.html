@@ -2300,9 +2300,9 @@ Grouping or nesting plots together using parenthesis can result in two or more p
 <h3><span class="header-section-number">4.10.1</span> Case Study #1: Health Expenditures</h3>
 <p>We’ve now got the data in order so that we can start to explore the relationships between the variables contained in the health care dataset (<code>hc</code>) to answer our questions of interest:</p>
 <ol style="list-style-type: decimal">
-<li>Is there a relationship between healthcare coverage and healthcare spending in the United States?</li>
+<li>Is there a relationship between health care coverage and health care spending in the United States?</li>
 <li>How does the spending distribution change across geographic regions in the United States?</li>
-<li>Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?</li>
+<li>Does the relationship between health care coverage and health care spending in the United States change from 2013 to 2014?</li>
 </ol>
 <div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="dataviz.html#cb632-1"></a><span class="co"># see health care data</span></span>
 <span id="cb632-2"><a href="dataviz.html#cb632-2"></a>hc</span></code></pre></div>
@@ -2361,7 +2361,7 @@ Grouping or nesting plots together using parenthesis can result in two or more p
 ## 18 West Vi…  2013 Othe…           NA WV    South         16622 1822000
 ## 19 Wiscons…  2014 Othe…           NA WI    North…        50109 5747200
 ## # … with 2 more variables: prop_coverage &lt;dbl&gt;, spending_capita &lt;dbl&gt;</code></pre>
-<p>Ah, so we see that the “Other” type of coverage is missing in both 2013 and 2014 for a subset of states. We’ll be focusing on the non-“Other” types of healthcare coverage, so this shouldn’t pose a problem, but it is good to know!</p>
+<p>Ah, so we see that the “Other” type of coverage is missing in both 2013 and 2014 for a subset of states. We’ll be focusing on the non-“Other” types of health care coverage, so this shouldn’t pose a problem, but it is good to know!</p>
 <p>Taking this one step further, let’s skim the entire dataset to get a sense of the information stored in each variable:</p>
 <div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="dataviz.html#cb638-1"></a><span class="kw">library</span>(skimr)</span>
 <span id="cb638-2"><a href="dataviz.html#cb638-2"></a></span>
@@ -3689,7 +3689,7 @@ spending_capita
 <h4><span class="header-section-number">4.10.1.2</span> Q1: Relationship between coverage and spending?</h4>
 <p>To answer the question:</p>
 <blockquote>
-<p>Is there a relationship between healthcare coverage and healthcare spending in the United States?</p>
+<p>Is there a relationship between health care coverage and health care spending in the United States?</p>
 </blockquote>
 <p>We’ll have to visualize coverage and spending data across the United States.</p>
 <p>And, to understand the relationship between two continuous variables - coverage and spending - a scatterplot will be the most effective visualization.</p>
@@ -3703,7 +3703,7 @@ spending_capita
 <span id="cb640-7"><a href="dataviz.html#cb640-7"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;spending per capita&quot;</span>,</span>
 <span id="cb640-8"><a href="dataviz.html#cb640-8"></a>       <span class="dt">y =</span> <span class="st">&quot;coverage proportion&quot;</span>)</span></code></pre></div>
 <p><img src="images/dataviz-unnamed-chunk-107-1.png" width="672" /></p>
-<p>We see that there appears to be some relationship, with those states that spend more per capita also having higher proportions of their population having healthcare coverage.</p>
+<p>We see that there appears to be some relationship, with those states that spend more per capita also having higher proportions of their population having health care coverage.</p>
 <p>We can continue to improve this plot to better understand the underlying data. For example, we can add a best-fit line using <code>geom_smooth()</code> to visualize the magnitude of the linear relationship:</p>
 <div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="dataviz.html#cb641-1"></a><span class="co"># generate scatterplot with fit line</span></span>
 <span id="cb641-2"><a href="dataviz.html#cb641-2"></a>hc <span class="op">%&gt;%</span></span>
@@ -3767,7 +3767,7 @@ spending_capita
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="images/dataviz-unnamed-chunk-111-1.png" width="672" /></p>
 <p>We see that the overall trend holds, but there has been some movement. For example, we see at a glance that DC has a higher proportion of its population covered in 2014 relative to 2013, while MA saw a drop in coverage. UT appears to be an outlier in both years having low spending but a high proportion of individuals covered.</p>
-<p>Beyond “Employer”-held healthcare coverage, let’s look at the other types of coverage data we have. Here, we’ll facet by type, rather than year, again focusing on just data from 2013.</p>
+<p>Beyond “Employer”-held health care coverage, let’s look at the other types of coverage data we have. Here, we’ll facet by type, rather than year, again focusing on just data from 2013.</p>
 <div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="dataviz.html#cb649-1"></a><span class="co"># visualize 2013 data by type</span></span>
 <span id="cb649-2"><a href="dataviz.html#cb649-2"></a>hc <span class="op">%&gt;%</span></span>
 <span id="cb649-3"><a href="dataviz.html#cb649-3"></a><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> &quot;2013&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
@@ -3871,9 +3871,9 @@ spending_capita
 <h4><span class="header-section-number">4.10.1.3</span> Q2: Spending Across Geographic Regions?</h4>
 <p>To answer the question:</p>
 <blockquote>
-<p>Which US states spend the most and which spend the least on healthcare? How does the spending distribution change across geographic regions in the United States?</p>
+<p>Which US states spend the most and which spend the least on health care? How does the spending distribution change across geographic regions in the United States?</p>
 </blockquote>
-<p>We’ll want to visualize healthcare spending across regions of the US.</p>
+<p>We’ll want to visualize health care spending across regions of the US.</p>
 <p>We saw in the previous plots that there are some regional effects when it comes to spending, as the states from the different regions tended to cluster in the previous plot. But, let’s look at this explicitly now.</p>
 <p>We’re looking to visualize a continuous variable (<code>spending_capita</code>) by a categorical variable (<code>region</code>), so a boxplot is always a good place to start:</p>
 <div class="sourceCode" id="cb671"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb671-1"><a href="dataviz.html#cb671-1"></a><span class="co"># generate boxplot</span></span>
@@ -3901,7 +3901,7 @@ spending_capita
 <h4><span class="header-section-number">4.10.1.4</span> Q3: Coverage and Spending Change Over Time?</h4>
 <p>To answer the question:</p>
 <blockquote>
-<p>Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?</p>
+<p>Does the relationship between health care coverage and health care spending in the United States change from 2013 to 2014?</p>
 </blockquote>
 <p>we’ll need to visualize a whole bunch of variables: coverage, spending, <code>year</code> and type of insurance. We can return to a scatterplot again, but now we’ll put all these pieces we looked at separately in Q1 together at once to answer this temporal question visually.</p>
 <p>We won’t filter the dataset but will instead use <code>facet_grid()</code>, which “forms a matrix of panels defined by row and column faceting variables”:</p>

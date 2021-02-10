@@ -2272,9 +2272,9 @@ load(here::here("data", "tidy_data", "case_study_2_tidy.rda"))
 
 We've now got the data in order so that we can start to explore the relationships between the variables contained in the health care dataset (`hc`) to answer our questions of interest:
 
-1. Is there a relationship between healthcare coverage and healthcare spending in the United States?
+1. Is there a relationship between health care coverage and health care spending in the United States?
 2. How does the spending distribution change across geographic regions in the United States?
-3. Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?
+3. Does the relationship between health care coverage and health care spending in the United States change from 2013 to 2014?
 
 
 ```r
@@ -2363,7 +2363,7 @@ hc %>%
 ## # … with 2 more variables: prop_coverage <dbl>, spending_capita <dbl>
 ```
 
-Ah, so we see that the "Other" type of coverage is missing in both 2013 and 2014 for a subset of states. We'll be focusing on the non-"Other" types of healthcare coverage, so this shouldn't pose a problem, but it is good to know!
+Ah, so we see that the "Other" type of coverage is missing in both 2013 and 2014 for a subset of states. We'll be focusing on the non-"Other" types of health care coverage, so this shouldn't pose a problem, but it is good to know!
 
 Taking this one step further, let's skim the entire dataset to get a sense of the information stored in each variable:
 
@@ -2972,7 +2972,7 @@ With at least some understanding of the data in our dataset, let's start generat
 
 To answer the question:
 
-> Is there a relationship between healthcare coverage and healthcare spending in the United States?
+> Is there a relationship between health care coverage and health care spending in the United States?
 
 We'll have to visualize coverage and spending data across the United States.
 
@@ -2994,7 +2994,7 @@ hc %>%
 
 <img src="images/dataviz-unnamed-chunk-107-1.png" width="672" />
 
-We see that there appears to be some relationship, with those states that spend more per capita also having higher proportions of their population having healthcare coverage.
+We see that there appears to be some relationship, with those states that spend more per capita also having higher proportions of their population having health care coverage.
 
 We can continue to improve this plot to better understand the underlying data. For example, we can add a best-fit line using `geom_smooth()` to visualize the magnitude of the linear relationship:
 
@@ -3096,7 +3096,7 @@ hc %>%
 
 We see that the overall trend holds, but there has been some movement. For example, we see at a glance that DC has a higher proportion of its population covered in 2014 relative to 2013, while MA saw a drop in coverage. UT appears to be an outlier in both years having low spending but a high proportion of individuals covered.
 
-Beyond "Employer"-held healthcare coverage, let's look at the other types of coverage data we have. Here, we'll facet by type, rather than year, again focusing on just data from 2013.
+Beyond "Employer"-held health care coverage, let's look at the other types of coverage data we have. Here, we'll facet by type, rather than year, again focusing on just data from 2013.
 
 
 ```r
@@ -3276,9 +3276,9 @@ dev.off()
 
 To answer the question:
 
-> Which US states spend the most and which spend the least on healthcare? How does the spending distribution change across geographic regions in the United States?
+> Which US states spend the most and which spend the least on health care? How does the spending distribution change across geographic regions in the United States?
 
-We'll want to visualize healthcare spending across regions of the US.
+We'll want to visualize health care spending across regions of the US.
 
 We saw in the previous plots that there are some regional effects when it comes to spending, as the states from the different regions tended to cluster in the previous plot. But, let's look at this explicitly now.
 
@@ -3322,7 +3322,7 @@ With this we have a good sense of the regional effects of spending across the Un
 
 To answer the question:
 
-> Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?
+> Does the relationship between health care coverage and health care spending in the United States change from 2013 to 2014?
 
 we'll need to visualize a whole bunch of variables: coverage, spending, `year` and type of insurance. We can return to a scatterplot again, but now we'll put all these pieces we looked at separately in Q1 together at once to answer this temporal question visually. 
 

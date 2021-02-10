@@ -700,17 +700,17 @@ Throughout this specialization, we're going to make use of a number of case stud
 
 ### Case Study #1: Health Expenditures
 
-Health policy in the United States of America is complicated, and several forms of healthcare 
-coverage exist, including that of federal government-led healthcare programs and that of private insurance companies. We are interested in getting sense of the health expenditure, including healthcare coverage and healthcare spending, across the United States. More specifically, the questions are:  
+Health policy in the United States of America is complicated, and several forms of health care 
+coverage exist, including that of federal government-led health care programs and that of private insurance companies. We are interested in getting sense of the health expenditure, including health care coverage and health care spending, across the United States. More specifically, the questions are:  
 
-1. Is there a relationship between healthcare coverage and healthcare spending in the United States?   
+1. Is there a relationship between health care coverage and health care spending in the United States?   
 
 2. How does the spending distribution change across geographic regions in the United States?  
 
-3. Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?  
+3. Does the relationship between health care coverage and health care spending in the United States change from 2013 to 2014?  
 
 
-#### Data: Healthcare
+#### Data: health care
 
 The two datasets used in this case study come from the [Henry J Kaiser Family Foundation (KFF)](https://www.kff.org/) and include:
 

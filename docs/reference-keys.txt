@@ -83,7 +83,7 @@ project-template-everything-in-its-place
 data-science-workflows
 case-studies
 case-study-1-health-expenditures
-data-healthcare
+data-health-care
 case-study-2-firearms
 question
 data
@@ -150,8 +150,8 @@ reading-images-in-r
 googledrive-1
 case-studies-1
 case-study-1-health-expenditures-1
-healthcare-coverage-data
-healthcare-spending-data
+health-care-coverage-data
+health-care-spending-data
 case-study-2-firearms-1
 census-data
 counted-data
@@ -267,9 +267,9 @@ analyzing-json-in-r
 analyzing-xml-in-r
 case-studies-2
 case-study-1-health-expenditures-2
-healthcare-coverage-data-1
+health-care-coverage-data-1
 states-data
-healthcare-spending-data-1
+health-care-spending-data-1
 join-the-data
 case-study-2-firearms-2
 census-data-1

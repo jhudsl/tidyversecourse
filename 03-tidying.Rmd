@@ -2154,22 +2154,22 @@ We've already read in the datasets we'll use for this health expenditures case s
 
 As a reminder, we're ultimately interested in answering the following questions with these data:
 
-1. Is there a relationship between healthcare coverage and healthcare spending in the United States?
+1. Is there a relationship between health care coverage and health care spending in the United States?
 2. How does the spending distribution change across geographic regions in the United States?
-3. Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?
+3. Does the relationship between health care coverage and health care spending in the United States change from 2013 to 2014?
 
 This means that we'll need all the data from the variables necessary to answer this question in our tidy dataset.
 
-#### Healthcare Coverage Data
+#### health care Coverage Data
 
 
-Let's remind ourselves before we get to wrangling what data we have when it comes to healthcare coverage.
+Let's remind ourselves before we get to wrangling what data we have when it comes to health care coverage.
 
 ```{r}
 coverage
 ```
 
-At a glance, we see that state-level information is stored in rows (with the exception of the first row, which stores country-level information) with columns corresponding to the amount of money spent on each type of healthcare, by year. 
+At a glance, we see that state-level information is stored in rows (with the exception of the first row, which stores country-level information) with columns corresponding to the amount of money spent on each type of health care, by year. 
 
 ##### States Data
 
@@ -2245,7 +2245,7 @@ coverage
 
 Perfect! At this point, each row is an observation and each column stores a single piece of information. This dataset is now in good shape!
 
-#### Healthcare Spending Data
+#### health care Spending Data
 
 We'll have to take a similar approach when it comes to tidying the spending data as it has a similar structure to how the coverage data were stored.
 
@@ -2298,14 +2298,14 @@ hc <- hc %>%
   filter(Location != "United States")
 ```
 
-Another problem is that inside our `hc` dataset, there are multiple types of healthcare coverage.
+Another problem is that inside our `hc` dataset, there are multiple types of health care coverage.
 
 ```{r}
 table(hc$type)
 
 ```
 
-The "Total" type is not really a formal type of healthcare coverage. It really represents just the total number of people in the state. This is useful information and we can include it as a column called `tot_pop`. To accomplish this, we'll first store this information in a data frame called `pop`.
+The "Total" type is not really a formal type of health care coverage. It really represents just the total number of people in the state. This is useful information and we can include it as a column called `tot_pop`. To accomplish this, we'll first store this information in a data frame called `pop`.
 
 ```{r}
 pop <- hc %>% 
