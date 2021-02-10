@@ -1096,7 +1096,7 @@ Now that we have a good understanding of what to consider when making tables, we
 
 ### Getting the Data in Order
 
-To start figuring out how the quality of the cut of the diamond affects the price of that diamond, we first have toget the data in order. To do that we'll use the `dplyr` package. This allows us to group the data by the quality of the cut (`cut`) before summarizing the data to determine the number of diamonds in each category (`N`), the minimum price of the diamonds in this category (`min`), the average price (`avg`), and the highest price in the category (`max`).
+To start figuring out how the quality of the cut of the diamond affects the price of that diamond, we first have to get the data in order. To do that we'll use the `dplyr` package. This allows us to group the data by the quality of the cut (`cut`) before summarizing the data to determine the number of diamonds in each category (`N`), the minimum price of the diamonds in this category (`min`), the average price (`avg`), and the highest price in the category (`max`).
 
 To get these data in order, you could use the following code. This code groups the data by cut (quality of the diamond) and then calculates the number of diamonds in each group (N), the minimum price across each group (min), the average price of diamonds across each group (avg), and the maximum price within each group (max):
 
@@ -1229,7 +1229,7 @@ ggplot(mtcars, aes(wt, hp, label = model)) +
 
 The overall trend is clear here - the more a car weights, the more horsepower it tends to have. However, many of the labels are overlapping and impossible to read - this is where `ggrepel` plays a role:
 
-```{r}
+```{r, message = FALSE}
 # install and load package
 # install.packages("ggrepel")
 library(ggrepel)
@@ -1261,10 +1261,14 @@ mtcars <- mtcars%>%
 
 # Let's just label these items and manually color the points
 ggplot(mtcars, aes(wt, hp, label = model)) +
-  geom_text_repel() +
   geom_point(aes(color = merc)) +
   scale_color_manual(values = c("grey50", "dodgerblue")) +
-  theme_classic()
+  geom_text_repel(data = filter(mtcars, merc == TRUE),
+        nudge_y = 1, 
+        hjust = 1,
+        direction = "y") +
+  theme_classic() +
+  theme(legend.position = "none")
 
 ```
 
@@ -1298,17 +1302,21 @@ For further customization, we're also changing the segment color from the defaul
 
 ```{r}
 # customize within geom_text_repel
-ggplot(mtcars, aes(qsec, mpg, label = model)) +
-  geom_text_repel(
-    data = subset(mtcars, mpg > 30),
-    nudge_y = max(mtcars$mpg) + 2 - subset(mtcars, mpg > 30)$mpg,
-    direction = "x",
-    hjust = 0.5,
-    segment.color = "gray60",
-  ) +
-  geom_point(color = ifelse(mtcars$mpg > 30, "dodgerblue", "black")) +
-  scale_x_continuous(expand = c(0.05, 0.05)) +
-  scale_y_continuous(limits = c(NA, 36))
+# first create a new column for mpg > 30 within mtcars and pipe this into ggplot
+mtcars %>%
+    mutate(mpg_highlight = case_when(mpg > 30 ~ "high", mpg < 30 ~ "low")) %>%
+    ggplot(aes(qsec, mpg, label = model)) +
+      geom_point(aes(color = mpg_highlight)) +
+      scale_color_manual(values = c( "dodgerblue", "black")) +
+      theme_minimal() +
+      theme(legend.position = "none") +
+      geom_text_repel(data = mtcars %>% filter(mpg > 30), 
+        nudge_y = 3, 
+        hjust = 0.5, 
+        direction = "x",
+        segment.color = "gray60") +
+      scale_x_continuous(expand = c(0.05, 0.05)) +
+      scale_y_continuous(limits = c(9, 38))
 ```
   
 Notice that we've also had to provide the plot with more room by customizing the x- and y- axes, using the final two lines of code you see above.
@@ -1324,32 +1332,42 @@ There are several method options for adding direct labels to scatter plots, such
 ```{r}
 #install.packages("directlabels")
 library(directlabels)
-
-ggplot(mtcars, aes(qsec, mpg, label = model)) +
-  geom_point(color = ifelse(mtcars$mpg > 30, "dodgerblue", "black")) +
+mtcars %>%
+  mutate(mpg_highlight = case_when(mpg > 30 ~ "high", mpg < 30 ~ "low")) %>%
+  ggplot(aes(qsec, mpg, label = model)) +
+  geom_point(aes(color = mpg_highlight)) +
+  scale_color_manual(values = c("dodgerblue", "black")) +
   scale_x_continuous(expand = c(0.05, 0.05)) +
   scale_y_continuous(limits = c(NA, 36)) +
-  geom_dl(data = subset(mtcars, mpg > 30), aes(label = model), 
+  geom_dl(data = filter(mtcars, mpg > 30), aes(label = model), 
           method = list(c("first.points"),
-                        cex = 1))
+                        cex = 1)) +
+  theme_minimal() +
+  theme(legend.position = "none")
 
-ggplot(mtcars, aes(qsec, mpg, label = model)) +
-  geom_point(color = ifelse(mtcars$mpg > 30, "dodgerblue", "black")) +
+mtcars %>%
+  mutate(mpg_highlight = case_when(mpg > 30 ~ "high", mpg < 30 ~ "low")) %>%
+  ggplot(aes(qsec, mpg, label = model)) +
+  geom_point(aes(color = mpg_highlight)) +
+  scale_color_manual(values = c("dodgerblue", "black")) +
   scale_x_continuous(expand = c(0.05, 0.05)) +
   scale_y_continuous(limits = c(NA, 36)) +
-  geom_dl(data = subset(mtcars, mpg > 30), aes(label = model), 
+  geom_dl(data = filter(mtcars, mpg > 30), aes(label = model), 
           method = list(c("last.points"),
-                        cex = 1))
+                        cex = 1)) +
+  theme_minimal() +
+  theme(legend.position = "none")
 ```
 
 This package is especially useful for labeling lines in a lineplot. There are several methods, one of which is the `angled.boxes` method. This often negates the need for a legend.
 
 ```{r}
 ggplot(mtcars, aes(qsec, mpg, color = cyl, group = cyl)) + 
-  geom_line()+
+  geom_line() +
   geom_dl(aes(label = cyl), 
           method = list(c("angled.boxes"),
                         cex = 1)) +
+  theme_minimal()+
   theme(legend.position = "none") +
   labs(title = "Differences in cars with 4, 6, or 8 cylinders")
 ```

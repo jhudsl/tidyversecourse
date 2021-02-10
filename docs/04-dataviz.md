@@ -1543,15 +1543,14 @@ mtcars <- mtcars%>%
 
 # Let's just label these items and manually color the points
 ggplot(mtcars, aes(wt, hp, label = model)) +
-  geom_text_repel() +
   geom_point(aes(color = merc)) +
   scale_color_manual(values = c("grey50", "dodgerblue")) +
-  theme_classic()
-```
-
-```
-## Warning: ggrepel: 2 unlabeled data points (too many overlaps). Consider
-## increasing max.overlaps
+  geom_text_repel(data = filter(mtcars, merc == TRUE),
+        nudge_y = 1, 
+        hjust = 1,
+        direction = "y") +
+  theme_classic() +
+  theme(legend.position = "none")
 ```
 
 <img src="images/dataviz-unnamed-chunk-58-1.png" width="672" />
@@ -1587,17 +1586,21 @@ For further customization, we're also changing the segment color from the defaul
 
 ```r
 # customize within geom_text_repel
-ggplot(mtcars, aes(qsec, mpg, label = model)) +
-  geom_text_repel(
-    data = subset(mtcars, mpg > 30),
-    nudge_y = max(mtcars$mpg) + 2 - subset(mtcars, mpg > 30)$mpg,
-    direction = "x",
-    hjust = 0.5,
-    segment.color = "gray60",
-  ) +
-  geom_point(color = ifelse(mtcars$mpg > 30, "dodgerblue", "black")) +
-  scale_x_continuous(expand = c(0.05, 0.05)) +
-  scale_y_continuous(limits = c(NA, 36))
+# first create a new column for mpg > 30 within mtcars and pipe this into ggplot
+mtcars %>%
+    mutate(mpg_highlight = case_when(mpg > 30 ~ "high", mpg < 30 ~ "low")) %>%
+    ggplot(aes(qsec, mpg, label = model)) +
+      geom_point(aes(color = mpg_highlight)) +
+      scale_color_manual(values = c( "dodgerblue", "black")) +
+      theme_minimal() +
+      theme(legend.position = "none") +
+      geom_text_repel(data = mtcars %>% filter(mpg > 30), 
+        nudge_y = 3, 
+        hjust = 0.5, 
+        direction = "x",
+        segment.color = "gray60") +
+      scale_x_continuous(expand = c(0.05, 0.05)) +
+      scale_y_continuous(limits = c(9, 38))
 ```
 
 <img src="images/dataviz-unnamed-chunk-59-1.png" width="672" />
@@ -1616,26 +1619,35 @@ There are several method options for adding direct labels to scatter plots, such
 ```r
 #install.packages("directlabels")
 library(directlabels)
-
-ggplot(mtcars, aes(qsec, mpg, label = model)) +
-  geom_point(color = ifelse(mtcars$mpg > 30, "dodgerblue", "black")) +
+mtcars %>%
+  mutate(mpg_highlight = case_when(mpg > 30 ~ "high", mpg < 30 ~ "low")) %>%
+  ggplot(aes(qsec, mpg, label = model)) +
+  geom_point(aes(color = mpg_highlight)) +
+  scale_color_manual(values = c("dodgerblue", "black")) +
   scale_x_continuous(expand = c(0.05, 0.05)) +
   scale_y_continuous(limits = c(NA, 36)) +
-  geom_dl(data = subset(mtcars, mpg > 30), aes(label = model), 
+  geom_dl(data = filter(mtcars, mpg > 30), aes(label = model), 
           method = list(c("first.points"),
-                        cex = 1))
+                        cex = 1)) +
+  theme_minimal() +
+  theme(legend.position = "none")
 ```
 
 <img src="images/dataviz-unnamed-chunk-60-1.png" width="672" />
 
 ```r
-ggplot(mtcars, aes(qsec, mpg, label = model)) +
-  geom_point(color = ifelse(mtcars$mpg > 30, "dodgerblue", "black")) +
+mtcars %>%
+  mutate(mpg_highlight = case_when(mpg > 30 ~ "high", mpg < 30 ~ "low")) %>%
+  ggplot(aes(qsec, mpg, label = model)) +
+  geom_point(aes(color = mpg_highlight)) +
+  scale_color_manual(values = c("dodgerblue", "black")) +
   scale_x_continuous(expand = c(0.05, 0.05)) +
   scale_y_continuous(limits = c(NA, 36)) +
-  geom_dl(data = subset(mtcars, mpg > 30), aes(label = model), 
+  geom_dl(data = filter(mtcars, mpg > 30), aes(label = model), 
           method = list(c("last.points"),
-                        cex = 1))
+                        cex = 1)) +
+  theme_minimal() +
+  theme(legend.position = "none")
 ```
 
 <img src="images/dataviz-unnamed-chunk-60-2.png" width="672" />
@@ -1645,10 +1657,11 @@ This package is especially useful for labeling lines in a lineplot. There are se
 
 ```r
 ggplot(mtcars, aes(qsec, mpg, color = cyl, group = cyl)) + 
-  geom_line()+
+  geom_line() +
   geom_dl(aes(label = cyl), 
           method = list(c("angled.boxes"),
                         cex = 1)) +
+  theme_minimal()+
   theme(legend.position = "none") +
   labs(title = "Differences in cars with 4, 6, or 8 cylinders")
 ```
@@ -1673,7 +1686,7 @@ The standard theme within `cowplot`, which works for many types of plots is `the
 library(cowplot)
 ```
 
-We'll continue to use the `mtcars` dataset for these examples. Here, using the `forcats` package (which is part of the core tidyverse), we'll add two new columns: `transmission`, where we recode the `am` column to be "automatic" if `am == 0` and "manual" if `am == 1`, and `engine`, where we recode the `vs` column to be "v-shaped" if `vs == 0` and "straight" if `vs == 1`
+We'll continue to use the `mtcars` dataset for these examples. Here, using the `forcats` package (which is part of the core tidyverse), we'll add two new columns: `transmission`, where we recode the `am` column to be "automatic" if `am == 0` and "manual" if `am == 1`, and `engine`, where we recode the `vs` column to be "v-shaped" if `vs == 0` and "straight" if `vs == 1`.
 
 
 ```r
@@ -1820,7 +1833,7 @@ title <- ggdraw() +
   # so title is aligned with left edge of first plot
   theme(plot.margin = margin(0, 0, 0, 7))
 
-# plot title and plot togetner
+# put title and plots together
 plot_grid(title, three_plots, ncol = 1, rel_heights = c(0.1, 1))
 ```
 
