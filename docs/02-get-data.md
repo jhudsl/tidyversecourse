@@ -103,16 +103,16 @@ slice_sample(trees, n = 10)
 
 ```
 ##    Girth Height Volume
-## 1   11.4     76   21.4
-## 2   18.0     80   51.5
+## 1   17.9     80   58.3
+## 2   20.6     87   77.0
 ## 3   11.2     75   19.9
-## 4   12.9     74   22.2
-## 5   12.0     75   19.1
-## 6   17.5     82   55.7
-## 7   11.3     79   24.2
-## 8   13.8     64   24.9
-## 9   11.1     80   22.6
-## 10  18.0     80   51.0
+## 4   12.0     75   19.1
+## 5   14.2     80   31.7
+## 6   14.0     78   34.5
+## 7   11.0     66   15.6
+## 8   18.0     80   51.0
+## 9    8.3     70   10.3
+## 10  17.5     82   55.7
 ```
 
 You can also use `slice_head()` or `slice_tail()` to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.
@@ -2020,11 +2020,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2021-02-10 22:29
+##   Date: 2021-02-11 21:44
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//Rtmp7XwDc3/file229259c09d07.xlsx
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpX8NRID/file4e7b59c09d07.xlsx
 ```
 
 ```r
@@ -2072,11 +2072,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2021-02-10 22:29
+##   Date: 2021-02-11 21:44
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//Rtmp7XwDc3/file2292618fb492.xls
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpX8NRID/file4e7b618fb492.xls
 ```
 
 ```r
@@ -2123,11 +2123,11 @@ GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 
 ```
 ## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2021-02-10 22:29
+##   Date: 2021-02-11 21:45
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//Rtmp7XwDc3/file22926135133.xls
+## <ON DISK>  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpX8NRID/file4e7b6135133.xls
 ```
 
 ```r

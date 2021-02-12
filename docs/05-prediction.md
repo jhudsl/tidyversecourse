@@ -37,7 +37,7 @@ We have seen previously how to extract data from the web and from databases and 
 
 We will look at a few different types of questions that you might want to answer from data. This flowchart gives some questions you can ask to figure out what type of question your analysis focuses on. Each type of question has different goals.
 
-There are four classes of question that we will focus on:
+There are four classes of questions that we will focus on:
 
 1. **Descriptive**: The goal of descriptive data science questions is to understand the components of a dataset, describe what they are, and explain that description to others who might want to understand the data. This is the simplest type of data analysis.
 
@@ -84,8 +84,9 @@ We give you one example in politics. Most recent telephone poles in the United S
 
 Random sampling is a necessary approach to having a representative sample. Random sampling in data collection means that you randomly choose your subjects and don't choose who gets to be in the sample and who doesn't. In random sampling, you select your subjects from the population at random like based on a coin toss. The following are examples of lousy sampling:
 
-A research project on attitudes toward owning guns through a survey sent to subscribers of a gun-related magazine (gun magazine subscribers are not representative of the general population, and the sample is very biased)
-A research project on television program choices by looking at Facebook TV interests (not everybody has a Facebook account) A research study on school meals and educational outcomes done in a neighborhood with residents mainly from one racial group (school meal can have a different effect on different income and ethnic groups) A researcher polls people as they walk by on the street. A TV show host asks the program viewers to visit the network website and respond to a poll. With this logic, most online surveys or surveys on social media has to be taken with a grain of salt because not members of all social groups have an online presentation or use social media.
+* A research project on attitudes toward owning guns through a survey sent to subscribers of a gun-related magazine (gun magazine subscribers are not representative of the general population, and the sample is very biased).  
+*  A research project on television program choices by looking at Facebook TV interests (not everybody has a Facebook account. Most online surveys or surveys on social media have to be taken with a grain of salt because not all members of all social groups have an online presentation or use social media.) 
+* A research study on school meals and educational outcomes done in a neighborhood with residents mainly from one racial group (school meals can have a different effect on different income and ethnic groups).   
 
 The moral of the story is to always think about what your population is. Your population will change from one project to the next. If you are researching the effect of smoking on pregnant women, then your population is, well, pregnant women (and not men). After you know your population, then you will always want collect data from a sample that is representative of your population. Random sampling helps.
 
@@ -111,7 +112,7 @@ This is why getting an understanding of what data you have and how the variables
 
 ## Descriptive and Exploratory Analysis
 
-Descriptive and Exploratory analysis will first and foremost generate simple summaries about the samples and their measurements to describe the data you're working with and how the variables might relate to one another. There are a number of common descriptive statistics that we'll discuss in this lesson: measures of central tendency (eg: mean, median, mode) or measures of variability (eg: range, standard deviations or variance).
+Descriptive and Exploratory analysis will first and foremost generate simple summaries about the samples and their measurements to describe the data you're working with and how the variables might relate to one another. There are a number of common descriptive statistics that we'll discuss in this lesson: measures of central tendency (eg: mean, median, mode) or measures of variability (eg: range, standard deviations, or variance).
 
 ![](images/ghimage/004.png)
 
@@ -208,9 +209,9 @@ The Normal distribution (also referred to as the Gaussian distribution) is a ver
 
 A variable can be described as normally distributed if:
 
-There is a strong tendency for data to take a central value - many of the observations are centered around the middle of the range
-deviations away from the central value are equally likely in both directions
-the frequency of these deviations away form the central value occurs at the same rate on either side of the central value.
+* There is a strong tendency for data to take a central value - many of the observations are centered around the middle of the range.  
+* Deviations away from the central value are equally likely in both directions - the frequency of these deviations away form the central value occurs at the same rate on either side of the central value.  
+
 Taking a look at the sleep_total variable within our example dataset, we see that the data are somewhat normal; however, they aren't entirely symmetric.
 
 
@@ -271,13 +272,13 @@ If we were to plot the age data on a density plot, it would look something like 
 
 ![](images/ghimage/014.png)
 
-It can sometimes be difficult to decide whether or not a sample should be removed from the dataset. In the simplest terms, no observation should be removed from your dataset unless there is a valid reason to do so. For a more extreme example, what if that dataset we just discussed (with all the samples having ages between 18 and 65) had one sample with the age 600? Well, if these are human data, we clearly know that is a data entry error. Maybe it was supposed to be 60 years old, but we may not know for sure. If we can follow up with that individual and double-check, it's best to do that, correct the error, make a note of it, and continue you with the analysis. However, that's often not possible. In the cases of obvious data entry errors, it's likely that you'll have to remove that observation from the dataset. It's valid to do so in this case since you know that an error occurred and that the observation was not accurate.
+It can sometimes be difficult to decide whether or not a sample should be removed from the dataset. In the simplest terms, no observation should be removed from your dataset unless there is a valid reason to do so. For a more extreme example, what if that dataset we just discussed (with all the samples having ages between 18 and 65) had one sample with the age 600? Well, if these are human data, we clearly know that is a data entry error. Maybe it was supposed to be 60 years old, but we may not know for sure. If we can follow up with that individual and double-check, it's best to do that, correct the error, make a note of it, and continue with the analysis. However, that's often not possible. In the cases of obvious data entry errors, it's likely that you'll have to remove that observation from the dataset. It's valid to do so in this case since you know that an error occurred and that the observation was not accurate.
 
 Outliers do not only occur due to data entry errors. Maybe you were taking weights of your observations over the course of a few weeks. On one of these days, your scale was improperly calibrated, leading to incorrect measurements. In such a case, you would have to remove these incorrect observations before analysis.
 
-Outliers can occur for a variety of reasons. Outliers can occur due human error during data entry, technical issues with tools used for measurement, as a result of weather changes that affect measurement accuracy, or due to poor sampling procedures. It's **always** important to look at the distribution of your observations for a variable to see if anything is falling far away from the rest of the observations. If there are, it's then important to think about why this occurred and determine whether or not you have a valid reason to remove the observations from the data.
+Outliers can occur for a variety of reasons. Outliers can occur due human error during data entry, technical issues with tools used for measurement, as a result of weather changes that affect measurement accuracy, or due to poor sampling procedures. It's **always** important to look at the distribution of your observations for a variable to see if any observations are falling far away from the rest of the observations. It's then important to think about why this occurred and determine whether or not you have a valid reason to remove the observations from the data.
 
-An important note is that observations should never be removed just to make your results look better. Wanting better results is not a valid reason for removing observations from your dataset.
+An important note is that observations should never be removed just to make your results look better! Wanting better results is not a valid reason for removing observations from your dataset.
 
 ### Identifying Outliers
 
@@ -296,7 +297,7 @@ iris %>%
 
 <img src="images/modeling-unnamed-chunk-10-1.png" width="672" />
 
-Since the two humps in the plot are about the same height, this shows that it's not just one or two flowers with much smaller petal lengths, but rather that there are many. Thus, these observations aren't likely an outlier.
+Since the two humps in the plot are about the same height, this shows that it's not just one or two flowers with much smaller petal lengths, but rather that there are many. Thus, these observations aren't likely outliers.
 
 To investigate this further, we'll look at petal length broken down by flower species:
 
@@ -555,6 +556,7 @@ cor.test(pull(df %>% filter(bodywt<2000 & bodywt >1),bodywt),
 ##       cor 
 ## 0.4606273
 ```
+
 We can see from this plot that in general `brainwt` is correlated with `bodywt`. Or in other words, `brainwt` tends to increase with `bodywt`.
 
 But it also looks like we have an outlier for our `brainwt` variable! There is a very high `brainwt` value that is greater than 1.
@@ -623,7 +625,7 @@ cor.test(pull(df %>% filter(bodywt<2000 & bodywt >1 & brainwt<1),bodywt),
 ## 0.7862926
 ```
 
-We can see from these plots that the `brainwt` variable seems have a relationship (correlation value = 0.79)  with `bodywt` and it increases with the `bodywt` variable, however this relationship is less strong when humans are included (correlation value = 0.46). This information would be important to keep in mind when trying to model this data to make inference or predictions about the animals included.
+We can see from these plots that the `brainwt` variable seems to have a relationship (correlation value = 0.79)  with `bodywt` and it increases with the `bodywt` variable, however this relationship is less strong when humans are included (correlation value = 0.46). This information would be important to keep in mind when trying to model this data to make inference or predictions about the animals included.
 
 
 ## Inference
@@ -663,7 +665,7 @@ Or maybe five shapes in the population are grey?
 
 Given the sample we've taken, we can guess that 4-5 shapes in our population will be grey, but we aren't certain exactly what that number is. In statistics, this "best guess" is known as an **estimate**. This means that we estimate that 4.667 shapes will be gray. But, there is uncertainty in that number. Because we're taking our best guess at figuring out what that estimate should be, there's also a measure of uncertainty in that estimate. Inferential data analysis includes **generating the estimate and the measure of uncertainty around that estimate**.
 
-Let's return back to the example where we *know* the truth in the population. Hey look! There were actually only three grey shapes after all. It is totally possible that if you put all those shapes into a bag and pulled three out that two would be pink and one would be grey. As statisticians, we'd say that getting this sample was **probable** (it's within the realm of possibility), but it's not the most likely (The most likely was either 4 or 5.) This really drives home why it's important to add uncertainty to your estimate whenever you're doing inferential analysis!
+Let's return back to the example where we *know* the truth in the population. Hey look! There were actually only three grey shapes after all. It is totally possible that if you put all those shapes into a bag and pulled three out that two would be pink and one would be grey. As statisticians, we'd say that getting this sample was **probable** (it's within the realm of possibility). This really drives home why it's important to add uncertainty to your estimate whenever you're doing inferential analysis!
 
 ![](images/ghimage/023.png)
 
@@ -684,7 +686,7 @@ In this case, your sample is *not* representative of your larger population. In 
 
 This means that you have to design your analysis so that you're collecting representative data and that you have to check your data after data collection to make sure that you were successful.
 
-You may at this point be thinking to yourself. "Wait a second. I thought I didn't know what the truth was in the population. How can I make sure it's representative?" Good point! With regards to the measurement you're making (color distribution of the shapes, in this example), you don't know the truth. But, you should know other information about the population. What is the age distribution of your population? Your sample should have a similar age distribution. What proportion of your population is female? If it's half, then your sample should be comprised of half females. Your data collection procedure should be set up to ensure that the sample you collect is representative (very similar to) your larger population. Then, once the data are collected, your descriptive analysis should check to ensure that the data you've collected are in fact representative of your larger population. By randomly sampling your larger population, then ensures that the inference you make about the measurement of interest (color distribution of the shapes) will be most accurate.
+You may at this point be thinking to yourself. "Wait a second. I thought I didn't know what the truth was in the population. How can I make sure it's representative?" Good point! With regards to the measurement you're making (color distribution of the shapes, in this example), you don't know the truth. But, you should know other information about the population. What is the age distribution of your population? Your sample should have a similar age distribution. What proportion of your population is female? If it's half, then your sample should be comprised of half females. Your data collection procedure should be set up to ensure that the sample you collect is representative (very similar to) your larger population. Then, once the data are collected, your descriptive analysis should check to ensure that the data you've collected are in fact representative of your larger population. Randomly sampling your larger population helps ensure that the inference you make about the measurement of interest (color distribution of the shapes) will be the most accurate.
 
 To reiterate: If the data you collect is not from a representative sample of the population, the generalizations you infer won't be accurate for the population.
 
@@ -706,7 +708,7 @@ To answer this question, a subset of the US population was studied, and the rese
 
 
 ### Linear Regression
-Inferential analysis is commonly the goal of statistical modeling, where you have a small amount of information to extrapolate and generalize that information to a larger group. One of the most common approaches used in statistical modeling is known as linear regression. Here, we'll discuss when using **linear regression** is appropriate, how to carry out the analysis in R, and how to interpret the results from this statistical approach.
+Inferential analysis is commonly the goal of statistical modeling, where you have a small amount of information to extrapolate and generalize that information to a larger group. One of the most common approaches used in statistical modeling is known as linear regression. Here, we'll discuss how to recognize when using **linear regression** is appropriate, how to carry out the analysis in R, and how to interpret the results from this statistical approach.
 
 When discussing linear regression, we're trying to describe (model) the relationship between a **dependent variable** and an **independent variable**.
 
@@ -721,7 +723,7 @@ When carrying out linear regression, a **best-fitting line** is drawn through th
 
 ![](images/ghimage/030.png)
 
-A best-fitting line, technically-speaking, minimizes the sum of the squared errors. In simpler terms, this means that the line that minimizes the distance of all the points from the line is the best-fitting line. Or, most simply, there are the same number of points above the line as there are below the line. In total, the distance from the line for the points above the line will be the same as the distance from the points to the line below the line.
+A best-fitting line, technically-speaking, minimizes the sum of the squared errors. In simpler terms, this means that the line that minimizes the distance of all the points from the line is the best-fitting line. Or, most simply, there are about the same number of points above the line as there are below the line. In total, the distance from the line for the points above the line will be the same as the distance from the points to the line below the line.
 
 Note that the best fitting line does *not* have to go through any points to be the best-fitting line. Here, on the right, we see a line that goes through seven points on the plot (rather than the four the best-fitting line goes through, on the left). However, this is not a best-fitting line, as there are way more points above the line than there are below the line.
 
@@ -747,7 +749,7 @@ An example of variables that have a negative relationship would be the relations
 
 Linear regression, in addition to to describing the direction of the relationship, it can also be used to determine the **strength** of that relationship.
 
-This is because the assumption with linear regression is that the true relationship is being described by the best-fitting line. Any points that fall away from the line do so due to random error. This means that if all the points fall directly on top of the line, there is no error. The further the points fall from the line, the greater the error. When points are further from the best-fitting line, the relationship between the two variables is weaker than when the points fall closer to the line.
+This is because the assumption with linear regression is that the true relationship is being described by the best-fitting line. Any points that fall away from the line do so due to error. This means that if all the points fall directly on top of the line, there is no error. The further the points fall from the line, the greater the error. When points are further from the best-fitting line, the relationship between the two variables is weaker than when the points fall closer to the line.
 
 ![](images/ghimage/036.png)
 
@@ -825,7 +827,7 @@ Standard errors are calculated based on how well the best-fitting line models th
 ![](images/ghimage/042.png)
 
 
-A reminder that when carrying out inferential data analysis, you will **always** want to report an estimate and a measure of uncertainty. For linear regression, this will be the **beta estimate** and the **standard error**.
+Remember when carrying out inferential data analysis, you will **always** want to report an estimate and a measure of uncertainty. For linear regression, this will be the **beta estimate** and the **standard error**.
 
 You may have heard talk of **p-values** at some point. People tend to use p-values to describe the strength of their association due to its simplicity. The p-value is a single number that takes into account both the estimate (beta estimate) and the uncertainty in that estimate (SE). The lower a p-value the more significant the association is between two variables. However, while it is a simple value, it doesn't tell you nearly as much information as reporting the estimates and standard errors directly. Thus, if you're reporting p-values, it's best to also include the estimate and standard errors as well.
 
@@ -842,7 +844,7 @@ With this dataset, we'll answer the question:
 
 Presumably, it's easier to measure a trees `girth` (width around) than it is to measure its `height`. Thus, here we want to know whether or not `height` and `girth` are associated.
 
-In this case, since we're asking if we can infer `height` from `girth`, `girth` is the independent variable and height is the dependent variable. In other words, we're asking does `height` depend on `girth`?
+In this case, since we're asking if we can infer `height` from `girth`, `girth` is the independent variable and `height` is the dependent variable. In other words, we're asking does `height` depend on `girth`?
 
 First, before carrying out the linear regression to test for association and answer this question, we have to be sure linear regression is appropriate. We'll test for linearity and homoscedasticity.
 
@@ -992,7 +994,7 @@ Note that the values *haven't* changed. They're just organized into an easy-to-u
 
 Finally, it's important to always keep in mind that the **interpretation of your inferential data analysis** is incredibly important. When you use linear regression to test for association, you're looking at the relationship between the two variables. While girth can be used to infer a tree's height, this is just a correlation. It **does not mean** that an increase in girth **causes** the tree to grow more. Associations are *correlations*. They are **not** causal. 
 
-For now, however, in response to our question, can we infer a tree's height from its girth, the answer is yes. We would expect, on average, a tree's height to increase 0.255 inches for every one inch increase in girth.
+For now, however, in response to our question, can we infer a black cherry tree's height from its girth, the answer is yes. We would expect, on average, a tree's height to increase 0.255 inches for every one inch increase in girth.
 
 ### Correlation Is Not Causation
 
@@ -1091,11 +1093,11 @@ Here, we get a more accurate picture of what's going on. Interpreting multiple r
 
 The best way to interpret the coefficients in a multiple linear regression model is to focus on a single variable of interest and hold all other variables constant. For instance, we'll focus on weight (`wt`) while holding (`vs`) constant to interpret. This means that for a V-shaped engine, we expect to see a 4.44 miles per gallon decrease for every 1000 lb increase in weight.
 
-We can similarly interpret the coefficients by focusing on the engines (`vs`). For example, for two cars that weigh the same, we'd expect a straight engine (`vs` = 1) to get 3.5 more miles per gallon than a V-Shaped engine (`vs`= 0).
+We can similarly interpret the coefficients by focusing on the engines (`vs`). For example, for two cars that weigh the same, we'd expect a straight engine (`vs` = 1) to get 3.15 more miles per gallon than a V-Shaped engine (`vs`= 0).
 
 ![](images/ghimage/053.png)
 
-Finally, we'll point out that the p-value for `wt` decreased in this model relative to the model where we didn't account for confounding. This is because the model was not initially taking into account the engine difference. Sometimes when confounders are accounted for, your variable of interest will become more significant; however, frequently, the p-value will increase, and that's OK. What's important is that the data are most appropriately modeled.
+Finally, we'll point out that the p-value for `wt` decreased in this model relative to the model where we didn't account for confounding. This is because the model was not initially taking into account the engine difference. Frequently when confounders are accounted for, the p-value will increase, and that's OK. What's important is that the data are most appropriately modeled.
 
 
 
@@ -1237,7 +1239,7 @@ In fact users can even perform analyses based on specified hypotheses with the `
 
 We will perform the same analysis about soda cans that we just did with this package to illustrate how to use it.
 
-Recall that we wanted to know if the observed ounces of soda can differs from the expected mean of 12 oz. Also recall that we had measurements for 100 soda cans (we made up this data). We had a testable statement or hypothesis that "soda cans typically have 12 ounces, the mean amount is 12" and we wanted to know if this was true.
+Recall that we wanted to know if the observed ounces of soda can differs from the expected mean of 12 ounces. Also recall that we had measurements for 100 soda cans (we made up this data). We had a testable statement or hypothesis that "soda cans typically have 12 ounces, the mean amount is 12" and we wanted to know if this was true.
 
 This type of hypothesis is called a null hypothesis because it is a statement that expects no difference or change. The alternative hypothesis is the complement statement. It would be that the mean is not 12.
 
@@ -1269,9 +1271,9 @@ soda_ounces
 ```
 Now we will use the `specify()` function of the `infer` package to indicate that the `value` variable is our response variable that will be used in our hypothesis. This is as you might expect more important when we have multiple variables in our data. Then we can specify our null hypothesis with the `hypothesize()` function.
 
-There are two options for the `null` argument of this function:
-1) point - this option should be used when there is one variable in the hypothesis, such as "the mean of this data x".
-2) independence - this option should be used when there are two populations, such as " the means of these two groups identical" or "this variable influences this other variable".
+There are two options for the `null` argument of this function:  
+1) point - this option should be used when there is one variable in the hypothesis, such as "the mean of this data x".  
+2) independence - this option should be used when there are two populations, such as " the means of these two groups identical" or "this variable influences this other variable".  
 
 
 Then if the point option is used, there are several additional arguments regarding what is being tested about that one variable. One can test a particular `mu` for mean, `med` for median, `sigma` for standard deviation, or `p` for the proportion of successes (for a categorical variable).
@@ -1282,7 +1284,7 @@ The major benefit of this package, besides allowing the user to think about the 
 
 What do we mean by this? 
 
-Resampling is a method where a random samples are drawn from the original data to create a dataset of the same size as the original data (but with some samples repeated) and this is done repetitively over and over. This process is called Bootstrapping. This provides more information about the confidence in our estimations from our sample about the true population that we are trying to investigate, as it gives us more of a sense the range of values for statistics like mean and median might vary using other samples.
+Resampling is a method where a random samples are drawn from the original data to create a dataset of the same size as the original data (but with some samples repeated) and this is done repetitively over and over. This process is called Bootstrapping. This provides more information about the confidence in our estimations from our sample about the true population that we are trying to investigate, as it gives us more of a sense of the range of values for statistics like mean and median might vary using other samples.
 
 To perform resampling, users can use the `generate()` function with the `type` argument set to `"bootsrap"` and use the `rep` argument to specify how many bootstrap resamples to generate.
 
@@ -1292,7 +1294,7 @@ The `calculate()` function then allows for many different statistics to be calcu
 2) `median`  
 3) `sum`  
 4) `sd` for standard deviation  
-5) `prop` for proportion for categorical variables
+5) `prop` for proportion for categorical variables   
 6) `count`  
 7) `diff in means`  
 8) `diff in medians`  
@@ -1339,7 +1341,7 @@ CI
 ## 1     12.0     12.0
 ```
 
-We can see that our confidence interval is very similar but slightly different from the results we obtained using the `t.test()` function and the `lm()` function. This is because we used a different method to calculate the confidence interval based on the bootstrap samples. Furthermore, the results will vary every time the code is run because the bootstrap samples are randomly created each time.
+We can see that our confidence interval is very similar but slightly different from the results we obtained using the `t.test()` function and the `lm()` function. This is because we used a different method to calculate the confidence interval based on the bootstrap samples. Furthermore, the results will vary every time the code is run because the bootstrap samples are randomly created each time (unless you set a seed with set.seed).
 
 
 We can also make a visualization of the null distribution of the bootstrap samples using the `visualize()` function.
@@ -1382,10 +1384,10 @@ That said, there is without a doubt an entire field of individuals dedicating th
 
 In order to make predictions for the future using data you have now, there are four general steps:
 
-1) Data Splitting - what data are you going to use to train your model? To tune your model? To test your model?
-2) Variable Selection - what variable(s) from the data you have now are you going to use to predict future outcomes?
-3) Model Selection - How are you going to model the data?
-4) Accuracy Assessment - How are you going to assess accuracy of your predictions?
+1) Data Splitting - what data are you going to use to train your model? To tune your model? To test your model?  
+2) Variable Selection - what variable(s) from the data you have now are you going to use to predict future outcomes?   
+3) Model Selection - How are you going to model the data?   
+4) Accuracy Assessment - How are you going to assess accuracy of your predictions?   
 
 ![](images/ghimage/057.png)
 
@@ -1409,7 +1411,7 @@ Training data are the data we described above. It is the data used to *build* yo
 
 
 ### Test
-Before getting started, your original dataset is often split. Some (often 70%-75%) of the observations in your dataset are used to train the model, while 25%-30% are held out. This held-out set of observations from your original dataset are then used to improve the accuracy of model.
+Before getting started, your original dataset is often split. Some (often 70%-75%) of the observations in your dataset are used to train the model, while 25%-30% are held out. 
 
 These hold-out samples are used to see whether or not your predictive model accurately makes predictions in the set of samples not used to train the model.
 
@@ -1505,7 +1507,7 @@ Finally, a full decision tree will be constructed, such that there will be a lab
 
 ![](images/ghimage/068.png)
 
-This CART will then be used for prediction in future samples. Thus, if you follow the path along the decision tree, for this example CART, an individual who made more than $40,000 a year, was in a manual labor profession, and had children, this CART would predict that that individual's education level were "High School."
+This CART will then be used for prediction in future samples. Thus, if you follow the path along the decision tree, for this example CART, an individual who made more than $40,000 a year, was in a manual labor profession, and had children, this CART would predict that that individual's education level was "High School."
 
 ![](images/ghimage/069.png)
 
@@ -1517,10 +1519,10 @@ A common saying is that prediction is hard, especially about the future. This is
 Generally, if your predictions are correct, you're doing well! If your predictions are wrong, you're not doing as well. But, how do we define "well"?
 
 #### Error Rates
-To assess whether or not our predictive models are doing well, we calculate error rates. There are metrics used to measure model performance, however, the two most common ways to assess how well our predictive models are doing are:
+To assess whether or not our predictive models are doing well, we calculate error rates. There are metrics used to measure model performance, however, the two most common ways to assess how well our predictive models are doing are:  
 
-1) RMSE (Root-mean-square Error)
-2) Accuracy
+1) RMSE (Root-mean-square Error)   
+2) Accuracy  
 
 We'll note here that in order to assess error, you have to know the truth (the actual value) in addition to the predicted value. Thus, RMSE and accuracy are assessed in the training and tuning data, where you *know* the actual value as well as the predicted value.
 
@@ -1535,7 +1537,7 @@ Mathematically speaking, the RMSE is the square root of the variance. From earli
 
 When we look at the equation, we can see that the difference between the predicted and actual values is calculated `(Predicted - Actual)` and that this value is then squared `(Predicted - Actual)^2`. These differences squared are then added for every individual in your dataset (that's what the sigma, or big E says). This value (the sum of all the errors squared) is then divided by the number of individuals in your dataset (`N`). This square root of this value is then taken. This is how RMSE is calculated.
 
-We went through that description because we want to point out that when differences are squared `(Predicted - Actual)^2`, outliers, or samples whose prediction was far off from their actual value are going to increase the RMSE a lot. Thus, * a few outliers can lead to really high RMSE values*, even if all the other predictions were pretty good. This means it's important to check to see if a few outliers (meaning a few bad predictions) are leading to a high RMSE value.
+We went through that description because we want to point out that when differences are squared `(Predicted - Actual)^2`, outliers, or samples whose prediction was far off from their actual value are going to increase the RMSE a lot. Thus, *a few outliers can lead to really high RMSE values*, even if all the other predictions were pretty good. This means it's important to check to see if a few outliers (meaning a few bad predictions) are leading to a high RMSE value.
 
 #### Accuracy
 
@@ -1547,11 +1549,13 @@ The closer this value is to 100%, the better your predictive model was. The clos
 
 Accuracy is a helpful way to assess error in categorical variables, but it can be used for numeric values too. However, it will only account a prediction "correct" if it matches exactly. In the case of age, if a sample's age is 10 and the model predicts it to be 10, the model will say it's been predicted correctly. However, if a sample's age is 10 and it is predicted to be 9, it will be counted as incorrect, even though it was close. A prediction off by a year will be marked just as incorrect as a sample predicted off by 50 years. Due to this, RMSE is often opted for instead of accuracy for continuous variables.
 
+It is also important to realize that having low RMSE or high accuracy with your training does not necessarily indicate that your model is generalizable. It indicates that your model works well with your training data. However if your model fits your training data too well it may not be very good at predicting with new data. This is why we have a subset of the original data to use to test our model.
+
 
 
 ## The `tidymodels` Ecosystem
 
-There are *incredibly* helpful packages available in R thanks to the work of [Max Kuhn](https://twitter.com/topepos?lang=en). As mentioned above, there are hundreds of different machine learning algorithms. Max's R packages have compiled all of them into a single framework, allowing you to use *many* different machine learning models easily. Additionally, he has written a very [helpful book](http://appliedpredictivemodeling.com/) about predictive modeling. There are also many [helpful links](https://topepo.github.io/) about each of the packages. Max previously developed the `caret` package (short for Classification And Regression Training) which has been widely used. [Here](https://konradsemsch.netlify.com/2019/08/caret-vs-tidymodels-comparing-the-old-and-new/) you can see some of the discussion about the difference between `caret` and `tidymodels`. 
+There are *incredibly* helpful packages available in R thanks to the work of [Max Kuhn](https://twitter.com/topepos?lang=en) at RStudio. As mentioned above, there are hundreds of different machine learning algorithms. Max's R packages have put many of them into a single framework, allowing you to use *many* different machine learning models easily. Additionally, he has written a very [helpful book](http://appliedpredictivemodeling.com/) about predictive modeling. There are also many [helpful links](https://topepo.github.io/) about each of the packages. Max previously developed the `caret` package (short for Classification And Regression Training) which has been widely used. [Here](https://konradsemsch.netlify.com/2019/08/caret-vs-tidymodels-comparing-the-old-and-new/) you can see some of the discussion about the difference between `caret` and `tidymodels`. 
 
 In this [rstudio community thread](https://community.rstudio.com/t/caret-to-tidymodels/) you can see that Max stated that "The `tidyverse` is more about modular packages that are designed to play well with one another. The main issue with caret is that, being all in one package, it is very difficult to extend it into areas that people are interested in...The bottom line is that the tidymodels set should do what caret does and more." We will describe some of the advantages of the `tidymodels` packages.  
 
@@ -1578,7 +1582,7 @@ We will focus on the following packages although there are many more in the tidy
 1) `rsamples` - to split the data into training and testing sets (as well as cross validation sets - more on that later!)  
 2) `recipes` -  to prepare the data with preprocessing (assign variables and preprocessing steps)  
 3) `parsnip` -  to specify and fit the data to a model  
-4) `yardstick` and `tune` -  to evaluate model performance
+4) `yardstick` and `tune` -  to evaluate model performance   
 5) `workflows` - combining recipe and parsnip objects into a workflow  (this makes it easier to keep track of what you have done and it makes it easier to modify specific steps) 
 6) `tune` and `dials` - model optimization (more on what hyperparameters are later too!)  
 7) `broom` - to make the output from fitting a model easier to read  
@@ -1600,8 +1604,8 @@ Other `tidymodels` packages include:
 
 1) `applicable` compares new data points with the training data to see how much the new data points appear to be an extrapolation of the training data  
 2) `baguette` is for speeding up bagging pipelines  
-3) `butcher` is for dealing with pipelines that create model objects take up too much memory  
-4) `discrim` has more model options classification  
+3) `butcher` is for dealing with pipelines that create model objects that take up too much memory  
+4) `discrim` has more model options for classification  
 5) `embed` has extra preprocessing options for categorical predictors  
 6) `hardhat` helps you to make new modeling packages  
 7) `corrr` has more options for looking at correlation matrices  
@@ -1684,9 +1688,9 @@ head(testing_iris)
 
 After splitting the data, the next step is to process the training and testing data so that the data are are compatible and optimized to be used with the model. This involves assigning variables to specific roles within the model and preprocessing like scaling variables and removing redundant variables. This process is also called feature engineering.
 
-To do this in tidymodels, we will create what’s called a “**recipe**” using the recipes package, which is a standardized format for a sequence of steps for preprocessing the data. This can be very useful because it makes testing out different preprocessing steps or different algorithms with the same preprocessing very easy and reproducible. 
+To do this in tidymodels, we will create what’s called a “**recipe**” using the `recipes` package, which is a standardized format for a sequence of steps for preprocessing the data. This can be very useful because it makes testing out different preprocessing steps or different algorithms with the same preprocessing very easy and reproducible. 
 
-Creating a recipe specifies **how a data frame of predictors should be created** - it specifies what variables to be used and the preprocessing steps, but it **does not execute these steps** or create the data frame of predictors.
+Creating a recipe specifies **how a dataframe of predictors should be created** - it specifies what variables to be used and the preprocessing steps, but it **does not execute these steps** or create the dataframe of predictors.
 
 ##### Step 1: Specify variables  with the `recipe()` function
 
@@ -1856,6 +1860,7 @@ first_recipe
 ## 
 ## Dummy variables from Species
 ```
+
 #### Step 3: Example of optionally performing the preprocessing to see how it influences the data
 
 Optionally one can use the `prep()` function of the `recipes` package to update the recipe for manually performing the preprocessing to see how this influences the data. This step is however not required when using the `workflows` package. The preprocessed training data can than be viewed by using the `bake()` function with the `new_data = NULL` argument, while preprocessed testing data can be viewed using the `bake()` function and specifying that the testing data is the `new_data`.
@@ -1943,9 +1948,12 @@ prepped_rec$var_info
 ```
 
 
-Now we can use `bake` to see the preprocessed training data. *Note that this used to require the `juice()` function.
+Now we can use `bake` to see the preprocessed training data.   
+
+**Note**: this used to require the `juice()` function.
 
 Since we are using our training data we need to specify that we don't have new_data with `new_data = NULL`.
+
 
 ```r
 preproc_train <-recipes::bake(prepped_rec, new_data = NULL)
@@ -2378,7 +2386,7 @@ We can see that our RMSE is pretty similar for the testing data as well.
 
 Now we are going to show an example of using the `tidymodels` packages to perform prediction of a categorical variable.
 
-Again, we will use the `iris` dataset. However, this time the will predict the identity of the follower species (which is categorical) based on the other variables.
+Again, we will use the `iris` dataset. However, this time the will predict the identity of the flower species (which is categorical) based on the other variables.
 
 We have already split our data into testing and training sets, so we don't necessarily need to do that again.
 
@@ -2473,7 +2481,7 @@ The first thing we need to do to perform this process is split our training data
 
 Technically creating our testing and training set out of our original training data is sometimes considered a form of [cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)){target="_blank"}, called the holdout method. 
 
-The reason we do this it so we can get a better sense of the accuracy of our model using data that we did not train it on. 
+The reason we do this is so we can get a better sense of the accuracy of our model using data that we did not train on. 
 
 However, we can do a better job of optimizing our model for accuracy if we also perform another type of [cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)){target="_blank"} on just the newly defined training set that we just created. 
 
@@ -2506,7 +2514,7 @@ The [`vfold_cv()`](https://tidymodels.github.io/rsample/reference/vfold_cv.html)
 - The `repeats` argument specifies if any samples should be repeated across folds - default is `FALSE`
 - The `strata` argument specifies a variable to stratify samples across folds - just like in `initial_split()`.
 
-Again, because these are created at random, we need to use the base `set.seed()` function in order to obtain the same results each time we knit this document. 
+Again, because these are created at random, we need to use the base `set.seed()` function in order to obtain the same results each time.
  
 Remember that only the training data is used to create the cross validation samples.
 
@@ -2598,7 +2606,7 @@ recipe(Species ~ .)
 
 This time we will also not have any preprocessing steps for simplicity sake, thus our recipe is actually already finished.
 
-Now our next step is to specify our model. Again the modeling options for parsnip are  [here](https://www.tidymodels.org/find/parsnip/){target="_blank"}. We will be using a Classification And Regression Tree (CART), which we discussed previously. This method can be used for either classification or regression (categorical or continuous outcome variables). Thus it is important that we set the mode for classification. We will use the `rpart` package as our engine. To tune using this model we would need to specify it here as well. We will show that it just a bit. 
+Now our next step is to specify our model. Again the modeling options for parsnip are  [here](https://www.tidymodels.org/find/parsnip/){target="_blank"}. We will be using a Classification And Regression Tree (CART), which we discussed previously. This method can be used for either classification or regression (categorical or continuous outcome variables). Thus it is important that we set the mode for classification. We will use the `rpart` package as our engine. To tune using this model we would need to specify it here as well. We will show that in just a bit. 
 
 
 ```r
@@ -2822,7 +2830,7 @@ collect_metrics(resample_fit)
 ## 2 roc_auc  hand_till  0.961     4  0.0172 Preprocessor1_Model1
 ```
 
-The accuracy appears to be 94.7 percent. Often the performance will be reduced using cross validation.
+The accuracy appears to be 94 percent. Often the performance will be reduced using cross validation.
 
 #### Example of tuning
 
@@ -2864,7 +2872,7 @@ We can use the `tune_grid()` function of the `tune()` package to use the workflo
 reasmple_fit <-tune::tune_grid(iris_cat_wflow_tune, resamples = vfold_iris, grid = 4)
 ```
 
-Again we can use the `collect_netrics()` function to get the accuracy for each of the tested `min_n` values. Or, we can use the `show_best()` function of the `tune` package to see the `min_n` values for the top performing models (those with the highest accuracy).
+Again we can use the `collect_metrics()` function to get the accuracy. Or, we can use the `show_best()` function of the `tune` package to see the `min_n` values for the top performing models (those with the highest accuracy).
 
 
 ```r
@@ -2897,12 +2905,12 @@ Now we will demonstrate a more involved example with a case study.
 
 ### Case Study #1: Predicting Annual Air Pollution
 
-A variety of different sources contribute different types of pollutants to what we call air pollution. 
+A variety of different sources contribute different types of pollutants to what we call air pollution.  
 
-1) **Gaseous** - Carbon Monoxide (CO), Ozone (O~3~), Nitrogen Oxides(NO, NO~2~), Sulfur Dioxide (SO~2~)
-2) **Particulate** - small liquids and solids suspended in the air (includes lead- can include certain types of dust)
-3) **Dust** - small solids (larger than particulates) that can be suspended in the air for some time but eventually settle
-4) **Biological** - pollen, bacteria, viruses, mold spores
+1) **Gaseous** - Carbon Monoxide (CO), Ozone (O~3~), Nitrogen Oxides(NO, NO~2~), Sulfur Dioxide (SO~2~)   
+2) **Particulate** - small liquids and solids suspended in the air (includes lead- can include certain types of dust)    
+3) **Dust** - small solids (larger than particulates) that can be suspended in the air for some time but eventually settle    
+4) **Biological** - pollen, bacteria, viruses, mold spores   
 
 
 Air pollution particulates are generally described by their **size**.
@@ -3441,7 +3449,7 @@ pm_split
 We can see the number of monitors in our training, testing, and original data by typing in the name of our split object. The result will look like this:
 <training data sample number, testing data sample number, original sample number> 
 
-Importantly the `initial_split()` function only determines what rows of our `pm` data frame should be assigned for training or testing, it does not actually split the data. 
+Importantly the `initial_split()` function only determines what rows of our `pm` dataframe should be assigned for training or testing, it does not actually split the data. 
 
 To extract the testing and training data we can use the `training()` and `testing()` functions also of the `rsample` package.
 
@@ -3515,20 +3523,6 @@ simple_rec
 
 **This [link](https://tidymodels.github.io/recipes/reference/index.html){target="_blank"} and this [link](https://cran.r-project.org/web/packages/recipes/recipes.pdf){target="_blank"} show the many options for recipe step functions.**
 
-There are step functions for a variety of purposes:
-
-1. [**Imputation**](https://en.wikipedia.org/wiki/Imputation_(statistics)){target="_blank"} -- filling in missing values based on the existing data 
-2. [**Transformation**](https://en.wikipedia.org/wiki/Data_transformation_(statistics)){target="_blank"} -- changing all values of a variable in the same way, typically to make it more normal or easier to interpret
-3. [**Discretization**](https://en.wikipedia.org/wiki/Discretization_of_continuous_features){target="_blank"} -- converting continuous values into discrete or nominal values - binning for example to reduce the number of possible levels (However this is generally not advisable!)
-4. [**Encoding / Creating Dummy Variables**](https://en.wikipedia.org/wiki/Dummy_variable_(statistics)){target="_blank"} -- creating a numeric code for categorical variables
-([**More on Dummy Variables and one hot encoding**](https://medium.com/p/b5840be3c41a/responses/show){target="_blank"})
-5. [**Data type conversions**](https://cran.r-project.org/web/packages/hablar/vignettes/convert.html){target="_blank"}  -- which means changing from integer to factor or numeric to date etc.
-6. [**Interaction**](https://statisticsbyjim.com/regression/interaction-effects/){target="_blank"}  term addition to the model -- which means that we would be modeling for predictors that would influence the capacity of each other to predict the outcome
-7. [**Normalization**](https://en.wikipedia.org/wiki/Normalization_(statistics)){target="_blank"} -- centering and scaling the data to a similar range of values
-8. [**Dimensionality Reduction/ Signal Extraction**](https://en.wikipedia.org/wiki/Dimensionality_reduction){target="_blank"} -- reducing the space of features or predictors to a smaller set of variables that capture the variation or signal in the original variables (ex. Principal Component Analysis and Independent Component Analysis)
-9. **Filtering** -- filtering options for removing variables (ex. remove variables that are highly correlated to others or remove variables with very little variance and therefore likely little predictive capacity)
-10. [**Row operations**](https://tartarus.org/gareth/maths/Linear_Algebra/row_operations.pdf){target="_blank"} -- performing functions on the values within the rows  (ex. rearranging, filtering, imputing)
-11. **Checking functions** -- Sanity checks to look for missing values, to look at the variable classes etc.
 
 All of the step functions look like `step_*()` with the `*` replaced with a name, except for the check functions which look like `check_*()`.
 
@@ -4396,7 +4390,7 @@ PM_wflow_fit
 
 After we fit our model, we can use the `broom` package to look at the output from the fitted model in an easy/tidy way.   
 
-The `tidy()` function returns a tidy data frame with coefficients from the model (one row per coefficient).
+The `tidy()` function returns a tidy dataframe with coefficients from the model (one row per coefficient).
 
 Many other `broom` functions currently only work with `parsnip` objects, not raw `workflows` objects. 
 
@@ -4465,7 +4459,7 @@ PM_wflow_fit %>%
 
 <img src="images/modeling-unnamed-chunk-112-1.png" width="672" />
 
-The state in which the monitor was located and the CMAQ model and the aod satellite information appear to be the most important for predicting the air pollution at a given monitor.
+The state in which the monitor was located (in this case if it was in California or not),the CMAQ model, and the aod satellite information appear to be the most important for predicting the air pollution at a given monitor.
 
 #### Model Performance
 
