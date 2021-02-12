@@ -1637,6 +1637,7 @@ Lin_reg_model <-
 
 Lin_reg_model
 ```
+
 #### Step 5: Example of fitting the model
 
 We can  use the `parsnip` package with a newer package called `workflows` to fit our model. 
@@ -1817,14 +1818,14 @@ Here, we will use a very popular method called either [v-fold or k-fold cross va
 
 This method involves essentially preforming the holdout method iteratively with the training data. 
 
-First, the training set is divided into $v$ (or often called called $k$) equally sized smaller pieces. 
-The number of $v$ subsets to use is also a bit arbitrary, although generally speaking using 10 folds is good practice, but this depends on the variability and size of your dataset. 
+First, the training set is divided into {$$}v{/$$} (or often called called {$$}k{/$$}) equally sized smaller pieces. 
+The number of {$$}v{/$$} subsets to use is also a bit arbitrary, although generally speaking using 10 folds is good practice, but this depends on the variability and size of your dataset. 
 
 We are going to use 4 folds for the sake of expediency and simplicity. 
 
 ![](images/book_figures/vfold.png)
 
-The model will be trained on  $v$-1 subsets of the data iteratively (removing a different $v$ until all possible $v$-1 sets have been evaluated), while one fold will be saved to act as a test set. This will give us a sense of the out-of-sample (meaning not the entire training sample) performance of the model.
+The model will be trained on  {$$}v{/$$}-1 subsets of the data iteratively (removing a different {$$}v{/$$} until all possible {$$}v{/$$}-1 sets have been evaluated), while one fold will be saved to act as a test set. This will give us a sense of the out-of-sample (meaning not the entire training sample) performance of the model.
 
 In the case of tuning, multiple values for the hyperparameter are tested to determine what yields the best model performance.
  
@@ -1834,7 +1835,7 @@ In the case of tuning, multiple values for the hyperparameter are tested to dete
 
 #### Example of creating cross validation samples with `rsample`
 
-The [`vfold_cv()`](https://tidymodels.github.io/rsample/reference/vfold_cv.html){target="_blank"} function of the `rsample` package can be used to parse the training data into folds for $v$-fold cross validation.
+The [`vfold_cv()`](https://tidymodels.github.io/rsample/reference/vfold_cv.html){target="_blank"} function of the `rsample` package can be used to parse the training data into folds for {$$}v{/$$}-fold cross validation.
 
 - The `v` argument specifies the number of folds to create.
 - The `repeats` argument specifies if any samples should be repeated across folds - default is `FALSE`
@@ -2629,12 +2630,12 @@ The state in which the monitor was located and the CMAQ model and the aod satell
 In this next section, our goal is to assess the overall model performance. 
 The way we do this is to compare the similarity between the predicted estimates of the outcome variable produced by the model and the true outcome variable values. 
 
-Machine learning (ML) is an optimization problem that tries to minimize the distance between our predicted outcome $\hat{Y} = f(X)$ and actual outcome $Y$ using our features (or predictor variables) $X$ as input to a function $f$ that we want to estimate. 
+Machine learning (ML) is an optimization problem that tries to minimize the distance between our predicted outcome {$$}\hat{Y} = f(X){/$$} and actual outcome {$$}Y{/$$} using our features (or predictor variables) {$$}X{/$$} as input to a function {$$}f{/$$} that we want to estimate. 
 
 
 As our goal in this section is to assess overall model performance, we will now talk about different distance metrics that you can use. 
 
-First, let's pull out our predicted outcome values $\hat{Y} = f(X)$ from the models we fit (using different approaches). 
+First, let's pull out our predicted outcome values {$$}\hat{Y} = f(X){/$$} from the models we fit (using different approaches). 
 
 
 ```{r}
@@ -2669,7 +2670,7 @@ values_pred_train
 
 #### Visualizing Model Performance
 
-Now, we can compare the predicted outcome values (or fitted values) $\hat{Y}$ to the actual outcome values $Y$ that we observed: 
+Now, we can compare the predicted outcome values (or fitted values) {$$}\hat{Y}{/$$} to the actual outcome values {$$}Y{/$$} that we observed: 
 
 ```{r}
 library(ggplot2)
@@ -2686,13 +2687,17 @@ We could probably do a bit better.
 
 #### Quantifying Model Performance 
 
-Next, let's use different distance functions $d(\cdot)$ to assess how far off our predicted outcome $\hat{Y} = f(X)$ and actual outcome $Y$ values are from each other: 
+Next, let's use different distance functions {$$}d(\cdot){/$$} to assess how far off our predicted outcome {$$}\hat{Y} = f(X){/$$} and actual outcome {$$}Y{/$$} values are from each other: 
 
-$$d(Y - \hat{Y})$$
+{$$}
+d(Y - \hat{Y})
+{/$$}
 
-There are entire scholarly fields of research dedicated to identifying different distance metrics $d(\cdot)$ for machine learning applications. However, we will focus on [root mean squared error](https://en.wikipedia.org/wiki/Root-mean-square_deviation){target="_blank"} (`rmse`)   
+There are entire scholarly fields of research dedicated to identifying different distance metrics {$$}d(\cdot){/$$} for machine learning applications. However, we will focus on [root mean squared error](https://en.wikipedia.org/wiki/Root-mean-square_deviation){target="_blank"} (`rmse`)   
 
-$$RMSE = \sqrt{\frac{\sum_{i=1}^{n}{(\hat{y_t}- y_t)}^2}{n}}$$
+{$$}
+RMSE = \sqrt{\frac{\sum_{i=1}^{n}{(\hat{y_t}- y_t)}^2}{n}}
+{/$$}
 
 One way to calculate these metrics within the `tidymodels` framework is to use the `yardstick` package using the `metrics()` function. 
 
@@ -2708,7 +2713,7 @@ yardstick::rmse(wf_fitted_values,
                truth = value, estimate = .fitted)
 ```
 
-#### Assessing Model Performance on $v$-folds Using `tune`
+#### Assessing Model Performance on {$$}v{/$$}-folds Using `tune`
 
 We also intend to perform cross validation, so we will now split the training data further using the [`vfold_cv()`](https://tidymodels.github.io/rsample/reference/vfold_cv.html){target="_blank"} function of the `rsample` package.
 
@@ -3017,7 +3022,7 @@ head(test_predictions)
 Nice!
 
 
-Now, we can compare the predicted outcome values (or fitted values) $\hat{Y}$ to the actual outcome values $Y$ that we observed: 
+Now, we can compare the predicted outcome values (or fitted values) {$$}\hat{Y}{/$$} to the actual outcome values {$$}Y{/$$} that we observed: 
 
 ```{r}
 test_predictions %>% 
