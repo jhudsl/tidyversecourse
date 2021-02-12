@@ -1490,21 +1490,21 @@ summary(first_recipe)
 
 Next, we use the `step*()` functions from the `recipe` package to specify preprocessing steps. 
 
-**This [link](https://tidymodels.github.io/recipes/reference/index.html){target="_blank"} and this [link](https://cran.r-project.org/web/packages/recipes/recipes.pdf){target="_blank"} show the many options for recipe step functions.**
+**This [link](https://tidymodels.github.io/recipes/reference/index.html) and this [link](https://cran.r-project.org/web/packages/recipes/recipes.pdf) show the many options for recipe step functions.**
 
 There are step functions for a variety of purposes:
 
-1. [**Imputation**](https://en.wikipedia.org/wiki/Imputation_(statistics)){target="_blank"} -- filling in missing values based on the existing data 
-2. [**Transformation**](https://en.wikipedia.org/wiki/Data_transformation_(statistics)){target="_blank"} -- changing all values of a variable in the same way, typically to make it more normal or easier to interpret
-3. [**Discretization**](https://en.wikipedia.org/wiki/Discretization_of_continuous_features){target="_blank"} -- converting continuous values into discrete or nominal values - binning for example to reduce the number of possible levels (However this is generally not advisable!)
-4. [**Encoding / Creating Dummy Variables**](https://en.wikipedia.org/wiki/Dummy_variable_(statistics)){target="_blank"} -- creating a numeric code for categorical variables
-([**More on Dummy Variables and one-hot encoding**](https://medium.com/p/b5840be3c41a/responses/show){target="_blank"})
-5. [**Data type conversions**](https://cran.r-project.org/web/packages/hablar/vignettes/convert.html){target="_blank"}  -- which means changing from integer to factor or numeric to date etc.
-6. [**Interaction**](https://statisticsbyjim.com/regression/interaction-effects/){target="_blank"}  term addition to the model -- which means that we would be modeling for predictors that would influence the capacity of each other to predict the outcome
-7. [**Normalization**](https://en.wikipedia.org/wiki/Normalization_(statistics)){target="_blank"} -- centering and scaling the data to a similar range of values
-8. [**Dimensionality Reduction/ Signal Extraction**](https://en.wikipedia.org/wiki/Dimensionality_reduction){target="_blank"} -- reducing the space of features or predictors to a smaller set of variables that capture the variation or signal in the original variables (ex. Principal Component Analysis and Independent Component Analysis)
+1. [**Imputation**](https://en.wikipedia.org/wiki/Imputation_(statistics)) -- filling in missing values based on the existing data 
+2. [**Transformation**](https://en.wikipedia.org/wiki/Data_transformation_(statistics)) -- changing all values of a variable in the same way, typically to make it more normal or easier to interpret
+3. [**Discretization**](https://en.wikipedia.org/wiki/Discretization_of_continuous_features) -- converting continuous values into discrete or nominal values - binning for example to reduce the number of possible levels (However this is generally not advisable!)
+4. [**Encoding / Creating Dummy Variables**](https://en.wikipedia.org/wiki/Dummy_variable_(statistics)) -- creating a numeric code for categorical variables
+([**More on Dummy Variables and one-hot encoding**](https://medium.com/p/b5840be3c41a/responses/show))
+5. [**Data type conversions**](https://cran.r-project.org/web/packages/hablar/vignettes/convert.html)  -- which means changing from integer to factor or numeric to date etc.
+6. [**Interaction**](https://statisticsbyjim.com/regression/interaction-effects/)  term addition to the model -- which means that we would be modeling for predictors that would influence the capacity of each other to predict the outcome
+7. [**Normalization**](https://en.wikipedia.org/wiki/Normalization_(statistics)) -- centering and scaling the data to a similar range of values
+8. [**Dimensionality Reduction/ Signal Extraction**](https://en.wikipedia.org/wiki/Dimensionality_reduction) -- reducing the space of features or predictors to a smaller set of variables that capture the variation or signal in the original variables (ex. Principal Component Analysis and Independent Component Analysis)
 9. **Filtering** -- filtering options for removing variables (ex. remove variables that are highly correlated to others or remove variables with very little variance and therefore likely little predictive capacity)
-10. [**Row operations**](https://tartarus.org/gareth/maths/Linear_Algebra/row_operations.pdf){target="_blank"} -- performing functions on the values within the rows  (ex. rearranging, filtering, imputing)
+10. [**Row operations**](https://tartarus.org/gareth/maths/Linear_Algebra/row_operations.pdf) -- performing functions on the values within the rows  (ex. rearranging, filtering, imputing)
 11. **Checking functions** -- Sanity checks to look for missing values, to look at the variable classes etc.
 
 All of the step functions look like `step_*()` with the `*` replaced with a name, except for the check functions which look like `check_*()`.
@@ -1612,7 +1612,7 @@ Let's walk through these steps one by one.
 For our case, we are going to start our analysis with a linear regression but we will demonstrate how we can try different models.
 
 The first step is to define what type of model we would like to use. 
-See [here](https://www.tidymodels.org/find/parsnip/){target="_blank"} for modeling options in `parsnip`.
+See [here](https://www.tidymodels.org/find/parsnip/) for modeling options in `parsnip`.
 
 We want to do a linear regression so we will use the `linear_reg()` function of the `parsnip` package.
 
@@ -1624,7 +1624,7 @@ Lin_reg_model
 OK. So far, all we have defined is that we want to use a linear regression. Now let's tell `parsnip` more about what we want.
 
 We would like to use the [ordinary least squares](https://en.wikipedia.org/wiki/Ordinary_least_squares) method to fit our linear regression. 
-So we will tell `parsnip` that we want to use the `lm` package to implement our linear regression (there are many options actually such as [`rstan`](https://cran.r-project.org/web/packages/rstan/vignettes/rstan.html){target="_blank"}  [`glmnet`](https://cran.r-project.org/web/packages/glmnet/index.html){target="_blank"}, [`keras`](https://keras.rstudio.com/){target="_blank"}, and [`sparklyr`](https://therinspark.com/starting.html#starting-sparklyr-hello-world){target="_blank"}). See [here](https://parsnip.tidymodels.org/reference/linear_reg.html) for a description of the differences and using these different engines with `parsnip`.
+So we will tell `parsnip` that we want to use the `lm` package to implement our linear regression (there are many options actually such as [`rstan`](https://cran.r-project.org/web/packages/rstan/vignettes/rstan.html)  [`glmnet`](https://cran.r-project.org/web/packages/glmnet/index.html), [`keras`](https://keras.rstudio.com/), and [`sparklyr`](https://therinspark.com/starting.html#starting-sparklyr-hello-world)). See [here](https://parsnip.tidymodels.org/reference/linear_reg.html) for a description of the differences and using these different engines with `parsnip`.
 
 We will do so by using the `set_engine()` function of the `parsnip` package.
 
@@ -1817,15 +1817,15 @@ We will show how to optimize this using cross validation, this process is also c
  
 The first thing we need to do to perform this process is split our training data into cross validation samples.
 
-Technically creating our testing and training set out of our original training data is sometimes considered a form of [cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)){target="_blank"}, called the holdout method. 
+Technically creating our testing and training set out of our original training data is sometimes considered a form of [cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)), called the holdout method. 
 
 The reason we do this is so we can get a better sense of the accuracy of our model using data that we did not train on. 
 
-However, we can do a better job of optimizing our model for accuracy if we also perform another type of [cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)){target="_blank"} on just the newly defined training set that we just created. 
+However, we can do a better job of optimizing our model for accuracy if we also perform another type of [cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)) on just the newly defined training set that we just created. 
 
-There are many [cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)){target="_blank"} methods and most can be easily implemented using the `rsample` package. See [here](https://cran.r-project.org/web/packages/rsample/rsample.pdf) for options.
+There are many [cross validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)) methods and most can be easily implemented using the `rsample` package. See [here](https://cran.r-project.org/web/packages/rsample/rsample.pdf) for options.
 
-Here, we will use a very popular method called either [v-fold or k-fold cross validation](https://machinelearningmastery.com/k-fold-cross-validation/){target="_blank"}. 
+Here, we will use a very popular method called either [v-fold or k-fold cross validation](https://machinelearningmastery.com/k-fold-cross-validation/). 
 
 This method involves essentially preforming the holdout method iteratively with the training data. 
 
@@ -1846,7 +1846,7 @@ In the case of tuning, multiple values for the hyperparameter are tested to dete
 
 #### Example of creating cross validation samples with `rsample`
 
-The [`vfold_cv()`](https://tidymodels.github.io/rsample/reference/vfold_cv.html){target="_blank"} function of the `rsample` package can be used to parse the training data into folds for {$$}v{/$$}-fold cross validation.
+The [`vfold_cv()`](https://tidymodels.github.io/rsample/reference/vfold_cv.html) function of the `rsample` package can be used to parse the training data into folds for {$$}v{/$$}-fold cross validation.
 
 - The `v` argument specifies the number of folds to create.
 - The `repeats` argument specifies if any samples should be repeated across folds - default is `FALSE`
@@ -1886,7 +1886,7 @@ recipe(Species ~ .)
 
 This time we will also not have any preprocessing steps for simplicity sake, thus our recipe is actually already finished.
 
-Now our next step is to specify our model. Again the modeling options for parsnip are  [here](https://www.tidymodels.org/find/parsnip/){target="_blank"}. We will be using a Classification And Regression Tree (CART), which we discussed previously. This method can be used for either classification or regression (categorical or continuous outcome variables). Thus it is important that we set the mode for classification. We will use the `rpart` package as our engine. To tune using this model we would need to specify it here as well. We will show that in just a bit. 
+Now our next step is to specify our model. Again the modeling options for parsnip are  [here](https://www.tidymodels.org/find/parsnip/). We will be using a Classification And Regression Tree (CART), which we discussed previously. This method can be used for either classification or regression (categorical or continuous outcome variables). Thus it is important that we set the mode for classification. We will use the `rpart` package as our engine. To tune using this model we would need to specify it here as well. We will show that in just a bit. 
 
 ```{r}
 library(rpart)
@@ -1965,7 +1965,7 @@ head(predicted_and_truth)
 
 
 However, to fit the model to our cross validation folds we can use the `fit_resamples()` function of the `tune` package, by specifying our `workflow` object and the cross validation fold object we just created. 
-See [here](https://tidymodels.github.io/tune/reference/fit_resamples.html){target="_blank"} for more information.
+See [here](https://tidymodels.github.io/tune/reference/fit_resamples.html) for more information.
 
 
 ```{r}
@@ -2056,7 +2056,7 @@ There are 3 major categories:
 
 Of these different sizes, fine particulate matter air pollution is the most associated with health risk.
 
-In this case study, we will use fine particulate matter air pollution monitor data from **[gravimetric monitors](https://publiclab.org/wiki/filter-pm){target="_blank"}** ] operated by the US [Enivornmental Protection Agency (EPA)](https://www.epa.gov/){target="_blank"}.
+In this case study, we will use fine particulate matter air pollution monitor data from **[gravimetric monitors](https://publiclab.org/wiki/filter-pm)** ] operated by the US [Enivornmental Protection Agency (EPA)](https://www.epa.gov/).
 
 Roughly 90% of these monitors are located within cities. Hence, there is limited data about air pollution levels of more rural areas. 
 
@@ -2069,68 +2069,11 @@ We will use data like population density, road density, among other features, to
 
 There are 48 predictors with values for 876 monitors (observations). 
 
-The data comes from the US [Environmental Protection Agency (EPA)](https://www.epa.gov/){target="_blank"}, the [National Aeronautics and Space Administration (NASA)](https://www.nasa.gov/){target="_blank"}, the US [Census](https://www.census.gov/about/what/census-at-a-glance.html){target="_blank"}, and the [National Center for Health Statistics (NCHS)](https://www.cdc.gov/nchs/about/index.htm){target="_blank"}.
+The data comes from the US [Environmental Protection Agency (EPA)](https://www.epa.gov/), the [National Aeronautics and Space Administration (NASA)](https://www.nasa.gov/), the US [Census](https://www.census.gov/about/what/census-at-a-glance.html), and the [National Center for Health Statistics (NCHS)](https://www.cdc.gov/nchs/about/index.htm).
 
-<details><summary> Click here to see a table about the set of features </summary>
+See an [online version of the book](https://jhudatascience.org/tidyversecourse/model.html#case-studies-4) to see a table about the set of features.
 
-Variable   | Details                                                                        
----------- |-------------
-**id**  | Monitor number  <br> -- the county number is indicated before the decimal <br> -- the monitor number is indicated after the decimal <br>  **Example**: 1073.0023  is Jefferson county (1073) and .0023 one of 8 monitors 
-**fips** | Federal information processing standard number for the county where the monitor is located <br> -- 5 digit id code for counties (zero is often the first value and sometimes is not shown) <br> -- the first 2 numbers indicate the state <br> -- the last three numbers indicate the county <br>  **Example**: Alabama's state code is 01 because it is first alphabetically <br> (note: Alaska and Hawaii are not included because they are not part of the contiguous US)  
-**Lat** | Latitude of the monitor in degrees  
-**Lon** | Longitude of the monitor in degrees  
-**state** | State where the monitor is located
-**county** | County where the monitor is located
-**city** | City where the monitor is located
-**CMAQ**  | Estimated values of air pollution from a computational model called [**Community Multiscale Air Quality (CMAQ)**](https://www.epa.gov/cmaq){target="_blank"} <br> --  A monitoring system that simulates the physics of the atmosphere using chemistry and weather data to predict the air pollution <br> -- ***Does not use any of the PM~2.5~ gravimetric monitoring data.*** (There is a version that does use the gravimetric monitoring data, but not this one!) <br> -- Data from the EPA
-**zcta** | [Zip Code Tabulation Area](https://www2.census.gov/geo/pdfs/education/brochures/ZCTAs.pdf){target="_blank"} where the monitor is located <br> -- Postal Zip codes are converted into "generalized areal representations" that are non-overlapping  <br> -- Data from the 2010 Census  
-**zcta_area** | Land area of the zip code area in meters squared  <br> -- Data from the 2010 Census  
-**zcta_pop** | Population in the zip code area  <br> -- Data from the 2010 Census  
-**imp_a500** | Impervious surface measure <br> -- Within a circle with a radius of 500 meters around the monitor <br> -- Impervious surface are roads, concrete, parking lots, buildings <br> -- This is a measure of development 
-**imp_a1000** | Impervious surface measure <br> --  Within a circle with a radius of 1000 meters around the monitor
-**imp_a5000** | Impervious surface measure <br> --  Within a circle with a radius of 5000 meters around the monitor  
-**imp_a10000** | Impervious surface measure <br> --  Within a circle with a radius of 10000 meters around the monitor   
-**imp_a15000** | Impervious surface measure <br> --  Within a circle with a radius of 15000 meters around the monitor  
-**county_area** | Land area of the county of the monitor in meters squared  
-**county_pop** | Population of the county of the monitor  
-**Log_dist_to_prisec** | Log (Natural log) distance to a primary or secondary road from the monitor <br> -- Highway or major road  
-**log_pri_length_5000** | Count of primary road length in meters in a circle with a radius of 5000 meters around the monitor (Natural log) <br> -- Highways only  
-**log_pri_length_10000** | Count of primary road length in meters in a circle with a radius of 10000 meters around the monitor (Natural log) <br> -- Highways only  
-**log_pri_length_15000** | Count of primary road length in meters in a circle with a radius of 15000 meters around the monitor (Natural log) <br> -- Highways only  
-**log_pri_length_25000** | Count of primary road length in meters in a circle with a radius of 25000 meters around the monitor (Natural log) <br> -- Highways only  
-**log_prisec_length_500** | Count of primary and secondary road length in meters in a circle with a radius of 500 meters around the monitor (Natural log)  <br> -- Highway and secondary roads  
-**log_prisec_length_1000** | Count of primary and secondary road length in meters in a circle with a radius of 1000 meters around the monitor (Natural log)  <br> -- Highway and secondary roads  
-**log_prisec_length_5000** | Count of primary and secondary road length in meters in a circle with a radius of 5000 meters around the monitor (Natural log)  <br> -- Highway and secondary roads  
-**log_prisec_length_10000** | Count of primary and secondary road length in meters in a circle with a radius of 10000 meters around the monitor (Natural log)  <br> -- Highway and secondary roads  
-**log_prisec_length_15000** | Count of primary and secondary road length in meters in a circle with a radius of 15000 meters around the monitor (Natural log)  <br> -- Highway and secondary roads  
-**log_prisec_length_25000** | Count of primary and secondary road length in meters in a circle with a radius of 25000 meters around the monitor (Natural log)  <br> -- Highway and secondary roads      
-**log_nei_2008_pm25_sum_10000** | Tons of emissions from major sources data base (annual data) sum of all sources within a circle with a radius of 10000 meters of distance around the monitor (Natural log)    
-**log_nei_2008_pm25_sum_15000** | Tons of emissions from major sources data base (annual data) sum of all sources within a circle with a radius of 15000 meters of distance around the monitor (Natural log)     
-**log_nei_2008_pm25_sum_25000** | Tons of emissions from major sources data base (annual data) sum of all sources within a circle with a radius of 25000 meters of distance around the monitor (Natural log)     
-**log_nei_2008_pm10_sum_10000** | Tons of emissions from major sources data base (annual data) sum of all sources within a circle with a radius of 10000 meters of distance around the monitor (Natural log)      
-**log_nei_2008_pm10_sum_15000**| Tons of emissions from major sources data base (annual data) sum of all sources within a circle with a radius of 15000 meters of distance around the monitor (Natural log)      
-**log_nei_2008_pm10_sum_25000** | Tons of emissions from major sources data base (annual data) sum of all sources within a circle with a radius of 25000 meters of distance around the monitor (Natural log)      
-**popdens_county** | Population density (number of people per kilometer squared area of the county)
-**popdens_zcta** | Population density (number of people per kilometer squared area of zcta)
-**nohs** | Percentage of people in zcta area where the monitor is that **do not have a high school degree** <br> -- Data from the Census
-**somehs** | Percentage of people in zcta area where the monitor whose highest formal educational attainment was **some high school education** <br> -- Data from the Census
-**hs** | Percentage of people in zcta area where the monitor whose highest formal educational attainment was completing a **high school degree** <br> -- Data from the Census  
-**somecollege** | Percentage of people in zcta area where the monitor whose highest formal educational attainment was completing **some college education** <br> -- Data from the Census 
-**associate** | Percentage of people in zcta area where the monitor whose highest formal educational attainment was completing an **associate degree** <br> -- Data from the Census 
-**bachelor** | Percentage of people in zcta area where the monitor whose highest formal educational attainment was a **bachelor's degree** <br> -- Data from the Census 
-**grad** | Percentage of people in zcta area where the monitor whose highest formal educational attainment was a **graduate degree** <br> -- Data from the Census 
-**pov** | Percentage of people in zcta area where the monitor is that lived in [**poverty**](https://aspe.hhs.gov/2008-hhs-poverty-guidelines) in 2008  <br> -- Data from the Census  
-**hs_orless** |  Percentage of people in zcta area where the monitor whose highest formal educational attainment was a **high school degree or less** (sum of nohs, somehs, and hs)  
-**urc2013** | [2013 Urban-rural classification](https://www.cdc.gov/nchs/data/series/sr_02/sr02_166.pdf){target="_blank"} of the county where the monitor is located <br> -- 6 category variable - 1 is totally urban 6 is completely rural <br>  -- Data from the [National Center for Health Statistics](https://www.cdc.gov/nchs/index.htm){target="_blank"}     
-**urc2006** | [2006 Urban-rural classification](https://www.cdc.gov/nchs/data/series/sr_02/sr02_154.pdf){target="_blank"} of the county where the monitor is located <br> -- 6 category variable - 1 is totally urban 6 is completely rural <br> -- Data from the [National Center for Health Statistics](https://www.cdc.gov/nchs/index.htm){target="_blank"}     
-**aod** | Aerosol Optical Depth measurement from a NASA satellite <br> -- based on the diffraction of a laser <br> -- used as a proxy of particulate pollution <br> -- unit-less - higher value indicates more pollution <br> -- Data from NASA  
-
-</details>
-
-
-Many of these features have to do with the circular area around the monitor called the "buffer", but you don't need to worry much about this.
-
-
+Many of these features have to do with the circular area around the monitor called the "buffer", but you don't need to worry much about this to understand this as an example. 
 
 #### Data Import
 
@@ -2158,7 +2101,7 @@ We can see that there are 876 monitors (rows) and that we have 50 total variable
 
 Notice that some of the variables that we would think of as factors (or categorical data) are currently of class character as indicated by the `<chr>` just to the right of the column names/variable names in the `glimpse()` output. This means that the variable values are character strings, such as words or phrases. 
 
-The other variables are of class `<dbl>`, which stands for double precision which indicates that they are numeric and that they have decimal values. In contrast, one could have integer values which would not allow for decimal numbers. Here is a [link](https://en.wikipedia.org/wiki/Double-precision_floating-point_format){target="_blank"} for more information on double precision numeric values.
+The other variables are of class `<dbl>`, which stands for double precision which indicates that they are numeric and that they have decimal values. In contrast, one could have integer values which would not allow for decimal numbers. Here is a [link](https://en.wikipedia.org/wiki/Double-precision_floating-point_format) for more information on double precision numeric values.
 
 Another common data class is factor which is abbreviated like this: `<fct>`. A factor is something that has unique levels but there is no appreciable order to the levels. For example we can have a numeric value that is just an id that we want to be interpreted as just a unique level and not as the number that it would typically indicate. This would be useful for several of our variables:
 
@@ -2186,10 +2129,14 @@ Great! Now we can see that these variables are now factors as indicated by `<fct
 The `skim()` function of the `skimr` package is also really helpful for getting a general sense of your data.
 By design, it provides summary statistics about variables in the dataset. 
 
-```{r}
+```{r, eval = FALSE}
 library(skimr)
 skim(pm)
 ```
+
+![skim output](images/book_figures/skim_pm1.png)
+
+![skim output](images/book_figures/skim_pm2.png)
 
 Notice how there is a column called `n_missing` about the number of values that are missing. 
 
@@ -2308,7 +2255,7 @@ simple_rec
 
 
 
-**This [link](https://tidymodels.github.io/recipes/reference/index.html){target="_blank"} and this [link](https://cran.r-project.org/web/packages/recipes/recipes.pdf){target="_blank"} show the many options for recipe step functions.**
+**This [link](https://tidymodels.github.io/recipes/reference/index.html) and this [link](https://cran.r-project.org/web/packages/recipes/recipes.pdf) show the many options for recipe step functions.**
 
 
 All of the step functions look like `step_*()` with the `*` replaced with a name, except for the check functions which look like `check_*()`.
@@ -2442,7 +2389,7 @@ Why might that be?
 
 Ah! Perhaps it is because some of our levels were not previously seen in the training set!
 
-Let's take a look using the [set operations](https://www.probabilitycourse.com/chapter1/1_2_2_set_operations.php){target="_blank"} of the `dplyr` package. 
+Let's take a look using the [set operations](https://www.probabilitycourse.com/chapter1/1_2_2_set_operations.php) of the `dplyr` package. 
 We can take a look at cities that were different between the test and training set.
 
 ```{r}
@@ -2469,7 +2416,7 @@ pm %>%
 ```
 
 
-Alternatively you could create a [custom step function](https://recipes.tidymodels.org/articles/Custom_Steps.html){target="_blank"} to do this and add this to your recipe, but that is beyond the scope of this case study. 
+Alternatively you could create a [custom step function](https://recipes.tidymodels.org/articles/Custom_Steps.html) to do this and add this to your recipe, but that is beyond the scope of this case study. 
 
 We will need to repeat all the steps (splitting the data, preprocessing, etc) as the levels of our variables have now changed. 
 
@@ -2521,7 +2468,7 @@ Great, now we no longer have `NA` values!
 
 The first step is to define what type of model we would like to use. For our case, we are going to start our analysis with a linear regression but we will demonstrate how we can try different models.
 
-See [here](https://www.tidymodels.org/find/parsnip/){target="_blank"} for modeling options in `parsnip`.
+See [here](https://www.tidymodels.org/find/parsnip/) for modeling options in `parsnip`.
 
 
 ```{r}
@@ -2533,7 +2480,7 @@ OK. So far, all we have defined is that we want to use a linear regression...
 Let's tell `parsnip` more about what we want.
 
 We would like to use the [ordinary least squares](https://en.wikipedia.org/wiki/Ordinary_least_squares) method to fit our linear regression. 
-So we will tell `parsnip` that we want to use the `lm` package to implement our linear regression (there are many options actually such as [`rstan`](https://cran.r-project.org/web/packages/rstan/vignettes/rstan.html){target="_blank"}  [`glmnet`](https://cran.r-project.org/web/packages/glmnet/index.html){target="_blank"}, [`keras`](https://keras.rstudio.com/){target="_blank"}, and [`sparklyr`](https://therinspark.com/starting.html#starting-sparklyr-hello-world){target="_blank"}). See [here](https://parsnip.tidymodels.org/reference/linear_reg.html) for a description of the differences and using these different engines with `parsnip`.
+So we will tell `parsnip` that we want to use the `lm` package to implement our linear regression (there are many options actually such as [`rstan`](https://cran.r-project.org/web/packages/rstan/vignettes/rstan.html)  [`glmnet`](https://cran.r-project.org/web/packages/glmnet/index.html), [`keras`](https://keras.rstudio.com/), and [`sparklyr`](https://therinspark.com/starting.html#starting-sparklyr-hello-world)). See [here](https://parsnip.tidymodels.org/reference/linear_reg.html) for a description of the differences and using these different engines with `parsnip`.
 
 We will do so by using the `set_engine()` function of the `parsnip` package.
 
@@ -2691,7 +2638,7 @@ Next, let's use different distance functions {$$}d(\cdot){/$$} to assess how far
 d(Y - \hat{Y})
 {/$$}
 
-There are entire scholarly fields of research dedicated to identifying different distance metrics {$$}d(\cdot){/$$} for machine learning applications. However, we will focus on [root mean squared error](https://en.wikipedia.org/wiki/Root-mean-square_deviation){target="_blank"} (`rmse`)   
+There are entire scholarly fields of research dedicated to identifying different distance metrics {$$}d(\cdot){/$$} for machine learning applications. However, we will focus on [root mean squared error](https://en.wikipedia.org/wiki/Root-mean-square_deviation) (`rmse`)   
 
 {$$}
 RMSE = \sqrt{\frac{\sum_{i=1}^{n}{(\hat{y_t}- y_t)}^2}{n}}
@@ -2713,7 +2660,7 @@ yardstick::rmse(wf_fitted_values,
 
 #### Assessing Model Performance on {$$}v{/$$}-folds Using `tune`
 
-We also intend to perform cross validation, so we will now split the training data further using the [`vfold_cv()`](https://tidymodels.github.io/rsample/reference/vfold_cv.html){target="_blank"} function of the `rsample` package.
+We also intend to perform cross validation, so we will now split the training data further using the [`vfold_cv()`](https://tidymodels.github.io/rsample/reference/vfold_cv.html) function of the `rsample` package.
 
 Again, because these are created at random, we need to use the base `set.seed()` function in order to obtain the same results each time we knit this document.  We will create 10 folds.
 
@@ -2727,7 +2674,7 @@ pull(vfold_pm, splits)
 ```
 
 We can fit the model to our cross validation folds using the `fit_resamples()` function of the `tune` package, by specifying our `workflow` object and the cross validation fold object we just created. 
-See [here](https://tidymodels.github.io/tune/reference/fit_resamples.html){target="_blank"} for more information.
+See [here](https://tidymodels.github.io/tune/reference/fit_resamples.html) for more information.
 
 ```{r}
 set.seed(122)
@@ -2749,7 +2696,7 @@ In the next few section, we will demonstrate another machine learning model.
 
 #### Random Forest
 
-Now, we are going to predict our outcome variable (air pollution) using a decision tree method called [random forest](https://en.wikipedia.org/wiki/Random_forest){target="_blank"}.
+Now, we are going to predict our outcome variable (air pollution) using a decision tree method called [random forest](https://en.wikipedia.org/wiki/Random_forest).
 
 In the case of random forest, multiple decision trees are created - hence the name forest, and each tree is built using a random subset of the training data (with replacement) - hence the full name random forest. This random aspect helps to keep the algorithm from overfitting the data.
 
@@ -2939,7 +2886,7 @@ tune_RF_results <- tune_grid(object = RF_tune_wflow, resamples = vfold_pm, grid 
 tune_RF_results
 ```
 
-See [the tune getting started guide ](https://tidymodels.github.io/tune/articles/getting_started.html){target="_blank"} for more information about implementing this in `tidymodels`.
+See [the tune getting started guide ](https://tidymodels.github.io/tune/articles/getting_started.html) for more information about implementing this in `tidymodels`.
 
 If you wanted more control over this process you could specify the different possible options for `mtry` and `min_n` in the `tune_grid()` function using the `grid_*()` functions of the `dials` package to create a more specific grid.
 
@@ -3041,7 +2988,7 @@ In summary, these are the minimal steps to perform a prediction analysis using `
 
 If you wish to perform preprocessing, cross validation, or tuning, these are the steps required:
 
-![](images/book_figures/full_tidymodels_overview.png)
+![](images/book_figures/smaller_full_tidymodels_summary.png)
 
 
 

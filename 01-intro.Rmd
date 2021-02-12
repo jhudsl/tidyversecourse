@@ -65,19 +65,15 @@ In Hadley Wickham's 2014 paper titled ["Tidy Data"](https://www.jstatsoft.org/ar
 
 These points are known as the tidy data principles. Here, we'll break down each one to ensure that we are all on the same page going forward.
 
-1. Each variable you measure should be in one column.  
 
 ![Principle #1 of Tidy Data](images/gslides/004.png)
 
-2. Each different observation of that variable should be in a different row.  
 
 ![Principle #2 of Tidy Data](images/gslides/005.png)
 
-3. There should be one table for each "type" of data.  
 
 ![Principle #3 of Tidy Data](images/gslides/006.png)
 
-4. If you have multiple tables, they should include a column in each spreadsheet (with the same column label!) that allows them to be joined or merged.  
 
 ![Principle #4 of Tidy Data](images/gslides/007.png)
 

@@ -283,7 +283,7 @@ For the examples below, we'll be using a dataset from the `ggplot2` package call
 
 To get an idea of what variables are included in this data frame, you can use `glimpse()`. This function summarizes how many rows there are (`Observations`) and how many columns there are (`Variables`). Additionally, it gives you a glimpse into the type of data contained in each column. Specifically, in this dataset, we know that the first column is `name` and that it contains a character vector (`chr`) and that the first three entries are "Cheetah", "Owl monkey", and "Mountain beaver." It works similarly to the base R `summary()` function.
 
-```{r eval = FALSE}
+```{r, eval = FALSE}
 ## take a look at the data
 library(ggplot2)
 glimpse(msleep)
@@ -354,7 +354,7 @@ msleep %>%
 
 Now, using `select()` we see that we still have the five rows we filtered to before, but we only have the four columns specified using `select()`. Here you can hopefully see the power of the pipe operator to chain together several commands in a row. Without the pipe operator, the full command would look like this:
 
-```{r eval = FALSE}
+```{r, eval = FALSE}
 select(filter(msleep, order == "Primates", sleep_total > 10), name, sleep_total, sleep_rem, sleep_cycle)
 ```
 
@@ -532,7 +532,7 @@ To handle the fact that in one dataset the abbreviations are lowercase and the o
  
 We'll then use `left_join()` which takes all of the rows in the first dataset mentioned (`msleep`, below) and incorporates information from the second dataset mentioned (`conserve`, below), when information in the second dataset is available. The `by = ` argument states what columns to join by in the first ("conservation") and second ("abbreviation") datasets. This join adds the `description` column from the `conserve` dataset onto the original dataset (`msleep`). Note that if there is no information in the second dataset that matches with the information in the first dataset, `left_join()` will add NA. Specifically, for rows where conservation is "DOMESTICATED" below, the `description` column will have NA because "DOMESTICATED"" is not an abbreviation in the `conserve` dataset.
 
-```{r eval = FALSE}
+```{r, eval = FALSE}
 ## take conservation dataset and separate information
 ## into two columns
 ## call that new object `conserve`
@@ -560,7 +560,7 @@ Often, data scientists will want to summarize information in their dataset. You 
 
 There is an incredibly helpful function within `dplyr` called `group_by()`. The `group_by()` function groups a dataset by one or more variables. On its own, it does not appear to change the dataset very much. The difference between the two outputs below is subtle:
 
-```{r eval = FALSE}
+```{r, eval = FALSE}
 msleep
 
 msleep %>%
@@ -764,7 +764,7 @@ The output demonstrates there are 10 mammals that overlap in their genus and vor
 
 When you would rather get a snapshot of the entire dataset, rather than just one variable, the `skim()` function from the `skimr` package can be very helpful. The output from `skim()` breaks the data up by variable type. For example, the `msleep` dataset is broken up into `character` and `numeric` variable types. The data are then summarized in a meaningful way for each. This function provides a lot of information about the entire dataset. So, when you want a summarize a dataset and quickly get a sense of your data, `skim()` is a great option!
 
-```{r}
+```{r, eval = FALSE}
 # summarize dataset
 skim(msleep)
 ```
@@ -773,29 +773,34 @@ skim(msleep)
 
 Note that this function allows for you to specify which columns you'd like to summarize, if you're not interested in seeing a summary of the entire dataset:
 
-```{r}
+```{r, eval = FALSE}
 # see summary for specified columns
 skim(msleep, genus, vore, sleep_total)
 ```
 
+![summarize more specifically with skim() from skimr](images/book_figures/skim_specific.png)
+
 It is also possible to group data (using `dplyr`'s `group_by()`) before summarizing. Notice in the summary output that each variable specified (`genus` and `sleep_total`) are now broken down within each of the `vore` categories.
 
-```{r}
+```{r, eval = FALSE}
 msleep %>% 
   group_by(vore) %>% 
   skim(genus, sleep_total)
 ```
+
+![summarize groups with skim](images/book_figures/skim_group.png)
 
 
 #### `summary()`
 
 While base R has a `summary()` function, this can be combined with the `skimr` package to provide you with a quick summary of the dataset at large.
 
-```{r}
+```{r, eval = FALSE}
 skim(msleep) %>% 
   summary()
 ```
 
+![summarize entire dataset using skim() from skimr](images/book_figures/skim_summary.png)
 
 
 ### Operations Across Columns
@@ -1105,7 +1110,7 @@ The reason we've dedicated an entire lesson to working with dates and have shown
 
 Often you're most interested in grouping your data by year, or just looking at monthly or weekly trends. To accomplish this, you have to be able to extract just a component of your date object. You can do this with the functions: `year()`, `month()`, `mday()`,`wday()`, `hour()`, `minute()` and `second()`. Each will extract the specified piece of information from the date or date-time object. 
 
-```{r eval = FALSE}
+```{r, eval = FALSE}
 mydate <- ymd("1988-09-29")
 
 ## extract year information
@@ -1153,13 +1158,13 @@ You're likely familiar with strings generally; however, to review briefly here:
 
 So within R, you could create a string using this syntax. Note that the string begins and ends with quotation marks:
 
-```{r eval = FALSE}
+```{r, eval = FALSE}
 stringA <- "This sentence is a string."
 ```
 
 Multiple strings can be stored within vectors. So, if you have multiple vectors that you want to store in a single object, you could do so by using c() around the strings you want to store and commas to separate each individual string:
 
-```{r eval = FALSE}
+```{r, eval = FALSE}
 objectA <- c( "This sentence is a string.", "Short String", "Third string" )
 ```
 
@@ -1276,7 +1281,7 @@ If interested in finding a pattern at the beginning (`^`) or end (`$`) of a stri
 
 To get comfortable with using regexps with strings, `str_view()` can be very helpful. The output from `str_view()` highlights what portion of your string match the pattern specified in your regexp with a gray box. For example, to we'll start using anchors and `str_view()` below:
 
-```{r}
+```{r, eval = FALSE}
 names <- c("Keisha", "Mohammed", "Jane", "Mathieu")
 
 ## identify strings that start with "M"
@@ -1290,7 +1295,7 @@ In this first example we see in the Viewer Panel that `str_view()` has identifie
 
 However, if you try to match strings that end with the letter "M", no match is found.
 
-```{r}
+```{r, eval = FALSE}
 ## identify strings that end with "M"
 str_view(names, "M$")
 ```
@@ -1300,7 +1305,7 @@ str_view(names, "M$")
 
 To identify names by that end with the letter "a", you would use the following.
 
-```{r}
+```{r, eval = FALSE}
 ## identify strings that end with "a"
 str_view(names, "a$")
 ```
@@ -1309,7 +1314,7 @@ str_view(names, "a$")
 
 Note, however, that regexps are case sensitive. To match patterns, you have to consider that "A" and "a" are different characters.  
 
-```{r eval = FALSE}
+```{r, eval = FALSE}
 ## identify strings that end with "A"
 str_view(names, "A$")
 ```
@@ -1320,7 +1325,7 @@ str_view(names, "A$")
 
 To count the number of matches within your strings, you would use `str_count()`. Below, using the names vector we've been using, we see that `str_count()` produces a 1 for those names that start with "M" and a 0 otherwise.
 
-```{r eval = FALSE}
+```{r, eval = FALSE}
 ## identify strings that start with "M"
 ## return count of the number of times string matches pattern
 str_count(names, "^M")
@@ -1394,7 +1399,7 @@ Above we discuss two common patterns searched for using regular expressions: sta
 
 To search for a set of characters, you place these characters within brackets. Below, this will identify anywhere in the strings where you have a lowercase vowel. Note, that we're now using `str_view_all()` to identify all occurrences of these characters, rather than `str_view()`, which only identifies the first occurrence in each string.
 
-```{r}
+```{r, eval = FALSE}
 ## identify all lowercase vowels
 str_view_all(names, "[aeiou]")
 ```
@@ -1406,7 +1411,7 @@ str_view_all(names, "[aeiou]")
 
 By adding a caret (`^`) before the vowels within the brackets, this regular expressions specifies that you are searching for any character that is not a lowercase vowel within your strings.
 
-```{r}
+```{r, eval = FALSE}
 ## identify anything that's NOT a lowercase vowel
 str_view_all(names, "[^aeiou]")
 ```
@@ -1417,7 +1422,7 @@ str_view_all(names, "[^aeiou]")
 
 To search for digits (numeric variable between 0 and 9) in a string you use "\d"; however, backslashes are protected characters in R. This means that you have to escape this character first with an additional backslash (`\`), to let R know that you want to search for the regular expression "\d".
 
-```{r}
+```{r, eval = FALSE}
 addresses <- c("1234 Main Street", "1600 Pennsylvania Ave", "Brick Building")
 
 ## identify anything that's a digit
@@ -1430,7 +1435,7 @@ str_view_all(addresses, "\\d")
 
 Identifying whitespace in R identifies any spaces, tabs or newlines. Note that again we have to escape the "\s" with a backslash for R to recognize the regular expression.
 
-```{r}
+```{r, eval = FALSE}
 ## identify any whitespace
 str_view_all(addresses, "\\s")
 ```
@@ -1441,7 +1446,7 @@ str_view_all(addresses, "\\s")
 
 To identify any character except for a newline you'll use `"."`. Notice in our addresses example that there are no newlines, so this pattern will match with the entire string. 
 
-```{r}
+```{r, eval = FALSE}
 ## identify any character
 str_view_all(addresses, ".")
 ```
@@ -1464,7 +1469,7 @@ Searches for regular expressions allow you to specify how many times a pattern s
 
 Using the definitions above, we can see that the following code will identify patterns within the addresses vector where n shows up one more more times in a string. 
 
-```{r}
+```{r, eval = FALSE}
 ## identify any time n shows up one or more times
 str_view_all(addresses, "n+")
 ```
@@ -1473,7 +1478,7 @@ str_view_all(addresses, "n+")
 
 While the difference is slight in the output here, we're identifying portions of the string where n shows up exactly once. So, instead of the 'nn' in Pennsylvania matching together, the code here splits these up, due to the fact that we're specifying the pattern match 'n' exactly one time:
 
-```{r}
+```{r, eval = FALSE}
 ## identify any time n shows up
 str_view_all(addresses, "n{1}")
 ```
@@ -1482,7 +1487,7 @@ str_view_all(addresses, "n{1}")
 
 If you only wanted to match strings where n showed up twice in a row, you could specify that in this way:
 
-```{r}
+```{r, eval = FALSE}
 ## identify any time n shows up exactly two times in a row
 str_view_all(addresses, "n{2}")
 ```
@@ -1491,7 +1496,7 @@ str_view_all(addresses, "n{2}")
 
 This could similarly be achieved by specifying to search for the pattern 'nn' one or more times (`+`):
 
-```{r}
+```{r, eval = FALSE}
 ## identify any time 'nn' shows up one or more times 
 str_view_all(addresses, "nn+")
 ```
@@ -1500,7 +1505,7 @@ str_view_all(addresses, "nn+")
 
 You can also specify a range of the number of times to search for a pattern within your string. Below, we see that if we specify n be searched for at least two and at most 3 times, the pattern matches within our string. However, if we increase that to between three and four times, no pattern matching occurs, as there are never three or four n's in a row in our strings.
 
-```{r}
+```{r, eval = FALSE}
 ## identify any time n shows up two or three times 
 str_view_all(addresses, "n{2,3}")
 

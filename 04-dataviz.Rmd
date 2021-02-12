@@ -45,7 +45,6 @@ Below we have a graph where the axes are labeled and general pattern can be dete
 As you're trying to understand the data you have on hand, you'll likely make a lot of plots and tables just to figure out to explore and understand the data. Because there are a lot of them and they're for your use (rather than for communicating with others), you don't have to spend all your time making them perfect. But, you do have to spend enough time to make sure that you're drawing the right conclusions from this. Thus, you don't have to spend a long time considering what colors are perfect on these, but you do want to make sure your axes are not cut off.  
 
 Other Exploratory Plotting Examples:
-[Map of Reddit](http://opensource.datacratic.com/mtlpy50/)
 [Air Quality Data](https://blog.datazar.com/exploratory-data-analysis-using-r-part-i-17e4e8e03961)
 
 #### Explanatory Plots 
@@ -1876,12 +1875,14 @@ Ah, so we see that the "Other" type of coverage is missing in both 2013 and 2014
 
 Taking this one step further, let's skim the entire dataset to get a sense of the information stored in each variable:
 
-```{r}
+```{r, eval = FALSE}
 library(skimr)
 
 # get summary of the data
 skim(hc)
 ```
+
+![skim output](images/book_figures/skim_hc.png)
 
 At a glance, by looking at the `hist` column of the output for our numeric/integer variables, we see that there is a long right tail in `tot_coverage` and `tot_pop`. 
 
@@ -1891,12 +1892,14 @@ We also see that for `tot_spending`, the `mean` is 49004 and the median (`p50`) 
 
 We also know that these data come from two different years, so we can group by `year` and again summarize the data: 
 
-```{r}
+```{r, eval = FALSE}
 # group by year
 hc %>% 
   group_by(year) %>%
   skim()
 ```
+
+![skim output](images/book_figures/skim_hc_year.png)
 
 At a glance, there doesn't appear to be a huge difference in the variables from one year to the next, but we'll explore this again in a bit.
 
@@ -2199,10 +2202,12 @@ Additionally, we see that most of our variables are numeric (either integers or 
 
 We will also again use `skim()` to get a better sense of the values in our dataset:
 
-```{r}
+```{r, eval = FALSE}
 # summarize data
 skim(firearms)
 ```
+
+![skim output](images/book_figures/skim_firearms.png)
 
 Ultimately, we're interested in firearm legislation and fatal police shootings, which we'll get to,  but let's explore the relationship between other variables in our dataset first to gain a more complete understanding.
 
