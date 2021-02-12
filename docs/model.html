@@ -1604,7 +1604,7 @@ We again expected that it did. Thus we had a statement that " car mileage can be
 <li><a href="https://en.wikipedia.org/wiki/Data_transformation_(statistics)" target="_blank"><strong>Transformation</strong></a> – changing all values of a variable in the same way, typically to make it more normal or easier to interpret</li>
 <li><a href="https://en.wikipedia.org/wiki/Discretization_of_continuous_features" target="_blank"><strong>Discretization</strong></a> – converting continuous values into discrete or nominal values - binning for example to reduce the number of possible levels (However this is generally not advisable!)</li>
 <li><a href="https://en.wikipedia.org/wiki/Dummy_variable_(statistics)" target="_blank"><strong>Encoding / Creating Dummy Variables</strong></a> – creating a numeric code for categorical variables
-(<a href="https://medium.com/p/b5840be3c41a/responses/show" target="_blank"><strong>More on Dummy Variables and one hot encoding</strong></a>)</li>
+(<a href="https://medium.com/p/b5840be3c41a/responses/show" target="_blank"><strong>More on Dummy Variables and one-hot encoding</strong></a>)</li>
 <li><a href="https://cran.r-project.org/web/packages/hablar/vignettes/convert.html" target="_blank"><strong>Data type conversions</strong></a> – which means changing from integer to factor or numeric to date etc.</li>
 <li><a href="https://statisticsbyjim.com/regression/interaction-effects/" target="_blank"><strong>Interaction</strong></a> term addition to the model – which means that we would be modeling for predictors that would influence the capacity of each other to predict the outcome</li>
 <li><a href="https://en.wikipedia.org/wiki/Normalization_(statistics)" target="_blank"><strong>Normalization</strong></a> – centering and scaling the data to a similar range of values</li>
@@ -1623,9 +1623,9 @@ We again expected that it did. Thus we had a statement that " car mileage can be
 <li>Using the name - use the actual name of the variable/variables of interest</li>
 </ol>
 <p>Let’s try adding a preprocessing step to our recipe.</p>
-<p>We might want to potentially one hot encode some of our categorical variables so that they can be used with certain algorithms like a linear regression require numeric predictors.</p>
+<p>We might want to potentially one-hot encode some of our categorical variables so that they can be used with certain algorithms like a linear regression require numeric predictors.</p>
 <p>We can do this with the <code>step_dummy()</code> function and the <code>one_hot = TRUE</code> argument.
-One hot encoding means that we do not simply encode our categorical variables numerically, as our numeric assignments can be interpreted by algorithms as having a particular rank or order.
+One-hot encoding means that we do not simply encode our categorical variables numerically, as our numeric assignments can be interpreted by algorithms as having a particular rank or order.
 Instead, binary variables made of 1s and 0s are used to arbitrarily assign a numeric value that has no apparent order.</p>
 <div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb783-1"><a href="model.html#cb783-1"></a>first_recipe &lt;-<span class="st"> </span>first_recipe <span class="op">%&gt;%</span></span>
 <span id="cb783-2"><a href="model.html#cb783-2"></a><span class="st">  </span><span class="kw">step_dummy</span>(Species, <span class="dt">one_hot =</span> <span class="ot">TRUE</span>)</span>
@@ -2566,7 +2566,7 @@ We import the data using the <code>read_csv()</code> function from the <code>rea
 ## $ aod                         &lt;dbl&gt; 37.36364, 34.81818, 36.00000, 33.08333, 4…</code></pre>
 <p>We can see that there are 876 monitors (rows) and that we have 50 total variables (columns) - one of which is the outcome variable. In this case, the outcome variable is called <code>value</code>.</p>
 <p>Notice that some of the variables that we would think of as factors (or categorical data) are currently of class character as indicated by the <code>&lt;chr&gt;</code> just to the right of the column names/variable names in the <code>glimpse()</code> output. This means that the variable values are character strings, such as words or phrases.</p>
-<p>The other variables are of class <code>&lt;dbl&gt;</code>, which stands for double precision which indicates that the are numeric and that they have decimal values. In contrast, one could have integer values which would not allow for decimal numbers. Here is a <a href="https://en.wikipedia.org/wiki/Double-precision_floating-point_format" target="_blank">link</a> for more information on double precision numeric values.</p>
+<p>The other variables are of class <code>&lt;dbl&gt;</code>, which stands for double precision which indicates that they are numeric and that they have decimal values. In contrast, one could have integer values which would not allow for decimal numbers. Here is a <a href="https://en.wikipedia.org/wiki/Double-precision_floating-point_format" target="_blank">link</a> for more information on double precision numeric values.</p>
 <p>Another common data class is factor which is abbreviated like this: <code>&lt;fct&gt;</code>. A factor is something that has unique levels but there is no appreciable order to the levels. For example we can have a numeric value that is just an id that we want to be interpreted as just a unique level and not as the number that it would typically indicate. This would be useful for several of our variables:</p>
 <ol style="list-style-type: decimal">
 <li>the monitor ID (<code>id</code>)</li>
@@ -3390,7 +3390,7 @@ By design, it provides summary statistics about variables in the dataset.</p>
 <p>This is also indicated by the <code>complete_rate</code> variable (or missing/number of observations).</p>
 <p>In our dataset, it looks like our data do not contain any missing data.</p>
 <p>Also notice how the function provides separate tables of summary statistics for each data type: character, factor and numeric.</p>
-<p>Next, the <code>n_unqiue</code> column shows us the number of unique values for each of our columns.
+<p>Next, the <code>n_unique</code> column shows us the number of unique values for each of our columns.
 We can see that there are 49 states represented in the data.</p>
 <p>We can see that for many variables there are many low values as the distribution shows two peaks, one near zero and another with a higher value.</p>
 <p>This is true for the <code>imp</code> variables (measures of development), the <code>nei</code> variables (measures of emission sources) and the road density variables.</p>
@@ -3527,7 +3527,7 @@ Instead of including it as a predictor variable, we could also use the <code>upd
 </ol>
 <p>Let’s try adding some steps to our recipe.</p>
 <p>We want to dummy encode our categorical variables so that they are numeric as we plan to use a linear regression for our model.</p>
-<p>We will use the one hot encoding means that we do not simply encode our categorical variables numerically, as our numeric assignments can be interpreted by algorithms as having a particular rank or order.
+<p>We will use the one-hot encoding means that we do not simply encode our categorical variables numerically, as our numeric assignments can be interpreted by algorithms as having a particular rank or order.
 Instead, binary variables made of 1s and 0s are used to arbitrarily assign a numeric value that has no apparent order.</p>
 <div class="sourceCode" id="cb920"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb920-1"><a href="model.html#cb920-1"></a>simple_rec <span class="op">%&gt;%</span></span>
 <span id="cb920-2"><a href="model.html#cb920-2"></a><span class="st">  </span><span class="kw">step_dummy</span>(state, county, city, zcta, <span class="dt">one_hot =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
@@ -3637,7 +3637,7 @@ If we specifically wanted to remove a predictor we could use <code>step_rm()</co
 <pre><code>## [1] &quot;var_info&quot;       &quot;term_info&quot;      &quot;steps&quot;          &quot;template&quot;      
 ## [5] &quot;levels&quot;         &quot;retained&quot;       &quot;tr_info&quot;        &quot;orig_lvls&quot;     
 ## [9] &quot;last_term_info&quot;</code></pre>
-<p>Since we retained our preprocessed training data (i.e. <code>prep(retain=TRUE)</code>), we can take a look at it like by using the <code>bake()</code> function of the <code>recipes</code> package like this (this previously used the <code>juice()</code> function):</p>
+<p>Since we retained our preprocessed training data (i.e. <code>prep(retain=TRUE)</code>), we can take a look at it by using the <code>bake()</code> function of the <code>recipes</code> package like this (this previously used the <code>juice()</code> function):</p>
 <div class="sourceCode" id="cb937"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb937-1"><a href="model.html#cb937-1"></a>preproc_train &lt;-<span class="st"> </span><span class="kw">bake</span>(prepped_rec, <span class="dt">new_data =</span> <span class="ot">NULL</span>)</span>
 <span id="cb937-2"><a href="model.html#cb937-2"></a><span class="kw">glimpse</span>(preproc_train)</span></code></pre></div>
 <pre><code>## Rows: 584
@@ -3846,7 +3846,7 @@ We can take a look at cities that were different between the test and training s
 <span id="cb949-2"><a href="model.html#cb949-2"></a><span class="kw">dim</span>(dplyr<span class="op">::</span><span class="kw">intersect</span>(traincities, testcities))</span></code></pre></div>
 <pre><code>## [1] 51  1</code></pre>
 <p>Indeed, there are lots of different cities in our test data that are not in our training data!</p>
-<p>So, let go back to our <code>pm</code> dataset and modify the <code>city</code> variable to just be values of <code>in a city</code> or <code>not in a city</code> using the <code>case_when()</code> function of <code>dplyr</code>.
+<p>So, let’s go back to our <code>pm</code> dataset and modify the <code>city</code> variable to just be values of <code>in a city</code> or <code>not in a city</code> using the <code>case_when()</code> function of <code>dplyr</code>.
 This function allows you to vectorize multiple <code>if_else()</code> statements.</p>
 <div class="sourceCode" id="cb951"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb951-1"><a href="model.html#cb951-1"></a>pm <span class="op">%&gt;%</span></span>
 <span id="cb951-2"><a href="model.html#cb951-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">city =</span> <span class="kw">case_when</span>(city <span class="op">==</span><span class="st"> &quot;Not in a city&quot;</span> <span class="op">~</span><span class="st"> &quot;Not in a city&quot;</span>,</span>
@@ -4417,7 +4417,7 @@ See <a href="https://tidymodels.github.io/tune/reference/fit_resamples.html" tar
 <p>Next, we set the engine and mode:</p>
 <p>Note that you could also use the <code>ranger</code> or <code>spark</code> packages instead of <code>randomForest</code>.
 If you were to use the <code>ranger</code> package to implement the random forest analysis you would need to specify an <code>importance</code> argument to be able to evaluate predictor importance. The options are <code>impurity</code> or <code>permutation</code>.</p>
-<p>These other packages have different advantages and disadvantages- for example <code>ranger</code> and <code>spark</code> are not as limiting for the number of categories for categorical variables. For more information see their documentation: <a href="https://cran.r-project.org/web/packages/ranger/ranger.pdf">here</a> for ranger, <a href="http://spark.apache.org/docs/latest/mllib-ensembles.html#random-forests">here</a> for <code>spark</code>, and <a href="https://cran.r-project.org/web/packages/randomForest/randomForest.pdf">here</a> for <code>randomForest</code>.</p>
+<p>These other packages have different advantages and disadvantages- for example <code>ranger</code> and <code>spark</code> are not as limiting for the number of categories for categorical variables. For more information see their documentation: <a href="https://cran.r-project.org/web/packages/ranger/ranger.pdf">here</a> for <code>ranger</code>, <a href="http://spark.apache.org/docs/latest/mllib-ensembles.html#random-forests">here</a> for <code>spark</code>, and <a href="https://cran.r-project.org/web/packages/randomForest/randomForest.pdf">here</a> for <code>randomForest</code>.</p>
 <p>See <a href="https://parsnip.tidymodels.org/reference/rand_forest.html">here</a> for more documentation about implementing these engine options with tidymodels. Note that there are also <a href="https://www.linkedin.com/pulse/different-random-forest-packages-r-madhur-modi/">other</a> R packages for implementing random forest algorithms, but these three packages (<code>ranger</code>, <code>spark</code>, and <code>randomForest</code>) are currently compatible with <code>tidymodels</code>.</p>
 <div class="sourceCode" id="cb1034"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1034-1"><a href="model.html#cb1034-1"></a><span class="kw">library</span>(randomForest)</span></code></pre></div>
 <pre><code>## randomForest 4.6-14</code></pre>
@@ -4609,7 +4609,7 @@ It looks like the random forest model had a much lower <code>rmse</code> value o
 ## 10 &lt;split [526/58]&gt; Fold10 &lt;tibble [40 × 6]&gt; &lt;tibble [0 × 1]&gt;</code></pre>
 <p>See <a href="https://tidymodels.github.io/tune/articles/getting_started.html" target="_blank">the tune getting started guide</a> for more information about implementing this in <code>tidymodels</code>.</p>
 <p>If you wanted more control over this process you could specify the different possible options for <code>mtry</code> and <code>min_n</code> in the <code>tune_grid()</code> function using the <code>grid_*()</code> functions of the <code>dials</code> package to create a more specific grid.</p>
-<p>Be default the values for the hyperparameters being tuned are chosen semi-randomly (meaning that they are within a range of reasonable values but still random).</p>
+<p>By default the values for the hyperparameters being tuned are chosen semi-randomly (meaning that they are within a range of reasonable values but still random).</p>
 <p>Now we can use the <code>collect_metrics()</code> function again to take a look at what happened with our cross validation tests. We can see the different values chosen for <code>mtry</code> and <code>min_n</code> and the mean <code>rmse</code> and <code>rsq</code> values across the cross validation samples.</p>
 <div class="sourceCode" id="cb1062"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1062-1"><a href="model.html#cb1062-1"></a>tune_RF_results<span class="op">%&gt;%</span></span>
 <span id="cb1062-2"><a href="model.html#cb1062-2"></a><span class="st">  </span><span class="kw">collect_metrics</span>() <span class="op">%&gt;%</span></span>
@@ -4660,7 +4660,7 @@ It looks like the random forest model had a much lower <code>rmse</code> value o
 ## 1 rmse    standard       1.43  Preprocessor1_Model1
 ## 2 rsq     standard       0.644 Preprocessor1_Model1</code></pre>
 <p>Awesome! We can see that our <code>rmse</code> of 1.43 is quite similar with our testing data cross validation sets. We achieved quite good performance, which suggests that we would could predict other locations with more sparse monitoring based on our predictors with reasonable accuracy.</p>
-<p>Now if you wanted to take a look at the predicted values for the test set (the 292 rows with predictions out of the 876 original monitor values) you can use the <code>collect_predictions()</code> function of the <code>tune()</code> package:</p>
+<p>Now if you wanted to take a look at the predicted values for the test set (the 292 rows with predictions out of the 876 original monitor values) you can use the <code>collect_predictions()</code> function of the <code>tune</code> package:</p>
 <div class="sourceCode" id="cb1072"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1072-1"><a href="model.html#cb1072-1"></a>test_predictions &lt;-<span class="kw">collect_predictions</span>(overallfit)</span></code></pre></div>
 <div class="sourceCode" id="cb1073"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1073-1"><a href="model.html#cb1073-1"></a><span class="kw">head</span>(test_predictions)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 5
