@@ -24,7 +24,7 @@
 <meta name="author" content="Carrie Wright, Shannon E. Ellis, Stephanie C. Hicks and Roger D. Peng" />
 
 
-<meta name="date" content="2021-02-02" />
+<meta name="date" content="2021-02-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -759,7 +759,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">3.4.3</span> Filtering Data</h3>
 <p>When working with a large dataset, you’re often interested in only working with a portion of the data at any one time. For example, if you had data on people from ages 0 to 100 years old, but you wanted to ask a question that only pertained to children, you would likely want to only work with data from those individuals who were less than 18 years old. To do this, you would want to <strong>filter</strong> your dataset to only include data from these select individuals. Filtering can be done by row or by column. We’ll discuss the syntax in R for doing both. Please note that the examples in this lesson and the organization for this lesson were adapted from <a href="https://suzan.rbind.io/">Suzan Baert’s</a> wonderful <code>dplyr</code> tutorials. Links to the all four tutorials can be found in the “Additional Resources” section at the bottom of this lesson.</p>
 <p>For the examples below, we’ll be using a dataset from the <code>ggplot2</code> package called <code>msleep</code>. (You’ll learn more about this package in a later course on data visualization. For now, it’s a core tidyverse package so it’s loaded in along with the other tidyverse packages using <code>library(tidyverse)</code>.) This dataset includes sleep times and weights from a number of different mammals. It has 83 rows, with each row including information about a different type of animal, and 11 variables. As each row is a different animal and each column includes information about that animal, this is a <strong>wide</strong> dataset.</p>
-<p>To get an idea of what variables are included in this data frame, you can use <code>glimpse()</code>. This function summarizes how many rows there are (<code>Observations</code>) and how many columns there are (<code>Variables</code>). Additionally, it gives you a glimpse into the type of data contained in each column. Specifically, in this dataset, we know that the first column is <code>name</code> and that it contains a character vector (<code>chr</code>) and that the first three entries are “Cheetah”, “Owl monkey”, and “Mountain beaver.” It works similarly to the <code>summary()</code> function covered in an earlier course.</p>
+<p>To get an idea of what variables are included in this data frame, you can use <code>glimpse()</code>. This function summarizes how many rows there are (<code>Observations</code>) and how many columns there are (<code>Variables</code>). Additionally, it gives you a glimpse into the type of data contained in each column. Specifically, in this dataset, we know that the first column is <code>name</code> and that it contains a character vector (<code>chr</code>) and that the first three entries are “Cheetah”, “Owl monkey”, and “Mountain beaver.” It works similarly to the base R <code>summary()</code> function.</p>
 <div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="wrangle-data.html#cb173-1"></a><span class="co">## take a look at the data</span></span>
 <span id="cb173-2"><a href="wrangle-data.html#cb173-2"></a><span class="kw">library</span>(ggplot2)</span>
 <span id="cb173-3"><a href="wrangle-data.html#cb173-3"></a><span class="kw">glimpse</span>(msleep)</span></code></pre></div>
@@ -1149,7 +1149,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="images/gslides/109.png" alt="" />
 <p class="caption">Data resulting from left_join</p>
 </div>
-<p>It’s important to note that there are many other ways to join data, which are covered in more detail on this <a href="http://stat545.com/bit001_dplyr-cheatsheet.html">dplyr join cheatsheet</a> from Jenny Bryan. For now, it’s important to know that joining datasets is done easily in R using tools in <code>dplyr</code>. As you join data frames in your own work, it’s a good idea to refer back to this cheatsheet for assistance.</p>
+<p>It’s important to note that there are many other ways to join data, which we covered earlier in a previous course and are covered in more detail on this <a href="http://stat545.com/bit001_dplyr-cheatsheet.html">dplyr join cheatsheet</a> from Jenny Bryan. For now, it’s important to know that joining datasets is done easily in R using tools in <code>dplyr</code>. As you join data frames in your own work, it’s a good idea to refer back to this cheatsheet for assistance.</p>
 </div>
 <div id="grouping-data" class="section level3">
 <h3><span class="header-section-number">3.4.10</span> Grouping Data</h3>
@@ -1325,13 +1325,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   &lt;dbl&gt;
 ## 1   866</code></pre>
 <p>Thus overall, all the animals in the dataset sleep 866 hours in total.</p>
-<p>This is the equivalent to using the sum <code>function()</code> with the <code>summarize()</code> function or the <code>pull</code> function.</p>
+<p>This is the equivalent to using the <code>sum()</code> function with the <code>summarize()</code> function.</p>
 <div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="wrangle-data.html#cb229-1"></a>msleep <span class="op">%&gt;%</span></span>
 <span id="cb229-2"><a href="wrangle-data.html#cb229-2"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">sum_sleep_total =</span> <span class="kw">sum</span>(sleep_total))</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 1
 ##   sum_sleep_total
 ##             &lt;dbl&gt;
 ## 1             866</code></pre>
+<p>We could also use the <code>pull()</code> function of the <code>dplyr</code> package, to get the sum of just the <code>sleep_total</code> column, as the <code>pull()</code> function extracts or “pulls” the values of a column.</p>
 <div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="wrangle-data.html#cb231-1"></a>msleep <span class="op">%&gt;%</span></span>
 <span id="cb231-2"><a href="wrangle-data.html#cb231-2"></a><span class="kw">pull</span>(sleep_total)<span class="op">%&gt;%</span></span>
 <span id="cb231-3"><a href="wrangle-data.html#cb231-3"></a><span class="st">  </span><span class="kw">sum</span>()</span></code></pre></div>
@@ -1423,7 +1424,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="add_count" class="section level4">
 <h4><span class="header-section-number">3.4.11.6</span> <code>add_count()</code></h4>
-<p>the <code>add_count()</code> function is similar to the <code>add_tally()</code> function</p>
+<p>The <code>add_count()</code> function is similar to the <code>add_tally()</code> function:</p>
 <div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="wrangle-data.html#cb243-1"></a>msleep <span class="op">%&gt;%</span></span>
 <span id="cb243-2"><a href="wrangle-data.html#cb243-2"></a><span class="st">  </span><span class="kw">add_count</span>(vore, order) <span class="op">%&gt;%</span></span>
 <span id="cb243-3"><a href="wrangle-data.html#cb243-3"></a><span class="st">  </span><span class="kw">glimpse</span>()</span></code></pre></div>
@@ -1445,7 +1446,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="get_dupes" class="section level4">
 <h4><span class="header-section-number">3.4.11.7</span> <code>get_dupes()</code></h4>
 <p>Another common issue in data wrangling is the presence of duplicate entries. Sometimes you <em>expect</em> multiple observations from the same individual in your dataset. Other times, the information has accidentally been added more than once. The <code>get_dupes()</code> function becomes very helpful in this situation. If you want to identify duplicate entries during data wrangling, you’ll use this function and specify which columns you’re looking for duplicates in.</p>
-<p>For example, in the <code>msleep</code> dataset, if you expected to only have one mammal representing each <code>genus</code> and <code>vore</code> you could double check this hung using <code>get_dupes()</code></p>
+<p>For example, in the <code>msleep</code> dataset, if you expected to only have one mammal representing each <code>genus</code> and <code>vore</code> you could double check this using <code>get_dupes()</code>.</p>
 <div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="wrangle-data.html#cb245-1"></a><span class="co"># identify observations that match in both genus and vore</span></span>
 <span id="cb245-2"><a href="wrangle-data.html#cb245-2"></a>msleep <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb245-3"><a href="wrangle-data.html#cb245-3"></a><span class="st">  </span><span class="kw">get_dupes</span>(genus, vore)</span></code></pre></div>
@@ -1472,7 +1473,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="wrangle-data.html#cb247-1"></a><span class="co"># summarize dataset</span></span>
 <span id="cb247-2"><a href="wrangle-data.html#cb247-2"></a><span class="kw">skim</span>(msleep)</span></code></pre></div>
 <table>
-<caption><span id="tab:unnamed-chunk-47">Table 3.1: </span>Data summary</caption>
+<caption><span id="tab:unnamed-chunk-48">Table 3.1: </span>Data summary</caption>
 <tbody>
 <tr class="odd">
 <td align="left">Name</td>
@@ -1685,7 +1686,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="wrangle-data.html#cb248-1"></a><span class="co"># see summary for specified columns</span></span>
 <span id="cb248-2"><a href="wrangle-data.html#cb248-2"></a><span class="kw">skim</span>(msleep, genus, vore, sleep_total)</span></code></pre></div>
 <table>
-<caption><span id="tab:unnamed-chunk-48">Table 3.2: </span>Data summary</caption>
+<caption><span id="tab:unnamed-chunk-49">Table 3.2: </span>Data summary</caption>
 <tbody>
 <tr class="odd">
 <td align="left">Name</td>
@@ -1795,12 +1796,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<p>It is also possible to group data (using <code>dplyr</code>’s <code>group_by()</code> before summarizing. Notice in the summary output that each variable specified (<code>genus</code> and <code>sleep_total</code>) are now broken down within each of the <code>vore</code> categories.</p>
+<p>It is also possible to group data (using <code>dplyr</code>’s <code>group_by()</code>) before summarizing. Notice in the summary output that each variable specified (<code>genus</code> and <code>sleep_total</code>) are now broken down within each of the <code>vore</code> categories.</p>
 <div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="wrangle-data.html#cb249-1"></a>msleep <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb249-2"><a href="wrangle-data.html#cb249-2"></a><span class="st">  </span><span class="kw">group_by</span>(vore) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb249-3"><a href="wrangle-data.html#cb249-3"></a><span class="st">  </span><span class="kw">skim</span>(genus, sleep_total)</span></code></pre></div>
 <table>
-<caption><span id="tab:unnamed-chunk-49">Table 3.3: </span>Data summary</caption>
+<caption><span id="tab:unnamed-chunk-50">Table 3.3: </span>Data summary</caption>
 <tbody>
 <tr class="odd">
 <td align="left">Name</td>
@@ -2007,11 +2008,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="summary-1" class="section level4">
 <h4><span class="header-section-number">3.4.11.9</span> <code>summary()</code></h4>
-<p>While base R has a summary function, the <code>skimr</code> package also has a helpful <code>summary()</code> function that provides you with a quick summary of the dataset at large.</p>
+<p>While base R has a <code>summary()</code> function, this can be combined with the <code>skimr</code> package to provide you with a quick summary of the dataset at large.</p>
 <div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="wrangle-data.html#cb250-1"></a><span class="kw">skim</span>(msleep) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb250-2"><a href="wrangle-data.html#cb250-2"></a><span class="st">  </span><span class="kw">summary</span>()</span></code></pre></div>
 <table>
-<caption><span id="tab:unnamed-chunk-50">Table 3.4: </span>Data summary</caption>
+<caption><span id="tab:unnamed-chunk-51">Table 3.4: </span>Data summary</caption>
 <tbody>
 <tr class="odd">
 <td align="left">Name</td>
@@ -2056,19 +2057,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="operations-across-columns" class="section level3">
 <h3><span class="header-section-number">3.4.12</span> Operations Across Columns</h3>
 <p>Sometimes it is valuable to apply a certain operation across the columns of a data frame. For example, it be necessary to compute the mean or some other summary statistics for each column in the data frame. In some cases, these operations can be done by a combination of <code>pivot_longer()</code> along with <code>group_by()</code> and <code>summarize()</code>. However, in other cases it is more straightforward to simply compute the statistic on each column.</p>
-<p>The <code>across()</code> function is need to operate across the columns of a data frame. For example, in our <code>airquality</code> dataset, if we wanted to compute the mean of <code>Ozone</code>, <code>Solar.R</code>, <code>Wind</code>, and <code>Temp</code>, we could do</p>
+<p>The <code>across()</code> function is need to operate across the columns of a data frame. For example, in our <code>airquality</code> dataset, if we wanted to compute the mean of <code>Ozone</code>, <code>Solar.R</code>, <code>Wind</code>, and <code>Temp</code>, we could do:</p>
 <div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="wrangle-data.html#cb251-1"></a>airquality <span class="op">%&gt;%</span></span>
 <span id="cb251-2"><a href="wrangle-data.html#cb251-2"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="kw">across</span>(Ozone<span class="op">:</span>Temp, mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 4
 ##   Ozone Solar.R  Wind  Temp
 ##   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1  42.1    186.  9.96  77.9</code></pre>
-<p>The <code>across()</code> function can be used in conjunction with the <code>mutate()</code> and <code>filter()</code> functions to construct joint operations across different columns of a data frame. For example, suppose we wanted to filter the rows of the <code>airquality</code> data frame so that we only retain rows that do not have missing values for <code>Ozone</code> and <code>Solar.R</code>. Generally, we might use the <code>filter()</code> function for this, as follows.</p>
+<p>The <code>across()</code> function can be used in conjunction with the <code>mutate()</code> and <code>filter()</code> functions to construct joint operations across different columns of a data frame. For example, suppose we wanted to filter the rows of the <code>airquality</code> data frame so that we only retain rows that do not have missing values for <code>Ozone</code> and <code>Solar.R</code>. Generally, we might use the <code>filter()</code> function for this, as follows:</p>
 <div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="wrangle-data.html#cb253-1"></a>airquality <span class="op">%&gt;%</span></span>
 <span id="cb253-2"><a href="wrangle-data.html#cb253-2"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Ozone),</span>
 <span id="cb253-3"><a href="wrangle-data.html#cb253-3"></a>         <span class="op">!</span><span class="kw">is.na</span>(Solar.R))</span></code></pre></div>
 <p>Because we are only filtering on two columns here, it’s not too difficult to write out the expression. However, if we were filtering on many columns, it would become a challenge to write out every column. This is where the <code>across()</code> function comes in handy. With the <code>across()</code> function, we can specify columns in the same way that we use the <code>select()</code> function. This allows us to use short-hand notation to select a large set of columns.</p>
-<p>We can use the <code>across()</code> function in conjunction with <code>filter()</code> to achieve the same result as above..</p>
+<p>We can use the <code>across()</code> function in conjunction with <code>filter()</code> to achieve the same result as above.</p>
 <div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="wrangle-data.html#cb254-1"></a>airquality <span class="op">%&gt;%</span></span>
 <span id="cb254-2"><a href="wrangle-data.html#cb254-2"></a><span class="st">  </span><span class="kw">filter</span>(<span class="kw">across</span>(Ozone<span class="op">:</span>Solar.R, <span class="op">~</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(.)))</span></code></pre></div>
 <pre><code>## # A tibble: 111 x 6
@@ -2085,7 +2086,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  9    11     290   9.2    66     5    13
 ## 10    14     274  10.9    68     5    14
 ## # … with 101 more rows</code></pre>
-<p>Here, the <code>~</code> in the call to <code>across()</code> indicates that we are passing an anonymous function (see the chapter on Functional Programming for more details) and the <code>.</code> is a stand-in for the name of the column.</p>
+<p>Here, the <code>~</code> in the call to <code>across()</code> indicates that we are passing an anonymous function (see the section on Functional Programming for more details) and the <code>.</code> is a stand-in for the name of the column.</p>
 <p>If we wanted to filter the data frame to remove rows with missing values in <code>Ozone</code>, <code>Solar.R</code>, <code>Wind</code>, and <code>Temp</code>, we only need to make a small change.</p>
 <div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="wrangle-data.html#cb256-1"></a>airquality <span class="op">%&gt;%</span></span>
 <span id="cb256-2"><a href="wrangle-data.html#cb256-2"></a><span class="st">  </span><span class="kw">filter</span>(<span class="kw">across</span>(Ozone<span class="op">:</span>Temp, <span class="op">~</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(.)))</span></code></pre></div>
@@ -2256,7 +2257,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb281-3"><a href="wrangle-data.html#cb281-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">newfeed =</span> <span class="kw">fct_reorder</span>(feed, weight)) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb281-4"><a href="wrangle-data.html#cb281-4"></a><span class="st">  </span><span class="kw">ggplot</span>(., <span class="kw">aes</span>(newfeed,weight)) <span class="op">+</span></span>
 <span id="cb281-5"><a href="wrangle-data.html#cb281-5"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
-<p><img src="images/tidying-unnamed-chunk-63-1.png" width="672" /></p>
+<p><img src="images/tidying-unnamed-chunk-64-1.png" width="672" /></p>
 <div class="figure">
 <img src="images/gslides/125.png" alt="" />
 <p class="caption">fct_reorder allows you to re-level a factor based on a secondary numeric variable</p>
@@ -2291,7 +2292,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="converting-numeric-levels-to-factors-ifelse-factor" class="section level3">
 <h3><span class="header-section-number">3.5.9</span> Converting Numeric Levels to Factors: <code>ifelse()</code> + <code>factor()</code></h3>
-<p>Finally, when working with factors, there are times when you want to convert a numeric variable into a factor. For example, if you were talking about a dataset with BMI for a number of individuals, you may want to categorize people based on whether or not they are underweight (BMI &lt; 18.5), of a healthy weight (BMI between 18.5 and 29.9), or obese (BMI &gt;= 30). When you want to take a numeric variable and turn it into a categorical factor variable, you can accomplish this easily by using <code>ifelse()</code> statements. We previously covered <code>if{}</code> statements and <code>else{}</code> statements. Here we combine those two ideas. Within a single statement we provide R with a condition: <code>weight &lt;= 200</code>. With this, we are stating that the condition is if a chicken’s weight is less than or equal to 200 grams. Then, if that condition is true, meaning if a chicken’s weight is less than or equal to 200 grams, let’s assign that chicken to the category <code>low</code>. Otherwise, and this is the <code>else{}</code> part of the <code>ifelse()</code> function, assign that chicken to the category <code>high</code>. Finally, we have to let R know that weight_recode is a factor variable, so we call factor() on this new column. This way we take a numeric variable (<code>weight</code>), and turn it into a factor variable (<code>weight_recode</code>).</p>
+<p>Finally, when working with factors, there are times when you want to convert a numeric variable into a factor. For example, if you were talking about a dataset with BMI for a number of individuals, you may want to categorize people based on whether or not they are underweight (BMI &lt; 18.5), of a healthy weight (BMI between 18.5 and 29.9), or obese (BMI &gt;= 30). When you want to take a numeric variable and turn it into a categorical factor variable, you can accomplish this easily by using <code>ifelse()</code> statements. Within a single statement we provide R with a condition: <code>weight &lt;= 200</code>. With this, we are stating that the condition is if a chicken’s weight is less than or equal to 200 grams. Then, if that condition is true, meaning if a chicken’s weight is less than or equal to 200 grams, let’s assign that chicken to the category <code>low</code>. Otherwise, and this is the <code>else{}</code> part of the <code>ifelse()</code> function, assign that chicken to the category <code>high</code>. Finally, we have to let R know that weight_recode is a factor variable, so we call factor() on this new column. This way we take a numeric variable (<code>weight</code>), and turn it into a factor variable (<code>weight_recode</code>).</p>
 <div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="wrangle-data.html#cb284-1"></a><span class="co">## convert numeric variable to factor</span></span>
 <span id="cb284-2"><a href="wrangle-data.html#cb284-2"></a>chickwts <span class="op">%&gt;%</span></span>
 <span id="cb284-3"><a href="wrangle-data.html#cb284-3"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">weight_recode =</span> <span class="kw">ifelse</span>(weight <span class="op">&lt;=</span><span class="st"> </span><span class="dv">200</span>, <span class="st">&quot;low&quot;</span>, <span class="st">&quot;high&quot;</span>), </span>
@@ -2308,7 +2309,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="working-with-dates-and-times" class="section level2">
 <h2><span class="header-section-number">3.6</span> Working With Dates and Times</h2>
-<p>In lessons an earlier course, you were introduced to different types of objects in R, such as characters, numeric, and logicals. Then, in earlier lessons in this course, we covered how to work with strings and factors in detail. The remaining type of variable we haven’t yet covered is how to work with dates and time in R.</p>
+<p>In earlier lessons, you were introduced to different types of objects in R, such as characters and numeric. Then we covered how to work with factors in detail. A remaining type of variable we haven’t yet covered is how to work with dates and time in R.</p>
 <p>As with strings and factors, there is a tidyverse package to help you work with dates more easily. The <code>lubridate</code> package is not part of the core tidyverse packages, so it will have to be loaded individually. This package will make working with dates and times easier. Before working through this lesson, you’ll want to be sure that <code>lubridate</code> has been installed and loaded in:</p>
 <div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="wrangle-data.html#cb286-1"></a><span class="co">#install.packages(&#39;lubridate&#39;)</span></span>
 <span id="cb286-2"><a href="wrangle-data.html#cb286-2"></a><span class="kw">library</span>(lubridate)</span></code></pre></div>
@@ -2429,10 +2430,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb301-4"><a href="wrangle-data.html#cb301-4"></a><span class="co">## subtract birthday from todays date</span></span>
 <span id="cb301-5"><a href="wrangle-data.html#cb301-5"></a>age &lt;-<span class="st"> </span><span class="kw">today</span>() <span class="op">-</span><span class="st"> </span>mydate</span>
 <span id="cb301-6"><a href="wrangle-data.html#cb301-6"></a>age</span></code></pre></div>
-<pre><code>## Time difference of 11814 days</code></pre>
+<pre><code>## Time difference of 11823 days</code></pre>
 <div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="wrangle-data.html#cb303-1"></a><span class="co">## a duration object can get this information in years</span></span>
 <span id="cb303-2"><a href="wrangle-data.html#cb303-2"></a><span class="kw">as.duration</span>(age)</span></code></pre></div>
-<pre><code>## [1] &quot;1020729600s (~32.34 years)&quot;</code></pre>
+<pre><code>## [1] &quot;1021507200s (~32.37 years)&quot;</code></pre>
 <div class="figure">
 <img src="images/gslides/132.png" alt="" />
 <p class="caption">dates and date-times can be operated upon</p>
@@ -2465,10 +2466,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="string-basics" class="section level3">
 <h3><span class="header-section-number">3.7.2</span> String Basics</h3>
-<p>When working with strings, some of the most frequent tasks you’ll need to complete are to:
-* determine the length of a string
-* combine strings together
-* subset strings</p>
+<p>When working with strings, some of the most frequent tasks you’ll need to complete are to:</p>
+<ul>
+<li>determine the length of a string<br />
+</li>
+<li>combine strings together<br />
+</li>
+<li>subset strings</li>
+</ul>
 <div id="string-length" class="section level4">
 <h4><span class="header-section-number">3.7.2.1</span> String length</h4>
 <p>Returning to our object with three strings from earlier in the lesson, we can determine the length of each string in the vector.</p>
@@ -2554,8 +2559,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb319-2"><a href="wrangle-data.html#cb319-2"></a></span>
 <span id="cb319-3"><a href="wrangle-data.html#cb319-3"></a><span class="co">## identify strings that start with &quot;M&quot;</span></span>
 <span id="cb319-4"><a href="wrangle-data.html#cb319-4"></a><span class="kw">str_view</span>(names, <span class="st">&quot;^M&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-c1037acd1d488828a0bf" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c1037acd1d488828a0bf">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li><span class='match'>M<\/span>ohammed<\/li>\n  <li>Jane<\/li>\n  <li><span class='match'>M<\/span>athieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-642d025b0ce0b2389d06" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-642d025b0ce0b2389d06">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li><span class='match'>M<\/span>ohammed<\/li>\n  <li>Jane<\/li>\n  <li><span class='match'>M<\/span>athieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/139.png" alt="" />
 <p class="caption"><code>str_view()</code> identifies names that start with M</p>
@@ -2564,8 +2569,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>However, if you try to match strings that end with the letter “M”, no match is found.</p>
 <div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="wrangle-data.html#cb320-1"></a><span class="co">## identify strings that end with &quot;M&quot;</span></span>
 <span id="cb320-2"><a href="wrangle-data.html#cb320-2"></a><span class="kw">str_view</span>(names, <span class="st">&quot;M$&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-de571df0d61c1e833314" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-de571df0d61c1e833314">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-99f070594c7f7dc8c370" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-99f070594c7f7dc8c370">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/140.png" alt="" />
 <p class="caption"><code>str_view()</code> does not identify any names that end with M</p>
@@ -2573,8 +2578,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To identify names by that end with the letter “a”, you would use the following.</p>
 <div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="wrangle-data.html#cb321-1"></a><span class="co">## identify strings that end with &quot;a&quot;</span></span>
 <span id="cb321-2"><a href="wrangle-data.html#cb321-2"></a><span class="kw">str_view</span>(names, <span class="st">&quot;a$&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-7500909c2d3adb2e7141" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7500909c2d3adb2e7141">{"x":{"html":"<ul>\n  <li>Keish<span class='match'>a<\/span><\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-49a3a07c43da07b10beb" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-49a3a07c43da07b10beb">{"x":{"html":"<ul>\n  <li>Keish<span class='match'>a<\/span><\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/141.png" alt="" />
 <p class="caption"><code>str_view()</code> identifies names that end with a</p>
@@ -2662,8 +2667,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To search for a set of characters, you place these characters within brackets. Below, this will identify anywhere in the strings where you have a lowercase vowel. Note, that we’re now using <code>str_view_all()</code> to identify all occurrences of these characters, rather than <code>str_view()</code>, which only identifies the first occurrence in each string.</p>
 <div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="wrangle-data.html#cb334-1"></a><span class="co">## identify all lowercase vowels</span></span>
 <span id="cb334-2"><a href="wrangle-data.html#cb334-2"></a><span class="kw">str_view_all</span>(names, <span class="st">&quot;[aeiou]&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-0ad4f639a84d8238680c" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0ad4f639a84d8238680c">{"x":{"html":"<ul>\n  <li>K<span class='match'>e<\/span><span class='match'>i<\/span>sh<span class='match'>a<\/span><\/li>\n  <li>M<span class='match'>o<\/span>h<span class='match'>a<\/span>mm<span class='match'>e<\/span>d<\/li>\n  <li>J<span class='match'>a<\/span>n<span class='match'>e<\/span><\/li>\n  <li>M<span class='match'>a<\/span>th<span class='match'>i<\/span><span class='match'>e<\/span><span class='match'>u<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-b7438454cdbf91e705d1" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b7438454cdbf91e705d1">{"x":{"html":"<ul>\n  <li>K<span class='match'>e<\/span><span class='match'>i<\/span>sh<span class='match'>a<\/span><\/li>\n  <li>M<span class='match'>o<\/span>h<span class='match'>a<\/span>mm<span class='match'>e<\/span>d<\/li>\n  <li>J<span class='match'>a<\/span>n<span class='match'>e<\/span><\/li>\n  <li>M<span class='match'>a<\/span>th<span class='match'>i<\/span><span class='match'>e<\/span><span class='match'>u<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/149.png" alt="" />
 <p class="caption">brackets specify which characters to search for</p>
@@ -2674,8 +2679,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>By adding a caret (<code>^</code>) before the vowels within the brackets, this regular expressions specifies that you are searching for any character that is not a lowercase vowel within your strings.</p>
 <div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="wrangle-data.html#cb335-1"></a><span class="co">## identify anything that&#39;s NOT a lowercase vowel</span></span>
 <span id="cb335-2"><a href="wrangle-data.html#cb335-2"></a><span class="kw">str_view_all</span>(names, <span class="st">&quot;[^aeiou]&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-b74d85f2e7a72e6c6e77" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b74d85f2e7a72e6c6e77">{"x":{"html":"<ul>\n  <li><span class='match'>K<\/span>ei<span class='match'>s<\/span><span class='match'>h<\/span>a<\/li>\n  <li><span class='match'>M<\/span>o<span class='match'>h<\/span>a<span class='match'>m<\/span><span class='match'>m<\/span>e<span class='match'>d<\/span><\/li>\n  <li><span class='match'>J<\/span>a<span class='match'>n<\/span>e<\/li>\n  <li><span class='match'>M<\/span>a<span class='match'>t<\/span><span class='match'>h<\/span>ieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-7713631786d8b7aecd7e" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7713631786d8b7aecd7e">{"x":{"html":"<ul>\n  <li><span class='match'>K<\/span>ei<span class='match'>s<\/span><span class='match'>h<\/span>a<\/li>\n  <li><span class='match'>M<\/span>o<span class='match'>h<\/span>a<span class='match'>m<\/span><span class='match'>m<\/span>e<span class='match'>d<\/span><\/li>\n  <li><span class='match'>J<\/span>a<span class='match'>n<\/span>e<\/li>\n  <li><span class='match'>M<\/span>a<span class='match'>t<\/span><span class='match'>h<\/span>ieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/150.png" alt="" />
 <p class="caption">brackets with a caret first specify which characters NOT to search for</p>
@@ -2688,8 +2693,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb336-2"><a href="wrangle-data.html#cb336-2"></a></span>
 <span id="cb336-3"><a href="wrangle-data.html#cb336-3"></a><span class="co">## identify anything that&#39;s a digit</span></span>
 <span id="cb336-4"><a href="wrangle-data.html#cb336-4"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">d&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-ec0655c6d72cc18d29a7" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ec0655c6d72cc18d29a7">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span> Main Street<\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span> Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-127de3407efefbcc1565" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-127de3407efefbcc1565">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span> Main Street<\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span> Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/151.png" alt="" />
 <p class="caption"><code>\d</code> searches for digits</p>
@@ -2700,8 +2705,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Identifying whitespace in R identifies any spaces, tabs or newlines. Note that again we have to escape the “” with a backslash for R to recognize the regular expression.</p>
 <div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="wrangle-data.html#cb337-1"></a><span class="co">## identify any whitespace</span></span>
 <span id="cb337-2"><a href="wrangle-data.html#cb337-2"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">s&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-91de3c2af4857d622453" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-91de3c2af4857d622453">{"x":{"html":"<ul>\n  <li>1234<span class='match'> <\/span>Main<span class='match'> <\/span>Street<\/li>\n  <li>1600<span class='match'> <\/span>Pennsylvania<span class='match'> <\/span>Ave<\/li>\n  <li>Brick<span class='match'> <\/span>Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-80031fc18287f167ea9e" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-80031fc18287f167ea9e">{"x":{"html":"<ul>\n  <li>1234<span class='match'> <\/span>Main<span class='match'> <\/span>Street<\/li>\n  <li>1600<span class='match'> <\/span>Pennsylvania<span class='match'> <\/span>Ave<\/li>\n  <li>Brick<span class='match'> <\/span>Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/152.png" alt="" />
 <p class="caption"><code>\s</code> searches for whitespace</p>
@@ -2712,8 +2717,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To identify any character except for a newline you’ll use <code>"."</code>. Notice in our addresses example that there are no newlines, so this pattern will match with the entire string.</p>
 <div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="wrangle-data.html#cb338-1"></a><span class="co">## identify any character</span></span>
 <span id="cb338-2"><a href="wrangle-data.html#cb338-2"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;.&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-49d016bb53e2bb1d8e7b" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-49d016bb53e2bb1d8e7b">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span><span class='match'> <\/span><span class='match'>M<\/span><span class='match'>a<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'> <\/span><span class='match'>S<\/span><span class='match'>t<\/span><span class='match'>r<\/span><span class='match'>e<\/span><span class='match'>e<\/span><span class='match'>t<\/span><\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>e<\/span><span class='match'>n<\/span><span class='match'>n<\/span><span class='match'>s<\/span><span class='match'>y<\/span><span class='match'>l<\/span><span class='match'>v<\/span><span class='match'>a<\/span><span class='match'>n<\/span><span class='match'>i<\/span><span class='match'>a<\/span><span class='match'> <\/span><span class='match'>A<\/span><span class='match'>v<\/span><span class='match'>e<\/span><\/li>\n  <li><span class='match'>B<\/span><span class='match'>r<\/span><span class='match'>i<\/span><span class='match'>c<\/span><span class='match'>k<\/span><span class='match'> <\/span><span class='match'>B<\/span><span class='match'>u<\/span><span class='match'>i<\/span><span class='match'>l<\/span><span class='match'>d<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'>g<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-82407f45043b53a558e7" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-82407f45043b53a558e7">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span><span class='match'> <\/span><span class='match'>M<\/span><span class='match'>a<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'> <\/span><span class='match'>S<\/span><span class='match'>t<\/span><span class='match'>r<\/span><span class='match'>e<\/span><span class='match'>e<\/span><span class='match'>t<\/span><\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>e<\/span><span class='match'>n<\/span><span class='match'>n<\/span><span class='match'>s<\/span><span class='match'>y<\/span><span class='match'>l<\/span><span class='match'>v<\/span><span class='match'>a<\/span><span class='match'>n<\/span><span class='match'>i<\/span><span class='match'>a<\/span><span class='match'> <\/span><span class='match'>A<\/span><span class='match'>v<\/span><span class='match'>e<\/span><\/li>\n  <li><span class='match'>B<\/span><span class='match'>r<\/span><span class='match'>i<\/span><span class='match'>c<\/span><span class='match'>k<\/span><span class='match'> <\/span><span class='match'>B<\/span><span class='match'>u<\/span><span class='match'>i<\/span><span class='match'>l<\/span><span class='match'>d<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'>g<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/153.png" alt="" />
 <p class="caption">. searches for any character</p>
@@ -2736,8 +2741,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Using the definitions above, we can see that the following code will identify patterns within the addresses vector where n shows up one more more times in a string.</p>
 <div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="wrangle-data.html#cb339-1"></a><span class="co">## identify any time n shows up one or more times</span></span>
 <span id="cb339-2"><a href="wrangle-data.html#cb339-2"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;n+&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-6b9a60691633157f98d8" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6b9a60691633157f98d8">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-09778983e0d52f1631ca" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-09778983e0d52f1631ca">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/154.png" alt="" />
 <p class="caption">+ specifies to match the pattern one or more times</p>
@@ -2745,8 +2750,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>While the difference is slight in the output here, we’re identifying portions of the string where n shows up exactly once. So, instead of the ‘nn’ in Pennsylvania matching together, the code here splits these up, due to the fact that we’re specifying the pattern match ‘n’ exactly one time:</p>
 <div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="wrangle-data.html#cb340-1"></a><span class="co">## identify any time n shows up</span></span>
 <span id="cb340-2"><a href="wrangle-data.html#cb340-2"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;n{1}&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-b3afe1607cba5844f6b3" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b3afe1607cba5844f6b3">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>n<\/span><span class='match'>n<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-7a38696d1852fadcdad4" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7a38696d1852fadcdad4">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>n<\/span><span class='match'>n<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/155.png" alt="" />
 <p class="caption">{#} looks to match the pattern exactly the number of times within the curly braces</p>
@@ -2754,8 +2759,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>If you only wanted to match strings where n showed up twice in a row, you could specify that in this way:</p>
 <div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="wrangle-data.html#cb341-1"></a><span class="co">## identify any time n shows up exactly two times in a row</span></span>
 <span id="cb341-2"><a href="wrangle-data.html#cb341-2"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;n{2}&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-d727922ba6581a8ac613" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d727922ba6581a8ac613">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-37119b63519295a51d33" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-37119b63519295a51d33">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/156.png" alt="" />
 <p class="caption">{2} specifies that the pattern must be found exactly twice</p>
@@ -2763,8 +2768,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This could similarly be achieved by specifying to search for the pattern ‘nn’ one or more times (<code>+</code>):</p>
 <div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="wrangle-data.html#cb342-1"></a><span class="co">## identify any time &#39;nn&#39; shows up one or more times </span></span>
 <span id="cb342-2"><a href="wrangle-data.html#cb342-2"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;nn+&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-4c7f77e064adac5ea589" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4c7f77e064adac5ea589">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-161f5c335ef2c5ac8e30" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-161f5c335ef2c5ac8e30">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/157.png" alt="" />
 <p class="caption">nn+ searches for double n one or more times in a string</p>
@@ -2772,12 +2777,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>You can also specify a range of the number of times to search for a pattern within your string. Below, we see that if we specify n be searched for at least two and at most 3 times, the pattern matches within our string. However, if we increase that to between three and four times, no pattern matching occurs, as there are never three or four n’s in a row in our strings.</p>
 <div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="wrangle-data.html#cb343-1"></a><span class="co">## identify any time n shows up two or three times </span></span>
 <span id="cb343-2"><a href="wrangle-data.html#cb343-2"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;n{2,3}&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-3c636cbec63ccdd3f205" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3c636cbec63ccdd3f205">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-0aef510f6fbe23b682c6" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0aef510f6fbe23b682c6">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="wrangle-data.html#cb344-1"></a><span class="co">## identify any time n shows up three or four times </span></span>
 <span id="cb344-2"><a href="wrangle-data.html#cb344-2"></a><span class="kw">str_view_all</span>(addresses, <span class="st">&quot;n{3,4}&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-e8c73f9347a6f3fe469f" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e8c73f9347a6f3fe469f">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-91f2446c5f5a3d548986" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-91f2446c5f5a3d548986">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="figure">
 <img src="images/gslides/158.png" alt="" />
 <p class="caption">{n,m} looks to pattern match between n and m times</p>
@@ -2833,7 +2838,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="tidy-text-format" class="section level3">
 <h3><span class="header-section-number">3.8.1</span> Tidy Text Format</h3>
 <p>If we’re thinking about all the text in a novel, it’s pretty clear that it is not in a format that is easy to analyze computationally. To analyze the text in the novel computationally and say, determine what words are used most frequently, or what topics are discussed, we need to convert the text in the novel into a format that a computer can interpret. And, as with all types of data discussed in these courses, we want this to be a tidy format where (1) each observation is a row (2) each variable is a column, and (3) each observational unit is a table. So, how do we take text from a novel and store the information in a tidy format?</p>
-<p>The tidy text format requires that the data frame will store one <strong>token</strong> per row. This requires knowing that a <strong>token</strong> is a meaningful unit of text. How you define that unit is up to you, the analyst and is driven by the question you’re asking. If you’re looking to identify the words used most frequently in this analysis, the unit of your token would be individual words. You would then utilize your computer to generate a data frame with each row containing data about a single word. However, your token could be two words (a <strong>bigram</strong>, a sentence, or a paragraph. Whatever you decide is meaningful for your analysis will be the unit for your token. Each row will contain a separate token.</p>
+<p>The tidy text format requires that the data frame will store one <strong>token</strong> per row. This requires knowing that a <strong>token</strong> is a meaningful unit of text. How you define that unit is up to you, the analyst and is driven by the question you’re asking. If you’re looking to identify the words used most frequently in this analysis, the unit of your token would be individual words. You would then utilize your computer to generate a data frame with each row containing data about a single word. However, your token could be two words (a <strong>bigram</strong>), a sentence, or a paragraph. Whatever you decide is meaningful for your analysis will be the unit for your token. Each row will contain a separate token.</p>
 <div id="tokenization" class="section level4">
 <h4><span class="header-section-number">3.8.1.1</span> Tokenization</h4>
 <p>After determining what level of information you’re most interested in, you need a way to go from a wall of text (say, all the text in a novel) to a data frame of tokens (say, individual words). To do this, the <code>unnest_tokens()</code> function is incredibly useful.</p>
@@ -3045,7 +3050,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb374-3"><a href="wrangle-data.html#cb374-3"></a><span class="kw">ggplot</span>(poem_words, <span class="kw">aes</span>(n<span class="op">/</span>total, <span class="dt">fill =</span> title)) <span class="op">+</span></span>
 <span id="cb374-4"><a href="wrangle-data.html#cb374-4"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">show.legend =</span> <span class="ot">FALSE</span>, <span class="dt">bins =</span> <span class="dv">5</span>) <span class="op">+</span></span>
 <span id="cb374-5"><a href="wrangle-data.html#cb374-5"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>title, <span class="dt">ncol =</span> <span class="dv">3</span>, <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>)</span></code></pre></div>
-<p><img src="images/tidying-unnamed-chunk-116-1.png" width="672" /></p>
+<p><img src="images/tidying-unnamed-chunk-117-1.png" width="672" /></p>
 <p>With most documents there are only a few words that show up infrequently in the tail off to the right (rare words), while most words show up a whole bunch of times.</p>
 <p>What we’ve just visualized is term frequency. We can add this quantity to our data frame:</p>
 <div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="wrangle-data.html#cb375-1"></a>freq_by_rank &lt;-<span class="st"> </span>poem_words <span class="op">%&gt;%</span><span class="st"> </span></span>
@@ -3107,7 +3112,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb380-10"><a href="wrangle-data.html#cb380-10"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>title, <span class="dt">ncol =</span> <span class="dv">3</span>, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></span>
 <span id="cb380-11"><a href="wrangle-data.html#cb380-11"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span></code></pre></div>
 <pre><code>## Selecting by tf_idf</code></pre>
-<p><img src="images/tidying-unnamed-chunk-120-1.png" width="672" /></p>
+<p><img src="images/tidying-unnamed-chunk-121-1.png" width="672" /></p>
 </div>
 </div>
 <div id="functional-programming" class="section level2">
@@ -3460,14 +3465,14 @@ pmap(LIST_OF_INPUT_LISTS, FUNCTION_TO_APPLY, OPTIONAL_OTHER_STUFF)</code></pre>
 <p>We’ve already read in the datasets we’ll use for this health expenditures case study, but they’re not yet cleaned and wrangled. So, we’ll do that here!</p>
 <p>As a reminder, we’re ultimately interested in answering the following questions with these data:</p>
 <ol style="list-style-type: decimal">
-<li>Is there a relationship between healthcare coverage and healthcare spending in the United States?</li>
+<li>Is there a relationship between health care coverage and health care spending in the United States?</li>
 <li>How does the spending distribution change across geographic regions in the United States?</li>
-<li>Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?</li>
+<li>Does the relationship between health care coverage and health care spending in the United States change from 2013 to 2014?</li>
 </ol>
 <p>This means that we’ll need all the data from the variables necessary to answer this question in our tidy dataset.</p>
-<div id="healthcare-coverage-data-1" class="section level4">
-<h4><span class="header-section-number">3.11.1.1</span> Healthcare Coverage Data</h4>
-<p>Let’s remind ourselves before we get to wrangling what data we have when it comes to healthcare coverage.</p>
+<div id="health-care-coverage-data-1" class="section level4">
+<h4><span class="header-section-number">3.11.1.1</span> health care Coverage Data</h4>
+<p>Let’s remind ourselves before we get to wrangling what data we have when it comes to health care coverage.</p>
 <div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="wrangle-data.html#cb422-1"></a>coverage</span></code></pre></div>
 <pre><code>## # A tibble: 52 x 29
 ##    Location `2013__Employer` `2013__Non-Grou… `2013__Medicaid` `2013__Medicare`
@@ -3491,7 +3496,7 @@ pmap(LIST_OF_INPUT_LISTS, FUNCTION_TO_APPLY, OPTIONAL_OTHER_STUFF)</code></pre>
 ## #   `2015__Uninsured` &lt;dbl&gt;, `2015__Total` &lt;dbl&gt;, `2016__Employer` &lt;dbl&gt;,
 ## #   `2016__Non-Group` &lt;dbl&gt;, `2016__Medicaid` &lt;dbl&gt;, `2016__Medicare` &lt;dbl&gt;,
 ## #   `2016__Other Public` &lt;chr&gt;, `2016__Uninsured` &lt;dbl&gt;, `2016__Total` &lt;dbl&gt;</code></pre>
-<p>At a glance, we see that state-level information is stored in rows (with the exception of the first row, which stores country-level information) with columns corresponding to the amount of money spent on each type of healthcare, by year.</p>
+<p>At a glance, we see that state-level information is stored in rows (with the exception of the first row, which stores country-level information) with columns corresponding to the amount of money spent on each type of health care, by year.</p>
 <div id="states-data" class="section level5">
 <h5><span class="header-section-number">3.11.1.1.1</span> States Data</h5>
 <p>To work with these data, we’ll also want to be able to switch between full state names and two letter abbreviations. There’s data in R available to you for just this purpose!</p>
@@ -3559,21 +3564,13 @@ pmap(LIST_OF_INPUT_LISTS, FUNCTION_TO_APPLY, OPTIONAL_OTHER_STUFF)</code></pre>
 <span id="cb430-4"><a href="wrangle-data.html#cb430-4"></a><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="op">-</span>Location,         <span class="co">## Use all columns BUT &#39;Location&#39;</span></span>
 <span id="cb430-5"><a href="wrangle-data.html#cb430-5"></a>               <span class="dt">names_to =</span> <span class="st">&quot;year_type&quot;</span>, </span>
 <span id="cb430-6"><a href="wrangle-data.html#cb430-6"></a>               <span class="dt">values_to =</span> <span class="st">&quot;tot_coverage&quot;</span>)</span></code></pre></div>
-<pre><code>## Warning: Problem with `mutate()` input `..1`.
-## ℹ NAs introduced by coercion
-## ℹ Input `..1` is `across(starts_with(&quot;20&quot;), as.integer)`.
+<pre><code>## Warning in mask$eval_all_mutate(quo): NAs introduced by coercion
 
-## Warning: Problem with `mutate()` input `..1`.
-## ℹ NAs introduced by coercion
-## ℹ Input `..1` is `across(starts_with(&quot;20&quot;), as.integer)`.
+## Warning in mask$eval_all_mutate(quo): NAs introduced by coercion
 
-## Warning: Problem with `mutate()` input `..1`.
-## ℹ NAs introduced by coercion
-## ℹ Input `..1` is `across(starts_with(&quot;20&quot;), as.integer)`.
+## Warning in mask$eval_all_mutate(quo): NAs introduced by coercion
 
-## Warning: Problem with `mutate()` input `..1`.
-## ℹ NAs introduced by coercion
-## ℹ Input `..1` is `across(starts_with(&quot;20&quot;), as.integer)`.</code></pre>
+## Warning in mask$eval_all_mutate(quo): NAs introduced by coercion</code></pre>
 <div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="wrangle-data.html#cb432-1"></a>coverage</span></code></pre></div>
 <pre><code>## # A tibble: 1,456 x 3
 ##    Location      year_type          tot_coverage
@@ -3634,8 +3631,8 @@ pmap(LIST_OF_INPUT_LISTS, FUNCTION_TO_APPLY, OPTIONAL_OTHER_STUFF)</code></pre>
 <p>Perfect! At this point, each row is an observation and each column stores a single piece of information. This dataset is now in good shape!</p>
 </div>
 </div>
-<div id="healthcare-spending-data-1" class="section level4">
-<h4><span class="header-section-number">3.11.1.2</span> Healthcare Spending Data</h4>
+<div id="health-care-spending-data-1" class="section level4">
+<h4><span class="header-section-number">3.11.1.2</span> health care Spending Data</h4>
 <p>We’ll have to take a similar approach when it comes to tidying the spending data as it has a similar structure to how the coverage data were stored.</p>
 <div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="wrangle-data.html#cb438-1"></a>spending</span></code></pre></div>
 <pre><code>## # A tibble: 52 x 25
@@ -3721,14 +3718,14 @@ pmap(LIST_OF_INPUT_LISTS, FUNCTION_TO_APPLY, OPTIONAL_OTHER_STUFF)</code></pre>
 <div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="wrangle-data.html#cb444-1"></a><span class="co"># filter to only include state level</span></span>
 <span id="cb444-2"><a href="wrangle-data.html#cb444-2"></a>hc &lt;-<span class="st"> </span>hc <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb444-3"><a href="wrangle-data.html#cb444-3"></a><span class="st">  </span><span class="kw">filter</span>(Location <span class="op">!=</span><span class="st"> &quot;United States&quot;</span>)</span></code></pre></div>
-<p>Another problem is that inside our <code>hc</code> dataset, there are multiple types of healthcare coverage.</p>
+<p>Another problem is that inside our <code>hc</code> dataset, there are multiple types of health care coverage.</p>
 <div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="wrangle-data.html#cb445-1"></a><span class="kw">table</span>(hc<span class="op">$</span>type)</span></code></pre></div>
 <pre><code>## 
 ##     Employer     Medicaid     Medicare    Non-Group Other Public        Total 
 ##          102          102          102          102          102          102 
 ##    Uninsured 
 ##          102</code></pre>
-<p>The “Total” type is not really a formal type of healthcare coverage. It really represents just the total number of people in the state. This is useful information and we can include it as a column called <code>tot_pop</code>. To accomplish this, we’ll first store this information in a data frame called <code>pop</code>.</p>
+<p>The “Total” type is not really a formal type of health care coverage. It really represents just the total number of people in the state. This is useful information and we can include it as a column called <code>tot_pop</code>. To accomplish this, we’ll first store this information in a data frame called <code>pop</code>.</p>
 <div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="wrangle-data.html#cb447-1"></a>pop &lt;-<span class="st"> </span>hc <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb447-2"><a href="wrangle-data.html#cb447-2"></a><span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;Total&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb447-3"><a href="wrangle-data.html#cb447-3"></a><span class="st">  </span><span class="kw">select</span>(Location, year, tot_coverage)</span>
@@ -4108,7 +4105,7 @@ pmap(LIST_OF_INPUT_LISTS, FUNCTION_TO_APPLY, OPTIONAL_OTHER_STUFF)</code></pre>
 ## #   `Rape\n(revised\ndefinition)2` &lt;dbl&gt;, `Rape\n(legacy\ndefinition)3` &lt;dbl&gt;,
 ## #   Robbery &lt;dbl&gt;, `Aggravated \nassault` &lt;dbl&gt;, `Property \ncrime` &lt;dbl&gt;,
 ## #   Burglary &lt;dbl&gt;, `Larceny-\ntheft` &lt;dbl&gt;, `Motor \nvehicle \ntheft` &lt;dbl&gt;</code></pre>
-<p>IF we take a look at what information is stored in each column…</p>
+<p>If we take a look at what information is stored in each column…</p>
 <div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="wrangle-data.html#cb472-1"></a><span class="kw">colnames</span>(crime)</span></code></pre></div>
 <pre><code>##  [1] &quot;State&quot;                                   
 ##  [2] &quot;Area&quot;                                    
@@ -4306,7 +4303,7 @@ pmap(LIST_OF_INPUT_LISTS, FUNCTION_TO_APPLY, OPTIONAL_OTHER_STUFF)</code></pre>
 </div>
 <div id="the-counted-fatal-shootings" class="section level4">
 <h4><span class="header-section-number">3.11.2.4</span> The Counted Fatal Shootings</h4>
-<p>We’re making progress, but we have a ways to go still! Let’s get working on incorporating data from The Counted.</p>
+<p>We’re making progress, but we have a ways to go still! Let’s get working on incorporating data from <a href="https://docubase.mit.edu/project/the-counted/">The Counted</a>.</p>
 <p>As a reminder, we have a datasets here with data from 2015:</p>
 <div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="wrangle-data.html#cb492-1"></a>counted15</span></code></pre></div>
 <pre><code>## # A tibble: 1,146 x 6

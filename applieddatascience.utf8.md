@@ -1,3 +1,329 @@
+--- 
+title: "Tidyverse Skills for Data Science"
+author: "Carrie Wright, Shannon E. Ellis, Stephanie C. Hicks and Roger D. Peng"
+date: "2021-02-10"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "This book demonstrates how to use the Tidyverse collection of packages for doing data science."
+---
+--- 
+title: "Tidyverse Skills for Data Science"
+author: "Carrie Wright, Shannon E. Ellis, Stephanie C. Hicks and Roger D. Peng"
+date: "2021-02-10"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "This book demonstrates how to use the Tidyverse collection of packages for doing data science."
+---
+
+# Prerequisites {-}
+
+
+
+
+<!--chapter:end:index.Rmd-->
+
+
+# Introduction to the Tidyverse {#intro}
+
+Placeholder
+
+
+## About This Course
+## Tidy Data
+### Data Terminology
+### Principles of Tidy Data
+### Tidy Data Are Rectangular
+### Tidy Data Benefits
+### Rules for Storing Tidy Data
+#### Be consistent
+#### Choose good names for things
+#### Write dates as YYYY-MM-DD
+#### No empty cells
+#### Put just one thing in a cell
+#### Don't use font color or highlighting as data
+#### Save the data as plain text files
+#### Summary
+## From Non-Tidy --> Tidy
+### Common problems with messy datasets
+### Examples of untidy data
+#### Examples from [Data Organization in Spreadsheets](https://peerj.com/preprints/3183/)
+### Tidying untidy data
+## The Data Science Life Cycle
+## The Tidyverse Ecosystem
+### Reading Data into R
+#### **`tibble`**
+#### **`readr`**
+#### **`googlesheets4`**
+#### **`readxl`**
+#### **`googledrive`**
+#### **`haven`**
+#### **`jsonlite` & `xml2`**
+#### **`rvest`**
+#### **`httr`**
+### Data Tidying
+#### **`dplyr`**
+#### **`tidyr`**
+#### **`janitor`**
+#### **`forcats`**
+#### **`stringr`**
+#### **`lubridate`**
+#### **`glue`**
+#### **`skimr`**
+#### **`tidytext`**
+#### **`purrr`**
+### Data Visualization 
+#### **`ggplot2`**
+#### **`kableExtra`**
+#### **`ggrepel`**
+#### **`cowplot`**
+#### **`patchwork`**
+#### **`gganimate`**
+### Data Modeling 
+#### The `tidymodels` ecosystem
+#### Inferential packages: `broom` and `infer`
+#### tidyverts: tsibble, feasts, and fable
+## Data Science Project Organization
+### RStudio Projects
+### File Paths
+#### Relative Paths
+#### Absolute Paths
+#### Path Summary
+### The `here` package  
+#### Setting your project directory
+#### Get files paths using `here()`
+#### Save and load files using `here()`
+#### Where you should use this
+#### The utility of the `here` package
+### File Naming
+#### Good File Names
+#### Machine readable files
+#### Human readable files
+#### Be nicely ordered
+### Project Template: Everything In Its Place
+## Data Science Workflows
+## Case Studies
+### Case Study #1: Health Expenditures
+#### Data: Healthcare
+### Case Study #2: Firearms
+#### Question 
+#### Data
+
+<!--chapter:end:01-intro.Rmd-->
+
+
+# Importing Data in the Tidyverse {#get-data}
+
+Placeholder
+
+
+## About This Course
+## Tibbles
+### How tibbles differ from data.frame
+### Creating a tibble
+#### `as_tibble()`
+#### `tibble()`
+### Subsetting
+## Spreadsheets
+### Excel files
+#### Reading Excel files into R
+### Google Sheets
+#### The `googlesheets4` package
+##### Getting Started with `googlesheets4`
+##### Navigating `googlesheets4`:`gs4_find()`
+##### Reading data in using `googlesheets`:`gs_read()`
+## CSVs
+### Downloading CSV files
+### Reading CSVs into R
+## TSVs
+### Reading TSVs into R
+## Delimited Files
+### Reading Delimited Files into R
+## Exporting Data from R
+## JSON
+## XML
+## Databases
+### Relational Data
+#### Why relational data?
+### Relational Databases: `SQL`
+### Connecting to Databases: `RSQLite`
+### Working with Relational Data: `dplyr` & `dbplyr`
+### Mutating Joins
+#### Inner Join
+#### Left Join
+#### Right Join
+#### Full Join
+#### Mutating Joins Summary
+### Filtering Joins
+### How to Connect to a Database Online 
+## Web Scraping
+### `rvest` Basics
+### SelectorGadget
+### Web Scraping Example
+#### Using SelectorGadget
+#### Using `rvest`
+### A final note: SelectorGadget
+## APIs
+### Getting Data: `httr`
+### Example 1: GitHub's API
+#### API Endpoint
+#### API request: `GET()`
+#### API response: `content()`
+### Example 2: Obtaining a CSV
+### `read_csv()` from a URL
+### API keys
+## Foreign Formats
+### `haven`
+## Images
+#### Reading Images in R
+## `googledrive`
+## Case Studies
+### Case Study #1: Health Expenditures
+#### Healthcare Coverage Data
+#### Healthcare Spending Data
+### Case Study #2: Firearms
+#### Census Data
+#### Counted Data
+#### Suicide Data
+#### Brady Data
+#### Crime Data
+#### Land Area Data
+#### Unemployment Data
+
+<!--chapter:end:02-get-data.Rmd-->
+
+
+# Wrangling Data in the Tidyverse {#wrangle-data}
+
+Placeholder
+
+
+## About This Course
+## Tidy Data Review
+## Reshaping Data
+### Wide Data
+### Long Data
+### Reshaping the Data
+#### `tidyr`
+##### `pivot_longer()`
+##### `pivot_wider()`
+## Data Wrangling
+### R Packages
+#### `dplyr`
+#### `tidyr`
+#### `janitor`
+#### `skimr`
+### The Pipe Operator
+### Filtering Data
+#### Filtering Rows
+#### Selecting Columns
+#### Renaming Columns
+### Reordering
+#### Reordering Columns
+#### Reordering Rows
+### Creating New Columns
+### Separating Columns 
+### Merging Columns 
+### Cleaning Column Names
+### Combining Data Across Data Frames
+### Grouping Data
+#### `group_by()`
+### Summarizing Data
+#### `summarize()`
+#### `tabyl()`
+#### `tally()`
+#### `add_tally()`
+#### `count()`
+#### `add_count()`
+#### `get_dupes()`
+#### `skim()`
+#### `summary()`
+### Operations Across Columns
+## Working With Factors
+### Factor Review
+### Manually Changing the Labels of Factor Levels: `fct_relevel()`
+### Keeping the Order of the Factor Levels: `fct_inorder()`
+### Advanced Factoring 
+### Re-ordering Factor Levels by Frequency: `fct_infreq()`
+### Reversing Order Levels: `fct_rev()`
+### Re-ordering Factor Levels by Another Variable: `fct_reorder()`
+### Combining Several Levels into One: `fct_recode()`
+### Converting Numeric Levels to Factors: `ifelse()` + `factor()`
+## Working With Dates and Times
+### Dates and Times Basics
+### Creating Dates and Date-Time Objects
+#### From strings
+#### From individual parts
+### Working with Dates
+#### Getting components of dates
+### Time Spans
+## Working With Strings
+### `stringr`
+#### Available functions
+### String Basics
+#### String length
+#### Combining strings: `str_c()`
+#### Subsetting strings: `str_sub()`
+#### String sorting: `str_sort()`
+### Regular Expressions
+#### Anchors
+#### Show matches: `str_view()`
+#### Count matches: `str_count()`
+#### Detect matches: `str_detect()`
+#### Subset matches: `str_subset()`
+#### Extract matches: `str_extract()`
+#### Replace matches: `str_replace()`
+#### Common regular expressions
+##### Searching for characters
+##### Searching for anything *other* than a set of characters
+##### Search for digits
+##### Search for whitespace
+##### Identify any character (except newline)
+#### Repetition within regular expressions
+##### Examples of repetition within regular expressions
+### `glue`
+## Working With Text
+### Tidy Text Format
+#### Tokenization
+### Sentiment Analysis
+### Word and Document Frequency
+## Functional Programming
+### For Loops vs. Functionals
+#### Copy + Paste Approach
+#### For Loop Approach
+#### Function Approach
+#### `purrr` Approach
+### `map` Functions
+### Multiple Vectors
+#### `map2`
+#### `pmap`
+### Anonymous Functions
+## Exploratory Data Analysis 
+### General Principles of EDA
+### Analyzing JSON in R
+### Analyzing XML in R
+## Case Studies
+### Case Study #1: Health Expenditures
+#### Healthcare Coverage Data
+##### States Data
+#### Healthcare Spending Data
+#### Join the Data
+### Case Study #2: Firearms
+#### Census Data
+#### Violent Crime
+#### Brady Scores
+#### The Counted Fatal Shootings
+#### Unemployment Data
+#### Population Density: 2015
+#### Firearm Ownership
+
+<!--chapter:end:03-tidying.Rmd-->
+
 # Visualizing Data in the Tidyverse {#dataviz}
 
 
@@ -1154,7 +1480,7 @@ ggplot(diamonds) +
 
 ![`annotate` helps add text to our plot](images/gslides/227.png)
 
-Note: we could have accomplished this by adding an additional `geom`: `geom_text`. However, this requires creating a new dataframe, as explained [here](http://r4ds.had.co.nz/graphics-for-communication.html#annotations). This can also be used to **label the points on your plot**. Keep this reference in mind in case you have to do that in the future.
+Note: we could have accomplished this by adding an additional `geom`: `geom_text`. However, this requires creating a new data frame, as explained [here](http://r4ds.had.co.nz/graphics-for-communication.html#annotations). This can also be used to **label the points on your plot**. Keep this reference in mind in case you have to do that in the future.
 
 ### Vertical and Horizontal Lines
 
@@ -1563,9 +1889,9 @@ We then, specify that only these Mercedes cars should be labeled *and* that we o
 
 Other times, you want to ensure that your labels are aligned on the top or bottom edge, relative to one another. This can be controlled using the `hjust` and `vjust` arguments. The values for particular alignment are:  
 
-* `hjust = 0`   |  to left-align  
-* `hjust = 0.5` |  to center  
-* `hjust = 1`   |  to right-align  
+`hjust = 0`   |  to left-align  
+`hjust = 0.5` |  to center  
+`hjust = 1`   |  to right-align  
 
 Additionally, you can adjust the starting position of text vertically with `nudge_y` (or horizontally with `nudge_x`). To use this, you'll specify the distance from the point to the label you want to use.
 
@@ -1575,10 +1901,10 @@ For example, what if we wanted to plot the relationship between quarter mile tim
 
 To do this, we're specifying within `geom_text_repel()` the following arguments:  
 
-* `data` | only label those cars with gas mileage > 30 mpg  
-* `nudge_y` | position all labels so that they're vertically aligned  
-* `hjust` | center-align the labels  
-* `direction` | allow labels to move horizontally  
+`data` | only label those cars with gas mileage > 30 mpg  
+`nudge_y` | position all labels so that they're vertically aligned  
+`hjust` | center-align the labels  
+`direction` | allow labels to move horizontally  
 
 For further customization, we're also changing the segment color from the default black to a light gray ("gray60").
 
@@ -1726,7 +2052,7 @@ Great - we've now got two plots with the same theme and similar appearance. What
 
 #### Multiple Plots
 
-Combining plots is made simple within the `cowplot` package using the `plot_grid()` function:
+Aligning plots is made simple within the `cowplot` package using the `align_plots()` function:
 
 
 ```r
@@ -1738,12 +2064,12 @@ plot_grid(p1, p2, ncol = 2)
 
 Here, we specify the two plots we'd like to plot on a single grid and we also optionally include how many columns we'd like using the `ncol` parameter. 
 
-To plot these one on top of the other, you could specify for `plot_grid()` to use a single column.
+To plot these one on top of the other, you could specify for `plot_grid()` to use a single column. Also note here that we're aligning the plots vertically with `align = "v"`. The default here is "none", so if you want the graphs in the grid to be aligned, be sure to specify "h" (horizontally), "v" (vertically) or "hv" (align in both directions) explicitly.
 
 
 ```r
 # plot on top of one another
-plot_grid(p1, p2, ncol = 1)
+plot_grid(p1, p2, ncol = 1, align = "v")
 ```
 
 <img src="images/dataviz-unnamed-chunk-67-1.png" width="672" />
@@ -1795,7 +2121,6 @@ plot_grid(p1, p3, rel_widths = c(1, 1.3))
 ```
 
 <img src="images/dataviz-unnamed-chunk-70-1.png" width="672" />
-Notice how the plot on the left is now a bit more narrow and the plot on the right is a bit wider.
 
 **Adding Labels**
 
@@ -1846,7 +2171,7 @@ And, just like that we've got three plots, labeled, spaced out nicely in a grid,
 
 The `patchwork` package is similar to the `cowplot` package in that they both are helpful for combining plots together. They each allow for different plot modifications, so it is useful to know about both packages.
 
-With the `patchwork` package, plots can be combined using a few operators, such as `"+"`, `"/"`, and `"|".
+Instead of requiring a function like `plot_grid()` of the `cowplot` package plots can be combined using a few operators, such as `"+"`, `"/"`, and `"|".
 
 To combine two plots together we can simply add them together with the `+` sign or place them next to one another using the `|`:
 
@@ -1899,7 +2224,7 @@ Thus, to combine multiple plots in a more complicated layout, one can combine tw
 
 <img src="images/dataviz-unnamed-chunk-75-1.png" width="672" />
 
-Without the parentheses we would have the following:
+Otherwise, we would have the following:
 
 
 ```r
@@ -1917,7 +2242,7 @@ You can also empty plot spacers using the `plotspacer()` function like so:
 
 <img src="images/dataviz-unnamed-chunk-77-1.png" width="672" />
 
-You can modify the widths of the plots using the `widths` argument of the `plot_layout()` function. In the following example we will make the width of the plot on the left 2 times that of the plot on the right. Any numeric values will do, it is the ratio of the numbers that make the difference.
+You can modify the widths of the plots using the `widths` argument of the `plot_layout()` function. In the following example we will make the width of the plot on the left 3 times that of the plot on the right. Any numeric values will do, it is the ratio of the numbers that make the difference.
 
 Thus, both `p1 + p2 + plot_layout(widths = c(2, 1))` and `p1 + p2 + plot_layout(widths = c(60, 30))` will result in the same relative size difference between `p1` and `p2`.
 
@@ -1947,7 +2272,7 @@ p1 + p2 + plot_layout(heights = c(60, 30))
 
 <img src="images/dataviz-unnamed-chunk-79-2.png" width="672" />
 
-This package also allows for modification of legends. For example, legends can be gathered together to one side of the combined plots using the `guides = 'collect'` argument of the `plot_layout()` function.
+This package also allows for modification of legends. For example, legends can be gathered together to one side of the combined plots using the `guides = 'collect'` argument of the `plot_grid()` function.
 
 
 ```r
@@ -1956,7 +2281,7 @@ p1 + p2 + plot_layout(guides = "collect")
 
 <img src="images/dataviz-unnamed-chunk-80-1.png" width="672" />
 
-You can also specify the number of columns or rows using this same function with the `ncol` or `nrow` as you would with `facet_wrap()` of the `ggplot2` package, where plots are added to **complete a row** before they will be added to a new row. For example, the following will result in an empty 2nd row below the plots.
+You can also specify the number of columns or rows using this same function with the `ncol` or `nrow` as you would with `facet_wrap()` of the `ggplot2` package, where plots are added to **complete a row** before they will be added to a new row. For example, the following will result in an empty 2nd row.
 
 
 ```r
@@ -2030,13 +2355,13 @@ The final `ggplot2` extension we'll discuss here is [`gganmiate`](https://gganim
 library(gganimate)
 ```
 
-The `gganimate` package adds functionality by providing a number of these grammar classes. Across the animation being generated, the following classes are made available, with each classes' corresponding functionality:  
+The `gganimate` package adds functionality by providing a number of these grammar classes. Across the animation being generated, the following classes are made available, with each classes' corresponding functionality:
 
-* `transition_*()` | specifies how data should transition 
-* `enter_*()`/`exit_*()`  |  specifies how data should appear and disappear  
-* `ease_aes()`  |  specifies how different aesthetics should be eased during transitions  
-* `view_*()`  |  specifies how positional scales should change  
-* `shadow_*()` |  specifies how points from a previous frame should be displayed in a current frame  
+`transition_*()`  | specifies how data should transition 
+`enter_*()`/`exit_*()`  |  specifies how data should appear and disappear
+`ease_aes()`  |  specifies how different aesthetics should be eased during transitions
+`view_*()`  |  specifies how positional scales should change
+`shadow_*()` |  specifies how points from a previous frame should be displayed in current frame
 
 We'll walk through these grammar classes using the `mtcars` dataset.
 
@@ -2167,7 +2492,7 @@ The changes are subtle but you'll notice that on transition the data fades in to
 
 To  demonstrate how changing positional scales can be adjusted, let's take a look at a scatterplot. Here, we're plotting the relationship between 1/4 mile speed and miles per gallon and we'll be transitioning between gear.
 
-The static plot would be as follows:
+The static plot would be as follows
 
 ```r
 ggplot(mtcars) + 
@@ -2240,7 +2565,7 @@ Note that in this example, we're now using `transition_time()` rather than `tran
 
 ##### Shadow
 
-However, what if we didn't want the data to completely disappear from one frame to the next and instead wanted to see the pattern emerge over time? We didn't demonstrate this using the `mtcars` dataset because each observation in that dataset is a different car. However, here, with the gapminder dataset, where we're looking at a trend over time, it makes more sense to include a trail.
+However, what if we didn't want the data to completely disappear from one frame to the next and instead wanted to see the pattern emerge over time? We didn't demonstrate this using the `mtcars` dataset because each observation in that dataset is a different car. However, here, with the gapminder dataset, where we're looking at a trend over time, it makes more sense to include a trail
 
 To do this, we would use `shadow_*`. Here, we'll use `shadow_trail()` to see a trail of the data from one frame to the next:
 
@@ -2272,9 +2597,9 @@ load(here::here("data", "tidy_data", "case_study_2_tidy.rda"))
 
 We've now got the data in order so that we can start to explore the relationships between the variables contained in the health care dataset (`hc`) to answer our questions of interest:
 
-1. Is there a relationship between health care coverage and health care spending in the United States?
+1. Is there a relationship between healthcare coverage and healthcare spending in the United States?
 2. How does the spending distribution change across geographic regions in the United States?
-3. Does the relationship between health care coverage and health care spending in the United States change from 2013 to 2014?
+3. Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?
 
 
 ```r
@@ -2300,11 +2625,11 @@ hc
 ## #   spending_capita <dbl>
 ```
 
-As a reminder, we have state level data, broken down by year and type of insurance. For each, we have the total number of individuals who have health care coverage (`tot_coverage`), the amount spent on coverage (`tot_spending`), the proportion of individuals covered (`prop_coverage`), and the amount spent per capita (`spending_capita`). Additionally, we have the state name (`Location`), the two letter state abbreviation  (`abb`), and the region of the United States where the state is located (`region`). Let's get visualizing!
+As a reminder, we have state level data, broken down by year and type of insurance. For each, we have the total number of individuals who have health care coverage (`tot_coverage`), the amount spent on coverage (`tot_spending`), the proportion of individuals covered (`prop_coverage`), and the amount spent per capita (`spending_capita`). Additionally, we have the state name (`Location`), the two letter state abbreviation  (`abb`) and the region of the United States where the state is located (`region`). Let's get visualizing!
 
 #### Exploratory Data Analysis (EDA)
 
-To first get a sense of what information we do and do not have, the `visdat` package can be very helpful. This package uses `ggplot2` to visualize missingness in a dataframe. For example, `vis_dat()` takes the dataframe as an input and visualizes the observations on the left and the variables across the top. Solid colors indicate that a value is present. Each type of variable is represented by a different color. Grey lines indicate missing values.
+To first get a sense of what information we do and do not have, the `visdat` package can be very helpful. This package uses `ggplot2` to visualize missingness in a data frame. For example, `vis_dat()` takes the data frame as an input and visualizes the observations on the left and the variables across the top. Solid colors indicate that a value is present. Each type of variable is represented by a different color. Grey lines indicate missing values.
 
 
 ```r
@@ -2363,7 +2688,7 @@ hc %>%
 ## # … with 2 more variables: prop_coverage <dbl>, spending_capita <dbl>
 ```
 
-Ah, so we see that the "Other" type of coverage is missing in both 2013 and 2014 for a subset of states. We'll be focusing on the non-"Other" types of health care coverage, so this shouldn't pose a problem, but it is good to know!
+Ah, so we see that the "Other" type of coverage is missing in both 2013 and 2014 for a subset of states. We'll be focusing on the non-"Other" types of healthcare coverage, so this shouldn't pose a problem, but is good to know!
 
 Taking this one step further, let's skim the entire dataset to get a sense of the information stored in each variable:
 
@@ -2972,7 +3297,7 @@ With at least some understanding of the data in our dataset, let's start generat
 
 To answer the question:
 
-> Is there a relationship between health care coverage and health care spending in the United States?
+> Is there a relationship between healthcare coverage and healthcare spending in the United States?
 
 We'll have to visualize coverage and spending data across the United States.
 
@@ -2994,7 +3319,7 @@ hc %>%
 
 <img src="images/dataviz-unnamed-chunk-107-1.png" width="672" />
 
-We see that there appears to be some relationship, with those states that spend more per capita also having higher proportions of their population having health care coverage.
+We see that there appears to be some relationship, with those states that spend more per capita also having higher proportions of their population having healthcare coverage.
 
 We can continue to improve this plot to better understand the underlying data. For example, we can add a best-fit line using `geom_smooth()` to visualize the magnitude of the linear relationship:
 
@@ -3096,7 +3421,7 @@ hc %>%
 
 We see that the overall trend holds, but there has been some movement. For example, we see at a glance that DC has a higher proportion of its population covered in 2014 relative to 2013, while MA saw a drop in coverage. UT appears to be an outlier in both years having low spending but a high proportion of individuals covered.
 
-Beyond "Employer"-held health care coverage, let's look at the other types of coverage data we have. Here, we'll facet by type, rather than year, again focusing on just data from 2013.
+Beyond "Employer"-held healthcare coverage, let's look at the other types of coverage data we have. Here, we'll facet by type, rather than year, again focusing on just data from 2013.
 
 
 ```r
@@ -3122,7 +3447,7 @@ hc %>%
 
 <img src="images/dataviz-unnamed-chunk-112-1.png" width="672" />
 
-From these data, we see that Employer health care coverage is the most popular way in which individuals receive their health insurance across all states. We also see a flat or positive relationship for all other types of insurance, except for "Uninsured". We see that the more money spent per capita the fewer individuals the state has without insurance, as one might expect.
+From these data, we see that Employer health care coverage is the most popular way in which individuals receive their health insurance across all states. We also see a flat or positive relationship for all other types of insurance, except for "Uninsured". There, as makes sense, we see that the more money spent per capita the fewer individuals the state has without insurance. 
 
 We can quickly peak at the data from 2014 to be sure the same general patterns hold:
 
@@ -3276,9 +3601,9 @@ dev.off()
 
 To answer the question:
 
-> Which US states spend the most and which spend the least on health care? How does the spending distribution change across geographic regions in the United States?
+> Which US states spend the most and which spend the least on healthcare? How does the spending distribution change across geographic regions in the United States?
 
-We'll want to visualize health care spending across regions of the US.
+We'll want to visualize healthcare spending across regions of the US.
 
 We saw in the previous plots that there are some regional effects when it comes to spending, as the states from the different regions tended to cluster in the previous plot. But, let's look at this explicitly now.
 
@@ -3322,7 +3647,7 @@ With this we have a good sense of the regional effects of spending across the Un
 
 To answer the question:
 
-> Does the relationship between health care coverage and health care spending in the United States change from 2013 to 2014?
+> Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?
 
 we'll need to visualize a whole bunch of variables: coverage, spending, `year` and type of insurance. We can return to a scatterplot again, but now we'll put all these pieces we looked at separately in Q1 together at once to answer this temporal question visually. 
 
@@ -3350,7 +3675,7 @@ hc %>%
 
 <img src="images/dataviz-unnamed-chunk-117-1.png" width="672" />
 
-With this output, the top row shows the data from 2013 and the bottom shows the data from 2014. We can then visually compare the top plot to the bottom plot for each time of insurance. 
+With this, output the top row are the data from 2013 and the bottom from 2014. We can then visually compare the top plot to the bottom plot for each time of insurance. 
 
 Visually, we can start to get a sense that a few things changed from 2013 to 2014. For example, as we saw previously, individual states changed from one year to the next, but overall patterns seem to hold pretty steady between these two years.
 
@@ -3364,7 +3689,7 @@ For our second case study, we're interested in the following question:
 
 >At the state-level, what is the relationship between firearm legislation strength and annual rate of fatal police shootings?
 
-In the previous course, we wrangled the data into a single, helpful dataframe: `firearms`.
+In the previous course, we wrangled the data into a single, helpful data frame: `firearms`.
 
 
 ```r
@@ -3770,7 +4095,7 @@ This suggests that states with more fatal police shootings *tend* to have more f
 
 With these plots, we're starting to get an understanding of the data and see that there are patterns and don't appear to be wild outliers in any one variable (although, we should keep an eye on Washington, D.C. as it appeared as an outlier in a few plots). With that we're confident we can move on to start looking into our question of interest.
 
-#### Q: Relationship between Fatal Police Shootings and Legislation?
+#### Q: Fatal Police Shootings and Legislation
 
 Ultimately, we're interested in firearm legislation and fatal police shootings, so let's focus in on Brady scores here, which measure legislation and `gunshot_tally`, a measure of the rate of fatal police shootings.
 
@@ -3893,3 +4218,135 @@ dev.off()
 ## quartz_off_screen 
 ##                 2
 ```
+
+<!--chapter:end:04-dataviz.Rmd-->
+
+
+# Modeling Data in the Tidyverse {#model}
+
+Placeholder
+
+
+## About This Course
+## The Purpose of Data Science
+## Types of Data Science Questions
+## Data Needs
+### Number of observations is too small
+### Dataset does not contain the exact variables you are looking for
+### Variables in the dataset are not collected in the same year
+### Dataset is not representative of the population that you are interested in
+### Some variables in the dataset are measured with error
+### Variables are confounded
+## Descriptive and Exploratory Analysis
+### Missing Values
+### Shape
+#### Normal Distribution
+### Identifying Outliers
+### Evaluating Variables
+#### Summarizing Your Data
+##### skimr
+### Evaluating Relationships
+## Inference
+### Uncertainty
+### Random Sampling
+#### An example of inferential data analysis
+## Linear Modeling
+### Linear Regression
+### Assumptions
+#### Linearity
+#### Homoscedasticity
+#### Normality of residuals
+### Association
+#### Beta estimate
+#### Standard error 
+### Association Testing in R
+### Fitting the Model
+### Model Diagnostics
+### Tree Girth and Height Example
+### Interpreting the Model
+### Variance Explained
+### Using `broom`
+### Correlation Is Not Causation
+### Confounding
+## Multiple Linear Regression
+## Beyond Linear Regression
+### Mean Different From Expectation?
+### Testing Mean Difference From Expectation in R
+## More Statistical Tests
+## Hypothesis Testing
+### The`Infer` Package
+## Prediction Modeling
+### What is Machine Learning?
+### Machine Learning Steps
+### Data Splitting
+### Train, Test, Validate
+### Train
+### Test
+### Validate
+### Variable Selection
+#### Lack of Causality Reminder
+### Model Selection
+### Regression vs. Classification
+#### Linear Regression
+#### Classification and Regression Trees (CART)
+### Model Accuracy
+#### Error Rates
+##### RMSE
+#### Accuracy
+## The `tidymodels` Ecosystem
+### Benefits of `tidymodels`  
+### Packages of `tidymodels`
+### Example of Continuous Variable Prediction 
+#### Step 1: Example of Data Splitting with `rsample`
+#### Step 2: Example of preparing for preprocessing the data with `recipes`
+##### Step 1: Specify variables  with the `recipe()` function
+##### Step 2: Specify the preprocessing steps with `step*()` functions
+#### Step 3: Example of optionally performing the preprocessing to see how it influences the data
+#### Step 4: Example of specifying the model with `parsnip`
+#### Step 5: Example of fitting the model
+#### Step 6: Example of assessing the model performance
+### Example of Categorical Variable Prediction
+#### Example of creating cross validation samples with `rsample`
+#### Example of creating another recipe, model and workflow
+####  Example of assessing model performance with cross validation using `tune`
+#### Example of tuning
+## Case Studies
+### Case Study #1: Predicting Annual Air Pollution
+#### The Data
+#### Data Import
+#### Data Exploration and Wrangling
+#### Evaluate Correlation
+#### Splitting the Data
+#### Making a Recipe
+#### Running Preprocessing
+##### Extract preprocessed testing data using `bake()`
+#### Specifying the Model
+#### Assessing the Model Fit
+#### Model Performance
+#### Visualizing Model Performance
+#### Quantifying Model Performance 
+#### Assessing Model Performance on $v$-folds Using `tune`
+#### Random Forest
+#### Model Tuning
+#### Final model performance evaluation
+## Summary of `tidymodels` 
+
+<!--chapter:end:05-prediction.Rmd-->
+
+# About the Authors {-}
+
+
+**Carrie Wright** is a Research Associate in the Department of Biostatistics at the Johns Hopkins Bloomberg School of Public Health. She is faculty member of the Johns Hopkins Data Science Lab, where her work focuses on making data science and bioinformatics more approachable to a variety of audiences. She is also a faculty member of the [open case studies project](https://www.opencasestudies.org/) and a co-founder of the [LIBD rstats club](http://research.libd.org/rstatsclub/), a community designed to encourage others to learn more about R programming and statistics. Carrie can be found on Twitter at [mirnas22](https://twitter.com/mirnas22) and on GitHub under the user name [carriewright11](https://github.com/carriewright11).
+
+
+**Shannon E. Ellis** is an Assistant Teaching Professor of [Cognitive Science](http://www.cogsci.ucsd.edu) at the [University of California San Deigo](https://ucsd.edu). She teaches data science to thousands of undergraduates each year and is a developer of the [Cloud-Based Data Science](https://www.clouddatascience.org) Course Set on [Leanpub](https://leanpub.com/universities/set/jhu/cloud-based-data-science). Shannon can be found on Twitter at [Shannon_E_Ellis](https://twitter.com/Shannon_E_Ellis) and on GitHub under the user name [ShanEllis](https://github.com/shanellis).
+
+
+**Stephanie C. Hicks** is an Assistant Professor of [Biostatistics](https://www.jhsph.edu/departments/biostatistics) at the [Johns Hopkins Bloomberg School of Public Health](https://www.jhsph.edu). She is also a faculty member of the [Johns Hopkins Data Science Lab](http://jhudatascience.org), co-host of [The Corresponding Author](https://twitter.com/CorrespondAuth) podcast and co-founder of [R-Ladies Baltimore](https://rladies-baltimore.github.io). Stephanie can be found on Twitter and GitHub under the user name [stephaniehicks](https://twitter.com/stephaniehicks).
+
+
+**Roger D. Peng** is a Professor of Biostatistics at the Johns Hopkins Bloomberg School of Public Health. He is also a Co-Founder of the [Johns Hopkins Data Science Specialization](http://www.coursera.org/specialization/jhudatascience/1), which has enrolled over 5 million students, the [Johns Hopkins Executive Data Science Specialization](https://www.coursera.org/specializations/executive-data-science), the [Simply Statistics blog](http://simplystatistics.org/) where he writes about statistics and data science for the general public, and the [Not So Standard Deviations](https://soundcloud.com/nssd-podcast) podcast. Roger can be found on Twitter and GitHub under the user name [rdpeng](https://twitter.com/rdpeng).
+
+
+<!--chapter:end:about.Rmd-->
+

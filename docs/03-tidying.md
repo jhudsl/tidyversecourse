@@ -389,7 +389,7 @@ When working with a large dataset, you're often interested in only working with 
 
 For the examples below, we'll be using a dataset from the `ggplot2` package called `msleep`. (You'll learn more about this package in a later course on data visualization. For now, it's a core tidyverse package so it's loaded in along with the other tidyverse packages using `library(tidyverse)`.) This dataset includes sleep times and weights from a number of different mammals. It has 83 rows, with each row including information about a different type of animal, and 11 variables. As each row is a different animal and each column includes information about that animal, this is a **wide** dataset.
 
-To get an idea of what variables are included in this data frame, you can use `glimpse()`. This function summarizes how many rows there are (`Observations`) and how many columns there are (`Variables`). Additionally, it gives you a glimpse into the type of data contained in each column. Specifically, in this dataset, we know that the first column is `name` and that it contains a character vector (`chr`) and that the first three entries are "Cheetah", "Owl monkey", and "Mountain beaver." It works similarly to the `summary()` function covered in an earlier course.
+To get an idea of what variables are included in this data frame, you can use `glimpse()`. This function summarizes how many rows there are (`Observations`) and how many columns there are (`Variables`). Additionally, it gives you a glimpse into the type of data contained in each column. Specifically, in this dataset, we know that the first column is `name` and that it contains a character vector (`chr`) and that the first three entries are "Cheetah", "Owl monkey", and "Mountain beaver." It works similarly to the base R `summary()` function.
 
 
 ```r
@@ -907,7 +907,7 @@ msleep %>%
 
 ![Data resulting from left_join](images/gslides/109.png)
 
-It's important to note that there are many other ways to join data, which are covered in more detail on this [dplyr join cheatsheet](http://stat545.com/bit001_dplyr-cheatsheet.html) from Jenny Bryan. For now, it's important to know that joining datasets is done easily in R using tools in `dplyr`. As you join data frames in your own work, it's a good idea to refer back to this cheatsheet for assistance.
+It's important to note that there are many other ways to join data, which we covered earlier in a previous course and are covered in more detail on this [dplyr join cheatsheet](http://stat545.com/bit001_dplyr-cheatsheet.html) from Jenny Bryan. For now, it's important to know that joining datasets is done easily in R using tools in `dplyr`. As you join data frames in your own work, it's a good idea to refer back to this cheatsheet for assistance.
 
 ### Grouping Data
 
@@ -1149,7 +1149,7 @@ tally(sleep_total)
 ```
 Thus overall, all the animals in the dataset sleep 866 hours in total.
 
-This is the equivalent to using the sum `function()` with the `summarize()` function or the `pull` function.
+This is the equivalent to using the `sum()` function with the `summarize()` function. 
 
 
 ```r
@@ -1163,6 +1163,9 @@ msleep %>%
 ##             <dbl>
 ## 1             866
 ```
+
+We could also use the `pull()` function of the `dplyr` package, to get the sum of just the `sleep_total` column, as the `pull()` function extracts or "pulls" the values of a column.
+
 
 ```r
 msleep %>%
@@ -1201,6 +1204,7 @@ msleep %>%
 ## $ bodywt       <dbl> 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.490, 0.0…
 ## $ n            <int> 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, …
 ```
+
 Notice the new column called "n" that repeats the total number of samples for each row.
 
 Or we can add a column that repeats the total hours of sleep of all the animals.
@@ -1228,6 +1232,7 @@ msleep %>%
 ## $ bodywt       <dbl> 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.490, 0.0…
 ## $ n            <dbl> 866, 866, 866, 866, 866, 866, 866, 866, 866, 866, 866, 8…
 ```
+
 #### `count()`
 
 The `count()` function takes the `tally()` function a step further to determine the count of unique values for specified variable(s)/column(s).
@@ -1299,7 +1304,7 @@ msleep %>%
 
 #### `add_count()`
 
-the `add_count()` function is similar to the `add_tally()` function
+The `add_count()` function is similar to the `add_tally()` function:
 
 
 ```r
@@ -1331,7 +1336,7 @@ msleep %>%
 
 Another common issue in data wrangling is the presence of duplicate entries. Sometimes you *expect* multiple observations from the same individual in your dataset. Other times, the information has accidentally been added more than once. The `get_dupes()` function becomes very helpful in this situation. If you want to identify duplicate entries during data wrangling, you'll use this function and specify which columns you're looking for duplicates in.
 
-For example, in the `msleep` dataset, if you expected to only have one mammal representing each `genus` and `vore` you could double check this hung using `get_dupes()`
+For example, in the `msleep` dataset, if you expected to only have one mammal representing each `genus` and `vore` you could double check this using `get_dupes()`.
 
 
 
@@ -1374,7 +1379,7 @@ skim(msleep)
 ```
 
 
-Table: (\#tab:unnamed-chunk-47)Data summary
+Table: (\#tab:unnamed-chunk-48)Data summary
 
 |                         |       |
 |:------------------------|:------|
@@ -1422,7 +1427,7 @@ skim(msleep, genus, vore, sleep_total)
 ```
 
 
-Table: (\#tab:unnamed-chunk-48)Data summary
+Table: (\#tab:unnamed-chunk-49)Data summary
 
 |                         |       |
 |:------------------------|:------|
@@ -1451,7 +1456,7 @@ Table: (\#tab:unnamed-chunk-48)Data summary
 |:-------------|---------:|-------------:|-----:|----:|---:|----:|----:|-----:|----:|:-----|
 |sleep_total   |         0|             1| 10.43| 4.45| 1.9| 7.85| 10.1| 13.75| 19.9|▅▅▇▆▂ |
 
-It is also possible to group data (using `dplyr`'s `group_by()` before summarizing. Notice in the summary output that each variable specified (`genus` and `sleep_total`) are now broken down within each of the `vore` categories.
+It is also possible to group data (using `dplyr`'s `group_by()`) before summarizing. Notice in the summary output that each variable specified (`genus` and `sleep_total`) are now broken down within each of the `vore` categories.
 
 
 ```r
@@ -1461,7 +1466,7 @@ msleep %>%
 ```
 
 
-Table: (\#tab:unnamed-chunk-49)Data summary
+Table: (\#tab:unnamed-chunk-50)Data summary
 
 |                         |           |
 |:------------------------|:----------|
@@ -1500,7 +1505,7 @@ Table: (\#tab:unnamed-chunk-49)Data summary
 
 #### `summary()`
 
-While base R has a summary function, the `skimr` package also has a helpful `summary()` function that provides you with a quick summary of the dataset at large.
+While base R has a `summary()` function, this can be combined with the `skimr` package to provide you with a quick summary of the dataset at large.
 
 
 ```r
@@ -1508,7 +1513,7 @@ skim(msleep) %>%
   summary()
 ```
 
-Table: (\#tab:unnamed-chunk-50)Data summary
+Table: (\#tab:unnamed-chunk-51)Data summary
 
 |                         |       |
 |:------------------------|:------|
@@ -1528,7 +1533,7 @@ Table: (\#tab:unnamed-chunk-50)Data summary
 
 Sometimes it is valuable to apply a certain operation across the columns of a data frame. For example, it be necessary to compute the mean or some other summary statistics for each column in the data frame. In some cases, these operations can be done by a combination of `pivot_longer()` along with `group_by()` and `summarize()`. However, in other cases it is more straightforward to simply compute the statistic on each column.
 
-The `across()` function is need to operate across the columns of a data frame. For example, in our `airquality` dataset, if we wanted to compute the mean of `Ozone`, `Solar.R`, `Wind`, and `Temp`, we could do
+The `across()` function is need to operate across the columns of a data frame. For example, in our `airquality` dataset, if we wanted to compute the mean of `Ozone`, `Solar.R`, `Wind`, and `Temp`, we could do:
 
 
 ```r
@@ -1543,7 +1548,7 @@ airquality %>%
 ## 1  42.1    186.  9.96  77.9
 ```
 
-The `across()` function can be used in conjunction with the `mutate()` and `filter()` functions to construct joint operations across different columns of a data frame. For example, suppose we wanted to filter the rows of the `airquality` data frame so that we only retain rows that do not have missing values for `Ozone` and `Solar.R`. Generally, we might use the `filter()` function for this, as follows.
+The `across()` function can be used in conjunction with the `mutate()` and `filter()` functions to construct joint operations across different columns of a data frame. For example, suppose we wanted to filter the rows of the `airquality` data frame so that we only retain rows that do not have missing values for `Ozone` and `Solar.R`. Generally, we might use the `filter()` function for this, as follows:
 
 
 ```r
@@ -1554,7 +1559,7 @@ airquality %>%
 
 Because we are only filtering on two columns here, it's not too difficult to write out the expression. However, if we were filtering on many columns, it would become a challenge to write out every column. This is where the `across()` function comes in handy. With the `across()` function, we can specify columns in the same way that we use the `select()` function. This allows us to use short-hand notation to select a large set of columns.
 
-We can use the `across()` function in conjunction with `filter()` to achieve the same result as above..
+We can use the `across()` function in conjunction with `filter()` to achieve the same result as above.
 
 ```r
 airquality %>%
@@ -1578,7 +1583,7 @@ airquality %>%
 ## # … with 101 more rows
 ```
 
-Here, the `~` in the call to `across()` indicates that we are passing an anonymous function (see the chapter on Functional Programming for more details) and the `.` is a stand-in for the name of the column.
+Here, the `~` in the call to `across()` indicates that we are passing an anonymous function (see the section on Functional Programming for more details) and the `.` is a stand-in for the name of the column.
 
 
 If we wanted to filter the data frame to remove rows with missing values in `Ozone`, `Solar.R`, `Wind`, and `Temp`, we only need to make a small change.
@@ -1839,7 +1844,7 @@ chickwts %>%
   geom_point()
 ```
 
-<img src="images/tidying-unnamed-chunk-63-1.png" width="672" />
+<img src="images/tidying-unnamed-chunk-64-1.png" width="672" />
 
 ![fct_reorder allows you to re-level a factor based on a secondary numeric variable](images/gslides/125.png)
 
@@ -1877,7 +1882,7 @@ chickwts %>%
 
 ### Converting Numeric Levels to Factors: `ifelse()` + `factor()`
 
-Finally, when working with factors, there are times when you want to convert a numeric variable into a factor. For example, if you were talking about a dataset with BMI for a number of individuals, you may want to categorize people based on whether or not they are underweight (BMI < 18.5), of a healthy weight (BMI between 18.5 and 29.9), or obese (BMI >= 30). When you want to take a numeric variable and turn it into a categorical factor variable, you can accomplish this easily by using `ifelse()` statements. We previously covered `if{}` statements and `else{}` statements. Here we combine those two ideas. Within a single statement we provide R with a condition: `weight <= 200`. With this, we are stating that the condition is if a chicken's weight is less than or equal to 200 grams. Then, if that condition is true, meaning if a chicken's weight is less than or equal to 200 grams, let's assign that chicken to the category `low`. Otherwise, and this is the `else{}` part of the `ifelse()` function, assign that chicken to the category `high`. Finally, we have to let R know that weight_recode is a factor variable, so we call factor() on this new column. This way we take a numeric variable (`weight`), and turn it into a factor variable (`weight_recode`). 
+Finally, when working with factors, there are times when you want to convert a numeric variable into a factor. For example, if you were talking about a dataset with BMI for a number of individuals, you may want to categorize people based on whether or not they are underweight (BMI < 18.5), of a healthy weight (BMI between 18.5 and 29.9), or obese (BMI >= 30). When you want to take a numeric variable and turn it into a categorical factor variable, you can accomplish this easily by using `ifelse()` statements. Within a single statement we provide R with a condition: `weight <= 200`. With this, we are stating that the condition is if a chicken's weight is less than or equal to 200 grams. Then, if that condition is true, meaning if a chicken's weight is less than or equal to 200 grams, let's assign that chicken to the category `low`. Otherwise, and this is the `else{}` part of the `ifelse()` function, assign that chicken to the category `high`. Finally, we have to let R know that weight_recode is a factor variable, so we call factor() on this new column. This way we take a numeric variable (`weight`), and turn it into a factor variable (`weight_recode`). 
 
 
 ```r
@@ -1898,7 +1903,7 @@ chickwts %>%
 
 ## Working With Dates and Times
 
-In lessons an earlier course, you were introduced to different types of objects in R, such as characters, numeric, and logicals. Then, in earlier lessons in this course, we covered how to work with strings and factors in detail. The remaining type of variable we haven't yet covered is how to work with dates and time in R. 
+In earlier lessons, you were introduced to different types of objects in R, such as characters and numeric. Then we covered how to work with  factors in detail. A remaining type of variable we haven't yet covered is how to work with dates and time in R. 
 
 As with strings and factors, there is a tidyverse package to help you work with dates more easily. The `lubridate` package is not part of the core tidyverse packages, so it will have to be loaded individually. This package will make working with dates and times easier. Before working through this lesson, you'll want to be sure that `lubridate` has been installed and loaded in:
 
@@ -2077,7 +2082,7 @@ age
 ```
 
 ```
-## Time difference of 11814 days
+## Time difference of 11823 days
 ```
 
 ```r
@@ -2086,7 +2091,7 @@ as.duration(age)
 ```
 
 ```
-## [1] "1020729600s (~32.34 years)"
+## [1] "1021507200s (~32.37 years)"
 ```
 
 
@@ -2128,10 +2133,11 @@ As we'll only cover a few of the functions within `stringr` in this lesson, it's
 
 ### String Basics
 
-When working with strings, some of the most frequent tasks you'll need to complete are to:
-* determine the length of a string
-* combine strings together
-* subset strings
+When working with strings, some of the most frequent tasks you'll need to complete are to:  
+
+* determine the length of a string   
+* combine strings together  
+* subset strings  
 
 #### String length
 
@@ -2265,8 +2271,8 @@ str_view(names, "^M")
 ```
 
 ```{=html}
-<div id="htmlwidget-c1037acd1d488828a0bf" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c1037acd1d488828a0bf">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li><span class='match'>M<\/span>ohammed<\/li>\n  <li>Jane<\/li>\n  <li><span class='match'>M<\/span>athieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-642d025b0ce0b2389d06" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-642d025b0ce0b2389d06">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li><span class='match'>M<\/span>ohammed<\/li>\n  <li>Jane<\/li>\n  <li><span class='match'>M<\/span>athieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 
@@ -2283,8 +2289,8 @@ str_view(names, "M$")
 ```
 
 ```{=html}
-<div id="htmlwidget-de571df0d61c1e833314" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-de571df0d61c1e833314">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-99f070594c7f7dc8c370" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-99f070594c7f7dc8c370">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 
@@ -2299,8 +2305,8 @@ str_view(names, "a$")
 ```
 
 ```{=html}
-<div id="htmlwidget-7500909c2d3adb2e7141" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7500909c2d3adb2e7141">{"x":{"html":"<ul>\n  <li>Keish<span class='match'>a<\/span><\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-49a3a07c43da07b10beb" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-49a3a07c43da07b10beb">{"x":{"html":"<ul>\n  <li>Keish<span class='match'>a<\/span><\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![`str_view()` identifies names that end with a](images/gslides/141.png)
@@ -2426,8 +2432,8 @@ str_view_all(names, "[aeiou]")
 ```
 
 ```{=html}
-<div id="htmlwidget-0ad4f639a84d8238680c" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0ad4f639a84d8238680c">{"x":{"html":"<ul>\n  <li>K<span class='match'>e<\/span><span class='match'>i<\/span>sh<span class='match'>a<\/span><\/li>\n  <li>M<span class='match'>o<\/span>h<span class='match'>a<\/span>mm<span class='match'>e<\/span>d<\/li>\n  <li>J<span class='match'>a<\/span>n<span class='match'>e<\/span><\/li>\n  <li>M<span class='match'>a<\/span>th<span class='match'>i<\/span><span class='match'>e<\/span><span class='match'>u<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-b7438454cdbf91e705d1" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b7438454cdbf91e705d1">{"x":{"html":"<ul>\n  <li>K<span class='match'>e<\/span><span class='match'>i<\/span>sh<span class='match'>a<\/span><\/li>\n  <li>M<span class='match'>o<\/span>h<span class='match'>a<\/span>mm<span class='match'>e<\/span>d<\/li>\n  <li>J<span class='match'>a<\/span>n<span class='match'>e<\/span><\/li>\n  <li>M<span class='match'>a<\/span>th<span class='match'>i<\/span><span class='match'>e<\/span><span class='match'>u<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![brackets specify which characters to search for](images/gslides/149.png)
@@ -2444,8 +2450,8 @@ str_view_all(names, "[^aeiou]")
 ```
 
 ```{=html}
-<div id="htmlwidget-b74d85f2e7a72e6c6e77" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b74d85f2e7a72e6c6e77">{"x":{"html":"<ul>\n  <li><span class='match'>K<\/span>ei<span class='match'>s<\/span><span class='match'>h<\/span>a<\/li>\n  <li><span class='match'>M<\/span>o<span class='match'>h<\/span>a<span class='match'>m<\/span><span class='match'>m<\/span>e<span class='match'>d<\/span><\/li>\n  <li><span class='match'>J<\/span>a<span class='match'>n<\/span>e<\/li>\n  <li><span class='match'>M<\/span>a<span class='match'>t<\/span><span class='match'>h<\/span>ieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-7713631786d8b7aecd7e" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7713631786d8b7aecd7e">{"x":{"html":"<ul>\n  <li><span class='match'>K<\/span>ei<span class='match'>s<\/span><span class='match'>h<\/span>a<\/li>\n  <li><span class='match'>M<\/span>o<span class='match'>h<\/span>a<span class='match'>m<\/span><span class='match'>m<\/span>e<span class='match'>d<\/span><\/li>\n  <li><span class='match'>J<\/span>a<span class='match'>n<\/span>e<\/li>\n  <li><span class='match'>M<\/span>a<span class='match'>t<\/span><span class='match'>h<\/span>ieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![brackets with a caret first specify which characters NOT to search for](images/gslides/150.png)
@@ -2463,8 +2469,8 @@ str_view_all(addresses, "\\d")
 ```
 
 ```{=html}
-<div id="htmlwidget-ec0655c6d72cc18d29a7" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ec0655c6d72cc18d29a7">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span> Main Street<\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span> Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-127de3407efefbcc1565" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-127de3407efefbcc1565">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span> Main Street<\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span> Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![`\d` searches for digits](images/gslides/151.png)
@@ -2480,8 +2486,8 @@ str_view_all(addresses, "\\s")
 ```
 
 ```{=html}
-<div id="htmlwidget-91de3c2af4857d622453" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-91de3c2af4857d622453">{"x":{"html":"<ul>\n  <li>1234<span class='match'> <\/span>Main<span class='match'> <\/span>Street<\/li>\n  <li>1600<span class='match'> <\/span>Pennsylvania<span class='match'> <\/span>Ave<\/li>\n  <li>Brick<span class='match'> <\/span>Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-80031fc18287f167ea9e" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-80031fc18287f167ea9e">{"x":{"html":"<ul>\n  <li>1234<span class='match'> <\/span>Main<span class='match'> <\/span>Street<\/li>\n  <li>1600<span class='match'> <\/span>Pennsylvania<span class='match'> <\/span>Ave<\/li>\n  <li>Brick<span class='match'> <\/span>Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![`\s` searches for whitespace](images/gslides/152.png)
@@ -2497,8 +2503,8 @@ str_view_all(addresses, ".")
 ```
 
 ```{=html}
-<div id="htmlwidget-49d016bb53e2bb1d8e7b" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-49d016bb53e2bb1d8e7b">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span><span class='match'> <\/span><span class='match'>M<\/span><span class='match'>a<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'> <\/span><span class='match'>S<\/span><span class='match'>t<\/span><span class='match'>r<\/span><span class='match'>e<\/span><span class='match'>e<\/span><span class='match'>t<\/span><\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>e<\/span><span class='match'>n<\/span><span class='match'>n<\/span><span class='match'>s<\/span><span class='match'>y<\/span><span class='match'>l<\/span><span class='match'>v<\/span><span class='match'>a<\/span><span class='match'>n<\/span><span class='match'>i<\/span><span class='match'>a<\/span><span class='match'> <\/span><span class='match'>A<\/span><span class='match'>v<\/span><span class='match'>e<\/span><\/li>\n  <li><span class='match'>B<\/span><span class='match'>r<\/span><span class='match'>i<\/span><span class='match'>c<\/span><span class='match'>k<\/span><span class='match'> <\/span><span class='match'>B<\/span><span class='match'>u<\/span><span class='match'>i<\/span><span class='match'>l<\/span><span class='match'>d<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'>g<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-82407f45043b53a558e7" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-82407f45043b53a558e7">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span><span class='match'> <\/span><span class='match'>M<\/span><span class='match'>a<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'> <\/span><span class='match'>S<\/span><span class='match'>t<\/span><span class='match'>r<\/span><span class='match'>e<\/span><span class='match'>e<\/span><span class='match'>t<\/span><\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>e<\/span><span class='match'>n<\/span><span class='match'>n<\/span><span class='match'>s<\/span><span class='match'>y<\/span><span class='match'>l<\/span><span class='match'>v<\/span><span class='match'>a<\/span><span class='match'>n<\/span><span class='match'>i<\/span><span class='match'>a<\/span><span class='match'> <\/span><span class='match'>A<\/span><span class='match'>v<\/span><span class='match'>e<\/span><\/li>\n  <li><span class='match'>B<\/span><span class='match'>r<\/span><span class='match'>i<\/span><span class='match'>c<\/span><span class='match'>k<\/span><span class='match'> <\/span><span class='match'>B<\/span><span class='match'>u<\/span><span class='match'>i<\/span><span class='match'>l<\/span><span class='match'>d<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'>g<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![. searches for any character](images/gslides/153.png)
@@ -2526,8 +2532,8 @@ str_view_all(addresses, "n+")
 ```
 
 ```{=html}
-<div id="htmlwidget-6b9a60691633157f98d8" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6b9a60691633157f98d8">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-09778983e0d52f1631ca" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-09778983e0d52f1631ca">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![+ specifies to match the pattern one or more times](images/gslides/154.png)
@@ -2541,8 +2547,8 @@ str_view_all(addresses, "n{1}")
 ```
 
 ```{=html}
-<div id="htmlwidget-b3afe1607cba5844f6b3" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b3afe1607cba5844f6b3">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>n<\/span><span class='match'>n<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-7a38696d1852fadcdad4" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7a38696d1852fadcdad4">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>n<\/span><span class='match'>n<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![{#} looks to match the pattern exactly the number of times within the curly braces](images/gslides/155.png)
@@ -2556,8 +2562,8 @@ str_view_all(addresses, "n{2}")
 ```
 
 ```{=html}
-<div id="htmlwidget-d727922ba6581a8ac613" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d727922ba6581a8ac613">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-37119b63519295a51d33" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-37119b63519295a51d33">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![{2} specifies that the pattern must be found exactly twice](images/gslides/156.png)
@@ -2571,8 +2577,8 @@ str_view_all(addresses, "nn+")
 ```
 
 ```{=html}
-<div id="htmlwidget-4c7f77e064adac5ea589" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4c7f77e064adac5ea589">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-161f5c335ef2c5ac8e30" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-161f5c335ef2c5ac8e30">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![nn+ searches for double n one or more times in a string](images/gslides/157.png)
@@ -2586,8 +2592,8 @@ str_view_all(addresses, "n{2,3}")
 ```
 
 ```{=html}
-<div id="htmlwidget-3c636cbec63ccdd3f205" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3c636cbec63ccdd3f205">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-0aef510f6fbe23b682c6" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0aef510f6fbe23b682c6">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ```r
@@ -2596,8 +2602,8 @@ str_view_all(addresses, "n{3,4}")
 ```
 
 ```{=html}
-<div id="htmlwidget-e8c73f9347a6f3fe469f" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e8c73f9347a6f3fe469f">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-91f2446c5f5a3d548986" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-91f2446c5f5a3d548986">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![{n,m} looks to pattern match between n and m times](images/gslides/158.png)
@@ -2680,7 +2686,7 @@ library(tidytext)
 
 If we're thinking about all the text in a novel, it's pretty clear that it is not in a format that is easy to analyze computationally. To analyze the text in the novel computationally and say, determine what words are used most frequently, or what topics are discussed, we need to convert the text in the novel into a format that a computer can interpret. And, as with all types of data discussed in these courses, we want this to be a tidy format where (1) each observation is a row (2) each variable is a column, and (3) each observational unit is a table. So, how do we take text from a novel and store the information in a tidy format?
 
-The tidy text format requires that the data frame will store one **token** per row. This requires knowing that a **token** is a meaningful unit of text. How you define that unit is up to you, the analyst and is driven by the question you're asking. If you're looking to identify the words used most frequently in this analysis, the unit of your token would be individual words. You would then utilize your computer to generate a data frame with each row containing data about a single word. However, your token could be two words (a **bigram**, a sentence, or a paragraph. Whatever you decide is meaningful for your analysis will be the unit for your token. Each row will contain a separate token.
+The tidy text format requires that the data frame will store one **token** per row. This requires knowing that a **token** is a meaningful unit of text. How you define that unit is up to you, the analyst and is driven by the question you're asking. If you're looking to identify the words used most frequently in this analysis, the unit of your token would be individual words. You would then utilize your computer to generate a data frame with each row containing data about a single word. However, your token could be two words (a **bigram**), a sentence, or a paragraph. Whatever you decide is meaningful for your analysis will be the unit for your token. Each row will contain a separate token.
 
 #### Tokenization
 
@@ -2997,7 +3003,7 @@ ggplot(poem_words, aes(n/total, fill = title)) +
   facet_wrap(~title, ncol = 3, scales = "free_y")
 ```
 
-<img src="images/tidying-unnamed-chunk-116-1.png" width="672" />
+<img src="images/tidying-unnamed-chunk-117-1.png" width="672" />
 
 With most documents there are only a few words that show up infrequently in the tail off to the right (rare words), while most words show up a whole bunch of times. 
 
@@ -3093,7 +3099,7 @@ poem_words %>%
 ## Selecting by tf_idf
 ```
 
-<img src="images/tidying-unnamed-chunk-120-1.png" width="672" />
+<img src="images/tidying-unnamed-chunk-121-1.png" width="672" />
 
 
 ## Functional Programming
@@ -3618,16 +3624,16 @@ We've already read in the datasets we'll use for this health expenditures case s
 
 As a reminder, we're ultimately interested in answering the following questions with these data:
 
-1. Is there a relationship between healthcare coverage and healthcare spending in the United States?
+1. Is there a relationship between health care coverage and health care spending in the United States?
 2. How does the spending distribution change across geographic regions in the United States?
-3. Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?
+3. Does the relationship between health care coverage and health care spending in the United States change from 2013 to 2014?
 
 This means that we'll need all the data from the variables necessary to answer this question in our tidy dataset.
 
-#### Healthcare Coverage Data
+#### health care Coverage Data
 
 
-Let's remind ourselves before we get to wrangling what data we have when it comes to healthcare coverage.
+Let's remind ourselves before we get to wrangling what data we have when it comes to health care coverage.
 
 
 ```r
@@ -3659,7 +3665,7 @@ coverage
 ## #   `2016__Other Public` <chr>, `2016__Uninsured` <dbl>, `2016__Total` <dbl>
 ```
 
-At a glance, we see that state-level information is stored in rows (with the exception of the first row, which stores country-level information) with columns corresponding to the amount of money spent on each type of healthcare, by year. 
+At a glance, we see that state-level information is stored in rows (with the exception of the first row, which stores country-level information) with columns corresponding to the amount of money spent on each type of health care, by year. 
 
 ##### States Data
 
@@ -3759,21 +3765,13 @@ coverage <- coverage %>%
 ```
 
 ```
-## Warning: Problem with `mutate()` input `..1`.
-## ℹ NAs introduced by coercion
-## ℹ Input `..1` is `across(starts_with("20"), as.integer)`.
+## Warning in mask$eval_all_mutate(quo): NAs introduced by coercion
 
-## Warning: Problem with `mutate()` input `..1`.
-## ℹ NAs introduced by coercion
-## ℹ Input `..1` is `across(starts_with("20"), as.integer)`.
+## Warning in mask$eval_all_mutate(quo): NAs introduced by coercion
 
-## Warning: Problem with `mutate()` input `..1`.
-## ℹ NAs introduced by coercion
-## ℹ Input `..1` is `across(starts_with("20"), as.integer)`.
+## Warning in mask$eval_all_mutate(quo): NAs introduced by coercion
 
-## Warning: Problem with `mutate()` input `..1`.
-## ℹ NAs introduced by coercion
-## ℹ Input `..1` is `across(starts_with("20"), as.integer)`.
+## Warning in mask$eval_all_mutate(quo): NAs introduced by coercion
 ```
 
 ```r
@@ -3859,7 +3857,7 @@ coverage
 
 Perfect! At this point, each row is an observation and each column stores a single piece of information. This dataset is now in good shape!
 
-#### Healthcare Spending Data
+#### health care Spending Data
 
 We'll have to take a similar approach when it comes to tidying the spending data as it has a similar structure to how the coverage data were stored.
 
@@ -3977,7 +3975,7 @@ hc <- hc %>%
   filter(Location != "United States")
 ```
 
-Another problem is that inside our `hc` dataset, there are multiple types of healthcare coverage.
+Another problem is that inside our `hc` dataset, there are multiple types of health care coverage.
 
 
 ```r
@@ -3992,7 +3990,7 @@ table(hc$type)
 ##          102
 ```
 
-The "Total" type is not really a formal type of healthcare coverage. It really represents just the total number of people in the state. This is useful information and we can include it as a column called `tot_pop`. To accomplish this, we'll first store this information in a data frame called `pop`.
+The "Total" type is not really a formal type of health care coverage. It really represents just the total number of people in the state. This is useful information and we can include it as a column called `tot_pop`. To accomplish this, we'll first store this information in a data frame called `pop`.
 
 
 ```r
@@ -4479,7 +4477,7 @@ crime
 ## #   Burglary <dbl>, `Larceny-\ntheft` <dbl>, `Motor \nvehicle \ntheft` <dbl>
 ```
 
-IF we take a look at what information is stored in each column...
+If we take a look at what information is stored in each column...
 
 
 ```r
@@ -4760,7 +4758,7 @@ firearms
 
 #### The Counted Fatal Shootings
 
-We're making progress, but we have a ways to go still! Let's get working on incorporating data from The Counted.
+We're making progress, but we have a ways to go still! Let's get working on incorporating data from [The Counted](https://docubase.mit.edu/project/the-counted/).
 
 As a reminder, we have a datasets here with data from 2015:
 
