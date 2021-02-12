@@ -368,7 +368,7 @@ When working with a large dataset, you're often interested in only working with 
 
 For the examples below, we'll be using a dataset from the `ggplot2` package called `msleep`. (You'll learn more about this package in a later course on data visualization. For now, it's a core tidyverse package so it's loaded in along with the other tidyverse packages using `library(tidyverse)`.) This dataset includes sleep times and weights from a number of different mammals. It has 83 rows, with each row including information about a different type of animal, and 11 variables. As each row is a different animal and each column includes information about that animal, this is a **wide** dataset.
 
-To get an idea of what variables are included in this data frame, you can use `glimpse()`. This function summarizes how many rows there are (`Observations`) and how many columns there are (`Variables`). Additionally, it gives you a glimpse into the type of data contained in each column. Specifically, in this dataset, we know that the first column is `name` and that it contains a character vector (`chr`) and that the first three entries are "Cheetah", "Owl monkey", and "Mountain beaver." It works similarly to the `summary()` function covered in an earlier course.
+To get an idea of what variables are included in this data frame, you can use `glimpse()`. This function summarizes how many rows there are (`Observations`) and how many columns there are (`Variables`). Additionally, it gives you a glimpse into the type of data contained in each column. Specifically, in this dataset, we know that the first column is `name` and that it contains a character vector (`chr`) and that the first three entries are "Cheetah", "Owl monkey", and "Mountain beaver." It works similarly to the base R `summary()` function.
 
 
 ```r
@@ -835,7 +835,7 @@ msleep %>%
 
 ![Data resulting from left_join](images/gslides/109.png)
 
-It's important to note that there are many other ways to join data, which are covered in more detail on this [dplyr join cheatsheet](http://stat545.com/bit001_dplyr-cheatsheet.html) from Jenny Bryan. For now, it's important to know that joining datasets is done easily in R using tools in `dplyr`. As you join data frames in your own work, it's a good idea to refer back to this cheatsheet for assistance.
+It's important to note that there are many other ways to join data, which we covered earlier in a previous course and are covered in more detail on this [dplyr join cheatsheet](http://stat545.com/bit001_dplyr-cheatsheet.html) from Jenny Bryan. For now, it's important to know that joining datasets is done easily in R using tools in `dplyr`. As you join data frames in your own work, it's a good idea to refer back to this cheatsheet for assistance.
 
 ### Grouping Data
 
@@ -1050,7 +1050,7 @@ tally(sleep_total)
 ```
 Thus overall, all the animals in the dataset sleep 866 hours in total.
 
-This is the equivalent to using the sum `function()` with the `summarize()` function or the `pull` function.
+This is the equivalent to using the `sum()` function with the `summarize()` function. 
 
 
 ```r
@@ -1060,7 +1060,12 @@ msleep %>%
   sum_sleep_total
             <dbl>
 1             866
+```
 
+We could also use the `pull()` function of the `dplyr` package, to get the sum of just the `sleep_total` column, as the `pull()` function extracts or "pulls" the values of a column.
+
+
+```r
 msleep %>%
 pull(sleep_total)%>%
   sum()
@@ -1091,6 +1096,7 @@ $ brainwt      <dbl> NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, NA, 0.07000, …
 $ bodywt       <dbl> 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.490, 0.0…
 $ n            <int> 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, …
 ```
+
 Notice the new column called "n" that repeats the total number of samples for each row.
 
 Or we can add a column that repeats the total hours of sleep of all the animals.
@@ -1115,6 +1121,7 @@ $ brainwt      <dbl> NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, NA, 0.07000, …
 $ bodywt       <dbl> 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.490, 0.0…
 $ n            <dbl> 866, 866, 866, 866, 866, 866, 866, 866, 866, 866, 866, 8…
 ```
+
 #### `count()`
 
 The `count()` function takes the `tally()` function a step further to determine the count of unique values for specified variable(s)/column(s).
@@ -1177,7 +1184,7 @@ msleep %>%
 
 #### `add_count()`
 
-the `add_count()` function is similar to the `add_tally()` function
+The `add_count()` function is similar to the `add_tally()` function:
 
 
 ```r
@@ -1206,7 +1213,7 @@ $ n            <int> 12, 10, 16, 3, 5, 1, 12, 3, 12, 5, 5, 16, 10, 16, 3, 2, …
 
 Another common issue in data wrangling is the presence of duplicate entries. Sometimes you *expect* multiple observations from the same individual in your dataset. Other times, the information has accidentally been added more than once. The `get_dupes()` function becomes very helpful in this situation. If you want to identify duplicate entries during data wrangling, you'll use this function and specify which columns you're looking for duplicates in.
 
-For example, in the `msleep` dataset, if you expected to only have one mammal representing each `genus` and `vore` you could double check this hung using `get_dupes()`
+For example, in the `msleep` dataset, if you expected to only have one mammal representing each `genus` and `vore` you could double check this using `get_dupes()`.
 
 
 
@@ -1245,44 +1252,6 @@ When you would rather get a snapshot of the entire dataset, rather than just one
 skim(msleep)
 ```
 
-
-Table: Data summary
-
-|                         |       |
-|:------------------------|:------|
-|Name                     |msleep |
-|Number of rows           |83     |
-|Number of columns        |11     |
-|_______________________  |       |
-|Column type frequency:   |       |
-|character                |5      |
-|numeric                  |6      |
-|________________________ |       |
-|Group variables          |None   |
-
-
-**Variable type: character**
-
-|skim_variable | n_missing| complete_rate| min| max| empty| n_unique| whitespace|
-|:-------------|---------:|-------------:|---:|---:|-----:|--------:|----------:|
-|name          |         0|          1.00|   3|  30|     0|       83|          0|
-|genus         |         0|          1.00|   3|  13|     0|       77|          0|
-|vore          |         7|          0.92|   4|   7|     0|        4|          0|
-|order         |         0|          1.00|   6|  15|     0|       19|          0|
-|conservation  |        29|          0.65|   2|  12|     0|        6|          0|
-
-
-**Variable type: numeric**
-
-|skim_variable | n_missing| complete_rate|   mean|     sd|   p0|   p25|   p50|   p75|    p100|hist  |
-|:-------------|---------:|-------------:|------:|------:|----:|-----:|-----:|-----:|-------:|:-----|
-|sleep_total   |         0|          1.00|  10.43|   4.45| 1.90|  7.85| 10.10| 13.75|   19.90|▅▅▇▆▂ |
-|sleep_rem     |        22|          0.73|   1.88|   1.30| 0.10|  0.90|  1.50|  2.40|    6.60|▇▆▂▁▁ |
-|sleep_cycle   |        51|          0.39|   0.44|   0.36| 0.12|  0.18|  0.33|  0.58|    1.50|▇▂▁▁▁ |
-|awake         |         0|          1.00|  13.57|   4.45| 4.10| 10.25| 13.90| 16.15|   22.10|▂▅▇▃▅ |
-|brainwt       |        27|          0.67|   0.28|   0.98| 0.00|  0.00|  0.01|  0.13|    5.71|▇▁▁▁▁ |
-|bodywt        |         0|          1.00| 166.14| 786.84| 0.00|  0.17|  1.67| 41.75| 6654.00|▇▁▁▁▁ |
-
 ![summarize entire dataset using skim() from skimr](images/gslides/116.png)
 
 Note that this function allows for you to specify which columns you'd like to summarize, if you're not interested in seeing a summary of the entire dataset:
@@ -1293,37 +1262,9 @@ Note that this function allows for you to specify which columns you'd like to su
 skim(msleep, genus, vore, sleep_total)
 ```
 
+![summarize more specifically with skim() from skimr](images/book_figures/skim_specific.png)
 
-Table: Data summary
-
-|                         |       |
-|:------------------------|:------|
-|Name                     |msleep |
-|Number of rows           |83     |
-|Number of columns        |11     |
-|_______________________  |       |
-|Column type frequency:   |       |
-|character                |2      |
-|numeric                  |1      |
-|________________________ |       |
-|Group variables          |None   |
-
-
-**Variable type: character**
-
-|skim_variable | n_missing| complete_rate| min| max| empty| n_unique| whitespace|
-|:-------------|---------:|-------------:|---:|---:|-----:|--------:|----------:|
-|genus         |         0|          1.00|   3|  13|     0|       77|          0|
-|vore          |         7|          0.92|   4|   7|     0|        4|          0|
-
-
-**Variable type: numeric**
-
-|skim_variable | n_missing| complete_rate|  mean|   sd|  p0|  p25|  p50|   p75| p100|hist  |
-|:-------------|---------:|-------------:|-----:|----:|---:|----:|----:|-----:|----:|:-----|
-|sleep_total   |         0|             1| 10.43| 4.45| 1.9| 7.85| 10.1| 13.75| 19.9|▅▅▇▆▂ |
-
-It is also possible to group data (using `dplyr`'s `group_by()` before summarizing. Notice in the summary output that each variable specified (`genus` and `sleep_total`) are now broken down within each of the `vore` categories.
+It is also possible to group data (using `dplyr`'s `group_by()`) before summarizing. Notice in the summary output that each variable specified (`genus` and `sleep_total`) are now broken down within each of the `vore` categories.
 
 
 ```r
@@ -1332,47 +1273,12 @@ msleep %>%
   skim(genus, sleep_total)
 ```
 
-
-Table: Data summary
-
-|                         |           |
-|:------------------------|:----------|
-|Name                     |Piped data |
-|Number of rows           |83         |
-|Number of columns        |11         |
-|_______________________  |           |
-|Column type frequency:   |           |
-|character                |1          |
-|numeric                  |1          |
-|________________________ |           |
-|Group variables          |vore       |
-
-
-**Variable type: character**
-
-|skim_variable |vore    | n_missing| complete_rate| min| max| empty| n_unique| whitespace|
-|:-------------|:-------|---------:|-------------:|---:|---:|-----:|--------:|----------:|
-|genus         |carni   |         0|             1|   5|  13|     0|       16|          0|
-|genus         |herbi   |         0|             1|   3|  12|     0|       29|          0|
-|genus         |insecti |         0|             1|   6|  12|     0|        5|          0|
-|genus         |omni    |         0|             1|   3|  13|     0|       20|          0|
-|genus         |NA      |         0|             1|   6|  11|     0|        7|          0|
-
-
-**Variable type: numeric**
-
-|skim_variable |vore    | n_missing| complete_rate|  mean|   sd|  p0|  p25|  p50|   p75| p100|hist  |
-|:-------------|:-------|---------:|-------------:|-----:|----:|---:|----:|----:|-----:|----:|:-----|
-|sleep_total   |carni   |         0|             1| 10.38| 4.67| 2.7| 6.25| 10.4| 13.00| 19.4|▅▃▇▃▂ |
-|sleep_total   |herbi   |         0|             1|  9.51| 4.88| 1.9| 4.30| 10.3| 14.22| 16.6|▇▃▂▅▇ |
-|sleep_total   |insecti |         0|             1| 14.94| 5.92| 8.4| 8.60| 18.1| 19.70| 19.9|▅▁▁▁▇ |
-|sleep_total   |omni    |         0|             1| 10.93| 2.95| 8.0| 9.10|  9.9| 10.93| 18.0|▇▃▁▂▂ |
-|sleep_total   |NA      |         0|             1| 10.19| 3.00| 5.4| 8.65| 10.6| 12.15| 13.7|▇▁▃▇▇ |
+![summarize groups with skim](images/book_figures/skim_group.png)
 
 
 #### `summary()`
 
-While base R has a summary function, the `skimr` package also has a helpful `summary()` function that provides you with a quick summary of the dataset at large.
+While base R has a `summary()` function, this can be combined with the `skimr` package to provide you with a quick summary of the dataset at large.
 
 
 ```r
@@ -1380,27 +1286,14 @@ skim(msleep) %>%
   summary()
 ```
 
-Table: Data summary
-
-|                         |       |
-|:------------------------|:------|
-|Name                     |msleep |
-|Number of rows           |83     |
-|Number of columns        |11     |
-|_______________________  |       |
-|Column type frequency:   |       |
-|character                |5      |
-|numeric                  |6      |
-|________________________ |       |
-|Group variables          |None   |
-
+![summarize entire dataset using skim() from skimr](images/book_figures/skim_summary.png)
 
 
 ### Operations Across Columns
 
 Sometimes it is valuable to apply a certain operation across the columns of a data frame. For example, it be necessary to compute the mean or some other summary statistics for each column in the data frame. In some cases, these operations can be done by a combination of `pivot_longer()` along with `group_by()` and `summarize()`. However, in other cases it is more straightforward to simply compute the statistic on each column.
 
-The `across()` function is need to operate across the columns of a data frame. For example, in our `airquality` dataset, if we wanted to compute the mean of `Ozone`, `Solar.R`, `Wind`, and `Temp`, we could do
+The `across()` function is need to operate across the columns of a data frame. For example, in our `airquality` dataset, if we wanted to compute the mean of `Ozone`, `Solar.R`, `Wind`, and `Temp`, we could do:
 
 
 ```r
@@ -1412,7 +1305,7 @@ airquality %>%
 1  42.1    186.  9.96  77.9
 ```
 
-The `across()` function can be used in conjunction with the `mutate()` and `filter()` functions to construct joint operations across different columns of a data frame. For example, suppose we wanted to filter the rows of the `airquality` data frame so that we only retain rows that do not have missing values for `Ozone` and `Solar.R`. Generally, we might use the `filter()` function for this, as follows.
+The `across()` function can be used in conjunction with the `mutate()` and `filter()` functions to construct joint operations across different columns of a data frame. For example, suppose we wanted to filter the rows of the `airquality` data frame so that we only retain rows that do not have missing values for `Ozone` and `Solar.R`. Generally, we might use the `filter()` function for this, as follows:
 
 
 ```r
@@ -1423,7 +1316,7 @@ airquality %>%
 
 Because we are only filtering on two columns here, it's not too difficult to write out the expression. However, if we were filtering on many columns, it would become a challenge to write out every column. This is where the `across()` function comes in handy. With the `across()` function, we can specify columns in the same way that we use the `select()` function. This allows us to use short-hand notation to select a large set of columns.
 
-We can use the `across()` function in conjunction with `filter()` to achieve the same result as above..
+We can use the `across()` function in conjunction with `filter()` to achieve the same result as above.
 
 ```r
 airquality %>%
@@ -1444,7 +1337,7 @@ airquality %>%
 # … with 101 more rows
 ```
 
-Here, the `~` in the call to `across()` indicates that we are passing an anonymous function (see the chapter on Functional Programming for more details) and the `.` is a stand-in for the name of the column.
+Here, the `~` in the call to `across()` indicates that we are passing an anonymous function (see the section on Functional Programming for more details) and the `.` is a stand-in for the name of the column.
 
 
 If we wanted to filter the data frame to remove rows with missing values in `Ozone`, `Solar.R`, `Wind`, and `Temp`, we only need to make a small change.
@@ -1661,7 +1554,7 @@ chickwts %>%
   geom_point()
 ```
 
-![plot of chunk unnamed-chunk-63](images/tidying-unnamed-chunk-63-1.png)
+![plot of chunk unnamed-chunk-64](images/tidying-unnamed-chunk-64-1.png)
 
 ![fct_reorder allows you to re-level a factor based on a secondary numeric variable](images/gslides/125.png)
 
@@ -1696,7 +1589,7 @@ chickwts %>%
 
 ### Converting Numeric Levels to Factors: `ifelse()` + `factor()`
 
-Finally, when working with factors, there are times when you want to convert a numeric variable into a factor. For example, if you were talking about a dataset with BMI for a number of individuals, you may want to categorize people based on whether or not they are underweight (BMI < 18.5), of a healthy weight (BMI between 18.5 and 29.9), or obese (BMI >= 30). When you want to take a numeric variable and turn it into a categorical factor variable, you can accomplish this easily by using `ifelse()` statements. We previously covered `if{}` statements and `else{}` statements. Here we combine those two ideas. Within a single statement we provide R with a condition: `weight <= 200`. With this, we are stating that the condition is if a chicken's weight is less than or equal to 200 grams. Then, if that condition is true, meaning if a chicken's weight is less than or equal to 200 grams, let's assign that chicken to the category `low`. Otherwise, and this is the `else{}` part of the `ifelse()` function, assign that chicken to the category `high`. Finally, we have to let R know that weight_recode is a factor variable, so we call factor() on this new column. This way we take a numeric variable (`weight`), and turn it into a factor variable (`weight_recode`). 
+Finally, when working with factors, there are times when you want to convert a numeric variable into a factor. For example, if you were talking about a dataset with BMI for a number of individuals, you may want to categorize people based on whether or not they are underweight (BMI < 18.5), of a healthy weight (BMI between 18.5 and 29.9), or obese (BMI >= 30). When you want to take a numeric variable and turn it into a categorical factor variable, you can accomplish this easily by using `ifelse()` statements. Within a single statement we provide R with a condition: `weight <= 200`. With this, we are stating that the condition is if a chicken's weight is less than or equal to 200 grams. Then, if that condition is true, meaning if a chicken's weight is less than or equal to 200 grams, let's assign that chicken to the category `low`. Otherwise, and this is the `else{}` part of the `ifelse()` function, assign that chicken to the category `high`. Finally, we have to let R know that weight_recode is a factor variable, so we call factor() on this new column. This way we take a numeric variable (`weight`), and turn it into a factor variable (`weight_recode`). 
 
 
 ```r
@@ -1714,7 +1607,7 @@ chickwts %>%
 
 ## Working With Dates and Times
 
-In lessons an earlier course, you were introduced to different types of objects in R, such as characters, numeric, and logicals. Then, in earlier lessons in this course, we covered how to work with strings and factors in detail. The remaining type of variable we haven't yet covered is how to work with dates and time in R. 
+In earlier lessons, you were introduced to different types of objects in R, such as characters and numeric. Then we covered how to work with  factors in detail. A remaining type of variable we haven't yet covered is how to work with dates and time in R. 
 
 As with strings and factors, there is a tidyverse package to help you work with dates more easily. The `lubridate` package is not part of the core tidyverse packages, so it will have to be loaded individually. This package will make working with dates and times easier. Before working through this lesson, you'll want to be sure that `lubridate` has been installed and loaded in:
 
@@ -1868,11 +1761,11 @@ mydate <- ymd("1988-09-29")
 ## subtract birthday from todays date
 age <- today() - mydate
 age
-Time difference of 11814 days
+Time difference of 11824 days
 
 ## a duration object can get this information in years
 as.duration(age)
-[1] "1020729600s (~32.34 years)"
+[1] "1021593600s (~32.37 years)"
 ```
 
 
@@ -1914,10 +1807,11 @@ As we'll only cover a few of the functions within `stringr` in this lesson, it's
 
 ### String Basics
 
-When working with strings, some of the most frequent tasks you'll need to complete are to:
-* determine the length of a string
-* combine strings together
-* subset strings
+When working with strings, some of the most frequent tasks you'll need to complete are to:  
+
+* determine the length of a string   
+* combine strings together  
+* subset strings  
 
 #### String length
 
@@ -2030,8 +1924,6 @@ names <- c("Keisha", "Mohammed", "Jane", "Mathieu")
 
 ## identify strings that start with "M"
 str_view(names, "^M")
-PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Error in path.expand(path): invalid 'path' argument
 ```
 
 
@@ -2045,8 +1937,6 @@ However, if you try to match strings that end with the letter "M", no match is f
 ```r
 ## identify strings that end with "M"
 str_view(names, "M$")
-PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Error in path.expand(path): invalid 'path' argument
 ```
 
 
@@ -2058,8 +1948,6 @@ To identify names by that end with the letter "a", you would use the following.
 ```r
 ## identify strings that end with "a"
 str_view(names, "a$")
-PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Error in path.expand(path): invalid 'path' argument
 ```
 
 ![`str_view()` identifies names that end with a](images/gslides/141.png)
@@ -2095,7 +1983,7 @@ However, if we instead wanted a count of the numbers of lowercase "m"s, we could
 ## identify strings that have a lowercase "m"
 ## return count of the number of times string matches pattern
 str_count(names, "m")
-[1] 0 2 0 0
+[1] 0 2 0
 ```
 
 ![`str_count()` strings that have an m in them](images/gslides/144.png)
@@ -2109,7 +1997,7 @@ Instead of returning a count, at times you're just interested in knowing which s
 ## identify strings that start with "M"
 ## return TRUE if they do; FALSE otherwise
 str_detect(names, "^M")
-[1] FALSE  TRUE FALSE  TRUE
+[1] FALSE  TRUE FALSE
 ```
 
 ![str_detect() returns TRUE for strings that match the specified pattern; FALSE otherwise](images/gslides/145.png)
@@ -2123,7 +2011,7 @@ To return the actual string that matches the specified pattern, rather than a TR
 ## identify strings that start with "M"
 ## return whole string
 str_subset(names, "^M")
-[1] "Mohammed" "Mathieu" 
+[1] "Mohammed"
 ```
 
 ![`str_subset()` returns the strings that match the pattern specified](images/gslides/146.png)
@@ -2137,7 +2025,7 @@ To extract only the portions of the string that match the specified pattern, you
 ## return "M" from strings that start with "M"
 ## otherwise, return NA
 str_extract(names, "^M")
-[1] NA  "M" NA  "M"
+[1] NA  "M" NA 
 ```
 
 ![`str_extract()` returns the portions of the strings that match the pattern specified](images/gslides/147.png)
@@ -2150,7 +2038,7 @@ The final basic function from `stringr` that we'll discuss is `str_replace()`. T
 ```r
 ## replace capital M with a question mark
 str_replace(names, "^M", "?")
-[1] "Keisha"   "?ohammed" "Jane"     "?athieu" 
+[1] "Keisha"   "?ohammed" "Jane"    
 ```
 
 ![`str_replace()` replaces regex with specified characters](images/gslides/148.png)
@@ -2167,8 +2055,6 @@ To search for a set of characters, you place these characters within brackets. B
 ```r
 ## identify all lowercase vowels
 str_view_all(names, "[aeiou]")
-PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Error in path.expand(path): invalid 'path' argument
 ```
 
 ![brackets specify which characters to search for](images/gslides/149.png)
@@ -2182,8 +2068,6 @@ By adding a caret (`^`) before the vowels within the brackets, this regular expr
 ```r
 ## identify anything that's NOT a lowercase vowel
 str_view_all(names, "[^aeiou]")
-PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Error in path.expand(path): invalid 'path' argument
 ```
 
 ![brackets with a caret first specify which characters NOT to search for](images/gslides/150.png)
@@ -2198,8 +2082,6 @@ addresses <- c("1234 Main Street", "1600 Pennsylvania Ave", "Brick Building")
 
 ## identify anything that's a digit
 str_view_all(addresses, "\\d")
-PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Error in path.expand(path): invalid 'path' argument
 ```
 
 ![`\d` searches for digits](images/gslides/151.png)
@@ -2212,8 +2094,6 @@ Identifying whitespace in R identifies any spaces, tabs or newlines. Note that a
 ```r
 ## identify any whitespace
 str_view_all(addresses, "\\s")
-PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Error in path.expand(path): invalid 'path' argument
 ```
 
 ![`\s` searches for whitespace](images/gslides/152.png)
@@ -2226,8 +2106,6 @@ To identify any character except for a newline you'll use `"."`. Notice in our a
 ```r
 ## identify any character
 str_view_all(addresses, ".")
-PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Error in path.expand(path): invalid 'path' argument
 ```
 
 ![. searches for any character](images/gslides/153.png)
@@ -2252,8 +2130,6 @@ Using the definitions above, we can see that the following code will identify pa
 ```r
 ## identify any time n shows up one or more times
 str_view_all(addresses, "n+")
-PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Error in path.expand(path): invalid 'path' argument
 ```
 
 ![+ specifies to match the pattern one or more times](images/gslides/154.png)
@@ -2264,8 +2140,6 @@ While the difference is slight in the output here, we're identifying portions of
 ```r
 ## identify any time n shows up
 str_view_all(addresses, "n{1}")
-PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Error in path.expand(path): invalid 'path' argument
 ```
 
 ![{#} looks to match the pattern exactly the number of times within the curly braces](images/gslides/155.png)
@@ -2276,8 +2150,6 @@ If you only wanted to match strings where n showed up twice in a row, you could 
 ```r
 ## identify any time n shows up exactly two times in a row
 str_view_all(addresses, "n{2}")
-PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Error in path.expand(path): invalid 'path' argument
 ```
 
 ![{2} specifies that the pattern must be found exactly twice](images/gslides/156.png)
@@ -2288,8 +2160,6 @@ This could similarly be achieved by specifying to search for the pattern 'nn' on
 ```r
 ## identify any time 'nn' shows up one or more times 
 str_view_all(addresses, "nn+")
-PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Error in path.expand(path): invalid 'path' argument
 ```
 
 ![nn+ searches for double n one or more times in a string](images/gslides/157.png)
@@ -2300,13 +2170,9 @@ You can also specify a range of the number of times to search for a pattern with
 ```r
 ## identify any time n shows up two or three times 
 str_view_all(addresses, "n{2,3}")
-PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Error in path.expand(path): invalid 'path' argument
 
 ## identify any time n shows up three or four times 
 str_view_all(addresses, "n{3,4}")
-PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
-Error in path.expand(path): invalid 'path' argument
 ```
 
 ![{n,m} looks to pattern match between n and m times](images/gslides/158.png)
@@ -2383,7 +2249,7 @@ library(tidytext)
 
 If we're thinking about all the text in a novel, it's pretty clear that it is not in a format that is easy to analyze computationally. To analyze the text in the novel computationally and say, determine what words are used most frequently, or what topics are discussed, we need to convert the text in the novel into a format that a computer can interpret. And, as with all types of data discussed in these courses, we want this to be a tidy format where (1) each observation is a row (2) each variable is a column, and (3) each observational unit is a table. So, how do we take text from a novel and store the information in a tidy format?
 
-The tidy text format requires that the data frame will store one **token** per row. This requires knowing that a **token** is a meaningful unit of text. How you define that unit is up to you, the analyst and is driven by the question you're asking. If you're looking to identify the words used most frequently in this analysis, the unit of your token would be individual words. You would then utilize your computer to generate a data frame with each row containing data about a single word. However, your token could be two words (a **bigram**, a sentence, or a paragraph. Whatever you decide is meaningful for your analysis will be the unit for your token. Each row will contain a separate token.
+The tidy text format requires that the data frame will store one **token** per row. This requires knowing that a **token** is a meaningful unit of text. How you define that unit is up to you, the analyst and is driven by the question you're asking. If you're looking to identify the words used most frequently in this analysis, the unit of your token would be individual words. You would then utilize your computer to generate a data frame with each row containing data about a single word. However, your token could be two words (a **bigram**), a sentence, or a paragraph. Whatever you decide is meaningful for your analysis will be the unit for your token. Each row will contain a separate token.
 
 #### Tokenization
 
@@ -2661,7 +2527,7 @@ ggplot(poem_words, aes(n/total, fill = title)) +
   facet_wrap(~title, ncol = 3, scales = "free_y")
 ```
 
-![plot of chunk unnamed-chunk-116](images/tidying-unnamed-chunk-116-1.png)
+![plot of chunk unnamed-chunk-117](images/tidying-unnamed-chunk-117-1.png)
 
 With most documents there are only a few words that show up infrequently in the tail off to the right (rare words), while most words show up a whole bunch of times. 
 
@@ -2748,7 +2614,7 @@ poem_words %>%
 Selecting by tf_idf
 ```
 
-![plot of chunk unnamed-chunk-120](images/tidying-unnamed-chunk-120-1.png)
+![plot of chunk unnamed-chunk-121](images/tidying-unnamed-chunk-121-1.png)
 
 
 ## Functional Programming
@@ -2951,7 +2817,7 @@ map(INPUT_ONE, INPUT_TWO, FUNCTION_TO_APPLY, OPTIONAL_OTHER_STUFF)
 
 What if we wanted to calculate the volume of each tree? There is a column for volume, but let's see if we can't use a little geometry to calculate it on our own. 
 
-If we assume that each tree is a cylinder, the volume of a cylinder is $V = \pi r^2 h$, where $r$ is half the diameter. In the trees dataset, the diameter is stored in the `Girth` column, in *inches*. $h$ is the height of the cylinder, which is stored in the `Height` column, in *feet*. 
+If we assume that each tree is a cylinder, the volume of a cylinder is {$$}V = \pi r^2 h{/$$}, where {$$}r{/$$} is half the diameter. In the trees dataset, the diameter is stored in the `Girth` column, in *inches*. {$$}h{/$$} is the height of the cylinder, which is stored in the `Height` column, in *feet*. 
 
 Thus, we have two vectors we want to operate over, `Girth` and `Height`, so we'll use `map2()`.
 
@@ -3210,16 +3076,16 @@ We've already read in the datasets we'll use for this health expenditures case s
 
 As a reminder, we're ultimately interested in answering the following questions with these data:
 
-1. Is there a relationship between healthcare coverage and healthcare spending in the United States?
+1. Is there a relationship between health care coverage and health care spending in the United States?
 2. How does the spending distribution change across geographic regions in the United States?
-3. Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?
+3. Does the relationship between health care coverage and health care spending in the United States change from 2013 to 2014?
 
 This means that we'll need all the data from the variables necessary to answer this question in our tidy dataset.
 
-#### Healthcare Coverage Data
+#### health care Coverage Data
 
 
-Let's remind ourselves before we get to wrangling what data we have when it comes to healthcare coverage.
+Let's remind ourselves before we get to wrangling what data we have when it comes to health care coverage.
 
 
 ```r
@@ -3248,7 +3114,7 @@ coverage
 #   `2016__Other Public` <chr>, `2016__Uninsured` <dbl>, `2016__Total` <dbl>
 ```
 
-At a glance, we see that state-level information is stored in rows (with the exception of the first row, which stores country-level information) with columns corresponding to the amount of money spent on each type of healthcare, by year. 
+At a glance, we see that state-level information is stored in rows (with the exception of the first row, which stores country-level information) with columns corresponding to the amount of money spent on each type of health care, by year. 
 
 ##### States Data
 
@@ -3416,7 +3282,7 @@ coverage
 
 Perfect! At this point, each row is an observation and each column stores a single piece of information. This dataset is now in good shape!
 
-#### Healthcare Spending Data
+#### health care Spending Data
 
 We'll have to take a similar approach when it comes to tidying the spending data as it has a similar structure to how the coverage data were stored.
 
@@ -3525,7 +3391,7 @@ hc <- hc %>%
   filter(Location != "United States")
 ```
 
-Another problem is that inside our `hc` dataset, there are multiple types of healthcare coverage.
+Another problem is that inside our `hc` dataset, there are multiple types of health care coverage.
 
 
 ```r
@@ -3537,7 +3403,7 @@ table(hc$type)
          102 
 ```
 
-The "Total" type is not really a formal type of healthcare coverage. It really represents just the total number of people in the state. This is useful information and we can include it as a column called `tot_pop`. To accomplish this, we'll first store this information in a data frame called `pop`.
+The "Total" type is not really a formal type of health care coverage. It really represents just the total number of people in the state. This is useful information and we can include it as a column called `tot_pop`. To accomplish this, we'll first store this information in a data frame called `pop`.
 
 
 ```r
@@ -3986,7 +3852,7 @@ crime
 #   Burglary <dbl>, `Larceny-\ntheft` <dbl>, `Motor \nvehicle \ntheft` <dbl>
 ```
 
-IF we take a look at what information is stored in each column...
+If we take a look at what information is stored in each column...
 
 
 ```r
@@ -4237,7 +4103,7 @@ firearms
 
 #### The Counted Fatal Shootings
 
-We're making progress, but we have a ways to go still! Let's get working on incorporating data from The Counted.
+We're making progress, but we have a ways to go still! Let's get working on incorporating data from [The Counted](https://docubase.mit.edu/project/the-counted/).
 
 As a reminder, we have a datasets here with data from 2015:
 

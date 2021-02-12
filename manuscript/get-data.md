@@ -94,16 +94,16 @@ The `slice_sample()` function of the `dplyr` package will allow you to see a sam
 ```r
 slice_sample(trees, n = 10)
    Girth Height Volume
-1   10.8     83   19.7
-2    8.8     63   10.2
-3   13.7     71   25.7
-4   14.5     74   36.3
-5   12.0     75   19.1
-6   14.0     78   34.5
-7    8.6     65   10.3
-8   16.3     77   42.6
-9   11.1     80   22.6
-10  17.3     81   55.4
+1   12.0     75   19.1
+2   11.7     69   21.3
+3   10.7     81   18.8
+4   12.9     85   33.8
+5   12.9     74   22.2
+6   11.3     79   24.2
+7   17.9     80   58.3
+8   18.0     80   51.5
+9   17.3     81   55.4
+10   8.8     63   10.2
 ```
 
 You can also use `slice_head()` or `slice_tail()` to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.
@@ -182,7 +182,7 @@ tibble(
 
 ### Subsetting
 
-Subsetting tibbles also differs slightly from how subsetting occurs with data.frame. When it comes to tibbles, `[[` can subset by name or position;``$` only subsets by name. For example:
+Subsetting tibbles also differs slightly from how subsetting occurs with data.frame. When it comes to tibbles, `[[` can subset by name or position; `$` only subsets by name. For example:
 
 
 ```r
@@ -220,6 +220,7 @@ Reading spreadsheets from Excel into R is made possible thanks to the `readxl` p
 
 
 ```r
+##install.packages("readxl")
 library(readxl)
 ```
 
@@ -414,11 +415,11 @@ In order to ultimately access the information a specific Google Sheet, you can u
 
 ```r
 # read Google Sheet into R with id
-read_sheet("2cdw-678dSPLfdID__LIt8eEFZPasdebgIGwH")
+read_sheet("2cdw-678dSPLfdID__LIt8eEFZPasdebgIGwHk")
 # note this is a fake id
 ```
 
-You can also navigate to your own sheets or to other people's sheets using a URL. For example, paste [https://docs.google.com/spreadsheets/d/1FN7VVKzJJyifZFY5POdz_LalGTBYaC4SLB-X9vyDnbY/] in your web browser. We will now read this into R like so:
+You can also navigate to your own sheets or to other people's sheets using a URL. For example, paste [https://docs.google.com/spreadsheets/d/1FN7VVKzJJyifZFY5POdz_LalGTBYaC4SLB-X9vyDnbY/] in your web browser or click [here](https://docs.google.com/spreadsheets/d/1FN7VVKzJJyifZFY5POdz_LalGTBYaC4SLB-X9vyDnbY/). We will now read this into R using the URL:
 
 
 ```r
@@ -426,7 +427,7 @@ You can also navigate to your own sheets or to other people's sheets using a URL
 survey_sheet <- read_sheet("https://docs.google.com/spreadsheets/d/1FN7VVKzJJyifZFY5POdz_LalGTBYaC4SLB-X9vyDnbY/")
 ```
 
-Note that we assign the information stored in this Google Sheet to the object `survey_sheet`so that we can use it again shortly.
+Note that we assign the information stored in this Google Sheet to the object `survey_sheet` so that we can use it again shortly.
 
 ![Sheet successfully read into R](images/book_figures/sheet1.png)
 
@@ -452,12 +453,12 @@ There are other additional (optional) arguments to `read_sheet()`, some are simi
 
 * `skip = 1`: will skip the first row of the Google Sheet  
 * `col_names` = FALSE`: specifies that the first row is not column names  
-*`range = "A1:G5"`: specifies the range of cells that we like to import is A1 to G5  
+* `range = "A1:G5"`: specifies the range of cells that we like to import is A1 to G5  
 * `n_max = 100`: specifies the maximum number of rows that we want to import is 100  
 
-To read in data from a Google Sheet in `googlesheets4`, you must first know the **id**, the **name** or the **URL** of the Google Sheet and have access to it. 
+In summary, to read in data from a Google Sheet in `googlesheets4`, you must first know the **id**, the **name** or the **URL** of the Google Sheet and have access to it. 
 
-See [https://googlesheets4.tidyverse.org/reference/index.html] for a list of additional functions in the **googlesheets4** package.
+See https://googlesheets4.tidyverse.org/reference/index.html for a list of additional functions in the `googlesheets4` package.
 
 
 ## CSVs
@@ -508,7 +509,7 @@ Above, you see the simplest way to import a CSV file. However, as with many func
 
 By default, `read_csv()` converts blank cells to missing data (NA).
 
-Finally, we introduce the function `read_csv` here and recommend that you use it, as it is the simplest and fastest way to read CSV files into R. However, we note that there *is* a function `read.csv()` which is available by default in R. You will likely see this function in others' code, so we just want to make sure you're aware of it.
+We have introduced the function `read_csv` here and recommend that you use it, as it is the simplest and fastest way to read CSV files into R. However, we note that there *is* a function `read.csv()` which is available by default in R. You will likely see this function in others' code, so we just want to make sure you're aware of it.
 
 
 ## TSVs
@@ -556,7 +557,7 @@ The last topic of this lesson is about how to export data from R. So far we lear
 
 As discussed above, CSV format is a good candidate because of its simplicity and compatibility. Let's say you have a data frame in the R environment that you would like to export as a CSV. To do so, you could use `write_csv()` from the `readr` package. 
 
-Since we've already created a data frame named `df_csv`, we can export it to a CSV file using the following code. After typing this command, a new CSV file called `my_csv_file.csv` will appear in the Files section.
+Since we've already created a data frame named `df_csv`, we can export it to a CSV file using the following code. After typing this command, a new CSV file called `my_csv_file.csv` will appear in the Files section of RStudio (if you are using it).
 
 
 ```r
@@ -570,7 +571,7 @@ We'll finally note that there are default R functions `write.csv()` and `write.t
 
 ## JSON
 
-All of the file formats we've discussed so far (tibbles, CSVs, Excel Spreadsheets and Google Sheets) are various ways to store what is known as tabular data, data where information is stored in rows and columns. To review, when data are stored in a tidy format, variables are stored in **columns** and each observation is stored in a different **row**. The values for each observation is stored in its respective **cell**. These *rules* for tabular data help define the **structure** of the file. Storing information in rows and columns, however, is not the only way to store data. 
+All of the file formats we've discussed so far (tibbles, CSVs, Excel Spreadsheets, and Google Sheets) are various ways to store what is known as tabular data, data where information is stored in rows and columns. To review, when data are stored in a tidy format, variables are stored in **columns** and each observation is stored in a different **row**. The values for each observation is stored in its respective **cell**. These *rules* for tabular data help define the **structure** of the file. Storing information in rows and columns, however, is not the only way to store data. 
 
 Alternatively, JSON (JavaScript Object Notation) data are *nested* and *hierarchical*. JSON  is a very commonly-used text-based way to send information between a browser and a server. It is easy for humans to read and to write. JSON data adhere to certain rules in how they are structured. For simplicity, JSON format requires objects to be comprised of **key-value pairs**. For example, in the case of: `{"Name": "Isabela"}`, "Name" would be a key, "Isabela" would be a value, and together they would be a key-value pair. Let's take a look at how JSON data looks in R.This means that key-pairs can be organized into different levels (hierarchical) with some levels of information being stored *within* other levels (nested).
 
@@ -598,7 +599,7 @@ json
 
 Here, we've stored information about Toy Story characters, their age, and their occupation in an object called `json`.
 
-In this format, we cannot easily work with the data with within R; however, the `jsonlite` package can help us. Using the defaults of the function `fromJSON()`, `jsonlite` will take the data from JSON array format and helpfully return a data frame. 
+In this format, we cannot easily work with the data within R; however, the `jsonlite` package can help us. Using the defaults of the function `fromJSON()`, `jsonlite` will take the data from JSON array format and helpfully return a data frame. 
 
 
 ```r
@@ -709,7 +710,7 @@ While we won't be discussing how to write SQL commands in-depth here, we *will* 
 
 ### Connecting to Databases: `RSQLite`
 
-To better understand databases and how to work with relational data, let's just start working with data from a database! The data we'll be using are from a database with relational data: `company.db`. The database includes 11 tables with data that represents a digital media store. The data includes information generally related to related to media, artists, artists' work, and those who purchase artists' work (customers). You can download the database file here:
+To better understand databases and how to work with relational data, let's just start working with data from a database! The data we'll be using are from a database with relational data: `company.db`. The database includes tables with data that represents a digital media store. The data includes information generally related to related to media, artists, artists' work, and those who purchase artists' work (customers). You can download the database file here:
 
 * [company.db.zip](company.db.zip)
 
@@ -794,7 +795,7 @@ And, since it's a mutating join, our new table will have information from both t
 
 ![inner join includes observations found in both tables](images/gslides/059.png)
 
-Throughout this lesson we will use the coloring use see here to explain the joins, so we want to explain it explicitly here. Green cells are cells that will be used to make the merge happen and will be included in the resulting merged table. Blue cells are information that comes from the `artists` table that will be included after the merge. Red cells are pieces of information that come from the `albums` table that will be included after the merge. Finally, cells that are left white in the `artists` or `albums` table are cells that will not be included in the merge while cells that are white *after* the merge are NAs that have been added as a result of the merge.
+Throughout this lesson we will use the coloring you see here to explain the joins, so we want to explain it explicitly here. Green cells are cells that will be used to make the merge happen and will be included in the resulting merged table. Blue cells are information that comes from the `artists` table that will be included after the merge. Red cells are pieces of information that come from the `albums` table that will be included after the merge. Finally, cells that are left white in the `artists` or `albums` table are cells that will not be included in the merge while cells that are white *after* the merge are NAs that have been added as a result of the merge.
 
 Now, to run this for our tables from the database, rather than just for a few rows in our toy example, you would do the following:
 
@@ -1026,7 +1027,7 @@ To enable SelectorGadget using Google Chrome:
 
 ### Web Scraping Example
 
-Similar to the example above, what if you were interested in knowing a few recommended R packages for working with data. Sure, you could go to a whole bunch of websites and Google and copy and paste each one into a Google Sheet and have the information. But, that's not very fun!
+Similar to the example above, what if you were interested in knowing a few recommended R packages for working with data? Sure, you could go to a whole bunch of websites and Google and copy and paste each one into a Google Sheet and have the information. But, that's not very fun!
 
 Alternatively, you could write and run a few lines of code and get all the information that way! We'll do that in the example below. 
 
@@ -1243,7 +1244,7 @@ As this is a simpler approach than the previous example, you'll want to use this
 
 ### API keys
 
-Not all API's are as "open" as GitHub's. For example, if you ran the code for the first example above exactly as it was written (and didn't change the GitHub username), you would have gotten information about the repos in janeeverydaydoe's GitHub account. Because it is a fully-open API, you're able to retrieve information about not only your GitHub account, but also other users' public GitHub activity. This makes good sense because sharing code among public repositories is an important part of GitHub.
+Not all API's are as "open" as GitHub's. For example, if you ran the code for the first example above exactly as it was written (and didn't change the GitHub username), you would have gotten information about the repos in janeeverydaydoe's GitHub account. Because it is a fully-open API, you're able to retrieve information about not only your GitHub account, but also other users' **public** GitHub activity. This makes good sense because sharing code among public repositories is an important part of GitHub.
 
 Alternatively, while Google also has an API (or rather, *many* API's), they aren't quite as open. This makes good sense. There is no reason why one should have access to the files on someone else's Google Drive account. Controlling whose files one can access through Google's API is an important privacy feature. 
 
@@ -1353,7 +1354,7 @@ Like with text, there are packages in R that will help you carry out analysis of
 
 A really useful manipulation that one can perform is text extraction from images. Typically this works best with images that have text, where the text is not angled and is in a conventional font.
 
-We will show how to do this using a couple of tidyverse package hex stickers.
+We will show how to do this using a couple of tidyverse package hex stickers. This will involve using the `image_read()` function to import the image and the `image_ocr()` function to extract the text.
 
 
 ```r
@@ -1498,32 +1499,29 @@ The data for this case study are available in [CSVs hosted on GitHub](https://gi
 
 As a reminder, we're ultimately interested in answering the following questions with these data:
 
-1. Is there a relationship between healthcare coverage and healthcare spending in the United States?
+1. Is there a relationship between health care coverage and health care spending in the United States?
 2. How does the spending distribution change across geographic regions in the United States?
-3. Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?
+3. Does the relationship between health care coverage and health care spending in the United States change from 2013 to 2014?
 
-#### Healthcare Coverage Data
+#### health care Coverage Data
 
 We'll first read the data in. Note that we have to skip the first two lines, as there are two lines in the CSV that store information about the file before we get to the actual data.
 
-To see what we mean, you can always use the `read_lines()` function from `readr` to see the first few lines:
+To see what we mean, you can always use the `read_lines()` function from `readr` to see the first 7 lines with the `n_max` argument:
 
 
 ```r
-read_lines(file = 'https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv', n_max = 10)
- [1] "\"Title: Health Insurance Coverage of the Total Population | The Henry J. Kaiser Family Foundation\""                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
- [2] "\"Timeframe: 2013 - 2016\""                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
- [3] "\"Location\",\"2013__Employer\",\"2013__Non-Group\",\"2013__Medicaid\",\"2013__Medicare\",\"2013__Other Public\",\"2013__Uninsured\",\"2013__Total\",\"2014__Employer\",\"2014__Non-Group\",\"2014__Medicaid\",\"2014__Medicare\",\"2014__Other Public\",\"2014__Uninsured\",\"2014__Total\",\"2015__Employer\",\"2015__Non-Group\",\"2015__Medicaid\",\"2015__Medicare\",\"2015__Other Public\",\"2015__Uninsured\",\"2015__Total\",\"2016__Employer\",\"2016__Non-Group\",\"2016__Medicaid\",\"2016__Medicare\",\"2016__Other Public\",\"2016__Uninsured\",\"2016__Total\""
- [4] "\"United States\",\"155696900\",\"13816000\",\"54919100\",\"40876300\",\"6295400\",\"41795100\",\"313401200\",\"154347500\",\"19313000\",\"61650400\",\"41896500\",\"5985000\",\"32967500\",\"316159900\",\"155965800\",\"21816500\",\"62384500\",\"43308400\",\"6422300\",\"28965900\",\"318868500\",\"157381500\",\"21884400\",\"62303400\",\"44550200\",\"6192200\",\"28051900\",\"320372000\""                                                                                                                                                                           
- [5] "\"Alabama\",\"2126500\",\"174200\",\"869700\",\"783000\",\"85600\",\"724800\",\"4763900\",\"2202800\",\"288900\",\"891900\",\"718400\",\"143900\",\"522200\",\"4768000\",\"2218000\",\"291500\",\"911400\",\"719100\",\"174600\",\"519400\",\"4833900\",\"2263800\",\"262400\",\"997000\",\"761200\",\"128800\",\"420800\",\"4834100\""                                                                                                                                                                                                                                      
- [6] "\"Alaska\",\"364900\",\"24000\",\"95000\",\"55200\",\"60600\",\"102200\",\"702000\",\"345300\",\"26800\",\"130100\",\"55300\",\"37300\",\"100800\",\"695700\",\"355700\",\"22300\",\"128100\",\"60900\",\"47700\",\"90500\",\"705300\",\"324400\",\"20300\",\"145400\",\"68200\",\"55600\",\"96900\",\"710800\""                                                                                                                                                                                                                                                             
- [7] "\"Arizona\",\"2883800\",\"170800\",\"1346100\",\"842000\",\"N/A\",\"1223000\",\"6603100\",\"2835200\",\"333500\",\"1639400\",\"911100\",\"N/A\",\"827100\",\"6657200\",\"2766500\",\"278400\",\"1711500\",\"949000\",\"189300\",\"844800\",\"6739500\",\"3010700\",\"377000\",\"1468400\",\"1028000\",\"172500\",\"833700\",\"6890200\""                                                                                                                                                                                                                                     
- [8] "\"Arkansas\",\"1128800\",\"155600\",\"600800\",\"515200\",\"67600\",\"436800\",\"2904800\",\"1176500\",\"231700\",\"639200\",\"479400\",\"82000\",\"287200\",\"2896000\",\"1293700\",\"200200\",\"641400\",\"484500\",\"63700\",\"268400\",\"2953000\",\"1290900\",\"252900\",\"618600\",\"490000\",\"67500\",\"225500\",\"2945300\""                                                                                                                                                                                                                                        
- [9] "\"California\",\"17747300\",\"1986400\",\"8344800\",\"3828500\",\"675400\",\"5594100\",\"38176400\",\"17703700\",\"2778800\",\"9618800\",\"4049000\",\"634400\",\"3916700\",\"38701300\",\"17718300\",\"3444200\",\"10138100\",\"4080100\",\"752700\",\"2980600\",\"39113900\",\"18116200\",\"3195400\",\"9853800\",\"4436000\",\"556100\",\"3030800\",\"39188300\""                                                                                                                                                                                                         
-[10] "\"Colorado\",\"2852500\",\"426300\",\"697300\",\"549700\",\"118100\",\"654000\",\"5297800\",\"2489400\",\"397900\",\"1053700\",\"619500\",\"214000\",\"602900\",\"5377400\",\"2706000\",\"346900\",\"1036600\",\"708000\",\"148000\",\"475700\",\"5421300\",\"2872600\",\"370000\",\"855800\",\"692400\",\"190100\",\"528400\",\"5509200\""                                                                                                                                                                                                                                  
+read_lines(file = 'https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv', n_max = 7)
+[1] "\"Title: Health Insurance Coverage of the Total Population | The Henry J. Kaiser Family Foundation\""                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+[2] "\"Timeframe: 2013 - 2016\""                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+[3] "\"Location\",\"2013__Employer\",\"2013__Non-Group\",\"2013__Medicaid\",\"2013__Medicare\",\"2013__Other Public\",\"2013__Uninsured\",\"2013__Total\",\"2014__Employer\",\"2014__Non-Group\",\"2014__Medicaid\",\"2014__Medicare\",\"2014__Other Public\",\"2014__Uninsured\",\"2014__Total\",\"2015__Employer\",\"2015__Non-Group\",\"2015__Medicaid\",\"2015__Medicare\",\"2015__Other Public\",\"2015__Uninsured\",\"2015__Total\",\"2016__Employer\",\"2016__Non-Group\",\"2016__Medicaid\",\"2016__Medicare\",\"2016__Other Public\",\"2016__Uninsured\",\"2016__Total\""
+[4] "\"United States\",\"155696900\",\"13816000\",\"54919100\",\"40876300\",\"6295400\",\"41795100\",\"313401200\",\"154347500\",\"19313000\",\"61650400\",\"41896500\",\"5985000\",\"32967500\",\"316159900\",\"155965800\",\"21816500\",\"62384500\",\"43308400\",\"6422300\",\"28965900\",\"318868500\",\"157381500\",\"21884400\",\"62303400\",\"44550200\",\"6192200\",\"28051900\",\"320372000\""                                                                                                                                                                           
+[5] "\"Alabama\",\"2126500\",\"174200\",\"869700\",\"783000\",\"85600\",\"724800\",\"4763900\",\"2202800\",\"288900\",\"891900\",\"718400\",\"143900\",\"522200\",\"4768000\",\"2218000\",\"291500\",\"911400\",\"719100\",\"174600\",\"519400\",\"4833900\",\"2263800\",\"262400\",\"997000\",\"761200\",\"128800\",\"420800\",\"4834100\""                                                                                                                                                                                                                                      
+[6] "\"Alaska\",\"364900\",\"24000\",\"95000\",\"55200\",\"60600\",\"102200\",\"702000\",\"345300\",\"26800\",\"130100\",\"55300\",\"37300\",\"100800\",\"695700\",\"355700\",\"22300\",\"128100\",\"60900\",\"47700\",\"90500\",\"705300\",\"324400\",\"20300\",\"145400\",\"68200\",\"55600\",\"96900\",\"710800\""                                                                                                                                                                                                                                                             
+[7] "\"Arizona\",\"2883800\",\"170800\",\"1346100\",\"842000\",\"N/A\",\"1223000\",\"6603100\",\"2835200\",\"333500\",\"1639400\",\"911100\",\"N/A\",\"827100\",\"6657200\",\"2766500\",\"278400\",\"1711500\",\"949000\",\"189300\",\"844800\",\"6739500\",\"3010700\",\"377000\",\"1468400\",\"1028000\",\"172500\",\"833700\",\"6890200\""                                                                                                                                                                                                                                     
 ```
 
-We'll read in the data, starting with the third line of the file:
+Looks like we don't need the first two lines, so we'll read in the data, starting with the third line of the file:
 
 
 ```r
@@ -1593,7 +1591,7 @@ tail(coverage, n = 30)
 #   `2016__Other Public` <chr>, `2016__Uninsured` <dbl>, `2016__Total` <dbl>
 ```
 
-Looks like there's a lot of missing information there at the end of the file due the "Notes" observation. Seems as though Notes were added to the file that are not the actual data. We'll want to only include rows before the "Notes" at the end of the file, using `n_max`:
+Looks like there's a lot of missing information there at the end of the file due the "Notes" observation. Seems as though Notes were added to the file that are not the actual data. We'll want to only include rows before the value of "Notes" for the `Location` variable at the end of the file. Using `n_max` and the `==` operator, we can specify that we want all the lines up to and including where the Location variable "is equal to" "Notes". Using `-1` we can also remove the last line, which will be the line that contains "Notes".
 
 
 ```r
@@ -1623,7 +1621,7 @@ tail(coverage)
 #   `2016__Other Public` <chr>, `2016__Uninsured` <dbl>, `2016__Total` <dbl>
 ```
 
-Looks much better now! We can then use `glimpse()` to get a sense of what types of information are stored in our dataset.
+Looks much better now! We can then use the `glimpse()` function of the `dplyr` package to get a sense of what types of information are stored in our dataset.
 
 
 ```r
@@ -1661,11 +1659,13 @@ $ `2016__Uninsured`    <dbl> 28051900, 420800, 96900, 833700, 225500, 3030800…
 $ `2016__Total`        <dbl> 320372000, 4834100, 710800, 6890200, 2945300, 39…
 ```
 
-Looks like we have a whole bunch of numeric variables, but a few that appear like they *should* be numeric, but are actually strings. We'll keep this in mind for when we wrangle the data!
+This gives an us output with all the variables listed on the far left. Thus essentially the data is rotated from the way it would be shown if we used `head()` instead of `glimpse()`. The first few observations for each variable are shown for each variable with a comma separating each observation. 
 
-#### Healthcare Spending Data
+Looks like we have a whole bunch of numeric variables (indicated by <dbl>), but a few that appear like they *should* be numeric, but are actually strings (indicated by <chr>). We'll keep this in mind for when we wrangle the data!
 
-Now, we're ready to read in our healthcare spending data, using a similar approach as we did for the coverage data.
+#### health care Spending Data
+
+Now, we're ready to read in our health care spending data, using a similar approach as we did for the coverage data.
 
 
 ```r
@@ -1833,11 +1833,11 @@ url = "https://github.com/opencasestudies/ocs-police-shootings-firearm-legislati
 # Use httr's GET() and read_excel() to read in file
 GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-  Date: 2021-02-02 22:34
+  Date: 2021-02-12 18:40
   Status: 200
   Content-Type: application/octet-stream
   Size: 66.2 kB
-<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpGqFNG0/file32aa59c09d07.xlsx
+<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpfDu5LC/file297859c09d07.xlsx
 brady <- read_excel(tf, sheet = 1)
 
 brady
@@ -1876,11 +1876,11 @@ url = "https://github.com/opencasestudies/ocs-police-shootings-firearm-legislati
 # Use httr's GET() and read_excel() to read in file
 GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-  Date: 2021-02-02 22:34
+  Date: 2021-02-12 18:40
   Status: 200
   Content-Type: application/octet-stream
   Size: 98.3 kB
-<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpGqFNG0/file32aa618fb492.xls
+<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpfDu5LC/file2978618fb492.xls
 crime <- read_excel(tf, sheet = 1, skip = 3)
 
 # see data
@@ -1918,11 +1918,11 @@ url = "https://github.com/opencasestudies/ocs-police-shootings-firearm-legislati
 # Use httr's GET() and read_excel() to read in file
 GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-  Date: 2021-02-02 22:34
+  Date: 2021-02-12 18:40
   Status: 200
   Content-Type: application/octet-stream
   Size: 1.57 MB
-<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpGqFNG0/file32aa6135133.xls
+<ON DISK>  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//RtmpfDu5LC/file29786135133.xls
 land <- read_excel(tf, sheet = 1)
 
 # see data
