@@ -4565,7 +4565,7 @@ In summary, these are the minimal steps to perform a prediction analysis using `
 
 If you wish to perform preprocessing, cross validation, or tuning, these are the steps required:
 
-![](images/book_figures/smaller_full_tidymodels_summary.png)
+![](images/book_figures/full_tidymodels_overview_small.png)
 
 
 
