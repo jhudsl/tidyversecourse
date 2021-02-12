@@ -1934,7 +1934,7 @@ map(INPUT_ONE, INPUT_TWO, FUNCTION_TO_APPLY, OPTIONAL_OTHER_STUFF)
 
 What if we wanted to calculate the volume of each tree? There is a column for volume, but let's see if we can't use a little geometry to calculate it on our own. 
 
-If we assume that each tree is a cylinder, the volume of a cylinder is $V = \pi r^2 h$, where $r$ is half the diameter. In the trees dataset, the diameter is stored in the `Girth` column, in *inches*. $h$ is the height of the cylinder, which is stored in the `Height` column, in *feet*. 
+If we assume that each tree is a cylinder, the volume of a cylinder is {$$}V = \pi r^2 h{/$$}, where {$$}r{/$$} is half the diameter. In the trees dataset, the diameter is stored in the `Girth` column, in *inches*. {$$}h{/$$} is the height of the cylinder, which is stored in the `Height` column, in *feet*. 
 
 Thus, we have two vectors we want to operate over, `Girth` and `Height`, so we'll use `map2()`.
 
