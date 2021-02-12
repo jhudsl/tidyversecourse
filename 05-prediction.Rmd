@@ -1366,6 +1366,9 @@ Here you can see a visual of how these packages work together in the process of 
 
 To illustrate how to use each of these packages, we will work through some examples.
 
+These are the major steps that we will cover in addition to some more advanced methods:
+
+![](images/book_figures/tidymodelsBasics.png)
 
 Other `tidymodels` packages include:
 
@@ -1386,7 +1389,7 @@ Other `tidymodels` packages include:
 11) `modeldb` is also for working within SQL databases and it allows for `dplyr` and `tidyeval` use within a database  
 12) `tidyposterior` compares models using resampling statistics  
 
-Most of these packages offer advanced modeling options.
+Most of these packages offer advanced modeling options and we will not be covering how to use them.
 
 ### Example of Continuous Variable Prediction 
 
