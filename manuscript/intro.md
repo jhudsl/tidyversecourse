@@ -61,19 +61,15 @@ In Hadley Wickham's 2014 paper titled ["Tidy Data"](https://www.jstatsoft.org/ar
 
 These points are known as the tidy data principles. Here, we'll break down each one to ensure that we are all on the same page going forward.
 
-1. Each variable you measure should be in one column.  
 
 ![Principle #1 of Tidy Data](images/gslides/004.png)
 
-2. Each different observation of that variable should be in a different row.  
 
 ![Principle #2 of Tidy Data](images/gslides/005.png)
 
-3. There should be one table for each "type" of data.  
 
 ![Principle #3 of Tidy Data](images/gslides/006.png)
 
-4. If you have multiple tables, they should include a column in each spreadsheet (with the same column label!) that allows them to be joined or merged.  
 
 ![Principle #4 of Tidy Data](images/gslides/007.png)
 
@@ -218,7 +214,7 @@ Regardless of which life cycle chart you like best, when it comes down to answer
 
 With a solid understanding of tidy data and how tidy data fit into the data science life cycle, we'll take a bit of time to introduce you to the tidyverse and tidyverse-adjacent packages that we'll be teaching and using throughout this book. Taken together, these packages make up what we're referring to as the **tidyverse ecosystem**. The purpose for the rest of this course is not for you to understand *how* to use each of these packages (that's coming soon!), but rather to help you familiarize yourself with which packages fit into which part of the data science life cycle.
 
-Note that we will describe the official tidyverse packages as well as other packages that are tidyverse-adjacent, meaning they follow the same conventions as the official tidyverse packages and work well within the tidy framework and structure of data analysis.
+Note that we will describe the official tidyverse packages, as well as other packages that are tidyverse-adjacent. This means they follow the same conventions as the official tidyverse packages and work well within the tidy framework and structure of data analysis.
 
 ### Reading Data into R
 
@@ -340,11 +336,7 @@ According to the [`lubridate` website](https://lubridate.tidyverse.org/):
 
 #### **`glue`**
 
-<<<<<<< HEAD
-The [`glue`](https://glue.tidyverse.org/) package makes working with interpreted string literals simpler. We'll discuss this package in detail in this book.
-=======
 The [`glue`](https://glue.tidyverse.org/) `tidyverse`-adjacent package makes working with interpreted string literals simpler. We'll discuss this package in detail in this specialization.
->>>>>>> master
 
 #### **`skimr`**
 
@@ -698,17 +690,21 @@ Throughout this book, we're going to make use of a number of case studies from [
 
 ### Case Study #1: Health Expenditures
 
-Health policy in the United States of America is complicated, and several forms of healthcare 
-coverage exist, including that of federal government-led healthcare programs and that of private insurance companies. We are interested in getting sense of the health expenditure, including healthcare coverage and healthcare spending, across the United States. More specifically, the questions are:  
+The material for this first case study comes from the following:
 
-1. Is there a relationship between healthcare coverage and healthcare spending in the United States?   
+Kuo, Pei-Lun and Jager, Leah and Taub, Margaret and Hicks, Stephanie. (2019, February 14). opencasestudies/ocs-healthexpenditure: Exploring Health Expenditure using State-level data in the United States (Version v1.0.0). Zenodo. http://doi.org/10.5281/zenodo.2565307
+
+Health policy in the United States of America is complicated, and several forms of health care 
+coverage exist, including that of federal government-led health care programs and that of private insurance companies. We are interested in getting sense of the health expenditure, including health care coverage and health care spending, across the United States. More specifically, the questions are:  
+
+1. Is there a relationship between health care coverage and health care spending in the United States?   
 
 2. How does the spending distribution change across geographic regions in the United States?  
 
-3. Does the relationship between healthcare coverage and healthcare spending in the United States change from 2013 to 2014?  
+3. Does the relationship between health care coverage and health care spending in the United States change from 2013 to 2014?  
 
 
-#### Data: Healthcare
+#### Data: health care
 
 The two datasets used in this case study come from the [Henry J Kaiser Family Foundation (KFF)](https://www.kff.org/) and include:
 
@@ -717,6 +713,10 @@ The two datasets used in this case study come from the [Henry J Kaiser Family Fo
 
        
 ### Case Study #2: Firearms
+
+The material for the second case study comes from the following:
+
+Stephens, Alexandra and Jager, Leah and Taub, Margaret and Hicks, Stephanie. (2019, February 14). opencasestudies/ocs-police-shootings-firearm-legislation: Firearm Legislation and Fatal Police Shootings in the United States (Version v1.0.0). Zenodo. http://doi.org/10.5281/zenodo.2565249
 
 In the United States, firearm laws differ by state. Additionally, [police](https://www.nature.com/articles/d41586-019-02601-9) [shootings](https://www.washingtonpost.com/graphics/2019/national/police-shootings-2019/) [are](https://www.latimes.com/science/story/2019-08-15/police-shootings-are-a-leading-cause-of-death-for-black-men) [frequently](https://www.npr.org/tags/522920705/police-shootings) [in](https://www.huffpost.com/news/police-shooting) [the](https://www.nytimes.com/2019/08/14/us/philadelphia-shooting-temple-university.html) [news](https://www.washingtonpost.com/graphics/2019/national/police-shootings-2019/). Understanding the relationship between firearm laws and police shootings is of public health interest.
 
