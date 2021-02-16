@@ -1293,7 +1293,7 @@ skim(msleep) %>%
 
 Sometimes it is valuable to apply a certain operation across the columns of a data frame. For example, it be necessary to compute the mean or some other summary statistics for each column in the data frame. In some cases, these operations can be done by a combination of `pivot_longer()` along with `group_by()` and `summarize()`. However, in other cases it is more straightforward to simply compute the statistic on each column.
 
-The `across()` function is need to operate across the columns of a data frame. For example, in our `airquality` dataset, if we wanted to compute the mean of `Ozone`, `Solar.R`, `Wind`, and `Temp`, we could do:
+The `across()` function is needed to operate across the columns of a data frame. For example, in our `airquality` dataset, if we wanted to compute the mean of `Ozone`, `Solar.R`, `Wind`, and `Temp`, we could do:
 
 
 ```r
@@ -1761,11 +1761,11 @@ mydate <- ymd("1988-09-29")
 ## subtract birthday from todays date
 age <- today() - mydate
 age
-Time difference of 11824 days
+Time difference of 11828 days
 
 ## a duration object can get this information in years
 as.duration(age)
-[1] "1021593600s (~32.37 years)"
+[1] "1021939200s (~32.38 years)"
 ```
 
 
