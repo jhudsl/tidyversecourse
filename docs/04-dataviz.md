@@ -307,16 +307,16 @@ diamonds
 ## # A tibble: 53,940 x 10
 ##    carat cut       color clarity depth table price     x     y     z
 ##    <dbl> <ord>     <ord> <ord>   <dbl> <dbl> <int> <dbl> <dbl> <dbl>
-##  1 0.23  Ideal     E     SI2      61.5    55   326  3.95  3.98  2.43
-##  2 0.21  Premium   E     SI1      59.8    61   326  3.89  3.84  2.31
-##  3 0.23  Good      E     VS1      56.9    65   327  4.05  4.07  2.31
-##  4 0.290 Premium   I     VS2      62.4    58   334  4.2   4.23  2.63
-##  5 0.31  Good      J     SI2      63.3    58   335  4.34  4.35  2.75
-##  6 0.24  Very Good J     VVS2     62.8    57   336  3.94  3.96  2.48
-##  7 0.24  Very Good I     VVS1     62.3    57   336  3.95  3.98  2.47
-##  8 0.26  Very Good H     SI1      61.9    55   337  4.07  4.11  2.53
-##  9 0.22  Fair      E     VS2      65.1    61   337  3.87  3.78  2.49
-## 10 0.23  Very Good H     VS1      59.4    61   338  4     4.05  2.39
+##  1  0.23 Ideal     E     SI2      61.5    55   326  3.95  3.98  2.43
+##  2  0.21 Premium   E     SI1      59.8    61   326  3.89  3.84  2.31
+##  3  0.23 Good      E     VS1      56.9    65   327  4.05  4.07  2.31
+##  4  0.29 Premium   I     VS2      62.4    58   334  4.2   4.23  2.63
+##  5  0.31 Good      J     SI2      63.3    58   335  4.34  4.35  2.75
+##  6  0.24 Very Good J     VVS2     62.8    57   336  3.94  3.96  2.48
+##  7  0.24 Very Good I     VVS1     62.3    57   336  3.95  3.98  2.47
+##  8  0.26 Very Good H     SI1      61.9    55   337  4.07  4.11  2.53
+##  9  0.22 Fair      E     VS2      65.1    61   337  3.87  3.78  2.49
+## 10  0.23 Very Good H     VS1      59.4    61   338  4     4.05  2.39
 ## # … with 53,930 more rows
 ```
 
@@ -1247,7 +1247,7 @@ df
 ```
 ## # A tibble: 5 x 5
 ##   cut           N   min   avg   max
-## * <ord>     <int> <int> <dbl> <int>
+##   <ord>     <int> <int> <dbl> <int>
 ## 1 Fair       1610   337 4359. 18574
 ## 2 Good       4906   327 3929. 18788
 ## 3 Very Good 12082   336 3982. 18818
@@ -1453,7 +1453,7 @@ Beyond the *many* capabilities of `ggplot2`, there are a few additional packages
 * combine multiple plots (`cowplot` + `patchwork`)
 * generate animated plots (`gganimate`)
 
-These are referred to as `ggplot2` extensions. There are dozens of additional [`ggplot2` extensions](http://www.ggplot2-exts.org/gallery/) available if you'd like to explore other plotting options beyond what is covered here!
+These are referred to as `ggplot2` extensions. 
 
 ### `ggrepel`
 
@@ -2284,18 +2284,18 @@ hc
 
 ```
 ## # A tibble: 612 x 10
-##    Location  year type  tot_coverage abb   region tot_spending tot_pop
-##    <chr>    <int> <chr>        <int> <chr> <fct>         <dbl>   <int>
-##  1 Alabama   2013 Empl…      2126500 AL    South         33788 4763900
-##  2 Alabama   2013 Non-…       174200 AL    South         33788 4763900
-##  3 Alabama   2013 Medi…       869700 AL    South         33788 4763900
-##  4 Alabama   2013 Medi…       783000 AL    South         33788 4763900
-##  5 Alabama   2013 Othe…        85600 AL    South         33788 4763900
-##  6 Alabama   2013 Unin…       724800 AL    South         33788 4763900
-##  7 Alabama   2014 Empl…      2202800 AL    South         35263 4768000
-##  8 Alabama   2014 Non-…       288900 AL    South         35263 4768000
-##  9 Alabama   2014 Medi…       891900 AL    South         35263 4768000
-## 10 Alabama   2014 Medi…       718400 AL    South         35263 4768000
+##    Location  year type         tot_coverage abb   region tot_spending tot_pop
+##    <chr>    <int> <chr>               <int> <chr> <fct>         <dbl>   <int>
+##  1 Alabama   2013 Employer          2126500 AL    South         33788 4763900
+##  2 Alabama   2013 Non-Group          174200 AL    South         33788 4763900
+##  3 Alabama   2013 Medicaid           869700 AL    South         33788 4763900
+##  4 Alabama   2013 Medicare           783000 AL    South         33788 4763900
+##  5 Alabama   2013 Other Public        85600 AL    South         33788 4763900
+##  6 Alabama   2013 Uninsured          724800 AL    South         33788 4763900
+##  7 Alabama   2014 Employer          2202800 AL    South         35263 4768000
+##  8 Alabama   2014 Non-Group          288900 AL    South         35263 4768000
+##  9 Alabama   2014 Medicaid           891900 AL    South         35263 4768000
+## 10 Alabama   2014 Medicare           718400 AL    South         35263 4768000
 ## # … with 602 more rows, and 2 more variables: prop_coverage <dbl>,
 ## #   spending_capita <dbl>
 ```
@@ -2339,27 +2339,27 @@ hc %>%
 
 ```
 ## # A tibble: 19 x 10
-##    Location  year type  tot_coverage abb   region tot_spending tot_pop
-##    <chr>    <int> <chr>        <int> <chr> <fct>         <dbl>   <int>
-##  1 Arizona   2013 Othe…           NA AZ    West          41481 6603100
-##  2 Arizona   2014 Othe…           NA AZ    West          43356 6657200
-##  3 Distric…  2013 Othe…           NA DC    South          7443  652100
-##  4 Distric…  2014 Othe…           NA DC    South          7871  656900
-##  5 Indiana   2014 Othe…           NA IN    North…        54741 6477500
-##  6 Kansas    2013 Othe…           NA KS    North…        21490 2817600
-##  7 Kansas    2014 Othe…           NA KS    North…        22183 2853000
-##  8 Kentucky  2014 Othe…           NA KY    South         35323 4315700
-##  9 Massach…  2013 Othe…           NA MA    North…        68899 6647700
-## 10 Massach…  2014 Othe…           NA MA    North…        71274 6658100
-## 11 New Ham…  2014 Othe…           NA NH    North…        12742 1319700
-## 12 New Jer…  2013 Othe…           NA NJ    North…        75148 8807400
-## 13 North D…  2013 Othe…           NA ND    North…         6795  714500
-## 14 Oklahoma  2013 Othe…           NA OK    South         28097 3709400
-## 15 Rhode I…  2014 Othe…           NA RI    North…        10071 1048200
-## 16 Tenness…  2013 Othe…           NA TN    South         46149 6400200
-## 17 Tenness…  2014 Othe…           NA TN    South         48249 6502000
-## 18 West Vi…  2013 Othe…           NA WV    South         16622 1822000
-## 19 Wiscons…  2014 Othe…           NA WI    North…        50109 5747200
+##    Location       year type     tot_coverage abb   region   tot_spending tot_pop
+##    <chr>         <int> <chr>           <int> <chr> <fct>           <dbl>   <int>
+##  1 Arizona        2013 Other P…           NA AZ    West            41481 6603100
+##  2 Arizona        2014 Other P…           NA AZ    West            43356 6657200
+##  3 District of …  2013 Other P…           NA DC    South            7443  652100
+##  4 District of …  2014 Other P…           NA DC    South            7871  656900
+##  5 Indiana        2014 Other P…           NA IN    North C…        54741 6477500
+##  6 Kansas         2013 Other P…           NA KS    North C…        21490 2817600
+##  7 Kansas         2014 Other P…           NA KS    North C…        22183 2853000
+##  8 Kentucky       2014 Other P…           NA KY    South           35323 4315700
+##  9 Massachusetts  2013 Other P…           NA MA    Northea…        68899 6647700
+## 10 Massachusetts  2014 Other P…           NA MA    Northea…        71274 6658100
+## 11 New Hampshire  2014 Other P…           NA NH    Northea…        12742 1319700
+## 12 New Jersey     2013 Other P…           NA NJ    Northea…        75148 8807400
+## 13 North Dakota   2013 Other P…           NA ND    North C…         6795  714500
+## 14 Oklahoma       2013 Other P…           NA OK    South           28097 3709400
+## 15 Rhode Island   2014 Other P…           NA RI    Northea…        10071 1048200
+## 16 Tennessee      2013 Other P…           NA TN    South           46149 6400200
+## 17 Tennessee      2014 Other P…           NA TN    South           48249 6502000
+## 18 West Virginia  2013 Other P…           NA WV    South           16622 1822000
+## 19 Wisconsin      2014 Other P…           NA WI    North C…        50109 5747200
 ## # … with 2 more variables: prop_coverage <dbl>, spending_capita <dbl>
 ```
 
@@ -3374,18 +3374,18 @@ firearms
 
 ```
 ## # A tibble: 51 x 15
-##    NAME  white black hispanic  male total_pop violent_crime brady_scores
-##    <chr> <dbl> <dbl>    <dbl> <dbl>     <dbl>         <dbl>        <dbl>
-##  1 alab…  69.5 26.7      4.13  48.5   4850858          472.        -18  
-##  2 alas…  66.5  3.67     6.82  52.4    737979          730.        -30  
-##  3 ariz…  83.5  4.80    30.9   49.7   6802262          410.        -39  
-##  4 arka…  79.6 15.7      7.18  49.1   2975626          521.        -24  
-##  5 cali…  73.0  6.49    38.7   49.7  39032444          426.         76  
-##  6 colo…  87.6  4.47    21.3   50.3   5440445          321          22  
-##  7 conn…  80.9 11.6     15.3   48.8   3593862          218.         73  
-##  8 dela…  70.3 22.5      8.96  48.4    944107          499          41  
-##  9 dist…  44.1 48.5     10.7   47.4    672736         1269.         NA  
-## 10 flor…  77.7 16.9     24.7   48.9  20268567          462.        -20.5
+##    NAME          white black hispanic  male total_pop violent_crime brady_scores
+##    <chr>         <dbl> <dbl>    <dbl> <dbl>     <dbl>         <dbl>        <dbl>
+##  1 alabama        69.5 26.7      4.13  48.5   4850858          472.        -18  
+##  2 alaska         66.5  3.67     6.82  52.4    737979          730.        -30  
+##  3 arizona        83.5  4.80    30.9   49.7   6802262          410.        -39  
+##  4 arkansas       79.6 15.7      7.18  49.1   2975626          521.        -24  
+##  5 california     73.0  6.49    38.7   49.7  39032444          426.         76  
+##  6 colorado       87.6  4.47    21.3   50.3   5440445          321          22  
+##  7 connecticut    80.9 11.6     15.3   48.8   3593862          218.         73  
+##  8 delaware       70.3 22.5      8.96  48.4    944107          499          41  
+##  9 district of …  44.1 48.5     10.7   47.4    672736         1269.         NA  
+## 10 florida        77.7 16.9     24.7   48.9  20268567          462.        -20.5
 ## # … with 41 more rows, and 7 more variables: gunshot_tally <int>,
 ## #   gunshot_filtered <int>, gunshot_rate <dbl>, unemployment_rate <dbl>,
 ## #   unemployment_rank <int>, density <dbl>, ownership <dbl>

@@ -413,20 +413,20 @@ msleep %>%
 
 ```
 ## # A tibble: 12 x 11
-##    name  genus vore  order conservation sleep_total sleep_rem sleep_cycle awake
-##    <chr> <chr> <chr> <chr> <chr>              <dbl>     <dbl>       <dbl> <dbl>
-##  1 Owl … Aotus omni  Prim… <NA>                17         1.8      NA       7  
-##  2 Griv… Cerc… omni  Prim… lc                  10         0.7      NA      14  
-##  3 Pata… Eryt… omni  Prim… lc                  10.9       1.1      NA      13.1
-##  4 Gala… Gala… omni  Prim… <NA>                 9.8       1.1       0.55   14.2
-##  5 Human Homo  omni  Prim… <NA>                 8         1.9       1.5    16  
-##  6 Mong… Lemur herbi Prim… vu                   9.5       0.9      NA      14.5
-##  7 Maca… Maca… omni  Prim… <NA>                10.1       1.2       0.75   13.9
-##  8 Slow… Nyct… carni Prim… <NA>                11        NA        NA      13  
-##  9 Chim… Pan   omni  Prim… <NA>                 9.7       1.4       1.42   14.3
-## 10 Babo… Papio omni  Prim… <NA>                 9.4       1         0.667  14.6
-## 11 Potto Pero… omni  Prim… lc                  11        NA        NA      13  
-## 12 Squi… Saim… omni  Prim… <NA>                 9.6       1.4      NA      14.4
+##    name   genus vore  order conservation sleep_total sleep_rem sleep_cycle awake
+##    <chr>  <chr> <chr> <chr> <chr>              <dbl>     <dbl>       <dbl> <dbl>
+##  1 Owl m… Aotus omni  Prim… <NA>                17         1.8      NA       7  
+##  2 Grivet Cerc… omni  Prim… lc                  10         0.7      NA      14  
+##  3 Patas… Eryt… omni  Prim… lc                  10.9       1.1      NA      13.1
+##  4 Galago Gala… omni  Prim… <NA>                 9.8       1.1       0.55   14.2
+##  5 Human  Homo  omni  Prim… <NA>                 8         1.9       1.5    16  
+##  6 Mongo… Lemur herbi Prim… vu                   9.5       0.9      NA      14.5
+##  7 Macaq… Maca… omni  Prim… <NA>                10.1       1.2       0.75   13.9
+##  8 Slow … Nyct… carni Prim… <NA>                11        NA        NA      13  
+##  9 Chimp… Pan   omni  Prim… <NA>                 9.7       1.4       1.42   14.3
+## 10 Baboon Papio omni  Prim… <NA>                 9.4       1         0.667  14.6
+## 11 Potto  Pero… omni  Prim… lc                  11        NA        NA      13  
+## 12 Squir… Saim… omni  Prim… <NA>                 9.6       1.4      NA      14.4
 ## # … with 2 more variables: brainwt <dbl>, bodywt <dbl>
 ```
 
@@ -441,20 +441,20 @@ filter(msleep, order == "Primates")
 
 ```
 ## # A tibble: 12 x 11
-##    name  genus vore  order conservation sleep_total sleep_rem sleep_cycle awake
-##    <chr> <chr> <chr> <chr> <chr>              <dbl>     <dbl>       <dbl> <dbl>
-##  1 Owl … Aotus omni  Prim… <NA>                17         1.8      NA       7  
-##  2 Griv… Cerc… omni  Prim… lc                  10         0.7      NA      14  
-##  3 Pata… Eryt… omni  Prim… lc                  10.9       1.1      NA      13.1
-##  4 Gala… Gala… omni  Prim… <NA>                 9.8       1.1       0.55   14.2
-##  5 Human Homo  omni  Prim… <NA>                 8         1.9       1.5    16  
-##  6 Mong… Lemur herbi Prim… vu                   9.5       0.9      NA      14.5
-##  7 Maca… Maca… omni  Prim… <NA>                10.1       1.2       0.75   13.9
-##  8 Slow… Nyct… carni Prim… <NA>                11        NA        NA      13  
-##  9 Chim… Pan   omni  Prim… <NA>                 9.7       1.4       1.42   14.3
-## 10 Babo… Papio omni  Prim… <NA>                 9.4       1         0.667  14.6
-## 11 Potto Pero… omni  Prim… lc                  11        NA        NA      13  
-## 12 Squi… Saim… omni  Prim… <NA>                 9.6       1.4      NA      14.4
+##    name   genus vore  order conservation sleep_total sleep_rem sleep_cycle awake
+##    <chr>  <chr> <chr> <chr> <chr>              <dbl>     <dbl>       <dbl> <dbl>
+##  1 Owl m… Aotus omni  Prim… <NA>                17         1.8      NA       7  
+##  2 Grivet Cerc… omni  Prim… lc                  10         0.7      NA      14  
+##  3 Patas… Eryt… omni  Prim… lc                  10.9       1.1      NA      13.1
+##  4 Galago Gala… omni  Prim… <NA>                 9.8       1.1       0.55   14.2
+##  5 Human  Homo  omni  Prim… <NA>                 8         1.9       1.5    16  
+##  6 Mongo… Lemur herbi Prim… vu                   9.5       0.9      NA      14.5
+##  7 Macaq… Maca… omni  Prim… <NA>                10.1       1.2       0.75   13.9
+##  8 Slow … Nyct… carni Prim… <NA>                11        NA        NA      13  
+##  9 Chimp… Pan   omni  Prim… <NA>                 9.7       1.4       1.42   14.3
+## 10 Baboon Papio omni  Prim… <NA>                 9.4       1         0.667  14.6
+## 11 Potto  Pero… omni  Prim… lc                  11        NA        NA      13  
+## 12 Squir… Saim… omni  Prim… <NA>                 9.6       1.4      NA      14.4
 ## # … with 2 more variables: brainwt <dbl>, bodywt <dbl>
 ```
 
@@ -474,13 +474,13 @@ msleep %>%
 
 ```
 ## # A tibble: 5 x 11
-##   name  genus vore  order conservation sleep_total sleep_rem sleep_cycle awake
-##   <chr> <chr> <chr> <chr> <chr>              <dbl>     <dbl>       <dbl> <dbl>
-## 1 Owl … Aotus omni  Prim… <NA>                17         1.8       NA      7  
-## 2 Pata… Eryt… omni  Prim… lc                  10.9       1.1       NA     13.1
-## 3 Maca… Maca… omni  Prim… <NA>                10.1       1.2        0.75  13.9
-## 4 Slow… Nyct… carni Prim… <NA>                11        NA         NA     13  
-## 5 Potto Pero… omni  Prim… lc                  11        NA         NA     13  
+##   name   genus  vore  order conservation sleep_total sleep_rem sleep_cycle awake
+##   <chr>  <chr>  <chr> <chr> <chr>              <dbl>     <dbl>       <dbl> <dbl>
+## 1 Owl m… Aotus  omni  Prim… <NA>                17         1.8       NA      7  
+## 2 Patas… Eryth… omni  Prim… lc                  10.9       1.1       NA     13.1
+## 3 Macaq… Macaca omni  Prim… <NA>                10.1       1.2        0.75  13.9
+## 4 Slow … Nycti… carni Prim… <NA>                11        NA         NA     13  
+## 5 Potto  Perod… omni  Prim… lc                  11        NA         NA     13  
 ## # … with 2 more variables: brainwt <dbl>, bodywt <dbl>
 ```
 
@@ -500,13 +500,13 @@ msleep %>%
 
 ```
 ## # A tibble: 5 x 11
-##   name  genus vore  order conservation sleep_total sleep_rem sleep_cycle awake
-##   <chr> <chr> <chr> <chr> <chr>              <dbl>     <dbl>       <dbl> <dbl>
-## 1 Owl … Aotus omni  Prim… <NA>                17         1.8       NA      7  
-## 2 Pata… Eryt… omni  Prim… lc                  10.9       1.1       NA     13.1
-## 3 Maca… Maca… omni  Prim… <NA>                10.1       1.2        0.75  13.9
-## 4 Slow… Nyct… carni Prim… <NA>                11        NA         NA     13  
-## 5 Potto Pero… omni  Prim… lc                  11        NA         NA     13  
+##   name   genus  vore  order conservation sleep_total sleep_rem sleep_cycle awake
+##   <chr>  <chr>  <chr> <chr> <chr>              <dbl>     <dbl>       <dbl> <dbl>
+## 1 Owl m… Aotus  omni  Prim… <NA>                17         1.8       NA      7  
+## 2 Patas… Eryth… omni  Prim… lc                  10.9       1.1       NA     13.1
+## 3 Macaq… Macaca omni  Prim… <NA>                10.1       1.2        0.75  13.9
+## 4 Slow … Nycti… carni Prim… <NA>                11        NA         NA     13  
+## 5 Potto  Perod… omni  Prim… lc                  11        NA         NA     13  
 ## # … with 2 more variables: brainwt <dbl>, bodywt <dbl>
 ```
 
@@ -984,7 +984,7 @@ msleep %>%
 ```
 ## # A tibble: 19 x 2
 ##    order               N
-##  * <chr>           <int>
+##    <chr>           <int>
 ##  1 Afrosoricida        1
 ##  2 Artiodactyla        6
 ##  3 Carnivora          12
@@ -1026,7 +1026,7 @@ msleep %>%
 ```
 ## # A tibble: 19 x 3
 ##    order               N mean_sleep
-##  * <chr>           <int>      <dbl>
+##    <chr>           <int>      <dbl>
 ##  1 Afrosoricida        1      15.6 
 ##  2 Artiodactyla        6       4.52
 ##  3 Carnivora          12      10.1 
@@ -1191,18 +1191,18 @@ msleep %>%
 ```
 ## Rows: 83
 ## Columns: 12
-## $ name         <chr> "Cheetah", "Owl monkey", "Mountain beaver", "Greater sho…
-## $ genus        <chr> "Acinonyx", "Aotus", "Aplodontia", "Blarina", "Bos", "Br…
-## $ vore         <chr> "carni", "omni", "herbi", "omni", "herbi", "herbi", "car…
-## $ order        <chr> "Carnivora", "Primates", "Rodentia", "Soricomorpha", "Ar…
-## $ conservation <chr> "lc", NA, "nt", "lc", "domesticated", NA, "vu", NA, "dom…
-## $ sleep_total  <dbl> 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0, 10.1, 3.0, …
-## $ sleep_rem    <dbl> NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9, NA, 0.6, 0.8,…
-## $ sleep_cycle  <dbl> NA, NA, NA, 0.1333333, 0.6666667, 0.7666667, 0.3833333, …
-## $ awake        <dbl> 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 17.0, 13.9, 21.0, …
-## $ brainwt      <dbl> NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, NA, 0.07000, …
-## $ bodywt       <dbl> 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.490, 0.0…
-## $ n            <int> 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, …
+## $ name         <chr> "Cheetah", "Owl monkey", "Mountain beaver", "Greater shor…
+## $ genus        <chr> "Acinonyx", "Aotus", "Aplodontia", "Blarina", "Bos", "Bra…
+## $ vore         <chr> "carni", "omni", "herbi", "omni", "herbi", "herbi", "carn…
+## $ order        <chr> "Carnivora", "Primates", "Rodentia", "Soricomorpha", "Art…
+## $ conservation <chr> "lc", NA, "nt", "lc", "domesticated", NA, "vu", NA, "dome…
+## $ sleep_total  <dbl> 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0, 10.1, 3.0, 5…
+## $ sleep_rem    <dbl> NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9, NA, 0.6, 0.8, …
+## $ sleep_cycle  <dbl> NA, NA, NA, 0.1333333, 0.6666667, 0.7666667, 0.3833333, N…
+## $ awake        <dbl> 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 17.0, 13.9, 21.0, 1…
+## $ brainwt      <dbl> NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, NA, 0.07000, 0…
+## $ bodywt       <dbl> 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.490, 0.04…
+## $ n            <int> 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 8…
 ```
 
 Notice the new column called "n" that repeats the total number of samples for each row.
@@ -1219,18 +1219,18 @@ msleep %>%
 ```
 ## Rows: 83
 ## Columns: 12
-## $ name         <chr> "Cheetah", "Owl monkey", "Mountain beaver", "Greater sho…
-## $ genus        <chr> "Acinonyx", "Aotus", "Aplodontia", "Blarina", "Bos", "Br…
-## $ vore         <chr> "carni", "omni", "herbi", "omni", "herbi", "herbi", "car…
-## $ order        <chr> "Carnivora", "Primates", "Rodentia", "Soricomorpha", "Ar…
-## $ conservation <chr> "lc", NA, "nt", "lc", "domesticated", NA, "vu", NA, "dom…
-## $ sleep_total  <dbl> 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0, 10.1, 3.0, …
-## $ sleep_rem    <dbl> NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9, NA, 0.6, 0.8,…
-## $ sleep_cycle  <dbl> NA, NA, NA, 0.1333333, 0.6666667, 0.7666667, 0.3833333, …
-## $ awake        <dbl> 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 17.0, 13.9, 21.0, …
-## $ brainwt      <dbl> NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, NA, 0.07000, …
-## $ bodywt       <dbl> 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.490, 0.0…
-## $ n            <dbl> 866, 866, 866, 866, 866, 866, 866, 866, 866, 866, 866, 8…
+## $ name         <chr> "Cheetah", "Owl monkey", "Mountain beaver", "Greater shor…
+## $ genus        <chr> "Acinonyx", "Aotus", "Aplodontia", "Blarina", "Bos", "Bra…
+## $ vore         <chr> "carni", "omni", "herbi", "omni", "herbi", "herbi", "carn…
+## $ order        <chr> "Carnivora", "Primates", "Rodentia", "Soricomorpha", "Art…
+## $ conservation <chr> "lc", NA, "nt", "lc", "domesticated", NA, "vu", NA, "dome…
+## $ sleep_total  <dbl> 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0, 10.1, 3.0, 5…
+## $ sleep_rem    <dbl> NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9, NA, 0.6, 0.8, …
+## $ sleep_cycle  <dbl> NA, NA, NA, 0.1333333, 0.6666667, 0.7666667, 0.3833333, N…
+## $ awake        <dbl> 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 17.0, 13.9, 21.0, 1…
+## $ brainwt      <dbl> NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, NA, 0.07000, 0…
+## $ bodywt       <dbl> 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.490, 0.04…
+## $ n            <dbl> 866, 866, 866, 866, 866, 866, 866, 866, 866, 866, 866, 86…
 ```
 
 #### `count()`
@@ -1246,7 +1246,7 @@ msleep %>%
 ```
 ## # A tibble: 5 x 2
 ##   vore        n
-## * <chr>   <int>
+##   <chr>   <int>
 ## 1 carni      19
 ## 2 herbi      32
 ## 3 insecti     5
@@ -1266,7 +1266,7 @@ msleep %>%
 ```
 ## # A tibble: 5 x 2
 ##   vore        n
-## * <chr>   <int>
+##   <chr>   <int>
 ## 1 carni      19
 ## 2 herbi      32
 ## 3 insecti     5
@@ -1316,18 +1316,18 @@ msleep %>%
 ```
 ## Rows: 83
 ## Columns: 12
-## $ name         <chr> "Cheetah", "Owl monkey", "Mountain beaver", "Greater sho…
-## $ genus        <chr> "Acinonyx", "Aotus", "Aplodontia", "Blarina", "Bos", "Br…
-## $ vore         <chr> "carni", "omni", "herbi", "omni", "herbi", "herbi", "car…
-## $ order        <chr> "Carnivora", "Primates", "Rodentia", "Soricomorpha", "Ar…
-## $ conservation <chr> "lc", NA, "nt", "lc", "domesticated", NA, "vu", NA, "dom…
-## $ sleep_total  <dbl> 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0, 10.1, 3.0, …
-## $ sleep_rem    <dbl> NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9, NA, 0.6, 0.8,…
-## $ sleep_cycle  <dbl> NA, NA, NA, 0.1333333, 0.6666667, 0.7666667, 0.3833333, …
-## $ awake        <dbl> 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 17.0, 13.9, 21.0, …
-## $ brainwt      <dbl> NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, NA, 0.07000, …
-## $ bodywt       <dbl> 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.490, 0.0…
-## $ n            <int> 12, 10, 16, 3, 5, 1, 12, 3, 12, 5, 5, 16, 10, 16, 3, 2, …
+## $ name         <chr> "Cheetah", "Owl monkey", "Mountain beaver", "Greater shor…
+## $ genus        <chr> "Acinonyx", "Aotus", "Aplodontia", "Blarina", "Bos", "Bra…
+## $ vore         <chr> "carni", "omni", "herbi", "omni", "herbi", "herbi", "carn…
+## $ order        <chr> "Carnivora", "Primates", "Rodentia", "Soricomorpha", "Art…
+## $ conservation <chr> "lc", NA, "nt", "lc", "domesticated", NA, "vu", NA, "dome…
+## $ sleep_total  <dbl> 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 7.0, 10.1, 3.0, 5…
+## $ sleep_rem    <dbl> NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, NA, 2.9, NA, 0.6, 0.8, …
+## $ sleep_cycle  <dbl> NA, NA, NA, 0.1333333, 0.6666667, 0.7666667, 0.3833333, N…
+## $ awake        <dbl> 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 17.0, 13.9, 21.0, 1…
+## $ brainwt      <dbl> NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, NA, 0.07000, 0…
+## $ bodywt       <dbl> 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.490, 0.04…
+## $ n            <int> 12, 10, 16, 3, 5, 1, 12, 3, 12, 5, 5, 16, 10, 16, 3, 2, 3…
 ```
 
 
@@ -1348,18 +1348,18 @@ msleep %>%
 
 ```
 ## # A tibble: 10 x 12
-##    genus vore  dupe_count name  order conservation sleep_total sleep_rem
-##    <chr> <chr>      <int> <chr> <chr> <chr>              <dbl>     <dbl>
-##  1 Equus herbi          2 Horse Peri… domesticated         2.9       0.6
-##  2 Equus herbi          2 Donk… Peri… domesticated         3.1       0.4
-##  3 Pant… carni          3 Tiger Carn… en                  15.8      NA  
-##  4 Pant… carni          3 Jagu… Carn… nt                  10.4      NA  
-##  5 Pant… carni          3 Lion  Carn… vu                  13.5      NA  
-##  6 Sper… herbi          3 Arct… Rode… lc                  16.6      NA  
-##  7 Sper… herbi          3 Thir… Rode… lc                  13.8       3.4
-##  8 Sper… herbi          3 Gold… Rode… lc                  15.9       3  
-##  9 Vulp… carni          2 Arct… Carn… <NA>                12.5      NA  
-## 10 Vulp… carni          2 Red … Carn… <NA>                 9.8       2.4
+##    genus   vore  dupe_count name       order  conservation sleep_total sleep_rem
+##    <chr>   <chr>      <int> <chr>      <chr>  <chr>              <dbl>     <dbl>
+##  1 Equus   herbi          2 Horse      Peris… domesticated         2.9       0.6
+##  2 Equus   herbi          2 Donkey     Peris… domesticated         3.1       0.4
+##  3 Panthe… carni          3 Tiger      Carni… en                  15.8      NA  
+##  4 Panthe… carni          3 Jaguar     Carni… nt                  10.4      NA  
+##  5 Panthe… carni          3 Lion       Carni… vu                  13.5      NA  
+##  6 Spermo… herbi          3 Arctic gr… Roden… lc                  16.6      NA  
+##  7 Spermo… herbi          3 Thirteen-… Roden… lc                  13.8       3.4
+##  8 Spermo… herbi          3 Golden-ma… Roden… lc                  15.9       3  
+##  9 Vulpes  carni          2 Arctic fox Carni… <NA>                12.5      NA  
+## 10 Vulpes  carni          2 Red fox    Carni… <NA>                 9.8       2.4
 ## # … with 4 more variables: sleep_cycle <dbl>, awake <dbl>, brainwt <dbl>,
 ## #   bodywt <dbl>
 ```
@@ -2082,7 +2082,7 @@ age
 ```
 
 ```
-## Time difference of 11827 days
+## Time difference of 11914 days
 ```
 
 ```r
@@ -2091,7 +2091,7 @@ as.duration(age)
 ```
 
 ```
-## [1] "1021852800s (~32.38 years)"
+## [1] "1029369600s (~32.62 years)"
 ```
 
 
@@ -2271,8 +2271,8 @@ str_view(names, "^M")
 ```
 
 ```{=html}
-<div id="htmlwidget-1ecda6b85d87e0afecae" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1ecda6b85d87e0afecae">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li><span class='match'>M<\/span>ohammed<\/li>\n  <li>Jane<\/li>\n  <li><span class='match'>M<\/span>athieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-698535b99641d17480c7" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-698535b99641d17480c7">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li><span class='match'>M<\/span>ohammed<\/li>\n  <li>Jane<\/li>\n  <li><span class='match'>M<\/span>athieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 
@@ -2289,8 +2289,8 @@ str_view(names, "M$")
 ```
 
 ```{=html}
-<div id="htmlwidget-78037655f284a4ae06f6" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-78037655f284a4ae06f6">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-91450643f9e5d9e369c4" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-91450643f9e5d9e369c4">{"x":{"html":"<ul>\n  <li>Keisha<\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 
@@ -2305,8 +2305,8 @@ str_view(names, "a$")
 ```
 
 ```{=html}
-<div id="htmlwidget-8a2f8fa5b6346bea9040" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8a2f8fa5b6346bea9040">{"x":{"html":"<ul>\n  <li>Keish<span class='match'>a<\/span><\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-d24247e90029e86d77d2" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d24247e90029e86d77d2">{"x":{"html":"<ul>\n  <li>Keish<span class='match'>a<\/span><\/li>\n  <li>Mohammed<\/li>\n  <li>Jane<\/li>\n  <li>Mathieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![`str_view()` identifies names that end with a](images/gslides/141.png)
@@ -2432,8 +2432,8 @@ str_view_all(names, "[aeiou]")
 ```
 
 ```{=html}
-<div id="htmlwidget-c0fb0bfb654d86d1bfb3" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c0fb0bfb654d86d1bfb3">{"x":{"html":"<ul>\n  <li>K<span class='match'>e<\/span><span class='match'>i<\/span>sh<span class='match'>a<\/span><\/li>\n  <li>M<span class='match'>o<\/span>h<span class='match'>a<\/span>mm<span class='match'>e<\/span>d<\/li>\n  <li>J<span class='match'>a<\/span>n<span class='match'>e<\/span><\/li>\n  <li>M<span class='match'>a<\/span>th<span class='match'>i<\/span><span class='match'>e<\/span><span class='match'>u<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-b97c8bf64d612da23882" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b97c8bf64d612da23882">{"x":{"html":"<ul>\n  <li>K<span class='match'>e<\/span><span class='match'>i<\/span>sh<span class='match'>a<\/span><\/li>\n  <li>M<span class='match'>o<\/span>h<span class='match'>a<\/span>mm<span class='match'>e<\/span>d<\/li>\n  <li>J<span class='match'>a<\/span>n<span class='match'>e<\/span><\/li>\n  <li>M<span class='match'>a<\/span>th<span class='match'>i<\/span><span class='match'>e<\/span><span class='match'>u<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![brackets specify which characters to search for](images/gslides/149.png)
@@ -2450,8 +2450,8 @@ str_view_all(names, "[^aeiou]")
 ```
 
 ```{=html}
-<div id="htmlwidget-00f678f411025254d12f" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-00f678f411025254d12f">{"x":{"html":"<ul>\n  <li><span class='match'>K<\/span>ei<span class='match'>s<\/span><span class='match'>h<\/span>a<\/li>\n  <li><span class='match'>M<\/span>o<span class='match'>h<\/span>a<span class='match'>m<\/span><span class='match'>m<\/span>e<span class='match'>d<\/span><\/li>\n  <li><span class='match'>J<\/span>a<span class='match'>n<\/span>e<\/li>\n  <li><span class='match'>M<\/span>a<span class='match'>t<\/span><span class='match'>h<\/span>ieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-dc14e15fdb4064c13843" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-dc14e15fdb4064c13843">{"x":{"html":"<ul>\n  <li><span class='match'>K<\/span>ei<span class='match'>s<\/span><span class='match'>h<\/span>a<\/li>\n  <li><span class='match'>M<\/span>o<span class='match'>h<\/span>a<span class='match'>m<\/span><span class='match'>m<\/span>e<span class='match'>d<\/span><\/li>\n  <li><span class='match'>J<\/span>a<span class='match'>n<\/span>e<\/li>\n  <li><span class='match'>M<\/span>a<span class='match'>t<\/span><span class='match'>h<\/span>ieu<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![brackets with a caret first specify which characters NOT to search for](images/gslides/150.png)
@@ -2469,8 +2469,8 @@ str_view_all(addresses, "\\d")
 ```
 
 ```{=html}
-<div id="htmlwidget-8e2306aff9c5634869df" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8e2306aff9c5634869df">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span> Main Street<\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span> Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-f2cc2e056a0adfe7d2d7" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f2cc2e056a0adfe7d2d7">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span> Main Street<\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span> Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![`\d` searches for digits](images/gslides/151.png)
@@ -2486,8 +2486,8 @@ str_view_all(addresses, "\\s")
 ```
 
 ```{=html}
-<div id="htmlwidget-3a538519f64e3b55136b" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3a538519f64e3b55136b">{"x":{"html":"<ul>\n  <li>1234<span class='match'> <\/span>Main<span class='match'> <\/span>Street<\/li>\n  <li>1600<span class='match'> <\/span>Pennsylvania<span class='match'> <\/span>Ave<\/li>\n  <li>Brick<span class='match'> <\/span>Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-902d68553afb8d5a77f2" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-902d68553afb8d5a77f2">{"x":{"html":"<ul>\n  <li>1234<span class='match'> <\/span>Main<span class='match'> <\/span>Street<\/li>\n  <li>1600<span class='match'> <\/span>Pennsylvania<span class='match'> <\/span>Ave<\/li>\n  <li>Brick<span class='match'> <\/span>Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![`\s` searches for whitespace](images/gslides/152.png)
@@ -2503,8 +2503,8 @@ str_view_all(addresses, ".")
 ```
 
 ```{=html}
-<div id="htmlwidget-14132abe2e3025263063" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-14132abe2e3025263063">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span><span class='match'> <\/span><span class='match'>M<\/span><span class='match'>a<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'> <\/span><span class='match'>S<\/span><span class='match'>t<\/span><span class='match'>r<\/span><span class='match'>e<\/span><span class='match'>e<\/span><span class='match'>t<\/span><\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>e<\/span><span class='match'>n<\/span><span class='match'>n<\/span><span class='match'>s<\/span><span class='match'>y<\/span><span class='match'>l<\/span><span class='match'>v<\/span><span class='match'>a<\/span><span class='match'>n<\/span><span class='match'>i<\/span><span class='match'>a<\/span><span class='match'> <\/span><span class='match'>A<\/span><span class='match'>v<\/span><span class='match'>e<\/span><\/li>\n  <li><span class='match'>B<\/span><span class='match'>r<\/span><span class='match'>i<\/span><span class='match'>c<\/span><span class='match'>k<\/span><span class='match'> <\/span><span class='match'>B<\/span><span class='match'>u<\/span><span class='match'>i<\/span><span class='match'>l<\/span><span class='match'>d<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'>g<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-6b26ad59684a1cabf211" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6b26ad59684a1cabf211">{"x":{"html":"<ul>\n  <li><span class='match'>1<\/span><span class='match'>2<\/span><span class='match'>3<\/span><span class='match'>4<\/span><span class='match'> <\/span><span class='match'>M<\/span><span class='match'>a<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'> <\/span><span class='match'>S<\/span><span class='match'>t<\/span><span class='match'>r<\/span><span class='match'>e<\/span><span class='match'>e<\/span><span class='match'>t<\/span><\/li>\n  <li><span class='match'>1<\/span><span class='match'>6<\/span><span class='match'>0<\/span><span class='match'>0<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>e<\/span><span class='match'>n<\/span><span class='match'>n<\/span><span class='match'>s<\/span><span class='match'>y<\/span><span class='match'>l<\/span><span class='match'>v<\/span><span class='match'>a<\/span><span class='match'>n<\/span><span class='match'>i<\/span><span class='match'>a<\/span><span class='match'> <\/span><span class='match'>A<\/span><span class='match'>v<\/span><span class='match'>e<\/span><\/li>\n  <li><span class='match'>B<\/span><span class='match'>r<\/span><span class='match'>i<\/span><span class='match'>c<\/span><span class='match'>k<\/span><span class='match'> <\/span><span class='match'>B<\/span><span class='match'>u<\/span><span class='match'>i<\/span><span class='match'>l<\/span><span class='match'>d<\/span><span class='match'>i<\/span><span class='match'>n<\/span><span class='match'>g<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![. searches for any character](images/gslides/153.png)
@@ -2532,8 +2532,8 @@ str_view_all(addresses, "n+")
 ```
 
 ```{=html}
-<div id="htmlwidget-b5f024faa968f7b2cc06" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b5f024faa968f7b2cc06">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-d4189035b123d91d29e4" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d4189035b123d91d29e4">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![+ specifies to match the pattern one or more times](images/gslides/154.png)
@@ -2547,8 +2547,8 @@ str_view_all(addresses, "n{1}")
 ```
 
 ```{=html}
-<div id="htmlwidget-8bd6194578dd33461a52" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8bd6194578dd33461a52">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>n<\/span><span class='match'>n<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-0b5d8c2bac65c19dd4b4" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0b5d8c2bac65c19dd4b4">{"x":{"html":"<ul>\n  <li>1234 Mai<span class='match'>n<\/span> Street<\/li>\n  <li>1600 Pe<span class='match'>n<\/span><span class='match'>n<\/span>sylva<span class='match'>n<\/span>ia Ave<\/li>\n  <li>Brick Buildi<span class='match'>n<\/span>g<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![{#} looks to match the pattern exactly the number of times within the curly braces](images/gslides/155.png)
@@ -2562,8 +2562,8 @@ str_view_all(addresses, "n{2}")
 ```
 
 ```{=html}
-<div id="htmlwidget-ce7d2d51829f62eda6f5" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ce7d2d51829f62eda6f5">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-b63661998b2f0df7060c" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b63661998b2f0df7060c">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![{2} specifies that the pattern must be found exactly twice](images/gslides/156.png)
@@ -2577,8 +2577,8 @@ str_view_all(addresses, "nn+")
 ```
 
 ```{=html}
-<div id="htmlwidget-e2b4a9677e300b0cdaed" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e2b4a9677e300b0cdaed">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-0b5cefbeb6519912ec65" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0b5cefbeb6519912ec65">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![nn+ searches for double n one or more times in a string](images/gslides/157.png)
@@ -2592,8 +2592,8 @@ str_view_all(addresses, "n{2,3}")
 ```
 
 ```{=html}
-<div id="htmlwidget-6907b5843b4f6c8252e1" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6907b5843b4f6c8252e1">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a814b3bec7e18f695629" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a814b3bec7e18f695629">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pe<span class='match'>nn<\/span>sylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ```r
@@ -2602,8 +2602,8 @@ str_view_all(addresses, "n{3,4}")
 ```
 
 ```{=html}
-<div id="htmlwidget-e250ba2b7252b371ec33" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e250ba2b7252b371ec33">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-8c2d54ae289f87e570e6" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8c2d54ae289f87e570e6">{"x":{"html":"<ul>\n  <li>1234 Main Street<\/li>\n  <li>1600 Pennsylvania Ave<\/li>\n  <li>Brick Building<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ![{n,m} looks to pattern match between n and m times](images/gslides/158.png)
@@ -3606,7 +3606,7 @@ library(here)
 ```
 
 ```
-## here() starts at /Users/carriewright/Documents/GitHub/Coursera/tidyversecourse
+## here() starts at /Users/rdpeng/books/tidyversecourse
 ```
 
 ```r
@@ -3642,27 +3642,27 @@ coverage
 
 ```
 ## # A tibble: 52 x 29
-##    Location `2013__Employer` `2013__Non-Grou… `2013__Medicaid` `2013__Medicare`
-##    <chr>               <dbl>            <dbl>            <dbl>            <dbl>
-##  1 United …        155696900         13816000         54919100         40876300
-##  2 Alabama           2126500           174200           869700           783000
-##  3 Alaska             364900            24000            95000            55200
-##  4 Arizona           2883800           170800          1346100           842000
-##  5 Arkansas          1128800           155600           600800           515200
-##  6 Califor…         17747300          1986400          8344800          3828500
-##  7 Colorado          2852500           426300           697300           549700
-##  8 Connect…          2030500           126800           532000           475300
-##  9 Delaware           473700            25100           192700           141300
-## 10 Distric…           324300            30400           174900            59900
-## # … with 42 more rows, and 24 more variables: `2013__Other Public` <chr>,
-## #   `2013__Uninsured` <dbl>, `2013__Total` <dbl>, `2014__Employer` <dbl>,
-## #   `2014__Non-Group` <dbl>, `2014__Medicaid` <dbl>, `2014__Medicare` <dbl>,
-## #   `2014__Other Public` <chr>, `2014__Uninsured` <dbl>, `2014__Total` <dbl>,
-## #   `2015__Employer` <dbl>, `2015__Non-Group` <dbl>, `2015__Medicaid` <dbl>,
-## #   `2015__Medicare` <dbl>, `2015__Other Public` <chr>,
-## #   `2015__Uninsured` <dbl>, `2015__Total` <dbl>, `2016__Employer` <dbl>,
-## #   `2016__Non-Group` <dbl>, `2016__Medicaid` <dbl>, `2016__Medicare` <dbl>,
-## #   `2016__Other Public` <chr>, `2016__Uninsured` <dbl>, `2016__Total` <dbl>
+##    Location  `2013__Employer` `2013__Non-Grou… `2013__Medicaid` `2013__Medicare`
+##    <chr>                <dbl>            <dbl>            <dbl>            <dbl>
+##  1 United S…        155696900         13816000         54919100         40876300
+##  2 Alabama            2126500           174200           869700           783000
+##  3 Alaska              364900            24000            95000            55200
+##  4 Arizona            2883800           170800          1346100           842000
+##  5 Arkansas           1128800           155600           600800           515200
+##  6 Californ…         17747300          1986400          8344800          3828500
+##  7 Colorado           2852500           426300           697300           549700
+##  8 Connecti…          2030500           126800           532000           475300
+##  9 Delaware            473700            25100           192700           141300
+## 10 District…           324300            30400           174900            59900
+## # … with 42 more rows, and 24 more variables: 2013__Other Public <chr>,
+## #   2013__Uninsured <dbl>, 2013__Total <dbl>, 2014__Employer <dbl>,
+## #   2014__Non-Group <dbl>, 2014__Medicaid <dbl>, 2014__Medicare <dbl>,
+## #   2014__Other Public <chr>, 2014__Uninsured <dbl>, 2014__Total <dbl>,
+## #   2015__Employer <dbl>, 2015__Non-Group <dbl>, 2015__Medicaid <dbl>,
+## #   2015__Medicare <dbl>, 2015__Other Public <chr>, 2015__Uninsured <dbl>,
+## #   2015__Total <dbl>, 2016__Employer <dbl>, 2016__Non-Group <dbl>,
+## #   2016__Medicaid <dbl>, 2016__Medicare <dbl>, 2016__Other Public <chr>,
+## #   2016__Uninsured <dbl>, 2016__Total <dbl>
 ```
 
 At a glance, we see that state-level information is stored in rows (with the exception of the first row, which stores country-level information) with columns corresponding to the amount of money spent on each type of health care, by year. 
@@ -3868,29 +3868,29 @@ spending
 
 ```
 ## # A tibble: 52 x 25
-##    Location `1991__Total He… `1992__Total He… `1993__Total He… `1994__Total He…
-##    <chr>               <dbl>            <dbl>            <dbl>            <dbl>
-##  1 United …           675896           731455           778684           820172
-##  2 Alabama             10393            11284            12028            12742
-##  3 Alaska               1458             1558             1661             1728
-##  4 Arizona              9269             9815            10655            11364
-##  5 Arkansas             5632             6022             6397             6810
-##  6 Califor…            81438            87949            91963            94245
-##  7 Colorado             8460             9215             9803            10382
-##  8 Connect…            10950            11635            12081            12772
-##  9 Delaware             1938             2111             2285             2489
-## 10 Distric…             2800             3098             3240             3255
-## # … with 42 more rows, and 20 more variables: `1995__Total Health
-## #   Spending` <dbl>, `1996__Total Health Spending` <dbl>, `1997__Total Health
-## #   Spending` <dbl>, `1998__Total Health Spending` <dbl>, `1999__Total Health
-## #   Spending` <dbl>, `2000__Total Health Spending` <dbl>, `2001__Total Health
-## #   Spending` <dbl>, `2002__Total Health Spending` <dbl>, `2003__Total Health
-## #   Spending` <dbl>, `2004__Total Health Spending` <dbl>, `2005__Total Health
-## #   Spending` <dbl>, `2006__Total Health Spending` <dbl>, `2007__Total Health
-## #   Spending` <dbl>, `2008__Total Health Spending` <dbl>, `2009__Total Health
-## #   Spending` <dbl>, `2010__Total Health Spending` <dbl>, `2011__Total Health
-## #   Spending` <dbl>, `2012__Total Health Spending` <dbl>, `2013__Total Health
-## #   Spending` <dbl>, `2014__Total Health Spending` <dbl>
+##    Location  `1991__Total He… `1992__Total He… `1993__Total He… `1994__Total He…
+##    <chr>                <dbl>            <dbl>            <dbl>            <dbl>
+##  1 United S…           675896           731455           778684           820172
+##  2 Alabama              10393            11284            12028            12742
+##  3 Alaska                1458             1558             1661             1728
+##  4 Arizona               9269             9815            10655            11364
+##  5 Arkansas              5632             6022             6397             6810
+##  6 Californ…            81438            87949            91963            94245
+##  7 Colorado              8460             9215             9803            10382
+##  8 Connecti…            10950            11635            12081            12772
+##  9 Delaware              1938             2111             2285             2489
+## 10 District…             2800             3098             3240             3255
+## # … with 42 more rows, and 20 more variables:
+## #   1995__Total Health Spending <dbl>, 1996__Total Health Spending <dbl>,
+## #   1997__Total Health Spending <dbl>, 1998__Total Health Spending <dbl>,
+## #   1999__Total Health Spending <dbl>, 2000__Total Health Spending <dbl>,
+## #   2001__Total Health Spending <dbl>, 2002__Total Health Spending <dbl>,
+## #   2003__Total Health Spending <dbl>, 2004__Total Health Spending <dbl>,
+## #   2005__Total Health Spending <dbl>, 2006__Total Health Spending <dbl>,
+## #   2007__Total Health Spending <dbl>, 2008__Total Health Spending <dbl>,
+## #   2009__Total Health Spending <dbl>, 2010__Total Health Spending <dbl>,
+## #   2011__Total Health Spending <dbl>, 2012__Total Health Spending <dbl>,
+## #   2013__Total Health Spending <dbl>, 2014__Total Health Spending <dbl>
 ```
 
 Here, we reshape the data using `year` and `tot_spending` for the key and value. We also want to keep `Location` like before. Then, in the `separate()` function, we create two new columns called `year` and `name.` Then, we ask to return all the columns, *except* name. To select all the columns except a specific column, use the `-` (subtraction) operator. (This process is also referred to as negative indexing.)
@@ -4062,18 +4062,18 @@ hc
 
 ```
 ## # A tibble: 612 x 9
-##    Location  year type  tot_coverage abb   region tot_spending tot_pop
-##    <chr>    <int> <chr>        <int> <chr> <fct>         <dbl>   <int>
-##  1 Alabama   2013 Empl…      2126500 AL    South         33788 4763900
-##  2 Alabama   2013 Non-…       174200 AL    South         33788 4763900
-##  3 Alabama   2013 Medi…       869700 AL    South         33788 4763900
-##  4 Alabama   2013 Medi…       783000 AL    South         33788 4763900
-##  5 Alabama   2013 Othe…        85600 AL    South         33788 4763900
-##  6 Alabama   2013 Unin…       724800 AL    South         33788 4763900
-##  7 Alabama   2014 Empl…      2202800 AL    South         35263 4768000
-##  8 Alabama   2014 Non-…       288900 AL    South         35263 4768000
-##  9 Alabama   2014 Medi…       891900 AL    South         35263 4768000
-## 10 Alabama   2014 Medi…       718400 AL    South         35263 4768000
+##    Location  year type         tot_coverage abb   region tot_spending tot_pop
+##    <chr>    <int> <chr>               <int> <chr> <fct>         <dbl>   <int>
+##  1 Alabama   2013 Employer          2126500 AL    South         33788 4763900
+##  2 Alabama   2013 Non-Group          174200 AL    South         33788 4763900
+##  3 Alabama   2013 Medicaid           869700 AL    South         33788 4763900
+##  4 Alabama   2013 Medicare           783000 AL    South         33788 4763900
+##  5 Alabama   2013 Other Public        85600 AL    South         33788 4763900
+##  6 Alabama   2013 Uninsured          724800 AL    South         33788 4763900
+##  7 Alabama   2014 Employer          2202800 AL    South         35263 4768000
+##  8 Alabama   2014 Non-Group          288900 AL    South         35263 4768000
+##  9 Alabama   2014 Medicaid           891900 AL    South         35263 4768000
+## 10 Alabama   2014 Medicare           718400 AL    South         35263 4768000
 ## # … with 602 more rows, and 1 more variable: prop_coverage <dbl>
 ```
 
@@ -4090,18 +4090,18 @@ hc
 
 ```
 ## # A tibble: 612 x 10
-##    Location  year type  tot_coverage abb   region tot_spending tot_pop
-##    <chr>    <int> <chr>        <int> <chr> <fct>         <dbl>   <int>
-##  1 Alabama   2013 Empl…      2126500 AL    South         33788 4763900
-##  2 Alabama   2013 Non-…       174200 AL    South         33788 4763900
-##  3 Alabama   2013 Medi…       869700 AL    South         33788 4763900
-##  4 Alabama   2013 Medi…       783000 AL    South         33788 4763900
-##  5 Alabama   2013 Othe…        85600 AL    South         33788 4763900
-##  6 Alabama   2013 Unin…       724800 AL    South         33788 4763900
-##  7 Alabama   2014 Empl…      2202800 AL    South         35263 4768000
-##  8 Alabama   2014 Non-…       288900 AL    South         35263 4768000
-##  9 Alabama   2014 Medi…       891900 AL    South         35263 4768000
-## 10 Alabama   2014 Medi…       718400 AL    South         35263 4768000
+##    Location  year type         tot_coverage abb   region tot_spending tot_pop
+##    <chr>    <int> <chr>               <int> <chr> <fct>         <dbl>   <int>
+##  1 Alabama   2013 Employer          2126500 AL    South         33788 4763900
+##  2 Alabama   2013 Non-Group          174200 AL    South         33788 4763900
+##  3 Alabama   2013 Medicaid           869700 AL    South         33788 4763900
+##  4 Alabama   2013 Medicare           783000 AL    South         33788 4763900
+##  5 Alabama   2013 Other Public        85600 AL    South         33788 4763900
+##  6 Alabama   2013 Uninsured          724800 AL    South         33788 4763900
+##  7 Alabama   2014 Employer          2202800 AL    South         35263 4768000
+##  8 Alabama   2014 Non-Group          288900 AL    South         35263 4768000
+##  9 Alabama   2014 Medicaid           891900 AL    South         35263 4768000
+## 10 Alabama   2014 Medicare           718400 AL    South         35263 4768000
 ## # … with 602 more rows, and 2 more variables: prop_coverage <dbl>,
 ## #   spending_capita <dbl>
 ```
@@ -4130,18 +4130,18 @@ census
 
 ```
 ## # A tibble: 236,844 x 19
-##    SUMLEV REGION DIVISION STATE NAME    SEX ORIGIN  RACE   AGE CENSUS2010POP
-##    <chr>   <dbl>    <dbl> <chr> <chr> <dbl>  <dbl> <dbl> <dbl>         <dbl>
-##  1 040         3        6 01    Alab…     0      0     1     0         37991
-##  2 040         3        6 01    Alab…     0      0     1     1         38150
-##  3 040         3        6 01    Alab…     0      0     1     2         39738
-##  4 040         3        6 01    Alab…     0      0     1     3         39827
-##  5 040         3        6 01    Alab…     0      0     1     4         39353
-##  6 040         3        6 01    Alab…     0      0     1     5         39520
-##  7 040         3        6 01    Alab…     0      0     1     6         39813
-##  8 040         3        6 01    Alab…     0      0     1     7         39695
-##  9 040         3        6 01    Alab…     0      0     1     8         40012
-## 10 040         3        6 01    Alab…     0      0     1     9         42073
+##    SUMLEV REGION DIVISION STATE NAME      SEX ORIGIN  RACE   AGE CENSUS2010POP
+##    <chr>   <dbl>    <dbl> <chr> <chr>   <dbl>  <dbl> <dbl> <dbl>         <dbl>
+##  1 040         3        6 01    Alabama     0      0     1     0         37991
+##  2 040         3        6 01    Alabama     0      0     1     1         38150
+##  3 040         3        6 01    Alabama     0      0     1     2         39738
+##  4 040         3        6 01    Alabama     0      0     1     3         39827
+##  5 040         3        6 01    Alabama     0      0     1     4         39353
+##  6 040         3        6 01    Alabama     0      0     1     5         39520
+##  7 040         3        6 01    Alabama     0      0     1     6         39813
+##  8 040         3        6 01    Alabama     0      0     1     7         39695
+##  9 040         3        6 01    Alabama     0      0     1     8         40012
+## 10 040         3        6 01    Alabama     0      0     1     9         42073
 ## # … with 236,834 more rows, and 9 more variables: ESTIMATESBASE2010 <dbl>,
 ## #   POPESTIMATE2010 <dbl>, POPESTIMATE2011 <dbl>, POPESTIMATE2012 <dbl>,
 ## #   POPESTIMATE2013 <dbl>, POPESTIMATE2014 <dbl>, POPESTIMATE2015 <dbl>,
@@ -4291,18 +4291,18 @@ age_stats
 ##  8     7   62282  10431   93236    40141     516916    71415       41438
 ##  9     8   62175  10302   93866    40677     518117    72384       42359
 ## 10     9   61249  10055   92531    39836     511610    72086       43032
-## # … with 76 more rows, and 44 more variables: Delaware <dbl>, `District of
-## #   Columbia` <dbl>, Florida <dbl>, Georgia <dbl>, Hawaii <dbl>, Idaho <dbl>,
-## #   Illinois <dbl>, Indiana <dbl>, Iowa <dbl>, Kansas <dbl>, Kentucky <dbl>,
-## #   Louisiana <dbl>, Maine <dbl>, Maryland <dbl>, Massachusetts <dbl>,
-## #   Michigan <dbl>, Minnesota <dbl>, Mississippi <dbl>, Missouri <dbl>,
-## #   Montana <dbl>, Nebraska <dbl>, Nevada <dbl>, `New Hampshire` <dbl>, `New
-## #   Jersey` <dbl>, `New Mexico` <dbl>, `New York` <dbl>, `North
-## #   Carolina` <dbl>, `North Dakota` <dbl>, Ohio <dbl>, Oklahoma <dbl>,
-## #   Oregon <dbl>, Pennsylvania <dbl>, `Rhode Island` <dbl>, `South
-## #   Carolina` <dbl>, `South Dakota` <dbl>, Tennessee <dbl>, Texas <dbl>,
-## #   Utah <dbl>, Vermont <dbl>, Virginia <dbl>, Washington <dbl>, `West
-## #   Virginia` <dbl>, Wisconsin <dbl>, Wyoming <dbl>
+## # … with 76 more rows, and 44 more variables: Delaware <dbl>,
+## #   District of Columbia <dbl>, Florida <dbl>, Georgia <dbl>, Hawaii <dbl>,
+## #   Idaho <dbl>, Illinois <dbl>, Indiana <dbl>, Iowa <dbl>, Kansas <dbl>,
+## #   Kentucky <dbl>, Louisiana <dbl>, Maine <dbl>, Maryland <dbl>,
+## #   Massachusetts <dbl>, Michigan <dbl>, Minnesota <dbl>, Mississippi <dbl>,
+## #   Missouri <dbl>, Montana <dbl>, Nebraska <dbl>, Nevada <dbl>,
+## #   New Hampshire <dbl>, New Jersey <dbl>, New Mexico <dbl>, New York <dbl>,
+## #   North Carolina <dbl>, North Dakota <dbl>, Ohio <dbl>, Oklahoma <dbl>,
+## #   Oregon <dbl>, Pennsylvania <dbl>, Rhode Island <dbl>, South Carolina <dbl>,
+## #   South Dakota <dbl>, Tennessee <dbl>, Texas <dbl>, Utah <dbl>,
+## #   Vermont <dbl>, Virginia <dbl>, Washington <dbl>, West Virginia <dbl>,
+## #   Wisconsin <dbl>, Wyoming <dbl>
 ```
 
 Now that we’ve made the data easier to work with, we need to find a way to get the median. One method is to take the cumulative sum of each column and then divide all the rows by the last row in each respective column, calculating a percentile/quantile for each age. To do this, we first remove the AGE column, as we don't want to calculate the median for this column. We then apply the `cumsum()` function and an anonymous function using `purrr`'s `map_dfc` function. This is a special variation of the `map()` function that returns a dataframe instead of a list by combining the data by column. But, of course, we do still want the AGE information in there, so we add that column back in using `mutate()` and then reorder the columns so that AGE is at the front again using `select()`.
@@ -4391,58 +4391,58 @@ glimpse(age_stats)
 ```
 ## Rows: 86
 ## Columns: 52
-## $ AGE                    <dbl> 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, …
-## $ Alabama                <dbl> 0.01217929, 0.02428807, 0.03623586, 0.04835742…
-## $ Alaska                 <dbl> 0.01524840, 0.03030168, 0.04521944, 0.05979438…
-## $ Arizona                <dbl> 0.01273885, 0.02549314, 0.03824081, 0.05101803…
-## $ Arkansas               <dbl> 0.01292266, 0.02569476, 0.03836806, 0.05126652…
-## $ California             <dbl> 0.01283122, 0.02561725, 0.03841722, 0.05118957…
-## $ Colorado               <dbl> 0.01217217, 0.02440058, 0.03655841, 0.04888552…
-## $ Connecticut            <dbl> 0.01013228, 0.02030490, 0.03056879, 0.04107142…
-## $ Delaware               <dbl> 0.01163322, 0.02326537, 0.03477678, 0.04661654…
-## $ `District of Columbia` <dbl> 0.01457035, 0.02759032, 0.04071434, 0.05331661…
-## $ Florida                <dbl> 0.01095628, 0.02192577, 0.03277035, 0.04371311…
-## $ Georgia                <dbl> 0.01284902, 0.02562823, 0.03837038, 0.05144559…
-## $ Hawaii                 <dbl> 0.01275029, 0.02580557, 0.03896040, 0.05191402…
-## $ Idaho                  <dbl> 0.01390752, 0.02744397, 0.04125812, 0.05494312…
-## $ Illinois               <dbl> 0.01233645, 0.02447549, 0.03656625, 0.04878623…
-## $ Indiana                <dbl> 0.01264485, 0.02525899, 0.03798841, 0.05071888…
-## $ Iowa                   <dbl> 0.01267030, 0.02538518, 0.03802630, 0.05063696…
-## $ Kansas                 <dbl> 0.01334268, 0.02681406, 0.04039729, 0.05398568…
-## $ Kentucky               <dbl> 0.01257763, 0.02509149, 0.03759246, 0.05002287…
-## $ Louisiana              <dbl> 0.01366990, 0.02722998, 0.04047237, 0.05358525…
-## $ Maine                  <dbl> 0.00949098, 0.01906255, 0.02881486, 0.03860408…
-## $ Maryland               <dbl> 0.01233418, 0.02449538, 0.03670807, 0.04897542…
-## $ Massachusetts          <dbl> 0.01064012, 0.02127391, 0.03194332, 0.04267411…
-## $ Michigan               <dbl> 0.01142560, 0.02298902, 0.03448267, 0.04603339…
-## $ Minnesota              <dbl> 0.01271147, 0.02555680, 0.03831076, 0.05107128…
-## $ Mississippi            <dbl> 0.01277126, 0.02554419, 0.03822836, 0.05115873…
-## $ Missouri               <dbl> 0.01232034, 0.02475678, 0.03708173, 0.04938873…
-## $ Montana                <dbl> 0.01225303, 0.02440298, 0.03639442, 0.04838391…
-## $ Nebraska               <dbl> 0.01411096, 0.02814111, 0.04197798, 0.05572191…
-## $ Nevada                 <dbl> 0.01250131, 0.02483232, 0.03739746, 0.04979506…
-## $ `New Hampshire`        <dbl> 0.009324624, 0.018656767, 0.028516676, 0.03813…
-## $ `New Jersey`           <dbl> 0.01153672, 0.02318527, 0.03489888, 0.04677209…
-## $ `New Mexico`           <dbl> 0.01241485, 0.02496946, 0.03762395, 0.05035577…
-## $ `New York`             <dbl> 0.01217189, 0.02407385, 0.03599014, 0.04784986…
-## $ `North Carolina`       <dbl> 0.01200077, 0.02400872, 0.03589836, 0.04789096…
-## $ `North Dakota`         <dbl> 0.01498293, 0.02957241, 0.04375387, 0.05755379…
-## $ Ohio                   <dbl> 0.01195482, 0.02398530, 0.03604946, 0.04804797…
-## $ Oklahoma               <dbl> 0.01360302, 0.02720220, 0.04094481, 0.05455859…
-## $ Oregon                 <dbl> 0.01137846, 0.02290605, 0.03443489, 0.04598165…
-## $ Pennsylvania           <dbl> 0.01105806, 0.02218984, 0.03332365, 0.04452838…
-## $ `Rhode Island`         <dbl> 0.01029817, 0.02052152, 0.03085757, 0.04130916…
-## $ `South Carolina`       <dbl> 0.01182747, 0.02361386, 0.03537920, 0.04736508…
-## $ `South Dakota`         <dbl> 0.01441743, 0.02898356, 0.04325579, 0.05748470…
-## $ Tennessee              <dbl> 0.01234189, 0.02454161, 0.03672630, 0.04900204…
-## $ Texas                  <dbl> 0.01460720, 0.02916560, 0.04354217, 0.05781300…
-## $ Utah                   <dbl> 0.01705642, 0.03397314, 0.05104564, 0.06758513…
-## $ Vermont                <dbl> 0.009603574, 0.019524225, 0.029198261, 0.03901…
-## $ Virginia               <dbl> 0.01229627, 0.02446226, 0.03665131, 0.04888352…
-## $ Washington             <dbl> 0.01241119, 0.02476856, 0.03725623, 0.04972054…
-## $ `West Virginia`        <dbl> 0.01083507, 0.02189516, 0.03312702, 0.04427952…
-## $ Wisconsin              <dbl> 0.01158854, 0.02323645, 0.03492551, 0.04674149…
-## $ Wyoming                <dbl> 0.01320760, 0.02620022, 0.03920990, 0.05229295…
+## $ AGE                    <dbl> 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 1…
+## $ Alabama                <dbl> 0.01217929, 0.02428807, 0.03623586, 0.04835742,…
+## $ Alaska                 <dbl> 0.01524840, 0.03030168, 0.04521944, 0.05979438,…
+## $ Arizona                <dbl> 0.01273885, 0.02549314, 0.03824081, 0.05101803,…
+## $ Arkansas               <dbl> 0.01292266, 0.02569476, 0.03836806, 0.05126652,…
+## $ California             <dbl> 0.01283122, 0.02561725, 0.03841722, 0.05118957,…
+## $ Colorado               <dbl> 0.01217217, 0.02440058, 0.03655841, 0.04888552,…
+## $ Connecticut            <dbl> 0.01013228, 0.02030490, 0.03056879, 0.04107142,…
+## $ Delaware               <dbl> 0.01163322, 0.02326537, 0.03477678, 0.04661654,…
+## $ `District of Columbia` <dbl> 0.01457035, 0.02759032, 0.04071434, 0.05331661,…
+## $ Florida                <dbl> 0.01095628, 0.02192577, 0.03277035, 0.04371311,…
+## $ Georgia                <dbl> 0.01284902, 0.02562823, 0.03837038, 0.05144559,…
+## $ Hawaii                 <dbl> 0.01275029, 0.02580557, 0.03896040, 0.05191402,…
+## $ Idaho                  <dbl> 0.01390752, 0.02744397, 0.04125812, 0.05494312,…
+## $ Illinois               <dbl> 0.01233645, 0.02447549, 0.03656625, 0.04878623,…
+## $ Indiana                <dbl> 0.01264485, 0.02525899, 0.03798841, 0.05071888,…
+## $ Iowa                   <dbl> 0.01267030, 0.02538518, 0.03802630, 0.05063696,…
+## $ Kansas                 <dbl> 0.01334268, 0.02681406, 0.04039729, 0.05398568,…
+## $ Kentucky               <dbl> 0.01257763, 0.02509149, 0.03759246, 0.05002287,…
+## $ Louisiana              <dbl> 0.01366990, 0.02722998, 0.04047237, 0.05358525,…
+## $ Maine                  <dbl> 0.00949098, 0.01906255, 0.02881486, 0.03860408,…
+## $ Maryland               <dbl> 0.01233418, 0.02449538, 0.03670807, 0.04897542,…
+## $ Massachusetts          <dbl> 0.01064012, 0.02127391, 0.03194332, 0.04267411,…
+## $ Michigan               <dbl> 0.01142560, 0.02298902, 0.03448267, 0.04603339,…
+## $ Minnesota              <dbl> 0.01271147, 0.02555680, 0.03831076, 0.05107128,…
+## $ Mississippi            <dbl> 0.01277126, 0.02554419, 0.03822836, 0.05115873,…
+## $ Missouri               <dbl> 0.01232034, 0.02475678, 0.03708173, 0.04938873,…
+## $ Montana                <dbl> 0.01225303, 0.02440298, 0.03639442, 0.04838391,…
+## $ Nebraska               <dbl> 0.01411096, 0.02814111, 0.04197798, 0.05572191,…
+## $ Nevada                 <dbl> 0.01250131, 0.02483232, 0.03739746, 0.04979506,…
+## $ `New Hampshire`        <dbl> 0.009324624, 0.018656767, 0.028516676, 0.038139…
+## $ `New Jersey`           <dbl> 0.01153672, 0.02318527, 0.03489888, 0.04677209,…
+## $ `New Mexico`           <dbl> 0.01241485, 0.02496946, 0.03762395, 0.05035577,…
+## $ `New York`             <dbl> 0.01217189, 0.02407385, 0.03599014, 0.04784986,…
+## $ `North Carolina`       <dbl> 0.01200077, 0.02400872, 0.03589836, 0.04789096,…
+## $ `North Dakota`         <dbl> 0.01498293, 0.02957241, 0.04375387, 0.05755379,…
+## $ Ohio                   <dbl> 0.01195482, 0.02398530, 0.03604946, 0.04804797,…
+## $ Oklahoma               <dbl> 0.01360302, 0.02720220, 0.04094481, 0.05455859,…
+## $ Oregon                 <dbl> 0.01137846, 0.02290605, 0.03443489, 0.04598165,…
+## $ Pennsylvania           <dbl> 0.01105806, 0.02218984, 0.03332365, 0.04452838,…
+## $ `Rhode Island`         <dbl> 0.01029817, 0.02052152, 0.03085757, 0.04130916,…
+## $ `South Carolina`       <dbl> 0.01182747, 0.02361386, 0.03537920, 0.04736508,…
+## $ `South Dakota`         <dbl> 0.01441743, 0.02898356, 0.04325579, 0.05748470,…
+## $ Tennessee              <dbl> 0.01234189, 0.02454161, 0.03672630, 0.04900204,…
+## $ Texas                  <dbl> 0.01460720, 0.02916560, 0.04354217, 0.05781300,…
+## $ Utah                   <dbl> 0.01705642, 0.03397314, 0.05104564, 0.06758513,…
+## $ Vermont                <dbl> 0.009603574, 0.019524225, 0.029198261, 0.039019…
+## $ Virginia               <dbl> 0.01229627, 0.02446226, 0.03665131, 0.04888352,…
+## $ Washington             <dbl> 0.01241119, 0.02476856, 0.03725623, 0.04972054,…
+## $ `West Virginia`        <dbl> 0.01083507, 0.02189516, 0.03312702, 0.04427952,…
+## $ Wisconsin              <dbl> 0.01158854, 0.02323645, 0.03492551, 0.04674149,…
+## $ Wyoming                <dbl> 0.01320760, 0.02620022, 0.03920990, 0.05229295,…
 ```
 
 
@@ -4459,22 +4459,22 @@ crime
 
 ```
 ## # A tibble: 510 x 14
-##    State Area  ...3  Population `Violent\ncrime… `Murder and \nn…
-##    <chr> <chr> <chr> <chr>                 <dbl>            <dbl>
-##  1 ALAB… Metr… <NA>  3708033                  NA               NA
-##  2 <NA>  <NA>  Area… 0.9709999…            18122              283
-##  3 <NA>  <NA>  Esti… 1                     18500              287
-##  4 <NA>  Citi… <NA>  522241                   NA               NA
-##  5 <NA>  <NA>  Area… 0.9739999…             3178               32
-##  6 <NA>  <NA>  Esti… 1                      3240               33
-##  7 <NA>  Nonm… <NA>  628705                   NA               NA
-##  8 <NA>  <NA>  Area… 0.9939999…             1205               28
-##  9 <NA>  <NA>  Esti… 1                      1212               28
-## 10 <NA>  Stat… <NA>  4858979               22952              348
-## # … with 500 more rows, and 8 more variables:
-## #   `Rape\n(revised\ndefinition)2` <dbl>, `Rape\n(legacy\ndefinition)3` <dbl>,
-## #   Robbery <dbl>, `Aggravated \nassault` <dbl>, `Property \ncrime` <dbl>,
-## #   Burglary <dbl>, `Larceny-\ntheft` <dbl>, `Motor \nvehicle \ntheft` <dbl>
+##    State  Area       ...3      Population  `Violent\ncrime… `Murder and \nnonne…
+##    <chr>  <chr>      <chr>     <chr>                  <dbl>                <dbl>
+##  1 ALABA… Metropoli… <NA>      3708033                   NA                   NA
+##  2 <NA>   <NA>       Area act… 0.97099999…            18122                  283
+##  3 <NA>   <NA>       Estimate… 1                      18500                  287
+##  4 <NA>   Cities ou… <NA>      522241                    NA                   NA
+##  5 <NA>   <NA>       Area act… 0.97399999…             3178                   32
+##  6 <NA>   <NA>       Estimate… 1                       3240                   33
+##  7 <NA>   Nonmetrop… <NA>      628705                    NA                   NA
+##  8 <NA>   <NA>       Area act… 0.99399999…             1205                   28
+##  9 <NA>   <NA>       Estimate… 1                       1212                   28
+## 10 <NA>   State Tot… <NA>      4858979                22952                  348
+## # … with 500 more rows, and 8 more variables: Rape (revised definition)2 <dbl>,
+## #   Rape (legacy definition)3 <dbl>, Robbery <dbl>, Aggravated  assault <dbl>,
+## #   Property  crime <dbl>, Burglary <dbl>, Larceny- theft <dbl>, Motor 
+## #   vehicle  theft <dbl>
 ```
 
 If we take a look at what information is stored in each column...
@@ -4643,18 +4643,18 @@ brady
 
 ```
 ## # A tibble: 116 x 54
-##    `States can rec… `Category Point… `Sub Category P… Points AL    AK    AR   
-##    <chr>                       <dbl>            <dbl>  <dbl> <chr> <chr> <chr>
-##  1 TOTAL STATE POI…               NA               NA     NA -18   -30   -24  
-##  2 CATEGORY 1:  KE…               50               NA     NA <NA>  <NA>  <NA> 
-##  3 BACKGROUND CHEC…               NA               25     NA AL    AK    AR   
-##  4 Background Chec…               NA               NA     25 <NA>  <NA>  <NA> 
-##  5 Background Chec…               NA               NA     20 <NA>  <NA>  <NA> 
-##  6 Background Chec…               NA               NA      5 <NA>  <NA>  <NA> 
-##  7 Verifiy Legal P…               NA               NA     20 <NA>  <NA>  <NA> 
-##  8 TOTAL                          NA               NA     NA 0     0     0    
-##  9 <NA>                           NA               NA     NA <NA>  <NA>  <NA> 
-## 10 OTHER LAWS TO S…               NA               12     NA AL    AK    AR   
+##    `States can recei… `Category Point… `Sub Category P… Points AL    AK    AR   
+##    <chr>                         <dbl>            <dbl>  <dbl> <chr> <chr> <chr>
+##  1 TOTAL STATE POINTS               NA               NA     NA -18   -30   -24  
+##  2 CATEGORY 1:  KEEP…               50               NA     NA <NA>  <NA>  <NA> 
+##  3 BACKGROUND CHECKS…               NA               25     NA AL    AK    AR   
+##  4 Background Checks…               NA               NA     25 <NA>  <NA>  <NA> 
+##  5 Background Checks…               NA               NA     20 <NA>  <NA>  <NA> 
+##  6 Background Checks…               NA               NA      5 <NA>  <NA>  <NA> 
+##  7 Verifiy Legal Pur…               NA               NA     20 <NA>  <NA>  <NA> 
+##  8 TOTAL                            NA               NA     NA 0     0     0    
+##  9 <NA>                             NA               NA     NA <NA>  <NA>  <NA> 
+## 10 OTHER LAWS TO STO…               NA               12     NA AL    AK    AR   
 ## # … with 106 more rows, and 47 more variables: AZ <chr>, CA <chr>, CO <chr>,
 ## #   CT <chr>, DE <chr>, FL <chr>, GA <chr>, HI <chr>, ID <chr>, IL <chr>,
 ## #   IN <chr>, IA <chr>, KS <chr>, KY <chr>, LA <chr>, MA <chr>, MD <chr>,
@@ -4920,19 +4920,19 @@ glimpse(firearms)
 ```
 ## Rows: 51
 ## Columns: 13
-## $ NAME              <chr> "alabama", "alaska", "arizona", "arkansas", "califo…
-## $ white             <dbl> 69.50197, 66.51368, 83.52295, 79.57623, 72.97555, 8…
-## $ black             <dbl> 26.7459489, 3.6679906, 4.7978011, 15.6634268, 6.491…
-## $ hispanic          <dbl> 4.129434, 6.821197, 30.873010, 7.180439, 38.727129,…
-## $ male              <dbl> 48.46650, 52.36978, 49.71595, 49.12855, 49.67815, 5…
-## $ total_pop         <dbl> 4850858, 737979, 6802262, 2975626, 39032444, 544044…
-## $ violent_crime     <dbl> 472.4, 730.2, 410.2, 521.3, 426.3, 321.0, 218.5, 49…
-## $ brady_scores      <dbl> -18.0, -30.0, -39.0, -24.0, 76.0, 22.0, 73.0, 41.0,…
-## $ gunshot_tally     <int> 18, 4, 43, 5, 196, 29, 2, 3, 5, 64, 29, 2, 7, 22, 1…
-## $ gunshot_filtered  <int> 15, 4, 37, 4, 150, 27, 2, 2, 4, 54, 25, 2, 7, 21, 1…
-## $ gunshot_rate      <dbl> 1.8553419, 2.7101042, 3.1607133, 0.8401593, 2.51073…
-## $ unemployment_rate <chr> "6.1", "6.5", "6.1", "5.0", "6.2", "3.9", "5.7", "4…
-## $ unemployment_rank <chr> "42", "47", "42", "24", "44", "10", "35", "22", "51…
+## $ NAME              <chr> "alabama", "alaska", "arizona", "arkansas", "califor…
+## $ white             <dbl> 69.50197, 66.51368, 83.52295, 79.57623, 72.97555, 87…
+## $ black             <dbl> 26.7459489, 3.6679906, 4.7978011, 15.6634268, 6.4910…
+## $ hispanic          <dbl> 4.129434, 6.821197, 30.873010, 7.180439, 38.727129, …
+## $ male              <dbl> 48.46650, 52.36978, 49.71595, 49.12855, 49.67815, 50…
+## $ total_pop         <dbl> 4850858, 737979, 6802262, 2975626, 39032444, 5440445…
+## $ violent_crime     <dbl> 472.4, 730.2, 410.2, 521.3, 426.3, 321.0, 218.5, 499…
+## $ brady_scores      <dbl> -18.0, -30.0, -39.0, -24.0, 76.0, 22.0, 73.0, 41.0, …
+## $ gunshot_tally     <int> 18, 4, 43, 5, 196, 29, 2, 3, 5, 64, 29, 2, 7, 22, 19…
+## $ gunshot_filtered  <int> 15, 4, 37, 4, 150, 27, 2, 2, 4, 54, 25, 2, 7, 21, 15…
+## $ gunshot_rate      <dbl> 1.8553419, 2.7101042, 3.1607133, 0.8401593, 2.510731…
+## $ unemployment_rate <chr> "6.1", "6.5", "6.1", "5.0", "6.2", "3.9", "5.7", "4.…
+## $ unemployment_rank <chr> "42", "47", "42", "24", "44", "10", "35", "22", "51"…
 ```
 
 
@@ -4966,7 +4966,7 @@ totalPop
 ```
 ## # A tibble: 51 x 2
 ##    NAME                    total
-##  * <chr>                   <dbl>
+##    <chr>                   <dbl>
 ##  1 alabama               4850858
 ##  2 alaska                 737979
 ##  3 arizona               6802262
