@@ -51,6 +51,7 @@ skimr
 textdata
 tibble
 tidymodels
+tidyr
 tidytext
 tidyverse
 tune
