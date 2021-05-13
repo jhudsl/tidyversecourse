@@ -1193,7 +1193,7 @@ Beyond the *many* capabilities of `ggplot2`, there are a few additional packages
 * combine multiple plots (`cowplot` + `patchwork`)
 * generate animated plots (`gganimate`)
 
-These are referred to as `ggplot2` extensions. There are dozens of additional [`ggplot2` extensions](http://www.ggplot2-exts.org/gallery/) available if you'd like to explore other plotting options beyond what is covered here!
+These are referred to as `ggplot2` extensions. 
 
 ### `ggrepel`
 
