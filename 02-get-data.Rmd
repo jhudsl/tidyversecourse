@@ -1378,7 +1378,7 @@ As a reminder, to view the HTML of a webpage, right-click and select “View pag
 library(rvest)
 
 # specify URL to where we'll be web scraping
-url <- read_html("https://www.bls.gov/lau/lastrk15.htm")
+url <- read_html("https://web.archive.org/web/20210205040250/https://www.bls.gov/lau/lastrk15.htm")
 
 # scrape specific table desired
 out <- html_nodes(url, "table") %>%
