@@ -420,7 +420,7 @@ dplyr::filter(df, bodywt == 6654)
 ```
 
 ```
-## # A tibble: 1 x 11
+## # A tibble: 1 × 11
 ##   name    genus vore  order conservation sleep_total sleep_rem sleep_cycle awake
 ##   <chr>   <chr> <chr> <chr> <chr>              <dbl>     <dbl>       <dbl> <dbl>
 ## 1 Africa… Loxo… herbi Prob… vu                   3.3        NA          NA  20.7
@@ -442,7 +442,7 @@ dplyr::filter(df, bodywt > 2000)
 ```
 
 ```
-## # A tibble: 2 x 11
+## # A tibble: 2 × 11
 ##   name    genus vore  order conservation sleep_total sleep_rem sleep_cycle awake
 ##   <chr>   <chr> <chr> <chr> <chr>              <dbl>     <dbl>       <dbl> <dbl>
 ## 1 Asian … Elep… herbi Prob… en                   3.9        NA          NA  20.1
@@ -580,7 +580,7 @@ df %>%
 ```
 
 ```
-## # A tibble: 3 x 11
+## # A tibble: 3 × 11
 ##   name    genus vore  order conservation sleep_total sleep_rem sleep_cycle awake
 ##   <chr>   <chr> <chr> <chr> <chr>              <dbl>     <dbl>       <dbl> <dbl>
 ## 1 Asian … Elep… herbi Prob… en                   3.9      NA          NA    20.1
@@ -616,7 +616,7 @@ cor.test(pull(df %>% filter(bodywt<2000 & bodywt >1 & brainwt<1),bodywt),
 ## 	Pearson's product-moment correlation
 ## 
 ## data:  pull(df %>% filter(bodywt < 2000 & bodywt > 1 & brainwt < 1), bodywt) and pull(df %>% filter(bodywt < 2000 & bodywt > 1 & brainwt < 1), brainwt)
-## t = 6.6127, df = 27, p-value = 0.0000004283
+## t = 6.6127, df = 27, p-value = 4.283e-07
 ## alternative hypothesis: true correlation is not equal to 0
 ## 95 percent confidence interval:
 ##  0.5897381 0.8949042
@@ -982,7 +982,7 @@ tidy(fit)
 ```
 
 ```
-## # A tibble: 2 x 5
+## # A tibble: 2 × 5
 ##   term        estimate std.error statistic p.value
 ##   <chr>          <dbl>     <dbl>     <dbl>   <dbl>
 ## 1 (Intercept)   -6.19     5.96       -1.04 0.308  
@@ -1254,7 +1254,7 @@ soda_ounces
 ```
 
 ```
-## # A tibble: 100 x 1
+## # A tibble: 100 × 1
 ##    value
 ##    <dbl>
 ##  1  12.0
@@ -1335,7 +1335,7 @@ CI
 ```
 
 ```
-## # A tibble: 1 x 2
+## # A tibble: 1 × 2
 ##   lower_ci upper_ci
 ##      <dbl>    <dbl>
 ## 1     12.0     12.0
@@ -1597,7 +1597,7 @@ To illustrate how to use each of these packages, we will work through some examp
 
 These are the major steps that we will cover in addition to some more advanced methods:
 
-![](images/book_figures/tidymodelsBasics.png)
+![](images/book_figures/Updated_tidymodels_Basics.png)
 
 Other `tidymodels` packages include:
 
@@ -1792,7 +1792,7 @@ summary(first_recipe)
 ```
 
 ```
-## # A tibble: 5 x 4
+## # A tibble: 5 × 4
 ##   variable     type    role      source  
 ##   <chr>        <chr>   <chr>     <chr>   
 ## 1 Sepal.Length numeric outcome   original
@@ -1940,7 +1940,7 @@ prepped_rec$var_info
 ```
 
 ```
-## # A tibble: 5 x 4
+## # A tibble: 5 × 4
 ##   variable     type    role      source  
 ##   <chr>        <chr>   <chr>     <chr>   
 ## 1 Sepal.Length numeric outcome   original
@@ -2175,7 +2175,7 @@ FALSE "response"): prediction from a rank-deficient fit may be misleading
 ```
 
 ```
-FALSE # A tibble: 100 x 1
+FALSE # A tibble: 100 × 1
 FALSE    .pred
 FALSE    <dbl>
 FALSE  1  5.07
@@ -2203,7 +2203,7 @@ head(wf_fitted_values)
 ```
 
 ```
-FALSE # A tibble: 6 x 6
+FALSE # A tibble: 6 × 6
 FALSE   Sepal.Length .fitted   .hat .sigma  .cooksd .std.resid
 FALSE          <dbl>   <dbl>  <dbl>  <dbl>    <dbl>      <dbl>
 FALSE 1          5.2    5.07 0.0336  0.459 0.000738      0.292
@@ -2236,7 +2236,7 @@ yardstick::rmse(wf_fitted_values,
 ```
 
 ```
-## # A tibble: 1 x 3
+## # A tibble: 1 × 3
 ##   .metric .estimator .estimate
 ##   <chr>   <chr>          <dbl>
 ## 1 rmse    standard       0.447
@@ -2279,6 +2279,12 @@ overallfit <-iris_reg_wflow %>%
 ```
 
 ```
+FALSE Registered S3 method overwritten by 'tune':
+FALSE   method                   from   
+FALSE   required_pkgs.model_spec parsnip
+```
+
+```
 FALSE ! train/test split: preprocessor 1/1, model 1/1 (predictions): prediction from a rank-defici...
 ```
 
@@ -2294,10 +2300,10 @@ FALSE preprocessor 1/1, model 1/1 (predictions): prediction from a rank-deficien
 ```
 FALSE # Resampling results
 FALSE # Manual resampling 
-FALSE # A tibble: 1 x 6
-FALSE   splits      id          .metrics       .notes       .predictions     .workflow
-FALSE   <list>      <chr>       <list>         <list>       <list>           <list>   
-FALSE 1 <split [10… train/test… <tibble[,4] [… <tibble[,1]… <tibble[,4] [50… <workflo…
+FALSE # A tibble: 1 × 6
+FALSE   splits           id               .metrics   .notes    .predictions  .workflow
+FALSE   <list>           <chr>            <list>     <list>    <list>        <list>   
+FALSE 1 <split [100/50]> train/test split <tibble [… <tibble … <tibble [50 … <workflo…
 ```
 
 We can then use the `collect_metrics()` function of the `tune` package to get the RMSE:
@@ -2308,7 +2314,7 @@ collect_metrics(overallfit)
 ```
 
 ```
-## # A tibble: 2 x 4
+## # A tibble: 2 × 4
 ##   .metric .estimator .estimate .config             
 ##   <chr>   <chr>          <dbl> <chr>               
 ## 1 rmse    standard       0.403 Preprocessor1_Model1
@@ -2463,7 +2469,7 @@ vfold_iris
 
 ```
 ## #  4-fold cross-validation 
-## # A tibble: 4 x 2
+## # A tibble: 4 × 2
 ##   splits          id   
 ##   <list>          <chr>
 ## 1 <split [75/25]> Fold1
@@ -2664,7 +2670,7 @@ yardstick::accuracy(training_iris,
 ```
 
 ```
-## # A tibble: 1 x 3
+## # A tibble: 1 × 3
 ##   .metric  .estimator .estimate
 ##   <chr>    <chr>          <dbl>
 ## 1 accuracy multiclass      0.97
@@ -2692,7 +2698,7 @@ count(pred_species, .pred_class)
 ```
 
 ```
-## # A tibble: 3 x 2
+## # A tibble: 3 × 2
 ##   .pred_class     n
 ##   <fct>       <int>
 ## 1 setosa         32
@@ -2752,13 +2758,13 @@ resample_fit
 ```
 ## # Resampling results
 ## # 4-fold cross-validation 
-## # A tibble: 4 x 4
-##   splits          id    .metrics             .notes              
-##   <list>          <chr> <list>               <list>              
-## 1 <split [75/25]> Fold1 <tibble[,4] [2 × 4]> <tibble[,1] [0 × 1]>
-## 2 <split [75/25]> Fold2 <tibble[,4] [2 × 4]> <tibble[,1] [0 × 1]>
-## 3 <split [75/25]> Fold3 <tibble[,4] [2 × 4]> <tibble[,1] [0 × 1]>
-## 4 <split [75/25]> Fold4 <tibble[,4] [2 × 4]> <tibble[,1] [0 × 1]>
+## # A tibble: 4 × 4
+##   splits          id    .metrics         .notes          
+##   <list>          <chr> <list>           <list>          
+## 1 <split [75/25]> Fold1 <tibble [2 × 4]> <tibble [0 × 1]>
+## 2 <split [75/25]> Fold2 <tibble [2 × 4]> <tibble [0 × 1]>
+## 3 <split [75/25]> Fold3 <tibble [2 × 4]> <tibble [0 × 1]>
+## 4 <split [75/25]> Fold4 <tibble [2 × 4]> <tibble [0 × 1]>
 ```
 
 ```r
@@ -2766,7 +2772,7 @@ collect_metrics(resample_fit)
 ```
 
 ```
-## # A tibble: 2 x 6
+## # A tibble: 2 × 6
 ##   .metric  .estimator  mean     n std_err .config             
 ##   <chr>    <chr>      <dbl> <int>   <dbl> <chr>               
 ## 1 accuracy multiclass 0.95      4  0.0191 Preprocessor1_Model1
@@ -2823,7 +2829,7 @@ tune::collect_metrics(resample_fit)
 ```
 
 ```
-## # A tibble: 2 x 6
+## # A tibble: 2 × 6
 ##   .metric  .estimator  mean     n std_err .config             
 ##   <chr>    <chr>      <dbl> <int>   <dbl> <chr>               
 ## 1 accuracy multiclass 0.95      4  0.0191 Preprocessor1_Model1
@@ -2835,7 +2841,7 @@ tune::show_best(resample_fit, metric = "accuracy")
 ```
 
 ```
-## # A tibble: 1 x 6
+## # A tibble: 1 × 6
 ##   .metric  .estimator  mean     n std_err .config             
 ##   <chr>    <chr>      <dbl> <int>   <dbl> <chr>               
 ## 1 accuracy multiclass  0.95     4  0.0191 Preprocessor1_Model1
@@ -2960,7 +2966,7 @@ library(here)
 ```
 
 ```
-## here() starts at /Users/rdpeng/books/tidyversecourse
+## here() starts at /Users/carriewright/Documents/GitHub/Coursera/tidyversecourse
 ```
 
 ```r
@@ -3202,52 +3208,52 @@ Table: (\#tab:unnamed-chunk-85)Data summary
 
 **Variable type: numeric**
 
-|skim_variable               | n_missing| complete_rate|          mean|            sd|          p0|           p25|           p50|           p75|           p100|hist  |
-|:---------------------------|---------:|-------------:|-------------:|-------------:|-----------:|-------------:|-------------:|-------------:|--------------:|:-----|
-|value                       |         0|             1|         10.81|          2.58|        3.02|          9.27|         11.15|         12.37|          23.16|▂▆▇▁▁ |
-|lat                         |         0|             1|         38.48|          4.62|       25.47|         35.03|         39.30|         41.66|          48.40|▁▃▅▇▂ |
-|lon                         |         0|             1|        -91.74|         14.96|     -124.18|        -99.16|        -87.47|        -80.69|         -68.04|▃▂▃▇▃ |
-|CMAQ                        |         0|             1|          8.41|          2.97|        1.63|          6.53|          8.62|         10.24|          23.13|▃▇▃▁▁ |
-|zcta_area                   |         0|             1|  183173481.91|  542598878.48|    15459.00|   14204601.75|   37653560.50|  160041508.25|  8164820625.00|▇▁▁▁▁ |
-|zcta_pop                    |         0|             1|      24227.58|      17772.16|        0.00|       9797.00|      22014.00|      35004.75|       95397.00|▇▇▃▁▁ |
-|imp_a500                    |         0|             1|         24.72|         19.34|        0.00|          3.70|         25.12|         40.22|          69.61|▇▅▆▃▂ |
-|imp_a1000                   |         0|             1|         24.26|         18.02|        0.00|          5.32|         24.53|         38.59|          67.50|▇▅▆▃▁ |
-|imp_a5000                   |         0|             1|         19.93|         14.72|        0.05|          6.79|         19.07|         30.11|          74.60|▇▆▃▁▁ |
-|imp_a10000                  |         0|             1|         15.82|         13.81|        0.09|          4.54|         12.36|         24.17|          72.09|▇▃▂▁▁ |
-|imp_a15000                  |         0|             1|         13.43|         13.12|        0.11|          3.24|          9.67|         20.55|          71.10|▇▃▁▁▁ |
-|county_area                 |         0|             1| 3768701992.12| 6212829553.56| 33703512.00| 1116536297.50| 1690826566.50| 2878192209.00| 51947229509.00|▇▁▁▁▁ |
-|county_pop                  |         0|             1|     687298.44|    1293488.74|      783.00|     100948.00|     280730.50|     743159.00|     9818605.00|▇▁▁▁▁ |
-|log_dist_to_prisec          |         0|             1|          6.19|          1.41|       -1.46|          5.43|          6.36|          7.15|          10.45|▁▁▃▇▁ |
-|log_pri_length_5000         |         0|             1|          9.82|          1.08|        8.52|          8.52|         10.05|         10.73|          12.05|▇▂▆▅▂ |
-|log_pri_length_10000        |         0|             1|         10.92|          1.13|        9.21|          9.80|         11.17|         11.83|          13.02|▇▂▇▇▃ |
-|log_pri_length_15000        |         0|             1|         11.50|          1.15|        9.62|         10.87|         11.72|         12.40|          13.59|▆▂▇▇▃ |
-|log_pri_length_25000        |         0|             1|         12.24|          1.10|       10.13|         11.69|         12.46|         13.05|          14.36|▅▃▇▇▃ |
-|log_prisec_length_500       |         0|             1|          6.99|          0.95|        6.21|          6.21|          6.21|          7.82|           9.40|▇▁▂▂▁ |
-|log_prisec_length_1000      |         0|             1|          8.56|          0.79|        7.60|          7.60|          8.66|          9.20|          10.47|▇▅▆▃▁ |
-|log_prisec_length_5000      |         0|             1|         11.28|          0.78|        8.52|         10.91|         11.42|         11.83|          12.78|▁▁▃▇▃ |
-|log_prisec_length_10000     |         0|             1|         12.41|          0.73|        9.21|         11.99|         12.53|         12.94|          13.85|▁▁▃▇▅ |
-|log_prisec_length_15000     |         0|             1|         13.03|          0.72|        9.62|         12.59|         13.13|         13.57|          14.41|▁▁▃▇▅ |
-|log_prisec_length_25000     |         0|             1|         13.82|          0.70|       10.13|         13.38|         13.92|         14.35|          15.23|▁▁▃▇▆ |
-|log_nei_2008_pm25_sum_10000 |         0|             1|          3.97|          2.35|        0.00|          2.15|          4.29|          5.69|           9.12|▆▅▇▆▂ |
-|log_nei_2008_pm25_sum_15000 |         0|             1|          4.72|          2.25|        0.00|          3.47|          5.00|          6.35|           9.42|▃▃▇▇▂ |
-|log_nei_2008_pm25_sum_25000 |         0|             1|          5.67|          2.11|        0.00|          4.66|          5.91|          7.28|           9.65|▂▂▇▇▃ |
-|log_nei_2008_pm10_sum_10000 |         0|             1|          4.35|          2.32|        0.00|          2.69|          4.62|          6.07|           9.34|▅▅▇▇▂ |
-|log_nei_2008_pm10_sum_15000 |         0|             1|          5.10|          2.18|        0.00|          3.87|          5.39|          6.72|           9.71|▂▃▇▇▂ |
-|log_nei_2008_pm10_sum_25000 |         0|             1|          6.07|          2.01|        0.00|          5.10|          6.37|          7.52|           9.88|▁▂▆▇▃ |
-|popdens_county              |         0|             1|        551.76|       1711.51|        0.26|         40.77|        156.67|        510.81|       26821.91|▇▁▁▁▁ |
-|popdens_zcta                |         0|             1|       1279.66|       2757.49|        0.00|        101.15|        610.35|       1382.52|       30418.84|▇▁▁▁▁ |
-|nohs                        |         0|             1|          6.99|          7.21|        0.00|          2.70|          5.10|          8.80|         100.00|▇▁▁▁▁ |
-|somehs                      |         0|             1|         10.17|          6.20|        0.00|          5.90|          9.40|         13.90|          72.20|▇▂▁▁▁ |
-|hs                          |         0|             1|         30.32|         11.40|        0.00|         23.80|         30.75|         36.10|         100.00|▂▇▂▁▁ |
-|somecollege                 |         0|             1|         21.58|          8.60|        0.00|         17.50|         21.30|         24.70|         100.00|▆▇▁▁▁ |
-|associate                   |         0|             1|          7.13|          4.01|        0.00|          4.90|          7.10|          8.80|          71.40|▇▁▁▁▁ |
-|bachelor                    |         0|             1|         14.90|          9.71|        0.00|          8.80|         12.95|         19.22|         100.00|▇▂▁▁▁ |
-|grad                        |         0|             1|          8.91|          8.65|        0.00|          3.90|          6.70|         11.00|         100.00|▇▁▁▁▁ |
-|pov                         |         0|             1|         14.95|         11.33|        0.00|          6.50|         12.10|         21.22|          65.90|▇▅▂▁▁ |
-|hs_orless                   |         0|             1|         47.48|         16.75|        0.00|         37.92|         48.65|         59.10|         100.00|▁▃▇▃▁ |
-|urc2013                     |         0|             1|          2.92|          1.52|        1.00|          2.00|          3.00|          4.00|           6.00|▇▅▃▂▁ |
-|urc2006                     |         0|             1|          2.97|          1.52|        1.00|          2.00|          3.00|          4.00|           6.00|▇▅▃▂▁ |
-|aod                         |         0|             1|         43.70|         19.56|        5.00|         31.66|         40.17|         49.67|         143.00|▃▇▁▁▁ |
+|skim_variable               | n_missing| complete_rate|          mean|           sd|          p0|           p25|           p50|           p75|          p100|hist  |
+|:---------------------------|---------:|-------------:|-------------:|------------:|-----------:|-------------:|-------------:|-------------:|-------------:|:-----|
+|value                       |         0|             1|         10.81| 2.580000e+00|        3.02|          9.27|         11.15|         12.37|  2.316000e+01|▂▆▇▁▁ |
+|lat                         |         0|             1|         38.48| 4.620000e+00|       25.47|         35.03|         39.30|         41.66|  4.840000e+01|▁▃▅▇▂ |
+|lon                         |         0|             1|        -91.74| 1.496000e+01|     -124.18|        -99.16|        -87.47|        -80.69| -6.804000e+01|▃▂▃▇▃ |
+|CMAQ                        |         0|             1|          8.41| 2.970000e+00|        1.63|          6.53|          8.62|         10.24|  2.313000e+01|▃▇▃▁▁ |
+|zcta_area                   |         0|             1|  183173481.91| 5.425989e+08|    15459.00|   14204601.75|   37653560.50|  160041508.25|  8.164821e+09|▇▁▁▁▁ |
+|zcta_pop                    |         0|             1|      24227.58| 1.777216e+04|        0.00|       9797.00|      22014.00|      35004.75|  9.539700e+04|▇▇▃▁▁ |
+|imp_a500                    |         0|             1|         24.72| 1.934000e+01|        0.00|          3.70|         25.12|         40.22|  6.961000e+01|▇▅▆▃▂ |
+|imp_a1000                   |         0|             1|         24.26| 1.802000e+01|        0.00|          5.32|         24.53|         38.59|  6.750000e+01|▇▅▆▃▁ |
+|imp_a5000                   |         0|             1|         19.93| 1.472000e+01|        0.05|          6.79|         19.07|         30.11|  7.460000e+01|▇▆▃▁▁ |
+|imp_a10000                  |         0|             1|         15.82| 1.381000e+01|        0.09|          4.54|         12.36|         24.17|  7.209000e+01|▇▃▂▁▁ |
+|imp_a15000                  |         0|             1|         13.43| 1.312000e+01|        0.11|          3.24|          9.67|         20.55|  7.110000e+01|▇▃▁▁▁ |
+|county_area                 |         0|             1| 3768701992.12| 6.212830e+09| 33703512.00| 1116536297.50| 1690826566.50| 2878192209.00|  5.194723e+10|▇▁▁▁▁ |
+|county_pop                  |         0|             1|     687298.44| 1.293489e+06|      783.00|     100948.00|     280730.50|     743159.00|  9.818605e+06|▇▁▁▁▁ |
+|log_dist_to_prisec          |         0|             1|          6.19| 1.410000e+00|       -1.46|          5.43|          6.36|          7.15|  1.045000e+01|▁▁▃▇▁ |
+|log_pri_length_5000         |         0|             1|          9.82| 1.080000e+00|        8.52|          8.52|         10.05|         10.73|  1.205000e+01|▇▂▆▅▂ |
+|log_pri_length_10000        |         0|             1|         10.92| 1.130000e+00|        9.21|          9.80|         11.17|         11.83|  1.302000e+01|▇▂▇▇▃ |
+|log_pri_length_15000        |         0|             1|         11.50| 1.150000e+00|        9.62|         10.87|         11.72|         12.40|  1.359000e+01|▆▂▇▇▃ |
+|log_pri_length_25000        |         0|             1|         12.24| 1.100000e+00|       10.13|         11.69|         12.46|         13.05|  1.436000e+01|▅▃▇▇▃ |
+|log_prisec_length_500       |         0|             1|          6.99| 9.500000e-01|        6.21|          6.21|          6.21|          7.82|  9.400000e+00|▇▁▂▂▁ |
+|log_prisec_length_1000      |         0|             1|          8.56| 7.900000e-01|        7.60|          7.60|          8.66|          9.20|  1.047000e+01|▇▅▆▃▁ |
+|log_prisec_length_5000      |         0|             1|         11.28| 7.800000e-01|        8.52|         10.91|         11.42|         11.83|  1.278000e+01|▁▁▃▇▃ |
+|log_prisec_length_10000     |         0|             1|         12.41| 7.300000e-01|        9.21|         11.99|         12.53|         12.94|  1.385000e+01|▁▁▃▇▅ |
+|log_prisec_length_15000     |         0|             1|         13.03| 7.200000e-01|        9.62|         12.59|         13.13|         13.57|  1.441000e+01|▁▁▃▇▅ |
+|log_prisec_length_25000     |         0|             1|         13.82| 7.000000e-01|       10.13|         13.38|         13.92|         14.35|  1.523000e+01|▁▁▃▇▆ |
+|log_nei_2008_pm25_sum_10000 |         0|             1|          3.97| 2.350000e+00|        0.00|          2.15|          4.29|          5.69|  9.120000e+00|▆▅▇▆▂ |
+|log_nei_2008_pm25_sum_15000 |         0|             1|          4.72| 2.250000e+00|        0.00|          3.47|          5.00|          6.35|  9.420000e+00|▃▃▇▇▂ |
+|log_nei_2008_pm25_sum_25000 |         0|             1|          5.67| 2.110000e+00|        0.00|          4.66|          5.91|          7.28|  9.650000e+00|▂▂▇▇▃ |
+|log_nei_2008_pm10_sum_10000 |         0|             1|          4.35| 2.320000e+00|        0.00|          2.69|          4.62|          6.07|  9.340000e+00|▅▅▇▇▂ |
+|log_nei_2008_pm10_sum_15000 |         0|             1|          5.10| 2.180000e+00|        0.00|          3.87|          5.39|          6.72|  9.710000e+00|▂▃▇▇▂ |
+|log_nei_2008_pm10_sum_25000 |         0|             1|          6.07| 2.010000e+00|        0.00|          5.10|          6.37|          7.52|  9.880000e+00|▁▂▆▇▃ |
+|popdens_county              |         0|             1|        551.76| 1.711510e+03|        0.26|         40.77|        156.67|        510.81|  2.682191e+04|▇▁▁▁▁ |
+|popdens_zcta                |         0|             1|       1279.66| 2.757490e+03|        0.00|        101.15|        610.35|       1382.52|  3.041884e+04|▇▁▁▁▁ |
+|nohs                        |         0|             1|          6.99| 7.210000e+00|        0.00|          2.70|          5.10|          8.80|  1.000000e+02|▇▁▁▁▁ |
+|somehs                      |         0|             1|         10.17| 6.200000e+00|        0.00|          5.90|          9.40|         13.90|  7.220000e+01|▇▂▁▁▁ |
+|hs                          |         0|             1|         30.32| 1.140000e+01|        0.00|         23.80|         30.75|         36.10|  1.000000e+02|▂▇▂▁▁ |
+|somecollege                 |         0|             1|         21.58| 8.600000e+00|        0.00|         17.50|         21.30|         24.70|  1.000000e+02|▆▇▁▁▁ |
+|associate                   |         0|             1|          7.13| 4.010000e+00|        0.00|          4.90|          7.10|          8.80|  7.140000e+01|▇▁▁▁▁ |
+|bachelor                    |         0|             1|         14.90| 9.710000e+00|        0.00|          8.80|         12.95|         19.22|  1.000000e+02|▇▂▁▁▁ |
+|grad                        |         0|             1|          8.91| 8.650000e+00|        0.00|          3.90|          6.70|         11.00|  1.000000e+02|▇▁▁▁▁ |
+|pov                         |         0|             1|         14.95| 1.133000e+01|        0.00|          6.50|         12.10|         21.22|  6.590000e+01|▇▅▂▁▁ |
+|hs_orless                   |         0|             1|         47.48| 1.675000e+01|        0.00|         37.92|         48.65|         59.10|  1.000000e+02|▁▃▇▃▁ |
+|urc2013                     |         0|             1|          2.92| 1.520000e+00|        1.00|          2.00|          3.00|          4.00|  6.000000e+00|▇▅▃▂▁ |
+|urc2006                     |         0|             1|          2.97| 1.520000e+00|        1.00|          2.00|          3.00|          4.00|  6.000000e+00|▇▅▃▂▁ |
+|aod                         |         0|             1|         43.70| 1.956000e+01|        5.00|         31.66|         40.17|         49.67|  1.430000e+02|▃▇▁▁▁ |
 
 Notice how there is a column called `n_missing` about the number of values that are missing. 
 
@@ -3277,7 +3283,7 @@ pm %>%
 ```
 
 ```
-## # A tibble: 49 x 1
+## # A tibble: 49 × 1
 ##    state               
 ##    <chr>               
 ##  1 Alabama             
@@ -3315,7 +3321,7 @@ library(corrplot)
 ```
 
 ```
-## corrplot 0.88 loaded
+## corrplot 0.90 loaded
 ```
 
 ```r
@@ -3943,33 +3949,26 @@ pm %>%
 ```
 
 ```
-## # A tibble: 876 x 50
-##    id      value fips    lat   lon state  county  city      CMAQ zcta  zcta_area
-##    <fct>   <dbl> <fct> <dbl> <dbl> <chr>  <chr>   <chr>    <dbl> <fct>     <dbl>
-##  1 1003.0…  9.60 1003   30.5 -87.9 Alaba… Baldwin In a ci…  8.10 36532 190980522
-##  2 1027.0… 10.8  1027   33.3 -85.8 Alaba… Clay    In a ci…  9.77 36251 374132430
-##  3 1033.1… 11.2  1033   34.8 -87.7 Alaba… Colbert In a ci…  9.40 35660  16716984
-##  4 1049.1… 11.7  1049   34.3 -86.0 Alaba… DeKalb  In a ci…  8.53 35962 203836235
-##  5 1055.0… 12.4  1055   34.0 -86.0 Alaba… Etowah  In a ci…  9.24 35901 154069359
-##  6 1069.0… 10.5  1069   31.2 -85.4 Alaba… Houston In a ci…  9.12 36303 162685124
-##  7 1073.0… 15.6  1073   33.6 -86.8 Alaba… Jeffer… In a ci… 10.2  35207  26929603
-##  8 1073.1… 12.4  1073   33.3 -87.0 Alaba… Jeffer… Not in … 10.2  35111 166239542
-##  9 1073.1… 11.1  1073   33.5 -87.3 Alaba… Jeffer… Not in …  8.16 35444 385566685
-## 10 1073.1… 13.1  1073   33.5 -86.5 Alaba… Jeffer… In a ci…  9.30 35094 148994881
+## # A tibble: 876 × 50
+##    id        value fips    lat   lon state   county    city   CMAQ zcta  zcta_area
+##    <fct>     <dbl> <fct> <dbl> <dbl> <chr>   <chr>     <chr> <dbl> <fct>     <dbl>
+##  1 1003.001   9.60 1003   30.5 -87.9 Alabama Baldwin   In a…  8.10 36532 190980522
+##  2 1027.0001 10.8  1027   33.3 -85.8 Alabama Clay      In a…  9.77 36251 374132430
+##  3 1033.1002 11.2  1033   34.8 -87.7 Alabama Colbert   In a…  9.40 35660  16716984
+##  4 1049.1003 11.7  1049   34.3 -86.0 Alabama DeKalb    In a…  8.53 35962 203836235
+##  5 1055.001  12.4  1055   34.0 -86.0 Alabama Etowah    In a…  9.24 35901 154069359
+##  6 1069.0003 10.5  1069   31.2 -85.4 Alabama Houston   In a…  9.12 36303 162685124
+##  7 1073.0023 15.6  1073   33.6 -86.8 Alabama Jefferson In a… 10.2  35207  26929603
+##  8 1073.1005 12.4  1073   33.3 -87.0 Alabama Jefferson Not … 10.2  35111 166239542
+##  9 1073.1009 11.1  1073   33.5 -87.3 Alabama Jefferson Not …  8.16 35444 385566685
+## 10 1073.101  13.1  1073   33.5 -86.5 Alabama Jefferson In a…  9.30 35094 148994881
 ## # … with 866 more rows, and 39 more variables: zcta_pop <dbl>, imp_a500 <dbl>,
 ## #   imp_a1000 <dbl>, imp_a5000 <dbl>, imp_a10000 <dbl>, imp_a15000 <dbl>,
 ## #   county_area <dbl>, county_pop <dbl>, log_dist_to_prisec <dbl>,
 ## #   log_pri_length_5000 <dbl>, log_pri_length_10000 <dbl>,
 ## #   log_pri_length_15000 <dbl>, log_pri_length_25000 <dbl>,
 ## #   log_prisec_length_500 <dbl>, log_prisec_length_1000 <dbl>,
-## #   log_prisec_length_5000 <dbl>, log_prisec_length_10000 <dbl>,
-## #   log_prisec_length_15000 <dbl>, log_prisec_length_25000 <dbl>,
-## #   log_nei_2008_pm25_sum_10000 <dbl>, log_nei_2008_pm25_sum_15000 <dbl>,
-## #   log_nei_2008_pm25_sum_25000 <dbl>, log_nei_2008_pm10_sum_10000 <dbl>,
-## #   log_nei_2008_pm10_sum_15000 <dbl>, log_nei_2008_pm10_sum_25000 <dbl>,
-## #   popdens_county <dbl>, popdens_zcta <dbl>, nohs <dbl>, somehs <dbl>,
-## #   hs <dbl>, somecollege <dbl>, associate <dbl>, bachelor <dbl>, grad <dbl>,
-## #   pov <dbl>, hs_orless <dbl>, urc2013 <dbl>, urc2006 <dbl>, aod <dbl>
+## #   log_prisec_length_5000 <dbl>, log_prisec_length_10000 <dbl>, …
 ```
 
 
@@ -4355,7 +4354,7 @@ wflowoutput <- PM_wflow_fit %>%
 ```
 
 ```
-## # A tibble: 36 x 5
+## # A tibble: 36 × 5
 ##    term         estimate std.error statistic       p.value
 ##    <chr>           <dbl>     <dbl>     <dbl>         <dbl>
 ##  1 (Intercept)  2.28e+ 2  1.21e+ 2    1.88   0.0606       
@@ -4451,7 +4450,7 @@ head(wf_fitted_values)
 ```
 
 ```
-## # A tibble: 6 x 6
+## # A tibble: 6 × 6
 ##   value .fitted   .hat .sigma      .cooksd .std.resid
 ##   <dbl>   <dbl>  <dbl>  <dbl>        <dbl>      <dbl>
 ## 1 12.4    11.3  0.0490   2.11 0.000465        0.562  
@@ -4482,7 +4481,7 @@ values_pred_train
 ```
 
 ```
-## # A tibble: 584 x 5
+## # A tibble: 584 × 5
 ##    .pred value fips  county         id        
 ##    <dbl> <dbl> <fct> <chr>          <fct>     
 ##  1 11.3  12.4  17119 Madison        17119.2009
@@ -4538,7 +4537,7 @@ yardstick::metrics(wf_fitted_values,
 ```
 
 ```
-## # A tibble: 3 x 3
+## # A tibble: 3 × 3
 ##   .metric .estimator .estimate
 ##   <chr>   <chr>          <dbl>
 ## 1 rmse    standard       2.04 
@@ -4555,7 +4554,7 @@ yardstick::rmse(wf_fitted_values,
 ```
 
 ```
-## # A tibble: 1 x 3
+## # A tibble: 1 × 3
 ##   .metric .estimator .estimate
 ##   <chr>   <chr>          <dbl>
 ## 1 rmse    standard        2.04
@@ -4578,7 +4577,7 @@ vfold_pm
 
 ```
 ## #  10-fold cross-validation 
-## # A tibble: 10 x 2
+## # A tibble: 10 × 2
 ##    splits           id    
 ##    <list>           <chr> 
 ##  1 <split [525/59]> Fold01
@@ -4747,19 +4746,19 @@ resample_fit
 ```
 ## # Resampling results
 ## # 10-fold cross-validation 
-## # A tibble: 10 x 4
-##    splits           id     .metrics             .notes              
-##    <list>           <chr>  <list>               <list>              
-##  1 <split [525/59]> Fold01 <tibble[,4] [2 × 4]> <tibble[,1] [2 × 1]>
-##  2 <split [525/59]> Fold02 <tibble[,4] [2 × 4]> <tibble[,1] [2 × 1]>
-##  3 <split [525/59]> Fold03 <tibble[,4] [2 × 4]> <tibble[,1] [2 × 1]>
-##  4 <split [525/59]> Fold04 <tibble[,4] [2 × 4]> <tibble[,1] [2 × 1]>
-##  5 <split [526/58]> Fold05 <tibble[,4] [2 × 4]> <tibble[,1] [2 × 1]>
-##  6 <split [526/58]> Fold06 <tibble[,4] [2 × 4]> <tibble[,1] [2 × 1]>
-##  7 <split [526/58]> Fold07 <tibble[,4] [2 × 4]> <tibble[,1] [2 × 1]>
-##  8 <split [526/58]> Fold08 <tibble[,4] [2 × 4]> <tibble[,1] [2 × 1]>
-##  9 <split [526/58]> Fold09 <tibble[,4] [2 × 4]> <tibble[,1] [2 × 1]>
-## 10 <split [526/58]> Fold10 <tibble[,4] [2 × 4]> <tibble[,1] [2 × 1]>
+## # A tibble: 10 × 4
+##    splits           id     .metrics         .notes          
+##    <list>           <chr>  <list>           <list>          
+##  1 <split [525/59]> Fold01 <tibble [2 × 4]> <tibble [2 × 1]>
+##  2 <split [525/59]> Fold02 <tibble [2 × 4]> <tibble [2 × 1]>
+##  3 <split [525/59]> Fold03 <tibble [2 × 4]> <tibble [2 × 1]>
+##  4 <split [525/59]> Fold04 <tibble [2 × 4]> <tibble [2 × 1]>
+##  5 <split [526/58]> Fold05 <tibble [2 × 4]> <tibble [2 × 1]>
+##  6 <split [526/58]> Fold06 <tibble [2 × 4]> <tibble [2 × 1]>
+##  7 <split [526/58]> Fold07 <tibble [2 × 4]> <tibble [2 × 1]>
+##  8 <split [526/58]> Fold08 <tibble [2 × 4]> <tibble [2 × 1]>
+##  9 <split [526/58]> Fold09 <tibble [2 × 4]> <tibble [2 × 1]>
+## 10 <split [526/58]> Fold10 <tibble [2 × 4]> <tibble [2 × 1]>
 ```
 
 ```r
@@ -4767,7 +4766,7 @@ collect_metrics(resample_fit)
 ```
 
 ```
-## # A tibble: 2 x 6
+## # A tibble: 2 × 6
 ##   .metric .estimator  mean     n std_err .config             
 ##   <chr>   <chr>      <dbl> <int>   <dbl> <chr>               
 ## 1 rmse    standard   2.18     10  0.0932 Preprocessor1_Model1
@@ -5108,7 +5107,7 @@ parallel::detectCores()
 ```
 
 ```
-## [1] 16
+## [1] 8
 ```
 
 The `registerDoParallel()` function will use the number for cores specified using the `cores=` argument, or it will assign it automatically to one-half of the number of cores detected by the `parallel` package. 
@@ -5136,19 +5135,19 @@ tune_RF_results
 ```
 ## # Tuning results
 ## # 10-fold cross-validation 
-## # A tibble: 10 x 4
-##    splits           id     .metrics              .notes              
-##    <list>           <chr>  <list>                <list>              
-##  1 <split [525/59]> Fold01 <tibble[,6] [40 × 6]> <tibble[,1] [0 × 1]>
-##  2 <split [525/59]> Fold02 <tibble[,6] [40 × 6]> <tibble[,1] [0 × 1]>
-##  3 <split [525/59]> Fold03 <tibble[,6] [40 × 6]> <tibble[,1] [0 × 1]>
-##  4 <split [525/59]> Fold04 <tibble[,6] [40 × 6]> <tibble[,1] [0 × 1]>
-##  5 <split [526/58]> Fold05 <tibble[,6] [40 × 6]> <tibble[,1] [0 × 1]>
-##  6 <split [526/58]> Fold06 <tibble[,6] [40 × 6]> <tibble[,1] [0 × 1]>
-##  7 <split [526/58]> Fold07 <tibble[,6] [40 × 6]> <tibble[,1] [0 × 1]>
-##  8 <split [526/58]> Fold08 <tibble[,6] [40 × 6]> <tibble[,1] [0 × 1]>
-##  9 <split [526/58]> Fold09 <tibble[,6] [40 × 6]> <tibble[,1] [0 × 1]>
-## 10 <split [526/58]> Fold10 <tibble[,6] [40 × 6]> <tibble[,1] [0 × 1]>
+## # A tibble: 10 × 4
+##    splits           id     .metrics          .notes          
+##    <list>           <chr>  <list>            <list>          
+##  1 <split [525/59]> Fold01 <tibble [40 × 6]> <tibble [0 × 1]>
+##  2 <split [525/59]> Fold02 <tibble [40 × 6]> <tibble [0 × 1]>
+##  3 <split [525/59]> Fold03 <tibble [40 × 6]> <tibble [0 × 1]>
+##  4 <split [525/59]> Fold04 <tibble [40 × 6]> <tibble [0 × 1]>
+##  5 <split [526/58]> Fold05 <tibble [40 × 6]> <tibble [0 × 1]>
+##  6 <split [526/58]> Fold06 <tibble [40 × 6]> <tibble [0 × 1]>
+##  7 <split [526/58]> Fold07 <tibble [40 × 6]> <tibble [0 × 1]>
+##  8 <split [526/58]> Fold08 <tibble [40 × 6]> <tibble [0 × 1]>
+##  9 <split [526/58]> Fold09 <tibble [40 × 6]> <tibble [0 × 1]>
+## 10 <split [526/58]> Fold10 <tibble [40 × 6]> <tibble [0 × 1]>
 ```
 
 See [the tune getting started guide ](https://tidymodels.github.io/tune/articles/getting_started.html){target="_blank"} for more information about implementing this in `tidymodels`.
@@ -5168,7 +5167,7 @@ tune_RF_results%>%
 ```
 
 ```
-## # A tibble: 6 x 8
+## # A tibble: 6 × 8
 ##    mtry min_n .metric .estimator  mean     n std_err .config              
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl> <chr>                
 ## 1    28    40 rmse    standard   1.77     10  0.102  Preprocessor1_Model01
@@ -5187,7 +5186,7 @@ show_best(tune_RF_results, metric = "rmse", n =1)
 ```
 
 ```
-## # A tibble: 1 x 8
+## # A tibble: 1 × 8
 ##    mtry min_n .metric .estimator  mean     n std_err .config              
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl> <chr>                
 ## 1    15     3 rmse    standard    1.70    10  0.0912 Preprocessor1_Model04
@@ -5211,7 +5210,7 @@ tuned_RF_values
 ```
 
 ```
-## # A tibble: 1 x 3
+## # A tibble: 1 × 3
 ##    mtry min_n .config              
 ##   <int> <int> <chr>                
 ## 1    15     3 Preprocessor1_Model04
@@ -5249,7 +5248,7 @@ To see the performance on the test data we can use the `collect_metrics()` funct
 ```
 
 ```
-## # A tibble: 2 x 4
+## # A tibble: 2 × 4
 ##   .metric .estimator .estimate .config             
 ##   <chr>   <chr>          <dbl> <chr>               
 ## 1 rmse    standard       1.40  Preprocessor1_Model1
@@ -5271,7 +5270,7 @@ head(test_predictions)
 ```
 
 ```
-## # A tibble: 6 x 5
+## # A tibble: 6 × 5
 ##   id               .pred  .row value .config             
 ##   <chr>            <dbl> <int> <dbl> <chr>               
 ## 1 train/test split  10.8     1  9.60 Preprocessor1_Model1
@@ -5309,7 +5308,7 @@ Great!
 
 In summary, these are the minimal steps to perform a prediction analysis using `tidymodels`:
 
-![](images/book_figures/tidymodelsBasics.png)
+![](images/book_figures/Updated_tidymodels_Basics.png)
 
 If you wish to perform preprocessing, cross validation, or tuning, these are the steps required:
 
