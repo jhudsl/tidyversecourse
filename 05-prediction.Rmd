@@ -1369,7 +1369,7 @@ To illustrate how to use each of these packages, we will work through some examp
 
 These are the major steps that we will cover in addition to some more advanced methods:
 
-![](images/book_figures/tidymodelsBasics.png)
+![](images/book_figures/Updated_tidymodels_Basics.png)
 
 Other `tidymodels` packages include:
 
@@ -2984,7 +2984,7 @@ Great!
 
 In summary, these are the minimal steps to perform a prediction analysis using `tidymodels`:
 
-![](images/book_figures/tidymodelsBasics.png)
+![](images/book_figures/Updated_tidymodels_Basics.png)
 
 If you wish to perform preprocessing, cross validation, or tuning, these are the steps required:
 

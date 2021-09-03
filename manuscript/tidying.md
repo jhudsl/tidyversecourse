@@ -70,7 +70,7 @@ library(tidyverse)
 
 airquality <- as_tibble(airquality)
 airquality
-# A tibble: 153 x 6
+# A tibble: 153 × 6
    Ozone Solar.R  Wind  Temp Month   Day
    <int>   <int> <dbl> <int> <int> <int>
  1    41     190   7.4    67     5     1
@@ -112,7 +112,7 @@ gathered <- airquality %>%
 
 ## take a look at first few rows of long data
 gathered
-# A tibble: 918 x 2
+# A tibble: 918 × 2
    name    value
    <chr>   <dbl>
  1 Ozone    41  
@@ -142,7 +142,7 @@ gathered <- airquality %>%
 
 ## take a look at first few rows of long data
 gathered 
-# A tibble: 918 x 2
+# A tibble: 918 × 2
    variable value
    <chr>    <dbl>
  1 Ozone     41  
@@ -175,7 +175,7 @@ gathered <- airquality %>%
 
 ## take a look at first few rows of long data
 gathered
-# A tibble: 612 x 4
+# A tibble: 612 × 4
    Month   Day variable value
    <int> <int> <chr>    <dbl>
  1     5     1 Ozone     41  
@@ -208,7 +208,7 @@ spread_data <- gathered %>%
 
 ## take a look at the wide data
 spread_data
-# A tibble: 153 x 6
+# A tibble: 153 × 6
    Month   Day Ozone Solar.R  Wind  Temp
    <int> <int> <dbl>   <dbl> <dbl> <dbl>
  1     5     1    41     190   7.4    67
@@ -225,7 +225,7 @@ spread_data
 
 ## compare that back to the original
 airquality
-# A tibble: 153 x 6
+# A tibble: 153 × 6
    Ozone Solar.R  Wind  Temp Month   Day
    <int>   <int> <dbl> <int> <int> <int>
  1    41     190   7.4    67     5     1
@@ -388,7 +388,7 @@ If you were only interested in learning more about the sleep times of "Primates,
 # filter to only include primates
 msleep %>%
   filter(order == "Primates")
-# A tibble: 12 x 11
+# A tibble: 12 × 11
    name   genus vore  order conservation sleep_total sleep_rem sleep_cycle awake
    <chr>  <chr> <chr> <chr> <chr>              <dbl>     <dbl>       <dbl> <dbl>
  1 Owl m… Aotus omni  Prim… <NA>                17         1.8      NA       7  
@@ -413,7 +413,7 @@ The above is shorthand for:
 
 ```r
 filter(msleep, order == "Primates")
-# A tibble: 12 x 11
+# A tibble: 12 × 11
    name   genus vore  order conservation sleep_total sleep_rem sleep_cycle awake
    <chr>  <chr> <chr> <chr> <chr>              <dbl>     <dbl>       <dbl> <dbl>
  1 Owl m… Aotus omni  Prim… <NA>                17         1.8      NA       7  
@@ -443,7 +443,7 @@ But, what if we were only interested in Primates who sleep more than 10 hours to
 ```r
 msleep %>%
   filter(order == "Primates", sleep_total > 10)
-# A tibble: 5 x 11
+# A tibble: 5 × 11
   name   genus  vore  order conservation sleep_total sleep_rem sleep_cycle awake
   <chr>  <chr>  <chr> <chr> <chr>              <dbl>     <dbl>       <dbl> <dbl>
 1 Owl m… Aotus  omni  Prim… <NA>                17         1.8       NA      7  
@@ -466,7 +466,7 @@ We can obtain the same result with the AND `&` logical operator instead of separ
 ```r
 msleep %>%
   filter(order == "Primates" & sleep_total > 10)
-# A tibble: 5 x 11
+# A tibble: 5 × 11
   name   genus  vore  order conservation sleep_total sleep_rem sleep_cycle awake
   <chr>  <chr>  <chr> <chr> <chr>              <dbl>     <dbl>       <dbl> <dbl>
 1 Owl m… Aotus  omni  Prim… <NA>                17         1.8       NA      7  
@@ -490,7 +490,7 @@ Let's start with the code we just wrote to only include primates who sleep a lot
 msleep %>%
   filter(order == "Primates", sleep_total > 10) %>%
   select(name, sleep_total, sleep_rem, sleep_cycle)
-# A tibble: 5 x 4
+# A tibble: 5 × 4
   name         sleep_total sleep_rem sleep_cycle
   <chr>              <dbl>     <dbl>       <dbl>
 1 Owl monkey          17         1.8       NA   
@@ -521,7 +521,7 @@ Yuck. Definitely harder to read. We'll stick with the above approach!
 msleep %>%
   filter(order == "Primates", sleep_total > 10) %>%
   select(name, total = sleep_total, rem = sleep_rem, cycle = sleep_cycle)
-# A tibble: 5 x 4
+# A tibble: 5 × 4
   name         total   rem cycle
   <chr>        <dbl> <dbl> <dbl>
 1 Owl monkey    17     1.8 NA   
@@ -540,7 +540,7 @@ It's important to keep in mind that when using `select()` to rename columns, onl
 msleep %>%
   filter(order == "Primates", sleep_total > 10) %>%
   rename(total = sleep_total, rem = sleep_rem, cycle = sleep_cycle)
-# A tibble: 5 x 11
+# A tibble: 5 × 11
   name    genus  vore  order conservation total   rem cycle awake brainwt bodywt
   <chr>   <chr>  <chr> <chr> <chr>        <dbl> <dbl> <dbl> <dbl>   <dbl>  <dbl>
 1 Owl mo… Aotus  omni  Prim… <NA>          17     1.8 NA      7    0.0155   0.48
@@ -565,7 +565,7 @@ The `select()` function is powerful. Not only will it filter and rename columns,
 msleep %>%
   filter(order == "Primates", sleep_total > 10) %>%
   select(name, sleep_rem, sleep_cycle, sleep_total)
-# A tibble: 5 x 4
+# A tibble: 5 × 4
   name         sleep_rem sleep_cycle sleep_total
   <chr>            <dbl>       <dbl>       <dbl>
 1 Owl monkey         1.8       NA           17  
@@ -589,7 +589,7 @@ msleep %>%
   filter(order == "Primates", sleep_total > 10) %>%
   select(name, sleep_rem, sleep_cycle, sleep_total) %>%
   arrange(sleep_total)
-# A tibble: 5 x 4
+# A tibble: 5 × 4
   name         sleep_rem sleep_cycle sleep_total
   <chr>            <dbl>       <dbl>       <dbl>
 1 Macaque            1.2        0.75        10.1
@@ -609,7 +609,7 @@ msleep %>%
   filter(order == "Primates", sleep_total > 10) %>%
   select(name, sleep_rem, sleep_cycle, sleep_total) %>%
   arrange(desc(sleep_total))
-# A tibble: 5 x 4
+# A tibble: 5 × 4
   name         sleep_rem sleep_cycle sleep_total
   <chr>            <dbl>       <dbl>       <dbl>
 1 Owl monkey         1.8       NA           17  
@@ -631,7 +631,7 @@ msleep %>%
   filter(order == "Primates", sleep_total > 10) %>%
   select(name, sleep_rem, sleep_cycle, sleep_total) %>%
   arrange(name)
-# A tibble: 5 x 4
+# A tibble: 5 × 4
   name         sleep_rem sleep_cycle sleep_total
   <chr>            <dbl>       <dbl>       <dbl>
 1 Macaque            1.2        0.75        10.1
@@ -651,7 +651,7 @@ msleep %>%
   filter(order == "Primates", sleep_total > 10) %>%
   select(name, sleep_rem, sleep_cycle, sleep_total) %>%
   arrange(name, sleep_total)
-# A tibble: 5 x 4
+# A tibble: 5 × 4
   name         sleep_rem sleep_cycle sleep_total
   <chr>            <dbl>       <dbl>       <dbl>
 1 Macaque            1.2        0.75        10.1
@@ -674,7 +674,7 @@ msleep %>%
   select(name, sleep_rem, sleep_cycle, sleep_total) %>%
   arrange(name) %>%
   mutate(sleep_total_min = sleep_total * 60)
-# A tibble: 5 x 5
+# A tibble: 5 × 5
   name         sleep_rem sleep_cycle sleep_total sleep_total_min
   <chr>            <dbl>       <dbl>       <dbl>           <dbl>
 1 Macaque            1.2        0.75        10.1             606
@@ -700,7 +700,7 @@ conservation <- read_csv("https://raw.githubusercontent.com/suzanbaert/Dplyr_Tut
 
 ## take a look at this file
 conservation
-# A tibble: 11 x 1
+# A tibble: 11 × 1
    `conservation abbreviation`                  
    <chr>                                        
  1 EX = Extinct                                 
@@ -727,7 +727,7 @@ The `separate()` function requires the name of the existing column that you want
 conservation %>%
   separate(`conservation abbreviation`, 
            into = c("abbreviation", "description"), sep = " = ")
-# A tibble: 11 x 2
+# A tibble: 11 × 2
    abbreviation description                            
    <chr>        <chr>                                  
  1 EX           Extinct                                
@@ -757,7 +757,7 @@ conservation %>%
   separate(`conservation abbreviation`, 
            into = c("abbreviation", "description"), sep = " = ") %>%
   unite(united_col, abbreviation, description, sep = " = ")
-# A tibble: 11 x 1
+# A tibble: 11 × 1
    united_col                                   
    <chr>                                        
  1 EX = Extinct                                 
@@ -788,7 +788,7 @@ And now with "clean names" it looks like this:
 ```r
 conservation %>%
   clean_names()
-# A tibble: 11 x 1
+# A tibble: 11 × 1
    conservation_abbreviation                    
    <chr>                                        
  1 EX = Extinct                                 
@@ -872,7 +872,7 @@ msleep %>%
 # here we select the column called genus, any column would work
   select(genus) %>%
   summarize(N=n())
-# A tibble: 1 x 1
+# A tibble: 1 × 1
       N
   <int>
 1    83
@@ -883,7 +883,7 @@ msleep %>%
 # here we select the column called vore, any column would work
   select(vore) %>%
   summarize(N=n())
-# A tibble: 1 x 1
+# A tibble: 1 × 1
       N
   <int>
 1    83
@@ -901,7 +901,7 @@ msleep %>%
   group_by(order) %>% 
   select(order) %>%
   summarize(N=n())
-# A tibble: 19 x 2
+# A tibble: 19 × 2
    order               N
    <chr>           <int>
  1 Afrosoricida        1
@@ -940,7 +940,7 @@ msleep %>%
   group_by(order) %>% 
   select(order, sleep_total) %>%
   summarize(N=n(), mean_sleep=mean(sleep_total))
-# A tibble: 19 x 3
+# A tibble: 19 × 3
    order               N mean_sleep
    <chr>           <int>      <dbl>
  1 Afrosoricida        1      15.6 
@@ -1018,7 +1018,7 @@ We can use the tally function to get the total number of samples in a tibble or 
 ```r
 msleep %>%
   tally()
-# A tibble: 1 x 1
+# A tibble: 1 × 1
       n
   <int>
 1    83
@@ -1031,7 +1031,7 @@ msleep %>%
   # here we select the column called genus, any column would work
   select(genus) %>% 
   summarize(N=n())
-# A tibble: 1 x 1
+# A tibble: 1 × 1
       N
   <int>
 1    83
@@ -1043,7 +1043,7 @@ We can also use this function to get a sum of the values of a column (if the val
 ```r
 msleep %>%
 tally(sleep_total)
-# A tibble: 1 x 1
+# A tibble: 1 × 1
       n
   <dbl>
 1   866
@@ -1056,7 +1056,7 @@ This is the equivalent to using the `sum()` function with the `summarize()` func
 ```r
 msleep %>%
   summarize(sum_sleep_total = sum(sleep_total))
-# A tibble: 1 x 1
+# A tibble: 1 × 1
   sum_sleep_total
             <dbl>
 1             866
@@ -1130,7 +1130,7 @@ The `count()` function takes the `tally()` function a step further to determine 
 ```r
 msleep %>%
   count(vore)
-# A tibble: 5 x 2
+# A tibble: 5 × 2
   vore        n
   <chr>   <int>
 1 carni      19
@@ -1147,7 +1147,7 @@ This is the same as using group_by() with tally()
 msleep %>%
   group_by(vore) %>%
   tally()
-# A tibble: 5 x 2
+# A tibble: 5 × 2
   vore        n
   <chr>   <int>
 1 carni      19
@@ -1165,7 +1165,7 @@ This can be really useful when getting to know your data.
 ```r
 msleep %>%
   count(vore, order)
-# A tibble: 32 x 3
+# A tibble: 32 × 3
    vore  order               n
    <chr> <chr>           <int>
  1 carni Carnivora          12
@@ -1221,19 +1221,19 @@ For example, in the `msleep` dataset, if you expected to only have one mammal re
 # identify observations that match in both genus and vore
 msleep %>% 
   get_dupes(genus, vore)
-# A tibble: 10 x 12
-   genus   vore  dupe_count name       order  conservation sleep_total sleep_rem
-   <chr>   <chr>      <int> <chr>      <chr>  <chr>              <dbl>     <dbl>
- 1 Equus   herbi          2 Horse      Peris… domesticated         2.9       0.6
- 2 Equus   herbi          2 Donkey     Peris… domesticated         3.1       0.4
- 3 Panthe… carni          3 Tiger      Carni… en                  15.8      NA  
- 4 Panthe… carni          3 Jaguar     Carni… nt                  10.4      NA  
- 5 Panthe… carni          3 Lion       Carni… vu                  13.5      NA  
- 6 Spermo… herbi          3 Arctic gr… Roden… lc                  16.6      NA  
- 7 Spermo… herbi          3 Thirteen-… Roden… lc                  13.8       3.4
- 8 Spermo… herbi          3 Golden-ma… Roden… lc                  15.9       3  
- 9 Vulpes  carni          2 Arctic fox Carni… <NA>                12.5      NA  
-10 Vulpes  carni          2 Red fox    Carni… <NA>                 9.8       2.4
+# A tibble: 10 × 12
+   genus        vore  dupe_count name   order conservation sleep_total sleep_rem
+   <chr>        <chr>      <int> <chr>  <chr> <chr>              <dbl>     <dbl>
+ 1 Equus        herbi          2 Horse  Peri… domesticated         2.9       0.6
+ 2 Equus        herbi          2 Donkey Peri… domesticated         3.1       0.4
+ 3 Panthera     carni          3 Tiger  Carn… en                  15.8      NA  
+ 4 Panthera     carni          3 Jaguar Carn… nt                  10.4      NA  
+ 5 Panthera     carni          3 Lion   Carn… vu                  13.5      NA  
+ 6 Spermophilus herbi          3 Arcti… Rode… lc                  16.6      NA  
+ 7 Spermophilus herbi          3 Thirt… Rode… lc                  13.8       3.4
+ 8 Spermophilus herbi          3 Golde… Rode… lc                  15.9       3  
+ 9 Vulpes       carni          2 Arcti… Carn… <NA>                12.5      NA  
+10 Vulpes       carni          2 Red f… Carn… <NA>                 9.8       2.4
 # … with 4 more variables: sleep_cycle <dbl>, awake <dbl>, brainwt <dbl>,
 #   bodywt <dbl>
 ```
@@ -1299,7 +1299,7 @@ The `across()` function is needed to operate across the columns of a data frame.
 ```r
 airquality %>%
   summarize(across(Ozone:Temp, mean, na.rm = TRUE))
-# A tibble: 1 x 4
+# A tibble: 1 × 4
   Ozone Solar.R  Wind  Temp
   <dbl>   <dbl> <dbl> <dbl>
 1  42.1    186.  9.96  77.9
@@ -1321,7 +1321,7 @@ We can use the `across()` function in conjunction with `filter()` to achieve the
 ```r
 airquality %>%
   filter(across(Ozone:Solar.R, ~ !is.na(.)))
-# A tibble: 111 x 6
+# A tibble: 111 × 6
    Ozone Solar.R  Wind  Temp Month   Day
    <int>   <int> <dbl> <int> <int> <int>
  1    41     190   7.4    67     5     1
@@ -1346,7 +1346,7 @@ If we wanted to filter the data frame to remove rows with missing values in `Ozo
 ```r
 airquality %>%
   filter(across(Ozone:Temp, ~ !is.na(.)))
-# A tibble: 111 x 6
+# A tibble: 111 × 6
    Ozone Solar.R  Wind  Temp Month   Day
    <int>   <int> <dbl> <int> <int> <int>
  1    41     190   7.4    67     5     1
@@ -1369,7 +1369,7 @@ The `across()` function can also be used with `mutate()` if we want to apply the
 ```r
 airquality %>%
   mutate(across(Ozone:Temp, ~ replace_na(., 0)))
-# A tibble: 153 x 6
+# A tibble: 153 × 6
    Ozone Solar.R  Wind  Temp Month   Day
    <dbl>   <dbl> <dbl> <dbl> <int> <int>
  1    41     190   7.4    67     5     1
@@ -1675,7 +1675,7 @@ First, to create a new column, as we've done throughout the lessons in this cour
 flights %>% 
   select(year, month, day) %>% 
   mutate(departure = make_date(year, month, day))
-# A tibble: 336,776 x 4
+# A tibble: 336,776 × 4
     year month   day departure 
    <int> <int> <int> <date>    
  1  2013     1     1 2013-01-01
@@ -1702,7 +1702,7 @@ A similar procedure is used to create a date-time object; however, this requires
 flights %>% 
   select(year, month, day, hour, minute) %>% 
   mutate(departure = make_datetime(year, month, day, hour, minute))
-# A tibble: 336,776 x 6
+# A tibble: 336,776 × 6
     year month   day  hour minute departure          
    <int> <int> <int> <dbl>  <dbl> <dttm>             
  1  2013     1     1     5     15 2013-01-01 05:15:00
@@ -1761,11 +1761,11 @@ mydate <- ymd("1988-09-29")
 ## subtract birthday from todays date
 age <- today() - mydate
 age
-Time difference of 11914 days
+Time difference of 12027 days
 
 ## a duration object can get this information in years
 as.duration(age)
-[1] "1029369600s (~32.62 years)"
+[1] "1039132800s (~32.93 years)"
 ```
 
 
@@ -2215,19 +2215,19 @@ For example, if we return to the `msleep` dataset with information about mammali
 msleep %>%
   mutate(description = glue("The {name} typically sleeps for {sleep_total * 60} minutes and is awake for {awake * 60} minutes each day.")) %>% 
   select(name, sleep_total, awake, description)
-# A tibble: 83 x 4
-   name             sleep_total awake description                               
-   <chr>                  <dbl> <dbl> <glue>                                    
- 1 Cheetah                 12.1  11.9 The Cheetah typically sleeps for 726 minu…
- 2 Owl monkey              17     7   The Owl monkey typically sleeps for 1020 …
- 3 Mountain beaver         14.4   9.6 The Mountain beaver typically sleeps for …
- 4 Greater short-t…        14.9   9.1 The Greater short-tailed shrew typically …
- 5 Cow                      4    20   The Cow typically sleeps for 240 minutes …
- 6 Three-toed sloth        14.4   9.6 The Three-toed sloth typically sleeps for…
- 7 Northern fur se…         8.7  15.3 The Northern fur seal typically sleeps fo…
- 8 Vesper mouse             7    17   The Vesper mouse typically sleeps for 420…
- 9 Dog                     10.1  13.9 The Dog typically sleeps for 606 minutes …
-10 Roe deer                 3    21   The Roe deer typically sleeps for 180 min…
+# A tibble: 83 × 4
+   name                       sleep_total awake description                     
+   <chr>                            <dbl> <dbl> <glue>                          
+ 1 Cheetah                           12.1  11.9 The Cheetah typically sleeps fo…
+ 2 Owl monkey                        17     7   The Owl monkey typically sleeps…
+ 3 Mountain beaver                   14.4   9.6 The Mountain beaver typically s…
+ 4 Greater short-tailed shrew        14.9   9.1 The Greater short-tailed shrew …
+ 5 Cow                                4    20   The Cow typically sleeps for 24…
+ 6 Three-toed sloth                  14.4   9.6 The Three-toed sloth typically …
+ 7 Northern fur seal                  8.7  15.3 The Northern fur seal typically…
+ 8 Vesper mouse                       7    17   The Vesper mouse typically slee…
+ 9 Dog                               10.1  13.9 The Dog typically sleeps for 60…
+10 Roe deer                           3    21   The Roe deer typically sleeps f…
 # … with 73 more rows
 ```
 
@@ -2279,7 +2279,7 @@ library(tibble)
 text_df <- tibble(line = 1:4, text = carrots)
 
 text_df
-# A tibble: 4 x 2
+# A tibble: 4 × 2
    line text                                        
   <int> <chr>                                       
 1     1 They say that carrots are good for your eyes
@@ -2294,7 +2294,7 @@ At this point we have a tibble with each line of the poem in a separate row. Now
 ```r
 text_df %>% 
   unnest_tokens(word, text)
-# A tibble: 33 x 2
+# A tibble: 33 × 2
     line word   
    <int> <chr>  
  1     1 they   
@@ -2332,7 +2332,7 @@ library(textdata)
 
 # see information stored in NRC lexicon
 get_sentiments('nrc')
-# A tibble: 13,901 x 2
+# A tibble: 13,901 × 2
    word        sentiment
    <chr>       <chr>    
  1 abacus      trust    
@@ -2360,7 +2360,7 @@ text_df %>%
   unnest_tokens(word, text) %>% 
   inner_join(get_sentiments('nrc'))
 Joining, by = "word"
-# A tibble: 14 x 3
+# A tibble: 14 × 3
     line word    sentiment   
    <int> <chr>   <chr>       
  1     1 good    anticipation
@@ -2390,7 +2390,7 @@ text_df %>%
   inner_join(get_sentiments('nrc')) %>%
   count(sentiment, sort = TRUE)
 Joining, by = "word"
-# A tibble: 8 x 2
+# A tibble: 8 × 2
   sentiment        n
   <chr>        <int>
 1 positive         3
@@ -2429,7 +2429,7 @@ invitation <- c("If you are a dreamer, come in,",
 invitation <- tibble(line = 1:7, text = invitation, title = "Invitation")
 
 invitation
-# A tibble: 7 x 3
+# A tibble: 7 × 3
    line text                                        title     
   <int> <chr>                                       <chr>     
 1     1 If you are a dreamer, come in,              Invitation
@@ -2457,7 +2457,7 @@ masks <- c("She had blue skin.",
 masks <- tibble(line = 1:8, text = masks, title = "Masks")
 
 masks
-# A tibble: 8 x 3
+# A tibble: 8 × 3
    line text                     title
   <int> <chr>                    <chr>
 1     1 She had blue skin.       Masks
@@ -2498,7 +2498,7 @@ total_words <- poem_words %>%
 poem_words <- left_join(poem_words, total_words)
 Joining, by = "title"
 poem_words
-# A tibble: 82 x 4
+# A tibble: 82 × 4
    title      word      n total
    <chr>      <chr> <int> <int>
  1 Invitation a         8    48
@@ -2553,7 +2553,7 @@ poem_words <- poem_words %>%
 # sort ascending
 poem_words %>%
   arrange(tf_idf)
-# A tibble: 82 x 7
+# A tibble: 82 × 7
    title      word      n total     tf   idf  tf_idf
    <chr>      <chr> <int> <int>  <dbl> <dbl>   <dbl>
  1 Carrots    for       1    33 0.0303 0     0      
@@ -2576,7 +2576,7 @@ If we sort this output in ascending order by `tf_idf`, you'll notice that the wo
 # sort descending
 poem_words %>%
   arrange(desc(tf_idf))
-# A tibble: 82 x 7
+# A tibble: 82 × 7
    title      word      n total     tf   idf tf_idf
    <chr>      <chr> <int> <int>  <dbl> <dbl>  <dbl>
  1 Invitation a         8    48 0.167   1.10 0.183 
@@ -2636,7 +2636,7 @@ Let's use an example to demonstrate what we mean by this. What if you had a data
 # see dataset
 trees <- as_tibble(trees)
 trees
-# A tibble: 31 x 3
+# A tibble: 31 × 3
    Girth Height Volume
    <dbl>  <dbl>  <dbl>
  1   8.3     70   10.3
@@ -2794,7 +2794,7 @@ There are also the variations `map_df`, `map_dfr` and `map_dfc`, which will crea
 ```r
 # use map_dfr to calculate mean and create a dataframe
 map_dfr(trees, mean, na.rm = TRUE)
-# A tibble: 1 x 3
+# A tibble: 1 × 3
   Girth Height Volume
   <dbl>  <dbl>  <dbl>
 1  13.2     76   30.2
@@ -2868,7 +2868,7 @@ Additionally, the `map` functions work well within our `dplyr` approach to worki
 trees %>%
   mutate(volume_cylinder = map2_dbl(trees$Girth, trees$Height, volume),
          volume_diff = Volume - volume_cylinder)
-# A tibble: 31 x 5
+# A tibble: 31 × 5
    Girth Height Volume volume_cylinder volume_diff
    <dbl>  <dbl>  <dbl>           <dbl>       <dbl>
  1   8.3     70   10.3            26.3       -16.0
@@ -2999,7 +2999,7 @@ share <- df %>%
 
 ```r
 share
-# A tibble: 34 x 4
+# A tibble: 34 × 4
 # Groups:   Year [34]
     Year Sex       n    freq
    <dbl> <chr> <int>   <dbl>
@@ -3090,7 +3090,7 @@ Let's remind ourselves before we get to wrangling what data we have when it come
 
 ```r
 coverage
-# A tibble: 52 x 29
+# A tibble: 52 × 29
    Location  `2013__Employer` `2013__Non-Grou… `2013__Medicaid` `2013__Medicare`
    <chr>                <dbl>            <dbl>            <dbl>            <dbl>
  1 United S…        155696900         13816000         54919100         40876300
@@ -3109,9 +3109,7 @@ coverage
 #   2014__Other Public <chr>, 2014__Uninsured <dbl>, 2014__Total <dbl>,
 #   2015__Employer <dbl>, 2015__Non-Group <dbl>, 2015__Medicaid <dbl>,
 #   2015__Medicare <dbl>, 2015__Other Public <chr>, 2015__Uninsured <dbl>,
-#   2015__Total <dbl>, 2016__Employer <dbl>, 2016__Non-Group <dbl>,
-#   2016__Medicaid <dbl>, 2016__Medicare <dbl>, 2016__Other Public <chr>,
-#   2016__Uninsured <dbl>, 2016__Total <dbl>
+#   2015__Total <dbl>, 2016__Employer <dbl>, 2016__Non-Group <dbl>, …
 ```
 
 At a glance, we see that state-level information is stored in rows (with the exception of the first row, which stores country-level information) with columns corresponding to the amount of money spent on each type of health care, by year. 
@@ -3151,7 +3149,7 @@ state_data <- tibble(Location = state.name,
                      abb = state.abb,
                      region = state.region)
 state_data
-# A tibble: 51 x 3
+# A tibble: 51 × 3
    Location    abb   region   
    <chr>       <chr> <fct>    
  1 Alabama     AL    South    
@@ -3210,7 +3208,7 @@ Warning in mask$eval_all_mutate(quo): NAs introduced by coercion
 
 Warning in mask$eval_all_mutate(quo): NAs introduced by coercion
 coverage
-# A tibble: 1,456 x 3
+# A tibble: 1,456 × 3
    Location      year_type          tot_coverage
    <chr>         <chr>                     <int>
  1 United States 2013__Employer        155696900
@@ -3238,7 +3236,7 @@ coverage <- coverage %>%
            convert = TRUE)
 
 coverage
-# A tibble: 1,456 x 4
+# A tibble: 1,456 × 4
    Location       year type         tot_coverage
    <chr>         <int> <chr>               <int>
  1 United States  2013 Employer        155696900
@@ -3264,7 +3262,7 @@ coverage <- coverage %>%
   left_join(state_data, by = "Location")
 
 coverage
-# A tibble: 1,456 x 6
+# A tibble: 1,456 × 6
    Location       year type         tot_coverage abb   region
    <chr>         <int> <chr>               <int> <chr> <fct> 
  1 United States  2013 Employer        155696900 <NA>  <NA>  
@@ -3289,7 +3287,7 @@ We'll have to take a similar approach when it comes to tidying the spending data
 
 ```r
 spending
-# A tibble: 52 x 25
+# A tibble: 52 × 25
    Location  `1991__Total He… `1992__Total He… `1993__Total He… `1994__Total He…
    <chr>                <dbl>            <dbl>            <dbl>            <dbl>
  1 United S…           675896           731455           778684           820172
@@ -3308,11 +3306,7 @@ spending
 #   1999__Total Health Spending <dbl>, 2000__Total Health Spending <dbl>,
 #   2001__Total Health Spending <dbl>, 2002__Total Health Spending <dbl>,
 #   2003__Total Health Spending <dbl>, 2004__Total Health Spending <dbl>,
-#   2005__Total Health Spending <dbl>, 2006__Total Health Spending <dbl>,
-#   2007__Total Health Spending <dbl>, 2008__Total Health Spending <dbl>,
-#   2009__Total Health Spending <dbl>, 2010__Total Health Spending <dbl>,
-#   2011__Total Health Spending <dbl>, 2012__Total Health Spending <dbl>,
-#   2013__Total Health Spending <dbl>, 2014__Total Health Spending <dbl>
+#   2005__Total Health Spending <dbl>, 2006__Total Health Spending <dbl>, …
 ```
 
 Here, we reshape the data using `year` and `tot_spending` for the key and value. We also want to keep `Location` like before. Then, in the `separate()` function, we create two new columns called `year` and `name.` Then, we ask to return all the columns, *except* name. To select all the columns except a specific column, use the `-` (subtraction) operator. (This process is also referred to as negative indexing.)
@@ -3334,7 +3328,7 @@ spending <- spending %>%
 
 # look at the data
 spending
-# A tibble: 1,248 x 3
+# A tibble: 1,248 × 3
    Location       year tot_spending
    <chr>         <int>        <dbl>
  1 United States  1991       675896
@@ -3366,7 +3360,7 @@ hc <- inner_join(coverage, spending,
                  by = c("Location", "year"))
 
 hc
-# A tibble: 728 x 7
+# A tibble: 728 × 7
    Location       year type         tot_coverage abb   region tot_spending
    <chr>         <int> <chr>               <int> <chr> <fct>         <dbl>
  1 United States  2013 Employer        155696900 <NA>  <NA>        2435624
@@ -3412,7 +3406,7 @@ pop <- hc %>%
   select(Location, year, tot_coverage)
 
 pop
-# A tibble: 102 x 3
+# A tibble: 102 × 3
    Location    year tot_coverage
    <chr>      <int>        <int>
  1 Alabama     2013      4763900
@@ -3440,7 +3434,7 @@ hc <- hc %>%
          tot_pop = tot_coverage.y)
 
 hc
-# A tibble: 612 x 8
+# A tibble: 612 × 8
    Location  year type         tot_coverage abb   region tot_spending tot_pop
    <chr>    <int> <chr>               <int> <chr> <fct>         <dbl>   <int>
  1 Alabama   2013 Employer          2126500 AL    South         33788 4763900
@@ -3465,7 +3459,7 @@ hc <- hc %>%
     mutate(prop_coverage = tot_coverage/tot_pop) 
 
 hc
-# A tibble: 612 x 9
+# A tibble: 612 × 9
    Location  year type         tot_coverage abb   region tot_spending tot_pop
    <chr>    <int> <chr>               <int> <chr> <fct>         <dbl>   <int>
  1 Alabama   2013 Employer          2126500 AL    South         33788 4763900
@@ -3490,7 +3484,7 @@ hc <- hc %>%
   mutate(spending_capita = (tot_spending*1e6) / tot_pop)
 
 hc
-# A tibble: 612 x 10
+# A tibble: 612 × 10
    Location  year type         tot_coverage abb   region tot_spending tot_pop
    <chr>    <int> <chr>               <int> <chr> <fct>         <dbl>   <int>
  1 Alabama   2013 Employer          2126500 AL    South         33788 4763900
@@ -3527,7 +3521,7 @@ Let's take a look at the raw data to remind ourselves of what information we hav
 
 ```r
 census
-# A tibble: 236,844 x 19
+# A tibble: 236,844 × 19
    SUMLEV REGION DIVISION STATE NAME      SEX ORIGIN  RACE   AGE CENSUS2010POP
    <chr>   <dbl>    <dbl> <chr> <chr>   <dbl>  <dbl> <dbl> <dbl>         <dbl>
  1 040         3        6 01    Alabama     0      0     1     0         37991
@@ -3608,7 +3602,7 @@ census_stats$total_pop <- census %>%
 census_stats$NAME <- tolower(census_stats$NAME)
 
 census_stats
-# A tibble: 51 x 6
+# A tibble: 51 × 6
    NAME                 white black hispanic  male total_pop
    <chr>                <dbl> <dbl>    <dbl> <dbl>     <dbl>
  1 alabama               69.5 26.7      4.13  48.5   4850858
@@ -3636,7 +3630,7 @@ age_stats <- census %>%
 `summarise()` has grouped output by 'NAME'. You can override using the `.groups` argument.
 
 age_stats
-# A tibble: 4,386 x 3
+# A tibble: 4,386 × 3
 # Groups:   NAME [51]
    NAME      AGE sum_ages
    <chr>   <dbl>    <dbl>
@@ -3662,7 +3656,7 @@ age_stats <- age_stats %>%
               values_from = "sum_ages")
   
 age_stats
-# A tibble: 86 x 52
+# A tibble: 86 × 52
      AGE Alabama Alaska Arizona Arkansas California Colorado Connecticut
    <dbl>   <dbl>  <dbl>   <dbl>    <dbl>      <dbl>    <dbl>       <dbl>
  1     0   59080  11253   86653    38453     500834    66222       36414
@@ -3681,12 +3675,7 @@ age_stats
 #   Kentucky <dbl>, Louisiana <dbl>, Maine <dbl>, Maryland <dbl>,
 #   Massachusetts <dbl>, Michigan <dbl>, Minnesota <dbl>, Mississippi <dbl>,
 #   Missouri <dbl>, Montana <dbl>, Nebraska <dbl>, Nevada <dbl>,
-#   New Hampshire <dbl>, New Jersey <dbl>, New Mexico <dbl>, New York <dbl>,
-#   North Carolina <dbl>, North Dakota <dbl>, Ohio <dbl>, Oklahoma <dbl>,
-#   Oregon <dbl>, Pennsylvania <dbl>, Rhode Island <dbl>, South Carolina <dbl>,
-#   South Dakota <dbl>, Tennessee <dbl>, Texas <dbl>, Utah <dbl>,
-#   Vermont <dbl>, Virginia <dbl>, Washington <dbl>, West Virginia <dbl>,
-#   Wisconsin <dbl>, Wyoming <dbl>
+#   New Hampshire <dbl>, New Jersey <dbl>, New Mexico <dbl>, New York <dbl>, …
 ```
 
 Now that we’ve made the data easier to work with, we need to find a way to get the median. One method is to take the cumulative sum of each column and then divide all the rows by the last row in each respective column, calculating a percentile/quantile for each age. To do this, we first remove the AGE column, as we don't want to calculate the median for this column. We then apply the `cumsum()` function and an anonymous function using `purrr`'s `map_dfc` function. This is a special variation of the `map()` function that returns a dataframe instead of a list by combining the data by column. But, of course, we do still want the AGE information in there, so we add that column back in using `mutate()` and then reorder the columns so that AGE is at the front again using `select()`.
@@ -3833,23 +3822,32 @@ For crime, we have the following data:
 
 ```r
 crime
-# A tibble: 510 x 14
-   State  Area       ...3      Population  `Violent\ncrime… `Murder and \nnonne…
-   <chr>  <chr>      <chr>     <chr>                  <dbl>                <dbl>
- 1 ALABA… Metropoli… <NA>      3708033                   NA                   NA
- 2 <NA>   <NA>       Area act… 0.97099999…            18122                  283
- 3 <NA>   <NA>       Estimate… 1                      18500                  287
- 4 <NA>   Cities ou… <NA>      522241                    NA                   NA
- 5 <NA>   <NA>       Area act… 0.97399999…             3178                   32
- 6 <NA>   <NA>       Estimate… 1                       3240                   33
- 7 <NA>   Nonmetrop… <NA>      628705                    NA                   NA
- 8 <NA>   <NA>       Area act… 0.99399999…             1205                   28
- 9 <NA>   <NA>       Estimate… 1                       1212                   28
-10 <NA>   State Tot… <NA>      4858979                22952                  348
-# … with 500 more rows, and 8 more variables: Rape (revised definition)2 <dbl>,
-#   Rape (legacy definition)3 <dbl>, Robbery <dbl>, Aggravated  assault <dbl>,
-#   Property  crime <dbl>, Burglary <dbl>, Larceny- theft <dbl>, Motor 
-#   vehicle  theft <dbl>
+# A tibble: 510 × 14
+   State   Area       ...3     Population  `Violent\ncrime… `Murder and \nnonne…
+   <chr>   <chr>      <chr>    <chr>                  <dbl>                <dbl>
+ 1 ALABAMA Metropoli… <NA>     3708033                   NA                   NA
+ 2 <NA>    <NA>       Area ac… 0.97099999…            18122                  283
+ 3 <NA>    <NA>       Estimat… 1                      18500                  287
+ 4 <NA>    Cities ou… <NA>     522241                    NA                   NA
+ 5 <NA>    <NA>       Area ac… 0.97399999…             3178                   32
+ 6 <NA>    <NA>       Estimat… 1                       3240                   33
+ 7 <NA>    Nonmetrop… <NA>     628705                    NA                   NA
+ 8 <NA>    <NA>       Area ac… 0.99399999…             1205                   28
+ 9 <NA>    <NA>       Estimat… 1                       1212                   28
+10 <NA>    State Tot… <NA>     4858979                22952                  348
+# … with 500 more rows, and 8 more variables: Rape
+(revised
+definition)2 <dbl>,
+#   Rape
+(legacy
+definition)3 <dbl>, Robbery <dbl>, Aggravated 
+assault <dbl>,
+#   Property 
+crime <dbl>, Burglary <dbl>, Larceny-
+theft <dbl>,
+#   Motor 
+vehicle 
+theft <dbl>
 ```
 
 If we take a look at what information is stored in each column...
@@ -3883,7 +3881,7 @@ violentcrime <- crime %>%
   select(c(1,3,5))
 
 violentcrime
-# A tibble: 510 x 3
+# A tibble: 510 × 3
    State   ...3                    `Violent\ncrime1`
    <chr>   <chr>                               <dbl>
  1 ALABAMA <NA>                                   NA
@@ -3912,7 +3910,7 @@ violentcrime <- violentcrime %>%
   select(-`...3`)
   
 violentcrime
-# A tibble: 52 x 2
+# A tibble: 52 × 2
    State                 violent_crime
    <chr>                         <dbl>
  1 ALABAMA                        472.
@@ -3945,7 +3943,7 @@ violentcrime <- violentcrime %>%
   mutate(State = tolower(gsub('[0-9]+', '', State)))
 
 violentcrime
-# A tibble: 52 x 2
+# A tibble: 52 × 2
    State                violent_crime
    <chr>                        <dbl>
  1 alabama                       472.
@@ -3970,7 +3968,7 @@ firearms <- left_join(census_stats, violentcrime,
                   by = c("NAME" = "State"))
 
 firearms
-# A tibble: 51 x 7
+# A tibble: 51 × 7
    NAME                 white black hispanic  male total_pop violent_crime
    <chr>                <dbl> <dbl>    <dbl> <dbl>     <dbl>         <dbl>
  1 alabama               69.5 26.7      4.13  48.5   4850858          472.
@@ -3996,7 +3994,7 @@ For the purpose of practice and simplification we will just keep the first line 
 
 ```r
 brady
-# A tibble: 116 x 54
+# A tibble: 116 × 54
    `States can recei… `Category Point… `Sub Category P… Points AL    AK    AR   
    <chr>                         <dbl>            <dbl>  <dbl> <chr> <chr> <chr>
  1 TOTAL STATE POINTS               NA               NA     NA -18   -30   -24  
@@ -4015,8 +4013,7 @@ brady
 #   ME <chr>, MI <chr>, MN <chr>, MO <chr>, MT <chr>, MS <chr>, NC <chr>,
 #   ND <chr>, NE <chr>, NH <chr>, NJ <chr>, NM <chr>, NV <chr>, NY <chr>,
 #   OK <chr>, OH <chr>, OR <chr>, PA <chr>, RI <chr>, SC <chr>, SD <chr>,
-#   TN <chr>, TX <chr>, UT <chr>, VA <chr>, VT <chr>, WA <chr>, WI <chr>,
-#   WV <chr>, WY <chr>
+#   TN <chr>, TX <chr>, UT <chr>, VA <chr>, VT <chr>, WA <chr>, WI <chr>, …
 ```
 
 This dataset includes a lot of information, but we're interested in the brady scores for each state. These are stored in the row where the first column is equal to "TOTAL STATE POINTS," so we `filter()` to only include that row. We then want to only receive the scores for each state, and not the information in the first few columns, so we specify that using `select()`. With the information we're interested in, we then take the data from wide to long using `pivot_longer()`, renaming the columns as we go. Finally, we specify that the information in the `brady_scores` column is numeric, not a character.
@@ -4033,7 +4030,7 @@ brady <- brady %>%
   mutate_at("brady_scores", as.numeric)
 
 brady
-# A tibble: 50 x 2
+# A tibble: 50 × 2
    state brady_scores
    <chr>        <dbl>
  1 AL           -18  
@@ -4061,7 +4058,7 @@ brady <- brady %>%
   mutate(state = tolower(state))
 
 brady
-# A tibble: 50 x 2
+# A tibble: 50 × 2
    state       brady_scores
    <chr>              <dbl>
  1 alabama            -18  
@@ -4085,19 +4082,19 @@ Now, it's time to join this information into our growing dataframe `firearms`:
 firearms <- left_join(firearms, brady, by = c("NAME" = "state"))
 
 firearms
-# A tibble: 51 x 8
-   NAME          white black hispanic  male total_pop violent_crime brady_scores
-   <chr>         <dbl> <dbl>    <dbl> <dbl>     <dbl>         <dbl>        <dbl>
- 1 alabama        69.5 26.7      4.13  48.5   4850858          472.        -18  
- 2 alaska         66.5  3.67     6.82  52.4    737979          730.        -30  
- 3 arizona        83.5  4.80    30.9   49.7   6802262          410.        -39  
- 4 arkansas       79.6 15.7      7.18  49.1   2975626          521.        -24  
- 5 california     73.0  6.49    38.7   49.7  39032444          426.         76  
- 6 colorado       87.6  4.47    21.3   50.3   5440445          321          22  
- 7 connecticut    80.9 11.6     15.3   48.8   3593862          218.         73  
- 8 delaware       70.3 22.5      8.96  48.4    944107          499          41  
- 9 district of …  44.1 48.5     10.7   47.4    672736         1269.         NA  
-10 florida        77.7 16.9     24.7   48.9  20268567          462.        -20.5
+# A tibble: 51 × 8
+   NAME                 white black hispanic  male total_pop violent_crime brady_scores
+   <chr>                <dbl> <dbl>    <dbl> <dbl>     <dbl>         <dbl>        <dbl>
+ 1 alabama               69.5 26.7      4.13  48.5   4850858          472.        -18  
+ 2 alaska                66.5  3.67     6.82  52.4    737979          730.        -30  
+ 3 arizona               83.5  4.80    30.9   49.7   6802262          410.        -39  
+ 4 arkansas              79.6 15.7      7.18  49.1   2975626          521.        -24  
+ 5 california            73.0  6.49    38.7   49.7  39032444          426.         76  
+ 6 colorado              87.6  4.47    21.3   50.3   5440445          321          22  
+ 7 connecticut           80.9 11.6     15.3   48.8   3593862          218.         73  
+ 8 delaware              70.3 22.5      8.96  48.4    944107          499          41  
+ 9 district of columbia  44.1 48.5     10.7   47.4    672736         1269.         NA  
+10 florida               77.7 16.9     24.7   48.9  20268567          462.        -20.5
 # … with 41 more rows
 ```
 
@@ -4110,19 +4107,19 @@ As a reminder, we have a datasets here with data from 2015:
 
 ```r
 counted15
-# A tibble: 1,146 x 6
-   gender raceethnicity    state classification  lawenforcementagency   armed   
-   <chr>  <chr>            <chr> <chr>           <chr>                  <chr>   
- 1 Male   Black            GA    Death in custo… Chatham County Sherif… No      
- 2 Male   White            OR    Gunshot         Washington County She… Firearm 
- 3 Male   White            HI    Struck by vehi… Kauai Police Departme… No      
- 4 Male   Hispanic/Latino  KS    Gunshot         Wichita Police Depart… No      
- 5 Male   Asian/Pacific I… WA    Gunshot         Mason County Sheriff'… Firearm 
- 6 Male   White            CA    Gunshot         San Francisco Police … Non-let…
- 7 Male   Hispanic/Latino  AZ    Gunshot         Chandler Police Depar… Firearm 
- 8 Male   Hispanic/Latino  CO    Gunshot         Evans Police Departme… Other   
- 9 Male   White            CA    Gunshot         Stockton Police Depar… Knife   
-10 Male   Black            CA    Taser           Los Angeles County Sh… No      
+# A tibble: 1,146 × 6
+   gender raceethnicity          state classification  lawenforcementage… armed 
+   <chr>  <chr>                  <chr> <chr>           <chr>              <chr> 
+ 1 Male   Black                  GA    Death in custo… Chatham County Sh… No    
+ 2 Male   White                  OR    Gunshot         Washington County… Firea…
+ 3 Male   White                  HI    Struck by vehi… Kauai Police Depa… No    
+ 4 Male   Hispanic/Latino        KS    Gunshot         Wichita Police De… No    
+ 5 Male   Asian/Pacific Islander WA    Gunshot         Mason County Sher… Firea…
+ 6 Male   White                  CA    Gunshot         San Francisco Pol… Non-l…
+ 7 Male   Hispanic/Latino        AZ    Gunshot         Chandler Police D… Firea…
+ 8 Male   Hispanic/Latino        CO    Gunshot         Evans Police Depa… Other 
+ 9 Male   White                  CA    Gunshot         Stockton Police D… Knife 
+10 Male   Black                  CA    Taser           Los Angeles Count… No    
 # … with 1,136 more rows
 ```
 
@@ -4161,7 +4158,7 @@ counted_stats <- left_join(counted_stats, gunshot_filtered, by = "state") %>%
   select(-total_pop)
 
 counted_stats
-# A tibble: 50 x 4
+# A tibble: 50 × 4
    state                gunshot_tally gunshot_filtered gunshot_rate
    <chr>                        <int>            <int>        <dbl>
  1 alabama                         18               15        1.86 
@@ -4191,7 +4188,7 @@ Let's recall the table we scraped from the web, which is currently storing our u
 
 ```r
 unemployment
-# A tibble: 54 x 3
+# A tibble: 54 × 3
    State           `2015rate` Rank 
    <chr>           <chr>      <chr>
  1 "United States" "5.3"      ""   
@@ -4219,7 +4216,7 @@ unemployment <- unemployment %>%
   arrange(state)
 
 unemployment
-# A tibble: 54 x 3
+# A tibble: 54 × 3
    state                  unemployment_rate unemployment_rank
    <chr>                  <chr>             <chr>            
  1 ""                     ""                ""               
@@ -4291,7 +4288,7 @@ totalPop <- census %>%
   mutate(NAME = tolower(NAME))
 
 totalPop
-# A tibble: 51 x 2
+# A tibble: 51 × 2
    NAME                    total
    <chr>                   <dbl>
  1 alabama               4850858
@@ -4317,7 +4314,7 @@ landSqMi <- land %>%
   mutate(Areaname = tolower(Areaname))
 
 landSqMi
-# A tibble: 3,198 x 2
+# A tibble: 3,198 × 2
    Areaname      land_area
    <chr>             <dbl>
  1 united states  3531905.
@@ -4345,7 +4342,7 @@ popdensity <- left_join(totalPop, landSqMi, by=c("NAME" = "Areaname")) %>%
   select(-c(total, land_area))
 
 popdensity
-# A tibble: 51 x 2
+# A tibble: 51 × 2
    NAME                  density
    <chr>                   <dbl>
  1 alabama                 95.8 
@@ -4378,7 +4375,7 @@ Last but not least, we calculate firearm ownership as a percent of firearm suici
 ownership_df <- as_tibble(list("NAME" = tolower(suicide_all$State), 
                           "ownership" = suicide_firearm$Deaths/suicide_all$Deaths*100))
 ownership_df
-# A tibble: 51 x 2
+# A tibble: 51 × 2
    NAME        ownership
    <chr>           <dbl>
  1 alabama          70.1

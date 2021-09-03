@@ -24,7 +24,7 @@
 <meta name="author" content="Carrie Wright, Shannon E. Ellis, Stephanie C. Hicks and Roger D. Peng" />
 
 
-<meta name="date" content="2021-05-13" />
+<meta name="date" content="2021-09-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="intro.html"/>
 <link rel="next" href="wrangle-data.html"/>
-<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="libs/header-attrs-2.9.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -537,7 +537,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Since many packages use the historical data.frame from base R, you’ll often find yourself in the situation that you have a data.frame and want to convert that data.frame to a tibble. To do so, the <code>as_tibble()</code> function is exactly what you’re looking for.</p>
 <p>For example, the <code>trees</code> dataset is a data.frame that’s available in base R. This dataset stores the diameter, height, and volume for Black Cherry Trees. To convert this data.frame to a tibble you would use the following:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="get-data.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(trees)</span></code></pre></div>
-<pre><code>## # A tibble: 31 x 3
+<pre><code>## # A tibble: 31 × 3
 ##    Girth Height Volume
 ##    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
 ##  1   8.3     70   10.3
@@ -557,7 +557,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>A second option is the fact that <code>print()</code> enables you to specify how many rows and columns you’d like to display. Here, we again display the <code>trees</code> data.frame as a tibble but specify that we’d only like to see 5 rows. The <code>width = Inf</code> argument specifies that we’d like to see all the possible columns. Here, there are only 3, but for larger datasets, this can be helpful to specify.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="get-data.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(trees) <span class="sc">%&gt;%</span> </span>
 <span id="cb9-2"><a href="get-data.html#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">5</span>, <span class="at">width =</span> <span class="cn">Inf</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 31 x 3
+<pre><code>## # A tibble: 31 × 3
 ##   Girth Height Volume
 ##   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
 ## 1   8.3     70   10.3
@@ -570,16 +570,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The <code>slice_sample()</code> function of the <code>dplyr</code> package will allow you to see a sample of random rows in random order. The number of rows to show is specified by the <code>n</code> argument. This can be useful if you don’t want to print the entire tibble, but you want to get a greater sense of the values. This is a good option for data analysis reports, where printing the entire tibble would not be appropriate if the tibble is quite large.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="get-data.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_sample</span>(trees, <span class="at">n =</span> <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##    Girth Height Volume
-## 1   12.9     85   33.8
-## 2   14.5     74   36.3
+## 1   16.3     77   42.6
+## 2   14.0     78   34.5
 ## 3   13.8     64   24.9
-## 4   10.5     72   16.4
-## 5   11.0     75   18.2
-## 6   11.1     80   22.6
-## 7   11.4     76   21.0
-## 8   14.2     80   31.7
-## 9   18.0     80   51.5
-## 10  11.3     79   24.2</code></pre>
+## 4   10.8     83   19.7
+## 5    8.8     63   10.2
+## 6   17.5     82   55.7
+## 7    8.3     70   10.3
+## 8   11.4     76   21.4
+## 9   10.7     81   18.8
+## 10  10.5     72   16.4</code></pre>
 <p>You can also use <code>slice_head()</code> or <code>slice_tail()</code> to take a look at the top rows or bottom rows of your tibble. Again the number of rows can be specified with the n argument.</p>
 <p>This will show the first 5 rows.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="get-data.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_head</span>(trees, <span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div>
@@ -608,7 +608,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb17-4"><a href="get-data.html#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">c =</span> <span class="dv">1</span>,</span>
 <span id="cb17-5"><a href="get-data.html#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">z =</span> (a <span class="sc">+</span> b)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> c</span>
 <span id="cb17-6"><a href="get-data.html#cb17-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>## # A tibble: 5 x 4
+<pre><code>## # A tibble: 5 × 4
 ##       a     b     c     z
 ##   &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1     1     6     1    50
@@ -623,7 +623,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb19-3"><a href="get-data.html#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">12</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;numeric&quot;</span>,</span>
 <span id="cb19-4"><a href="get-data.html#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">:)</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;smile&quot;</span>,</span>
 <span id="cb19-5"><a href="get-data.html#cb19-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>## # A tibble: 5 x 3
+<pre><code>## # A tibble: 5 × 3
 ##   `two words` `12`    `:)` 
 ##         &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;
 ## 1           1 numeric smile
@@ -673,7 +673,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb29-2"><a href="get-data.html#cb29-2" aria-hidden="true" tabindex="-1"></a>example <span class="ot">&lt;-</span> <span class="fu">readxl_example</span>(<span class="st">&quot;datasets.xlsx&quot;</span>)</span>
 <span id="cb29-3"><a href="get-data.html#cb29-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(example)</span>
 <span id="cb29-4"><a href="get-data.html#cb29-4" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
-<pre><code>## # A tibble: 150 x 5
+<pre><code>## # A tibble: 150 × 5
 ##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  
 ##  1          5.1         3.5          1.4         0.2 setosa 
@@ -697,7 +697,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>For example, we are able to change the column names directly by passing a character string to the <code>col_names</code> argument:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="get-data.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># specify column names on import</span></span>
 <span id="cb31-2"><a href="get-data.html#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read_excel</span>(example, <span class="at">col_names =</span> LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span></code></pre></div>
-<pre><code>## # A tibble: 151 x 5
+<pre><code>## # A tibble: 151 × 5
 ##    A            B           C            D           E      
 ##    &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;  
 ##  1 Sepal.Length Sepal.Width Petal.Length Petal.Width Species
@@ -719,12 +719,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb33-4"><a href="get-data.html#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">range =</span> <span class="st">&quot;arts!A5:F8&quot;</span>,</span>
 <span id="cb33-5"><a href="get-data.html#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">.name_repair =</span> <span class="st">&quot;unique&quot;</span></span>
 <span id="cb33-6"><a href="get-data.html#cb33-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>## # A tibble: 3 x 6
-##   Name       Profession   Age `Has kids` `Date of birth`     `Date of death`    
-##   &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt; &lt;lgl&gt;      &lt;dttm&gt;              &lt;dttm&gt;             
-## 1 David Bow… musician      69 TRUE       1947-01-08 00:00:00 2016-01-10 00:00:00
-## 2 Carrie Fi… actor         60 TRUE       1956-10-21 00:00:00 2016-12-27 00:00:00
-## 3 Chuck Ber… musician      90 TRUE       1926-10-18 00:00:00 2017-03-18 00:00:00</code></pre>
+<pre><code>## # A tibble: 3 × 6
+##   Name          Profession   Age `Has kids` `Date of birth`     `Date of death`    
+##   &lt;chr&gt;         &lt;chr&gt;      &lt;dbl&gt; &lt;lgl&gt;      &lt;dttm&gt;              &lt;dttm&gt;             
+## 1 David Bowie   musician      69 TRUE       1947-01-08 00:00:00 2016-01-10 00:00:00
+## 2 Carrie Fisher actor         60 TRUE       1956-10-21 00:00:00 2016-12-27 00:00:00
+## 3 Chuck Berry   musician      90 TRUE       1926-10-18 00:00:00 2017-03-18 00:00:00</code></pre>
 <p>Another option for this argument is <code>.name_repair = "universal"</code>. This ensures that column names don’t contain any forbidden characters or reserved words. It’s often a good idea to use this option if you plan to use these data with other packages downstream. This ensures that all the column names will work, regardless of the R package being used.</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="get-data.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># require use of universal naming conventions</span></span>
 <span id="cb35-2"><a href="get-data.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read_excel</span>(</span>
@@ -736,12 +736,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## * `Has kids` -&gt; Has.kids
 ## * `Date of birth` -&gt; Date.of.birth
 ## * `Date of death` -&gt; Date.of.death</code></pre>
-<pre><code>## # A tibble: 3 x 6
-##   Name         Profession   Age Has.kids Date.of.birth       Date.of.death      
-##   &lt;chr&gt;        &lt;chr&gt;      &lt;dbl&gt; &lt;lgl&gt;    &lt;dttm&gt;              &lt;dttm&gt;             
-## 1 David Bowie  musician      69 TRUE     1947-01-08 00:00:00 2016-01-10 00:00:00
-## 2 Carrie Fish… actor         60 TRUE     1956-10-21 00:00:00 2016-12-27 00:00:00
-## 3 Chuck Berry  musician      90 TRUE     1926-10-18 00:00:00 2017-03-18 00:00:00</code></pre>
+<pre><code>## # A tibble: 3 × 6
+##   Name          Profession   Age Has.kids Date.of.birth       Date.of.death      
+##   &lt;chr&gt;         &lt;chr&gt;      &lt;dbl&gt; &lt;lgl&gt;    &lt;dttm&gt;              &lt;dttm&gt;             
+## 1 David Bowie   musician      69 TRUE     1947-01-08 00:00:00 2016-01-10 00:00:00
+## 2 Carrie Fisher actor         60 TRUE     1956-10-21 00:00:00 2016-12-27 00:00:00
+## 3 Chuck Berry   musician      90 TRUE     1926-10-18 00:00:00 2017-03-18 00:00:00</code></pre>
 <p>Note that when using <code>.name_repair = "universal"</code>, you’ll get a readout about which column names have been changed. Here you see that column names with a space in them have been changed to periods for word separation.</p>
 <p>Aside from these options, functions can be passed to <code>.name_repair</code>. For example, if you want all of your column names to be uppercase, you would use the following:</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="get-data.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pass function for column naming</span></span>
@@ -750,12 +750,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb38-4"><a href="get-data.html#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">range =</span> <span class="st">&quot;arts!A5:F8&quot;</span>,</span>
 <span id="cb38-5"><a href="get-data.html#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">.name_repair =</span> toupper</span>
 <span id="cb38-6"><a href="get-data.html#cb38-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>## # A tibble: 3 x 6
-##   NAME       PROFESSION   AGE `HAS KIDS` `DATE OF BIRTH`     `DATE OF DEATH`    
-##   &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt; &lt;lgl&gt;      &lt;dttm&gt;              &lt;dttm&gt;             
-## 1 David Bow… musician      69 TRUE       1947-01-08 00:00:00 2016-01-10 00:00:00
-## 2 Carrie Fi… actor         60 TRUE       1956-10-21 00:00:00 2016-12-27 00:00:00
-## 3 Chuck Ber… musician      90 TRUE       1926-10-18 00:00:00 2017-03-18 00:00:00</code></pre>
+<pre><code>## # A tibble: 3 × 6
+##   NAME          PROFESSION   AGE `HAS KIDS` `DATE OF BIRTH`     `DATE OF DEATH`    
+##   &lt;chr&gt;         &lt;chr&gt;      &lt;dbl&gt; &lt;lgl&gt;      &lt;dttm&gt;              &lt;dttm&gt;             
+## 1 David Bowie   musician      69 TRUE       1947-01-08 00:00:00 2016-01-10 00:00:00
+## 2 Carrie Fisher actor         60 TRUE       1956-10-21 00:00:00 2016-12-27 00:00:00
+## 3 Chuck Berry   musician      90 TRUE       1926-10-18 00:00:00 2017-03-18 00:00:00</code></pre>
 <p>Notice that the function is passed directly to the argument. It does not have quotes around it, as we want this to be interpreted as the <code>toupper()</code> function.</p>
 <p>Here we’ve really only focused on a single function (<code>read_excel()</code>) from the <code>readxl</code> package. This is because some of the best packages do a single thing and do that single thing well. The <code>readxl</code> package has a single, slick function that covers most of what you’ll need when reading in files from Excel. That is not to say that the package doesn’t have other useful functions (it does!), but this function will cover your needs most of the time.</p>
 </div>
@@ -1123,7 +1123,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb59-3"><a href="get-data.html#cb59-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb59-4"><a href="get-data.html#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="do">## look at output as a tibble</span></span>
 <span id="cb59-5"><a href="get-data.html#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(inner)</span></code></pre></div>
-<pre><code>## # A tibble: 347 x 4
+<pre><code>## # A tibble: 347 × 4
 ##    ArtistId Name                 AlbumId Title                                
 ##       &lt;int&gt; &lt;chr&gt;                  &lt;int&gt; &lt;chr&gt;                                
 ##  1        1 AC/DC                      1 For Those About To Rock We Salute You
@@ -1157,7 +1157,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb61-3"><a href="get-data.html#cb61-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb61-4"><a href="get-data.html#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="do">## look at output as a tibble</span></span>
 <span id="cb61-5"><a href="get-data.html#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(left)</span></code></pre></div>
-<pre><code>## # A tibble: 418 x 4
+<pre><code>## # A tibble: 418 × 4
 ##    ArtistId Name                 AlbumId Title                                
 ##       &lt;int&gt; &lt;chr&gt;                  &lt;int&gt; &lt;chr&gt;                                
 ##  1        1 AC/DC                      1 For Those About To Rock We Salute You
@@ -1191,7 +1191,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb63-3"><a href="get-data.html#cb63-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb63-4"><a href="get-data.html#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="do">## look at output as a tibble</span></span>
 <span id="cb63-5"><a href="get-data.html#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(right)</span></code></pre></div>
-<pre><code>## # A tibble: 347 x 4
+<pre><code>## # A tibble: 347 × 4
 ##    ArtistId Name                 AlbumId Title                                
 ##       &lt;int&gt; &lt;chr&gt;                  &lt;int&gt; &lt;chr&gt;                                
 ##  1        1 AC/DC                      1 For Those About To Rock We Salute You
@@ -1225,7 +1225,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb65-3"><a href="get-data.html#cb65-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb65-4"><a href="get-data.html#cb65-4" aria-hidden="true" tabindex="-1"></a><span class="do">## look at output as a tibble</span></span>
 <span id="cb65-5"><a href="get-data.html#cb65-5" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(full)</span></code></pre></div>
-<pre><code>## # A tibble: 418 x 4
+<pre><code>## # A tibble: 418 × 4
 ##    ArtistId Name                 AlbumId Title                                
 ##       &lt;int&gt; &lt;chr&gt;                  &lt;int&gt; &lt;chr&gt;                                
 ##  1        1 AC/DC                      1 For Those About To Rock We Salute You
@@ -1454,18 +1454,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb79-4"><a href="get-data.html#cb79-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">address =</span> x<span class="sc">$</span>html_url)}) <span class="sc">%&gt;%</span> </span>
 <span id="cb79-5"><a href="get-data.html#cb79-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span></code></pre></div>
 <pre><code>## Warning: `data_frame()` was deprecated in tibble 1.1.0.
-## Please use `tibble()` instead.</code></pre>
-<pre><code>## # A tibble: 8 x 2
-##   repo                       address                                            
-##   &lt;chr&gt;                      &lt;chr&gt;                                              
-## 1 cbds                       https://github.com/JaneEverydayDoe/cbds            
-## 2 first_project              https://github.com/JaneEverydayDoe/first_project   
-## 3 gcd                        https://github.com/JaneEverydayDoe/gcd             
-## 4 hello-world                https://github.com/JaneEverydayDoe/hello-world     
-## 5 janeeverydaydoe.github.com https://github.com/JaneEverydayDoe/janeeverydaydoe…
-## 6 my_first_project           https://github.com/JaneEverydayDoe/my_first_project
-## 7 newproject                 https://github.com/JaneEverydayDoe/newproject      
-## 8 Temporary_add_to_version_… https://github.com/JaneEverydayDoe/Temporary_add_t…</code></pre>
+## Please use `tibble()` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.</code></pre>
+<pre><code>## # A tibble: 8 × 2
+##   repo                             address                                      
+##   &lt;chr&gt;                            &lt;chr&gt;                                        
+## 1 cbds                             https://github.com/JaneEverydayDoe/cbds      
+## 2 first_project                    https://github.com/JaneEverydayDoe/first_pro…
+## 3 gcd                              https://github.com/JaneEverydayDoe/gcd       
+## 4 hello-world                      https://github.com/JaneEverydayDoe/hello-wor…
+## 5 janeeverydaydoe.github.com       https://github.com/JaneEverydayDoe/janeevery…
+## 6 my_first_project                 https://github.com/JaneEverydayDoe/my_first_…
+## 7 newproject                       https://github.com/JaneEverydayDoe/newproject
+## 8 Temporary_add_to_version_control https://github.com/JaneEverydayDoe/Temporary…</code></pre>
 <div class="figure">
 <img src="images/gslides/078.png" alt="" />
 <p class="caption">output from API request</p>
@@ -1528,7 +1530,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb85-6"><a href="get-data.html#cb85-6" aria-hidden="true" tabindex="-1"></a><span class="co"># read_sas() reads .sas7bdat and .sas7bcat files </span></span>
 <span id="cb85-7"><a href="get-data.html#cb85-7" aria-hidden="true" tabindex="-1"></a>sas_mydf <span class="ot">&lt;-</span><span class="fu">read_sas</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;mydf.sas7bdat&quot;</span>)) </span>
 <span id="cb85-8"><a href="get-data.html#cb85-8" aria-hidden="true" tabindex="-1"></a>sas_mydf</span></code></pre></div>
-<pre><code>## # A tibble: 3 x 3
+<pre><code>## # A tibble: 3 × 3
 ##   Name             Age Occupation  
 ##   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;       
 ## 1 Woody             40 Sherriff    
@@ -1541,7 +1543,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb88-3"><a href="get-data.html#cb88-3" aria-hidden="true" tabindex="-1"></a><span class="co"># use to read_sav() to read .sav files</span></span>
 <span id="cb88-4"><a href="get-data.html#cb88-4" aria-hidden="true" tabindex="-1"></a>sav_mydf <span class="ot">&lt;-</span><span class="fu">read_sav</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;mydf.sav&quot;</span>))</span>
 <span id="cb88-5"><a href="get-data.html#cb88-5" aria-hidden="true" tabindex="-1"></a>sav_mydf</span></code></pre></div>
-<pre><code>## # A tibble: 3 x 3
+<pre><code>## # A tibble: 3 × 3
 ##   Name             Age Occupation  
 ##   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;       
 ## 1 Woody             40 Sherriff    
@@ -1554,7 +1556,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb91-3"><a href="get-data.html#cb91-3" aria-hidden="true" tabindex="-1"></a><span class="co"># use to read_dta() to read .dta files </span></span>
 <span id="cb91-4"><a href="get-data.html#cb91-4" aria-hidden="true" tabindex="-1"></a>dta_mydf <span class="ot">&lt;-</span><span class="fu">read_dta</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;mydf.dta&quot;</span>))</span>
 <span id="cb91-5"><a href="get-data.html#cb91-5" aria-hidden="true" tabindex="-1"></a>dta_mydf</span></code></pre></div>
-<pre><code>## # A tibble: 3 x 3
+<pre><code>## # A tibble: 3 × 3
 ##   Name             Age Occupation  
 ##   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;       
 ## 1 Woody             40 Sherriff    
@@ -1594,29 +1596,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb93-2"><a href="get-data.html#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;magick&quot;)</span></span>
 <span id="cb93-3"><a href="get-data.html#cb93-3" aria-hidden="true" tabindex="-1"></a><span class="co"># load package</span></span>
 <span id="cb93-4"><a href="get-data.html#cb93-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magick)</span></code></pre></div>
-<pre><code>## Linking to ImageMagick 7.0.11.10
-## Enabled features: freetype, ghostscript, heic, lcms, webp
-## Disabled features: cairo, fontconfig, fftw, pango, raw, rsvg, x11</code></pre>
-<pre><code>## Using 16 threads</code></pre>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="get-data.html#cb96-1" aria-hidden="true" tabindex="-1"></a>img1 <span class="ot">&lt;-</span> <span class="fu">image_read</span>(<span class="st">&quot;https://ggplot2.tidyverse.org/logo.png&quot;</span>)</span>
-<span id="cb96-2"><a href="get-data.html#cb96-2" aria-hidden="true" tabindex="-1"></a>img2 <span class="ot">&lt;-</span> <span class="fu">image_read</span>(<span class="st">&quot;https://pbs.twimg.com/media/D5bccHZWkAQuPqS.png&quot;</span>)</span>
-<span id="cb96-3"><a href="get-data.html#cb96-3" aria-hidden="true" tabindex="-1"></a><span class="co">#show the image</span></span>
-<span id="cb96-4"><a href="get-data.html#cb96-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(img1)</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 7
+<pre><code>## Linking to ImageMagick 6.9.12.3
+## Enabled features: cairo, fontconfig, freetype, heic, lcms, pango, raw, rsvg, webp
+## Disabled features: fftw, ghostscript, x11</code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="get-data.html#cb95-1" aria-hidden="true" tabindex="-1"></a>img1 <span class="ot">&lt;-</span> <span class="fu">image_read</span>(<span class="st">&quot;https://ggplot2.tidyverse.org/logo.png&quot;</span>)</span>
+<span id="cb95-2"><a href="get-data.html#cb95-2" aria-hidden="true" tabindex="-1"></a>img2 <span class="ot">&lt;-</span> <span class="fu">image_read</span>(<span class="st">&quot;https://pbs.twimg.com/media/D5bccHZWkAQuPqS.png&quot;</span>)</span>
+<span id="cb95-3"><a href="get-data.html#cb95-3" aria-hidden="true" tabindex="-1"></a><span class="co">#show the image</span></span>
+<span id="cb95-4"><a href="get-data.html#cb95-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(img1)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 7
 ##   format width height colorspace matte filesize density
 ##   &lt;chr&gt;  &lt;int&gt;  &lt;int&gt; &lt;chr&gt;      &lt;lgl&gt;    &lt;int&gt; &lt;chr&gt;  
-## 1 PNG      240    278 sRGB       TRUE     38516 +85x+85</code></pre>
+## 1 PNG      240    278 sRGB       TRUE     38516 85x85</code></pre>
 <p><img src="images/get-data-unnamed-chunk-50-1.png" width="120" /></p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="get-data.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(img2)</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 7
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="get-data.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(img2)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 7
 ##   format width height colorspace matte filesize density
 ##   &lt;chr&gt;  &lt;int&gt;  &lt;int&gt; &lt;chr&gt;      &lt;lgl&gt;    &lt;int&gt; &lt;chr&gt;  
-## 1 PNG      864    864 sRGB       TRUE     54056 +72x+72</code></pre>
+## 1 PNG      864    864 sRGB       TRUE     54056 72x72</code></pre>
 <p><img src="images/get-data-unnamed-chunk-50-2.png" width="432" /></p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="get-data.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co">#concatenate and print text</span></span>
-<span id="cb100-2"><a href="get-data.html#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">image_ocr</span>(img1))</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="get-data.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co">#concatenate and print text</span></span>
+<span id="cb99-2"><a href="get-data.html#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">image_ocr</span>(img1))</span></code></pre></div>
 <pre><code>## ggplot2</code></pre>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="get-data.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">image_ocr</span>(img2))</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="get-data.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">image_ocr</span>(img2))</span></code></pre></div>
 <pre><code>## parsnip</code></pre>
 <p>Great! We extracted the text!</p>
 </div>
@@ -1626,43 +1627,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Another really helpful package is the <code>googledrive</code> package which enables users to interact with their Google Drive directly from R. This package, unlike the <code>googlesheets4</code> package, also allows for users to interact with other file types besides Google Sheets. It however does not allow for as many modifications of these files like the <code>googlesheets4</code> package allows for Google Sheets files.</p>
 <p>Using <code>googledrive</code> requires having an established Google Drive account. You will be asked to authorize access for the package to interact with your Google Drive.</p>
 <p>Finding files in your drive can be done using <code>drive_find()</code>.</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="get-data.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;googledrive&quot;)</span></span>
-<span id="cb104-2"><a href="get-data.html#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="co"># load package</span></span>
-<span id="cb104-3"><a href="get-data.html#cb104-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;googledrive&quot;</span>)</span>
-<span id="cb104-4"><a href="get-data.html#cb104-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Files can be found based on file name words like this:</span></span>
-<span id="cb104-5"><a href="get-data.html#cb104-5" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_find</span>(<span class="at">pattern =</span><span class="st">&quot;tidyverse&quot;</span>)</span>
-<span id="cb104-6"><a href="get-data.html#cb104-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Files can be found based on file type like this:</span></span>
-<span id="cb104-7"><a href="get-data.html#cb104-7" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_find</span>(<span class="at">type =</span><span class="st">&quot;googlesheets&quot;</span>)</span>
-<span id="cb104-8"><a href="get-data.html#cb104-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Files that have specific types of visibility can be found like this:</span></span>
-<span id="cb104-9"><a href="get-data.html#cb104-9" aria-hidden="true" tabindex="-1"></a>files <span class="ot">&lt;-</span> <span class="fu">drive_find</span>(<span class="at">q =</span> <span class="fu">c</span>(<span class="st">&quot;visibility = &#39;anyoneWithLink&#39;&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="get-data.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;googledrive&quot;)</span></span>
+<span id="cb103-2"><a href="get-data.html#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="co"># load package</span></span>
+<span id="cb103-3"><a href="get-data.html#cb103-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;googledrive&quot;</span>)</span>
+<span id="cb103-4"><a href="get-data.html#cb103-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Files can be found based on file name words like this:</span></span>
+<span id="cb103-5"><a href="get-data.html#cb103-5" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_find</span>(<span class="at">pattern =</span><span class="st">&quot;tidyverse&quot;</span>)</span>
+<span id="cb103-6"><a href="get-data.html#cb103-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Files can be found based on file type like this:</span></span>
+<span id="cb103-7"><a href="get-data.html#cb103-7" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_find</span>(<span class="at">type =</span><span class="st">&quot;googlesheets&quot;</span>)</span>
+<span id="cb103-8"><a href="get-data.html#cb103-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Files that have specific types of visibility can be found like this:</span></span>
+<span id="cb103-9"><a href="get-data.html#cb103-9" aria-hidden="true" tabindex="-1"></a>files <span class="ot">&lt;-</span> <span class="fu">drive_find</span>(<span class="at">q =</span> <span class="fu">c</span>(<span class="st">&quot;visibility = &#39;anyoneWithLink&#39;&quot;</span>))</span></code></pre></div>
 <p>Files can be viewed from your default browser by using the <code>drive_browse()</code> function:</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="get-data.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_browse</span>(<span class="st">&quot;tidyverse&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="get-data.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_browse</span>(<span class="st">&quot;tidyverse&quot;</span>)</span></code></pre></div>
 <p>Files can be uploaded to your Google Drive using the <code>drive_upload()</code> function.</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="get-data.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_upload</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;tidyverse.txt&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="get-data.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_upload</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;tidyverse.txt&quot;</span>))</span></code></pre></div>
 <p>If we wanted this file to be converted and saved as a Google file, then we would do the following based on the type of Goggle document desired. Only certain types of files can be converted to each type of Google file.</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="get-data.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_upload</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;tidyverse.txt&quot;</span>), <span class="at">type =</span> <span class="st">&quot;document&quot;</span>)</span>
-<span id="cb107-2"><a href="get-data.html#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_upload</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;tidyverse.csv&quot;</span>), <span class="at">type =</span> <span class="st">&quot;spreadsheet&quot;</span>)</span>
-<span id="cb107-3"><a href="get-data.html#cb107-3" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_upload</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;tidyverse.pptx&quot;</span>), <span class="at">type =</span> <span class="st">&quot;presentation&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="get-data.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_upload</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;tidyverse.txt&quot;</span>), <span class="at">type =</span> <span class="st">&quot;document&quot;</span>)</span>
+<span id="cb106-2"><a href="get-data.html#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_upload</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;tidyverse.csv&quot;</span>), <span class="at">type =</span> <span class="st">&quot;spreadsheet&quot;</span>)</span>
+<span id="cb106-3"><a href="get-data.html#cb106-3" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_upload</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;tidyverse.pptx&quot;</span>), <span class="at">type =</span> <span class="st">&quot;presentation&quot;</span>)</span></code></pre></div>
 <p>Files can be downloaded using the <code>drive_download()</code> function. Google file types need to be converted to a conventional file type. For example one might save a Google Sheet file to a CSV file. This would download a file called tidyverse.csv to your project directory. This file could then be used in an analysis.</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="get-data.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_download</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="at">type =</span> <span class="st">&quot;csv&quot;</span>)</span>
-<span id="cb108-2"><a href="get-data.html#cb108-2" aria-hidden="true" tabindex="-1"></a>tidyverse_data <span class="ot">&lt;-</span>readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">&quot;tidyverse.csv&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="get-data.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_download</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="at">type =</span> <span class="st">&quot;csv&quot;</span>)</span>
+<span id="cb107-2"><a href="get-data.html#cb107-2" aria-hidden="true" tabindex="-1"></a>tidyverse_data <span class="ot">&lt;-</span>readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">&quot;tidyverse.csv&quot;</span>))</span></code></pre></div>
 <p>Files can be moved to trash using the <code>drive_trash()</code> function. This can be undone using the <code>drive_untrash()</code> function.</p>
 <p>The trash can also be emptied using <code>drive_empty_trash()</code>.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="get-data.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_trash</span>(<span class="st">&quot;tidyverse.txt&quot;</span>)</span>
-<span id="cb109-2"><a href="get-data.html#cb109-2" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_untrash</span>(<span class="st">&quot;tidyverse.txt&quot;</span>)</span>
-<span id="cb109-3"><a href="get-data.html#cb109-3" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_empty_trash</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="get-data.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_trash</span>(<span class="st">&quot;tidyverse.txt&quot;</span>)</span>
+<span id="cb108-2"><a href="get-data.html#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_untrash</span>(<span class="st">&quot;tidyverse.txt&quot;</span>)</span>
+<span id="cb108-3"><a href="get-data.html#cb108-3" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_empty_trash</span>()</span></code></pre></div>
 <p>To permanently remove a file you can use the <code>drive_rm()</code> function. This does not keep the file in trash.</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="get-data.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_rm</span>(<span class="st">&quot;tidyverse.txt&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="get-data.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_rm</span>(<span class="st">&quot;tidyverse.txt&quot;</span>)</span></code></pre></div>
 <p>Files can be shared using the <code>drive_share()</code> function. The sharing status of a file can be checked using <code>drive_reveal()</code>.</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="get-data.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_share</span>(<span class="at">file =</span> <span class="st">&quot;tidyverse&quot;</span>, </span>
-<span id="cb111-2"><a href="get-data.html#cb111-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">role =</span> <span class="st">&quot;commenter&quot;</span>, </span>
-<span id="cb111-3"><a href="get-data.html#cb111-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">type =</span> <span class="st">&quot;user&quot;</span>, </span>
-<span id="cb111-4"><a href="get-data.html#cb111-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">emailAddress =</span> <span class="st">&quot;someone@example.com&quot;</span>,</span>
-<span id="cb111-5"><a href="get-data.html#cb111-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">emailMessage =</span> <span class="st">&quot;Would greatly appreciate your feedback.&quot;</span>)</span>
-<span id="cb111-6"><a href="get-data.html#cb111-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-7"><a href="get-data.html#cb111-7" aria-hidden="true" tabindex="-1"></a><span class="fu">drove_share_anyone</span>(<span class="at">file =</span> <span class="st">&quot;tidyverse&quot;</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>) <span class="co"># anyone with link can read</span></span>
-<span id="cb111-8"><a href="get-data.html#cb111-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-9"><a href="get-data.html#cb111-9" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_reveal</span>(<span class="at">file =</span> <span class="st">&quot;tidyverse&quot;</span>, <span class="at">what =</span> <span class="st">&quot;permissions&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="get-data.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_share</span>(<span class="at">file =</span> <span class="st">&quot;tidyverse&quot;</span>, </span>
+<span id="cb110-2"><a href="get-data.html#cb110-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">role =</span> <span class="st">&quot;commenter&quot;</span>, </span>
+<span id="cb110-3"><a href="get-data.html#cb110-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">type =</span> <span class="st">&quot;user&quot;</span>, </span>
+<span id="cb110-4"><a href="get-data.html#cb110-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">emailAddress =</span> <span class="st">&quot;someone@example.com&quot;</span>,</span>
+<span id="cb110-5"><a href="get-data.html#cb110-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">emailMessage =</span> <span class="st">&quot;Would greatly appreciate your feedback.&quot;</span>)</span>
+<span id="cb110-6"><a href="get-data.html#cb110-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-7"><a href="get-data.html#cb110-7" aria-hidden="true" tabindex="-1"></a><span class="fu">drove_share_anyone</span>(<span class="at">file =</span> <span class="st">&quot;tidyverse&quot;</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>) <span class="co"># anyone with link can read</span></span>
+<span id="cb110-8"><a href="get-data.html#cb110-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-9"><a href="get-data.html#cb110-9" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_reveal</span>(<span class="at">file =</span> <span class="st">&quot;tidyverse&quot;</span>, <span class="at">what =</span> <span class="st">&quot;permissions&quot;</span>)</span></code></pre></div>
 <p>There are many other helpful functions for interacting with the files in your Google Drive within the <code>googledrive</code> package.</p>
 </div>
 <div id="case-studies-1" class="section level2" number="2.16">
@@ -1681,7 +1682,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4><span class="header-section-number">2.16.1.1</span> health care Coverage Data</h4>
 <p>We’ll first read the data in. Note that we have to skip the first two lines, as there are two lines in the CSV that store information about the file before we get to the actual data.</p>
 <p>To see what we mean, you can always use the <code>read_lines()</code> function from <code>readr</code> to see the first 7 lines with the <code>n_max</code> argument:</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="get-data.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_lines</span>(<span class="at">file =</span> <span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv&#39;</span>, <span class="at">n_max =</span> <span class="dv">7</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="get-data.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_lines</span>(<span class="at">file =</span> <span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv&#39;</span>, <span class="at">n_max =</span> <span class="dv">7</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;\&quot;Title: Health Insurance Coverage of the Total Population | The Henry J. Kaiser Family Foundation\&quot;&quot;                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 ## [2] &quot;\&quot;Timeframe: 2013 - 2016\&quot;&quot;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 ## [3] &quot;\&quot;Location\&quot;,\&quot;2013__Employer\&quot;,\&quot;2013__Non-Group\&quot;,\&quot;2013__Medicaid\&quot;,\&quot;2013__Medicare\&quot;,\&quot;2013__Other Public\&quot;,\&quot;2013__Uninsured\&quot;,\&quot;2013__Total\&quot;,\&quot;2014__Employer\&quot;,\&quot;2014__Non-Group\&quot;,\&quot;2014__Medicaid\&quot;,\&quot;2014__Medicare\&quot;,\&quot;2014__Other Public\&quot;,\&quot;2014__Uninsured\&quot;,\&quot;2014__Total\&quot;,\&quot;2015__Employer\&quot;,\&quot;2015__Non-Group\&quot;,\&quot;2015__Medicaid\&quot;,\&quot;2015__Medicare\&quot;,\&quot;2015__Other Public\&quot;,\&quot;2015__Uninsured\&quot;,\&quot;2015__Total\&quot;,\&quot;2016__Employer\&quot;,\&quot;2016__Non-Group\&quot;,\&quot;2016__Medicaid\&quot;,\&quot;2016__Medicare\&quot;,\&quot;2016__Other Public\&quot;,\&quot;2016__Uninsured\&quot;,\&quot;2016__Total\&quot;&quot;
@@ -1690,8 +1691,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [6] &quot;\&quot;Alaska\&quot;,\&quot;364900\&quot;,\&quot;24000\&quot;,\&quot;95000\&quot;,\&quot;55200\&quot;,\&quot;60600\&quot;,\&quot;102200\&quot;,\&quot;702000\&quot;,\&quot;345300\&quot;,\&quot;26800\&quot;,\&quot;130100\&quot;,\&quot;55300\&quot;,\&quot;37300\&quot;,\&quot;100800\&quot;,\&quot;695700\&quot;,\&quot;355700\&quot;,\&quot;22300\&quot;,\&quot;128100\&quot;,\&quot;60900\&quot;,\&quot;47700\&quot;,\&quot;90500\&quot;,\&quot;705300\&quot;,\&quot;324400\&quot;,\&quot;20300\&quot;,\&quot;145400\&quot;,\&quot;68200\&quot;,\&quot;55600\&quot;,\&quot;96900\&quot;,\&quot;710800\&quot;&quot;                                                                                                                                                                                                                                                             
 ## [7] &quot;\&quot;Arizona\&quot;,\&quot;2883800\&quot;,\&quot;170800\&quot;,\&quot;1346100\&quot;,\&quot;842000\&quot;,\&quot;N/A\&quot;,\&quot;1223000\&quot;,\&quot;6603100\&quot;,\&quot;2835200\&quot;,\&quot;333500\&quot;,\&quot;1639400\&quot;,\&quot;911100\&quot;,\&quot;N/A\&quot;,\&quot;827100\&quot;,\&quot;6657200\&quot;,\&quot;2766500\&quot;,\&quot;278400\&quot;,\&quot;1711500\&quot;,\&quot;949000\&quot;,\&quot;189300\&quot;,\&quot;844800\&quot;,\&quot;6739500\&quot;,\&quot;3010700\&quot;,\&quot;377000\&quot;,\&quot;1468400\&quot;,\&quot;1028000\&quot;,\&quot;172500\&quot;,\&quot;833700\&quot;,\&quot;6890200\&quot;&quot;</code></pre>
 <p>Looks like we don’t need the first two lines, so we’ll read in the data, starting with the third line of the file:</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="get-data.html#cb114-1" aria-hidden="true" tabindex="-1"></a>coverage <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv&#39;</span>, </span>
-<span id="cb114-2"><a href="get-data.html#cb114-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">skip =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="get-data.html#cb113-1" aria-hidden="true" tabindex="-1"></a>coverage <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv&#39;</span>, </span>
+<span id="cb113-2"><a href="get-data.html#cb113-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">skip =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## Warning: 26 parsing failures.
 ## row col   expected    actual                                                                                                              file
 ##  53  -- 29 columns 1 columns &#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv&#39;
@@ -1701,8 +1702,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  57  -- 29 columns 1 columns &#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv&#39;
 ## ... ... .......... ......... .................................................................................................................
 ## See problems(...) for more details.</code></pre>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="get-data.html#cb116-1" aria-hidden="true" tabindex="-1"></a>coverage</span></code></pre></div>
-<pre><code>## # A tibble: 78 x 29
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="get-data.html#cb115-1" aria-hidden="true" tabindex="-1"></a>coverage</span></code></pre></div>
+<pre><code>## # A tibble: 78 × 29
 ##    Location  `2013__Employer` `2013__Non-Grou… `2013__Medicaid` `2013__Medicare`
 ##    &lt;chr&gt;                &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
 ##  1 United S…        155696900         13816000         54919100         40876300
@@ -1721,12 +1722,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   2014__Other Public &lt;chr&gt;, 2014__Uninsured &lt;dbl&gt;, 2014__Total &lt;dbl&gt;,
 ## #   2015__Employer &lt;dbl&gt;, 2015__Non-Group &lt;dbl&gt;, 2015__Medicaid &lt;dbl&gt;,
 ## #   2015__Medicare &lt;dbl&gt;, 2015__Other Public &lt;chr&gt;, 2015__Uninsured &lt;dbl&gt;,
-## #   2015__Total &lt;dbl&gt;, 2016__Employer &lt;dbl&gt;, 2016__Non-Group &lt;dbl&gt;,
-## #   2016__Medicaid &lt;dbl&gt;, 2016__Medicare &lt;dbl&gt;, 2016__Other Public &lt;chr&gt;,
-## #   2016__Uninsured &lt;dbl&gt;, 2016__Total &lt;dbl&gt;</code></pre>
+## #   2015__Total &lt;dbl&gt;, 2016__Employer &lt;dbl&gt;, 2016__Non-Group &lt;dbl&gt;, …</code></pre>
 <p>So, the first few lines of the dataset appear to store information for each state (observation) in the rows and different variables in the columns. What about the final few lines of the file?</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="get-data.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(coverage, <span class="at">n =</span> <span class="dv">30</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 30 x 29
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="get-data.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(coverage, <span class="at">n =</span> <span class="dv">30</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 30 × 29
 ##    Location  `2013__Employer` `2013__Non-Grou… `2013__Medicaid` `2013__Medicare`
 ##    &lt;chr&gt;                &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
 ##  1 &quot;Washing…          3541600           309000          1026800           879000
@@ -1745,36 +1744,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   2014__Other Public &lt;chr&gt;, 2014__Uninsured &lt;dbl&gt;, 2014__Total &lt;dbl&gt;,
 ## #   2015__Employer &lt;dbl&gt;, 2015__Non-Group &lt;dbl&gt;, 2015__Medicaid &lt;dbl&gt;,
 ## #   2015__Medicare &lt;dbl&gt;, 2015__Other Public &lt;chr&gt;, 2015__Uninsured &lt;dbl&gt;,
-## #   2015__Total &lt;dbl&gt;, 2016__Employer &lt;dbl&gt;, 2016__Non-Group &lt;dbl&gt;,
-## #   2016__Medicaid &lt;dbl&gt;, 2016__Medicare &lt;dbl&gt;, 2016__Other Public &lt;chr&gt;,
-## #   2016__Uninsured &lt;dbl&gt;, 2016__Total &lt;dbl&gt;</code></pre>
+## #   2015__Total &lt;dbl&gt;, 2016__Employer &lt;dbl&gt;, 2016__Non-Group &lt;dbl&gt;, …</code></pre>
 <p>Looks like there’s a lot of missing information there at the end of the file due the “Notes” observation. Seems as though Notes were added to the file that are not the actual data. We’ll want to only include rows before the value of “Notes” for the <code>Location</code> variable at the end of the file. Using <code>n_max</code> and the <code>==</code> operator, we can specify that we want all the lines up to and including where the Location variable “is equal to” “Notes.” Using <code>-1</code> we can also remove the last line, which will be the line that contains “Notes.”</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="get-data.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="do">## read coverage data into R</span></span>
-<span id="cb120-2"><a href="get-data.html#cb120-2" aria-hidden="true" tabindex="-1"></a>coverage <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv&#39;</span>, </span>
-<span id="cb120-3"><a href="get-data.html#cb120-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">skip =</span> <span class="dv">2</span>,</span>
-<span id="cb120-4"><a href="get-data.html#cb120-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">n_max  =</span> <span class="fu">which</span>(coverage<span class="sc">$</span>Location <span class="sc">==</span> <span class="st">&quot;Notes&quot;</span>)<span class="sc">-</span><span class="dv">1</span>)</span>
-<span id="cb120-5"><a href="get-data.html#cb120-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-6"><a href="get-data.html#cb120-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(coverage)</span></code></pre></div>
-<pre><code>## # A tibble: 6 x 29
-##   Location   `2013__Employer` `2013__Non-Grou… `2013__Medicaid` `2013__Medicare`
-##   &lt;chr&gt;                 &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-## 1 Vermont              317700            26200           123400            96600
-## 2 Virginia            4661600           364800           773200           968000
-## 3 Washington          3541600           309000          1026800           879000
-## 4 West Virg…           841300            42600           382500           329400
-## 5 Wisconsin           3154500           225300           907600           812900
-## 6 Wyoming              305900            19500            74200            65400
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="get-data.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="do">## read coverage data into R</span></span>
+<span id="cb119-2"><a href="get-data.html#cb119-2" aria-hidden="true" tabindex="-1"></a>coverage <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-coverage.csv&#39;</span>, </span>
+<span id="cb119-3"><a href="get-data.html#cb119-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">skip =</span> <span class="dv">2</span>,</span>
+<span id="cb119-4"><a href="get-data.html#cb119-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">n_max  =</span> <span class="fu">which</span>(coverage<span class="sc">$</span>Location <span class="sc">==</span> <span class="st">&quot;Notes&quot;</span>)<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb119-5"><a href="get-data.html#cb119-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-6"><a href="get-data.html#cb119-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(coverage)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 29
+##   Location      `2013__Employer` `2013__Non-Grou… `2013__Medicaid` `2013__Medicare`
+##   &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+## 1 Vermont                 317700            26200           123400            96600
+## 2 Virginia               4661600           364800           773200           968000
+## 3 Washington             3541600           309000          1026800           879000
+## 4 West Virginia           841300            42600           382500           329400
+## 5 Wisconsin              3154500           225300           907600           812900
+## 6 Wyoming                 305900            19500            74200            65400
 ## # … with 24 more variables: 2013__Other Public &lt;chr&gt;, 2013__Uninsured &lt;dbl&gt;,
 ## #   2013__Total &lt;dbl&gt;, 2014__Employer &lt;dbl&gt;, 2014__Non-Group &lt;dbl&gt;,
 ## #   2014__Medicaid &lt;dbl&gt;, 2014__Medicare &lt;dbl&gt;, 2014__Other Public &lt;chr&gt;,
 ## #   2014__Uninsured &lt;dbl&gt;, 2014__Total &lt;dbl&gt;, 2015__Employer &lt;dbl&gt;,
 ## #   2015__Non-Group &lt;dbl&gt;, 2015__Medicaid &lt;dbl&gt;, 2015__Medicare &lt;dbl&gt;,
 ## #   2015__Other Public &lt;chr&gt;, 2015__Uninsured &lt;dbl&gt;, 2015__Total &lt;dbl&gt;,
-## #   2016__Employer &lt;dbl&gt;, 2016__Non-Group &lt;dbl&gt;, 2016__Medicaid &lt;dbl&gt;,
-## #   2016__Medicare &lt;dbl&gt;, 2016__Other Public &lt;chr&gt;, 2016__Uninsured &lt;dbl&gt;,
-## #   2016__Total &lt;dbl&gt;</code></pre>
+## #   2016__Employer &lt;dbl&gt;, 2016__Non-Group &lt;dbl&gt;, 2016__Medicaid &lt;dbl&gt;, …</code></pre>
 <p>Looks much better now! We can then use the <code>glimpse()</code> function of the <code>dplyr</code> package to get a sense of what types of information are stored in our dataset.</p>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="get-data.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(coverage)</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="get-data.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(coverage)</span></code></pre></div>
 <pre><code>## Rows: 52
 ## Columns: 29
 ## $ Location             &lt;chr&gt; &quot;United States&quot;, &quot;Alabama&quot;, &quot;Alaska&quot;, &quot;Arizona&quot;, …
@@ -1812,9 +1807,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="health-care-spending-data" class="section level4" number="2.16.1.2">
 <h4><span class="header-section-number">2.16.1.2</span> health care Spending Data</h4>
 <p>Now, we’re ready to read in our health care spending data, using a similar approach as we did for the coverage data.</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="get-data.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="do">## read spending data into R</span></span>
-<span id="cb124-2"><a href="get-data.html#cb124-2" aria-hidden="true" tabindex="-1"></a>spending <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-spending.csv&#39;</span>, </span>
-<span id="cb124-3"><a href="get-data.html#cb124-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">skip =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="get-data.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="do">## read spending data into R</span></span>
+<span id="cb123-2"><a href="get-data.html#cb123-2" aria-hidden="true" tabindex="-1"></a>spending <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-spending.csv&#39;</span>, </span>
+<span id="cb123-3"><a href="get-data.html#cb123-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">skip =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## Warning: 12 parsing failures.
 ## row col   expected    actual                                                                                                              file
 ##  53  -- 25 columns 1 columns &#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-spending.csv&#39;
@@ -1824,31 +1819,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  57  -- 25 columns 1 columns &#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-spending.csv&#39;
 ## ... ... .......... ......... .................................................................................................................
 ## See problems(...) for more details.</code></pre>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="get-data.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="co">#got some parsing errors...</span></span>
-<span id="cb126-2"><a href="get-data.html#cb126-2" aria-hidden="true" tabindex="-1"></a>spending <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-spending.csv&#39;</span>, </span>
-<span id="cb126-3"><a href="get-data.html#cb126-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">skip =</span> <span class="dv">2</span>, </span>
-<span id="cb126-4"><a href="get-data.html#cb126-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">n_max  =</span> <span class="fu">which</span>(spending<span class="sc">$</span>Location <span class="sc">==</span> <span class="st">&quot;Notes&quot;</span>)<span class="sc">-</span><span class="dv">1</span>)</span>
-<span id="cb126-5"><a href="get-data.html#cb126-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(spending)</span></code></pre></div>
-<pre><code>## # A tibble: 6 x 25
-##   Location  `1991__Total Hea… `1992__Total He… `1993__Total He… `1994__Total He…
-##   &lt;chr&gt;                 &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-## 1 Vermont                1330             1421             1522             1625
-## 2 Virginia              14829            15599            16634            17637
-## 3 Washingt…             12674            13859            14523            15303
-## 4 West Vir…              4672             5159             5550             5891
-## 5 Wisconsin             12694            13669            14636            15532
-## 6 Wyoming                1023             1067             1171             1265
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="get-data.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="co">#got some parsing errors...</span></span>
+<span id="cb125-2"><a href="get-data.html#cb125-2" aria-hidden="true" tabindex="-1"></a>spending <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-healthexpenditure/master/data/KFF/healthcare-spending.csv&#39;</span>, </span>
+<span id="cb125-3"><a href="get-data.html#cb125-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">skip =</span> <span class="dv">2</span>, </span>
+<span id="cb125-4"><a href="get-data.html#cb125-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">n_max  =</span> <span class="fu">which</span>(spending<span class="sc">$</span>Location <span class="sc">==</span> <span class="st">&quot;Notes&quot;</span>)<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb125-5"><a href="get-data.html#cb125-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(spending)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 25
+##   Location      `1991__Total He… `1992__Total He… `1993__Total He… `1994__Total He…
+##   &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+## 1 Vermont                   1330             1421             1522             1625
+## 2 Virginia                 14829            15599            16634            17637
+## 3 Washington               12674            13859            14523            15303
+## 4 West Virginia             4672             5159             5550             5891
+## 5 Wisconsin                12694            13669            14636            15532
+## 6 Wyoming                   1023             1067             1171             1265
 ## # … with 20 more variables: 1995__Total Health Spending &lt;dbl&gt;,
 ## #   1996__Total Health Spending &lt;dbl&gt;, 1997__Total Health Spending &lt;dbl&gt;,
 ## #   1998__Total Health Spending &lt;dbl&gt;, 1999__Total Health Spending &lt;dbl&gt;,
 ## #   2000__Total Health Spending &lt;dbl&gt;, 2001__Total Health Spending &lt;dbl&gt;,
 ## #   2002__Total Health Spending &lt;dbl&gt;, 2003__Total Health Spending &lt;dbl&gt;,
 ## #   2004__Total Health Spending &lt;dbl&gt;, 2005__Total Health Spending &lt;dbl&gt;,
-## #   2006__Total Health Spending &lt;dbl&gt;, 2007__Total Health Spending &lt;dbl&gt;,
-## #   2008__Total Health Spending &lt;dbl&gt;, 2009__Total Health Spending &lt;dbl&gt;,
-## #   2010__Total Health Spending &lt;dbl&gt;, 2011__Total Health Spending &lt;dbl&gt;,
-## #   2012__Total Health Spending &lt;dbl&gt;, 2013__Total Health Spending &lt;dbl&gt;,
-## #   2014__Total Health Spending &lt;dbl&gt;</code></pre>
+## #   2006__Total Health Spending &lt;dbl&gt;, 2007__Total Health Spending &lt;dbl&gt;, …</code></pre>
 <p>Recall from the introduction, that in data science workflows, we perform multiple steps in evaluating data. To keep this process tidy and reproducible, it is often helpful to save our data in a raw state and in processed states to allow for easy comparison. So let’s save our case study 1 data to use in later sections of the course.</p>
 <p>We can use the <code>here</code> package described in the introduction to help us make this process easier. Recall that the <code>here</code> package allows us to quickly reference the directory in which the .Rproj file is located.</p>
 <p>Assuming we created a project called “project,” let’s save our raw coverage data in a directory called raw_data within a directory called data inside of our RStudio project similarly to the workflows that we have seen in the introduction.</p>
@@ -1857,11 +1848,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p class="caption">File Structure</p>
 </div>
 <p>After creating a directory called raw_data within a directory that we called data, we can now save our raw data for case study #1 using the <code>here</code> package by simply typing:</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="get-data.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span></code></pre></div>
-<pre><code>## here() starts at /Users/rdpeng/books/tidyversecourse</code></pre>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="get-data.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(coverage, spending, <span class="at">file =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;case_study_1.rda&quot;</span>))</span>
-<span id="cb130-2"><a href="get-data.html#cb130-2" aria-hidden="true" tabindex="-1"></a><span class="co">#the coverage object and the spending object will get saved as case_study_1.rda within the raw_data directory which is a subdirectory of data </span></span>
-<span id="cb130-3"><a href="get-data.html#cb130-3" aria-hidden="true" tabindex="-1"></a><span class="co">#the here package identifies where the project directory is located based on the .Rproj, and thus the path to this directory is not needed</span></span></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="get-data.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span></code></pre></div>
+<pre><code>## here() starts at /Users/carriewright/Documents/GitHub/Coursera/tidyversecourse</code></pre>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="get-data.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(coverage, spending, <span class="at">file =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;case_study_1.rda&quot;</span>))</span>
+<span id="cb129-2"><a href="get-data.html#cb129-2" aria-hidden="true" tabindex="-1"></a><span class="co">#the coverage object and the spending object will get saved as case_study_1.rda within the raw_data directory which is a subdirectory of data </span></span>
+<span id="cb129-3"><a href="get-data.html#cb129-3" aria-hidden="true" tabindex="-1"></a><span class="co">#the here package identifies where the project directory is located based on the .Rproj, and thus the path to this directory is not needed</span></span></code></pre></div>
 </div>
 </div>
 <div id="case-study-2-firearms-1" class="section level3" number="2.16.2">
@@ -1871,11 +1862,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="census-data" class="section level4" number="2.16.2.1">
 <h4><span class="header-section-number">2.16.2.1</span> Census Data</h4>
 <p>Population characteristics at the state level for 2017 are available <a href="https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/sc-est2017-alldata6.csv">here</a>. Let’s read it into R.</p>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="get-data.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in the census data</span></span>
-<span id="cb131-2"><a href="get-data.html#cb131-2" aria-hidden="true" tabindex="-1"></a>census <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/sc-est2017-alldata6.csv&#39;</span>,</span>
-<span id="cb131-3"><a href="get-data.html#cb131-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">n_max =</span> <span class="dv">236900</span>)</span>
-<span id="cb131-4"><a href="get-data.html#cb131-4" aria-hidden="true" tabindex="-1"></a>census</span></code></pre></div>
-<pre><code>## # A tibble: 236,844 x 19
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="get-data.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in the census data</span></span>
+<span id="cb130-2"><a href="get-data.html#cb130-2" aria-hidden="true" tabindex="-1"></a>census <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/sc-est2017-alldata6.csv&#39;</span>,</span>
+<span id="cb130-3"><a href="get-data.html#cb130-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">n_max =</span> <span class="dv">236900</span>)</span>
+<span id="cb130-4"><a href="get-data.html#cb130-4" aria-hidden="true" tabindex="-1"></a>census</span></code></pre></div>
+<pre><code>## # A tibble: 236,844 × 19
 ##    SUMLEV REGION DIVISION STATE NAME      SEX ORIGIN  RACE   AGE CENSUS2010POP
 ##    &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;         &lt;dbl&gt;
 ##  1 040         3        6 01    Alabama     0      0     1     0         37991
@@ -1896,70 +1887,70 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="counted-data" class="section level4" number="2.16.2.2">
 <h4><span class="header-section-number">2.16.2.2</span> Counted Data</h4>
 <p><a href="https://docubase.mit.edu/project/the-counted/">The Counted</a> project started to count persons killed by police in the US due to the fact that as stated by Jon Swaine “the US government has no comprehensive record of the number of people killed by law enforcement.” These data can be read in from the CSV stored on <a href="https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/the-counted-2015.csv">GitHub</a>, for 2015:</p>
-<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="get-data.html#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in the counted data</span></span>
-<span id="cb133-2"><a href="get-data.html#cb133-2" aria-hidden="true" tabindex="-1"></a>counted15 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/the-counted-2015.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="get-data.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in the counted data</span></span>
+<span id="cb132-2"><a href="get-data.html#cb132-2" aria-hidden="true" tabindex="-1"></a>counted15 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/the-counted-2015.csv&quot;</span>)</span></code></pre></div>
 </div>
 <div id="suicide-data" class="section level4" number="2.16.2.3">
 <h4><span class="header-section-number">2.16.2.3</span> Suicide Data</h4>
 <p>Information about suicide and suicide as a result of firearms can also be directly read into R from the CSVs stored on GitHub:</p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="get-data.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in suicide data</span></span>
-<span id="cb134-2"><a href="get-data.html#cb134-2" aria-hidden="true" tabindex="-1"></a>suicide_all <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/suicide_all.csv&quot;</span>)</span>
-<span id="cb134-3"><a href="get-data.html#cb134-3" aria-hidden="true" tabindex="-1"></a>suicide_all</span></code></pre></div>
-<pre><code>## # A tibble: 51 x 12
-##    Sex        Race     State      Ethnicity `Age Group` `First Year` `Last Year`
-##    &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;              &lt;dbl&gt;       &lt;dbl&gt;
-##  1 Both Sexes All Rac… Alabama    Both      All Ages            2015        2016
-##  2 Both Sexes All Rac… Alaska     Both      All Ages            2015        2016
-##  3 Both Sexes All Rac… Arizona    Both      All Ages            2015        2016
-##  4 Both Sexes All Rac… Arkansas   Both      All Ages            2015        2016
-##  5 Both Sexes All Rac… California Both      All Ages            2015        2016
-##  6 Both Sexes All Rac… Colorado   Both      All Ages            2015        2016
-##  7 Both Sexes All Rac… Connectic… Both      All Ages            2015        2016
-##  8 Both Sexes All Rac… Delaware   Both      All Ages            2015        2016
-##  9 Both Sexes All Rac… Florida    Both      All Ages            2015        2016
-## 10 Both Sexes All Rac… Georgia    Both      All Ages            2015        2016
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="get-data.html#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in suicide data</span></span>
+<span id="cb133-2"><a href="get-data.html#cb133-2" aria-hidden="true" tabindex="-1"></a>suicide_all <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/suicide_all.csv&quot;</span>)</span>
+<span id="cb133-3"><a href="get-data.html#cb133-3" aria-hidden="true" tabindex="-1"></a>suicide_all</span></code></pre></div>
+<pre><code>## # A tibble: 51 × 12
+##    Sex        Race      State       Ethnicity `Age Group` `First Year` `Last Year`
+##    &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;              &lt;dbl&gt;       &lt;dbl&gt;
+##  1 Both Sexes All Races Alabama     Both      All Ages            2015        2016
+##  2 Both Sexes All Races Alaska      Both      All Ages            2015        2016
+##  3 Both Sexes All Races Arizona     Both      All Ages            2015        2016
+##  4 Both Sexes All Races Arkansas    Both      All Ages            2015        2016
+##  5 Both Sexes All Races California  Both      All Ages            2015        2016
+##  6 Both Sexes All Races Colorado    Both      All Ages            2015        2016
+##  7 Both Sexes All Races Connecticut Both      All Ages            2015        2016
+##  8 Both Sexes All Races Delaware    Both      All Ages            2015        2016
+##  9 Both Sexes All Races Florida     Both      All Ages            2015        2016
+## 10 Both Sexes All Races Georgia     Both      All Ages            2015        2016
 ## # … with 41 more rows, and 5 more variables: Cause of Death &lt;chr&gt;,
 ## #   Deaths &lt;dbl&gt;, Population &lt;dbl&gt;, Crude Rate &lt;dbl&gt;, Age-Adjusted Rate &lt;chr&gt;</code></pre>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="get-data.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in firearm suicide data</span></span>
-<span id="cb136-2"><a href="get-data.html#cb136-2" aria-hidden="true" tabindex="-1"></a>suicide_firearm <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/suicide_firearm.csv&quot;</span>)</span>
-<span id="cb136-3"><a href="get-data.html#cb136-3" aria-hidden="true" tabindex="-1"></a>suicide_firearm</span></code></pre></div>
-<pre><code>## # A tibble: 51 x 12
-##    Sex        Race     State      Ethnicity `Age Group` `First Year` `Last Year`
-##    &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;              &lt;dbl&gt;       &lt;dbl&gt;
-##  1 Both Sexes All Rac… Alabama    Both      All Ages            2015        2016
-##  2 Both Sexes All Rac… Alaska     Both      All Ages            2015        2016
-##  3 Both Sexes All Rac… Arizona    Both      All Ages            2015        2016
-##  4 Both Sexes All Rac… Arkansas   Both      All Ages            2015        2016
-##  5 Both Sexes All Rac… California Both      All Ages            2015        2016
-##  6 Both Sexes All Rac… Colorado   Both      All Ages            2015        2016
-##  7 Both Sexes All Rac… Connectic… Both      All Ages            2015        2016
-##  8 Both Sexes All Rac… Delaware   Both      All Ages            2015        2016
-##  9 Both Sexes All Rac… Florida    Both      All Ages            2015        2016
-## 10 Both Sexes All Rac… Georgia    Both      All Ages            2015        2016
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="get-data.html#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in firearm suicide data</span></span>
+<span id="cb135-2"><a href="get-data.html#cb135-2" aria-hidden="true" tabindex="-1"></a>suicide_firearm <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/suicide_firearm.csv&quot;</span>)</span>
+<span id="cb135-3"><a href="get-data.html#cb135-3" aria-hidden="true" tabindex="-1"></a>suicide_firearm</span></code></pre></div>
+<pre><code>## # A tibble: 51 × 12
+##    Sex        Race      State       Ethnicity `Age Group` `First Year` `Last Year`
+##    &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;              &lt;dbl&gt;       &lt;dbl&gt;
+##  1 Both Sexes All Races Alabama     Both      All Ages            2015        2016
+##  2 Both Sexes All Races Alaska      Both      All Ages            2015        2016
+##  3 Both Sexes All Races Arizona     Both      All Ages            2015        2016
+##  4 Both Sexes All Races Arkansas    Both      All Ages            2015        2016
+##  5 Both Sexes All Races California  Both      All Ages            2015        2016
+##  6 Both Sexes All Races Colorado    Both      All Ages            2015        2016
+##  7 Both Sexes All Races Connecticut Both      All Ages            2015        2016
+##  8 Both Sexes All Races Delaware    Both      All Ages            2015        2016
+##  9 Both Sexes All Races Florida     Both      All Ages            2015        2016
+## 10 Both Sexes All Races Georgia     Both      All Ages            2015        2016
 ## # … with 41 more rows, and 5 more variables: Cause of Death &lt;chr&gt;,
 ## #   Deaths &lt;dbl&gt;, Population &lt;dbl&gt;, Crude Rate &lt;dbl&gt;, Age-Adjusted Rate &lt;chr&gt;</code></pre>
 </div>
 <div id="brady-data" class="section level4" number="2.16.2.4">
 <h4><span class="header-section-number">2.16.2.4</span> Brady Data</h4>
 <p>For the Brady Scores data, quantifying numerical scores for firearm legislation in each state, we’ll need the <code>httr</code> package, as these data are stored in an Excel spreadsheet. Note, we could download these files to our local computer, store them, and read this file in using <code>readxl</code>’s <code>read_excel()</code> file, <em>or</em> we can use the <code>httr</code> package to download and store the file in a temporary directory, followed by <code>read_excel</code> to read them into R. We’ll go with this second option here to demonstrate how it works.</p>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="get-data.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb138-2"><a href="get-data.html#cb138-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
-<span id="cb138-3"><a href="get-data.html#cb138-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb138-4"><a href="get-data.html#cb138-4" aria-hidden="true" tabindex="-1"></a><span class="co"># specify URL to file</span></span>
-<span id="cb138-5"><a href="get-data.html#cb138-5" aria-hidden="true" tabindex="-1"></a>url <span class="ot">=</span> <span class="st">&quot;https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/data/Brady-State-Scorecard-2015.xlsx?raw=true&quot;</span></span>
-<span id="cb138-6"><a href="get-data.html#cb138-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb138-7"><a href="get-data.html#cb138-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
-<span id="cb138-8"><a href="get-data.html#cb138-8" aria-hidden="true" tabindex="-1"></a><span class="fu">GET</span>(url, <span class="fu">write_disk</span>(tf <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.xlsx&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="get-data.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb137-2"><a href="get-data.html#cb137-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
+<span id="cb137-3"><a href="get-data.html#cb137-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb137-4"><a href="get-data.html#cb137-4" aria-hidden="true" tabindex="-1"></a><span class="co"># specify URL to file</span></span>
+<span id="cb137-5"><a href="get-data.html#cb137-5" aria-hidden="true" tabindex="-1"></a>url <span class="ot">=</span> <span class="st">&quot;https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/data/Brady-State-Scorecard-2015.xlsx?raw=true&quot;</span></span>
+<span id="cb137-6"><a href="get-data.html#cb137-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb137-7"><a href="get-data.html#cb137-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
+<span id="cb137-8"><a href="get-data.html#cb137-8" aria-hidden="true" tabindex="-1"></a><span class="fu">GET</span>(url, <span class="fu">write_disk</span>(tf <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.xlsx&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/Brady-State-Scorecard-2015.xlsx]
-##   Date: 2021-05-13 19:32
+##   Date: 2021-09-02 14:01
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 66.2 kB
-## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//Rtmpsyagmm/filed3b059c09d07.xlsx</code></pre>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="get-data.html#cb140-1" aria-hidden="true" tabindex="-1"></a>brady <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(tf, <span class="at">sheet =</span> <span class="dv">1</span>)</span>
-<span id="cb140-2"><a href="get-data.html#cb140-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb140-3"><a href="get-data.html#cb140-3" aria-hidden="true" tabindex="-1"></a>brady</span></code></pre></div>
-<pre><code>## # A tibble: 116 x 54
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpgTqYzy/file34ed59c09d07.xlsx</code></pre>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="get-data.html#cb139-1" aria-hidden="true" tabindex="-1"></a>brady <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(tf, <span class="at">sheet =</span> <span class="dv">1</span>)</span>
+<span id="cb139-2"><a href="get-data.html#cb139-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-3"><a href="get-data.html#cb139-3" aria-hidden="true" tabindex="-1"></a>brady</span></code></pre></div>
+<pre><code>## # A tibble: 116 × 54
 ##    `States can recei… `Category Point… `Sub Category P… Points AL    AK    AR   
 ##    &lt;chr&gt;                         &lt;dbl&gt;            &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
 ##  1 TOTAL STATE POINTS               NA               NA     NA -18   -30   -24  
@@ -1978,65 +1969,73 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   ME &lt;chr&gt;, MI &lt;chr&gt;, MN &lt;chr&gt;, MO &lt;chr&gt;, MT &lt;chr&gt;, MS &lt;chr&gt;, NC &lt;chr&gt;,
 ## #   ND &lt;chr&gt;, NE &lt;chr&gt;, NH &lt;chr&gt;, NJ &lt;chr&gt;, NM &lt;chr&gt;, NV &lt;chr&gt;, NY &lt;chr&gt;,
 ## #   OK &lt;chr&gt;, OH &lt;chr&gt;, OR &lt;chr&gt;, PA &lt;chr&gt;, RI &lt;chr&gt;, SC &lt;chr&gt;, SD &lt;chr&gt;,
-## #   TN &lt;chr&gt;, TX &lt;chr&gt;, UT &lt;chr&gt;, VA &lt;chr&gt;, VT &lt;chr&gt;, WA &lt;chr&gt;, WI &lt;chr&gt;,
-## #   WV &lt;chr&gt;, WY &lt;chr&gt;</code></pre>
+## #   TN &lt;chr&gt;, TX &lt;chr&gt;, UT &lt;chr&gt;, VA &lt;chr&gt;, VT &lt;chr&gt;, WA &lt;chr&gt;, WI &lt;chr&gt;, …</code></pre>
 </div>
 <div id="crime-data" class="section level4" number="2.16.2.5">
 <h4><span class="header-section-number">2.16.2.5</span> Crime Data</h4>
 <p>Crime data, from the FBI’s Uniform Crime Report, are stored as an Excel file, so we’ll use a similar approach as above for these data:</p>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="get-data.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="co"># specify URL to file</span></span>
-<span id="cb142-2"><a href="get-data.html#cb142-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">=</span> <span class="st">&quot;https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/data/table_5_crime_in_the_united_states_by_state_2015.xls?raw=true&quot;</span></span>
-<span id="cb142-3"><a href="get-data.html#cb142-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb142-4"><a href="get-data.html#cb142-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
-<span id="cb142-5"><a href="get-data.html#cb142-5" aria-hidden="true" tabindex="-1"></a><span class="fu">GET</span>(url, <span class="fu">write_disk</span>(tf <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="get-data.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="co"># specify URL to file</span></span>
+<span id="cb141-2"><a href="get-data.html#cb141-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">=</span> <span class="st">&quot;https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/data/table_5_crime_in_the_united_states_by_state_2015.xls?raw=true&quot;</span></span>
+<span id="cb141-3"><a href="get-data.html#cb141-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb141-4"><a href="get-data.html#cb141-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
+<span id="cb141-5"><a href="get-data.html#cb141-5" aria-hidden="true" tabindex="-1"></a><span class="fu">GET</span>(url, <span class="fu">write_disk</span>(tf <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/table_5_crime_in_the_united_states_by_state_2015.xls]
-##   Date: 2021-05-13 19:32
+##   Date: 2021-09-02 14:01
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 98.3 kB
-## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//Rtmpsyagmm/filed3b0618fb492.xls</code></pre>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="get-data.html#cb144-1" aria-hidden="true" tabindex="-1"></a>crime <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(tf, <span class="at">sheet =</span> <span class="dv">1</span>, <span class="at">skip =</span> <span class="dv">3</span>)</span>
-<span id="cb144-2"><a href="get-data.html#cb144-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb144-3"><a href="get-data.html#cb144-3" aria-hidden="true" tabindex="-1"></a><span class="co"># see data</span></span>
-<span id="cb144-4"><a href="get-data.html#cb144-4" aria-hidden="true" tabindex="-1"></a>crime</span></code></pre></div>
-<pre><code>## # A tibble: 510 x 14
-##    State  Area       ...3      Population  `Violent\ncrime… `Murder and \nnonne…
-##    &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;                  &lt;dbl&gt;                &lt;dbl&gt;
-##  1 ALABA… Metropoli… &lt;NA&gt;      3708033                   NA                   NA
-##  2 &lt;NA&gt;   &lt;NA&gt;       Area act… 0.97099999…            18122                  283
-##  3 &lt;NA&gt;   &lt;NA&gt;       Estimate… 1                      18500                  287
-##  4 &lt;NA&gt;   Cities ou… &lt;NA&gt;      522241                    NA                   NA
-##  5 &lt;NA&gt;   &lt;NA&gt;       Area act… 0.97399999…             3178                   32
-##  6 &lt;NA&gt;   &lt;NA&gt;       Estimate… 1                       3240                   33
-##  7 &lt;NA&gt;   Nonmetrop… &lt;NA&gt;      628705                    NA                   NA
-##  8 &lt;NA&gt;   &lt;NA&gt;       Area act… 0.99399999…             1205                   28
-##  9 &lt;NA&gt;   &lt;NA&gt;       Estimate… 1                       1212                   28
-## 10 &lt;NA&gt;   State Tot… &lt;NA&gt;      4858979                22952                  348
-## # … with 500 more rows, and 8 more variables: Rape (revised definition)2 &lt;dbl&gt;,
-## #   Rape (legacy definition)3 &lt;dbl&gt;, Robbery &lt;dbl&gt;, Aggravated  assault &lt;dbl&gt;,
-## #   Property  crime &lt;dbl&gt;, Burglary &lt;dbl&gt;, Larceny- theft &lt;dbl&gt;, Motor 
-## #   vehicle  theft &lt;dbl&gt;</code></pre>
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpgTqYzy/file34ed618fb492.xls</code></pre>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="get-data.html#cb143-1" aria-hidden="true" tabindex="-1"></a>crime <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(tf, <span class="at">sheet =</span> <span class="dv">1</span>, <span class="at">skip =</span> <span class="dv">3</span>)</span>
+<span id="cb143-2"><a href="get-data.html#cb143-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb143-3"><a href="get-data.html#cb143-3" aria-hidden="true" tabindex="-1"></a><span class="co"># see data</span></span>
+<span id="cb143-4"><a href="get-data.html#cb143-4" aria-hidden="true" tabindex="-1"></a>crime</span></code></pre></div>
+<pre><code>## # A tibble: 510 × 14
+##    State   Area       ...3     Population  `Violent\ncrime… `Murder and \nnonne…
+##    &lt;chr&gt;   &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;                  &lt;dbl&gt;                &lt;dbl&gt;
+##  1 ALABAMA Metropoli… &lt;NA&gt;     3708033                   NA                   NA
+##  2 &lt;NA&gt;    &lt;NA&gt;       Area ac… 0.97099999…            18122                  283
+##  3 &lt;NA&gt;    &lt;NA&gt;       Estimat… 1                      18500                  287
+##  4 &lt;NA&gt;    Cities ou… &lt;NA&gt;     522241                    NA                   NA
+##  5 &lt;NA&gt;    &lt;NA&gt;       Area ac… 0.97399999…             3178                   32
+##  6 &lt;NA&gt;    &lt;NA&gt;       Estimat… 1                       3240                   33
+##  7 &lt;NA&gt;    Nonmetrop… &lt;NA&gt;     628705                    NA                   NA
+##  8 &lt;NA&gt;    &lt;NA&gt;       Area ac… 0.99399999…             1205                   28
+##  9 &lt;NA&gt;    &lt;NA&gt;       Estimat… 1                       1212                   28
+## 10 &lt;NA&gt;    State Tot… &lt;NA&gt;     4858979                22952                  348
+## # … with 500 more rows, and 8 more variables: Rape
+## (revised
+## definition)2 &lt;dbl&gt;,
+## #   Rape
+## (legacy
+## definition)3 &lt;dbl&gt;, Robbery &lt;dbl&gt;, Aggravated 
+## assault &lt;dbl&gt;,
+## #   Property 
+## crime &lt;dbl&gt;, Burglary &lt;dbl&gt;, Larceny-
+## theft &lt;dbl&gt;,
+## #   Motor 
+## vehicle 
+## theft &lt;dbl&gt;</code></pre>
 <p>Note, however, there are slight differences in the code used here, relative to the Brady data. We have to use <code>skip = 3</code> to skip the first three lines of this file. <em>Also</em>, this file has the extension <code>.xls</code> rather than <code>.xlsx</code>, which we specify within the <code>fileext</code> argument.</p>
 </div>
 <div id="land-area-data" class="section level4" number="2.16.2.6">
 <h4><span class="header-section-number">2.16.2.6</span> Land Area Data</h4>
 <p>US Census 2010 land area data are also stored in an excel spreadsheet. So again we will use a similar method.</p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="get-data.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="co"># specify URL to file</span></span>
-<span id="cb146-2"><a href="get-data.html#cb146-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">=</span> <span class="st">&quot;https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/data/LND01.xls?raw=true&quot;</span></span>
-<span id="cb146-3"><a href="get-data.html#cb146-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb146-4"><a href="get-data.html#cb146-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
-<span id="cb146-5"><a href="get-data.html#cb146-5" aria-hidden="true" tabindex="-1"></a><span class="fu">GET</span>(url, <span class="fu">write_disk</span>(tf <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="get-data.html#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="co"># specify URL to file</span></span>
+<span id="cb145-2"><a href="get-data.html#cb145-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">=</span> <span class="st">&quot;https://github.com/opencasestudies/ocs-police-shootings-firearm-legislation/blob/master/data/LND01.xls?raw=true&quot;</span></span>
+<span id="cb145-3"><a href="get-data.html#cb145-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb145-4"><a href="get-data.html#cb145-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use httr&#39;s GET() and read_excel() to read in file</span></span>
+<span id="cb145-5"><a href="get-data.html#cb145-5" aria-hidden="true" tabindex="-1"></a><span class="fu">GET</span>(url, <span class="fu">write_disk</span>(tf <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.xls&quot;</span>)))</span></code></pre></div>
 <pre><code>## Response [https://raw.githubusercontent.com/opencasestudies/ocs-police-shootings-firearm-legislation/master/data/LND01.xls]
-##   Date: 2021-05-13 19:32
+##   Date: 2021-09-02 14:01
 ##   Status: 200
 ##   Content-Type: application/octet-stream
 ##   Size: 1.57 MB
-## &lt;ON DISK&gt;  /var/folders/xn/fncwm3zs5t36q6chqx1nxktr0000gn/T//Rtmpsyagmm/filed3b06135133.xls</code></pre>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="get-data.html#cb148-1" aria-hidden="true" tabindex="-1"></a>land <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(tf, <span class="at">sheet =</span> <span class="dv">1</span>)</span>
-<span id="cb148-2"><a href="get-data.html#cb148-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb148-3"><a href="get-data.html#cb148-3" aria-hidden="true" tabindex="-1"></a><span class="co"># see data</span></span>
-<span id="cb148-4"><a href="get-data.html#cb148-4" aria-hidden="true" tabindex="-1"></a>land</span></code></pre></div>
-<pre><code>## # A tibble: 3,198 x 34
+## &lt;ON DISK&gt;  /var/folders/6h/jgypt4153dq7_4nl6g04qtqh0000gn/T//RtmpgTqYzy/file34ed6135133.xls</code></pre>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="get-data.html#cb147-1" aria-hidden="true" tabindex="-1"></a>land <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(tf, <span class="at">sheet =</span> <span class="dv">1</span>)</span>
+<span id="cb147-2"><a href="get-data.html#cb147-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb147-3"><a href="get-data.html#cb147-3" aria-hidden="true" tabindex="-1"></a><span class="co"># see data</span></span>
+<span id="cb147-4"><a href="get-data.html#cb147-4" aria-hidden="true" tabindex="-1"></a>land</span></code></pre></div>
+<pre><code>## # A tibble: 3,198 × 34
 ##    Areaname      STCOU LND010190F LND010190D LND010190N1 LND010190N2 LND010200F
 ##    &lt;chr&gt;         &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;            &lt;dbl&gt;
 ##  1 UNITED STATES 00000          0   3787425. 0000        0000                 0
@@ -2055,28 +2054,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   LND110190N1 &lt;chr&gt;, LND110190N2 &lt;chr&gt;, LND110200F &lt;dbl&gt;, LND110200D &lt;dbl&gt;,
 ## #   LND110200N1 &lt;chr&gt;, LND110200N2 &lt;chr&gt;, LND110210F &lt;dbl&gt;, LND110210D &lt;dbl&gt;,
 ## #   LND110210N1 &lt;chr&gt;, LND110210N2 &lt;chr&gt;, LND210190F &lt;dbl&gt;, LND210190D &lt;dbl&gt;,
-## #   LND210190N1 &lt;chr&gt;, LND210190N2 &lt;chr&gt;, LND210200F &lt;dbl&gt;, LND210200D &lt;dbl&gt;,
-## #   LND210200N1 &lt;chr&gt;, LND210200N2 &lt;chr&gt;</code></pre>
+## #   LND210190N1 &lt;chr&gt;, LND210190N2 &lt;chr&gt;, LND210200F &lt;dbl&gt;, LND210200D &lt;dbl&gt;, …</code></pre>
 </div>
 <div id="unemployment-data" class="section level4" number="2.16.2.7">
 <h4><span class="header-section-number">2.16.2.7</span> Unemployment Data</h4>
 <p>This data is available online from the <a href="https://www.bls.gov/">Bureau of Labor Statistics (BLS)</a>, but there is no easy download of the table. It is also difficult to simply copy and paste; it doesn’t hold it’s table format. Thus we will want to use web scraping to most easily and accurately obtain this information using the <code>rvest</code> package.</p>
 <p>As a reminder, to view the HTML of a webpage, right-click and select “View page source.”</p>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="get-data.html#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
-<span id="cb150-2"><a href="get-data.html#cb150-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb150-3"><a href="get-data.html#cb150-3" aria-hidden="true" tabindex="-1"></a><span class="co"># specify URL to where we&#39;ll be web scraping</span></span>
-<span id="cb150-4"><a href="get-data.html#cb150-4" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">&quot;https://web.archive.org/web/20210205040250/https://www.bls.gov/lau/lastrk15.htm&quot;</span>)</span>
-<span id="cb150-5"><a href="get-data.html#cb150-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb150-6"><a href="get-data.html#cb150-6" aria-hidden="true" tabindex="-1"></a><span class="co"># scrape specific table desired</span></span>
-<span id="cb150-7"><a href="get-data.html#cb150-7" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">html_nodes</span>(url, <span class="st">&quot;table&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb150-8"><a href="get-data.html#cb150-8" aria-hidden="true" tabindex="-1"></a>  .[<span class="dv">2</span>] <span class="sc">%&gt;%</span></span>
-<span id="cb150-9"><a href="get-data.html#cb150-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>(<span class="at">fill =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb150-10"><a href="get-data.html#cb150-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb150-11"><a href="get-data.html#cb150-11" aria-hidden="true" tabindex="-1"></a><span class="co"># store as a tibble</span></span>
-<span id="cb150-12"><a href="get-data.html#cb150-12" aria-hidden="true" tabindex="-1"></a>unemployment <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(out[[<span class="dv">1</span>]]) </span>
-<span id="cb150-13"><a href="get-data.html#cb150-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb150-14"><a href="get-data.html#cb150-14" aria-hidden="true" tabindex="-1"></a>unemployment</span></code></pre></div>
-<pre><code>## # A tibble: 54 x 3
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="get-data.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
+<span id="cb149-2"><a href="get-data.html#cb149-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-3"><a href="get-data.html#cb149-3" aria-hidden="true" tabindex="-1"></a><span class="co"># specify URL to where we&#39;ll be web scraping</span></span>
+<span id="cb149-4"><a href="get-data.html#cb149-4" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">&quot;https://web.archive.org/web/20210205040250/https://www.bls.gov/lau/lastrk15.htm&quot;</span>)</span>
+<span id="cb149-5"><a href="get-data.html#cb149-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-6"><a href="get-data.html#cb149-6" aria-hidden="true" tabindex="-1"></a><span class="co"># scrape specific table desired</span></span>
+<span id="cb149-7"><a href="get-data.html#cb149-7" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">html_nodes</span>(url, <span class="st">&quot;table&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb149-8"><a href="get-data.html#cb149-8" aria-hidden="true" tabindex="-1"></a>  .[<span class="dv">2</span>] <span class="sc">%&gt;%</span></span>
+<span id="cb149-9"><a href="get-data.html#cb149-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>(<span class="at">fill =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb149-10"><a href="get-data.html#cb149-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-11"><a href="get-data.html#cb149-11" aria-hidden="true" tabindex="-1"></a><span class="co"># store as a tibble</span></span>
+<span id="cb149-12"><a href="get-data.html#cb149-12" aria-hidden="true" tabindex="-1"></a>unemployment <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(out[[<span class="dv">1</span>]]) </span>
+<span id="cb149-13"><a href="get-data.html#cb149-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-14"><a href="get-data.html#cb149-14" aria-hidden="true" tabindex="-1"></a>unemployment</span></code></pre></div>
+<pre><code>## # A tibble: 54 × 3
 ##    State           `2015rate` Rank 
 ##    &lt;chr&gt;           &lt;chr&gt;      &lt;chr&gt;
 ##  1 &quot;United States&quot; &quot;5.3&quot;      &quot;&quot;   
@@ -2092,10 +2090,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # … with 44 more rows</code></pre>
 <p>Then we get the values from each column of the data table. The <code>html_nodes()</code> function acts as a CSS selector. The “table” class returns two tables from the webpage and we specify that we want the second table. From the object <code>out</code> we select the first in the list and store this as a tibble.</p>
 <p>Now that we have gathered all the raw data we will need for our second case study, let’s save it using the <code>here</code> package:</p>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="get-data.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
-<span id="cb152-2"><a href="get-data.html#cb152-2" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(census, counted15, suicide_all, suicide_firearm, brady, crime, land, unemployment , <span class="at">file =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;case_study_2.rda&quot;</span>))</span>
-<span id="cb152-3"><a href="get-data.html#cb152-3" aria-hidden="true" tabindex="-1"></a><span class="co">#all of these objects (census, counted15 etc) will get saved as case_study_2.rda within the raw_data directory which is a subdirectory of data </span></span>
-<span id="cb152-4"><a href="get-data.html#cb152-4" aria-hidden="true" tabindex="-1"></a><span class="co">#the here package identifies where the project directory is located based on the .Rproj, and thus the path to this directory is not needed</span></span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="get-data.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb151-2"><a href="get-data.html#cb151-2" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(census, counted15, suicide_all, suicide_firearm, brady, crime, land, unemployment , <span class="at">file =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;case_study_2.rda&quot;</span>))</span>
+<span id="cb151-3"><a href="get-data.html#cb151-3" aria-hidden="true" tabindex="-1"></a><span class="co">#all of these objects (census, counted15 etc) will get saved as case_study_2.rda within the raw_data directory which is a subdirectory of data </span></span>
+<span id="cb151-4"><a href="get-data.html#cb151-4" aria-hidden="true" tabindex="-1"></a><span class="co">#the here package identifies where the project directory is located based on the .Rproj, and thus the path to this directory is not needed</span></span></code></pre></div>
 
 </div>
 </div>
