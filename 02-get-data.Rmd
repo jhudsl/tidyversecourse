@@ -820,7 +820,7 @@ Alternatively, you could write and run a few lines of code and get all the infor
 
 #### Using SelectorGadget
 
-To use SelectorGadget, navigate to the webpage we're interested in scraping: [http://jhudatascience.org/stable_website/webscrape.html](http://jhudatascience.org/stable_website/webscrape.html) and toggle SelectorGadget by clicking on the SelectorGadget icon. A menu at the bottom-right of your web page should appear.
+To use SelectorGadget, navigate to the webpage we're interested in scraping: [https://datatrail-jhu.github.io/stable_website/webscrape.html](http://jhudatascience.org/stable_website/webscrape.html) and toggle SelectorGadget by clicking on the SelectorGadget icon. A menu at the bottom-right of your web page should appear.
 
 
 ![SelectorGadget icon on webpage of interest](images/gslides/071.png)
@@ -847,7 +847,7 @@ Finally `html_text()` extracts the text from the tag we've specified, giving us 
 library(rvest) # this loads the xml2 package too!
 
 ## provide URL
-packages <- read_html("http://jhudatascience.org/stable_website/webscrape.html") # the function is from xml2
+packages <- read_html("https://datatrail-jhu.github.io/stable_website/webscrape.html") # the function is from xml2
 
 ## Get Packages
 packages %>% 
