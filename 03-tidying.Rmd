@@ -1568,7 +1568,7 @@ The tidy text format requires that the data frame will store one **token** per r
 
 After determining what level of information you're most interested in, you need a way to go from a wall of text (say, all the text in a novel) to a data frame of tokens (say, individual words). To do this, the `unnest_tokens()` function is incredibly useful.
 
-We'll use a bear bones example to demonstrate how it works. Below is text from the Shel Silverstein poem "Carrots" stored as a character vector:
+We'll use a bare bones example to demonstrate how it works. Below is text from the Shel Silverstein poem "Carrots" stored as a character vector:
 
 ```{r}
 carrots <- c("They say that carrots are good for your eyes",
