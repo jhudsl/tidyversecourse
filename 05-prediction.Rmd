@@ -720,14 +720,14 @@ library(ggplot2)
 
 trees %>%
   ggplot() + 
-  geom_point(aes(Height, Girth))
+  geom_point(aes(Girth, Height))
 ```
 
 From the looks of this plot, the relationship looks approximately linear, but to visually make this a little easier, we'll add a line of best first to the plot.
 
 ```{r}
 trees %>%
-  ggplot(aes(Height, Girth)) + 
+  ggplot(aes(Girth, Height)) + 
   geom_point() + 
   geom_smooth(method = "lm", se = FALSE)
 ```
@@ -740,7 +740,7 @@ Now that that's established, we can run the linear regression. To do so, we'll u
 
 ```{r}
 ## run the regression
-fit <- lm(Girth ~ Height , data = trees)
+fit <- lm(Height ~ Girth , data = trees)
 ```
 
 ### Model Diagnostics
