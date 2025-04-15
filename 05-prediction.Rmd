@@ -720,14 +720,14 @@ library(ggplot2)
 
 trees %>%
   ggplot() + 
-  geom_point(aes(Height, Girth))
+  geom_point(aes(Girth, Height))
 ```
 
 From the looks of this plot, the relationship looks approximately linear, but to visually make this a little easier, we'll add a line of best first to the plot.
 
 ```{r}
 trees %>%
-  ggplot(aes(Height, Girth)) + 
+  ggplot(aes(Girth, Height)) + 
   geom_point() + 
   geom_smooth(method = "lm", se = FALSE)
 ```
@@ -740,7 +740,7 @@ Now that that's established, we can run the linear regression. To do so, we'll u
 
 ```{r}
 ## run the regression
-fit <- lm(Girth ~ Height , data = trees)
+fit <- lm(Height ~ Girth , data = trees)
 ```
 
 ### Model Diagnostics
@@ -771,7 +771,7 @@ To check for **homogeneity of the variance**, we can turn to the **Scale-Locatio
 
 While not discussed explicitly here in this lesson, we will note that when the data are nonlinear or the variances are not homogeneous (are not homoscedastic), **transformations** of the data can often be applied and then linear regression can be used.
 
-**QQ Plots** are very helpful in assessing the **normality of residuals**. Normally distributed residuals will fall along the grey dotted line. Deviation from the line suggests the residuals are not normally distributed.Here, in this example, we do not see the points fall perfectly along the dotted line, suggesting that our residuals are not normally distributed.
+**QQ Plots** are very helpful in assessing the **normality of residuals**. Normally distributed residuals will fall along the grey dotted line. Deviation from the line suggests the residuals are not normally distributed. Here, in this example, we do not see the points fall perfectly along the dotted line, suggesting that our residuals are not normally distributed.
 
 A **histogram** (or densityplot) of the residuals can also be used for this portion of regression diagnostics. Here, we're looking for a **Normal distribution** of the residuals.
 
@@ -781,7 +781,7 @@ ggplot(fit, aes(fit$residuals)) +
   geom_histogram(bins = 5)
 ```
 
-The QQ Plot and the histogram of the residuals will always give the same answer. Here, we see that with our limited sample size, we do not have perfectly Normally distributed residuals; however, the points do not fall wildly far from the dotted line.
+The QQ Plot and the histogram of the residuals will always give the same answer. Here, we see that with our limited sample size, we have fairly good Normally distributed residuals; and, the points do not fall wildly far from the dotted line.
 
 Finally, whether or not **outliers** (extreme observations) are driving our results can be assessed by looking at the **Residuals vs Leverage** plot.
 
@@ -800,10 +800,10 @@ The `summary()` function summarizes the model as well as the output of the model
 
 Specifically, from the beta estimate, which is positive, we confirm that the relationship is positive (which we could also tell from the scatterplot). We can also interpret this beta estimate explicitly.
 
-![](images/ghimage/043.png)
+![](images/ghimage/043.png) <!-- this figure needs to be adapted --> 
 
 
-The **beta estimate** (also known as the beta coefficient or coefficient in the Estimate column) is the amount **the dependent variable will change given a one unit increase in the independent variable**. In the case of the trees, a beta estimate of 0.256, says that for every inch a tree's girth increases, its height will increase by 0.256 inches. Thus, we not only know that there's a positive relationship between the two variables, but we know by precisely how much one variable will change given a single unit increase in the other variable. Note that we're looking at the second row in the output here, where the row label is "Height". This row quantifies the relationship between our two variables. The first row quantifies the intercept, or where the line crosses the y-axis.
+The **beta estimate** (also known as the beta coefficient or coefficient in the Estimate column) is the amount **the dependent variable will change given a one unit increase in the independent variable**. In the case of the trees, a beta estimate of 1.054, says that for every inch a tree's girth increases, its height will increase by 1.054 inches. Thus, we not only know that there's a positive relationship between the two variables, but we know by precisely how much one variable will change given a single unit increase in the other variable. Note that we're looking at the second row in the output here, where the row label is "Girth". This row quantifies the relationship between our two variables. The first row quantifies the intercept, or where the line crosses the y-axis.
 
 The standard error and p-value are also included in this output. Error is typically something we want to minimize (in life and statistical analyses), so the *smaller* the error, the *more confident* we are in the association between these two variables.
 
@@ -813,7 +813,7 @@ The beta estimate and the standard error are then both considered in the calcula
 
 Additionally, the strength of this relationship is summarized using the adjusted R-squared metric. This metric explains how much of the variance this regression line explains. The more variance explained, the closer this value is to 1. And, the closer this value is to 1, the closer the points in your dataset fall to the line of best fit. The further they are from the line, the closer this value will be to zero.
 
-![](images/ghimage/044.png)
+![](images/ghimage/044.png) <!-- this figure needs to be adapted --> 
 
 As we saw in the scatterplot, the data are not right up against the regression line, so a value of 0.2445 seems reasonable, suggesting that this model (this regression line) explains 24.45% of the variance in the data.
 
@@ -832,7 +832,7 @@ Note that the values *haven't* changed. They're just organized into an easy-to-u
 
 Finally, it's important to always keep in mind that the **interpretation of your inferential data analysis** is incredibly important. When you use linear regression to test for association, you're looking at the relationship between the two variables. While girth can be used to infer a tree's height, this is just a correlation. It **does not mean** that an increase in girth **causes** the tree to grow more. Associations are *correlations*. They are **not** causal. 
 
-For now, however, in response to our question, can we infer a black cherry tree's height from its girth, the answer is yes. We would expect, on average, a tree's height to increase 0.255 inches for every one inch increase in girth.
+For now, however, in response to our question, can we infer a black cherry tree's height from its girth, the answer is yes. We would expect, on average, a tree's height to increase 1.054 inches for every one inch increase in girth.
 
 ### Correlation Is Not Causation
 
