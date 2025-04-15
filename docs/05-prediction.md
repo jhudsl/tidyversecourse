@@ -128,7 +128,7 @@ This can be further broken down (or stratified) by sex to describe the age distr
 
 Recall that the `glimpse()` function of the `dplyr` package can help you to see what data you are working with. 
 
-```r
+``` r
 ## load packages
 library(tidyverse)
 df <- msleep # this data comes from ggplot2
@@ -143,7 +143,7 @@ Also because the data is in tibble format, we can gain a lot of information by j
 
 
 
-```r
+``` r
 df
 ```
 
@@ -162,7 +162,7 @@ In this dataset, all missing values are coded as `NA`, and from the output of `s
 To do this, we can write a function that will calculate missingness within each of our variables. To do this we'll combine a few functions. In the code here, `is.na()` returns a logical (`TRUE`/`FALSE`) depending upon whether or not the value is missing (`TRUE` if it is missing). The `sum()` function then calculates the number of `TRUE` values there are within an observation. We then use `map()` to calculate the number of missing values in each variable. The second bit of code does the exact same thing but divides those numbers by the total number of observations (using `nrow(df)`). For each variable, this returns the proportion of missingness:
 
 
-```r
+``` r
 library(purrr)
 ## calculate how many NAs there are in each variable
 df %>% 
@@ -181,7 +181,7 @@ df %>%
 There are also some useful visualization methods for evaluating missingness. You could manually do this with `ggplot2`, but there are two packages called [`naniar`](https://github.com/njtierney/naniar) and [`visdat`](https://github.com/ropensci/visdat) written by [Nicholas Tierney](https://www.njtierney.com/about/) that are very helpful. The `visdat` package was used previously in one of our case studies.
 
 
-```r
+``` r
 #install.packages("naniar")
 library(naniar)
 
@@ -215,7 +215,7 @@ A variable can be described as normally distributed if:
 Taking a look at the sleep_total variable within our example dataset, we see that the data are somewhat normal; however, they aren't entirely symmetric.
 
 
-```r
+``` r
 ggplot(df, aes(sleep_total)) +
   geom_density()
 ```
@@ -225,7 +225,7 @@ ggplot(df, aes(sleep_total)) +
 A variable that is distributed more normally can be seen in the iris dataset, when looking at the `Sepal.Width` variable.
 
 
-```r
+``` r
 iris %>% 
   ggplot() +
   geom_density(aes(x=Sepal.Width))
@@ -243,13 +243,14 @@ Alternatively, sometimes data follow a skewed distribution. In a skewed distribu
 To see an example from the `msleep` dataset, we'll look at the variable sleep_rem. Here we see that the data are skewed right, given the shift in values away from the right, leading to a long right tail. Here, most of the values are at the lower end of the range.
 
 
-```r
+``` r
 ggplot(df, aes(sleep_rem)) +
   geom_density()
 ```
 
 ```
-## Warning: Removed 22 rows containing non-finite values (stat_density).
+## Warning: Removed 22 rows containing non-finite outside the scale range
+## (`stat_density()`).
 ```
 
 <img src="images/modeling-unnamed-chunk-9-1.png" width="672" />
@@ -287,7 +288,7 @@ To identify outliers visually, density plots and boxplots can be very helpful.
 For example, if we returned to the iris dataset and looked at the distribution of `Petal.Length`, we would see a bimodal distribution (yet another distribution!). Bimodal distributions can be identified by density plots that have two distinct humps. In these distributions, there are two different modes -- this is where the term "bimodal" comes from. In this plot, the curve suggests there are a number of flowers with petal length less than 2 and many with petal length around 5.
 
 
-```r
+``` r
 ## density plot
 library(ggplot2)
 iris %>%
@@ -302,7 +303,7 @@ Since the two humps in the plot are about the same height, this shows that it's 
 To investigate this further, we'll look at petal length broken down by flower species:
 
 
-```r
+``` r
 ## box plot
 iris %>%
   ggplot(aes(Species, Petal.Length)) +
@@ -342,7 +343,7 @@ In addition to measures of central tendency, measures of variability are key in 
 The variance tells you how spread out the values are. If all the values within your variable are exactly the same, that variable's variance will be zero. The larger your variance, the more spread out your values are. Take the following vector and calculate its variance in R using the var() function:
 
 
-```r
+``` r
 ## variance of a vector where all values are the same
 a <- c(29, 29, 29, 29)
 var(a)
@@ -352,7 +353,7 @@ var(a)
 ## [1] 0
 ```
 
-```r
+``` r
 ## variance of a vector with one very different value
 b <-  c(29, 29, 29, 29, 723678)
 var(b)
@@ -369,7 +370,7 @@ The only difference between the two vectors is that the second one has one value
 By definition, the standard deviation is the square root of the variance, thus if we were to calculate the standard deviation in R using the sd() function, we'd see that the sd() function is equal to the square root of the variance:
 
 
-```r
+``` r
 ## calculate standard deviation
 sd(b)
 ```
@@ -378,7 +379,7 @@ sd(b)
 ## [1] 323625.7
 ```
 
-```r
+``` r
 ## this is the same as the square root of the variance
 sqrt(var(b))
 ```
@@ -400,7 +401,7 @@ Alternatively, there is a helpful package that will summarize all the variables 
 To use `skimr`, you'll have to install and load the package before using the helpful function `skim()` to get a snapshot of your dataset.
 
 
-```r
+``` r
 #install.packages("skimr")
 library(skimr)
 skim(df)
@@ -415,7 +416,7 @@ The output from `skim()` separately summarizes categorical and continuous variab
 If we take a look closer at the `bodywt` and `brianwt` variables, we can see that there may be outliers. The maximum value of the `bodywt` variable looks very different from the `mean` value. 
 
 
-```r
+``` r
 dplyr::filter(df, bodywt == 6654)
 ```
 
@@ -424,20 +425,20 @@ dplyr::filter(df, bodywt == 6654)
 ##   name    genus vore  order conservation sleep_total sleep_rem sleep_cycle awake
 ##   <chr>   <chr> <chr> <chr> <chr>              <dbl>     <dbl>       <dbl> <dbl>
 ## 1 Africa… Loxo… herbi Prob… vu                   3.3        NA          NA  20.7
-## # … with 2 more variables: brainwt <dbl>, bodywt <dbl>
+## # ℹ 2 more variables: brainwt <dbl>, bodywt <dbl>
 ```
 Ah! looks like it is an elephant, that makes sense.
 
 Taking a deeper look at the histogram we can see that there are two values that are especially different.
 
-```r
+``` r
 hist(pull(df, bodywt))
 ```
 
 <img src="images/modeling-unnamed-chunk-16-1.png" width="672" />
 
 
-```r
+``` r
 dplyr::filter(df, bodywt > 2000)
 ```
 
@@ -447,7 +448,7 @@ dplyr::filter(df, bodywt > 2000)
 ##   <chr>   <chr> <chr> <chr> <chr>              <dbl>     <dbl>       <dbl> <dbl>
 ## 1 Asian … Elep… herbi Prob… en                   3.9        NA          NA  20.1
 ## 2 Africa… Loxo… herbi Prob… vu                   3.3        NA          NA  20.7
-## # … with 2 more variables: brainwt <dbl>, bodywt <dbl>
+## # ℹ 2 more variables: brainwt <dbl>, bodywt <dbl>
 ```
 
 Looks like both data points are for elephants.
@@ -467,7 +468,7 @@ We might want to look at the relationships between all of our continuous variabl
 Here are some very useful plots that can be generated using the `GGally` package and the `PerformanceAnalytics` package to examine if variables are correlated.
 
 
-```r
+``` r
 library(PerformanceAnalytics)
 df %>%
 dplyr::select_if(is.numeric) %>%
@@ -477,7 +478,7 @@ dplyr::select_if(is.numeric) %>%
 <img src="images/modeling-unnamed-chunk-18-1.png" width="672" />
 
 
-```r
+``` r
 library(GGally)
 ```
 
@@ -487,7 +488,7 @@ library(GGally)
 ##   +.gg   ggplot2
 ```
 
-```r
+``` r
 df %>%
 dplyr::select_if(is.numeric) %>%
     ggcorr(label = TRUE)
@@ -496,7 +497,7 @@ dplyr::select_if(is.numeric) %>%
 <img src="images/modeling-unnamed-chunk-19-1.png" width="672" />
 
 
-```r
+``` r
 library(GGally)
 df %>%
 dplyr::select_if(is.numeric) %>%
@@ -511,7 +512,7 @@ We may be especially interested in how brain weight (`brain_wt`) relates to body
  
 Here is a plot of the these two variables including the elephant data:
 
-```r
+``` r
 library(ggplot2)
 ggplot(df, aes(x = bodywt, y = brainwt)) +
   geom_point()
@@ -522,7 +523,7 @@ ggplot(df, aes(x = bodywt, y = brainwt)) +
 Clearly, including the elephant data points makes it hard to look at the other data points, it is possible that these points are driving the positive correlation that we get when we use all the data. Here is a plot of the relationship between these to variables excluding the elephant data and the very low body weight organisms:
 
 
-```r
+``` r
 library(ggplot2)
 
 df %>%
@@ -533,12 +534,12 @@ df %>%
 ```
 
 ```
-## `geom_smooth()` using formula 'y ~ x'
+## `geom_smooth()` using formula = 'y ~ x'
 ```
 
 <img src="images/modeling-unnamed-chunk-22-1.png" width="672" />
 
-```r
+``` r
 cor.test(pull(df %>% filter(bodywt<2000 & bodywt >1),bodywt),
          pull(df %>%filter(bodywt<2000 & bodywt >1),brainwt))
 ```
@@ -565,7 +566,7 @@ We can also see it in our histogram of this variable:
 
 
 
-```r
+``` r
 hist(pull(df, brainwt))
 ```
 
@@ -574,7 +575,7 @@ hist(pull(df, brainwt))
 Let's see which organism this is:
 
 
-```r
+``` r
 df %>%
   filter(brainwt >=1)
 ```
@@ -586,12 +587,12 @@ df %>%
 ## 1 Asian … Elep… herbi Prob… en                   3.9      NA          NA    20.1
 ## 2 Human   Homo  omni  Prim… <NA>                 8         1.9         1.5  16  
 ## 3 Africa… Loxo… herbi Prob… vu                   3.3      NA          NA    20.7
-## # … with 2 more variables: brainwt <dbl>, bodywt <dbl>
+## # ℹ 2 more variables: brainwt <dbl>, bodywt <dbl>
 ```
 It is humans! Let's see what the plot looks like without humans:
 
 
-```r
+``` r
 library(ggplot2)
 df %>%
   filter(bodywt<2000 & bodywt >1 & brainwt<1) %>%
@@ -601,12 +602,12 @@ df %>%
 ```
 
 ```
-## `geom_smooth()` using formula 'y ~ x'
+## `geom_smooth()` using formula = 'y ~ x'
 ```
 
 <img src="images/modeling-unnamed-chunk-25-1.png" width="672" />
 
-```r
+``` r
 cor.test(pull(df %>% filter(bodywt<2000 & bodywt >1 & brainwt<1),bodywt),
          pull(df %>%filter(bodywt<2000 & bodywt >1 & brainwt<1),brainwt))
 ```
@@ -851,12 +852,12 @@ First, before carrying out the linear regression to test for association and ans
 To do so, we'll first use `ggplot2` to generate a scatterplot of the variables of interest.
 
 
-```r
+``` r
 library(ggplot2)
 
 trees %>%
   ggplot() + 
-  geom_point(aes(Height, Girth))
+  geom_point(aes(Girth, Height))
 ```
 
 <img src="images/modeling-unnamed-chunk-26-1.png" width="672" />
@@ -864,15 +865,15 @@ trees %>%
 From the looks of this plot, the relationship looks approximately linear, but to visually make this a little easier, we'll add a line of best first to the plot.
 
 
-```r
+``` r
 trees %>%
-  ggplot(aes(Height, Girth)) + 
+  ggplot(aes(Girth, Height)) + 
   geom_point() + 
   geom_smooth(method = "lm", se = FALSE)
 ```
 
 ```
-## `geom_smooth()` using formula 'y ~ x'
+## `geom_smooth()` using formula = 'y ~ x'
 ```
 
 <img src="images/modeling-unnamed-chunk-27-1.png" width="672" />
@@ -884,9 +885,9 @@ On this graph, the relationship looks approximately linear and the variance (dis
 Now that that's established, we can run the linear regression. To do so, we'll use the `lm()` function to **fit the model**. The syntax for this function is `lm(dependent_variable ~ independent_variable, data = dataset)`.
 
 
-```r
+``` r
 ## run the regression
-fit <- lm(Girth ~ Height , data = trees)
+fit <- lm(Height ~ Girth , data = trees)
 ```
 
 ### Model Diagnostics
@@ -896,7 +897,7 @@ Above, we discussed a number of assumptions of linear regression. After fitting 
 In order to assess your model, a number of diagnostic plots can be very helpful. Diagnostic plots can be generated using the `plot()` function with the fitted model as an argument.
 
 
-```r
+``` r
 par(mfrow = c(2, 2))
 plot(fit)
 ```
@@ -920,12 +921,12 @@ To check for **homogeneity of the variance**, we can turn to the **Scale-Locatio
 
 While not discussed explicitly here in this lesson, we will note that when the data are nonlinear or the variances are not homogeneous (are not homoscedastic), **transformations** of the data can often be applied and then linear regression can be used.
 
-**QQ Plots** are very helpful in assessing the **normality of residuals**. Normally distributed residuals will fall along the grey dotted line. Deviation from the line suggests the residuals are not normally distributed.Here, in this example, we do not see the points fall perfectly along the dotted line, suggesting that our residuals are not normally distributed.
+**QQ Plots** are very helpful in assessing the **normality of residuals**. Normally distributed residuals will fall along the grey dotted line. Deviation from the line suggests the residuals are not normally distributed. Here, in this example, we do not see the points fall perfectly along the dotted line, suggesting that our residuals are not normally distributed.
 
 A **histogram** (or densityplot) of the residuals can also be used for this portion of regression diagnostics. Here, we're looking for a **Normal distribution** of the residuals.
 
 
-```r
+``` r
 library(ggplot2)
 ggplot(fit, aes(fit$residuals)) + 
   geom_histogram(bins = 5)
@@ -933,7 +934,7 @@ ggplot(fit, aes(fit$residuals)) +
 
 <img src="images/modeling-unnamed-chunk-30-1.png" width="672" />
 
-The QQ Plot and the histogram of the residuals will always give the same answer. Here, we see that with our limited sample size, we do not have perfectly Normally distributed residuals; however, the points do not fall wildly far from the dotted line.
+The QQ Plot and the histogram of the residuals will always give the same answer. Here, we see that with our limited sample size, we have fairly good Normally distributed residuals; and, the points do not fall wildly far from the dotted line.
 
 Finally, whether or not **outliers** (extreme observations) are driving our results can be assessed by looking at the **Residuals vs Leverage** plot.
 
@@ -944,7 +945,7 @@ Generally speaking, standardized residuals greater than 3 or less than -3 are to
 While the relationship in our example appears to be linear, does not indicate being driven by outliers, is approximately homoscedastic and has residuals that are not perfectly Normally distributed, but fall close to the line in the QQ plot, we can discuss how to interpret the results of the model.
 
 
-```r
+``` r
 ## take a look at the output
 summary(fit)
 ```
@@ -953,10 +954,10 @@ The `summary()` function summarizes the model as well as the output of the model
 
 Specifically, from the beta estimate, which is positive, we confirm that the relationship is positive (which we could also tell from the scatterplot). We can also interpret this beta estimate explicitly.
 
-![](images/ghimage/043.png)
+![](images/ghimage/043.png) <!-- this figure needs to be adapted --> 
 
 
-The **beta estimate** (also known as the beta coefficient or coefficient in the Estimate column) is the amount **the dependent variable will change given a one unit increase in the independent variable**. In the case of the trees, a beta estimate of 0.256, says that for every inch a tree's girth increases, its height will increase by 0.256 inches. Thus, we not only know that there's a positive relationship between the two variables, but we know by precisely how much one variable will change given a single unit increase in the other variable. Note that we're looking at the second row in the output here, where the row label is "Height". This row quantifies the relationship between our two variables. The first row quantifies the intercept, or where the line crosses the y-axis.
+The **beta estimate** (also known as the beta coefficient or coefficient in the Estimate column) is the amount **the dependent variable will change given a one unit increase in the independent variable**. In the case of the trees, a beta estimate of 1.054, says that for every inch a tree's girth increases, its height will increase by 1.054 inches. Thus, we not only know that there's a positive relationship between the two variables, but we know by precisely how much one variable will change given a single unit increase in the other variable. Note that we're looking at the second row in the output here, where the row label is "Girth". This row quantifies the relationship between our two variables. The first row quantifies the intercept, or where the line crosses the y-axis.
 
 The standard error and p-value are also included in this output. Error is typically something we want to minimize (in life and statistical analyses), so the *smaller* the error, the *more confident* we are in the association between these two variables.
 
@@ -966,7 +967,7 @@ The beta estimate and the standard error are then both considered in the calcula
 
 Additionally, the strength of this relationship is summarized using the adjusted R-squared metric. This metric explains how much of the variance this regression line explains. The more variance explained, the closer this value is to 1. And, the closer this value is to 1, the closer the points in your dataset fall to the line of best fit. The further they are from the line, the closer this value will be to zero.
 
-![](images/ghimage/044.png)
+![](images/ghimage/044.png) <!-- this figure needs to be adapted --> 
 
 As we saw in the scatterplot, the data are not right up against the regression line, so a value of 0.2445 seems reasonable, suggesting that this model (this regression line) explains 24.45% of the variance in the data.
 
@@ -975,7 +976,7 @@ As we saw in the scatterplot, the data are not right up against the regression l
 Finally, while the `summary()` output are visually helpful, if you want to get any of the numbers out from that model, it's not always straightforward. Thankfully, there is a package to help you with that! The `tidy()` function from the `broom` package helps take the summary output from a statistical model and organize it into a tabular output.
 
 
-```r
+``` r
 #install.packages("broom")
 library(broom)
 tidy(fit)
@@ -983,10 +984,10 @@ tidy(fit)
 
 ```
 ## # A tibble: 2 × 5
-##   term        estimate std.error statistic p.value
-##   <chr>          <dbl>     <dbl>     <dbl>   <dbl>
-## 1 (Intercept)   -6.19     5.96       -1.04 0.308  
-## 2 Height         0.256    0.0782      3.27 0.00276
+##   term        estimate std.error statistic  p.value
+##   <chr>          <dbl>     <dbl>     <dbl>    <dbl>
+## 1 (Intercept)    62.0      4.38      14.2  1.49e-14
+## 2 Girth           1.05     0.322      3.27 2.76e- 3
 ```
 
 
@@ -994,7 +995,7 @@ Note that the values *haven't* changed. They're just organized into an easy-to-u
 
 Finally, it's important to always keep in mind that the **interpretation of your inferential data analysis** is incredibly important. When you use linear regression to test for association, you're looking at the relationship between the two variables. While girth can be used to infer a tree's height, this is just a correlation. It **does not mean** that an increase in girth **causes** the tree to grow more. Associations are *correlations*. They are **not** causal. 
 
-For now, however, in response to our question, can we infer a black cherry tree's height from its girth, the answer is yes. We would expect, on average, a tree's height to increase 0.255 inches for every one inch increase in girth.
+For now, however, in response to our question, can we infer a black cherry tree's height from its girth, the answer is yes. We would expect, on average, a tree's height to increase 1.054 inches for every one inch increase in girth.
 
 ### Correlation Is Not Causation
 
@@ -1041,7 +1042,7 @@ As a simple example, let's return to the `mtcars` dataset, which we've worked wi
 
 Suppose we were interested in inferring the mpg a car would get based on its weight. We'd first look at the relationship graphically:
 
-```r
+``` r
 ## take a look at scatterplot
 ggplot(mtcars, aes(wt, mpg)) +
   geom_point()
@@ -1052,7 +1053,7 @@ ggplot(mtcars, aes(wt, mpg)) +
 From the scatterplot, the relationship looks approximately linear and the variance looks constant. Thus, we could model this using linear regression:
 
 
-```r
+``` r
 ## model the data without confounder
 fit <- lm(mpg ~ wt, data = mtcars)
 tidy(fit)
@@ -1065,7 +1066,7 @@ From this analysis, we would infer that for every increase 1000 lbs more a car w
 However, we know that the weight of a car doesn't necessarily tell the whole story. The type of engine in the car likely affects both the weight of the car and the miles per gallon the car gets. Graphically, we could see if this were the case by looking at these scatterplots:
 
 
-```r
+``` r
 ## look at the difference in relationship 
 ## between Engine types
 ggplot(mtcars, aes(wt, mpg)) +
@@ -1081,7 +1082,7 @@ From this plot, we can see that V-shaped engines (`vs`= 0), tend to be heavier a
 Let's then model the data, taking this confounding into account:
 
 
-```r
+``` r
 ## include engine (vs) as a confounder
 fit <- lm(mpg ~ wt + vs, data = mtcars)
 tidy(fit)
@@ -1115,7 +1116,7 @@ For example, let's say you had a dataset that included the number of ounces *act
 
 In fact, let's go ahead and generate the dataset ourselves!
 
-```r
+``` r
 ## generate the dataset
 set.seed(34) 
 soda_ounces <- rnorm(100, mean = 12, sd = 0.04)
@@ -1145,7 +1146,7 @@ However, I mentioned earlier that many statistical tests are simply extension of
 However, before we can do so, we have to ensure that the data follow a normal distribution, since this is the primary assumption of the t-test.
 
 
-```r
+``` r
 library(ggplot2)
 
 ## check for normality
@@ -1160,7 +1161,7 @@ Here, we see that the data are approximately normally distributed.
 A t-test will check whether the observed ounces differs from the expected mean (12 oz). As mentioned above, to run a t-test in R, most people use the built-in function: `t.test()`.
 
 
-```r
+``` r
 ## carry out t-test
 t.test(soda_ounces, mu = 12)
 ```
@@ -1186,7 +1187,7 @@ Here, since 12 is between 11.99187 and 12.00754, we can see that the amounts in 
 However, as mentioned previously, t-tests are an extension of linear regression. We could also look to see whether or not the cans had the expected average of 12 oz in the data collected using `lm()`.
 
 
-```r
+``` r
 # from linear regression
 regression_output <-  lm(soda_ounces ~ 1)
 
@@ -1248,7 +1249,7 @@ OK, so now we will use the `infer` package to test if our null hypothesis is tru
 First, we need to get our data into a tidy format. Thus we will use the `as_tibble()` function of the `tidyr` package.
 
 
-```r
+``` r
 soda_ounces <-as_tibble(soda_ounces)
 soda_ounces
 ```
@@ -1267,7 +1268,7 @@ soda_ounces
 ##  8  12.0
 ##  9  12.0
 ## 10  12.0
-## # … with 90 more rows
+## # ℹ 90 more rows
 ```
 Now we will use the `specify()` function of the `infer` package to indicate that the `value` variable is our response variable that will be used in our hypothesis. This is as you might expect more important when we have multiple variables in our data. Then we can specify our null hypothesis with the `hypothesize()` function.
 
@@ -1314,7 +1315,7 @@ Finally, the `get_confidence_interval()` as you might guess calculates a confide
 Now we will use these functions on our data.
 
 
-```r
+``` r
 library(infer)
 set.seed(342)
 
@@ -1330,7 +1331,7 @@ CI <-soda_ounces %>%
 ## Using `level = 0.95` to compute confidence interval.
 ```
 
-```r
+``` r
 CI
 ```
 
@@ -1347,7 +1348,7 @@ We can see that our confidence interval is very similar but slightly different f
 We can also make a visualization of the null distribution of the bootstrap samples using the `visualize()` function.
 
 
-```r
+``` r
 set.seed(342)
 
 bootstrap_means <-soda_ounces %>%
@@ -1633,7 +1634,7 @@ We can specify what proportion of the data we would like to use for training usi
 Since the split is performed randomly, it is a good idea to use the set.seed() function in base R to ensure that if your rerun your code that your split will be the same next time.
 
 
-```r
+``` r
 library(rsample)
 set.seed(1234)
 split_iris <-initial_split(iris, prop = 2/3) 
@@ -1641,11 +1642,11 @@ split_iris
 ```
 
 ```
-## <Analysis/Assess/Total>
+## <Training/Testing/Total>
 ## <100/50/150>
 ```
 
-```r
+``` r
 # the default proportion is 1/4 testing and 3/4 training
 ```
 
@@ -1657,34 +1658,34 @@ We can see that about 70% of our observations are in the training dataset and th
 We can then extract the training and testing datasets by using the `training()` and `testing()` functions, also of the `rsample` package.
 
 
-```r
+``` r
 training_iris <-training(split_iris)
 head(training_iris)
 ```
 
 ```
-##     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
-## 28           5.2         3.5          1.5         0.2     setosa
-## 80           5.7         2.6          3.5         1.0 versicolor
-## 101          6.3         3.3          6.0         2.5  virginica
-## 111          6.5         3.2          5.1         2.0  virginica
-## 137          6.3         3.4          5.6         2.4  virginica
-## 133          6.4         2.8          5.6         2.2  virginica
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+## 1          5.2         3.5          1.5         0.2     setosa
+## 2          5.7         2.6          3.5         1.0 versicolor
+## 3          6.3         3.3          6.0         2.5  virginica
+## 4          6.5         3.2          5.1         2.0  virginica
+## 5          6.3         3.4          5.6         2.4  virginica
+## 6          6.4         2.8          5.6         2.2  virginica
 ```
 
-```r
+``` r
 testing_iris <-testing(split_iris)
 head(testing_iris)
 ```
 
 ```
-##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-## 1           5.1         3.5          1.4         0.2  setosa
-## 7           4.6         3.4          1.4         0.3  setosa
-## 11          5.4         3.7          1.5         0.2  setosa
-## 12          4.8         3.4          1.6         0.2  setosa
-## 15          5.8         4.0          1.2         0.2  setosa
-## 16          5.7         4.4          1.5         0.4  setosa
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.6         3.4          1.4         0.3  setosa
+## 3          5.4         3.7          1.5         0.2  setosa
+## 4          4.8         3.4          1.6         0.2  setosa
+## 5          5.8         4.0          1.2         0.2  setosa
+## 6          5.7         4.4          1.5         0.4  setosa
 ```
 
 #### Step 2: Example of preparing for preprocessing the data with `recipes`
@@ -1721,7 +1722,7 @@ Let's make our first recipe with the `iris data`! We will first try to predict `
 First we can specify our variables using formula notation:
 
 
-```r
+``` r
 library(recipes)
 ```
 
@@ -1742,20 +1743,35 @@ library(recipes)
 ##     step
 ```
 
-```r
+``` r
 first_recipe <- training_iris %>%
                   recipe(Sepal.Length ~ Sepal.Width + Species)
 first_recipe
 ```
 
 ```
-## Data Recipe
 ## 
-## Inputs:
+```
+
+```
+## ── Recipe ──────────────────────────────────────────────────────────────────────
+```
+
+```
 ## 
-##       role #variables
-##    outcome          1
-##  predictor          2
+```
+
+```
+## ── Inputs
+```
+
+```
+## Number of variables by role
+```
+
+```
+## outcome:   1
+## predictor: 2
 ```
 
 Alternatively, we could also specify the outcome and predictor(s) by assigning roles to the variables by using the `update_role()` function. Please see [here](https://tidymodels.github.io/recipes/reference/recipe.html) for examples of the variety of roles variables can take.  
@@ -1763,7 +1779,7 @@ Alternatively, we could also specify the outcome and predictor(s) by assigning r
 We first need to use the `recipe()` function with this method to specify what data we are using.
 
 
-```r
+``` r
 first_recipe <- recipe(training_iris) %>%
                   recipes::update_role(Sepal.Length, new_role = "outcome")  %>%
                   recipes::update_role(Sepal.Width, new_role = "predictor") %>%
@@ -1772,34 +1788,48 @@ first_recipe
 ```
 
 ```
-## Data Recipe
 ## 
-## Inputs:
+```
+
+```
+## ── Recipe ──────────────────────────────────────────────────────────────────────
+```
+
+```
 ## 
-##       role #variables
-##    outcome          1
-##  predictor          2
-## 
-##   2 variables with undeclared roles
+```
+
+```
+## ── Inputs
+```
+
+```
+## Number of variables by role
+```
+
+```
+## outcome:         1
+## predictor:       2
+## undeclared role: 2
 ```
 
 
 We can view our recipe using the base summary() function.
 
 
-```r
+``` r
 summary(first_recipe)
 ```
 
 ```
 ## # A tibble: 5 × 4
-##   variable     type    role      source  
-##   <chr>        <chr>   <chr>     <chr>   
-## 1 Sepal.Length numeric outcome   original
-## 2 Sepal.Width  numeric predictor original
-## 3 Petal.Length numeric <NA>      original
-## 4 Petal.Width  numeric <NA>      original
-## 5 Species      nominal predictor original
+##   variable     type      role      source  
+##   <chr>        <list>    <chr>     <chr>   
+## 1 Sepal.Length <chr [2]> outcome   original
+## 2 Sepal.Width  <chr [2]> predictor original
+## 3 Petal.Length <chr [2]> <NA>      original
+## 4 Petal.Width  <chr [2]> <NA>      original
+## 5 Species      <chr [3]> predictor original
 ```
 
 ##### Step 2: Specify the preprocessing steps with `step*()` functions
@@ -1841,7 +1871,7 @@ One-hot encoding means that we do not simply encode our categorical variables nu
 Instead, binary variables made of 1s and 0s are used to arbitrarily assign a numeric value that has no apparent order.
 
 
-```r
+``` r
 first_recipe <- first_recipe %>%
   step_dummy(Species, one_hot = TRUE)
 
@@ -1849,19 +1879,41 @@ first_recipe
 ```
 
 ```
-## Data Recipe
 ## 
-## Inputs:
+```
+
+```
+## ── Recipe ──────────────────────────────────────────────────────────────────────
+```
+
+```
 ## 
-##       role #variables
-##    outcome          1
-##  predictor          2
+```
+
+```
+## ── Inputs
+```
+
+```
+## Number of variables by role
+```
+
+```
+## outcome:         1
+## predictor:       2
+## undeclared role: 2
+```
+
+```
 ## 
-##   2 variables with undeclared roles
-## 
-## Operations:
-## 
-## Dummy variables from Species
+```
+
+```
+## ── Operations
+```
+
+```
+## • Dummy variables from: Species
 ```
 
 #### Step 3: Example of optionally performing the preprocessing to see how it influences the data
@@ -1882,7 +1934,7 @@ There are some important arguments to know about:
 Let's try out the `prep()` function: 
 
 
-```r
+``` r
 prepped_rec <- prep(first_recipe, verbose = TRUE, retain = TRUE )
 ```
 
@@ -1891,35 +1943,68 @@ prepped_rec <- prep(first_recipe, verbose = TRUE, retain = TRUE )
 ## The retained training set is ~ 0.01 Mb  in memory.
 ```
 
-```r
+``` r
 prepped_rec
 ```
 
 ```
-## Data Recipe
 ## 
-## Inputs:
-## 
-##       role #variables
-##    outcome          1
-##  predictor          2
-## 
-##   2 variables with undeclared roles
-## 
-## Training data contained 100 data points and no missing data.
-## 
-## Operations:
-## 
-## Dummy variables from Species [trained]
 ```
 
-```r
+```
+## ── Recipe ──────────────────────────────────────────────────────────────────────
+```
+
+```
+## 
+```
+
+```
+## ── Inputs
+```
+
+```
+## Number of variables by role
+```
+
+```
+## outcome:         1
+## predictor:       2
+## undeclared role: 2
+```
+
+```
+## 
+```
+
+```
+## ── Training information
+```
+
+```
+## Training data contained 100 data points and no incomplete rows.
+```
+
+```
+## 
+```
+
+```
+## ── Operations
+```
+
+```
+## • Dummy variables from: Species | Trained
+```
+
+``` r
 names(prepped_rec)
 ```
 
 ```
-## [1] "var_info"       "term_info"      "steps"          "template"      
-## [5] "retained"       "tr_info"        "orig_lvls"      "last_term_info"
+##  [1] "var_info"       "term_info"      "steps"          "template"      
+##  [5] "retained"       "requirements"   "ptype"          "tr_info"       
+##  [9] "orig_lvls"      "fit_times"      "last_term_info"
 ```
 
 There are also lots of useful things to checkout in the output of `prep()`.
@@ -1935,19 +2020,19 @@ You can see:
 We can see these using the `$` notation:
 
 
-```r
+``` r
 prepped_rec$var_info
 ```
 
 ```
 ## # A tibble: 5 × 4
-##   variable     type    role      source  
-##   <chr>        <chr>   <chr>     <chr>   
-## 1 Sepal.Length numeric outcome   original
-## 2 Sepal.Width  numeric predictor original
-## 3 Petal.Length numeric <NA>      original
-## 4 Petal.Width  numeric <NA>      original
-## 5 Species      nominal predictor original
+##   variable     type      role      source  
+##   <chr>        <list>    <chr>     <chr>   
+## 1 Sepal.Length <chr [2]> outcome   original
+## 2 Sepal.Width  <chr [2]> predictor original
+## 3 Petal.Length <chr [2]> <NA>      original
+## 4 Petal.Width  <chr [2]> <NA>      original
+## 5 Species      <chr [3]> predictor original
 ```
 
 
@@ -1958,7 +2043,7 @@ Now we can use `bake` to see the preprocessed training data.
 Since we are using our training data we need to specify that we don't have new_data with `new_data = NULL`.
 
 
-```r
+``` r
 preproc_train <-recipes::bake(prepped_rec, new_data = NULL)
 glimpse(preproc_train)
 ```
@@ -1981,7 +2066,7 @@ We can see that the `Species` variable has been replaced by 3 variables represen
 Now we do the same for our testing data using `bake()`. You generally want to leave your testing data alone, but it is good to look for issues like the introduction of NA values if you have complicated preprocessing steps and you want to make sure this performs as you expect.
 
 
-```r
+``` r
 baked_test_pm <- recipes::bake(prepped_rec, new_data = testing_iris)
 glimpse(baked_test_pm)
 ```
@@ -2022,13 +2107,15 @@ See [here](https://www.tidymodels.org/find/parsnip/){target="_blank"} for modeli
 We want to do a linear regression so we will use the `linear_reg()` function of the `parsnip` package.
 
 
-```r
+``` r
 Lin_reg_model <- parsnip::linear_reg()
 Lin_reg_model
 ```
 
 ```
 ## Linear Regression Model Specification (regression)
+## 
+## Computational engine: lm
 ```
 
 OK. So far, all we have defined is that we want to use a linear regression. Now let's tell `parsnip` more about what we want.
@@ -2039,7 +2126,7 @@ So we will tell `parsnip` that we want to use the `lm` package to implement our 
 We will do so by using the `set_engine()` function of the `parsnip` package.
 
 
-```r
+``` r
 Lin_reg_model <- 
   Lin_reg_model  %>%
   parsnip::set_engine("lm")
@@ -2058,7 +2145,7 @@ Here, we aim to predict a continuous variable, thus we want to perform a `regres
 You can do this with the `set_mode()` function of the `parsnip` package, by using either `set_mode("classification")` or `set_mode("regression")`.
 
 
-```r
+``` r
 Lin_reg_model <- 
   Lin_reg_model %>%
   parsnip::set_engine("lm") %>%
@@ -2085,7 +2172,7 @@ Next, we use `add_recipe()` (our preprocessing specifications) and we add our mo
 **Note**: We do not need to actually `prep()` our recipe before using workflows - this was just optional so we could take a look at the preprocessed data!
 
 
-```r
+``` r
 iris_reg_wflow <-workflows::workflow() %>%
                  workflows::add_recipe(first_recipe) %>%
                  workflows::add_model(Lin_reg_model)
@@ -2115,7 +2202,7 @@ Next, we "prepare the recipe" (or estimate the parameters) and fit the model to 
 Printing the output, we can see the coefficients of the model.
 
 
-```r
+``` r
 iris_reg_wflow_fit <- parsnip::fit(iris_reg_wflow, data = training_iris)
 iris_reg_wflow_fit
 ```
@@ -2152,11 +2239,21 @@ To get this we first need to get the predicted (also called "fitted") values.
 We can get these values using the `pull_workflow_fit()` function of the `workflows` package. These values are in the `$fit$fitted.values` slot of the output. Alternatively, we can use the `predict()` function with the workflow and the training data specified as the `new_data`.
 
 
-```r
+``` r
 library(workflows)
 wf_fit <- iris_reg_wflow_fit %>% 
   pull_workflow_fit()
+```
 
+```
+FALSE Warning: `pull_workflow_fit()` was deprecated in workflows 0.2.3.
+FALSE ℹ Please use `extract_fit_parsnip()` instead.
+FALSE This warning is displayed once every 8 hours.
+FALSE Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+FALSE generated.
+```
+
+``` r
 head(wf_fit$fit$fitted.values)
 ```
 
@@ -2165,13 +2262,14 @@ FALSE        1        2        3        4        5        6
 FALSE 5.069194 5.796771 6.825955 6.753671 6.898239 6.464535
 ```
 
-```r
+``` r
 predict(iris_reg_wflow_fit, new_data = training_iris)
 ```
 
 ```
 FALSE Warning in predict.lm(object = object$fit, newdata = new_data, type =
-FALSE "response"): prediction from a rank-deficient fit may be misleading
+FALSE "response", : prediction from rank-deficient fit; consider predict(.,
+FALSE rankdeficient="NA")
 ```
 
 ```
@@ -2188,13 +2286,13 @@ FALSE  7  6.75
 FALSE  8  7.19
 FALSE  9  6.01
 FALSE 10  6.61
-FALSE # … with 90 more rows
+FALSE # ℹ 90 more rows
 ```
 
 To get more information about the prediction for each sample, we can use the `augment()` function of the `broom` package. This requires using the preprocessed training data from `bake()` (or with previous versions `juice()`), as well as the predicted values from either of the two previous methods.
 
 
-```r
+``` r
 wf_fitted_values <- 
   broom::augment(wf_fit$fit, data = preproc_train) %>% 
   select(Sepal.Length, .fitted:.std.resid)
@@ -2214,7 +2312,7 @@ FALSE 5          6.3    6.90 0.0429  0.455 0.0201       -1.34
 FALSE 6          6.4    6.46 0.0317  0.459 0.000169     -0.144
 ```
 
-```r
+``` r
 # other option:
 # wf_fitted_values <- 
 #   broom::augment(predict(iris_reg_wflow_fit, new_data = training_iris), 
@@ -2229,7 +2327,7 @@ Nice, now we can see what the original value for `Sepal.Length` right next to th
 Now we can use the `rmse()` function of the `yardstick` package to compare the `truth`, which is the `Sepal.Length` variable, to the predicted or estimate variable which in the previous output is called `.fitted`.
 
 
-```r
+``` r
 yardstick::rmse(wf_fitted_values, 
                truth = Sepal.Length, 
             estimate = .fitted)
@@ -2248,7 +2346,7 @@ We can see that our RMSE was 0.4472046. This is fairly low, so our model did pre
 We can also make a plot to visualize how well we predicted `Sepal.Length`.
 
 
-```r
+``` r
 wf_fitted_values %>%
   ggplot(aes(x = Sepal.Length, y = .fitted)) +
   geom_point() +
@@ -2257,7 +2355,7 @@ wf_fitted_values %>%
 ```
 
 ```
-## `geom_smooth()` using formula 'y ~ x'
+## `geom_smooth()` using formula = 'y ~ x'
 ```
 
 <img src="images/modeling-unnamed-chunk-62-1.png" width="672" />
@@ -2273,44 +2371,48 @@ With the `workflows` package, we can use the splitting information for our origi
 We can do this by using the `last_fit()` function of the `tune` package.
 
 
-```r
+``` r
 overallfit <-iris_reg_wflow %>%
   tune::last_fit(split_iris)
 ```
 
 ```
-FALSE Registered S3 method overwritten by 'tune':
-FALSE   method                   from   
-FALSE   required_pkgs.model_spec parsnip
+FALSE → A | warning: prediction from rank-deficient fit; consider predict(., rankdeficient="NA")
 ```
 
 ```
-FALSE ! train/test split: preprocessor 1/1, model 1/1 (predictions): prediction from a rank-defici...
+FALSE There were issues with some computations   A: x1
+FALSE There were issues with some computations   A: x1
 ```
 
-```r
+```
+FALSE 
+```
+
+``` r
 overallfit
-```
-
-```
-FALSE Warning: This tuning result has notes. Example notes on model fitting include:
-FALSE preprocessor 1/1, model 1/1 (predictions): prediction from a rank-deficient fit may be misleading
 ```
 
 ```
 FALSE # Resampling results
 FALSE # Manual resampling 
 FALSE # A tibble: 1 × 6
-FALSE   splits           id               .metrics   .notes    .predictions  .workflow
-FALSE   <list>           <chr>            <list>     <list>    <list>        <list>   
-FALSE 1 <split [100/50]> train/test split <tibble [… <tibble … <tibble [50 … <workflo…
+FALSE   splits           id               .metrics .notes   .predictions .workflow 
+FALSE   <list>           <chr>            <list>   <list>   <list>       <list>    
+FALSE 1 <split [100/50]> train/test split <tibble> <tibble> <tibble>     <workflow>
+FALSE 
+FALSE There were issues with some computations:
+FALSE 
+FALSE   - Warning(s) x1: prediction from rank-deficient fit; consider predict(., rankdefic...
+FALSE 
+FALSE Run `show_notes(.Last.tune.result)` for more information.
 ```
 
 We can then use the `collect_metrics()` function of the `tune` package to get the RMSE:
 
 
-```r
-collect_metrics(overallfit)
+``` r
+tune::collect_metrics(overallfit)
 ```
 
 ```
@@ -2337,32 +2439,32 @@ However, we can stratify our split by a particular feature of the data using the
 This is useful to make sure that there is good representation of each species in our testing and training data.
 
 
-```r
+``` r
 set.seed(1234)
 initial_split(iris, strata = Species, prop = 2/3)
 ```
 
 ```
-## <Analysis/Assess/Total>
+## <Training/Testing/Total>
 ## <99/51/150>
 ```
 
-```r
+``` r
 training_iris <-training(split_iris)
 head(training_iris)
 ```
 
 ```
-##     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
-## 28           5.2         3.5          1.5         0.2     setosa
-## 80           5.7         2.6          3.5         1.0 versicolor
-## 101          6.3         3.3          6.0         2.5  virginica
-## 111          6.5         3.2          5.1         2.0  virginica
-## 137          6.3         3.4          5.6         2.4  virginica
-## 133          6.4         2.8          5.6         2.2  virginica
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+## 1          5.2         3.5          1.5         0.2     setosa
+## 2          5.7         2.6          3.5         1.0 versicolor
+## 3          6.3         3.3          6.0         2.5  virginica
+## 4          6.5         3.2          5.1         2.0  virginica
+## 5          6.3         3.4          5.6         2.4  virginica
+## 6          6.4         2.8          5.6         2.2  virginica
 ```
 
-```r
+``` r
 count(training_iris, Species)
 ```
 
@@ -2373,22 +2475,22 @@ count(training_iris, Species)
 ## 3  virginica 36
 ```
 
-```r
+``` r
 testing_iris <-testing(split_iris)
 head(testing_iris)
 ```
 
 ```
-##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-## 1           5.1         3.5          1.4         0.2  setosa
-## 7           4.6         3.4          1.4         0.3  setosa
-## 11          5.4         3.7          1.5         0.2  setosa
-## 12          4.8         3.4          1.6         0.2  setosa
-## 15          5.8         4.0          1.2         0.2  setosa
-## 16          5.7         4.4          1.5         0.4  setosa
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.6         3.4          1.4         0.3  setosa
+## 3          5.4         3.7          1.5         0.2  setosa
+## 4          4.8         3.4          1.6         0.2  setosa
+## 5          5.8         4.0          1.2         0.2  setosa
+## 6          5.7         4.4          1.5         0.4  setosa
 ```
 
-```r
+``` r
 count(testing_iris, Species)
 ```
 
@@ -2461,7 +2563,7 @@ Again, because these are created at random, we need to use the base `set.seed()`
 Remember that only the training data is used to create the cross validation samples.
 
 
-```r
+``` r
 set.seed(1234)
 vfold_iris <- rsample::vfold_cv(data = training_iris, v = 4)
 vfold_iris
@@ -2478,7 +2580,7 @@ vfold_iris
 ## 4 <split [75/25]> Fold4
 ```
 
-```r
+``` r
 pull(vfold_iris, splits)
 ```
 
@@ -2507,33 +2609,33 @@ First we will just use cross validation to get a better sense of the **out-of-sa
 If we want to take a look at the cross validation splits we can do so like this:
 
 
-```r
+``` r
 first_fold <-vfold_iris$splits[[1]]
 head(as.data.frame(first_fold, data = "analysis")) # training set of this fold
 ```
 
 ```
-##     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
-## 28           5.2         3.5          1.5         0.2     setosa
-## 80           5.7         2.6          3.5         1.0 versicolor
-## 101          6.3         3.3          6.0         2.5  virginica
-## 133          6.4         2.8          5.6         2.2  virginica
-## 144          6.8         3.2          5.9         2.3  virginica
-## 132          7.9         3.8          6.4         2.0  virginica
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+## 1          5.2         3.5          1.5         0.2     setosa
+## 2          5.7         2.6          3.5         1.0 versicolor
+## 3          6.3         3.3          6.0         2.5  virginica
+## 4          6.4         2.8          5.6         2.2  virginica
+## 5          6.8         3.2          5.9         2.3  virginica
+## 6          7.9         3.8          6.4         2.0  virginica
 ```
 
-```r
+``` r
 head(as.data.frame(first_fold, data = "assessment")) # test set of this fold
 ```
 
 ```
-##     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
-## 111          6.5         3.2          5.1         2.0  virginica
-## 137          6.3         3.4          5.6         2.4  virginica
-## 62           5.9         3.0          4.2         1.5 versicolor
-## 143          5.8         2.7          5.1         1.9  virginica
-## 47           5.1         3.8          1.6         0.2     setosa
-## 84           6.0         2.7          5.1         1.6 versicolor
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+## 1          6.5         3.2          5.1         2.0  virginica
+## 2          6.3         3.4          5.6         2.4  virginica
+## 3          5.9         3.0          4.2         1.5 versicolor
+## 4          5.8         2.7          5.1         1.9  virginica
+## 5          5.1         3.8          1.6         0.2     setosa
+## 6          6.0         2.7          5.1         1.6 versicolor
 ```
 
 #### Example of creating another recipe, model and workflow
@@ -2541,7 +2643,7 @@ head(as.data.frame(first_fold, data = "assessment")) # test set of this fold
 We also need to create a new recipe with different variables assigned to different roles. This time we want to use `Species` as the outcome. We can use the `.` notation to indicate that we want to use the rest of the variables as predictors. Thus we will create a new `cat_recpipe` where we are using a **cat**egorical variable as the outcome.
 
 
-```r
+``` r
 cat_recipe <- training_iris %>%
 recipe(Species ~ .)
 ```
@@ -2551,22 +2653,8 @@ This time we will also not have any preprocessing steps for simplicity sake, thu
 Now our next step is to specify our model. Again the modeling options for parsnip are  [here](https://www.tidymodels.org/find/parsnip/){target="_blank"}. We will be using a Classification And Regression Tree (CART), which we discussed previously. This method can be used for either classification or regression (categorical or continuous outcome variables). Thus it is important that we set the mode for classification. We will use the `rpart` package as our engine. To tune using this model we would need to specify it here as well. We will show that in just a bit. 
 
 
-```r
+``` r
 library(rpart)
-```
-
-```
-## 
-## Attaching package: 'rpart'
-```
-
-```
-## The following object is masked from 'package:dials':
-## 
-##     prune
-```
-
-```r
 cat_model <- parsnip::decision_tree() %>%
              parsnip::set_mode("classification") %>%
              parsnip::set_engine("rpart")
@@ -2582,7 +2670,7 @@ cat_model
 Great! Now we will make a workflow for this.
 
 
-```r
+``` r
 iris_cat_wflow <-workflows::workflow() %>%
            workflows::add_recipe(cat_recipe) %>%
            workflows::add_model(cat_model)
@@ -2611,7 +2699,7 @@ So our next step is to fit and tune the model with our training data cross valid
 First we will demonstrate how we could fit the model using our entire training dataset like we did previously and use yardstick to check the accuracy this time instead of RMSE.
 
 
-```r
+``` r
 iris_cat_wflow_fit <- parsnip::fit(iris_cat_wflow, data = training_iris)
 iris_cat_wflow_fit
 ```
@@ -2637,7 +2725,7 @@ iris_cat_wflow_fit
 ##     7) Petal.Length>=4.85 35  1 virginica (0.00000000 0.02857143 0.97142857) *
 ```
 
-```r
+``` r
 wf_fit_cat <- iris_cat_wflow_fit %>% 
   pull_workflow_fit()
 ```
@@ -2647,7 +2735,7 @@ The output is a bit different for categorical variables.
 We can also see variable importance from the model fit, which shows which variables were most important for classifying the data values. This lists a score for each variable which shows the decrease in error when splitting by this variable relative to others.
 
 
-```r
+``` r
 wf_fit_cat$fit$variable.importance
 ```
 
@@ -2662,18 +2750,15 @@ We can see that `Petal.Width` was the most important for predicting `Species`.
 Recall that since we are using a categorical outcome variable, we want to use accuracy to assess model performance. Thus, we can use the  `accuracy()` function of the `yardstick` package instead of the `rmse()` function to assess the model. We first need to get the predicted values using the `predict()` function, as these are not in the fit output.
 
 
-```r
+``` r
 pred_species<-predict(iris_cat_wflow_fit, new_data = training_iris)
 
-yardstick::accuracy(training_iris, 
-               truth = Species, estimate = pred_species$.pred_class)
+yardstick::accuracy_vec( 
+               truth = training_iris$Species, estimate = pred_species$.pred_class)
 ```
 
 ```
-## # A tibble: 1 × 3
-##   .metric  .estimator .estimate
-##   <chr>    <chr>          <dbl>
-## 1 accuracy multiclass      0.97
+## [1] 0.97
 ```
 
 It looks like 97% of the time our model correctly predicted the right species.
@@ -2682,7 +2767,7 @@ It looks like 97% of the time our model correctly predicted the right species.
 We can also see which species were correctly predicted using `count` function.
 
 
-```r
+``` r
 count(training_iris, Species)
 ```
 
@@ -2693,7 +2778,7 @@ count(training_iris, Species)
 ## 3  virginica 36
 ```
 
-```r
+``` r
 count(pred_species, .pred_class)
 ```
 
@@ -2710,7 +2795,7 @@ We can see that one extra versicolor iris was predicted, and one fewer virginica
 To see exactly which rows resulted in incorrect predictions, we can bind the predicted species to the training data like so. This can be helpful to see if there is something particular about the incorrectly predicted values that might explain why they are incorrectly predicted.
 
 
-```r
+``` r
 predicted_and_truth <-bind_cols(training_iris, 
         predicted_species = pull(pred_species, .pred_class))
 
@@ -2740,7 +2825,7 @@ See [here](https://tidymodels.github.io/tune/reference/fit_resamples.html){targe
 
 
 
-```r
+``` r
 library(tune)
 set.seed(122)
 resample_fit <- tune::fit_resamples(iris_cat_wflow, vfold_iris)
@@ -2751,7 +2836,7 @@ We can now take a look at various performance metrics based on the fit of our cr
 To do this we will use the `collect_metrics` function of the `tune` package. This will show us the mean of the accuracy estimate of the different cross validation folds.
 
 
-```r
+``` r
 resample_fit
 ```
 
@@ -2761,22 +2846,23 @@ resample_fit
 ## # A tibble: 4 × 4
 ##   splits          id    .metrics         .notes          
 ##   <list>          <chr> <list>           <list>          
-## 1 <split [75/25]> Fold1 <tibble [2 × 4]> <tibble [0 × 1]>
-## 2 <split [75/25]> Fold2 <tibble [2 × 4]> <tibble [0 × 1]>
-## 3 <split [75/25]> Fold3 <tibble [2 × 4]> <tibble [0 × 1]>
-## 4 <split [75/25]> Fold4 <tibble [2 × 4]> <tibble [0 × 1]>
+## 1 <split [75/25]> Fold1 <tibble [3 × 4]> <tibble [0 × 3]>
+## 2 <split [75/25]> Fold2 <tibble [3 × 4]> <tibble [0 × 3]>
+## 3 <split [75/25]> Fold3 <tibble [3 × 4]> <tibble [0 × 3]>
+## 4 <split [75/25]> Fold4 <tibble [3 × 4]> <tibble [0 × 3]>
 ```
 
-```r
+``` r
 collect_metrics(resample_fit)
 ```
 
 ```
-## # A tibble: 2 × 6
-##   .metric  .estimator  mean     n std_err .config             
-##   <chr>    <chr>      <dbl> <int>   <dbl> <chr>               
-## 1 accuracy multiclass 0.95      4  0.0191 Preprocessor1_Model1
-## 2 roc_auc  hand_till  0.964     4  0.0137 Preprocessor1_Model1
+## # A tibble: 3 × 6
+##   .metric     .estimator   mean     n std_err .config             
+##   <chr>       <chr>       <dbl> <int>   <dbl> <chr>               
+## 1 accuracy    multiclass 0.95       4  0.0191 Preprocessor1_Model1
+## 2 brier_class multiclass 0.0503     4  0.0178 Preprocessor1_Model1
+## 3 roc_auc     hand_till  0.964      4  0.0137 Preprocessor1_Model1
 ```
 
 The accuracy appears to be 94 percent. Often the performance will be reduced using cross validation.
@@ -2786,7 +2872,7 @@ The accuracy appears to be 94 percent. Often the performance will be reduced usi
 Nice, let's see how this changes when we now tune a hyperparameter. We want to tune the `min_n` argument to tune for the minimum number of data points for each node. The arguments may vary for the engine that you are using. We need to specify this when we fit the model using the `tune()` function like so:
 
 
-```r
+``` r
 set.seed(122)
 library(tune)
 cat_model_tune <- parsnip::decision_tree(min_n = tune()) %>%
@@ -2807,7 +2893,7 @@ cat_model_tune
 Now we can create a new workflow using the categorical recipe and the tuning model:
 
 
-```r
+``` r
 iris_cat_wflow_tune <-workflows::workflow() %>%
                       workflows::add_recipe(cat_recipe) %>%
                       workflows::add_model(cat_model_tune)
@@ -2817,26 +2903,27 @@ iris_cat_wflow_tune <-workflows::workflow() %>%
 We can use the `tune_grid()` function of the `tune()` package to use the workflow and fit the `vfold_iris` cross validation samples of our training data to test out a number of different values for the `min_n` argument for our model. The `grid()` argument specifies how many different values to try out.
 
 
-```r
+``` r
 reasmple_fit <-tune::tune_grid(iris_cat_wflow_tune, resamples = vfold_iris, grid = 4)
 ```
 
 Again we can use the `collect_metrics()` function to get the accuracy. Or, we can use the `show_best()` function of the `tune` package to see the `min_n` values for the top performing models (those with the highest accuracy).
 
 
-```r
+``` r
 tune::collect_metrics(resample_fit)
 ```
 
 ```
-## # A tibble: 2 × 6
-##   .metric  .estimator  mean     n std_err .config             
-##   <chr>    <chr>      <dbl> <int>   <dbl> <chr>               
-## 1 accuracy multiclass 0.95      4  0.0191 Preprocessor1_Model1
-## 2 roc_auc  hand_till  0.964     4  0.0137 Preprocessor1_Model1
+## # A tibble: 3 × 6
+##   .metric     .estimator   mean     n std_err .config             
+##   <chr>       <chr>       <dbl> <int>   <dbl> <chr>               
+## 1 accuracy    multiclass 0.95       4  0.0191 Preprocessor1_Model1
+## 2 brier_class multiclass 0.0503     4  0.0178 Preprocessor1_Model1
+## 3 roc_auc     hand_till  0.964      4  0.0137 Preprocessor1_Model1
 ```
 
-```r
+``` r
 tune::show_best(resample_fit, metric = "accuracy")
 ```
 
@@ -2961,7 +3048,7 @@ Next, we import our data into R now so that we can explore the data further.
 We will call our data object `pm` for particulate matter. 
 We import the data using the `read_csv()` function from the `readr` package. 
 
-```r
+``` r
 library(here)
 ```
 
@@ -2969,20 +3056,22 @@ library(here)
 ## here() starts at /Users/carriewright/Documents/GitHub/Coursera/tidyversecourse
 ```
 
-```r
+``` r
 pm <- readr::read_csv(here("data","tidy_data","pm25_data.csv"))
 ```
 
 ```
-## 
+## Rows: 876 Columns: 50
+```
+
+```
 ## ── Column specification ────────────────────────────────────────────────────────
-## cols(
-##   .default = col_double(),
-##   state = col_character(),
-##   county = col_character(),
-##   city = col_character()
-## )
-## ℹ Use `spec()` for the full column specifications.
+## Delimiter: ","
+## chr  (3): state, county, city
+## dbl (47): id, value, fips, lat, lon, CMAQ, zcta, zcta_area, zcta_pop, imp_a5...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 #### Data Exploration and Wrangling
@@ -2990,7 +3079,7 @@ pm <- readr::read_csv(here("data","tidy_data","pm25_data.csv"))
 First, let's just get a general sense of our data. 
 
 
-```r
+``` r
 library(dplyr)
 pm %>%
   glimpse()
@@ -3071,19 +3160,13 @@ The `across()` function has two main arguments: (i) the columns you want to oper
 
 
 
-```r
+``` r
 library(magrittr)
 ```
 
 ```
 ## 
 ## Attaching package: 'magrittr'
-```
-
-```
-## The following object is masked from 'package:rlang':
-## 
-##     set_names
 ```
 
 ```
@@ -3098,7 +3181,7 @@ library(magrittr)
 ##     extract
 ```
 
-```r
+``` r
 pm <-pm %>%
   mutate(across(c(id, fips, zcta), as.factor)) 
 
@@ -3166,7 +3249,7 @@ The `skim()` function of the `skimr` package is also really helpful for getting 
 By design, it provides summary statistics about variables in the dataset. 
 
 
-```r
+``` r
 library(skimr)
 skim(pm)
 ```
@@ -3277,7 +3360,7 @@ Let's take a look to see which states are included using the `distinct()` functi
 
 
 
-```r
+``` r
 pm %>% 
   distinct(state) 
 ```
@@ -3296,7 +3379,7 @@ pm %>%
 ##  8 District Of Columbia
 ##  9 Florida             
 ## 10 Georgia             
-## # … with 39 more rows
+## # ℹ 39 more rows
 ```
 
 #### Evaluate Correlation
@@ -3315,16 +3398,16 @@ The `corrplot` package is another option to look at correlation among possible p
 First, we calculate the Pearson correlation coefficients between all features pairwise using the `cor()` function of the `stats` package (which is loaded automatically). Then we use the `corrplot::corrplot()` function.  First we need to select only the numeric variables using `dplyr`.
 
 
-```r
+``` r
 # install.packages("corrplot")
 library(corrplot)
 ```
 
 ```
-## corrplot 0.90 loaded
+## corrplot 0.95 loaded
 ```
 
-```r
+``` r
 PM_cor <- cor(pm %>% dplyr::select_if(is.numeric))
 corrplot::corrplot(PM_cor, tl.cex = 0.5)
 ```
@@ -3343,56 +3426,42 @@ Now that we have a sense of what our data are, we can get started with building 
 #### Splitting the Data
 
 
-```r
+``` r
 library(tidymodels)
 ```
 
 ```
-## ── Attaching packages ────────────────────────────────────── tidymodels 0.1.3 ──
+## ── Attaching packages ────────────────────────────────────── tidymodels 1.3.0 ──
 ```
 
 ```
-## ✓ modeldata    0.1.0     ✓ workflowsets 0.0.2
+## ✔ dials        1.4.0     ✔ workflowsets 1.1.0
+## ✔ modeldata    1.4.0     ✔ yardstick    1.3.2
 ```
 
 ```
 ## ── Conflicts ───────────────────────────────────────── tidymodels_conflicts() ──
-## x rlang::%@%()          masks purrr::%@%()
-## x rlang::as_function()  masks purrr::as_function()
-## x vctrs::data_frame()   masks dplyr::data_frame(), tibble::data_frame()
-## x scales::discard()     masks purrr::discard()
-## x magrittr::extract()   masks tidyr::extract()
-## x dplyr::filter()       masks stats::filter()
-## x xts::first()          masks dplyr::first()
-## x recipes::fixed()      masks stringr::fixed()
-## x rlang::flatten()      masks purrr::flatten()
-## x rlang::flatten_chr()  masks purrr::flatten_chr()
-## x rlang::flatten_dbl()  masks purrr::flatten_dbl()
-## x rlang::flatten_int()  masks purrr::flatten_int()
-## x rlang::flatten_lgl()  masks purrr::flatten_lgl()
-## x rlang::flatten_raw()  masks purrr::flatten_raw()
-## x rlang::invoke()       masks purrr::invoke()
-## x dplyr::lag()          masks stats::lag()
-## x xts::last()           masks dplyr::last()
-## x rlang::list_along()   masks purrr::list_along()
-## x rlang::modify()       masks purrr::modify()
-## x rlang::prepend()      masks purrr::prepend()
-## x rpart::prune()        masks dials::prune()
-## x magrittr::set_names() masks rlang::set_names(), purrr::set_names()
-## x yardstick::spec()     masks readr::spec()
-## x rlang::splice()       masks purrr::splice()
-## x recipes::step()       masks stats::step()
-## • Use tidymodels_prefer() to resolve common conflicts.
+## ✖ scales::discard()     masks purrr::discard()
+## ✖ magrittr::extract()   masks tidyr::extract()
+## ✖ dplyr::filter()       masks stats::filter()
+## ✖ xts::first()          masks dplyr::first()
+## ✖ recipes::fixed()      masks stringr::fixed()
+## ✖ dplyr::lag()          masks stats::lag()
+## ✖ xts::last()           masks dplyr::last()
+## ✖ dials::prune()        masks rpart::prune()
+## ✖ magrittr::set_names() masks purrr::set_names()
+## ✖ yardstick::spec()     masks readr::spec()
+## ✖ recipes::step()       masks stats::step()
 ```
 
-```r
+``` r
 set.seed(1234)
 pm_split <- rsample::initial_split(data = pm, prop = 2/3)
 pm_split
 ```
 
 ```
-## <Analysis/Assess/Total>
+## <Training/Testing/Total>
 ## <584/292/876>
 ```
 
@@ -3404,7 +3473,7 @@ Importantly the `initial_split()` function only determines what rows of our `pm`
 To extract the testing and training data we can use the `training()` and `testing()` functions also of the `rsample` package.
 
 
-```r
+``` r
 train_pm <-rsample::training(pm_split)
 test_pm <-rsample::testing(pm_split)
 ```
@@ -3427,7 +3496,7 @@ We will show you what to do in this case in just a bit.
 In the simplest case, we might use all predictors like this:
 
 
-```r
+``` r
 #install.packages(tidymodels)
 library(tidymodels)
 simple_rec <- train_pm %>%
@@ -3437,20 +3506,35 @@ simple_rec
 ```
 
 ```
-## Data Recipe
 ## 
-## Inputs:
+```
+
+```
+## ── Recipe ──────────────────────────────────────────────────────────────────────
+```
+
+```
 ## 
-##       role #variables
-##    outcome          1
-##  predictor         49
+```
+
+```
+## ── Inputs
+```
+
+```
+## Number of variables by role
+```
+
+```
+## outcome:    1
+## predictor: 49
 ```
 
 Now, let's get back to the `id` variable. 
 Instead of including it as a predictor variable, we could also use the `update_role()` function of the `recipes` package.
 
 
-```r
+``` r
 simple_rec <- train_pm %>%
   recipes::recipe(value ~ .) %>%
   recipes::update_role(id, new_role = "id variable")
@@ -3459,14 +3543,29 @@ simple_rec
 ```
 
 ```
-## Data Recipe
 ## 
-## Inputs:
+```
+
+```
+## ── Recipe ──────────────────────────────────────────────────────────────────────
+```
+
+```
 ## 
-##         role #variables
-##  id variable          1
-##      outcome          1
-##    predictor         48
+```
+
+```
+## ── Inputs
+```
+
+```
+## Number of variables by role
+```
+
+```
+## outcome:      1
+## predictor:   48
+## id variable:  1
 ```
 
 
@@ -3491,24 +3590,47 @@ We will use the one-hot encoding means that we do not simply encode our categori
 Instead, binary variables made of 1s and 0s are used to arbitrarily assign a numeric value that has no apparent order.
 
 
-```r
+``` r
 simple_rec %>%
   step_dummy(state, county, city, zcta, one_hot = TRUE)
 ```
 
 ```
-## Data Recipe
 ## 
-## Inputs:
+```
+
+```
+## ── Recipe ──────────────────────────────────────────────────────────────────────
+```
+
+```
 ## 
-##         role #variables
-##  id variable          1
-##      outcome          1
-##    predictor         48
+```
+
+```
+## ── Inputs
+```
+
+```
+## Number of variables by role
+```
+
+```
+## outcome:      1
+## predictor:   48
+## id variable:  1
+```
+
+```
 ## 
-## Operations:
-## 
-## Dummy variables from state, county, city, zcta
+```
+
+```
+## ── Operations
+```
+
+```
+## • Dummy variables from: state, county, city, zcta
 ```
 
 
@@ -3520,21 +3642,36 @@ We can remove the `fips` variable from the predictors using `update_role()` to m
 We can make the role anything we want actually, so we will keep it something identifiable.
 
 
-```r
+``` r
 simple_rec %>%
   update_role("fips", new_role = "county id")
 ```
 
 ```
-## Data Recipe
 ## 
-## Inputs:
+```
+
+```
+## ── Recipe ──────────────────────────────────────────────────────────────────────
+```
+
+```
 ## 
-##         role #variables
-##    county id          1
-##  id variable          1
-##      outcome          1
-##    predictor         47
+```
+
+```
+## ── Inputs
+```
+
+```
+## Number of variables by role
+```
+
+```
+## outcome:      1
+## predictor:   47
+## county id:    1
+## id variable:  1
 ```
 
 
@@ -3544,24 +3681,47 @@ We can do this using the `step_corr()` function.
 We don't want to remove some of our variables, like the `CMAQ` and `aod` variables, we can specify this using the `-` sign before the names of these variables like so:
 
 
-```r
+``` r
 simple_rec %>%
   step_corr(all_predictors(), - CMAQ, - aod)
 ```
 
 ```
-## Data Recipe
 ## 
-## Inputs:
+```
+
+```
+## ── Recipe ──────────────────────────────────────────────────────────────────────
+```
+
+```
 ## 
-##         role #variables
-##  id variable          1
-##      outcome          1
-##    predictor         48
+```
+
+```
+## ── Inputs
+```
+
+```
+## Number of variables by role
+```
+
+```
+## outcome:      1
+## predictor:   48
+## id variable:  1
+```
+
+```
 ## 
-## Operations:
-## 
-## Correlation filter on all_predictors(), -CMAQ, -aod
+```
+
+```
+## ── Operations
+```
+
+```
+## • Correlation filter on: all_predictors(), -CMAQ, -aod
 ```
 
 
@@ -3570,24 +3730,47 @@ It is also a good idea to remove variables with near-zero variance, which can be
 Variables have low variance if all the values are very similar, the values are very sparse, or if they are highly imbalanced. Again we don't want to remove our `CMAQ` and `aod` variables.
 
 
-```r
+``` r
 simple_rec %>%
   step_nzv(all_predictors(), - CMAQ, - aod)
 ```
 
 ```
-## Data Recipe
 ## 
-## Inputs:
+```
+
+```
+## ── Recipe ──────────────────────────────────────────────────────────────────────
+```
+
+```
 ## 
-##         role #variables
-##  id variable          1
-##      outcome          1
-##    predictor         48
+```
+
+```
+## ── Inputs
+```
+
+```
+## Number of variables by role
+```
+
+```
+## outcome:      1
+## predictor:   48
+## id variable:  1
+```
+
+```
 ## 
-## Operations:
-## 
-## Sparse, unbalanced variable filter on all_predictors(), -CMAQ, -aod
+```
+
+```
+## ── Operations
+```
+
+```
+## • Sparse, unbalanced variable filter on: all_predictors(), -CMAQ, -aod
 ```
 
 Let's put all this together now. 
@@ -3599,7 +3782,7 @@ Again, we do not want to remove the `CMAQ` and `aod` variables, so we can make s
 If we specifically wanted to remove a predictor we could use `step_rm()`.
 
 
-```r
+``` r
 simple_rec <- train_pm %>%
   recipes::recipe(value ~ .) %>%
   recipes::update_role(id, new_role = "id variable") %>%
@@ -3612,21 +3795,50 @@ simple_rec
 ```
 
 ```
-## Data Recipe
 ## 
-## Inputs:
+```
+
+```
+## ── Recipe ──────────────────────────────────────────────────────────────────────
+```
+
+```
 ## 
-##         role #variables
-##    county id          1
-##  id variable          1
-##      outcome          1
-##    predictor         47
+```
+
+```
+## ── Inputs
+```
+
+```
+## Number of variables by role
+```
+
+```
+## outcome:      1
+## predictor:   47
+## county id:    1
+## id variable:  1
+```
+
+```
 ## 
-## Operations:
-## 
-## Dummy variables from state, county, city, zcta
-## Correlation filter on all_predictors(), -CMAQ, -aod
-## Sparse, unbalanced variable filter on all_predictors(), -CMAQ, -aod
+```
+
+```
+## ── Operations
+```
+
+```
+## • Dummy variables from: state, county, city, zcta
+```
+
+```
+## • Correlation filter on: all_predictors(), -CMAQ, -aod
+```
+
+```
+## • Sparse, unbalanced variable filter on: all_predictors(), -CMAQ, -aod
 ```
 
 Nice! Now let's check our preprocessing.
@@ -3636,7 +3848,7 @@ Nice! Now let's check our preprocessing.
 First we need to use the `prep()` function of the `recipes` package to prepare for preprocessing. However, we will specify that we also want to run and retain the preprocessing for the training data using the `retain = TRUE` argument.
 
 
-```r
+``` r
 prepped_rec <- prep(simple_rec, verbose = TRUE, retain = TRUE)
 ```
 
@@ -3646,79 +3858,79 @@ prepped_rec <- prep(simple_rec, verbose = TRUE, retain = TRUE)
 ```
 
 ```
-## Warning in cor(x, use = use, method = method): the standard deviation is zero
+## Warning in stats::cor(x, use = use, method = method): the standard deviation is
+## zero
 ```
 
 ```
-## Warning: The correlation matrix has missing values. 276 columns were excluded
-## from the filter.
+## Warning: The correlation matrix has missing values. 273 columns were excluded from the
+## filter.
 ```
 
 ```
 ## oper 3 step nzv [training] 
-## The retained training set is ~ 0.27 Mb  in memory.
+## The retained training set is ~ 0.26 Mb  in memory.
 ```
 
-```r
+``` r
 names(prepped_rec)
 ```
 
 ```
-## [1] "var_info"       "term_info"      "steps"          "template"      
-## [5] "levels"         "retained"       "tr_info"        "orig_lvls"     
-## [9] "last_term_info"
+##  [1] "var_info"       "term_info"      "steps"          "template"      
+##  [5] "retained"       "requirements"   "ptype"          "tr_info"       
+##  [9] "orig_lvls"      "fit_times"      "last_term_info"
 ```
 
 
 Since we retained our preprocessed training data (i.e. `prep(retain=TRUE)`), we can take a look at it by using the `bake()` function of the `recipes` package like this (this previously used the `juice()` function):
 
 
-```r
+``` r
 preproc_train <- bake(prepped_rec, new_data = NULL)
 glimpse(preproc_train)
 ```
 
 ```
 ## Rows: 584
-## Columns: 38
-## $ id                          <fct> 17119.2009, 56039.1006, 55009.0005, 30031.…
-## $ fips                        <fct> 17119, 56039, 55009, 30031, 42069, 6063, 4…
-## $ lat                         <dbl> 38.90308, 43.47808, 44.50729, 45.77278, 41…
-## $ lon                         <dbl> -90.14317, -110.76118, -87.99344, -111.177…
-## $ CMAQ                        <dbl> 9.167594, 2.447283, 6.938970, 2.056367, 6.…
-## $ zcta_area                   <dbl> 108835425, 2092228669, 24737298, 619007855…
-## $ zcta_pop                    <dbl> 32704, 15851, 30611, 27367, 5104, 5970, 10…
-## $ imp_a500                    <dbl> 22.08737024, 3.43252595, 40.67301038, 0.27…
-## $ imp_a15000                  <dbl> 6.9998911, 0.4902971, 11.6350822, 3.127895…
-## $ county_area                 <dbl> 1853347576, 10347983791, 1371938244, 67409…
-## $ county_pop                  <dbl> 269282, 21294, 248007, 89513, 214437, 2000…
-## $ log_dist_to_prisec          <dbl> 4.826338, 7.938653, 5.421107, 6.429274, 6.…
-## $ log_pri_length_5000         <dbl> 8.721351, 8.517193, 10.174230, 9.895746, 1…
-## $ log_pri_length_25000        <dbl> 11.85080, 10.12663, 11.48581, 11.92814, 12…
-## $ log_prisec_length_500       <dbl> 8.126889, 6.214608, 8.064728, 6.214608, 6.…
-## $ log_prisec_length_1000      <dbl> 9.233145, 7.600902, 9.500226, 8.539502, 7.…
-## $ log_prisec_length_5000      <dbl> 11.595505, 10.855139, 11.769954, 10.820349…
-## $ log_prisec_length_10000     <dbl> 12.64890, 11.72725, 12.84919, 11.97541, 13…
-## $ log_nei_2008_pm10_sum_10000 <dbl> 6.0243917, 1.2748190, 6.6630963, 1.8374989…
-## $ log_nei_2008_pm10_sum_15000 <dbl> 7.419808056, 1.274818998, 6.704355118, 2.1…
-## $ log_nei_2008_pm10_sum_25000 <dbl> 7.885624, 1.275117, 6.709826, 2.121497, 5.…
-## $ popdens_county              <dbl> 145.294927, 2.057792, 180.771256, 13.27901…
-## $ popdens_zcta                <dbl> 300.490396, 7.576132, 1237.443152, 44.2110…
-## $ nohs                        <dbl> 3.6, 0.0, 10.6, 3.9, 3.4, 1.8, 11.4, 23.5,…
-## $ somehs                      <dbl> 8.3, 0.0, 9.6, 5.8, 6.8, 6.8, 12.4, 19.6, …
-## $ hs                          <dbl> 31.1, 6.8, 34.6, 27.9, 43.3, 19.9, 33.4, 2…
-## $ somecollege                 <dbl> 27.8, 13.5, 21.9, 25.1, 18.4, 35.8, 26.4, …
-## $ associate                   <dbl> 8.0, 0.0, 7.4, 5.0, 11.5, 14.6, 7.1, 4.9, …
-## $ bachelor                    <dbl> 13.8, 61.2, 10.7, 23.3, 13.2, 13.9, 6.0, 4…
-## $ grad                        <dbl> 7.4, 18.6, 5.2, 9.1, 3.5, 7.3, 3.2, 1.5, 0…
-## $ pov                         <dbl> 13.3, 0.0, 18.4, 6.8, 5.8, 14.8, 7.6, 19.7…
-## $ hs_orless                   <dbl> 43.0, 6.8, 54.8, 37.6, 53.5, 28.5, 57.2, 7…
-## $ urc2013                     <dbl> 2, 5, 3, 5, 3, 6, 4, 2, 6, 4, 5, 1, 1, 1, …
-## $ aod                         <dbl> 39.00000, 33.80000, 61.50000, 44.14286, 27…
-## $ value                       <dbl> 12.410909, 5.149153, 11.751882, 7.523333, …
-## $ state_California            <dbl> 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, …
-## $ state_Illinois              <dbl> 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, …
-## $ city_Not.in.a.city          <dbl> 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, …
+## Columns: 37
+## $ id                          <fct> 18003.0004, 55041.0007, 6065.1003, 39009.0…
+## $ fips                        <fct> 18003, 55041, 6065, 39009, 39061, 24510, 6…
+## $ lat                         <dbl> 41.09497, 45.56300, 33.94603, 39.44217, 39…
+## $ lon                         <dbl> -85.10182, -88.80880, -117.40063, -81.9088…
+## $ CMAQ                        <dbl> 10.383231, 3.411247, 11.404085, 7.971165, …
+## $ zcta_area                   <dbl> 16696709, 370280916, 41957182, 132383592, …
+## $ zcta_pop                    <dbl> 21306, 4141, 44001, 1115, 6566, 934, 41192…
+## $ imp_a500                    <dbl> 28.9783737, 0.0000000, 30.3901384, 0.00000…
+## $ imp_a15000                  <dbl> 13.0547959, 0.3676404, 23.7457506, 0.33079…
+## $ county_area                 <dbl> 1702419942, 2626421270, 18664696661, 13043…
+## $ county_pop                  <dbl> 355329, 9304, 2189641, 64757, 802374, 6209…
+## $ log_dist_to_prisec          <dbl> 6.621891, 8.415468, 7.419762, 6.344681, 5.…
+## $ log_pri_length_5000         <dbl> 8.517193, 8.517193, 10.150514, 8.517193, 9…
+## $ log_pri_length_25000        <dbl> 12.77378, 10.16440, 13.14450, 10.12663, 13…
+## $ log_prisec_length_500       <dbl> 6.214608, 6.214608, 6.214608, 6.214608, 7.…
+## $ log_prisec_length_1000      <dbl> 9.240294, 7.600902, 7.600902, 8.793450, 8.…
+## $ log_prisec_length_5000      <dbl> 11.485093, 9.425537, 10.155961, 10.562382,…
+## $ log_prisec_length_10000     <dbl> 12.75582, 11.44833, 11.59563, 11.69093, 12…
+## $ log_nei_2008_pm10_sum_10000 <dbl> 4.91110140, 3.86982666, 4.03184660, 0.0000…
+## $ log_nei_2008_pm10_sum_15000 <dbl> 5.399131, 3.883689, 5.459257, 0.000000, 6.…
+## $ log_nei_2008_pm10_sum_25000 <dbl> 5.816047, 3.887264, 6.884537, 3.765635, 6.…
+## $ popdens_county              <dbl> 208.719947, 3.542463, 117.314577, 49.64834…
+## $ popdens_zcta                <dbl> 1276.059851, 11.183401, 1048.711994, 8.422…
+## $ nohs                        <dbl> 4.3, 5.1, 3.7, 4.8, 2.1, 0.0, 2.5, 7.7, 0.…
+## $ somehs                      <dbl> 6.7, 10.4, 5.9, 11.5, 10.5, 0.0, 4.3, 7.5,…
+## $ hs                          <dbl> 31.7, 40.3, 17.9, 47.3, 30.0, 0.0, 17.8, 2…
+## $ somecollege                 <dbl> 27.2, 24.1, 26.3, 20.0, 27.1, 0.0, 26.1, 2…
+## $ associate                   <dbl> 8.2, 7.4, 8.3, 3.1, 8.5, 71.4, 13.2, 7.6, …
+## $ bachelor                    <dbl> 15.0, 8.6, 20.2, 9.8, 14.2, 0.0, 23.4, 17.…
+## $ grad                        <dbl> 6.8, 4.2, 17.7, 3.5, 7.6, 28.6, 12.6, 12.3…
+## $ pov                         <dbl> 13.500, 18.900, 6.700, 14.400, 12.500, 3.5…
+## $ hs_orless                   <dbl> 42.7, 55.8, 27.5, 63.6, 42.6, 0.0, 24.6, 3…
+## $ urc2006                     <dbl> 3, 6, 1, 5, 1, 1, 2, 1, 2, 6, 4, 4, 4, 4, …
+## $ aod                         <dbl> 54.11111, 31.16667, 83.12500, 33.36364, 50…
+## $ value                       <dbl> 11.699065, 6.956780, 13.289744, 10.742000,…
+## $ state_California            <dbl> 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, …
+## $ city_Not.in.a.city          <dbl> 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, …
 ```
 
 Notice that this requires the `new_data = NULL` argument when we are using the training data.
@@ -3726,7 +3938,7 @@ Notice that this requires the `new_data = NULL` argument when we are using the t
 For easy comparison sake - here is our original data:
 
 
-```r
+``` r
 glimpse(pm)
 ```
 
@@ -3803,106 +4015,73 @@ According to the `tidymodels` documentation:
 Therefore, if you wanted to look at the preprocessed testing data you would use the `bake()` function of the `recipes` package.
 
 
-```r
+``` r
 baked_test_pm <- recipes::bake(prepped_rec, new_data = test_pm)
 ```
 
 ```
-## Warning: There are new levels in a factor: Baldwin, Morgan, Shelby, Cochise,
-## Pima, Yavapai, Yuma, Garland, Phillips, Sebastian, White, Colusa, Nevada, San
-## Benito, San Francisco, San Joaquin, Solano, Stanislaus, Sutter, Larimer, Pueblo,
-## Citrus, St. Lucie, Clarke, Clayton, Dougherty, Floyd, Gwinnett, Paulding,
-## Lemhi, DuPage, Macon, Will, Allen, Elkhart, Palo Alto, Van Buren, Woodbury,
-## Wright, Wyandotte, Christian, Daviess, Fayette, Kenton, Rapides, St. Bernard,
-## West Baton Rouge, Anne Arundel, Baltimore, Cecil, Berkshire, Bristol, Plymouth,
-## Worcester, Genesee, Kalamazoo, Manistee, Oakland, Stearns, Forrest, Hinds,
-## Lauderdale, Sainte Genevieve, Sarpy, Washoe, Belknap, Cheshire, Sullivan,
-## Camden, Gloucester, Ocean, Passaic, San Juan, Chautauqua, Nassau, New York,
-## St. Lawrence, Steuben, Duplin, Durham, Gaston, Guilford, McDowell, Mitchell,
-## Robeson, Watauga, Lawrence, Medina, Portage, Scioto, Summit, Mayes, Sequoyah,
-## Harney, Multnomah, Westmoreland, Florence, Codington, Pennington, Cameron,
-## Davis, Tooele, Charles, Bristol City, Hampton City, Virginia Beach City,
-## Hancock, Marshall, Raleigh, Ashland, Dane, Dodge, Forest, Outagamie, Taylor,
-## Laramie
+## Warning: ! There are new levels in `county`: "Colbert", "Etowah", "Russell", "Walker",
+##   "Cochise", "Coconino", "Mohave", "Arkansas", "Crittenden", "Garland",
+##   "Phillips", "Pope", "Calaveras", "Humboldt", "Inyo", "Merced", "Monterey",
+##   "San Benito", …, "Laramie", and "Sublette".
+## ℹ Consider using step_novel() (`?recipes::step_novel()`) before `step_dummy()`
+##   to handle unseen values.
 ```
 
 ```
-## Warning: There are new levels in a factor: Fairhope, Crossville, Pinson,
-## Chickasaw, Decatur, Pelham, Douglas, Mesa, Tucson, Prescott Valley, Yuma, Hot
-## Springs (Hot Springs National Park), North Little Rock, Fort Smith, Searcy,
-## Fremont, Colusa, Clovis, Brawley, Burbank, Reseda, Lynwood, Pasadena, Grass
-## Valley, Truckee, Anaheim, Mission Viejo, Riverside, Palm Springs, Arden-Arcade,
-## Hollister, Ontario, Escondido, San Francisco, Stockton, Atascadero, Live Oak,
-## Redding, Vallejo, Modesto, Yuba City, Piru, Simi Valley, Roxborough Park,
-## Colorado Springs, Fort Collins, Pueblo, Greeley, Dover, Wilmington, Panama City,
-## Fort Myers, Miami, Orlando, Winter Park, Royal Palm Beach, Fort Pierce, Athens-
-## Clarke County (Remainder), Forest Park, Kennesaw, Rome, Champaign, Naperville,
-## Joliet, Braidwood, Fort Wayne, Jeffersonville, Elkhart, New Albany, East
-## Chicago, Anderson, Emmetsburg, Des Moines, Clive, Sioux City, Clarion, Overland
-## Park, Lexington-Fayette (corporate name for Lexington), Covington, Vinton,
-## Kenner, Alexandria, Chalmette, Glen Burnie, Cockeysville, Essex, Beltsville,
-## Pittsfield, Fall River, Haverhill, Lawrence, Brockton, Worcester, Flint,
-## Kalamazoo, Manistee, Oak Park, Wyandotte, Shakopee, St. Cloud, Hattiesburg,
-## Pascagoula, Meridian, Ste. Genevieve, Kalispell, Helena Valley West Central,
-## Seeley Lake, Bellevue, Blair, North Las Vegas, Reno, Laconia, Keene, Claremont,
-## Galloway (Township of), Fort Lee, Camden, Pennsauken (Pensauken), Greenwich
-## (Township of), Trenton, North Brunswick Township, Toms River, Paterson,
-## Rahway, Phillipsburg, Farmington, Westfield, Cedarhurst, Newburgh, Potsdam,
-## Kenansville, Durham, Gastonia, Greensboro, Spruce Pine, Candor, Boone, Yellow
-## Springs, Cincinnati, Mingo Junction, Painesville, Ironton, Ravenna, Akron, Pryor
-## (corporate name Pryor Creek), Marble City Community, Burns, Medford, Portland,
-## La Grande, Hillsboro, Harrison Township, Erie, Greensburg, East Providence,
-## Watertown, Rapid City, East Ridge, South Padre Island, Leander, Bountiful,
-## Magna, Tooele, Underhill (Town of), Groveton, Hampton, Virginia Beach,
-## Marysville, Follansbee, Moundsville, Wheeling, Beckley, Madison, Appleton,
-## Cheyenne
+## Warning: ! There are new levels in `city`: "Muscle Shoals", "Gadsden", "Dothan",
+##   "Chickasaw", "Montgomery", "Phenix City", "Douglas", "Flagstaff", "Peach
+##   Springs", "Apache Junction", "Stuttgart", "Hot Springs (Hot Springs National
+##   Park)", "Newport", "Russellville", "Springdale", "San Andreas", "Eureka", "El
+##   Centro", …, "Cheyenne", and "Pinedale".
+## ℹ Consider using step_novel() (`?recipes::step_novel()`) before `step_dummy()`
+##   to handle unseen values.
 ```
 
-```r
+``` r
 glimpse(baked_test_pm)
 ```
 
 ```
 ## Rows: 292
-## Columns: 38
-## $ id                          <fct> 1003.001, 1049.1003, 1073.1005, 1073.5002,…
-## $ fips                        <fct> 1003, 1049, 1073, 1073, 1097, 1103, 1117, …
-## $ lat                         <dbl> 30.49800, 34.28763, 33.33111, 33.70472, 30…
-## $ lon                         <dbl> -87.88141, -85.96830, -87.00361, -86.66917…
-## $ CMAQ                        <dbl> 8.098836, 8.534772, 10.235612, 9.303766, 8…
-## $ zcta_area                   <dbl> 190980522, 203836235, 166239542, 150661846…
-## $ zcta_pop                    <dbl> 27829, 8300, 16140, 21725, 6106, 30545, 23…
-## $ imp_a500                    <dbl> 0.01730104, 5.78200692, 1.69765343, 1.4832…
-## $ imp_a15000                  <dbl> 1.4386207, 0.9730444, 4.3006226, 4.2529421…
-## $ county_area                 <dbl> 4117521611, 2012662359, 2878192209, 287819…
-## $ county_pop                  <dbl> 182265, 71109, 658466, 658466, 412992, 119…
-## $ log_dist_to_prisec          <dbl> 4.648181, 3.721489, 6.526896, 4.288260, 5.…
-## $ log_pri_length_5000         <dbl> 8.517193, 8.517193, 10.915066, 8.517193, 1…
-## $ log_pri_length_25000        <dbl> 11.32735, 11.90959, 12.86472, 12.73009, 12…
-## $ log_prisec_length_500       <dbl> 7.295356, 7.310155, 6.214608, 8.398190, 7.…
-## $ log_prisec_length_1000      <dbl> 8.195119, 8.585843, 8.949239, 9.211938, 8.…
-## $ log_prisec_length_5000      <dbl> 10.81504, 10.21420, 11.03900, 11.00710, 11…
-## $ log_prisec_length_10000     <dbl> 11.88680, 11.50894, 12.12896, 11.84730, 12…
-## $ log_nei_2008_pm10_sum_10000 <dbl> 1.35588511, 0.00000000, 5.77118113, 2.2222…
-## $ log_nei_2008_pm10_sum_15000 <dbl> 2.267834, 3.350044, 6.868897, 5.509545, 6.…
-## $ log_nei_2008_pm10_sum_25000 <dbl> 5.628728, 5.171920, 8.021072, 8.401722, 6.…
-## $ popdens_county              <dbl> 44.265706, 35.330814, 228.777633, 228.7776…
-## $ popdens_zcta                <dbl> 145.71643, 40.71896, 97.08881, 144.19709, …
-## $ nohs                        <dbl> 3.300, 14.300, 2.700, 2.800, 3.000, 4.800,…
-## $ somehs                      <dbl> 4.900, 16.700, 6.600, 8.200, 17.100, 7.800…
-## $ hs                          <dbl> 25.10, 35.00, 30.70, 32.00, 39.00, 28.70, …
-## $ somecollege                 <dbl> 19.7, 14.9, 25.7, 28.9, 22.4, 25.0, 19.4, …
-## $ associate                   <dbl> 8.2, 5.5, 8.0, 7.4, 6.6, 7.5, 5.9, 7.3, 2.…
-## $ bachelor                    <dbl> 25.300, 7.900, 17.600, 13.500, 7.800, 18.2…
-## $ grad                        <dbl> 13.500, 5.800, 8.700, 7.100, 4.200, 8.000,…
-## $ pov                         <dbl> 6.100, 13.800, 7.300, 5.100, 23.200, 8.300…
-## $ hs_orless                   <dbl> 33.30, 66.00, 40.00, 43.00, 59.10, 41.30, …
-## $ urc2013                     <dbl> 4, 6, 1, 1, 3, 4, 1, 2, 4, 1, 1, 3, 3, 4, …
-## $ aod                         <dbl> 37.36364, 33.08333, 38.75000, 36.72727, 42…
-## $ value                       <dbl> 9.597647, 11.659091, 12.399355, 11.951948,…
+## Columns: 37
+## $ id                          <fct> 1033.1002, 1055.001, 1069.0003, 1073.0023,…
+## $ fips                        <fct> 1033, 1055, 1069, 1073, 1073, 1073, 1073, …
+## $ lat                         <dbl> 34.75878, 33.99375, 31.22636, 33.55306, 33…
+## $ lon                         <dbl> -87.65056, -85.99107, -85.39077, -86.81500…
+## $ CMAQ                        <dbl> 9.402679, 9.241744, 9.121892, 10.235612, 1…
+## $ zcta_area                   <dbl> 16716984, 154069359, 162685124, 26929603, …
+## $ zcta_pop                    <dbl> 9042, 20045, 30217, 9010, 16140, 3699, 137…
+## $ imp_a500                    <dbl> 19.17301038, 16.49307958, 19.13927336, 41.…
+## $ imp_a15000                  <dbl> 5.2472094, 5.1612102, 4.7401296, 17.452484…
+## $ county_area                 <dbl> 1534877333, 1385618994, 1501737720, 287819…
+## $ county_pop                  <dbl> 54428, 104430, 101547, 658466, 658466, 194…
+## $ log_dist_to_prisec          <dbl> 5.760131, 5.261457, 7.112373, 6.600958, 6.…
+## $ log_pri_length_5000         <dbl> 8.517193, 9.066563, 8.517193, 11.156977, 1…
+## $ log_pri_length_25000        <dbl> 10.15769, 12.01356, 10.12663, 12.98762, 12…
+## $ log_prisec_length_500       <dbl> 8.611945, 8.740680, 6.214608, 6.214608, 6.…
+## $ log_prisec_length_1000      <dbl> 9.735569, 9.627898, 7.600902, 9.075921, 8.…
+## $ log_prisec_length_5000      <dbl> 11.770407, 11.728889, 12.298627, 12.281645…
+## $ log_prisec_length_10000     <dbl> 12.840663, 12.768279, 12.994141, 13.278416…
+## $ log_nei_2008_pm10_sum_10000 <dbl> 6.69187313, 4.43719884, 0.92888890, 8.2097…
+## $ log_nei_2008_pm10_sum_15000 <dbl> 6.70127741, 4.46267932, 3.67473904, 8.6488…
+## $ log_nei_2008_pm10_sum_25000 <dbl> 7.148858, 4.678311, 3.744629, 8.858019, 8.…
+## $ popdens_county              <dbl> 35.460814, 75.367038, 67.619664, 228.77763…
+## $ popdens_zcta                <dbl> 540.8870404, 130.1037411, 185.7391706, 334…
+## $ nohs                        <dbl> 7.3, 4.3, 5.8, 7.1, 2.7, 11.1, 9.7, 3.0, 8…
+## $ somehs                      <dbl> 15.8, 13.3, 11.6, 17.1, 6.6, 11.6, 21.6, 1…
+## $ hs                          <dbl> 30.6, 27.8, 29.8, 37.2, 30.7, 46.0, 39.3, …
+## $ somecollege                 <dbl> 20.9, 29.2, 21.4, 23.5, 25.7, 17.2, 21.6, …
+## $ associate                   <dbl> 7.6, 10.1, 7.9, 7.3, 8.0, 4.1, 5.2, 6.6, 4…
+## $ bachelor                    <dbl> 12.7, 10.0, 13.7, 5.9, 17.6, 7.1, 2.2, 7.8…
+## $ grad                        <dbl> 5.1, 5.4, 9.8, 2.0, 8.7, 2.9, 0.4, 4.2, 3.…
+## $ pov                         <dbl> 19.0, 8.8, 15.6, 25.5, 7.3, 8.1, 13.3, 23.…
+## $ hs_orless                   <dbl> 53.7, 45.4, 47.2, 61.4, 40.0, 68.7, 70.6, …
+## $ urc2006                     <dbl> 4, 4, 4, 1, 1, 1, 2, 3, 3, 3, 2, 5, 4, 1, …
+## $ aod                         <dbl> 36.000000, 43.416667, 33.000000, 39.583333…
+## $ value                       <dbl> 11.212174, 12.375394, 10.508850, 15.591017…
 ## $ state_California            <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
-## $ state_Illinois              <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
-## $ city_Not.in.a.city          <dbl> NA, NA, 1, NA, NA, NA, NA, 0, NA, 0, NA, N…
+## $ city_Not.in.a.city          <dbl> NA, NA, NA, 0, 1, 1, 1, NA, NA, NA, 0, NA,…
 ```
 
 Notice that our `city_Not.in.a.city` variable seems to be NA values. 
@@ -3914,7 +4093,7 @@ Let's take a look using the [set operations](https://www.probabilitycourse.com/c
 We can take a look at cities that were different between the test and training set.
 
 
-```r
+``` r
 traincities <- train_pm %>% distinct(city)
 testcities <- test_pm %>% distinct(city)
 
@@ -3923,16 +4102,16 @@ dim(dplyr::setdiff(traincities, testcities))
 ```
 
 ```
-## [1] 371   1
+## [1] 381   1
 ```
 
-```r
+``` r
 #get the number of cities that overlapped
 dim(dplyr::intersect(traincities, testcities))
 ```
 
 ```
-## [1] 61  1
+## [1] 55  1
 ```
 
 Indeed, there are lots of different cities in our test data that are not in our training data!
@@ -3942,7 +4121,7 @@ So, let's go back to our `pm` dataset and modify the `city` variable to just be 
 This function allows you to vectorize multiple `if_else()` statements.
 
 
-```r
+``` r
 pm %>%
   mutate(city = case_when(city == "Not in a city" ~ "Not in a city",
                           city != "Not in a city" ~ "In a city"))
@@ -3950,25 +4129,25 @@ pm %>%
 
 ```
 ## # A tibble: 876 × 50
-##    id        value fips    lat   lon state   county    city   CMAQ zcta  zcta_area
-##    <fct>     <dbl> <fct> <dbl> <dbl> <chr>   <chr>     <chr> <dbl> <fct>     <dbl>
-##  1 1003.001   9.60 1003   30.5 -87.9 Alabama Baldwin   In a…  8.10 36532 190980522
-##  2 1027.0001 10.8  1027   33.3 -85.8 Alabama Clay      In a…  9.77 36251 374132430
-##  3 1033.1002 11.2  1033   34.8 -87.7 Alabama Colbert   In a…  9.40 35660  16716984
-##  4 1049.1003 11.7  1049   34.3 -86.0 Alabama DeKalb    In a…  8.53 35962 203836235
-##  5 1055.001  12.4  1055   34.0 -86.0 Alabama Etowah    In a…  9.24 35901 154069359
-##  6 1069.0003 10.5  1069   31.2 -85.4 Alabama Houston   In a…  9.12 36303 162685124
-##  7 1073.0023 15.6  1073   33.6 -86.8 Alabama Jefferson In a… 10.2  35207  26929603
-##  8 1073.1005 12.4  1073   33.3 -87.0 Alabama Jefferson Not … 10.2  35111 166239542
-##  9 1073.1009 11.1  1073   33.5 -87.3 Alabama Jefferson Not …  8.16 35444 385566685
-## 10 1073.101  13.1  1073   33.5 -86.5 Alabama Jefferson In a…  9.30 35094 148994881
-## # … with 866 more rows, and 39 more variables: zcta_pop <dbl>, imp_a500 <dbl>,
-## #   imp_a1000 <dbl>, imp_a5000 <dbl>, imp_a10000 <dbl>, imp_a15000 <dbl>,
-## #   county_area <dbl>, county_pop <dbl>, log_dist_to_prisec <dbl>,
-## #   log_pri_length_5000 <dbl>, log_pri_length_10000 <dbl>,
-## #   log_pri_length_15000 <dbl>, log_pri_length_25000 <dbl>,
-## #   log_prisec_length_500 <dbl>, log_prisec_length_1000 <dbl>,
-## #   log_prisec_length_5000 <dbl>, log_prisec_length_10000 <dbl>, …
+##    id        value fips    lat   lon state   county  city   CMAQ zcta  zcta_area
+##    <fct>     <dbl> <fct> <dbl> <dbl> <chr>   <chr>   <chr> <dbl> <fct>     <dbl>
+##  1 1003.001   9.60 1003   30.5 -87.9 Alabama Baldwin In a…  8.10 36532 190980522
+##  2 1027.0001 10.8  1027   33.3 -85.8 Alabama Clay    In a…  9.77 36251 374132430
+##  3 1033.1002 11.2  1033   34.8 -87.7 Alabama Colbert In a…  9.40 35660  16716984
+##  4 1049.1003 11.7  1049   34.3 -86.0 Alabama DeKalb  In a…  8.53 35962 203836235
+##  5 1055.001  12.4  1055   34.0 -86.0 Alabama Etowah  In a…  9.24 35901 154069359
+##  6 1069.0003 10.5  1069   31.2 -85.4 Alabama Houston In a…  9.12 36303 162685124
+##  7 1073.0023 15.6  1073   33.6 -86.8 Alabama Jeffer… In a… 10.2  35207  26929603
+##  8 1073.1005 12.4  1073   33.3 -87.0 Alabama Jeffer… Not … 10.2  35111 166239542
+##  9 1073.1009 11.1  1073   33.5 -87.3 Alabama Jeffer… Not …  8.16 35444 385566685
+## 10 1073.101  13.1  1073   33.5 -86.5 Alabama Jeffer… In a…  9.30 35094 148994881
+## # ℹ 866 more rows
+## # ℹ 39 more variables: zcta_pop <dbl>, imp_a500 <dbl>, imp_a1000 <dbl>,
+## #   imp_a5000 <dbl>, imp_a10000 <dbl>, imp_a15000 <dbl>, county_area <dbl>,
+## #   county_pop <dbl>, log_dist_to_prisec <dbl>, log_pri_length_5000 <dbl>,
+## #   log_pri_length_10000 <dbl>, log_pri_length_15000 <dbl>,
+## #   log_pri_length_25000 <dbl>, log_prisec_length_500 <dbl>,
+## #   log_prisec_length_1000 <dbl>, log_prisec_length_5000 <dbl>, …
 ```
 
 
@@ -3983,7 +4162,7 @@ The `county` variables appears to get dropped due to either correlation or near 
 It is likely due to near zero variance because this is the more granular of these geographic categorical variables and likely sparse.
 
 
-```r
+``` r
 pm %<>%
   mutate(city = case_when(city == "Not in a city" ~ "Not in a city",
                           city != "Not in a city" ~ "In a city"))
@@ -3994,11 +4173,11 @@ pm_split
 ```
 
 ```
-## <Analysis/Assess/Total>
+## <Training/Testing/Total>
 ## <584/292/876>
 ```
 
-```r
+``` r
  train_pm <-rsample::training(pm_split)
  test_pm <-rsample::testing(pm_split)
 ```
@@ -4006,7 +4185,7 @@ pm_split
 Now we will create a new recipe:
 
 
-```r
+``` r
 novel_rec <-train_pm %>%
     recipe() %>%
     update_role(everything(), new_role = "predictor") %>%
@@ -4021,7 +4200,7 @@ novel_rec <-train_pm %>%
 Now we will check the preprocessed data again to see if we still have `NA` values.
 
 
-```r
+``` r
 prepped_rec <- prep(novel_rec, verbose = TRUE, retain = TRUE)
 ```
 
@@ -4031,12 +4210,13 @@ prepped_rec <- prep(novel_rec, verbose = TRUE, retain = TRUE)
 ```
 
 ```
-## Warning in cor(x, use = use, method = method): the standard deviation is zero
+## Warning in stats::cor(x, use = use, method = method): the standard deviation is
+## zero
 ```
 
 ```
-## Warning: The correlation matrix has missing values. 276 columns were excluded
-## from the filter.
+## Warning: The correlation matrix has missing values. 273 columns were excluded from the
+## filter.
 ```
 
 ```
@@ -4044,7 +4224,7 @@ prepped_rec <- prep(novel_rec, verbose = TRUE, retain = TRUE)
 ## The retained training set is ~ 0.27 Mb  in memory.
 ```
 
-```r
+``` r
 preproc_train <- bake(prepped_rec, new_data = NULL)
 glimpse(preproc_train)
 ```
@@ -4052,114 +4232,104 @@ glimpse(preproc_train)
 ```
 ## Rows: 584
 ## Columns: 38
-## $ id                          <fct> 17119.2009, 56039.1006, 55009.0005, 30031.…
-## $ value                       <dbl> 12.410909, 5.149153, 11.751882, 7.523333, …
-## $ fips                        <fct> 17119, 56039, 55009, 30031, 42069, 6063, 4…
-## $ lat                         <dbl> 38.90308, 43.47808, 44.50729, 45.77278, 41…
-## $ lon                         <dbl> -90.14317, -110.76118, -87.99344, -111.177…
-## $ CMAQ                        <dbl> 9.167594, 2.447283, 6.938970, 2.056367, 6.…
-## $ zcta_area                   <dbl> 108835425, 2092228669, 24737298, 619007855…
-## $ zcta_pop                    <dbl> 32704, 15851, 30611, 27367, 5104, 5970, 10…
-## $ imp_a500                    <dbl> 22.08737024, 3.43252595, 40.67301038, 0.27…
-## $ imp_a15000                  <dbl> 6.9998911, 0.4902971, 11.6350822, 3.127895…
-## $ county_area                 <dbl> 1853347576, 10347983791, 1371938244, 67409…
-## $ county_pop                  <dbl> 269282, 21294, 248007, 89513, 214437, 2000…
-## $ log_dist_to_prisec          <dbl> 4.826338, 7.938653, 5.421107, 6.429274, 6.…
-## $ log_pri_length_5000         <dbl> 8.721351, 8.517193, 10.174230, 9.895746, 1…
-## $ log_pri_length_25000        <dbl> 11.85080, 10.12663, 11.48581, 11.92814, 12…
-## $ log_prisec_length_500       <dbl> 8.126889, 6.214608, 8.064728, 6.214608, 6.…
-## $ log_prisec_length_1000      <dbl> 9.233145, 7.600902, 9.500226, 8.539502, 7.…
-## $ log_prisec_length_5000      <dbl> 11.595505, 10.855139, 11.769954, 10.820349…
-## $ log_prisec_length_10000     <dbl> 12.64890, 11.72725, 12.84919, 11.97541, 13…
-## $ log_nei_2008_pm10_sum_10000 <dbl> 6.0243917, 1.2748190, 6.6630963, 1.8374989…
-## $ log_nei_2008_pm10_sum_15000 <dbl> 7.419808056, 1.274818998, 6.704355118, 2.1…
-## $ log_nei_2008_pm10_sum_25000 <dbl> 7.885624, 1.275117, 6.709826, 2.121497, 5.…
-## $ popdens_county              <dbl> 145.294927, 2.057792, 180.771256, 13.27901…
-## $ popdens_zcta                <dbl> 300.490396, 7.576132, 1237.443152, 44.2110…
-## $ nohs                        <dbl> 3.6, 0.0, 10.6, 3.9, 3.4, 1.8, 11.4, 23.5,…
-## $ somehs                      <dbl> 8.3, 0.0, 9.6, 5.8, 6.8, 6.8, 12.4, 19.6, …
-## $ hs                          <dbl> 31.1, 6.8, 34.6, 27.9, 43.3, 19.9, 33.4, 2…
-## $ somecollege                 <dbl> 27.8, 13.5, 21.9, 25.1, 18.4, 35.8, 26.4, …
-## $ associate                   <dbl> 8.0, 0.0, 7.4, 5.0, 11.5, 14.6, 7.1, 4.9, …
-## $ bachelor                    <dbl> 13.8, 61.2, 10.7, 23.3, 13.2, 13.9, 6.0, 4…
-## $ grad                        <dbl> 7.4, 18.6, 5.2, 9.1, 3.5, 7.3, 3.2, 1.5, 0…
-## $ pov                         <dbl> 13.3, 0.0, 18.4, 6.8, 5.8, 14.8, 7.6, 19.7…
-## $ hs_orless                   <dbl> 43.0, 6.8, 54.8, 37.6, 53.5, 28.5, 57.2, 7…
-## $ urc2013                     <dbl> 2, 5, 3, 5, 3, 6, 4, 2, 6, 4, 5, 1, 1, 1, …
-## $ aod                         <dbl> 39.00000, 33.80000, 61.50000, 44.14286, 27…
-## $ state_California            <dbl> 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, …
-## $ state_Illinois              <dbl> 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, …
-## $ city_Not.in.a.city          <dbl> 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, …
+## $ id                          <fct> 18003.0004, 55041.0007, 6065.1003, 39009.0…
+## $ value                       <dbl> 11.699065, 6.956780, 13.289744, 10.742000,…
+## $ fips                        <fct> 18003, 55041, 6065, 39009, 39061, 24510, 6…
+## $ lat                         <dbl> 41.09497, 45.56300, 33.94603, 39.44217, 39…
+## $ lon                         <dbl> -85.10182, -88.80880, -117.40063, -81.9088…
+## $ CMAQ                        <dbl> 10.383231, 3.411247, 11.404085, 7.971165, …
+## $ zcta_area                   <dbl> 16696709, 370280916, 41957182, 132383592, …
+## $ zcta_pop                    <dbl> 21306, 4141, 44001, 1115, 6566, 934, 41192…
+## $ imp_a500                    <dbl> 28.9783737, 0.0000000, 30.3901384, 0.00000…
+## $ imp_a15000                  <dbl> 13.0547959, 0.3676404, 23.7457506, 0.33079…
+## $ county_area                 <dbl> 1702419942, 2626421270, 18664696661, 13043…
+## $ county_pop                  <dbl> 355329, 9304, 2189641, 64757, 802374, 6209…
+## $ log_dist_to_prisec          <dbl> 6.621891, 8.415468, 7.419762, 6.344681, 5.…
+## $ log_pri_length_5000         <dbl> 8.517193, 8.517193, 10.150514, 8.517193, 9…
+## $ log_pri_length_25000        <dbl> 12.77378, 10.16440, 13.14450, 10.12663, 13…
+## $ log_prisec_length_500       <dbl> 6.214608, 6.214608, 6.214608, 6.214608, 7.…
+## $ log_prisec_length_1000      <dbl> 9.240294, 7.600902, 7.600902, 8.793450, 8.…
+## $ log_prisec_length_5000      <dbl> 11.485093, 9.425537, 10.155961, 10.562382,…
+## $ log_prisec_length_10000     <dbl> 12.75582, 11.44833, 11.59563, 11.69093, 12…
+## $ log_prisec_length_25000     <dbl> 13.98749, 13.15082, 13.44293, 13.58697, 14…
+## $ log_nei_2008_pm10_sum_10000 <dbl> 4.91110140, 3.86982666, 4.03184660, 0.0000…
+## $ log_nei_2008_pm10_sum_15000 <dbl> 5.399131, 3.883689, 5.459257, 0.000000, 6.…
+## $ log_nei_2008_pm10_sum_25000 <dbl> 5.816047, 3.887264, 6.884537, 3.765635, 6.…
+## $ popdens_county              <dbl> 208.719947, 3.542463, 117.314577, 49.64834…
+## $ popdens_zcta                <dbl> 1276.059851, 11.183401, 1048.711994, 8.422…
+## $ nohs                        <dbl> 4.3, 5.1, 3.7, 4.8, 2.1, 0.0, 2.5, 7.7, 0.…
+## $ somehs                      <dbl> 6.7, 10.4, 5.9, 11.5, 10.5, 0.0, 4.3, 7.5,…
+## $ hs                          <dbl> 31.7, 40.3, 17.9, 47.3, 30.0, 0.0, 17.8, 2…
+## $ somecollege                 <dbl> 27.2, 24.1, 26.3, 20.0, 27.1, 0.0, 26.1, 2…
+## $ associate                   <dbl> 8.2, 7.4, 8.3, 3.1, 8.5, 71.4, 13.2, 7.6, …
+## $ bachelor                    <dbl> 15.0, 8.6, 20.2, 9.8, 14.2, 0.0, 23.4, 17.…
+## $ grad                        <dbl> 6.8, 4.2, 17.7, 3.5, 7.6, 28.6, 12.6, 12.3…
+## $ pov                         <dbl> 13.500, 18.900, 6.700, 14.400, 12.500, 3.5…
+## $ hs_orless                   <dbl> 42.7, 55.8, 27.5, 63.6, 42.6, 0.0, 24.6, 3…
+## $ urc2006                     <dbl> 3, 6, 1, 5, 1, 1, 2, 1, 2, 6, 4, 4, 4, 4, …
+## $ aod                         <dbl> 54.11111, 31.16667, 83.12500, 33.36364, 50…
+## $ state_California            <dbl> 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, …
+## $ city_Not.in.a.city          <dbl> 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, …
 ```
 
-```r
+``` r
 baked_test_pm <- recipes::bake(prepped_rec, new_data = test_pm)
 ```
 
 ```
-## Warning: There are new levels in a factor: Baldwin, Morgan, Shelby, Cochise,
-## Pima, Yavapai, Yuma, Garland, Phillips, Sebastian, White, Colusa, Nevada, San
-## Benito, San Francisco, San Joaquin, Solano, Stanislaus, Sutter, Larimer, Pueblo,
-## Citrus, St. Lucie, Clarke, Clayton, Dougherty, Floyd, Gwinnett, Paulding,
-## Lemhi, DuPage, Macon, Will, Allen, Elkhart, Palo Alto, Van Buren, Woodbury,
-## Wright, Wyandotte, Christian, Daviess, Fayette, Kenton, Rapides, St. Bernard,
-## West Baton Rouge, Anne Arundel, Baltimore, Cecil, Berkshire, Bristol, Plymouth,
-## Worcester, Genesee, Kalamazoo, Manistee, Oakland, Stearns, Forrest, Hinds,
-## Lauderdale, Sainte Genevieve, Sarpy, Washoe, Belknap, Cheshire, Sullivan,
-## Camden, Gloucester, Ocean, Passaic, San Juan, Chautauqua, Nassau, New York,
-## St. Lawrence, Steuben, Duplin, Durham, Gaston, Guilford, McDowell, Mitchell,
-## Robeson, Watauga, Lawrence, Medina, Portage, Scioto, Summit, Mayes, Sequoyah,
-## Harney, Multnomah, Westmoreland, Florence, Codington, Pennington, Cameron,
-## Davis, Tooele, Charles, Bristol City, Hampton City, Virginia Beach City,
-## Hancock, Marshall, Raleigh, Ashland, Dane, Dodge, Forest, Outagamie, Taylor,
-## Laramie
+## Warning: ! There are new levels in `county`: "Colbert", "Etowah", "Russell", "Walker",
+##   "Cochise", "Coconino", "Mohave", "Arkansas", "Crittenden", "Garland",
+##   "Phillips", "Pope", "Calaveras", "Humboldt", "Inyo", "Merced", "Monterey",
+##   "San Benito", …, "Laramie", and "Sublette".
+## ℹ Consider using step_novel() (`?recipes::step_novel()`) before `step_dummy()`
+##   to handle unseen values.
 ```
 
-```r
+``` r
 glimpse(baked_test_pm)
 ```
 
 ```
 ## Rows: 292
 ## Columns: 38
-## $ id                          <fct> 1003.001, 1049.1003, 1073.1005, 1073.5002,…
-## $ value                       <dbl> 9.597647, 11.659091, 12.399355, 11.951948,…
-## $ fips                        <fct> 1003, 1049, 1073, 1073, 1097, 1103, 1117, …
-## $ lat                         <dbl> 30.49800, 34.28763, 33.33111, 33.70472, 30…
-## $ lon                         <dbl> -87.88141, -85.96830, -87.00361, -86.66917…
-## $ CMAQ                        <dbl> 8.098836, 8.534772, 10.235612, 9.303766, 8…
-## $ zcta_area                   <dbl> 190980522, 203836235, 166239542, 150661846…
-## $ zcta_pop                    <dbl> 27829, 8300, 16140, 21725, 6106, 30545, 23…
-## $ imp_a500                    <dbl> 0.01730104, 5.78200692, 1.69765343, 1.4832…
-## $ imp_a15000                  <dbl> 1.4386207, 0.9730444, 4.3006226, 4.2529421…
-## $ county_area                 <dbl> 4117521611, 2012662359, 2878192209, 287819…
-## $ county_pop                  <dbl> 182265, 71109, 658466, 658466, 412992, 119…
-## $ log_dist_to_prisec          <dbl> 4.648181, 3.721489, 6.526896, 4.288260, 5.…
-## $ log_pri_length_5000         <dbl> 8.517193, 8.517193, 10.915066, 8.517193, 1…
-## $ log_pri_length_25000        <dbl> 11.32735, 11.90959, 12.86472, 12.73009, 12…
-## $ log_prisec_length_500       <dbl> 7.295356, 7.310155, 6.214608, 8.398190, 7.…
-## $ log_prisec_length_1000      <dbl> 8.195119, 8.585843, 8.949239, 9.211938, 8.…
-## $ log_prisec_length_5000      <dbl> 10.81504, 10.21420, 11.03900, 11.00710, 11…
-## $ log_prisec_length_10000     <dbl> 11.88680, 11.50894, 12.12896, 11.84730, 12…
-## $ log_nei_2008_pm10_sum_10000 <dbl> 1.35588511, 0.00000000, 5.77118113, 2.2222…
-## $ log_nei_2008_pm10_sum_15000 <dbl> 2.267834, 3.350044, 6.868897, 5.509545, 6.…
-## $ log_nei_2008_pm10_sum_25000 <dbl> 5.628728, 5.171920, 8.021072, 8.401722, 6.…
-## $ popdens_county              <dbl> 44.265706, 35.330814, 228.777633, 228.7776…
-## $ popdens_zcta                <dbl> 145.71643, 40.71896, 97.08881, 144.19709, …
-## $ nohs                        <dbl> 3.300, 14.300, 2.700, 2.800, 3.000, 4.800,…
-## $ somehs                      <dbl> 4.900, 16.700, 6.600, 8.200, 17.100, 7.800…
-## $ hs                          <dbl> 25.10, 35.00, 30.70, 32.00, 39.00, 28.70, …
-## $ somecollege                 <dbl> 19.7, 14.9, 25.7, 28.9, 22.4, 25.0, 19.4, …
-## $ associate                   <dbl> 8.2, 5.5, 8.0, 7.4, 6.6, 7.5, 5.9, 7.3, 2.…
-## $ bachelor                    <dbl> 25.300, 7.900, 17.600, 13.500, 7.800, 18.2…
-## $ grad                        <dbl> 13.500, 5.800, 8.700, 7.100, 4.200, 8.000,…
-## $ pov                         <dbl> 6.100, 13.800, 7.300, 5.100, 23.200, 8.300…
-## $ hs_orless                   <dbl> 33.30, 66.00, 40.00, 43.00, 59.10, 41.30, …
-## $ urc2013                     <dbl> 4, 6, 1, 1, 3, 4, 1, 2, 4, 1, 1, 3, 3, 4, …
-## $ aod                         <dbl> 37.36364, 33.08333, 38.75000, 36.72727, 42…
+## $ id                          <fct> 1033.1002, 1055.001, 1069.0003, 1073.0023,…
+## $ value                       <dbl> 11.212174, 12.375394, 10.508850, 15.591017…
+## $ fips                        <fct> 1033, 1055, 1069, 1073, 1073, 1073, 1073, …
+## $ lat                         <dbl> 34.75878, 33.99375, 31.22636, 33.55306, 33…
+## $ lon                         <dbl> -87.65056, -85.99107, -85.39077, -86.81500…
+## $ CMAQ                        <dbl> 9.402679, 9.241744, 9.121892, 10.235612, 1…
+## $ zcta_area                   <dbl> 16716984, 154069359, 162685124, 26929603, …
+## $ zcta_pop                    <dbl> 9042, 20045, 30217, 9010, 16140, 3699, 137…
+## $ imp_a500                    <dbl> 19.17301038, 16.49307958, 19.13927336, 41.…
+## $ imp_a15000                  <dbl> 5.2472094, 5.1612102, 4.7401296, 17.452484…
+## $ county_area                 <dbl> 1534877333, 1385618994, 1501737720, 287819…
+## $ county_pop                  <dbl> 54428, 104430, 101547, 658466, 658466, 194…
+## $ log_dist_to_prisec          <dbl> 5.760131, 5.261457, 7.112373, 6.600958, 6.…
+## $ log_pri_length_5000         <dbl> 8.517193, 9.066563, 8.517193, 11.156977, 1…
+## $ log_pri_length_25000        <dbl> 10.15769, 12.01356, 10.12663, 12.98762, 12…
+## $ log_prisec_length_500       <dbl> 8.611945, 8.740680, 6.214608, 6.214608, 6.…
+## $ log_prisec_length_1000      <dbl> 9.735569, 9.627898, 7.600902, 9.075921, 8.…
+## $ log_prisec_length_5000      <dbl> 11.770407, 11.728889, 12.298627, 12.281645…
+## $ log_prisec_length_10000     <dbl> 12.840663, 12.768279, 12.994141, 13.278416…
+## $ log_prisec_length_25000     <dbl> 13.79973, 13.70026, 13.85550, 14.45221, 13…
+## $ log_nei_2008_pm10_sum_10000 <dbl> 6.69187313, 4.43719884, 0.92888890, 8.2097…
+## $ log_nei_2008_pm10_sum_15000 <dbl> 6.70127741, 4.46267932, 3.67473904, 8.6488…
+## $ log_nei_2008_pm10_sum_25000 <dbl> 7.148858, 4.678311, 3.744629, 8.858019, 8.…
+## $ popdens_county              <dbl> 35.460814, 75.367038, 67.619664, 228.77763…
+## $ popdens_zcta                <dbl> 540.8870404, 130.1037411, 185.7391706, 334…
+## $ nohs                        <dbl> 7.3, 4.3, 5.8, 7.1, 2.7, 11.1, 9.7, 3.0, 8…
+## $ somehs                      <dbl> 15.8, 13.3, 11.6, 17.1, 6.6, 11.6, 21.6, 1…
+## $ hs                          <dbl> 30.6, 27.8, 29.8, 37.2, 30.7, 46.0, 39.3, …
+## $ somecollege                 <dbl> 20.9, 29.2, 21.4, 23.5, 25.7, 17.2, 21.6, …
+## $ associate                   <dbl> 7.6, 10.1, 7.9, 7.3, 8.0, 4.1, 5.2, 6.6, 4…
+## $ bachelor                    <dbl> 12.7, 10.0, 13.7, 5.9, 17.6, 7.1, 2.2, 7.8…
+## $ grad                        <dbl> 5.1, 5.4, 9.8, 2.0, 8.7, 2.9, 0.4, 4.2, 3.…
+## $ pov                         <dbl> 19.0, 8.8, 15.6, 25.5, 7.3, 8.1, 13.3, 23.…
+## $ hs_orless                   <dbl> 53.7, 45.4, 47.2, 61.4, 40.0, 68.7, 70.6, …
+## $ urc2006                     <dbl> 4, 4, 4, 1, 1, 1, 2, 3, 3, 3, 2, 5, 4, 1, …
+## $ aod                         <dbl> 36.000000, 43.416667, 33.000000, 39.583333…
 ## $ state_California            <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
-## $ state_Illinois              <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
-## $ city_Not.in.a.city          <dbl> 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ city_Not.in.a.city          <dbl> 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, …
 ```
 
 Great, now we no longer have `NA` values!
@@ -4172,13 +4342,15 @@ See [here](https://www.tidymodels.org/find/parsnip/){target="_blank"} for modeli
 
 
 
-```r
+``` r
 PM_model <- parsnip::linear_reg() # PM was used in the name for particulate matter
 PM_model
 ```
 
 ```
 ## Linear Regression Model Specification (regression)
+## 
+## Computational engine: lm
 ```
 
 OK. So far, all we have defined is that we want to use a linear regression...  
@@ -4190,7 +4362,7 @@ So we will tell `parsnip` that we want to use the `lm` package to implement our 
 We will do so by using the `set_engine()` function of the `parsnip` package.
 
 
-```r
+``` r
 lm_PM_model <- 
   PM_model  %>%
   parsnip::set_engine("lm")
@@ -4208,7 +4380,7 @@ Here, we aim to predict the air pollution.
 You can do this with the `set_mode()` function of the `parsnip` package, by using either `set_mode("classification")` or `set_mode("regression")`.
 
 
-```r
+``` r
 lm_PM_model <- 
   PM_model  %>%
   parsnip::set_engine("lm") %>%
@@ -4229,7 +4401,7 @@ If you recall `novel_rec` is the recipe we previously created with the `recipes`
 Here, we combine everything together into a workflow. 
 
 
-```r
+``` r
 PM_wflow <-workflows::workflow() %>%
            workflows::add_recipe(novel_rec) %>%
            workflows::add_model(lm_PM_model)
@@ -4262,20 +4434,21 @@ Next, we "prepare the recipe" (or estimate the parameters) and fit the model to 
 Printing the output, we can see the coefficients of the model.
 
 
-```r
+``` r
 PM_wflow_fit <- parsnip::fit(PM_wflow, data = train_pm)
 ```
 
 ```
-## Warning in cor(x, use = use, method = method): the standard deviation is zero
+## Warning in stats::cor(x, use = use, method = method): the standard deviation is
+## zero
 ```
 
 ```
-## Warning: The correlation matrix has missing values. 276 columns were excluded
-## from the filter.
+## Warning: The correlation matrix has missing values. 273 columns were excluded from the
+## filter.
 ```
 
-```r
+``` r
 PM_wflow_fit
 ```
 
@@ -4298,41 +4471,41 @@ PM_wflow_fit
 ## 
 ## Coefficients:
 ##                 (Intercept)                          lat  
-##                   2.282e+02                    3.211e-02  
+##                   2.936e+02                    3.261e-02  
 ##                         lon                         CMAQ  
-##                   2.572e-02                    2.648e-01  
+##                   1.586e-02                    2.463e-01  
 ##                   zcta_area                     zcta_pop  
-##                  -2.722e-10                    6.877e-06  
+##                  -3.433e-10                    1.013e-05  
 ##                    imp_a500                   imp_a15000  
-##                   5.815e-04                    6.867e-03  
+##                   5.064e-03                   -3.066e-03  
 ##                 county_area                   county_pop  
-##                  -1.767e-11                   -1.705e-07  
+##                  -2.324e-11                   -7.576e-08  
 ##          log_dist_to_prisec          log_pri_length_5000  
-##                   1.107e-01                   -3.237e-01  
+##                   6.214e-02                   -2.006e-01  
 ##        log_pri_length_25000        log_prisec_length_500  
-##                   2.409e-01                    2.135e-01  
+##                  -5.411e-02                    2.204e-01  
 ##      log_prisec_length_1000       log_prisec_length_5000  
-##                   1.112e-01                    3.368e-01  
-##     log_prisec_length_10000  log_nei_2008_pm10_sum_10000  
-##                   2.542e-01                    1.310e-01  
-## log_nei_2008_pm10_sum_15000  log_nei_2008_pm10_sum_25000  
-##                  -7.462e-02                    1.011e-01  
-##              popdens_county                 popdens_zcta  
-##                  -3.251e-05                   -3.646e-05  
-##                        nohs                       somehs  
-##                  -2.310e+00                   -2.302e+00  
-##                          hs                  somecollege  
-##                  -2.305e+00                   -2.316e+00  
-##                   associate                     bachelor  
-##                  -2.343e+00                   -2.320e+00  
-##                        grad                          pov  
-##                  -2.327e+00                    9.427e-03  
-##                   hs_orless                      urc2013  
-##                          NA                    2.641e-01  
-##                         aod             state_California  
-##                   2.643e-02                    3.306e+00  
-##              state_Illinois           city_Not.in.a.city  
-##                  -1.179e-01                    9.673e-02
+##                   1.154e-01                    2.374e-01  
+##     log_prisec_length_10000      log_prisec_length_25000  
+##                  -3.436e-02                    5.224e-01  
+## log_nei_2008_pm10_sum_10000  log_nei_2008_pm10_sum_15000  
+##                   1.829e-01                   -2.355e-02  
+## log_nei_2008_pm10_sum_25000               popdens_county  
+##                   2.403e-02                    2.203e-05  
+##                popdens_zcta                         nohs  
+##                  -2.132e-06                   -2.983e+00  
+##                      somehs                           hs  
+##                  -2.956e+00                   -2.962e+00  
+##                 somecollege                    associate  
+##                  -2.967e+00                   -2.999e+00  
+##                    bachelor                         grad  
+##                  -2.979e+00                   -2.978e+00  
+##                         pov                    hs_orless  
+##                   1.859e-03                           NA  
+##                     urc2006                          aod  
+##                   2.577e-01                    1.535e-02  
+##            state_California           city_Not.in.a.city  
+##                   3.114e+00                   -4.250e-02
 ```
 
 #### Assessing the Model Fit
@@ -4346,7 +4519,7 @@ Many other `broom` functions currently only work with `parsnip` objects, not raw
 However, we can use the `tidy` function if we first use the `pull_workflow_fit()` function.
 
 
-```r
+``` r
 wflowoutput <- PM_wflow_fit %>% 
   pull_workflow_fit() %>% 
   broom::tidy() 
@@ -4357,17 +4530,17 @@ wflowoutput <- PM_wflow_fit %>%
 ## # A tibble: 36 × 5
 ##    term         estimate std.error statistic       p.value
 ##    <chr>           <dbl>     <dbl>     <dbl>         <dbl>
-##  1 (Intercept)  2.28e+ 2  1.21e+ 2    1.88   0.0606       
-##  2 lat          3.21e- 2  2.43e- 2    1.32   0.186        
-##  3 lon          2.57e- 2  9.77e- 3    2.63   0.00873      
-##  4 CMAQ         2.65e- 1  4.29e- 2    6.17   0.00000000132
-##  5 zcta_area   -2.72e-10  1.63e-10   -1.67   0.0952       
-##  6 zcta_pop     6.88e- 6  5.80e- 6    1.19   0.236        
-##  7 imp_a500     5.82e- 4  7.68e- 3    0.0757 0.940        
-##  8 imp_a15000   6.87e- 3  1.17e- 2    0.587  0.558        
-##  9 county_area -1.77e-11  1.77e-11   -1.00   0.318        
-## 10 county_pop  -1.71e- 7  9.29e- 8   -1.84   0.0670       
-## # … with 26 more rows
+##  1 (Intercept)  2.94e+ 2  1.18e+ 2     2.49  0.0130       
+##  2 lat          3.26e- 2  2.28e- 2     1.43  0.153        
+##  3 lon          1.59e- 2  1.01e- 2     1.58  0.115        
+##  4 CMAQ         2.46e- 1  3.97e- 2     6.20  0.00000000108
+##  5 zcta_area   -3.43e-10  1.60e-10    -2.15  0.0320       
+##  6 zcta_pop     1.01e- 5  5.33e- 6     1.90  0.0578       
+##  7 imp_a500     5.06e- 3  7.42e- 3     0.683 0.495        
+##  8 imp_a15000  -3.07e- 3  1.16e- 2    -0.263 0.792        
+##  9 county_area -2.32e-11  1.97e-11    -1.18  0.238        
+## 10 county_pop  -7.58e- 8  9.29e- 8    -0.815 0.415        
+## # ℹ 26 more rows
 ```
 
 We have fit our model on our training data, which means we have created a model to predict values of air pollution based on the predictors that we have included. Yay!
@@ -4384,7 +4557,7 @@ Notice again that we need to use the `pull_workflow_fit()` function.
 Let's take a look at the top 10 contributing variables:
 
 
-```r
+``` r
 #install.packages(vip)
 library(vip)
 ```
@@ -4400,7 +4573,7 @@ library(vip)
 ##     vi
 ```
 
-```r
+``` r
 PM_wflow_fit %>% 
   pull_workflow_fit() %>% 
   vip(num_features = 10)
@@ -4425,7 +4598,7 @@ First, let's pull out our predicted outcome values $\hat{Y} = f(X)$ from the mod
 
 
 
-```r
+``` r
 wf_fit <- PM_wflow_fit %>% 
   pull_workflow_fit()
 
@@ -4435,13 +4608,13 @@ head(wf_fitted_values)
 
 ```
 ##         1         2         3         4         5         6 
-## 11.255360  6.292117 11.760386  7.764189 10.103967 11.263709
+## 12.186782  9.139406 12.646119 10.377628 11.909934  9.520860
 ```
 
 Alternatively, we can get the fitted values using the `augment()` function of the `broom` package using the output from `workflows`: 
 
 
-```r
+``` r
 wf_fitted_values <- 
   broom::augment(wf_fit$fit, data = preproc_train) %>% 
   select(value, .fitted:.std.resid)
@@ -4451,21 +4624,21 @@ head(wf_fitted_values)
 
 ```
 ## # A tibble: 6 × 6
-##   value .fitted   .hat .sigma      .cooksd .std.resid
-##   <dbl>   <dbl>  <dbl>  <dbl>        <dbl>      <dbl>
-## 1 12.4    11.3  0.0490   2.11 0.000465        0.562  
-## 2  5.15    6.29 0.0888   2.11 0.000897       -0.568  
-## 3 11.8    11.8  0.0228   2.11 0.0000000111   -0.00408
-## 4  7.52    7.76 0.0459   2.11 0.0000188      -0.117  
-## 5 10.1    10.1  0.0361   2.11 0.000000177    -0.0128 
-## 6 15.3    11.3  0.0540   2.10 0.00625         1.96
+##   value .fitted   .hat .sigma   .cooksd .std.resid
+##   <dbl>   <dbl>  <dbl>  <dbl>     <dbl>      <dbl>
+## 1 11.7    12.2  0.0370   2.05 0.0000648     -0.243
+## 2  6.96    9.14 0.0496   2.05 0.00179       -1.09 
+## 3 13.3    12.6  0.0484   2.05 0.000151       0.322
+## 4 10.7    10.4  0.0502   2.05 0.0000504      0.183
+## 5 14.5    11.9  0.0243   2.05 0.00113        1.26 
+## 6 12.2     9.52 0.476    2.04 0.0850         1.81
 ```
 
 Finally, we can also use the `predict()` function.
 Note that because we use the actual workflow here, we can (and actually need to) use the raw data instead of the preprocessed data.
 
 
-```r
+``` r
 values_pred_train <- 
   predict(PM_wflow_fit, train_pm) %>% 
   bind_cols(train_pm %>% select(value, fips, county, id)) 
@@ -4473,28 +4646,29 @@ values_pred_train <-
 
 ```
 ## Warning in predict.lm(object = object$fit, newdata = new_data, type =
-## "response"): prediction from a rank-deficient fit may be misleading
+## "response", : prediction from rank-deficient fit; consider predict(.,
+## rankdeficient="NA")
 ```
 
-```r
+``` r
 values_pred_train
 ```
 
 ```
 ## # A tibble: 584 × 5
-##    .pred value fips  county         id        
-##    <dbl> <dbl> <fct> <chr>          <fct>     
-##  1 11.3  12.4  17119 Madison        17119.2009
-##  2  6.29  5.15 56039 Teton          56039.1006
-##  3 11.8  11.8  55009 Brown          55009.0005
-##  4  7.76  7.52 30031 Gallatin       30031.0008
-##  5 10.1  10.1  42069 Lackawanna     42069.2006
-##  6 11.3  15.3  6063  Plumas         6063.1006 
-##  7  7.66  6.92 41029 Jackson        41029.1001
-##  8 13.9  15.2  6071  San Bernardino 6071.2002 
-##  9  8.98 10.2  19055 Delaware       19055.0001
-## 10 12.4  11.4  26115 Monroe         26115.0005
-## # … with 574 more rows
+##    .pred value fips  county           id        
+##    <dbl> <dbl> <fct> <chr>            <fct>     
+##  1 12.2  11.7  18003 Allen            18003.0004
+##  2  9.14  6.96 55041 Forest           55041.0007
+##  3 12.6  13.3  6065  Riverside        6065.1003 
+##  4 10.4  10.7  39009 Athens           39009.0003
+##  5 11.9  14.5  39061 Hamilton         39061.8001
+##  6  9.52 12.2  24510 Baltimore (City) 24510.0006
+##  7 12.6  11.2  6061  Placer           6061.0006 
+##  8 10.3   6.98 6065  Riverside        6065.5001 
+##  9  8.74  6.61 44003 Kent             44003.0002
+## 10 10.0  11.6  37111 McDowell         37111.0004
+## # ℹ 574 more rows
 ```
 
 
@@ -4503,7 +4677,7 @@ values_pred_train
 Now, we can compare the predicted outcome values (or fitted values) $\hat{Y}$ to the actual outcome values $Y$ that we observed: 
 
 
-```r
+``` r
 library(ggplot2)
 wf_fitted_values %>% 
   ggplot(aes(x =  value, y = .fitted)) + 
@@ -4531,7 +4705,7 @@ $$RMSE = \sqrt{\frac{\sum_{i=1}^{n}{(\hat{y_t}- y_t)}^2}{n}}$$
 One way to calculate these metrics within the `tidymodels` framework is to use the `yardstick` package using the `metrics()` function. 
 
 
-```r
+``` r
 yardstick::metrics(wf_fitted_values, 
                    truth = value, estimate = .fitted)
 ```
@@ -4540,15 +4714,15 @@ yardstick::metrics(wf_fitted_values,
 ## # A tibble: 3 × 3
 ##   .metric .estimator .estimate
 ##   <chr>   <chr>          <dbl>
-## 1 rmse    standard       2.04 
-## 2 rsq     standard       0.418
-## 3 mae     standard       1.48
+## 1 rmse    standard       1.98 
+## 2 rsq     standard       0.392
+## 3 mae     standard       1.47
 ```
 
 Alternatively if you only wanted one metric you could use the `mae()`, `rsq()`, or `rmse()` functions, respectively. 
 
 
-```r
+``` r
 yardstick::rmse(wf_fitted_values, 
                truth = value, estimate = .fitted)
 ```
@@ -4557,7 +4731,7 @@ yardstick::rmse(wf_fitted_values,
 ## # A tibble: 1 × 3
 ##   .metric .estimator .estimate
 ##   <chr>   <chr>          <dbl>
-## 1 rmse    standard        2.04
+## 1 rmse    standard        1.98
 ```
 
 #### Assessing Model Performance on $v$-folds Using `tune`
@@ -4568,7 +4742,7 @@ Again, because these are created at random, we need to use the base `set.seed()`
 
 
 
-```r
+``` r
 set.seed(1234)
 
 vfold_pm <- rsample::vfold_cv(data = train_pm, v = 10)
@@ -4592,7 +4766,7 @@ vfold_pm
 ## 10 <split [526/58]> Fold10
 ```
 
-```r
+``` r
 pull(vfold_pm, splits)
 ```
 
@@ -4642,89 +4816,108 @@ We can fit the model to our cross validation folds using the `fit_resamples()` f
 See [here](https://tidymodels.github.io/tune/reference/fit_resamples.html){target="_blank"} for more information.
 
 
-```r
+``` r
 set.seed(122)
 resample_fit <- tune::fit_resamples(PM_wflow, vfold_pm)
 ```
 
 ```
-## ! Fold01: preprocessor 1/1: the standard deviation is zero, The correlation matrix...
+## → A | warning: the standard deviation is zero, The correlation matrix has missing values. 330 columns were excluded from the
+##                filter.
 ```
 
 ```
-## ! Fold01: preprocessor 1/1, model 1/1 (predictions): There are new levels in a fac...
+## There were issues with some computations   A: x1
 ```
 
 ```
-## ! Fold02: preprocessor 1/1: the standard deviation is zero, The correlation matrix...
+## → B | warning: ! There are new levels in `county`: "Forest", "Niagara", "Spencer", "Trumbull",
+##                  "Preble", "Washtenaw", "LaPorte", "Spartanburg", "Portage", "Talladega",
+##                  "Sussex", "Haywood", "Iberville", "Plumas", "Milwaukee", "Sumner", "Butler",
+##                  "Sebastian", …, "Mobile", and "Glynn".
+##                ℹ Consider using step_novel() (`?recipes::step_novel()`) before `step_dummy()`
+##                  to handle unseen values., prediction from rank-deficient fit; consider predict(., rankdeficient="NA")
 ```
 
 ```
-## ! Fold02: preprocessor 1/1, model 1/1 (predictions): There are new levels in a fac...
-```
-
-```
-## ! Fold03: preprocessor 1/1: the standard deviation is zero, The correlation matrix...
-```
-
-```
-## ! Fold03: preprocessor 1/1, model 1/1 (predictions): There are new levels in a fac...
-```
-
-```
-## ! Fold04: preprocessor 1/1: the standard deviation is zero, The correlation matrix...
-```
-
-```
-## ! Fold04: preprocessor 1/1, model 1/1 (predictions): There are new levels in a fac...
-```
-
-```
-## ! Fold05: preprocessor 1/1: the standard deviation is zero, The correlation matrix...
-```
-
-```
-## ! Fold05: preprocessor 1/1, model 1/1 (predictions): There are new levels in a fac...
-```
-
-```
-## ! Fold06: preprocessor 1/1: the standard deviation is zero, The correlation matrix...
-```
-
-```
-## ! Fold06: preprocessor 1/1, model 1/1 (predictions): There are new levels in a fac...
-```
-
-```
-## ! Fold07: preprocessor 1/1: the standard deviation is zero, The correlation matrix...
-```
-
-```
-## ! Fold07: preprocessor 1/1, model 1/1 (predictions): There are new levels in a fac...
-```
-
-```
-## ! Fold08: preprocessor 1/1: the standard deviation is zero, The correlation matrix...
-```
-
-```
-## ! Fold08: preprocessor 1/1, model 1/1 (predictions): There are new levels in a fac...
-```
-
-```
-## ! Fold09: preprocessor 1/1: the standard deviation is zero, The correlation matrix...
-```
-
-```
-## ! Fold09: preprocessor 1/1, model 1/1 (predictions): There are new levels in a fac...
-```
-
-```
-## ! Fold10: preprocessor 1/1: the standard deviation is zero, The correlation matrix...
-```
-
-```
-## ! Fold10: preprocessor 1/1, model 1/1 (predictions): There are new levels in a fac...
+## There were issues with some computations   A: x1→ C | warning: the standard deviation is zero, The correlation matrix has missing values. 328 columns were excluded from the
+##                filter.
+## There were issues with some computations   A: x1There were issues with some computations   A: x1   B: x1   C: x1
+## → D | warning: ! There are new levels in `county`: "Macon", "Arlington", "Champaign",
+##                  "Citrus", "Klamath", "Cumberland", "Ventura", "Monongalia", "Dona Ana",
+##                  "Ottawa", "Tuscaloosa", "Edgecombe", "Peoria", "Macomb", "Teton", "Tooele",
+##                  "St. Lawrence", "Lincoln", and "Gibson".
+##                ℹ Consider using step_novel() (`?recipes::step_novel()`) before `step_dummy()`
+##                  to handle unseen values., prediction from rank-deficient fit; consider predict(., rankdeficient="NA")
+## There were issues with some computations   A: x1   B: x1   C: x1→ E | warning: the standard deviation is zero, The correlation matrix has missing values. 331 columns were excluded from the
+##                filter.
+## There were issues with some computations   A: x1   B: x1   C: x1There were issues with some computations   A: x1   B: x1   C: x1   D: x1   E: x1
+## → F | warning: ! There are new levels in `county`: "Oconee", "Cobb", "Vigo", "Kane", "Dane",
+##                  "Beaver", "Buncombe", "Scioto", "Mitchell", "Sangamon", "Dodge", "Lynchburg
+##                  City", "Nassau", "Butte", "Vilas", "Rutland", "Josephine", "San Mateo", …,
+##                  "Wake", and "Alamance".
+##                ℹ Consider using step_novel() (`?recipes::step_novel()`) before `step_dummy()`
+##                  to handle unseen values., prediction from rank-deficient fit; consider predict(., rankdeficient="NA")
+## There were issues with some computations   A: x1   B: x1   C: x1   D: x1   E: x1→ G | warning: the standard deviation is zero, The correlation matrix has missing values. 324 columns were excluded from the
+##                filter.
+## There were issues with some computations   A: x1   B: x1   C: x1   D: x1   E: x1There were issues with some computations   A: x1   B: x1   C: x1   D: x1   E: x…
+## → H | warning: ! There are new levels in `county`: "Allen", "McDowell", "Chaves", "Lawrence",
+##                  "Weber", "Cedar", "Gaston", "Warren", "Bernalillo", "Hancock", "Chittenden",
+##                  "Mahoning", "Ocean", "Clay", "Hidalgo", "Lexington", "Davidson", "Virginia
+##                  Beach City", "Shelby", and "Chester".
+##                ℹ Consider using step_novel() (`?recipes::step_novel()`) before `step_dummy()`
+##                  to handle unseen values., prediction from rank-deficient fit; consider predict(., rankdeficient="NA")
+## There were issues with some computations   A: x1   B: x1   C: x1   D: x1   E: x…There were issues with some computations   A: x1   B: x1   C: x2   D: x1   E: x…
+## → I | warning: ! There are new levels in `state`: "Nevada".
+##                ℹ Consider using step_novel() (`?recipes::step_novel()`) before `step_dummy()`
+##                  to handle unseen values., ! There are new levels in `county`: "Bay", "Clermont", "Yellowstone", "Anne
+##                  Arundel", "Houston", "Genesee", "Yavapai", "Middlesex", "Lenawee", "Rowan",
+##                  "Converse", "St. Croix", "Ashley", "Clayton", "Jones", "Seminole", "Lenoir",
+##                  "Henderson", …, "West Baton Rouge", and "Muscatine".
+##                ℹ Consider using step_novel() (`?recipes::step_novel()`) before `step_dummy()`
+##                  to handle unseen values., prediction from rank-deficient fit; consider predict(., rankdeficient="NA")
+## There were issues with some computations   A: x1   B: x1   C: x2   D: x1   E: x…→ J | warning: the standard deviation is zero, The correlation matrix has missing values. 326 columns were excluded from the
+##                 filter.
+## There were issues with some computations   A: x1   B: x1   C: x2   D: x1   E: x…There were issues with some computations   A: x1   B: x1   C: x2   D: x1   E: x…
+## → K | warning: ! There are new levels in `county`: "Yuma", "Flathead", "Grafton", "Brewster",
+##                   "Tarrant", "Park", "East Baton Rouge", "Mille Lacs", "Bell", "Nevada",
+##                   "Monroe", "Shawnee", "Ellis", "Bannock", "Cheshire", "Harris", "Stearns",
+##                   "Pittsburg", "Charles", and "Marshall".
+##                 ℹ Consider using step_novel() (`?recipes::step_novel()`) before `step_dummy()`
+##                   to handle unseen values., prediction from rank-deficient fit; consider predict(., rankdeficient="NA")
+## There were issues with some computations   A: x1   B: x1   C: x2   D: x1   E: x…There were issues with some computations   A: x1   B: x1   C: x2   D: x1   E: x…
+## → L | warning: ! There are new levels in `county`: "Hampton City", "Randolph", "Hinds",
+##                   "Codington", "Dauphin", "Bennington", "Brookings", "Raleigh", "Passaic",
+##                   "Duplin", "Erie", "Page", "Bullitt", "Stanislaus", "Cameron", "Lucas",
+##                   "Davis", "Santa Clara", …, "Spokane", and "La Salle".
+##                 ℹ Consider using step_novel() (`?recipes::step_novel()`) before `step_dummy()`
+##                   to handle unseen values., prediction from rank-deficient fit; consider predict(., rankdeficient="NA")
+## There were issues with some computations   A: x1   B: x1   C: x2   D: x1   E: x…There were issues with some computations   A: x1   B: x1   C: x3   D: x1   E: x…
+## → M | warning: ! There are new levels in `county`: "Athens", "Cabell", "Dougherty",
+##                   "Manistee", "Oklahoma", "Will", "Grant", "Taylor", "Allegan", "Bolivar",
+##                   "Sullivan", "McLean", "Albemarle", "Knox", "Essex", "Manitowoc", "Pierce",
+##                   "Jersey", …, "Belknap", and "Sauk".
+##                 ℹ Consider using step_novel() (`?recipes::step_novel()`) before `step_dummy()`
+##                   to handle unseen values., prediction from rank-deficient fit; consider predict(., rankdeficient="NA")
+## There were issues with some computations   A: x1   B: x1   C: x3   D: x1   E: x…There were issues with some computations   A: x1   B: x1   C: x3   D: x1   E: x…
+## → N | warning: ! There are new levels in `state`: "Maine" and "North Dakota".
+##                 ℹ Consider using step_novel() (`?recipes::step_novel()`) before `step_dummy()`
+##                   to handle unseen values., ! There are new levels in `county`: "Placer", "DeKalb", "Sutter", "Camden",
+##                   "Durham", "Henry", "Harney", "Colusa", "Queens", "Berkshire", "Kalamazoo",
+##                   "Aroostook", "Ouachita", "Burleigh", "San Joaquin", "Sainte Genevieve",
+##                   "Sandoval", "Palo Alto", …, "Roanoke City", and "Gwinnett".
+##                 ℹ Consider using step_novel() (`?recipes::step_novel()`) before `step_dummy()`
+##                   to handle unseen values., prediction from rank-deficient fit; consider predict(., rankdeficient="NA")
+## There were issues with some computations   A: x1   B: x1   C: x3   D: x1   E: x…→ O | warning: the standard deviation is zero, The correlation matrix has missing values. 329 columns were excluded from the
+##                 filter.
+## There were issues with some computations   A: x1   B: x1   C: x3   D: x1   E: x…There were issues with some computations   A: x1   B: x1   C: x3   D: x1   E: x…
+## → P | warning: ! There are new levels in `county`: "Stark", "St. Lucie", "Ashland", "Morgan",
+##                   "Box Elder", "Yolo", "Clarke", "Chesterfield", "Woodbury", "New London",
+##                   "Santa Cruz", "Forrest", "Howard", "Buchanan", "Ohio", "Pueblo", "Medina",
+##                   "McCracken", …, "Dubois", and "Robeson".
+##                 ℹ Consider using step_novel() (`?recipes::step_novel()`) before `step_dummy()`
+##                   to handle unseen values., prediction from rank-deficient fit; consider predict(., rankdeficient="NA")
+## There were issues with some computations   A: x1   B: x1   C: x3   D: x1   E: x…There were issues with some computations   A: x1   B: x1   C: x3   D: x1   E: x…
 ```
 
 We can now take a look at various performance metrics based on the fit of our cross validation "resamples". 
@@ -4732,15 +4925,8 @@ We can now take a look at various performance metrics based on the fit of our cr
 To do this we will use the `collect_metrics()` function of the `tune` package. This will show us the mean of the accuracy estimate of the different cross validation folds.
 
 
-```r
+``` r
 resample_fit
-```
-
-```
-## Warning: This tuning result has notes. Example notes on model fitting include:
-## preprocessor 1/1, model 1/1 (predictions): There are new levels in a factor: Talladega, Edgefield, Mobile, Mesa, Pope, Placer, Berks, Butte, Chippewa, Shoshone, Sarasota, Ingham, Berrien, San Luis Obispo, Buchanan, Carter, Davidson, McHenry, Shawnee, Bay, Sauk, Rock Island, Berkeley, Alachua, Rowan, prediction from a rank-deficient fit may be misleading
-## preprocessor 1/1: the standard deviation is zero, The correlation matrix has missing values. 331 columns were excluded from the filter.
-## preprocessor 1/1: the standard deviation is zero, The correlation matrix has missing values. 331 columns were excluded from the filter.
 ```
 
 ```
@@ -4749,19 +4935,40 @@ resample_fit
 ## # A tibble: 10 × 4
 ##    splits           id     .metrics         .notes          
 ##    <list>           <chr>  <list>           <list>          
-##  1 <split [525/59]> Fold01 <tibble [2 × 4]> <tibble [2 × 1]>
-##  2 <split [525/59]> Fold02 <tibble [2 × 4]> <tibble [2 × 1]>
-##  3 <split [525/59]> Fold03 <tibble [2 × 4]> <tibble [2 × 1]>
-##  4 <split [525/59]> Fold04 <tibble [2 × 4]> <tibble [2 × 1]>
-##  5 <split [526/58]> Fold05 <tibble [2 × 4]> <tibble [2 × 1]>
-##  6 <split [526/58]> Fold06 <tibble [2 × 4]> <tibble [2 × 1]>
-##  7 <split [526/58]> Fold07 <tibble [2 × 4]> <tibble [2 × 1]>
-##  8 <split [526/58]> Fold08 <tibble [2 × 4]> <tibble [2 × 1]>
-##  9 <split [526/58]> Fold09 <tibble [2 × 4]> <tibble [2 × 1]>
-## 10 <split [526/58]> Fold10 <tibble [2 × 4]> <tibble [2 × 1]>
+##  1 <split [525/59]> Fold01 <tibble [2 × 4]> <tibble [2 × 3]>
+##  2 <split [525/59]> Fold02 <tibble [2 × 4]> <tibble [2 × 3]>
+##  3 <split [525/59]> Fold03 <tibble [2 × 4]> <tibble [2 × 3]>
+##  4 <split [525/59]> Fold04 <tibble [2 × 4]> <tibble [2 × 3]>
+##  5 <split [526/58]> Fold05 <tibble [2 × 4]> <tibble [2 × 3]>
+##  6 <split [526/58]> Fold06 <tibble [2 × 4]> <tibble [2 × 3]>
+##  7 <split [526/58]> Fold07 <tibble [2 × 4]> <tibble [2 × 3]>
+##  8 <split [526/58]> Fold08 <tibble [2 × 4]> <tibble [2 × 3]>
+##  9 <split [526/58]> Fold09 <tibble [2 × 4]> <tibble [2 × 3]>
+## 10 <split [526/58]> Fold10 <tibble [2 × 4]> <tibble [2 × 3]>
+## 
+## There were issues with some computations:
+## 
+##   - Warning(s) x1: ! There are new levels in `county`: "Allen", "McDowell", "Chaves"...
+##   - Warning(s) x1: ! There are new levels in `county`: "Athens", "Cabell", "Doughert...
+##   - Warning(s) x1: ! There are new levels in `county`: "Forest", "Niagara", "Spencer...
+##   - Warning(s) x1: ! There are new levels in `county`: "Hampton City", "Randolph", "...
+##   - Warning(s) x1: ! There are new levels in `county`: "Macon", "Arlington", "Champa...
+##   - Warning(s) x1: ! There are new levels in `county`: "Oconee", "Cobb", "Vigo", "Ka...
+##   - Warning(s) x1: ! There are new levels in `county`: "Stark", "St. Lucie", "Ashlan...
+##   - Warning(s) x1: ! There are new levels in `county`: "Yuma", "Flathead", "Grafton"...
+##   - Warning(s) x1: ! There are new levels in `state`: "Maine" and "North Dakota". ℹ ...
+##   - Warning(s) x1: ! There are new levels in `state`: "Nevada". ℹ Consider using ste...
+##   - Warning(s) x1: the standard deviation is zero, The correlation matrix has missin...
+##   - Warning(s) x1: the standard deviation is zero, The correlation matrix has missin...
+##   - Warning(s) x3: the standard deviation is zero, The correlation matrix has missin...
+##   - Warning(s) x1: the standard deviation is zero, The correlation matrix has missin...
+##   - Warning(s) x1: the standard deviation is zero, The correlation matrix has missin...
+##   - Warning(s) x3: the standard deviation is zero, The correlation matrix has missin...
+## 
+## Run `show_notes(.Last.tune.result)` for more information.
 ```
 
-```r
+``` r
 collect_metrics(resample_fit)
 ```
 
@@ -4769,8 +4976,8 @@ collect_metrics(resample_fit)
 ## # A tibble: 2 × 6
 ##   .metric .estimator  mean     n std_err .config             
 ##   <chr>   <chr>      <dbl> <int>   <dbl> <chr>               
-## 1 rmse    standard   2.18     10  0.0932 Preprocessor1_Model1
-## 2 rsq     standard   0.358    10  0.0389 Preprocessor1_Model1
+## 1 rmse    standard   2.09     10  0.123  Preprocessor1_Model1
+## 2 rsq     standard   0.321    10  0.0357 Preprocessor1_Model1
 ```
 In the previous section, we demonstrated how to build a machine learning model (specifically a linear regression model) to predict air pollution with the `tidymodels` framework. 
 
@@ -4797,7 +5004,7 @@ According to the [documentation](https://www.rdocumentation.org/packages/recipes
 
 
 
-```r
+``` r
 RF_rec <- recipe(train_pm) %>%
     update_role(everything(), new_role = "predictor")%>%
     update_role(value, new_role = "outcome")%>%
@@ -4822,18 +5029,20 @@ We will start by trying an `mtry` value of 10 and a `min_n` value of 4.
 Now that we have our recipe (`RF_rec`), let's specify the model with `rand_forest()` from `parsnip`.
 
 
-```r
+``` r
 PMtree_model <- 
   parsnip::rand_forest(mtry = 10, min_n = 4)
 PMtree_model
 ```
 
 ```
-## Random Forest Model Specification (unknown)
+## Random Forest Model Specification (unknown mode)
 ## 
 ## Main Arguments:
 ##   mtry = 10
 ##   min_n = 4
+## 
+## Computational engine: ranger
 ```
 
 Next, we set the engine and mode:
@@ -4846,12 +5055,12 @@ These other packages have different advantages and disadvantages- for example `r
 See [here](https://parsnip.tidymodels.org/reference/rand_forest.html) for more documentation about implementing these engine options with tidymodels. Note that there are also [other](https://www.linkedin.com/pulse/different-random-forest-packages-r-madhur-modi/) R packages for implementing random forest algorithms, but these three packages (`ranger`, `spark`, and `randomForest`) are currently compatible with `tidymodels`.
 
 
-```r
+``` r
 library(randomForest)
 ```
 
 ```
-## randomForest 4.6-14
+## randomForest 4.7-1.2
 ```
 
 ```
@@ -4875,7 +5084,7 @@ library(randomForest)
 ##     margin
 ```
 
-```r
+``` r
 RF_PM_model <- 
   PMtree_model %>%
   set_engine("randomForest") %>%
@@ -4897,7 +5106,7 @@ RF_PM_model
 Then, we put this all together into a `workflow`: 
 
 
-```r
+``` r
 RF_wflow <- workflows::workflow() %>%
             workflows::add_recipe(RF_rec) %>%
             workflows::add_model(RF_PM_model)
@@ -4932,12 +5141,12 @@ RF_wflow
 Finally, we fit the data to the model:
 
 
-```r
+``` r
 RF_wflow_fit <- parsnip::fit(RF_wflow, data = train_pm)
 ```
 
 
-```r
+``` r
 RF_wflow_fit
 ```
 
@@ -4964,14 +5173,14 @@ RF_wflow_fit
 ##                      Number of trees: 500
 ## No. of variables tried at each split: 10
 ## 
-##           Mean of squared residuals: 2.98885
-##                     % Var explained: 58.38
+##           Mean of squared residuals: 2.66909
+##                     % Var explained: 58.74
 ```
 
 Now, we will look at variable importance:
 
 
-```r
+``` r
 RF_wflow_fit %>% 
   pull_workflow_fit() %>% 
   vip(num_features = 10)
@@ -4985,7 +5194,7 @@ Interesting! In the previous model the CMAQ values and the state where the monit
 Now let's take a look at model performance by fitting the data using cross validation:
 
 
-```r
+``` r
 set.seed(456)
 resample_RF_fit <- tune::fit_resamples(RF_wflow, vfold_pm)
 collect_metrics(resample_RF_fit)
@@ -4997,7 +5206,7 @@ It looks like the random forest model had  a much lower `rmse` value of 1.68.
 
 If we tuned our random forest model based on the number of trees or the value for `mtry` (which is "The number of predictors that will be randomly sampled at each split when creating the tree models"), we might get a model with even better performance.
 
-However, our cross validated mean `rmse` value of 1.68 is quite good because our range of true outcome values is much larger: (4.5, 22.259).
+However, our cross validated mean `rmse` value of 1.68 is quite good because our range of true outcome values is much larger: (4.298, 23.161).
 
 
 #### Model Tuning
@@ -5014,7 +5223,7 @@ This is when our cross validation methods become really handy because now we can
 
 Previously we specified our model like so:
 
-```r
+``` r
 RF_PM_model <- 
   parsnip::rand_forest(mtry = 10, min_n = 4) %>%
   set_engine("randomForest") %>%
@@ -5036,7 +5245,7 @@ RF_PM_model
 Now instead of specifying a value for the `mtry` and `min_n` arguments, we can use the `tune()` function of the `tune` package like so: `mtry = tune()`. This indicates that these hyperparameters are to be tuned. 
 
 
-```r
+``` r
 tune_RF_model <- rand_forest(mtry = tune(), min_n = tune()) %>%
   set_engine("randomForest") %>%
   set_mode("regression")
@@ -5058,7 +5267,7 @@ tune_RF_model
 Again we will add this to a workflow, the only difference here is that we are using a different model specification with `tune_RF_model` instead of `RF_model`:
 
 
-```r
+``` r
 RF_tune_wflow <- workflows::workflow() %>%
             workflows::add_recipe(RF_rec) %>%
             workflows::add_model(tune_RF_model)
@@ -5101,7 +5310,7 @@ We can use the `doParallel` package to allow us to fit all these models to our c
 You can see how many cores you have access to on your system using the `detectCores()` function in the `parallel` package. 
 
 
-```r
+``` r
 library(parallel)
 parallel::detectCores()
 ```
@@ -5118,7 +5327,7 @@ Note: this step will take some time.
 
 
 
-```r
+``` r
 doParallel::registerDoParallel(cores=2)
 set.seed(123)
 tune_RF_results <- tune_grid(object = RF_tune_wflow, resamples = vfold_pm, grid = 20)
@@ -5128,7 +5337,15 @@ tune_RF_results <- tune_grid(object = RF_tune_wflow, resamples = vfold_pm, grid 
 ## i Creating pre-processing data to finalize unknown parameter: mtry
 ```
 
-```r
+```
+## Warning: ! tune detected a parallel backend registered with foreach but no backend
+##   registered with future.
+## ℹ Support for parallel processing with foreach was soft-deprecated in tune
+##   1.2.1.
+## ℹ See ?parallelism (`?tune::parallelism()`) to learn more.
+```
+
+``` r
 tune_RF_results
 ```
 
@@ -5138,16 +5355,22 @@ tune_RF_results
 ## # A tibble: 10 × 4
 ##    splits           id     .metrics          .notes          
 ##    <list>           <chr>  <list>            <list>          
-##  1 <split [525/59]> Fold01 <tibble [40 × 6]> <tibble [0 × 1]>
-##  2 <split [525/59]> Fold02 <tibble [40 × 6]> <tibble [0 × 1]>
-##  3 <split [525/59]> Fold03 <tibble [40 × 6]> <tibble [0 × 1]>
-##  4 <split [525/59]> Fold04 <tibble [40 × 6]> <tibble [0 × 1]>
-##  5 <split [526/58]> Fold05 <tibble [40 × 6]> <tibble [0 × 1]>
-##  6 <split [526/58]> Fold06 <tibble [40 × 6]> <tibble [0 × 1]>
-##  7 <split [526/58]> Fold07 <tibble [40 × 6]> <tibble [0 × 1]>
-##  8 <split [526/58]> Fold08 <tibble [40 × 6]> <tibble [0 × 1]>
-##  9 <split [526/58]> Fold09 <tibble [40 × 6]> <tibble [0 × 1]>
-## 10 <split [526/58]> Fold10 <tibble [40 × 6]> <tibble [0 × 1]>
+##  1 <split [525/59]> Fold01 <tibble [40 × 6]> <tibble [0 × 3]>
+##  2 <split [525/59]> Fold02 <tibble [40 × 6]> <tibble [1 × 3]>
+##  3 <split [525/59]> Fold03 <tibble [40 × 6]> <tibble [0 × 3]>
+##  4 <split [525/59]> Fold04 <tibble [40 × 6]> <tibble [0 × 3]>
+##  5 <split [526/58]> Fold05 <tibble [40 × 6]> <tibble [0 × 3]>
+##  6 <split [526/58]> Fold06 <tibble [40 × 6]> <tibble [0 × 3]>
+##  7 <split [526/58]> Fold07 <tibble [40 × 6]> <tibble [0 × 3]>
+##  8 <split [526/58]> Fold08 <tibble [40 × 6]> <tibble [0 × 3]>
+##  9 <split [526/58]> Fold09 <tibble [40 × 6]> <tibble [1 × 3]>
+## 10 <split [526/58]> Fold10 <tibble [40 × 6]> <tibble [0 × 3]>
+## 
+## There were issues with some computations:
+## 
+##   - Warning(s) x2: ! 36 columns were requested but there were 35 predictors in the d...
+## 
+## Run `show_notes(.Last.tune.result)` for more information.
 ```
 
 See [the tune getting started guide ](https://tidymodels.github.io/tune/articles/getting_started.html){target="_blank"} for more information about implementing this in `tidymodels`.
@@ -5160,7 +5383,7 @@ By default the values for the hyperparameters being tuned are chosen semi-random
 Now we can use the `collect_metrics()` function again to take a look at what happened with our cross validation tests. We can see the different values chosen for `mtry` and `min_n` and the mean `rmse` and `rsq` values across the cross validation samples.
 
 
-```r
+``` r
 tune_RF_results%>%
   collect_metrics() %>%
   head()
@@ -5170,18 +5393,18 @@ tune_RF_results%>%
 ## # A tibble: 6 × 8
 ##    mtry min_n .metric .estimator  mean     n std_err .config              
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl> <chr>                
-## 1    28    40 rmse    standard   1.77     10  0.102  Preprocessor1_Model01
-## 2    28    40 rsq     standard   0.565    10  0.0476 Preprocessor1_Model01
-## 3    14    30 rmse    standard   1.75     10  0.0959 Preprocessor1_Model02
-## 4    14    30 rsq     standard   0.579    10  0.0455 Preprocessor1_Model02
-## 5     9    19 rmse    standard   1.75     10  0.0991 Preprocessor1_Model03
-## 6     9    19 rsq     standard   0.590    10  0.0477 Preprocessor1_Model03
+## 1     1    14 rmse    standard   1.95     10  0.119  Preprocessor1_Model01
+## 2     1    14 rsq     standard   0.483    10  0.0323 Preprocessor1_Model01
+## 3     2    24 rmse    standard   1.84     10  0.124  Preprocessor1_Model02
+## 4     2    24 rsq     standard   0.539    10  0.0362 Preprocessor1_Model02
+## 5     4    34 rmse    standard   1.75     10  0.127  Preprocessor1_Model03
+## 6     4    34 rsq     standard   0.573    10  0.0352 Preprocessor1_Model03
 ```
 
 We can now use the `show_best()` function as it was truly intended, to see what values for `min_n` and `mtry` resulted in the best performance.
 
 
-```r
+``` r
 show_best(tune_RF_results, metric = "rmse", n =1)
 ```
 
@@ -5189,7 +5412,7 @@ show_best(tune_RF_results, metric = "rmse", n =1)
 ## # A tibble: 1 × 8
 ##    mtry min_n .metric .estimator  mean     n std_err .config              
 ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl> <chr>                
-## 1    15     3 rmse    standard    1.70    10  0.0912 Preprocessor1_Model04
+## 1    15     2 rmse    standard    1.58    10   0.116 Preprocessor1_Model09
 ```
 There we have it... looks like an `mtry` of 17 and `min_n` of 4 had the best `rmse` value. You can verify this in the above output, but it is easier to just pull this row out using this function. We can see that the mean `rmse` value across the cross validation sets was 1.68. Before tuning it was 1.68 with a similar `std_err` so the performance was in this particular case wasn't really improved, but that will not always be the case.
 
@@ -5204,8 +5427,16 @@ So, first we need to specify these values in a workflow. We can use the `select_
 
 
 
-```r
-tuned_RF_values<- select_best(tune_RF_results, "rmse")
+``` r
+tuned_RF_values<- select_best(tune_RF_results)
+```
+
+```
+## Warning in select_best(tune_RF_results): No value of `metric` was given; "rmse"
+## will be used.
+```
+
+``` r
 tuned_RF_values
 ```
 
@@ -5213,14 +5444,14 @@ tuned_RF_values
 ## # A tibble: 1 × 3
 ##    mtry min_n .config              
 ##   <int> <int> <chr>                
-## 1    15     3 Preprocessor1_Model04
+## 1    15     2 Preprocessor1_Model09
 ```
 
 Now we can finalize the model/workflow that we we used for tuning with these values.
 
 
 
-```r
+``` r
 RF_tuned_wflow <-RF_tune_wflow %>%
   tune::finalize_workflow(tuned_RF_values)
 ```
@@ -5232,7 +5463,7 @@ The results will show the performance using the testing data.
 
 
 
-```r
+``` r
 overallfit <-tune::last_fit(RF_tuned_wflow, pm_split)
  # or
 overallfit <-RF_wflow %>%
@@ -5243,7 +5474,7 @@ The `overallfit` output has a lot of really useful information about the model, 
 
 To see the performance on the test data we can use the `collect_metrics()` function like we did before.
 
-```r
+``` r
   collect_metrics(overallfit)
 ```
 
@@ -5251,8 +5482,8 @@ To see the performance on the test data we can use the `collect_metrics()` funct
 ## # A tibble: 2 × 4
 ##   .metric .estimator .estimate .config             
 ##   <chr>   <chr>          <dbl> <chr>               
-## 1 rmse    standard       1.40  Preprocessor1_Model1
-## 2 rsq     standard       0.677 Preprocessor1_Model1
+## 1 rmse    standard       1.71  Preprocessor1_Model1
+## 2 rsq     standard       0.613 Preprocessor1_Model1
 ```
 
 Awesome! We can see that our `rmse` of 1.43 is quite similar with our testing data cross validation sets. We achieved quite good performance, which suggests that we would could predict other locations with more sparse monitoring based on our predictors with reasonable accuracy.
@@ -5260,25 +5491,25 @@ Awesome! We can see that our `rmse` of 1.43 is quite similar with our testing da
 Now if you wanted to take a look at the predicted values for the test set (the 292 rows with predictions out of the 876 original monitor values) you can use the  `collect_predictions()` function of the `tune` package:
 
 
-```r
+``` r
 test_predictions <-collect_predictions(overallfit)
 ```
 
 
-```r
+``` r
 head(test_predictions)
 ```
 
 ```
 ## # A tibble: 6 × 5
-##   id               .pred  .row value .config             
-##   <chr>            <dbl> <int> <dbl> <chr>               
-## 1 train/test split  10.8     1  9.60 Preprocessor1_Model1
-## 2 train/test split  11.4     4 11.7  Preprocessor1_Model1
-## 3 train/test split  12.2     8 12.4  Preprocessor1_Model1
-## 4 train/test split  12.0    13 12.0  Preprocessor1_Model1
-## 5 train/test split  11.4    16 10.0  Preprocessor1_Model1
-## 6 train/test split  11.6    19 11.4  Preprocessor1_Model1
+##   .pred id                .row value .config             
+##   <dbl> <chr>            <int> <dbl> <chr>               
+## 1  12.0 train/test split     3  11.2 Preprocessor1_Model1
+## 2  11.7 train/test split     5  12.4 Preprocessor1_Model1
+## 3  11.0 train/test split     6  10.5 Preprocessor1_Model1
+## 4  13.1 train/test split     7  15.6 Preprocessor1_Model1
+## 5  12.0 train/test split     8  12.4 Preprocessor1_Model1
+## 6  10.7 train/test split     9  11.1 Preprocessor1_Model1
 ```
 
 Nice!
@@ -5287,7 +5518,7 @@ Nice!
 Now, we can compare the predicted outcome values (or fitted values) $\hat{Y}$ to the actual outcome values $Y$ that we observed: 
 
 
-```r
+``` r
 test_predictions %>% 
   ggplot(aes(x =  value, y = .pred)) + 
   geom_point() + 
@@ -5297,7 +5528,7 @@ test_predictions %>%
 ```
 
 ```
-## `geom_smooth()` using formula 'y ~ x'
+## `geom_smooth()` using formula = 'y ~ x'
 ```
 
 <img src="images/modeling-unnamed-chunk-143-1.png" width="672" />
