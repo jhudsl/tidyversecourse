@@ -2966,7 +2966,7 @@ So, first we need to specify these values in a workflow. We can use the `select_
 
 
 ```{r}
-tuned_RF_values<- select_best(tune_RF_results, "rmse")
+tuned_RF_values<- select_best(tune_RF_results)
 tuned_RF_values
 ```
 
