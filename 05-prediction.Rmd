@@ -1761,7 +1761,7 @@ overallfit
 We can then use the `collect_metrics()` function of the `tune` package to get the RMSE:
 
 ```{r}
-collect_metrics(overallfit)
+tune::collect_metrics(overallfit)
 ```
 
 We can see that our RMSE is pretty similar for the testing data as well. 
@@ -1937,8 +1937,8 @@ Recall that since we are using a categorical outcome variable, we want to use ac
 ```{r}
 pred_species<-predict(iris_cat_wflow_fit, new_data = training_iris)
 
-yardstick::accuracy(training_iris, 
-               truth = Species, estimate = pred_species$.pred_class)
+yardstick::accuracy_vec( 
+               truth = training_iris$Species, estimate = pred_species$.pred_class)
 ```
 
 It looks like 97% of the time our model correctly predicted the right species.
@@ -2966,7 +2966,7 @@ So, first we need to specify these values in a workflow. We can use the `select_
 
 
 ```{r}
-tuned_RF_values<- select_best(tune_RF_results, "rmse")
+tuned_RF_values<- select_best(tune_RF_results)
 tuned_RF_values
 ```
 
