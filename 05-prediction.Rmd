@@ -1781,7 +1781,7 @@ This is useful to make sure that there is good representation of each species in
 
 ```{r}
 set.seed(1234)
-initial_split(iris, strata = Species, prop = 2/3)
+split_iris <- initial_split(iris, strata = Species, prop = 2/3)
 
 training_iris <-training(split_iris)
 head(training_iris)
